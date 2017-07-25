@@ -1,2 +1,2 @@
-# weeclik-ios
-Repo du projet WeeClik version Swift
+# WeeClik - Swift Version
+Repo du projet WeeClik version Swift 3.0
