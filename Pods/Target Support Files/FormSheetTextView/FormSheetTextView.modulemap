@@ -1,0 +1,6 @@
+framework module FormSheetTextView {
+  umbrella header "FormSheetTextView-umbrella.h"
+
+  export *
+  module * { export * }
+}

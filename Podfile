@@ -14,7 +14,8 @@ target 'WeeClik' do
   pod 'ParseFacebookUtilsV4', '~> 1.11'
   pod 'SDWebImage', '~> 4.0'
   pod 'SVProgressHUD', '~> 2.1'
-  pod 'mailgun', '~> 1.0.3'
+  pod 'AFNetworking'
+  #pod 'mailgun', '~> 1.0.3'
   
   # Pour la page recherche
   pod 'Compose', '~> 1.2'
@@ -22,5 +23,21 @@ target 'WeeClik' do
   pod 'DropDownMenuKit', '~> 0.8'
   # pour reordoner les photos des commercants
   pod 'RAReorderableLayout', '~> 0.6'
+  
+  pod 'KJNavigationViewAnimation', '~> 0.1.0'
+  
+  pod 'KRLCollectionViewGridLayout', '~> 0.4'
+  # Composition de message
+  pod 'FormSheetTextView', '~> 1.0'
+  # Popup action with blured background
+  pod 'AABlurAlertController', '~> 1.2'
+  # Mailgun Librairie (envoi de mails)
+  pod 'SwiftMailgun', '~> 1.0'
+  # Fenetre pour de mander la localisation de l'utilisateur
+  pod 'STLocationRequest', '~> 1.4'
+  # Fenetre de dialogue pour la connection
+  pod 'AZDialogView', '~> 1.1'
+  # Demander des permissions
+  pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
   
 end

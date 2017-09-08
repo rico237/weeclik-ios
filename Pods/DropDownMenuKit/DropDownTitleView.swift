@@ -9,11 +9,15 @@ import UIKit
 
 open class DropDownTitleView : UIControl {
 
-	open static var iconSize = CGSize(width: 12, height: 12)
+    open var iconSize = CGSize(width: 12, height: 12) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
 	open lazy var menuDownImageView: UIImageView = {
 		let menuDownImageView = UIImageView(image: self.imageNamed("Ionicons-chevron-up"))
 
-		menuDownImageView.frame.size = DropDownTitleView.iconSize
+        menuDownImageView.tintColor = UIColor.white
 		menuDownImageView.transform = CGAffineTransform(scaleX: 1, y: -1)
 
 		return menuDownImageView
@@ -21,25 +25,20 @@ open class DropDownTitleView : UIControl {
 	open lazy var menuUpImageView: UIImageView = {
 		let menuUpImageView = UIImageView(image: self.imageNamed("Ionicons-chevron-up"))
 
-		menuUpImageView.frame.size = DropDownTitleView.iconSize
+        menuUpImageView.tintColor = UIColor.white
 
 		return menuUpImageView
 	}()
 	open lazy var imageView: UIView = {
 		// For flip animation, we need a container view
 		// See http://stackoverflow.com/questions/11847743/transitionfromview-and-strange-behavior-with-flip
-		let imageView = UIView(frame: CGRect(origin: CGPoint.zero, size: DropDownTitleView.iconSize))
-		
-		imageView.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin]
-
-		return imageView
+		return UIView(frame: CGRect(origin: CGPoint.zero, size: self.iconSize))
 	}()
 	open lazy var titleLabel: UILabel = {
 		let titleLabel = UILabel()
 
 		titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
 		titleLabel.textColor = UIColor.white
-		titleLabel.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin]
 
 		return titleLabel
 	}()
@@ -49,12 +48,12 @@ open class DropDownTitleView : UIControl {
 		}
 		set {
 			titleLabel.text = newValue
-	
-			titleLabel.sizeToFit()
+            titleLabel.sizeToFit()
+            titleWidth = titleLabel.frame.width
 			layoutSubviews()
-			sizeToFit()
 		}
 	}
+    private var titleWidth: CGFloat = 0
 	open var isUp: Bool { return menuUpImageView.superview != nil }
 	open var toggling = false
 	
@@ -79,6 +78,8 @@ open class DropDownTitleView : UIControl {
 
 		addSubview(titleLabel)
 		addSubview(imageView)
+        
+        autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
 		let recognizer = UITapGestureRecognizer(target: self, action: #selector(DropDownTitleView.toggleMenu))
 	
@@ -94,18 +95,43 @@ open class DropDownTitleView : UIControl {
 	}
 	
 	// MARK: - Layout
-	
-	override open func sizeThatFits(_ size: CGSize) -> CGSize {
-		return CGSize(width: imageView.frame.maxX, height: frame.size.height)
+    
+    private  let spacing: CGFloat = 4
+    
+    open override func willMove(toSuperview newSuperview: UIView?) {
+        guard let superview = newSuperview else {
+            return
+        }
+		// Will trigger layoutSubviews() without having resize the title view yet
+		// e.g. (origin = (x = 0, y = 0), size = (width = 320, height = 44)
+        frame = superview.bounds
+    }
+
+	// Centers the title when DropDownMenu.selectMenuCell() isn't called while creating the menu
+	open override func didMoveToWindow() {
+		// Will trigger layoutSubviews() with the title view resized according to autoresizing
+		// e.g. (origin = (x = 58, y = 0), size = (width = 211.5, height = 44))
+		layoutSubviews()
 	}
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		
-		titleLabel.frame.origin.x = 0
-		titleLabel.center.y = frame.height / 2
 
-		imageView.frame.origin.x = titleLabel.frame.maxX + 4
+        menuDownImageView.frame.size = iconSize
+        menuUpImageView.frame.size = iconSize
+        imageView.frame.size = iconSize
+        
+        let maxTitleWidth = frame.width - 2 * (spacing + imageView.frame.width)
+		
+		titleLabel.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        if titleWidth > maxTitleWidth {
+            titleLabel.frame.origin.x = spacing + imageView.frame.width
+            titleLabel.frame.size.width = maxTitleWidth
+        } else {
+            titleLabel.frame.size.width = titleWidth
+        }
+
+		imageView.frame.origin.x = titleLabel.frame.maxX + spacing
 		imageView.center.y = frame.height / 2
 	}
 	

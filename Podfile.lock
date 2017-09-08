@@ -1,5 +1,8 @@
 PODS:
+  - AABlurAlertController (1.2.1)
   - AFNetworking (1.1.0)
+  - Alamofire (4.2.0)
+  - AZDialogView (1.1.4)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -7,15 +10,18 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
   - Compose (1.2.3)
-  - DropDownMenuKit (0.8.2)
+  - DropDownMenuKit (0.8.3)
   - FBSDKCoreKit (4.23.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.23.0):
     - FBSDKCoreKit
   - FBSDKShareKit (4.23.0):
     - FBSDKCoreKit
-  - mailgun (1.0.3):
-    - AFNetworking (~> 1.1.0)
+  - Font-Awesome-Swift (1.6.2)
+  - FormSheetTextView (1.0.2)
+  - KJNavigationViewAnimation (0.1.0)
+  - KRLCollectionViewGridLayout (0.4.1)
+  - ObjectMapper (2.2.8)
   - Parse (1.14.4):
     - Bolts/Tasks (~> 1.8)
   - ParseFacebookUtilsV4 (1.11.1):
@@ -31,39 +37,74 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - Sparrow/Core (1.1.0)
+  - Sparrow/Modules/RequestPermission (1.1.0):
+    - Sparrow/Core
+  - STLocationRequest (1.4.0):
+    - Font-Awesome-Swift (~> 1.6.1)
   - SVProgressHUD (2.1.2)
+  - SwiftMailgun (1.0.0):
+    - Alamofire (~> 4.2.0)
+    - ObjectMapper (~> 2.2.1)
 
 DEPENDENCIES:
+  - AABlurAlertController (~> 1.2)
+  - AFNetworking
+  - AZDialogView (~> 1.1)
   - Bolts (~> 1.8)
   - Compose (~> 1.2)
   - DropDownMenuKit (~> 0.8)
   - FBSDKCoreKit (~> 4.23)
   - FBSDKLoginKit (~> 4.23)
   - FBSDKShareKit (~> 4.23)
-  - mailgun (~> 1.0.3)
+  - FormSheetTextView (~> 1.0)
+  - KJNavigationViewAnimation (~> 0.1.0)
+  - KRLCollectionViewGridLayout (~> 0.4)
   - Parse (~> 1.14)
   - ParseFacebookUtilsV4 (~> 1.11)
   - ParseUI (~> 1.2)
   - RAReorderableLayout (~> 0.6)
   - SDWebImage (~> 4.0)
+  - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
+  - STLocationRequest (~> 1.4)
   - SVProgressHUD (~> 2.1)
+  - SwiftMailgun (~> 1.0)
+
+EXTERNAL SOURCES:
+  Sparrow:
+    :git: https://github.com/IvanVorobei/Sparrow.git
+
+CHECKOUT OPTIONS:
+  Sparrow:
+    :commit: 7415a10e150d6344a10b11572d0d85f3df83319c
+    :git: https://github.com/IvanVorobei/Sparrow.git
 
 SPEC CHECKSUMS:
+  AABlurAlertController: 7463fc59d9906e07040439d2bc80c56f313a3fa4
   AFNetworking: e6427e782b25a2289d909960df8ef41358b3277c
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
+  AZDialogView: 01ee03e0c26de3593090433b11afaf44eab3bcbb
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
-  DropDownMenuKit: 0acbd983fefac6718b1df209198ba6336c3e2772
+  DropDownMenuKit: 76b304bc0a0d1f6822a58d19a116bce100752fba
   FBSDKCoreKit: d7829f5a69901cd7296105328e4c3c3fc7da6518
   FBSDKLoginKit: 6b92bd65f319d669d2b0730e49db495ef1660566
   FBSDKShareKit: 65751c3b9937ab9d594e6c37611ecc115ceeb448
-  mailgun: 17290deea4db24050dd03ca59cd7385d508904b3
+  Font-Awesome-Swift: 4dc96df73b5f32aaccdee50a454c3ec253ee4977
+  FormSheetTextView: b5da8b7aac0e50126e8b9f1ad50a2513b8bb5465
+  KJNavigationViewAnimation: 0473485c433c20bdcd4f575ef2244ed25f9a0266
+  KRLCollectionViewGridLayout: 6363dc7e3d91cf1f97e19ed20846764566659596
+  ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
   Parse: b0aa91d2c435e53d4a9af26e741e014c9b35c42e
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   RAReorderableLayout: 5b6b87dd4022ee1747fd475623b14f5df940f754
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
+  STLocationRequest: 48e788990a914701dd556fec84bf740a6cffb1c4
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  SwiftMailgun: 6d684b3ffc30ef975fd5680f01b2a72c7a9fa857
 
-PODFILE CHECKSUM: 2af9e5042d37151ee2e060ec9570606fdb1c10d1
+PODFILE CHECKSUM: 72dc9a83fa356150b39fe1b7f092ca4f2b9bb56f
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1

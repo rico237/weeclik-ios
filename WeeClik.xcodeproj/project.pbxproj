@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */; };
+		1F08570C1F2D960400932929 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570B1F2D960400932929 /* Pacifico.ttf */; };
+		1F08570E1F2D977600932929 /* UserLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570D1F2D977600932929 /* UserLocation.gpx */; };
+		1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		1F3E8ED01F2E437D00565356 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3E8ECF1F2E437D00565356 /* StoreKit.framework */; };
+		1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5681E71F2B4F7900B1BAC8 /* CardView.swift */; };
+		1F7CA29F1F2CE8D40003E9DD /* CommerceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7CA29E1F2CE8D40003E9DD /* CommerceViewCell.swift */; };
 		1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */; };
 		1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */; };
 		1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */; };
 		1FA473331F1EE7E400D2A306 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA473311F1EE7E400D2A306 /* Main.storyboard */; };
 		1FA473351F1EE7E400D2A306 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA473341F1EE7E400D2A306 /* Assets.xcassets */; };
 		1FA473381F1EE7E400D2A306 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */; };
+		1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BBD1F34F78B00DEDEA1 /* InformationGeneralCell.swift */; };
+		1FA53BC01F34F7AB00DEDEA1 /* PromotionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BBF1F34F7AB00DEDEA1 /* PromotionsCell.swift */; };
+		1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BC11F34F7BC00DEDEA1 /* DescriptionCell.swift */; };
 		1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFD61F269CB2004D5F4C /* OpenSans-Bold.ttf */; };
 		1FA9BFE11F269CB2004D5F4C /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFD71F269CB2004D5F4C /* OpenSans-BoldItalic.ttf */; };
 		1FA9BFE21F269CB2004D5F4C /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFD81F269CB2004D5F4C /* OpenSans-ExtraBold.ttf */; };
@@ -23,8 +33,7 @@
 		1FA9BFE71F269CB2004D5F4C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDD1F269CB2004D5F4C /* OpenSans-Regular.ttf */; };
 		1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDE1F269CB2004D5F4C /* OpenSans-Semibold.ttf */; };
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
-		1FA9BFEB1F269E26004D5F4C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; };
-		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; };
+		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1FA9BFEF1F26C844004D5F4C /* Commerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA9BFEE1F26C844004D5F4C /* Commerce.swift */; };
 		1FEBF4621F254F3D00146525 /* BebasNeue Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF45D1F254F3D00146525 /* BebasNeue Bold.ttf */; };
 		1FEBF4631F254F3D00146525 /* BebasNeue Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF45E1F254F3D00146525 /* BebasNeue Book.ttf */; };
@@ -35,6 +44,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommerceViewController.swift; sourceTree = "<group>"; };
+		1F08570B1F2D960400932929 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
+		1F08570D1F2D977600932929 /* UserLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = UserLocation.gpx; sourceTree = "<group>"; };
+		1F3E8ECF1F2E437D00565356 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1F5681E71F2B4F7900B1BAC8 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1F7CA29E1F2CE8D40003E9DD /* CommerceViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommerceViewCell.swift; sourceTree = "<group>"; };
 		1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccueilCommerces.swift; sourceTree = "<group>"; };
 		1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperAndKeys.swift; sourceTree = "<group>"; };
 		1FA4732A1F1EE7E400D2A306 /* WeeClik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeeClik.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +58,9 @@
 		1FA473341F1EE7E400D2A306 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FA473371F1EE7E400D2A306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FA473391F1EE7E400D2A306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FA53BBD1F34F78B00DEDEA1 /* InformationGeneralCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationGeneralCell.swift; sourceTree = "<group>"; };
+		1FA53BBF1F34F7AB00DEDEA1 /* PromotionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsCell.swift; sourceTree = "<group>"; };
+		1FA53BC11F34F7BC00DEDEA1 /* DescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
 		1FA9BFD61F269CB2004D5F4C /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		1FA9BFD71F269CB2004D5F4C /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		1FA9BFD81F269CB2004D5F4C /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -72,14 +90,50 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */,
-				1FA9BFEB1F269E26004D5F4C /* SystemConfiguration.framework in Frameworks */,
+				1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */,
 				763A11B00FF725C0589D07E8 /* Pods_WeeClik.framework in Frameworks */,
+				1F3E8ED01F2E437D00565356 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F0857061F2D672B00932929 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				1FA9BFEE1F26C844004D5F4C /* Commerce.swift */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		1F0857071F2D675500932929 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1F7CA29E1F2CE8D40003E9DD /* CommerceViewCell.swift */,
+				1FA53BBD1F34F78B00DEDEA1 /* InformationGeneralCell.swift */,
+				1FA53BBF1F34F7AB00DEDEA1 /* PromotionsCell.swift */,
+				1FA53BC11F34F7BC00DEDEA1 /* DescriptionCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		1F0857081F2D676900932929 /* Helper and Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
+			);
+			name = "Helper and Secrets";
+			sourceTree = "<group>";
+		};
+		1F5681E91F2B4FA300B1BAC8 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1F5681E71F2B4F7900B1BAC8 /* CardView.swift */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 		1FA473211F1EE7E400D2A306 = {
 			isa = PBXGroup;
 			children = (
@@ -101,15 +155,19 @@
 		1FA4732C1F1EE7E400D2A306 /* WeeClik */ = {
 			isa = PBXGroup;
 			children = (
-				1FEBF4671F254F4500146525 /* Fonts */,
+				1F08570D1F2D977600932929 /* UserLocation.gpx */,
 				1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */,
 				1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */,
-				1FA9BFEE1F26C844004D5F4C /* Commerce.swift */,
-				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
+				1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */,
 				1FA473311F1EE7E400D2A306 /* Main.storyboard */,
 				1FA473341F1EE7E400D2A306 /* Assets.xcassets */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
 				1FA473391F1EE7E400D2A306 /* Info.plist */,
+				1F5681E91F2B4FA300B1BAC8 /* Libraries */,
+				1FEBF4671F254F4500146525 /* Fonts */,
+				1F0857061F2D672B00932929 /* Objects */,
+				1F0857071F2D675500932929 /* Cells */,
+				1F0857081F2D676900932929 /* Helper and Secrets */,
 			);
 			path = WeeClik;
 			sourceTree = "<group>";
@@ -117,6 +175,7 @@
 		1FEBF4671F254F4500146525 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				1F08570B1F2D960400932929 /* Pacifico.ttf */,
 				1FA9BFD61F269CB2004D5F4C /* OpenSans-Bold.ttf */,
 				1FA9BFD71F269CB2004D5F4C /* OpenSans-BoldItalic.ttf */,
 				1FA9BFD81F269CB2004D5F4C /* OpenSans-ExtraBold.ttf */,
@@ -139,6 +198,7 @@
 		A78D9E77AE6519274A12D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F3E8ECF1F2E437D00565356 /* StoreKit.framework */,
 				1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */,
 				1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */,
 				6F79A0131541A27C572A5AF3 /* Pods_WeeClik.framework */,
@@ -192,6 +252,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = X776XA45RM;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -219,8 +284,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FEBF4631F254F3D00146525 /* BebasNeue Book.ttf in Resources */,
+				1F08570E1F2D977600932929 /* UserLocation.gpx in Resources */,
 				1FA9BFE21F269CB2004D5F4C /* OpenSans-ExtraBold.ttf in Resources */,
 				1FA9BFE51F269CB2004D5F4C /* OpenSans-Light.ttf in Resources */,
+				1F08570C1F2D960400932929 /* Pacifico.ttf in Resources */,
 				1FA473381F1EE7E400D2A306 /* LaunchScreen.storyboard in Resources */,
 				1FEBF4621F254F3D00146525 /* BebasNeue Bold.ttf in Resources */,
 				1FA9BFE41F269CB2004D5F4C /* OpenSans-Italic.ttf in Resources */,
@@ -263,9 +330,58 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AABlurAlertController/AABlurAlertController.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/AZDialogView/AZDialogView.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Compose/Compose.framework",
+				"${BUILT_PRODUCTS_DIR}/DropDownMenuKit/DropDownMenuKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Font-Awesome-Swift/Font_Awesome_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/FormSheetTextView/FormSheetTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
+				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/ParseFacebookUtilsV4/ParseFacebookUtilsV4.framework",
+				"${BUILT_PRODUCTS_DIR}/ParseUI/ParseUI.framework",
+				"${BUILT_PRODUCTS_DIR}/RAReorderableLayout/RAReorderableLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/STLocationRequest/STLocationRequest.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Sparrow/Sparrow.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AABlurAlertController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AZDialogView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Compose.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDownMenuKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Font_Awesome_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FormSheetTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseFacebookUtilsV4.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseUI.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAReorderableLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STLocationRequest.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparrow.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMailgun.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -278,13 +394,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WeeClik-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -295,9 +414,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA9BFEF1F26C844004D5F4C /* Commerce.swift in Sources */,
+				1F7CA29F1F2CE8D40003E9DD /* CommerceViewCell.swift in Sources */,
+				1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */,
+				1FA53BC01F34F7AB00DEDEA1 /* PromotionsCell.swift in Sources */,
+				1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */,
+				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */,
 				1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */,
+				1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +550,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = X776XA45RM;
 				INFOPLIST_FILE = WeeClik/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.herrick-wolber.WeeClik";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -441,7 +566,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = X776XA45RM;
 				INFOPLIST_FILE = WeeClik/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.herrick-wolber.WeeClik";
 				PRODUCT_NAME = "$(TARGET_NAME)";
