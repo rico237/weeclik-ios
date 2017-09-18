@@ -13,6 +13,7 @@
 		1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1F3E8ED01F2E437D00565356 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3E8ECF1F2E437D00565356 /* StoreKit.framework */; };
 		1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5681E71F2B4F7900B1BAC8 /* CardView.swift */; };
+		1F6C1C581F6E08750075584E /* ProcessInscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */; };
 		1F7CA29F1F2CE8D40003E9DD /* CommerceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7CA29E1F2CE8D40003E9DD /* CommerceViewCell.swift */; };
 		1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */; };
 		1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */; };
@@ -49,6 +50,7 @@
 		1F08570D1F2D977600932929 /* UserLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = UserLocation.gpx; sourceTree = "<group>"; };
 		1F3E8ECF1F2E437D00565356 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1F5681E71F2B4F7900B1BAC8 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessInscriptionVC.swift; sourceTree = "<group>"; };
 		1F7CA29E1F2CE8D40003E9DD /* CommerceViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommerceViewCell.swift; sourceTree = "<group>"; };
 		1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccueilCommerces.swift; sourceTree = "<group>"; };
 		1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperAndKeys.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */,
 				1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */,
 				1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */,
+				1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */,
 				1FA473311F1EE7E400D2A306 /* Main.storyboard */,
 				1FA473341F1EE7E400D2A306 /* Assets.xcassets */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
@@ -336,6 +339,7 @@
 				"${BUILT_PRODUCTS_DIR}/AZDialogView/AZDialogView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework",
 				"${BUILT_PRODUCTS_DIR}/Compose/Compose.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDownMenuKit/DropDownMenuKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -355,6 +359,8 @@
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Sparrow/Sparrow.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework",
+				"${BUILT_PRODUCTS_DIR}/TGLParallaxCarousel/TGLParallaxCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -363,6 +369,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AZDialogView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CRNotifications.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Compose.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDownMenuKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -382,6 +389,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparrow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMailgun.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TGLParallaxCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -422,6 +431,7 @@
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */,
 				1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */,
+				1F6C1C581F6E08750075584E /* ProcessInscriptionVC.swift in Sources */,
 				1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

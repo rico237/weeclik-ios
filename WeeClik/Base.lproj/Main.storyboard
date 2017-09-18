@@ -18,6 +18,25 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Process InscriptionVC-->
+        <scene sceneID="tKe-Gb-pyv">
+            <objects>
+                <viewController storyboardIdentifier="ProcessInscriptionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XdO-h0-40b" customClass="ProcessInscriptionVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qRW-QC-zlm"/>
+                        <viewControllerLayoutGuide type="bottom" id="yYW-8E-fLC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L0d-01-cs1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Syc-Ek-WFz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ztz-CT-eFs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1864" y="-532"/>
+        </scene>
         <!--WEECLIK-->
         <scene sceneID="X5Y-J3-hyg">
             <objects>
@@ -41,13 +60,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqC-Zj-3zV">
-                                        <rect key="frame" x="8" y="59.333333333333336" width="398" height="93.333333333333314"/>
+                                        <rect key="frame" x="8" y="76" width="398" height="59"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On aime, on partage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lz-qk-gY2">
-                                        <rect key="frame" x="8" y="158" width="398" height="27.333333333333343"/>
+                                        <rect key="frame" x="8" y="140" width="398" height="24"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -104,13 +123,13 @@
                                                     <rect key="frame" x="5" y="5" width="188" height="188"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="----" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MB-kv-TYL">
-                                                            <rect key="frame" x="8" y="140" width="145.33333333333334" height="40"/>
+                                                            <rect key="frame" x="8" y="140" width="145" height="40"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjG-4H-3yN">
-                                                            <rect key="frame" x="161.66666666666663" y="164.33333333333334" width="18.333333333333343" height="16"/>
+                                                            <rect key="frame" x="161" y="164" width="19" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -218,13 +237,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom du Commerce" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Urn-zV-wF7">
-                                        <rect key="frame" x="8" y="58.333333333333336" width="398" height="93.333333333333314"/>
+                                        <rect key="frame" x="8" y="47" width="398" height="117"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-kW-z4C">
-                                        <rect key="frame" x="8" y="146.66666666666663" width="398" height="27.333333333333343"/>
+                                        <rect key="frame" x="8" y="159" width="398" height="24"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -236,28 +255,28 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLb-sh-r2V">
-                                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="104" height="50"/>
                                                         <state key="normal" image="Map_icon"/>
                                                         <connections>
                                                             <action selector="mapAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="yvc-5r-LU9"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ab9-20-EXb">
-                                                        <rect key="frame" x="103.66666666666669" y="0.0" width="103.33333333333331" height="50"/>
+                                                        <rect key="frame" x="104" y="0.0" width="103" height="50"/>
                                                         <state key="normal" image="Mail_icon"/>
                                                         <connections>
                                                             <action selector="mailAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="GsN-Lw-NIQ"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zaf-9A-n53">
-                                                        <rect key="frame" x="207.00000000000003" y="0.0" width="103.66666666666671" height="50"/>
+                                                        <rect key="frame" x="207" y="0.0" width="104" height="50"/>
                                                         <state key="normal" image="Tel_icon"/>
                                                         <connections>
                                                             <action selector="callAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="ttv-dd-Y3q"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-Tq-Smf">
-                                                        <rect key="frame" x="310.66666666666674" y="0.0" width="103.33333333333331" height="50"/>
+                                                        <rect key="frame" x="311" y="0.0" width="103" height="50"/>
                                                         <state key="normal" image="Website_icon"/>
                                                         <connections>
                                                             <action selector="webAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="ple-bo-wFt"/>
@@ -579,14 +598,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CYS-GV-HHj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2830.434782608696" y="127.98913043478262"/>
+            <point key="canvasLocation" x="2755" y="195"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x9g-po-LmL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pjU-vJ-tdr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jCp-3Y-Tdw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jCp-3Y-Tdw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -598,6 +617,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Sz-vT-pZe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="925.60000000000002" y="128.18590704647679"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1Lu-9f-jLs">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GJP-uY-Goj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8sF-pn-j6c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XdO-h0-40b" kind="relationship" relationship="rootViewController" id="xdC-xT-AKR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S4V-kr-aLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="925" y="-532"/>
         </scene>
     </scenes>
     <resources>

@@ -24,7 +24,7 @@ target 'WeeClik' do
   # pour reordoner les photos des commercants
   pod 'RAReorderableLayout', '~> 0.6'
   
-  pod 'KJNavigationViewAnimation', '~> 0.1.0'
+  pod 'KJNavigationViewAnimation', :git => 'https://github.com/KiranJasvanee/KJNavigationViewAnimation.git'
   
   pod 'KRLCollectionViewGridLayout', '~> 0.4'
   # Composition de message
@@ -39,5 +39,13 @@ target 'WeeClik' do
   pod 'AZDialogView', '~> 1.1'
   # Demander des permissions
   pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
+  # Carrousel de démo à la connexion
+  pod 'ZKCarousel', '~> 0.1'
+  # Carrousel en parallax
+  pod 'TGLParallaxCarousel', :git => 'https://github.com/taglia3/TGLParallaxCarousel.git'
+  # AlertController with blur
+  pod 'AABlurAlertController', '~> 1.2'
+  
+  pod 'CRNotifications', :git => 'https://github.com/dkcas11/CRNotifications.git'
   
 end

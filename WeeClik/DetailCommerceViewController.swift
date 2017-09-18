@@ -70,7 +70,7 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
         
         var cell : UITableViewCell
         
-        if indexPath.section == 0 {
+        if indexPath.section == 1 {
             identifier = "InfosGeneral"
             cell = (tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? InformationGeneralCell)!
             if self.commerceObject != nil{
@@ -96,7 +96,7 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
                 back?.setCardView(view: back!)
             }
         }
-        else if indexPath.section == 1{
+        else if indexPath.section == 0{
             identifier = "PromotionsCell"
             cell = (tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? PromotionsCell)!
             if self.commerceObject != nil{

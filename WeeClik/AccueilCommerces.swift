@@ -24,7 +24,7 @@ import SDWebImage
 import STLocationRequest
 import CoreLocation
 import AZDialogView
-
+import CRNotifications
 
 class AccueilCommerces: UIViewController {
 
@@ -68,8 +68,7 @@ class AccueilCommerces: UIViewController {
         
         
         // Creation du Menu catégories
-        viewKJNavigation.topbarMinimumSpace = .custom
-        viewKJNavigation.topbarMinimumSpaceCustomValue = 150
+        viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
         collectionView.delegate = self
         collectionView.dataSource = self
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
@@ -99,8 +98,9 @@ class AccueilCommerces: UIViewController {
     }
     
     func showConnectionPage(){
-        if (PFUser.current() != nil){
+        if let user = PFUser.current(){
             // Utilisateur est déja connecté
+            print("\(user.description)")
         }else{
             // Non connecté
             self.showDialogConnection()
@@ -148,7 +148,7 @@ class AccueilCommerces: UIViewController {
         let query = PFQuery(className: "Commerce")
         query.whereKey("typeCommerce", equalTo: typeCategorie)
         if withLocation{
-            let userPosition = PFGeoPoint(location: latestLocationForQuery)
+//            let userPosition = PFGeoPoint(location: latestLocationForQuery)
 //            query.whereKey("position", nearGeoPoint: userPosition)
             query.order(byDescending: "position")
         }else{
@@ -424,6 +424,41 @@ extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControll
         }
         
         self.present(logInController, animated: true, completion: nil)
+    }
+    
+    func logInViewControllerDidCancelLog(in logInController: PFLogInViewController) {
+        print("did cancel log in")
+    }
+    
+    func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
+        print("succesful login : \(user.description)")
+    }
+    
+    func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
+        if let parseError = error{
+            let nserror = parseError as NSError
+            print("Erreur de login : \nCode (\(nserror.code))\n     -> \(nserror.localizedDescription)")
+        }
+    }
+    
+    func signUpViewControllerDidCancelSignUp(_ signUpController: PFSignUpViewController) {
+        print("did cancel signup")
+    }
+    
+    func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
+           print("succesful signup : \(user.description)")
+    }
+    
+    func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
+        if let parseError = error{
+            let nserror = parseError as NSError
+            print("Erreur de signup : \nCode (\(nserror.code))\n     -> \(nserror.localizedDescription)")
+        }
+    }
+    
+    func signUpViewController(_ signUpController: PFSignUpViewController, shouldBeginSignUp info: [String : String]) -> Bool {
+        print("Aucune conditions particulières pour le mot de passe")
+        return true
     }
 }
 

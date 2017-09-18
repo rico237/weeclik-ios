@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '554E4A6C70C61DDB998FEEC22D4895FC'
+               BlueprintIdentifier = '21269C2234EAB1592C3E34987FFF5A57'
                BlueprintName = 'SwiftMailgun'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SwiftMailgun.framework'>

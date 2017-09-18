@@ -11,6 +11,7 @@ import UIKit
 import Parse
 import MapKit
 import MessageUI
+import CRNotifications
 
 class HelperAndKeys {
     
@@ -36,6 +37,10 @@ class HelperAndKeys {
     
     static func getServerAppId() -> String{
         return "JVQZMCuNYvnecPWvWFDTZa8A"
+    }
+    
+    static func showNotification(type : CRNotifications.CRNotificationType, title: String, message: String, delay: TimeInterval){
+        CRNotifications.showNotification(type: type, title: title, message: message, dismissDelay: delay)
     }
     
     static func getImageForTypeCommerce(typeCommerce: String) -> UIImage {

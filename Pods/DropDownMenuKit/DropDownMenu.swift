@@ -79,18 +79,16 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 		}
 	}
 	open var backgroundAlpha = CGFloat(1)
-    var frameSize : CGRect
 	
 	// MARK: - Initialization
 	
 	override public init(frame: CGRect) {
 		contentView = UIView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
 		contentView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
-        
-        frameSize = frame
+		
 		menuView = UITableView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
 		menuView.autoresizingMask = .flexibleWidth
-		menuView.isScrollEnabled = true
+		menuView.isScrollEnabled = false
 
 		contentView.addSubview(menuView)
 
@@ -117,21 +115,9 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        
         let contentHeight = menuCells.reduce(0) { $0 + $1.rowHeight }
-        
-        //  Set the right height for tableView
-        //
-        //  If the total from the cells is less thant the height of the screen
-        //  then we keep all cells height
-        //  Else we take keep the the height of the screen so we can scroll from all its elements
-        
-        if contentHeight <= frameSize.size.height {
-            menuView.frame.size.height = contentHeight
-        }else{
-            menuView.frame.size.height = frameSize.size.height - 20 - 40 // -20 for statusbar & -40 for navigation bar
-        }
-        
+		
+		menuView.frame.size.height = contentHeight
 		contentView.frame.size.height = menuView.frame.size.height
 	}
 	
