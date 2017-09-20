@@ -1,26 +1,28 @@
 //
-//  ProcessInscriptionVC.swift
+//  SaisieDeDonneesVC.swift
 //  WeeClik
 //
-//  Created by Herrick Wolber on 17/09/2017.
+//  Created by Herrick Wolber on 20/09/2017.
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
 import UIKit
 
-class ProcessInscriptionVC: UIViewController {
+class SaisieDeDonneesVC: UIViewController {
     
-    var isPro = false
-    
-    @IBAction func utilisateurSelected(_ sender: Any) {isPro = false}
-    @IBAction func commerceSelected(_ sender: Any) {isPro = true}
-    
-    func showNextPage(){
-        // Show next page with isPro variable
-        let saisie = SaisieDeDonneesVC()
-        saisie.isPro = isPro
-        self.show(saisie, sender: self)
+    var isPro : Bool
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
 
     /*
     // MARK: - Navigation

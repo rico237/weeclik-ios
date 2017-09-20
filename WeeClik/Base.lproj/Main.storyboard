@@ -29,13 +29,42 @@
                     <view key="view" contentMode="scaleToFill" id="L0d-01-cs1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qiV-I0-2jG">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAx-sW-vKX">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="336"/>
+                                        <color key="backgroundColor" red="0.8675650954246521" green="0.32074099779129028" blue="0.32024765014648438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="Bouton_utilisateur"/>
+                                        <connections>
+                                            <action selector="utilisateurSelected:" destination="XdO-h0-40b" eventType="touchUpInside" id="ITf-00-fgP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kp8-qG-UL1">
+                                        <rect key="frame" x="0.0" y="336" width="414" height="336"/>
+                                        <color key="backgroundColor" red="0.32197707891464233" green="0.70703250169754028" blue="0.89468103647232056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="Bouton_commerce"/>
+                                        <connections>
+                                            <action selector="commerceSelected:" destination="XdO-h0-40b" eventType="touchUpInside" id="htz-fg-NgB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="qiV-I0-2jG" secondAttribute="trailing" id="Foj-WT-5ZY"/>
+                            <constraint firstItem="yYW-8E-fLC" firstAttribute="top" secondItem="qiV-I0-2jG" secondAttribute="bottom" id="NWK-Jc-kjI"/>
+                            <constraint firstItem="qiV-I0-2jG" firstAttribute="leading" secondItem="L0d-01-cs1" secondAttribute="leading" id="oln-kp-nFa"/>
+                            <constraint firstItem="qiV-I0-2jG" firstAttribute="top" secondItem="qRW-QC-zlm" secondAttribute="bottom" id="oou-HP-c9Z"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Syc-Ek-WFz"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztz-CT-eFs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1864" y="-532"/>
+            <point key="canvasLocation" x="1863.7681159420292" y="-532.33695652173913"/>
         </scene>
         <!--WEECLIK-->
         <scene sceneID="X5Y-J3-hyg">
@@ -60,13 +89,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqC-Zj-3zV">
-                                        <rect key="frame" x="8" y="76" width="398" height="59"/>
+                                        <rect key="frame" x="8" y="58.666666666666679" width="398" height="93.333333333333314"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On aime, on partage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lz-qk-gY2">
-                                        <rect key="frame" x="8" y="140" width="398" height="24"/>
+                                        <rect key="frame" x="8" y="157" width="398" height="27.333333333333343"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -141,7 +170,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PartagesIcon" translatesAutoresizingMaskIntoConstraints="NO" id="jDL-n3-dPd">
-                                                            <rect key="frame" x="160" y="142" width="20" height="20"/>
+                                                            <rect key="frame" x="160" y="141" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="fII-Nh-YkK"/>
                                                                 <constraint firstAttribute="height" constant="20" id="tKT-Cj-D86"/>
@@ -237,13 +266,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom du Commerce" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Urn-zV-wF7">
-                                        <rect key="frame" x="8" y="47" width="398" height="117"/>
+                                        <rect key="frame" x="8" y="59" width="398" height="93.333333333333343"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-kW-z4C">
-                                        <rect key="frame" x="8" y="159" width="398" height="24"/>
+                                        <rect key="frame" x="8" y="147.33333333333334" width="398" height="27.333333333333314"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -255,28 +284,28 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLb-sh-r2V">
-                                                        <rect key="frame" x="0.0" y="0.0" width="104" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="50"/>
                                                         <state key="normal" image="Map_icon"/>
                                                         <connections>
                                                             <action selector="mapAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="yvc-5r-LU9"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ab9-20-EXb">
-                                                        <rect key="frame" x="104" y="0.0" width="103" height="50"/>
+                                                        <rect key="frame" x="103.66666666666669" y="0.0" width="103.33333333333331" height="50"/>
                                                         <state key="normal" image="Mail_icon"/>
                                                         <connections>
                                                             <action selector="mailAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="GsN-Lw-NIQ"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zaf-9A-n53">
-                                                        <rect key="frame" x="207" y="0.0" width="104" height="50"/>
+                                                        <rect key="frame" x="207.00000000000003" y="0.0" width="103.66666666666671" height="50"/>
                                                         <state key="normal" image="Tel_icon"/>
                                                         <connections>
                                                             <action selector="callAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="ttv-dd-Y3q"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-Tq-Smf">
-                                                        <rect key="frame" x="311" y="0.0" width="103" height="50"/>
+                                                        <rect key="frame" x="310.66666666666674" y="0.0" width="103.33333333333331" height="50"/>
                                                         <state key="normal" image="Website_icon"/>
                                                         <connections>
                                                             <action selector="webAction:" destination="D72-xj-5QH" eventType="touchUpInside" id="ple-bo-wFt"/>
@@ -605,8 +634,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pjU-vJ-tdr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jCp-3Y-Tdw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jCp-3Y-Tdw">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -623,8 +652,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GJP-uY-Goj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8sF-pn-j6c">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8sF-pn-j6c">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -638,6 +667,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Bouton_commerce" width="169" height="208"/>
+        <image name="Bouton_utilisateur" width="177" height="224"/>
         <image name="Certificate_icon" width="20" height="20"/>
         <image name="Login_icon" width="20" height="20"/>
         <image name="Mail_icon" width="20" height="20"/>
