@@ -10,7 +10,7 @@ import UIKit
 
 class SaisieDeDonneesVC: UIViewController {
     
-    var isPro : Bool
+    var isPro = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
