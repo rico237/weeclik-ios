@@ -43,9 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         shadow.shadowOffset = CGSize(width: 0, height: 1)
         
         UINavigationBar.appearance().titleTextAttributes = [
-            NSForegroundColorAttributeName : UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
-            NSShadowAttributeName : shadow,
-            NSFontAttributeName : UIFont(name: "BebasNeue", size: 21.0) as Any
+            NSAttributedStringKey.foregroundColor : UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
+            NSAttributedStringKey.shadow : shadow,
+            NSAttributedStringKey.font : UIFont(name: "BebasNeue", size: 21.0) as Any
         ]
     }
 

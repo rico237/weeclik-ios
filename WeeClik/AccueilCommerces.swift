@@ -97,7 +97,7 @@ class AccueilCommerces: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage))
     }
     
-    func showConnectionPage(){
+    @objc func showConnectionPage(){
         if let user = PFUser.current(){
             // Utilisateur est déja connecté
             print("\(user.description)")

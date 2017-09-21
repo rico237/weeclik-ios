@@ -43,9 +43,8 @@ public class SPAnimationUpward {
             },
             delay: delay,
             options: options,
-            withComplection: { finished in
+            withComplection: {
                 completion()
-                
         })
     }
     
@@ -89,7 +88,7 @@ public class SPAnimationUpward {
             },
             delay: delay,
             options: options,
-            withComplection: { finished in
+            withComplection: { 
                 completion()
         })
     }

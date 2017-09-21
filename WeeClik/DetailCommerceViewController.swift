@@ -46,7 +46,7 @@ class DetailCommerceViewController: UIViewController {
         self.title = "Weeclik"
     }
     
-    func shareCommerce(){
+    @objc func shareCommerce(){
         if MFMessageComposeViewController.canSendText(){
             let composeVC = MFMessageComposeViewController()
             composeVC.messageComposeDelegate = self

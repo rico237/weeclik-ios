@@ -147,7 +147,7 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
         self.contentView.transform = .identity
         self.modalPresentationStyle = .overCurrentContext
         viewController.present(self, animated: false, completion: {
-            finished in
+            
             self.updateLayoutAndSizes()
             self.updateContentViewShadow(yTranslationFactor: self.dialogShadowYtranslationFactor, blurRadiusFactor: self.dialogShadowBlurRadiusFactor, opacity: self.dialogShadowOpacity)
             self.contentView.center = CGPoint.init(
@@ -195,9 +195,9 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
         SPAnimation.animate(SPHideWindow.dialog.duration, animations: {
             self.backgroundView.setGradeAlpha(0, blurRaius: 0)
         }, withComplection: {
-            finished in
+            
             self.dismiss(animated: false, completion: {
-                finished in
+                
                 self.animator.removeAllBehaviors()
                 self.contentView.transform = .identity
                 self.delegate?.didHideDialogController()
@@ -294,7 +294,7 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
     var snapBehavior : UISnapBehavior!
     
     //MARK: - handle gesture
-    func handleGesture(sender: AnyObject) {
+    @objc func handleGesture(sender: AnyObject) {
         let myView = self.contentView
         let location = sender.location(in: view)
         let boxLocation = sender.location(in: myView)
