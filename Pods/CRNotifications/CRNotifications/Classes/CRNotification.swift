@@ -26,14 +26,20 @@ class CRNotification: UIView {
 		view.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
 		view.backgroundColor = .clear
 		view.textColor = .white
-		view.textContainerInset = UIEdgeInsets(top: -4, left: -5, bottom: 0, right: 0)
 		view.isUserInteractionEnabled = false
+		view.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
+        view.textContainer.lineBreakMode = .byWordWrapping
 		return view
 	}()
+	public var completion: () -> () = {}
 	
 	init() {
-		let width = UIScreen.main.bounds.width * 0.9
-		let height = (65 / 337) * width
+		let deviceWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        let widthFactor: CGFloat = DeviceManager.value(iPhone35: 0.9, iPhone40: 0.9, iPhone47: 0.9, iPhone55: 0.85, iPhone58: 0.9, iPadSmall: 0.5, iPadMedium: 0.45, iPadBig: 0.4)
+        let heightFactor: CGFloat = DeviceManager.value(iPhone35: 0.2, iPhone40: 0.2, iPhone47: 0.2, iPhone55: 0.2, iPhone58: 0.2, iPadSmall: 0.18, iPadMedium: 0.17, iPadBig: 0.17)
+
+        let width = deviceWidth * widthFactor
+        let height = width * heightFactor
 		super.init(frame: CGRect(x: 0, y: -height, width: width, height: height))
 		center.x = UIScreen.main.bounds.width/2
 		
@@ -69,23 +75,31 @@ class CRNotification: UIView {
 			])
 		
 		NSLayoutConstraint.activate([
-			titleLabel.topAnchor.constraint(equalTo: titleLabel.superview!.topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: titleLabel.superview!.topAnchor, constant: -2),
 			titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
 			titleLabel.trailingAnchor.constraint(equalTo: titleLabel.superview!.trailingAnchor, constant: -8),
 			titleLabel.bottomAnchor.constraint(equalTo: titleLabel.superview!.centerYAnchor, constant: -2)
 			])
 		
 		NSLayoutConstraint.activate([
-			messageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -2),
+			messageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -6),
 			messageView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
 			messageView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-			messageView.bottomAnchor.constraint(equalTo: messageView.superview!.bottomAnchor, constant: -2)
+			messageView.bottomAnchor.constraint(equalTo: messageView.superview!.bottomAnchor, constant: -4)
 			])
 	}
 	
 	func setupTargets() {
+		NotificationCenter.default.addObserver(self, selector: #selector(didRotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 		let dismissRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissNotification))
 		addGestureRecognizer(dismissRecognizer)
+	}
+	
+	@objc func didRotate() {
+		UIView.animate(withDuration: 0.2) {
+			self.center.x = UIScreen.main.bounds.width/2
+			self.center.y = UIApplication.shared.statusBarFrame.height + 10 + self.frame.height/2
+		}
 	}
 	
 	/// Required init for nib loading (nib loading is not supported)
@@ -111,6 +125,11 @@ class CRNotification: UIView {
 		imageView.image = image
 	}
 	
+	/// Sets the completion block of the notification for when it is dismissed
+	func setCompletionBlock(_ completion: @escaping () -> ()) {
+		self.completion = completion
+	}
+	
 	/// Dismisses the notification with a delay > 0
 	func setDismisTimer(delay: TimeInterval) {
 		if delay > 0 {
@@ -121,7 +140,7 @@ class CRNotification: UIView {
 	/// Animates in the notification
 	func showNotification() {
 		UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.1, options: UIViewAnimationOptions(), animations: {
-			self.frame.origin.y = UIApplication.shared.statusBarFrame.height * 1.5
+			self.frame.origin.y = UIApplication.shared.statusBarFrame.height + 10
 		})
 	}
 	
@@ -133,8 +152,9 @@ class CRNotification: UIView {
 			(complete: Bool) in
 			UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: {
 				self.center.y = -self.frame.height
-			}, completion: { (complete) in
-				self.removeFromSuperview()
+			}, completion: { [weak self] (complete) in
+				self?.completion()
+				self?.removeFromSuperview()
 			})
 		})
 	}

@@ -43,8 +43,9 @@ public class SPAnimationUpward {
             },
             delay: delay,
             options: options,
-            withComplection: {
+            withComplection: { 
                 completion()
+                
         })
     }
     

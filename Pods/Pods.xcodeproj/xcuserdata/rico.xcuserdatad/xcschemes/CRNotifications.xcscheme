@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1CF6F98E59AFE871FBFE8E598F67D7B1"
+               BlueprintIdentifier = "25DBD9BFCD2EC4D30B839AD5B4442E76"
                BuildableName = "CRNotifications.framework"
                BlueprintName = "CRNotifications"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1CF6F98E59AFE871FBFE8E598F67D7B1"
+            BlueprintIdentifier = "25DBD9BFCD2EC4D30B839AD5B4442E76"
             BuildableName = "CRNotifications.framework"
             BlueprintName = "CRNotifications"
             ReferencedContainer = "container:Pods.xcodeproj">

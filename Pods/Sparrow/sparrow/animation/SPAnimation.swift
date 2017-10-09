@@ -56,7 +56,7 @@ public class SPAnimation {
             },
             delay:  delay,
             options: optionsWithRepeatition,
-            withComplection: { 
+            withComplection: {
                 completion()
         })
     }

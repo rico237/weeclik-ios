@@ -3,21 +3,21 @@
 //
 import UIKit
 
-public class FormSheetTextViewController: UIViewController {
+open class FormSheetTextViewController: UIViewController {
     
-    private let seguePushPreview = "SeguePushPreview"
+    fileprivate let seguePushPreview = "SeguePushPreview"
     
-    private var isPreview:Bool = false
-    private var isInitialPositionHead:Bool = false
+    fileprivate var isPreview:Bool = false
+    fileprivate var isInitialPositionHead:Bool = false
     
-    private var initialText:String?
-    private var previewPageTitle:String = "Preview"
-    private var cancelButonText:String = "Cancel"
-    private var sendButtonText:String = "Send"
-    private var titleText:String?
+    fileprivate var initialText:String?
+    fileprivate var previewPageTitle:String = "Preview"
+    fileprivate var cancelButonText:String = "Cancel"
+    fileprivate var sendButtonText:String = "Send"
+    fileprivate var titleText:String?
 
-    private var titleSize:CGFloat?
-    private var buttonSize:CGFloat?
+    fileprivate var titleSize:CGFloat?
+    fileprivate var buttonSize:CGFloat?
 
     @IBOutlet weak var composeTextView:UITextView?
     
@@ -26,17 +26,17 @@ public class FormSheetTextViewController: UIViewController {
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    public var completionHandler: ((_ sendText: String) -> Void)?
+    @objc open var completionHandler: ((_ sendText: String) -> Void)?
     
     
-    public static func instantiate() -> FormSheetTextViewController {
+    @objc open static func instantiate() -> FormSheetTextViewController {
         let storyboardsBundle = getStoryboardsBundle()
         let formSheetTextViewController = UIStoryboard(name: "FormSheet", bundle: storyboardsBundle).instantiateInitialViewController() as! FormSheetTextViewController
 
         return formSheetTextViewController
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         setUpCancelButton()
@@ -54,7 +54,7 @@ public class FormSheetTextViewController: UIViewController {
         setUpComposeTextView(initialText!)
     }
     
-    override public func viewDidAppear(_ animated: Bool) {
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     
         // Start keyboard display / hidden notification
@@ -70,31 +70,31 @@ public class FormSheetTextViewController: UIViewController {
         composeTextView?.becomeFirstResponder()
     }
     
-    public func setInitialText(_ text:String) {
+    @objc public func setInitialText(_ text:String) {
         self.initialText = text
     }
     
-    public func setTitleText(_ text:String) {
+    @objc public func setTitleText(_ text:String) {
         self.titleText = text
     }
     
-    public func setPreviewPageTitle(_ text:String) {
+    @objc public func setPreviewPageTitle(_ text:String) {
         self.previewPageTitle = text
     }
     
-    public func setCancelButtonText(_ text:String) {
+    @objc public func setCancelButtonText(_ text:String) {
         self.cancelButonText = text
     }
     
-    public func setSendButtonText(_ text:String) {
+    @objc public func setSendButtonText(_ text:String) {
         self.sendButtonText = text
     }
     
-    public func setTitleSize(_ size:CGFloat) {
+    @objc public func setTitleSize(_ size:CGFloat) {
         self.titleSize = size
     }
     
-    public func setButtonSize(_ size:CGFloat) {
+    @objc public func setButtonSize(_ size:CGFloat) {
         self.buttonSize = size
     }
     
@@ -192,11 +192,11 @@ public class FormSheetTextViewController: UIViewController {
         performSegue(withIdentifier: seguePushPreview, sender: nil)
     }
     
-    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == seguePushPreview) {
             let previewViewController: PreviewViewController? = segue.destination as? PreviewViewController
             previewViewController?.previewPageTitle = previewPageTitle
-            previewViewController?.setHtml(html: (composeTextView?.text)!)
+            previewViewController?.setHtml((composeTextView?.text)!)
         }
     }
     
@@ -223,11 +223,11 @@ public class FormSheetTextViewController: UIViewController {
         composeTextView?.inputAccessoryView = toolbar
     }
     
-    public func setIsPreview (_ isPreview:Bool) {
+    @objc public func setIsPreview (_ isPreview:Bool) {
         self.isPreview = isPreview
     }
     
-    public func setIsInitialPositionHead(_ isInitialPositionHead:Bool) {
+    @objc public func setIsInitialPositionHead(_ isInitialPositionHead:Bool) {
         self.isInitialPositionHead = isInitialPositionHead
     }
 }

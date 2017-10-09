@@ -220,8 +220,7 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
             SPAnimationSpring.animate(0.3, animations: {
                 self.actionBeforeRotation()
             }, spring: self.spring, velocity: self.velocity, options: UIViewAnimationOptions.curveEaseIn)
-        }, completion: {
-            finished in
+        }, completion: {(context) in
             SPAnimationSpring.animate(0.35, animations: {
                 self.actionAfterRotation()
             }, spring: self.spring, velocity: self.velocity, options: UIViewAnimationOptions.curveEaseOut)

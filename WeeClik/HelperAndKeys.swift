@@ -39,8 +39,20 @@ class HelperAndKeys {
         return "JVQZMCuNYvnecPWvWFDTZa8A"
     }
     
-    static func showNotification(type : CRNotifications.CRNotificationType, title: String, message: String, delay: TimeInterval){
-        CRNotifications.showNotification(type: type, title: title, message: message, dismissDelay: delay)
+    static func showNotification(type : String , title: String, message: String, delay: TimeInterval){
+        var crType : CRNotificationType
+        switch type {
+        case "S":
+            crType = .success
+            break
+        case "E":
+            crType = .error
+            break
+        default:
+            crType = .info
+            break
+        }
+        CRNotifications.showNotification(type: crType, title: title, message: message, dismissDelay: delay)
     }
     
     static func getImageForTypeCommerce(typeCommerce: String) -> UIImage {

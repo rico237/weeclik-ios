@@ -112,10 +112,10 @@ public class SPIndicationBannerController<BottomView: UIView>: SPStatusBarManage
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.animator.removeAllBehaviors()
         super.viewWillTransition(to: size, with: coordinator)
+        
         coordinator.animate(alongsideTransition: { (contex) in
             self.updateLayout()
-        }, completion: {
-            finished in
+        },completion: {(context) in
             self.updateLayout()
         })
     }

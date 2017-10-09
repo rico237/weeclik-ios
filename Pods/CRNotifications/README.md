@@ -16,7 +16,7 @@ CRNotifications are custom in-app notifications with 3 types of layouts. The not
 ### How to use
 -------
 
-Call ``CRNotifications.showNotification`` with a title, message, notification type and a time for how long the notification should appear. Should the notification not disappear automatically use a time of ``0``.
+Call ``CRNotifications.showNotification`` with a title, message, notification type and a time for how long the notification should appear. Should the notification not disappear automatically use a time of ``0``. You may also pass a completion block that is executed once the notification disappears.
 
 Notification types are :
 ```.success```
@@ -32,23 +32,29 @@ CRNotifications.showNotification(type: .success, title: "Success!", message: "Yo
 ### Installation
 -------
 
-#### [Cocoapods install](https://cocoapods.org/?q=CRNotifications "Visit website")
+#### Cocoapods install
 
+##### Swift 4
 ```
-pod 'CRNotifications', :git => 'https://github.com/dkcas11/CRNotifications.git'
+pod 'CRNotifications'
 ```
+##### Swift 3
+```
+pod 'CRNotifications', :git => 'https://github.com/dkcas11/CRNotifications.git', :branch => 'swift3'
+```
+
 #### Manual install
 Drag the *CRNotifications* folder into your project and you are good to go.
 
 ### Author & Contributors
 -------
 
-**Casper Riboe** 
+**Casper Riboe** (Author)
 > Facebook : [Casper Riboe](http://facebook.com/dkcas11)<br/>
 > Twitter  : [dkcas11](http://twitter.com/dkcas11)<br/>
 > Mail     : [casper2602@hotmail.com](mailto:casper260@hotmail.com)
 
-**Herrick Wolber**
+**Herrick Wolber** (Contribution)
 > Twitter : [estar2005](http://twitter.com/estar2005) <br/>
 > Github  : [Rico237](https://github.com/rico237) <br/>
 > Mail    : [wolbereric@yahoo.fr](mailto:wolbereric@yahoo.fr)

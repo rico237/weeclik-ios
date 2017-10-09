@@ -15,8 +15,8 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Alamofire (4.2.0)
-  - AZDialogView (1.1.5)
+  - Alamofire (4.5.1)
+  - AZDialogView (1.1.6)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -24,20 +24,20 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
   - Compose (1.2.3)
-  - CRNotifications (1.0.4)
+  - CRNotifications (1.1.3)
   - DropDownMenuKit (0.8.3)
-  - FBSDKCoreKit (4.26.0):
+  - FBSDKCoreKit (4.27.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.26.0):
+  - FBSDKLoginKit (4.27.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.26.0):
+  - FBSDKShareKit (4.27.0):
     - FBSDKCoreKit
   - Font-Awesome-Swift (1.6.4)
-  - FormSheetTextView (1.0.3)
+  - FormSheetTextView (1.2.0)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (0.4.1)
-  - ObjectMapper (2.2.8)
-  - Parse (1.15.2):
+  - ObjectMapper (3.0.0)
+  - Parse (1.15.3):
     - Bolts/Tasks (~> 1.8)
   - ParseFacebookUtilsV4 (1.11.1):
     - Bolts/Tasks (>= 1.6)
@@ -49,18 +49,18 @@ PODS:
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
   - RAReorderableLayout (0.6.1)
-  - SDWebImage (4.1.0):
-    - SDWebImage/Core (= 4.1.0)
-  - SDWebImage/Core (4.1.0)
+  - SDWebImage (4.1.2):
+    - SDWebImage/Core (= 4.1.2)
+  - SDWebImage/Core (4.1.2)
   - Sparrow/Core (1.1.0)
   - Sparrow/Modules/RequestPermission (1.1.0):
     - Sparrow/Core
-  - STLocationRequest (1.4.0):
-    - Font-Awesome-Swift (~> 1.6.1)
+  - STLocationRequest (1.4.2):
+    - Font-Awesome-Swift (~> 1.6.4)
   - SVProgressHUD (2.2.1)
-  - SwiftMailgun (1.0.0):
-    - Alamofire (~> 4.2.0)
-    - ObjectMapper (~> 2.2.1)
+  - SwiftMailgun (1.0.1):
+    - Alamofire
+    - ObjectMapper
   - TGLParallaxCarousel (1.0.0)
   - ZKCarousel (0.1.0)
 
@@ -102,7 +102,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CRNotifications:
-    :commit: 8a2dbef5cf5807c446114975677cd3f6d3382913
+    :commit: cf1c03e1a6f7e3d9b3cb4d3bc3dcc4d3927f8444
     :git: https://github.com/dkcas11/CRNotifications.git
   KJNavigationViewAnimation:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
@@ -117,29 +117,29 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AABlurAlertController: 7463fc59d9906e07040439d2bc80c56f313a3fa4
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
-  AZDialogView: 25b0bcbc260e56b43228c0b72ee8bbf48abcbfaa
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  AZDialogView: 42731f7c9c7d38dab12c8823afd2236edb6f798a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
-  CRNotifications: 7d8ab8cc7118900ef3f6d7e5355117c0ae84e25f
+  CRNotifications: d2a800776785d0ed651ab680776e036bc251493a
   DropDownMenuKit: 76b304bc0a0d1f6822a58d19a116bce100752fba
-  FBSDKCoreKit: c8b8582311ec11b145451d8b9717dc6cc2ae5a76
-  FBSDKLoginKit: f3f03b94c21eb834af243c0a881d48641f47ca60
-  FBSDKShareKit: 320712d8293fde6392872c91eb80ef0da5d73cc3
+  FBSDKCoreKit: ebc6c5f5b3f0e72396041050e2266781a38ac587
+  FBSDKLoginKit: 887be4b7452e1c5a3cc4485ce152529965a0c41e
+  FBSDKShareKit: 4f83956d4ca2960730fe7588a168eb8d535c06dc
   Font-Awesome-Swift: 86c5ec8d1e251b834fb2b2e34cdcb1f480ade751
-  FormSheetTextView: eead216c2f68ed2041b45803ce3a61cd5d030ee7
+  FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 6363dc7e3d91cf1f97e19ed20846764566659596
-  ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
-  Parse: 7daa8804b876d250a65420534c97d2d786c3b0b4
+  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
+  Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   RAReorderableLayout: 5b6b87dd4022ee1747fd475623b14f5df940f754
-  SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
+  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
-  STLocationRequest: 48e788990a914701dd556fec84bf740a6cffb1c4
+  STLocationRequest: 8da5c62df4bb7b148dedce464ea2c53cf561ae2d
   SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
-  SwiftMailgun: 6d684b3ffc30ef975fd5680f01b2a72c7a9fa857
+  SwiftMailgun: 311a28057e0ced2dbcfbc8320e4aa282511877d2
   TGLParallaxCarousel: 94c8b4f271f0c1a1a3d973da1206f31771255e44
   ZKCarousel: 36143c4667c89c70c89ccda9e1e01af2fcbb5a9e
 
