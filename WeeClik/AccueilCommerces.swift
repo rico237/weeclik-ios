@@ -61,8 +61,6 @@ class AccueilCommerces: UIViewController {
         
         self.collectionView.backgroundColor = HelperAndKeys.getBackgroundColor()
         
-        
-        
         // Liste toutes les catégories possibles
         toutesCat = HelperAndKeys.getListOfCategories()
         
@@ -379,7 +377,7 @@ extension AccueilCommerces: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
-        print("didUpdateLocations UserLocation: \(String(describing: locations.last))")
+//        print("didUpdateLocations UserLocation: \(String(describing: locations.last))")
     }
     
 }
@@ -446,7 +444,7 @@ extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControll
     }
     
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
-           print("succesful signup : \(user.description)")
+       print("succesful signup : \(user.description)")
     }
     
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
