@@ -39,8 +39,20 @@ class HelperAndKeys {
         return "JVQZMCuNYvnecPWvWFDTZa8A"
     }
     
-    static func showNotification(type : CRNotifications.CRNotificationType, title: String, message: String, delay: TimeInterval){
-        CRNotifications.showNotification(type: type, title: title, message: message, dismissDelay: delay)
+    static func showNotification(type : String , title: String, message: String, delay: TimeInterval){
+        var crType : CRNotificationType
+        switch type {
+        case "S":
+            crType = .success
+            break
+        case "E":
+            crType = .error
+            break
+        default:
+            crType = .info
+            break
+        }
+        CRNotifications.showNotification(type: crType, title: title, message: message, dismissDelay: delay)
     }
     
     static func getImageForTypeCommerce(typeCommerce: String) -> UIImage {
@@ -146,7 +158,6 @@ class HelperAndKeys {
         
         if MFMailComposeViewController.canSendMail(){
             let composeVC = MFMailComposeViewController()
-            composeVC.mailComposeDelegate = self as? MFMailComposeViewControllerDelegate
             
             // Configure the fields of the interface.
             composeVC.setSubject("Demande de contact via WeeClik")
@@ -178,28 +189,50 @@ class HelperAndKeys {
         mapItem.openInMaps(launchOptions: options)
     }
     
-    static func setSharingTime(forCommerceId : String){
+    static func setSharingTime(forCommerceId : String, commerceName : String){
         let date = Date()
-        UserDefaults.standard.set(date, forKey: forCommerceId)
+        let stringCat = forCommerceId+"_date"
+        UserDefaults.standard.set(date, forKey: stringCat)
+        UserDefaults.standard.synchronize()
+        sharingNotificationEnable(commerce: commerceName)
+    }
+    
+    static func sharingNotificationEnable(commerce : String){
+        
+        print("Afficher Ici la fonction de notification après X temps")
     }
     
     static func getSharingTimer(forCommerceId : String) -> Date? {
-        let date = UserDefaults.standard.object(forKey: forCommerceId) as? Date
+        let stringCat = forCommerceId+"_date"
+        let date = UserDefaults.standard.object(forKey: stringCat) as? Date
         return date
     }
     
+    static func getSharingStringDate(objectId : String) -> String{
+        let date = self.getSharingTimer(forCommerceId: objectId)
+        return self.getCurrentDate(da: date)
+    }
+    
     static func canShareAgain(objectId : String) -> Bool{
-        
-        if let date = self.getSharingTimer(forCommerceId: objectId){
-            let minutes = self.minutesBetweenDates(date1: date, date2: Date())
+        let date = self.getSharingTimer(forCommerceId: objectId)
+        if date != nil {
+            let timeDiff = self.minutesBetweenDates(date1: date!, date2: Date())
             // TODO: Mettre le veritable intervalle
-            if minutes >= 2 {
+            if timeDiff >= 1 {
+                self.removeCommerce(forCommerceId: objectId)
                 return true
-            }else{
+            } else {
                 return false
             }
+        } else {
+            return true
         }
-        return false
+    }
+    
+    static func removeCommerce(forCommerceId : String){
+        let stringCat = forCommerceId+"_date"
+        UserDefaults.standard.removeObject(forKey: stringCat)
+        UserDefaults.standard.synchronize()
     }
     
     static func minutesBetweenDates(date1: Date, date2: Date) -> Int {
@@ -219,5 +252,60 @@ class HelperAndKeys {
         default:
             return ""
         }
+    }
+    
+    static func getCurrentDate(da : Date?) -> String{
+        var secondsFromGMT: Int { return TimeZone.current.secondsFromGMT() }
+        // Si les tableaux est vide on l'ajoute au defaults
+        let date = da == nil ? Date() : da!
+        let format = DateFormatter()
+        format.dateFormat = "dd/MM/yy HH:mm:ss"
+        format.locale = Locale.current
+        format.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
+        return format.string(from: date)
+    }
+    
+    static func sendBugReport(message: String){
+        let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        print("Créer une fonction de bug report avec le detail + la version de l'app : \(versionNumber)")
+    }
+    
+    static func logOutUser(){
+        PFUser.logOut()
+    }
+    
+    // TODO: Construire une veritable requette de stats (perfection)
+    static func saveStatsInDb(commerce : PFObject, user : PFUser? = nil){
+        // Il y a un compte utilisateur, on met donc a jour ses stats
+        if let utilisateur = user {
+            let query = PFQuery(className:"StatsPartage")
+            query.whereKey("commercePartage", equalTo: commerce)
+            query.includeKey("commercePartage")
+            query.findObjectsInBackground { (array , error) in
+                
+                if array!.count > 0 {
+                    let sharingObject = array![0]
+                    sharingObject.incrementKey("nbrPartage")
+                    let theCommerce = sharingObject["commercePartage"] as! PFObject
+                    theCommerce.incrementKey("nombrePartages")
+                    PFObject.saveAll(inBackground: [sharingObject, theCommerce])
+                } else {
+                    let parseObj = PFObject(className: "StatsPartage")
+                    parseObj["commercePartage"] = commerce
+                    parseObj["utilisateurPartageur"] = utilisateur
+                    parseObj["nbrPartage"] = 1
+                    parseObj.saveInBackground()
+                }
+            }
+        }
+        
+        // On met a jour les stats du commerce
+        let commerceQuery = PFQuery(className: "Commerce")
+        commerceQuery.whereKey("objectId", equalTo: commerce.objectId?.description as Any)
+        commerceQuery.findObjectsInBackground(block: { (commercesA, err) in
+            let comm = commercesA![0]
+            comm.incrementKey("nombrePartages")
+            comm.saveInBackground()
+        })
     }
 }

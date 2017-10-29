@@ -67,18 +67,18 @@ public class SPShadowWithMaskView<ContentView: UIView>: UIView {
     private var blurRadiusFactor: CGFloat = 0
     private var shadowOpacity: CGFloat = 0
     
-    public override func setShadow(xTranslationFactor: CGFloat, yTranslationFactor: CGFloat, widthRelativeFactor: CGFloat, heightRelativeFactor: CGFloat, blurRadiusFactor: CGFloat, shadowOpacity: CGFloat, cornerRadiusFactor: CGFloat = 0) {
-        super.setShadow(xTranslationFactor: xTranslationFactor, yTranslationFactor: yTranslationFactor, widthRelativeFactor: widthRelativeFactor, heightRelativeFactor: heightRelativeFactor, blurRadiusFactor: blurRadiusFactor, shadowOpacity: shadowOpacity, cornerRadiusFactor: cornerRadiusFactor)
-        self.xTranslationFactor = xTranslationFactor
-        self.yTranslationFactor = yTranslationFactor
-        self.widthRelativeFactor = widthRelativeFactor
-        self.heightRelativeFactor = heightRelativeFactor
-        self.blurRadiusFactor = blurRadiusFactor
-        self.shadowOpacity = shadowOpacity
-    }
+//    public func setShadow(xTranslationFactor: CGFloat, yTranslationFactor: CGFloat, widthRelativeFactor: CGFloat, heightRelativeFactor: CGFloat, blurRadiusFactor: CGFloat, shadowOpacity: CGFloat, cornerRadiusFactor: CGFloat = 0) {
+//        super.setShadow(xTranslationFactor: xTranslationFactor, yTranslationFactor: yTranslationFactor, widthRelativeFactor: widthRelativeFactor, heightRelativeFactor: heightRelativeFactor, blurRadiusFactor: blurRadiusFactor, shadowOpacity: shadowOpacity, cornerRadiusFactor: cornerRadiusFactor)
+//        self.xTranslationFactor = xTranslationFactor
+//        self.yTranslationFactor = yTranslationFactor
+//        self.widthRelativeFactor = widthRelativeFactor
+//        self.heightRelativeFactor = heightRelativeFactor
+//        self.blurRadiusFactor = blurRadiusFactor
+//        self.shadowOpacity = shadowOpacity
+//    }
     
     private func updateShadow() {
-        self.setShadow(
+        super.setShadow(
             xTranslationFactor: self.xTranslationFactor,
             yTranslationFactor: self.yTranslationFactor,
             widthRelativeFactor: self.widthRelativeFactor,
@@ -134,18 +134,18 @@ public class SPShadowWithMaskControl: UIControl {
     private var blurRadiusFactor: CGFloat = 0
     private var shadowOpacity: CGFloat = 0
     
-    public override func setShadow(xTranslationFactor: CGFloat, yTranslationFactor: CGFloat, widthRelativeFactor: CGFloat, heightRelativeFactor: CGFloat, blurRadiusFactor: CGFloat, shadowOpacity: CGFloat, cornerRadiusFactor: CGFloat = 0) {
-        super.setShadow(xTranslationFactor: xTranslationFactor, yTranslationFactor: yTranslationFactor, widthRelativeFactor: widthRelativeFactor, heightRelativeFactor: heightRelativeFactor, blurRadiusFactor: blurRadiusFactor, shadowOpacity: shadowOpacity, cornerRadiusFactor: cornerRadiusFactor)
-        self.xTranslationFactor = xTranslationFactor
-        self.yTranslationFactor = yTranslationFactor
-        self.widthRelativeFactor = widthRelativeFactor
-        self.heightRelativeFactor = heightRelativeFactor
-        self.blurRadiusFactor = blurRadiusFactor
-        self.shadowOpacity = shadowOpacity
-    }
+//    public func setShadow(xTranslationFactor: CGFloat, yTranslationFactor: CGFloat, widthRelativeFactor: CGFloat, heightRelativeFactor: CGFloat, blurRadiusFactor: CGFloat, shadowOpacity: CGFloat, cornerRadiusFactor: CGFloat = 0) {
+//        super.setShadow(xTranslationFactor: xTranslationFactor, yTranslationFactor: yTranslationFactor, widthRelativeFactor: widthRelativeFactor, heightRelativeFactor: heightRelativeFactor, blurRadiusFactor: blurRadiusFactor, shadowOpacity: shadowOpacity, cornerRadiusFactor: cornerRadiusFactor)
+//        self.xTranslationFactor = xTranslationFactor
+//        self.yTranslationFactor = yTranslationFactor
+//        self.widthRelativeFactor = widthRelativeFactor
+//        self.heightRelativeFactor = heightRelativeFactor
+//        self.blurRadiusFactor = blurRadiusFactor
+//        self.shadowOpacity = shadowOpacity
+//    }
     
     private func updateShadow() {
-        self.setShadow(
+        super.setShadow(
             xTranslationFactor: self.xTranslationFactor,
             yTranslationFactor: self.yTranslationFactor,
             widthRelativeFactor: self.widthRelativeFactor,

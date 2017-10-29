@@ -85,7 +85,7 @@ __attribute__((noinline)) static size_t remaining_stack_size(size_t *restrict to
     static BFExecutor *mainThreadExecutor = NULL;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        mainThreadExecutor = [self executorWithBlock:^void(void(^block)()) {
+        mainThreadExecutor = [self executorWithBlock:^void(void(^block)(void)) {
             if (![NSThread isMainThread]) {
                 dispatch_async(dispatch_get_main_queue(), block);
             } else {
@@ -98,12 +98,12 @@ __attribute__((noinline)) static size_t remaining_stack_size(size_t *restrict to
     return mainThreadExecutor;
 }
 
-+ (instancetype)executorWithBlock:(void(^)(void(^block)()))block {
++ (instancetype)executorWithBlock:(void(^)(void(^block)(void)))block {
     return [[self alloc] initWithBlock:block];
 }
 
 + (instancetype)executorWithDispatchQueue:(dispatch_queue_t)queue {
-    return [self executorWithBlock:^void(void(^block)()) {
+    return [self executorWithBlock:^void(void(^block)(void)) {
         dispatch_async(queue, block);
     }];
 }

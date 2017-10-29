@@ -29,7 +29,7 @@ import Contacts
 class SPCameraPermission: SPPermissionInterface {
     
     func isAuthorized() -> Bool {
-        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == AVAuthorizationStatus.authorized {
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == AVAuthorizationStatus.authorized {
             return true
         } else {
             return false
@@ -37,8 +37,7 @@ class SPCameraPermission: SPPermissionInterface {
     }
     
     func request(withComlectionHandler complectionHandler: @escaping ()->()?) {
-        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: {
-            finished in
+        AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: {_ in 
             DispatchQueue.main.async {
                 complectionHandler()
             }
