@@ -20,7 +20,7 @@ target 'WeeClik' do
   # Pour la page recherche
   pod 'Compose', '~> 1.2'
   # pour la selection de catégorie
-  pod 'DropDownMenuKit', '~> 0.8'
+  pod 'DropDownMenuKit', '~> 0.8.4'
   # pour reordoner les photos des commercants
   pod 'RAReorderableLayout', '~> 0.6'
   
@@ -45,7 +45,12 @@ target 'WeeClik' do
   pod 'TGLParallaxCarousel', :git => 'https://github.com/taglia3/TGLParallaxCarousel.git'
   # AlertController with blur
   pod 'AABlurAlertController', '~> 1.2'
-  
+  # Notification pour le partage de nouveau activé
   pod 'CRNotifications', :git => 'https://github.com/dkcas11/CRNotifications.git'
-  
+  # Carte pour les filtres
+  pod 'BulletinBoard', :git => 'https://github.com/alexaubry/BulletinBoard.git'
+  # Scroll automatique pour faciliter l'utilisation du clavier
+  pod 'TPKeyboardAvoiding', :git => 'https://github.com/JoakimLiu/TPKeyboardAvoiding.git'
+  # Chercher le nom d'une ville
+  pod 'GooglePlacesSearchController', '~> 0.1'
 end

@@ -1,5 +1,5 @@
 <p align="center">
-<img width=300 src="./Preview/STLocationRequest_AppIcon.jpg" alt="STLocationRequestAppIcon" title="STLocationRequestAppIcon">
+<img width=300 src="./Assets/STLocationRequest_AppIcon.jpg" alt="STLocationRequestAppIcon" title="STLocationRequestAppIcon">
 </p>
 
 # STLocationRequest
@@ -9,11 +9,11 @@
 [![License](https://img.shields.io/cocoapods/l/STLocationRequest.svg?style=flat)](http://cocoapods.org/pods/STLocationRequest)
 [![Platform](https://img.shields.io/cocoapods/p/STLocationRequest.svg?style=flat)](http://cocoapods.org/pods/STLocationRequest)
 
-STLocationRequest is a simple and elegant way to request the user location at the very first time written in Swift. It shows a beautiful 3D 360 degree Flyover-MapView over 20 citys or landmarks.
+STLocationRequest is a simple and elegant way to request the user location at the very first time written in Swift. It shows a beautiful 3D 360 degree Flyover-MapView over 20 cities or landmarks.
 
 <p align="center">
 <br>
-<img src="./Preview/STLocationRequest.gif" alt="STLocationRequest" title="STLocationRequest">
+<img src="./Assets/STLocationRequest.gif" alt="STLocationRequest" title="STLocationRequest">
 
 </p>
 
@@ -65,10 +65,10 @@ locationRequestController.backgroundColor = UIColor.orange
 > The backgroundcolor for the view of the STLocationRequestController
 
 <p align="center">
-<img width=200 src="./Preview/STLocationRequest_Purple.jpg" alt="STLocationRequest" title="STLocationRequest">
-<img width=200 src="./Preview/STLocationRequest_Green.jpg" alt="STLocationRequest" title="STLocationRequest">
-<img width=200 src="./Preview/STLocationRequest_Orange.jpg" alt="STLocationRequest" title="STLocationRequest">
-<img width=200 src="./Preview/STLocationRequest_Red.jpg" alt="STLocationRequest" title="STLocationRequest">
+<img width=200 src="./Assets/STLocationRequest_Purple.jpg" alt="STLocationRequest" title="STLocationRequest">
+<img width=200 src="./Assets/STLocationRequest_Green.jpg" alt="STLocationRequest" title="STLocationRequest">
+<img width=200 src="./Assets/STLocationRequest_Orange.jpg" alt="STLocationRequest" title="STLocationRequest">
+<img width=200 src="./Assets/STLocationRequest_Red.jpg" alt="STLocationRequest" title="STLocationRequest">
 </p>
 
 #### TitleText
@@ -117,7 +117,7 @@ locationRequestController.pulseEffectColor = UIColor.white
 ```swift
 locationRequestController.locationSymbolIcon = FAType.FALocationArrow
 ```
-> Set the location symbol icon which will be displayed in the middle of the STLocationRequest-Controller. The devault value is FALocationArrow. You can browse at http://fontawesome.io/icons/ or https://github.com/Vaberer/Font-Awesome-Swift for other icons but be aware to use a icon which is in the context of a location request.
+> Set the location symbol icon which will be displayed in the middle of the STLocationRequest-Controller. The default value is FALocationArrow. You can browse at http://fontawesome.io/icons/ or https://github.com/Vaberer/Font-Awesome-Swift for other icons but be aware to use a icon which is in the context of a location request.
 
 #### LocationSymbolColor
 ```swift
@@ -167,6 +167,25 @@ func locationRequestControllerDidChange(event: STLocationRequestControllerEvent)
 
 ```
 
+## Custom 3D Flyover Places
+An example of adding a custom 3D flyover place to the `STLocationRequestController`.
+
+```swift
+// Add a place via latitude and longitude
+locationRequestController.addPlace(latitude: 51.960665, longitude: 7.626135)
+
+// Or add a place via CLLocationCoordinate2D
+let myCoordinate = CLLocationCoordinate2DMake(51.960665, 7.626135)
+locationRequestController.addPlace(coordinate: myCoordinate)
+```
+> Please keep in mind to verify that your custom location is available in 3D flyover mode. To verify you can check your place on the Apple Maps App by tapping on the 3D-Button.
+
+If you wish to show only your custom 3D flyover places you can simply set the `placesFilter`.
+```swift
+// Only your custom places will be shown
+locationRequestController.placesFilter = [.customPlaces]
+```
+
 ## Info.plist
 
 Also don't forget to add the usage description key to your `Info.plist` for you selected authorization type.
@@ -186,18 +205,16 @@ STLocationRequestControllerAuthorizeType.**requestAlwaysAuthorization**
 This text will be shown in the default iOS location request dialog, which will show up when the user tapped the allow button.
 
 <p align="center">
-<img src="./Preview/iOSLocationRequestDialog.png" alt="iOSRequestDialog" title="iOSRequestDialog" width=300>
+<img src="./Assets/iOSLocationRequestDialog.png" alt="iOSRequestDialog" title="iOSRequestDialog" width=300>
 
 </p>
-
-For more details check out the example application.
 
 ## Presenting-Recommendation
 
 The recommended way to present `STLocationRequestController` is the following way, which is also been implemented in the example application.
 
 ```swift
-@IBAction func requestLocationButtonTouched(_ sender: UIButton) {
+func checkLocationServicePermission() {
     if CLLocationManager.locationServicesEnabled() {
         if CLLocationManager.authorizationStatus() == .denied {
             // Location Services are denied
@@ -220,7 +237,7 @@ The recommended way to present `STLocationRequestController` is the following wa
 Please mind that the 3D Flyover-View will only work on a real iOS device (not in the Simulator) with at least iOS 9.0 installed ([Apple Developer API Reference](https://developer.apple.com/reference/mapkit/mkmaptype/1452553-satelliteflyover)). A Screenshot taken from an **iOS Simulator** running `STLocationRequestController`.
 
 <p align="center">
-<img src="./Preview/iOSSimulatorBehavior.jpg" alt="iOSSimulatorBehavior" title="iOSSimulatorBehavior" width=300>
+<img src="./Assets/iOSSimulatorBehavior.jpg" alt="iOSSimulatorBehavior" title="iOSSimulatorBehavior" width=300>
 
 </p>
 
@@ -274,7 +291,7 @@ An example usage of `STLocationRequestController` in an `Objective-C` project.
 ## Author
 
 <p align="center">
-<img width=200 src="./Preview/svenTiigi.png" alt="Sven Tiigi" title="Sven Tiigi"><br><br>
+<img width=200 src="./Assets/svenTiigi.png" alt="Sven Tiigi" title="Sven Tiigi"><br><br>
 Sven Tiigi<br>
 http://sven.tiigi.de
 </p>

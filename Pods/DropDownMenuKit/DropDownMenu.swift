@@ -20,10 +20,10 @@ public enum DropDownMenuRevealDirection {
 open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
 
 	open weak var delegate: DropDownMenuDelegate?
-	open var container: UIView! {
+	open weak var container: UIView? {
 		didSet {
 			removeFromSuperview()
-			container.addSubview(self)
+			container?.addSubview(self)
 		}
 	}
 	// The content view fills the entire container, so we can use it to fade 
@@ -32,30 +32,56 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 	// By default, it contains the menu view, but other subviews can be added to 
 	// it and laid out by overriding -layoutSubviews.
 	open let contentView: UIView
-	// This hidden offset can be used to customize the position of the menu at
+	// This hidden insets can be used to customize the position of the menu at
 	// the end of the hiding animation.
 	//
 	// If the container doesn't extend under the toolbar and navigation bar,
 	// this is useful to ensure the hiding animation continues until the menu is
 	// positioned outside of the screen, rather than stopping the animation when 
 	// the menu is covered by the toolbar or navigation bar.
-	open var hiddenContentOffset = CGFloat(0)
-	// This visible offset can be used to customize the position of the menu 
+	//
+	// Left and right insets are currently ignored.
+	open var hiddenContentInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
+		didSet {
+			guard let container = container else {
+				fatalError("DropDownMenu.container must have been set to customize content insets")
+			}
+			if !isHidden {
+				return
+			}
+
+			if direction == .down {
+				contentView.frame.origin.y = hiddenContentInsets.top
+			} else {
+				contentView.frame.origin.y = container.frame.height - contentView.frame.height - hiddenContentInsets.bottom
+			}
+			setNeedsLayout()
+		}
+	}
+	// This visible insets can be used to customize the position of the menu
 	// at the end of the showing animation.
 	//
 	// If the container extends under the toolbar and navigation bar, this is 
 	// useful to ensure the menu won't be covered by the toolbar or navigation 
 	// bar once the showing animation is done.
-	open var visibleContentOffset = CGFloat(0) {
+	//
+	// Left and right insets are currently ignored.
+	open var visibleContentInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
 		didSet {
+			guard let container = container else {
+				fatalError("DropDownMenu.container must have been set to customize content insets")
+			}
+			// Menu height needs to be recomputed
+			setNeedsLayout()
+
 			if isHidden {
 				return
 			}
+
 			if direction == .down {
-				contentView.frame.origin.y = visibleContentOffset
-			}
-			else {
-				contentView.frame.origin.y = container.frame.height - contentView.frame.height - visibleContentOffset
+				contentView.frame.origin.y = visibleContentInsets.top
+			} else {
+				contentView.frame.origin.y = container.frame.height - contentView.frame.height - visibleContentInsets.bottom
 			}
 		}
 	}
@@ -79,16 +105,19 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 		}
 	}
 	open var backgroundAlpha = CGFloat(1)
-	
+
 	// MARK: - Initialization
-	
+
 	override public init(frame: CGRect) {
 		contentView = UIView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
 		contentView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
 		
 		menuView = UITableView(frame: CGRect(origin: CGPoint.zero, size: frame.size))
 		menuView.autoresizingMask = .flexibleWidth
-		menuView.isScrollEnabled = false
+		menuView.isScrollEnabled = true
+		menuView.bounces = false
+		menuView.showsVerticalScrollIndicator = true
+		menuView.showsHorizontalScrollIndicator = false
 
 		contentView.addSubview(menuView)
 
@@ -108,17 +137,23 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 	}
 
 	required public init?(coder aDecoder: NSCoder) {
-	    fatalError("init(coder:) has not been implemented")
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	// MARK: - Layout
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        let contentHeight = menuCells.reduce(0) { $0 + $1.rowHeight }
-		
-		menuView.frame.size.height = contentHeight
-		contentView.frame.size.height = menuView.frame.size.height
+
+		let contentHeight = menuCells.reduce(0) { $0 + $1.rowHeight }
+        let maxContentHeight = frame.height - visibleContentInsets.bottom - visibleContentInsets.top - 20 - menuCells[0].rowHeight
+        
+		let scrollable = contentHeight > maxContentHeight
+
+		menuView.frame.size.height = scrollable ? maxContentHeight : contentHeight
+		contentView.frame.size.height = menuView.frame.height
+		// Reset scroll view content offset after rotation
+		menuView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
 	}
 	
 	// MARK: - Selection
@@ -133,7 +168,7 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 		}
 		let indexPath = IndexPath(row: index, section: 0)
 
-    	menuView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+		menuView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
 		tableView(menuView, didSelectRowAt: indexPath)
 	}
 
@@ -154,63 +189,62 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 	}
 	
 	@IBAction open func show() {
-		precondition(container != nil, "DropDownMenu.container must be set in [presentingController viewDidAppear:]")
-		
+		guard let container = container else {
+			 fatalError("DropDownMenu.container must be have been set to show the menu")
+		}
 		if !isHidden {
 			return
 		}
 
 		backgroundView?.alpha = 0
 		if direction == .down {
-			contentView.frame.origin.y = -(contentView.frame.height + hiddenContentOffset)
-		}
-		else {
-			contentView.frame.origin.y = container.frame.height + hiddenContentOffset
+			contentView.frame.origin.y = -(contentView.frame.height + hiddenContentInsets.top)
+		} else {
+			contentView.frame.origin.y = container.frame.height + hiddenContentInsets.bottom
 		}
 		isHidden = false
 
 		UIView.animate(withDuration: 0.4,
-		                    delay: 0,
-		   usingSpringWithDamping: 1,
-		    initialSpringVelocity: 1,
-		                  options: UIViewAnimationOptions(),
-		               animations: {
+		                      delay: 0,
+		     usingSpringWithDamping: 1,
+		      initialSpringVelocity: 1,
+		                    options: UIViewAnimationOptions(),
+		                 animations: {
 			if self.direction == .down {
-				self.contentView.frame.origin.y = self.visibleContentOffset
-			}
-			else {
-				self.contentView.frame.origin.y = self.container.frame.height - self.contentView.frame.height  - self.visibleContentOffset
+				self.contentView.frame.origin.y = self.visibleContentInsets.top
+			} else {
+				self.contentView.frame.origin.y = container.frame.height - self.contentView.frame.height  - self.visibleContentInsets.bottom
 			}
 			self.backgroundView?.alpha = self.backgroundAlpha
 		},
-		               completion: nil)
+		                 completion: nil)
 	}
 	
 	@IBAction open func hide() {
-	
+		guard let container = container else {
+			 fatalError("DropDownMenu.container must be set in [presentingController viewDidAppear:]")
+		}
 		if isHidden {
 			return
 		}
 
 		if direction == .down {
-			contentView.frame.origin.y = visibleContentOffset
-		}
-		else {
-			contentView.frame.origin.y = container.frame.height - contentView.frame.height - visibleContentOffset
+			contentView.frame.origin.y = visibleContentInsets.bottom
+		} else {
+			contentView.frame.origin.y = container.frame.height - contentView.frame.height - visibleContentInsets.top
 		}
 		isHidden = false
 		
 		UIView.animate(withDuration: 0.4,
-		                    delay: 0,
-		   usingSpringWithDamping: 1,
-		    initialSpringVelocity: 1,
-		                  options: UIViewAnimationOptions(),
-		               animations: {
+		                      delay: 0,
+		     usingSpringWithDamping: 1,
+		      initialSpringVelocity: 1,
+		                    options: UIViewAnimationOptions(),
+		                 animations: {
 			if self.direction == .down {
-				self.contentView.frame.origin.y = -(self.contentView.frame.height + self.hiddenContentOffset)
-			}
-			else {
-				self.contentView.frame.origin.y = self.container.frame.height + self.hiddenContentOffset
+				self.contentView.frame.origin.y = -(self.contentView.frame.height + self.hiddenContentInsets.bottom)
+			} else {
+				self.contentView.frame.origin.y = container.frame.height + self.hiddenContentInsets.top
 			}
 			self.backgroundView?.alpha = 0
 		},
@@ -228,10 +262,10 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 	open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return menuCells.count
 	}
-    
-    open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return menuCells[indexPath.row].rowHeight
-    }
+
+	open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return menuCells[indexPath.row].rowHeight
+	}
 
 	open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		return menuCells[indexPath.row]

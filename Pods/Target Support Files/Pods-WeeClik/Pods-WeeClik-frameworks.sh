@@ -107,6 +107,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AZDialogView/AZDialogView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BulletinBoard.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Compose/Compose.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DropDownMenuKit/DropDownMenuKit.framework"
@@ -115,6 +116,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Font-Awesome-Swift/Font_Awesome_Swift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FormSheetTextView/FormSheetTextView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GooglePlacesSearchController/GooglePlacesSearchController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework"
@@ -128,6 +130,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Sparrow/Sparrow.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TGLParallaxCarousel/TGLParallaxCarousel.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -136,6 +139,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AZDialogView/AZDialogView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BulletinBoard.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Compose/Compose.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DropDownMenuKit/DropDownMenuKit.framework"
@@ -144,6 +148,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Font-Awesome-Swift/Font_Awesome_Swift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FormSheetTextView/FormSheetTextView.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GooglePlacesSearchController/GooglePlacesSearchController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework"
@@ -157,6 +162,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Sparrow/Sparrow.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TGLParallaxCarousel/TGLParallaxCarousel.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
