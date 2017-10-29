@@ -99,23 +99,23 @@
                                         <rect key="frame" x="0.0" y="174" width="414" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mes informations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Fp-vv-S2u">
-                                                <rect key="frame" x="8" y="0.0" width="398" height="23.333333333333332"/>
+                                                <rect key="frame" x="8" y="0.0" width="398" height="20"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="jWo-Yd-5AY">
-                                                <rect key="frame" x="0.0" y="31.333333333333321" width="414" height="96.666666666666686"/>
+                                                <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nom Prénom" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8KH-An-AyJ" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="49.666666666666664"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes" keyboardType="namePhonePad" textContentType="name"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Adresse Mail" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mzX-TT-wun" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="49" width="414" height="47.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="50.666666666666686" width="414" height="49.333333333333343"/>
                                                         <color key="backgroundColor" red="0.96757203714616524" green="0.97118873672926653" blue="0.98203883547857018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
@@ -244,13 +244,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqC-Zj-3zV">
-                                        <rect key="frame" x="8" y="58.666666666666679" width="398" height="93.333333333333314"/>
+                                        <rect key="frame" x="8" y="76.333333333333343" width="398" height="58.333333333333343"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On aime, on partage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lz-qk-gY2">
-                                        <rect key="frame" x="8" y="157" width="398" height="27.333333333333343"/>
+                                        <rect key="frame" x="8" y="139.66666666666666" width="398" height="23.333333333333343"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -462,13 +462,13 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom du Commerce" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Urn-zV-wF7">
-                                        <rect key="frame" x="8" y="58.999999999999993" width="398" height="93.333333333333314"/>
+                                        <rect key="frame" x="8" y="47.333333333333321" width="398" height="116.66666666666669"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-kW-z4C">
-                                        <rect key="frame" x="8" y="147.33333333333334" width="398" height="27.333333333333343"/>
+                                        <rect key="frame" x="8" y="159" width="398" height="23.333333333333343"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
