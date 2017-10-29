@@ -20,8 +20,8 @@ open class DropDownMenuCell : UITableViewCell {
 	open var menuAction: Selector!
 	open weak var menuTarget: AnyObject!
 	open var showsCheckmark = true
-    open var rowHeight: CGFloat = 44
-    
+	open var rowHeight: CGFloat = 44
+
 	// MARK: - Initialization
 
 	override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -30,10 +30,11 @@ open class DropDownMenuCell : UITableViewCell {
 	
 	public init() {
 		super.init(style: .default, reuseIdentifier: NSStringFromClass(DropDownMenuCell.self))
+		textLabel?.text = "Untitled"
 	}
 
 	required public init?(coder aDecoder: NSCoder) {
-	    fatalError("init(coder:) has not been implemented")
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	// MARK: - Layout
@@ -59,9 +60,7 @@ open class DropDownMenuCell : UITableViewCell {
 		if let customView = customView {
 			if let textLabel = textLabel, imageView?.image != nil {
 				customView.frame.origin.x = textLabel.frame.origin.x
-			}
-			else
-			{
+			} else {
 				customView.center.x = bounds.width / 2
 			}
 			customView.center.y =  bounds.height / 2

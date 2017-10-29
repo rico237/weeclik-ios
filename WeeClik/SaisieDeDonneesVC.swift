@@ -7,31 +7,45 @@
 //
 
 import UIKit
+import Parse
+import ParseFacebookUtilsV4
 
 class SaisieDeDonneesVC: UIViewController {
-    
     var isPro = false
-
+    var currentUser = PFUser.current()!
+    var facebookConnection = false
+    
+    @IBOutlet var logoUser: UIImageView!
+    @IBOutlet weak var nomPrenomTF: FormTextField!
+    @IBOutlet weak var mailTF: FormTextField!
+    @IBOutlet weak var saveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        facebookConnection = PFFacebookUtils.isLinked(with: currentUser)
+        logoUser.image = isPro ? UIImage(named: "Logo_commerce") : UIImage(named: "Logo_utilisateur")
+        saveButton.backgroundColor = isPro ? UIColor(red:0.87, green:0.32, blue:0.32, alpha:1.00) : UIColor(red:0.32, green:0.71, blue:0.90, alpha:1.00)
+        saveButton.layer.cornerRadius = 5
+        mailTF.isEnabled = false
+        
+        
+        if facebookConnection {
+            // Connecté grâce à Facebook
+            nomPrenomTF.text = currentUser["name"] as? String
+            mailTF.text = currentUser["email"] as? String
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    @IBAction func saveInfos(_ sender: Any) {}
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+//        currentUser["email"] = mailTF.text
+        currentUser["name"] = nomPrenomTF.text
+        currentUser.saveInBackground()
+        let vc = segue.destination as! UINavigationController
+        let destination = vc.viewControllers[0] as! MonCompteVC
+        destination.isPro = isPro
     }
-    */
 
 }

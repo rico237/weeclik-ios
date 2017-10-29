@@ -31,14 +31,18 @@ class Commerce: NSObject {
     var thumbnail  : PFFile? = nil
     var coverPhoto : PFFile? = nil
     
-    var photosCommerces : Array<PFFile>? = []
-    var videosCommerce : PFFile? = nil
+    var photosCommerces : [PFObject]? = nil
+    var videosCommerce  : [PFObject]? = nil
     
     var objectId    : String! = "-1"
     var createdAt   : Date?
     var updatedAt   : Date?
     
+    var pfObject : PFObject!
+    
     init(parseObject: PFObject) {
+        pfObject = parseObject
+        
         self.nom        = parseObject["nomCommerce"] as! String
         //        self.type = CategoryType(rawValue: parseObject["typeCommerce"] as! String)!
         self.type       = parseObject["typeCommerce"] as! String
@@ -49,7 +53,6 @@ class Commerce: NSObject {
         self.adresse    = parseObject["adresse"] as! String
         self.descriptionO = parseObject["description"] as! String
         self.promotions = parseObject["promotions"] as! String
-        
         
         self.objectId   = parseObject.objectId
         self.createdAt  = parseObject.createdAt
@@ -63,12 +66,16 @@ class Commerce: NSObject {
             self.coverPhoto = cover
         }
         
-        if let photos = parseObject["photosCommerces"] as? Array<Any>{
-            self.photosCommerces = photos as? Array<PFFile>
+        if let photos = parseObject["photosSlider"] as? [PFObject]{
+            if photos.count != 0 {
+                self.photosCommerces = photos
+            }
         }
         
-        if let videos = parseObject["videoCommerce"] as? PFFile{
-            self.videosCommerce = videos
+        if let videos = parseObject["videosCommerce"] as? [PFObject]{
+            if videos.count != 0 {
+                self.videosCommerce = videos
+            }
         }
     }
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
+   LastUpgradeVersion = "0910"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2F5935447BCE0BA90126D445C9106D55"
+               BlueprintIdentifier = "50FA02D635DB3D3880F20B83168727C2"
                BuildableName = "RAReorderableLayout.framework"
                BlueprintName = "RAReorderableLayout"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2F5935447BCE0BA90126D445C9106D55"
+            BlueprintIdentifier = "50FA02D635DB3D3880F20B83168727C2"
             BuildableName = "RAReorderableLayout.framework"
             BlueprintName = "RAReorderableLayout"
             ReferencedContainer = "container:Pods.xcodeproj">

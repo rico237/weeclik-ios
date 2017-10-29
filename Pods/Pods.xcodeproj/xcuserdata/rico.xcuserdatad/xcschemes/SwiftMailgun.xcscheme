@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
+   LastUpgradeVersion = "0910"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "21269C2234EAB1592C3E34987FFF5A57"
+               BlueprintIdentifier = "79AF9134D72F1AFB8BE8A624263104F5"
                BuildableName = "SwiftMailgun.framework"
                BlueprintName = "SwiftMailgun"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "21269C2234EAB1592C3E34987FFF5A57"
+            BlueprintIdentifier = "79AF9134D72F1AFB8BE8A624263104F5"
             BuildableName = "SwiftMailgun.framework"
             BlueprintName = "SwiftMailgun"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -18,10 +18,19 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FacebookAppID</key>
-	<string>1773255456018247</string>
-	<key>FacebookDisplayName</key>
-	<string>WeeClik</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb1773255456018247</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>1773255456018247</string>
+    <key>FacebookDisplayName</key>
+    <string>WeeClik</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fb-messenger-api</string>

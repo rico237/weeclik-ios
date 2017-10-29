@@ -12,6 +12,8 @@
 // TODO: Ajouter un système de recherche par type de commerce et par nom
 // TODO: Ajouter les boutons du menu
 // TODO: Gerer les pbs de connexions si trop long afficher un message d'erreur
+// TODO: Ajouter les commerces favoris
+// TODO: Ajouter le filtre des commerces selon le filtre de leboncoin ios
 
 import UIKit
 import DropDownMenuKit
@@ -25,6 +27,8 @@ import STLocationRequest
 import CoreLocation
 import AZDialogView
 import CRNotifications
+import BulletinBoard
+import ParseFacebookUtilsV4
 
 class AccueilCommerces: UIViewController {
 
@@ -40,6 +44,7 @@ class AccueilCommerces: UIViewController {
     var locationGranted : Bool! = false
     let locationManager = CLLocationManager()
     var latestLocationForQuery : CLLocation!
+    var prefFiltreLocation = false            // Savoir si les commerces sont filtrés par location ou partages
     
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
@@ -52,14 +57,31 @@ class AccueilCommerces: UIViewController {
         return self.collectionView?.collectionViewLayout as! KRLCollectionViewGridLayout
     }
     
+    var introBulletin = BulletinDataSource.makeIntroFilterPage()
+    
+    lazy var filterBulletinManager : BulletinManager = {
+        let bulletinPageIntro = BulletinDataSource.makeFilterPage(isLocation: self.prefFiltreLocation)
+        bulletinPageIntro.actionHandler = { item in
+            self.prefFiltreLocation = !self.prefFiltreLocation
+            print("Préférence  \(self.prefFiltreLocation)")
+            item.manager?.dismissBulletin(animated: true)
+        }
+        bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
+            item.displayNextItem()
+//            item.manager?.dismissBulletin(animated: true)
+        }
+        bulletinPageIntro.nextItem = introBulletin
+        return BulletinManager(rootItem : bulletinPageIntro)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.distanceFilter = kCLDistanceFilterNone
+        self.locationManager.distanceFilter  = kCLDistanceFilterNone
         
-        self.collectionView.backgroundColor = HelperAndKeys.getBackgroundColor()
+        self.collectionView.backgroundColor  = HelperAndKeys.getBackgroundColor()
         
         // Liste toutes les catégories possibles
         toutesCat = HelperAndKeys.getListOfCategories()
@@ -67,7 +89,7 @@ class AccueilCommerces: UIViewController {
         
         // Creation du Menu catégories
         viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
-        collectionView.delegate = self
+        collectionView.delegate   = self
         collectionView.dataSource = self
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
@@ -75,7 +97,6 @@ class AccueilCommerces: UIViewController {
         // Ajout du contenu au Menu catégories
         let title = prepareNavigationBarMenuTitleView()
         prepareNavigationBarMenu(title)
-        updateMenuContentOffsets()
         
         
         // Mise en place de la taille des cellules pour chaque commerce (notre grille de commerce)
@@ -84,7 +105,7 @@ class AccueilCommerces: UIViewController {
         layoutCollection.numberOfItemsPerLine = 2
         layoutCollection.aspectRatio = 1
         
-        self.checkLocationServicePermission()
+//        self.checkLocationServicePermission()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,16 +113,75 @@ class AccueilCommerces: UIViewController {
         navigationBarMenu.container = view
         didLoad = true
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage))
+        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage))]
+    }
+    
+    @IBAction func logOut(_ sender: Any) {
+        PFUser.logOutInBackground()
+    }
+    
+    @IBAction func filterBarbuttonPressed(_ sender: Any) {
+        filterBulletinManager.prepare()
+        filterBulletinManager.presentBulletin(above: self)
     }
     
     @objc func showConnectionPage(){
         if let user = PFUser.current(){
             // Utilisateur est déja connecté
-            print("\(user.description)")
+            print("Utilisateur déja crée : \(user.description)")
+            getFacebookInformations(user: user)
         }else{
             // Non connecté
             self.showDialogConnection()
+        }
+    }
+    
+    func getFacebookInformations(user : PFUser){
+        
+        let params = ["fields" : "email, name"]
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
+        
+        graphRequest?.start(completionHandler: { (request, result, error) in
+//            let err = error! as NSError
+            if (error == nil) {
+                // handle successful response
+                if let data = result as? [String:Any] {
+                    print("\(String(describing: data))")
+                    user["name"] = data["name"] as! String
+                    user["email"] = data["email"] as! String
+                    let facebookId = data["id"] as! String
+                    user["facebookId"] = facebookId
+                    user["profilePictureURL"] = "https://graph.facebook.com/" + facebookId + "/picture?type=large&return_ssl_resources=1"
+                    user.saveInBackground()
+                }
+            }
+//            else if (err.userInfo["error"]["type"] == "OAuthException") {
+//                // Since the request failed, we can check if it was due to an invalid session
+//                print("The facebook session was invalidated")
+//                PFFacebookUtils.unlinkUser(inBackground: PFUser.current()!)
+//            }
+            else {
+                print("Some other error: \(String(describing: error?.localizedDescription))")
+            }
+        })
+        
+        if let storyB = self.storyboard {
+            let destination : UIViewController!
+            
+            if user["isPro"] != nil {
+                let pro = user["isPro"] as! Bool
+                if pro == true {
+                    // Compte commerce
+                    destination = storyB.instantiateViewController(withIdentifier: "profil_commerce")
+                } else {
+                    // Compte utilisateur
+                    destination = storyB.instantiateViewController(withIdentifier: "profil_user")
+                }
+            } else {
+                destination = storyB.instantiateViewController(withIdentifier: "choose_type_compte")
+            }
+            
+            self.show(destination, sender: self)
         }
     }
     
@@ -152,11 +232,12 @@ class AccueilCommerces: UIViewController {
         }else{
             query.order(byAscending: "nombrePartages")
         }
+        query.includeKey("photosSlider")
         query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
             
             if error == nil {
                 if let arr = objects{
-                    print("Number of items in BDD : \(arr.count)")
+//                    print("Number of items in BDD : \(arr.count)")
                     
                     for obj in arr {
                         let commerce = Commerce(parseObject: obj)
@@ -170,7 +251,7 @@ class AccueilCommerces: UIViewController {
                 }
             } else {
                 if let err = error{
-                    let _ = HelperAndKeys.handleParseError(errorCode: (error! as NSError).code)
+//                    let _ = HelperAndKeys.handleParseError(errorCode: (error! as NSError).code)
                     SVProgressHUD.showError(withStatus: err.localizedDescription)
                     SVProgressHUD.dismiss(withDelay: 2)
                 }
@@ -264,44 +345,17 @@ extension AccueilCommerces : DropDownMenuDelegate {
         navigationBarMenu.selectMenuCell(catCells[13])
 //        navigationBarMenu.selectMenuCell(catCells.first!)
         
-        // If we set the container to the controller view, the value must be set
-        // on the hidden content offset (not the visible one)
-        updateMenuContentOffsets()
-        
         // For a simple gray overlay in background
         navigationBarMenu.backgroundView = UIView(frame: navigationBarMenu.bounds)
         navigationBarMenu.backgroundView!.backgroundColor = UIColor.black
         navigationBarMenu.backgroundAlpha = 0.7
     }
     
-    func updateMenuContentOffsets() {navigationBarMenu.visibleContentOffset = 0}
-    
-    @IBAction func showToolbarMenu() {
-        if titleView.isUp {
-            titleView.toggleMenu()
-        }
-    }
-    
-    @IBAction func willToggleNavigationBarMenu(_ sender: DropDownTitleView) {
-        // Quand on appui sur la bar de navigation
-        if sender.isUp {
-            navigationBarMenu.hide()
-        }
-        else {
-            navigationBarMenu.show()
-        }
-    }
-    
-    func didTapInDropDownMenuBackground(_ menu: DropDownMenu) {
-        // Quand on appui sur le fond
-        if menu == navigationBarMenu {
-            titleView.toggleMenu()
-        }
-        else {
-            menu.hide()
-        }
-    }
-    
+    @IBAction func showToolbarMenu() {if titleView.isUp {titleView.toggleMenu()}}
+    // Quand on appui sur la bar de navigation
+    @IBAction func willToggleNavigationBarMenu(_ sender: DropDownTitleView) {if sender.isUp {navigationBarMenu.hide()} else {navigationBarMenu.show()}}
+    // Quand on appui sur le fond
+    func didTapInDropDownMenuBackground(_ menu: DropDownMenu) {if menu == navigationBarMenu {titleView.toggleMenu()} else {menu.hide()}}
     
     /**
      
@@ -322,9 +376,7 @@ extension AccueilCommerces : DropDownMenuDelegate {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        coordinator.animate(alongsideTransition: { (context) in
-            self.updateMenuContentOffsets()
-        }, completion: nil)
+        coordinator.animate(alongsideTransition: { (context) in }, completion: nil)
     }
 }
 
@@ -377,7 +429,6 @@ extension AccueilCommerces: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
-//        print("didUpdateLocations UserLocation: \(String(describing: locations.last))")
     }
     
 }
@@ -385,7 +436,7 @@ extension AccueilCommerces: CLLocationManagerDelegate {
 extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
     func showDialogConnection(){
         definesPresentationContext = true
-        //En vous inscrivant, vous pourrez profiter de tous les avantages de l'application, tels que les promotions des commerçants ou l'accès direct à vos commerces favoris.
+        // En vous inscrivant, vous pourrez profiter de tous les avantages de l'application, tels que les promotions des commerçants ou l'accès direct à vos commerces favoris.
         let dialog = AZDialogViewController(title: "Connexion", message: "Veuillez vous connecter afin d'accéder à votre espace personnel")
         dialog.dismissDirection = .bottom
         dialog.dismissWithOutsideTouch = true
@@ -398,7 +449,7 @@ extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControll
         dialog.cancelEnabled = true
         dialog.cancelButtonStyle = { (button,height) in
             button.setTitle("ANNULER", for: [])
-            return true //must return true, otherwise cancel button won't show.
+            return true // must return true, otherwise cancel button won't show.
         }
         dialog.show(in: self)
     }
@@ -413,6 +464,7 @@ extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControll
                                   PFLogInFields.dismissButton,
                                   PFLogInFields.facebook]
         logInController.emailAsUsername = true
+        logInController.facebookPermissions = ["email", "public_profile"]
         logInController.logInView?.logo?.alpha = 0
         
         logInController.signUpController?.signUpView?.logo?.alpha = 0
@@ -423,13 +475,16 @@ extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControll
         
         self.present(logInController, animated: true, completion: nil)
     }
-    
-    func logInViewControllerDidCancelLog(in logInController: PFLogInViewController) {
-        print("did cancel log in")
-    }
-    
+
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
-        print("succesful login : \(user.description)")
+        self.getFacebookInformations(user: user)
+        print("Login")
+        logInController.dismiss(animated: true)
+        if let story = self.storyboard {
+            let nav = story.instantiateViewController(withIdentifier: "choose_type_compte") as! UINavigationController
+            self.present(nav, animated: true)
+        }
+//        print("succesful login : \(user.description)")
     }
     
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
@@ -439,10 +494,7 @@ extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControll
         }
     }
     
-    func signUpViewControllerDidCancelSignUp(_ signUpController: PFSignUpViewController) {
-        print("did cancel signup")
-    }
-    
+    // Inscription classique (par mail)
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
        print("succesful signup : \(user.description)")
     }
@@ -454,6 +506,7 @@ extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControll
         }
     }
     
+    // Fonction pour definir des mots de passe trop faibles
     func signUpViewController(_ signUpController: PFSignUpViewController, shouldBeginSignUp info: [String : String]) -> Bool {
         print("Aucune conditions particulières pour le mot de passe")
         return true
