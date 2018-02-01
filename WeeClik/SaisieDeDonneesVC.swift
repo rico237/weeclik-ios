@@ -37,15 +37,19 @@ class SaisieDeDonneesVC: UIViewController {
         }
     }
     
-    @IBAction func saveInfos(_ sender: Any) {}
+    @IBAction func saveInfos(_ sender: Any) {
+        
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        currentUser["email"] = mailTF.text
         currentUser["name"] = nomPrenomTF.text
         currentUser.saveInBackground()
-        let vc = segue.destination as! UINavigationController
-        let destination = vc.viewControllers[0] as! MonCompteVC
-        destination.isPro = isPro
+        self.dismiss(animated: false) {
+            let vc = segue.destination as! UINavigationController
+            let destination = vc.viewControllers[0] as! MonCompteVC
+            destination.isPro = self.isPro
+        }
     }
 
 }

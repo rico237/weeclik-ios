@@ -9,11 +9,8 @@
 import UIKit
 
 class InformationGeneralCell: UITableViewCell {
-    
     @IBOutlet weak var mailLabel: UILabel!
     @IBOutlet weak var telLabel: UILabel!
     @IBOutlet weak var adresseLabel: UILabel!
     @IBOutlet weak var webLabel: UILabel!
-
-
 }

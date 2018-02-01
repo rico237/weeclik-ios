@@ -1,0 +1,141 @@
+
+/* Class = "UINavigationItem"; title = "Mon Profil"; ObjectID = "06j-Ty-amf"; */
+"06j-Ty-amf.title" = "Mon Profil";
+
+/* Class = "UIButton"; normalTitle = "Réinitialiser mon mot de passe"; ObjectID = "1Rn-FU-bFJ"; */
+"1Rn-FU-bFJ.normalTitle" = "Réinitialiser mon mot de passe";
+
+/* Class = "UILabel"; text = "On aime, on partage"; ObjectID = "1lz-qk-gY2"; */
+"1lz-qk-gY2.text" = "On aime, on partage";
+
+/* Class = "UITextField"; placeholder = "Adresse Mail"; ObjectID = "2Gd-UY-9Fl"; */
+"2Gd-UY-9Fl.placeholder" = "Adresse Mail";
+
+/* Class = "UIBarButtonItem"; title = "Retour"; ObjectID = "2I3-DC-BFE"; */
+"2I3-DC-BFE.title" = "Retour";
+
+/* Class = "UILabel"; text = "Adresse"; ObjectID = "46S-ec-FvG"; */
+"46S-ec-FvG.text" = "Adresse";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4Xs-aQ-u3B"; */
+"4Xs-aQ-u3B.text" = "Label";
+
+/* Class = "UILabel"; text = "Changer mon mot de passe"; ObjectID = "4xH-7H-EjH"; */
+"4xH-7H-EjH.text" = "Changer mon mot de passe";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6sf-hf-LUm"; */
+"6sf-hf-LUm.text" = "Label";
+
+/* Class = "UILabel"; text = "Mes informations"; ObjectID = "8Fp-vv-S2u"; */
+"8Fp-vv-S2u.text" = "Mes informations";
+
+/* Class = "UITextField"; placeholder = "Nom Prénom"; ObjectID = "8KH-An-AyJ"; */
+"8KH-An-AyJ.placeholder" = "Nom Prénom";
+
+/* Class = "UILabel"; text = "Téléphone"; ObjectID = "8tZ-H2-Vae"; */
+"8tZ-H2-Vae.text" = "Téléphone";
+
+/* Class = "UILabel"; text = "----"; ObjectID = "9MB-kv-TYL"; */
+"9MB-kv-TYL.text" = "----";
+
+/* Class = "UINavigationItem"; title = "Nouveau Commerce"; ObjectID = "9hd-rL-jwb"; */
+"9hd-rL-jwb.title" = "Nouveau Commerce";
+
+/* Class = "UILabel"; text = "Vous n'avez aucun commerce pour le moment"; ObjectID = "BxI-Er-d8k"; */
+"BxI-Er-d8k.text" = "Vous n'avez aucun commerce pour le moment";
+
+/* Class = "UILabel"; text = "Catégorie"; ObjectID = "DqC-Zj-3zV"; */
+"DqC-Zj-3zV.text" = "Catégorie";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "GRE-zm-08x"; */
+"GRE-zm-08x.text" = "Label";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "ICX-V4-O4H"; */
+"ICX-V4-O4H.text" = "Subtitle";
+
+/* Class = "UIButton"; normalTitle = "Changer mon mot de passe"; ObjectID = "IW8-0T-3pV"; */
+"IW8-0T-3pV.normalTitle" = "Changer mon mot de passe";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "KXm-cI-RSt"; */
+"KXm-cI-RSt.text" = "Title";
+
+/* Class = "UIViewController"; title = "MON PROFIL"; ObjectID = "MIf-Y2-RAb"; */
+"MIf-Y2-RAb.title" = "MON PROFIL";
+
+/* Class = "UITextField"; placeholder = "Nouveau mot de passe"; ObjectID = "OWZ-Rz-PDZ"; */
+"OWZ-Rz-PDZ.placeholder" = "Nouveau mot de passe";
+
+/* Class = "UIButton"; normalTitle = "ENREGISTRER"; ObjectID = "R1K-y9-6Kr"; */
+"R1K-y9-6Kr.normalTitle" = "ENREGISTRER";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Thc-wM-IkM"; */
+"Thc-wM-IkM.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Filter"; ObjectID = "UQ2-b2-R9R"; */
+"UQ2-b2-R9R.title" = "Filter";
+
+/* Class = "UILabel"; text = "Nom du Commerce"; ObjectID = "Urn-zV-wF7"; */
+"Urn-zV-wF7.text" = "Nom du Commerce";
+
+/* Class = "UIButton"; normalTitle = "Se connecter"; ObjectID = "Xgq-Wb-xVG"; */
+"Xgq-Wb-xVG.normalTitle" = "Se connecter";
+
+/* Class = "UIViewController"; title = "MON PROFIL"; ObjectID = "Z70-B6-HlE"; */
+"Z70-B6-HlE.title" = "MON PROFIL";
+
+/* Class = "UILabel"; text = "Promotions"; ObjectID = "ZMo-oU-WJC"; */
+"ZMo-oU-WJC.text" = "Promotions";
+
+/* Class = "UITextView"; text = "-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café"; ObjectID = "baj-Vl-I0q"; */
+"baj-Vl-I0q.text" = "-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café";
+
+/* Class = "UILabel"; text = "Site Web"; ObjectID = "bph-QA-fbu"; */
+"bph-QA-fbu.text" = "Site Web";
+
+/* Class = "UITextField"; placeholder = "Confirmation du mot de passe"; ObjectID = "dG2-ms-o07"; */
+"dG2-ms-o07.placeholder" = "Confirmation du mot de passe";
+
+/* Class = "UILabel"; text = "Vous devez être connecté afin d'accéder à votre compte"; ObjectID = "dLS-HN-2qb"; */
+"dLS-HN-2qb.text" = "Vous devez être connecté afin d'accéder à votre compte";
+
+/* Class = "UILabel"; text = "Mes informations"; ObjectID = "fZ6-9h-XZD"; */
+"fZ6-9h-XZD.text" = "Mes informations";
+
+/* Class = "UIViewController"; title = "MON PROFIL"; ObjectID = "gWF-Kz-s9f"; */
+"gWF-Kz-s9f.title" = "MON PROFIL";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "gap-6M-Obq"; */
+"gap-6M-Obq.text" = "Detail";
+
+/* Class = "UILabel"; text = "Mail"; ObjectID = "iHh-KC-60L"; */
+"iHh-KC-60L.text" = "Mail";
+
+/* Class = "UILabel"; text = "Catégorie"; ObjectID = "ihd-kW-z4C"; */
+"ihd-kW-z4C.text" = "Catégorie";
+
+/* Class = "UINavigationItem"; title = "WEECLIK"; ObjectID = "jMd-Am-HBN"; */
+"jMd-Am-HBN.title" = "WEECLIK";
+
+/* Class = "UITextField"; placeholder = "Nom Prénom"; ObjectID = "lEe-Tk-Gwn"; */
+"lEe-Tk-Gwn.placeholder" = "Nom Prénom";
+
+/* Class = "UIButton"; normalTitle = "Nouveau commerce"; ObjectID = "lTu-fU-dTA"; */
+"lTu-fU-dTA.normalTitle" = "Nouveau commerce";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "lv5-aa-dEa"; */
+"lv5-aa-dEa.text" = "Title";
+
+/* Class = "UITextField"; placeholder = "Adresse Mail"; ObjectID = "mzX-TT-wun"; */
+"mzX-TT-wun.placeholder" = "Adresse Mail";
+
+/* Class = "UITextField"; placeholder = "Ancien mot de passe"; ObjectID = "oOd-u4-xWZ"; */
+"oOd-u4-xWZ.placeholder" = "Ancien mot de passe";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "ra5-rN-DjA"; */
+"ra5-rN-DjA.text" = "Description";
+
+/* Class = "UILabel"; text = "---"; ObjectID = "wjG-4H-3yN"; */
+"wjG-4H-3yN.text" = "---";
+
+/* Class = "UITextView"; text = "-15% sur le café"; ObjectID = "zRl-pg-Rg8"; */
+"zRl-pg-Rg8.text" = "-15% sur le café";

@@ -32,5 +32,4 @@ class CommerceViewCell: UICollectionViewCell {
         layer.shadowOpacity = shadowOpacity
         layer.shadowPath = shadowPath.cgPath
     }
-    
 }

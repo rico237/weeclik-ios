@@ -9,7 +9,6 @@
 // TODO: Ajouter un message si il n'ya pas d'objet
 // TODO: Ajouter un systeme de pagination pour le chargement des commerces
 // TODO: Filtrer les commerce par geolocalisation autour de l'utilisateur
-// TODO: Ajouter un système de recherche par type de commerce et par nom
 // TODO: Ajouter les boutons du menu
 // TODO: Gerer les pbs de connexions si trop long afficher un message d'erreur
 // TODO: Ajouter les commerces favoris
@@ -18,7 +17,6 @@
 import UIKit
 import DropDownMenuKit
 import Parse
-import ParseUI
 import SVProgressHUD
 import KJNavigationViewAnimation
 import KRLCollectionViewGridLayout
@@ -28,7 +26,6 @@ import CoreLocation
 import AZDialogView
 import CRNotifications
 import BulletinBoard
-import ParseFacebookUtilsV4
 
 class AccueilCommerces: UIViewController {
 
@@ -41,10 +38,11 @@ class AccueilCommerces: UIViewController {
     var currentPage     : Int! = 0          // The last page that was loaded
     var lastLoadCount   : Int! = -1         // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
     let itemsPerPages   : Int! = 25         // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
-    var locationGranted : Bool! = false
+    var locationGranted : Bool! = false     // On a obtenu la position de l'utilisateur
     let locationManager = CLLocationManager()
     var latestLocationForQuery : CLLocation!
     var prefFiltreLocation = false            // Savoir si les commerces sont filtrés par location ou partages
+    var titleChoose : String! = ""
     
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
@@ -57,18 +55,30 @@ class AccueilCommerces: UIViewController {
         return self.collectionView?.collectionViewLayout as! KRLCollectionViewGridLayout
     }
     
-    var introBulletin = BulletinDataSource.makeIntroFilterPage()
+    var introBulletin = BulletinDataSource.makeFilterNextPage()
+    
     
     lazy var filterBulletinManager : BulletinManager = {
-        let bulletinPageIntro = BulletinDataSource.makeFilterPage(isLocation: self.prefFiltreLocation)
+        let bulletinPageIntro = BulletinDataSource.makeFilterPage()
         bulletinPageIntro.actionHandler = { item in
-            self.prefFiltreLocation = !self.prefFiltreLocation
-            print("Préférence  \(self.prefFiltreLocation)")
-            item.manager?.dismissBulletin(animated: true)
-        }
-        bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
+            // Action par position
+            if self.prefFiltreLocation == false{
+                self.prefFiltreLocation = true
+            }
             item.displayNextItem()
 //            item.manager?.dismissBulletin(animated: true)
+        }
+        bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
+            // Action par nombre
+//            print(self.prefFiltreLocation)
+            if self.prefFiltreLocation == true {
+                self.prefFiltreLocation = !self.prefFiltreLocation
+            }
+            item.displayNextItem()
+        }
+        introBulletin.actionHandler = { (item : BulletinItem) in
+            item.manager?.dismissBulletin(animated:true)
+            self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.prefFiltreLocation)
         }
         bulletinPageIntro.nextItem = introBulletin
         return BulletinManager(rootItem : bulletinPageIntro)
@@ -105,7 +115,7 @@ class AccueilCommerces: UIViewController {
         layoutCollection.numberOfItemsPerLine = 2
         layoutCollection.aspectRatio = 1
         
-//        self.checkLocationServicePermission()
+        self.checkLocationServicePermission()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,11 +123,13 @@ class AccueilCommerces: UIViewController {
         navigationBarMenu.container = view
         didLoad = true
         
-        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage))]
+//        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage)), UIBarButtonItem(image: UIImage(named:"Logout_icon"), style: .plain, target: self, action: #selector(logOut(_:)))]
+//        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage)), UIBarButtonItem(image: UIImage(named:"Logout_icon"), style: .plain, target: self, action: #selector(logOut(_:)))]
     }
     
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
+        HelperAndKeys.showAlertWithMessage(theMessage: "Vous êtes bien déconnecté", title: "Deconnexion", viewController: self)
     }
     
     @IBAction func filterBarbuttonPressed(_ sender: Any) {
@@ -125,65 +137,11 @@ class AccueilCommerces: UIViewController {
         filterBulletinManager.presentBulletin(above: self)
     }
     
-    @objc func showConnectionPage(){
-        if let user = PFUser.current(){
-            // Utilisateur est déja connecté
-            print("Utilisateur déja crée : \(user.description)")
-            getFacebookInformations(user: user)
-        }else{
-            // Non connecté
-            self.showDialogConnection()
-        }
+    @IBAction func searchBarPressed(_ sender:Any){
+        print("Search")
     }
     
-    func getFacebookInformations(user : PFUser){
-        
-        let params = ["fields" : "email, name"]
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
-        
-        graphRequest?.start(completionHandler: { (request, result, error) in
-//            let err = error! as NSError
-            if (error == nil) {
-                // handle successful response
-                if let data = result as? [String:Any] {
-                    print("\(String(describing: data))")
-                    user["name"] = data["name"] as! String
-                    user["email"] = data["email"] as! String
-                    let facebookId = data["id"] as! String
-                    user["facebookId"] = facebookId
-                    user["profilePictureURL"] = "https://graph.facebook.com/" + facebookId + "/picture?type=large&return_ssl_resources=1"
-                    user.saveInBackground()
-                }
-            }
-//            else if (err.userInfo["error"]["type"] == "OAuthException") {
-//                // Since the request failed, we can check if it was due to an invalid session
-//                print("The facebook session was invalidated")
-//                PFFacebookUtils.unlinkUser(inBackground: PFUser.current()!)
-//            }
-            else {
-                print("Some other error: \(String(describing: error?.localizedDescription))")
-            }
-        })
-        
-        if let storyB = self.storyboard {
-            let destination : UIViewController!
-            
-            if user["isPro"] != nil {
-                let pro = user["isPro"] as! Bool
-                if pro == true {
-                    // Compte commerce
-                    destination = storyB.instantiateViewController(withIdentifier: "profil_commerce")
-                } else {
-                    // Compte utilisateur
-                    destination = storyB.instantiateViewController(withIdentifier: "profil_user")
-                }
-            } else {
-                destination = storyB.instantiateViewController(withIdentifier: "choose_type_compte")
-            }
-            
-            self.show(destination, sender: self)
-        }
-    }
+    
     
     func checkLocationServicePermission() {
         if CLLocationManager.locationServicesEnabled() {
@@ -218,6 +176,8 @@ class AccueilCommerces: UIViewController {
     }
     
     func queryObjectsFromDB(typeCategorie : String, withLocation : Bool){
+//        print("Function queryObject with location enabled : \(withLocation)")
+        
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.show(withStatus: "Chargement en cours")
@@ -225,14 +185,15 @@ class AccueilCommerces: UIViewController {
         self.commerces = []
         let query = PFQuery(className: "Commerce")
         query.whereKey("typeCommerce", equalTo: typeCategorie)
+        query.includeKeys(["thumbnailPrincipal", "photosSlider"])
         if withLocation{
-//            let userPosition = PFGeoPoint(location: latestLocationForQuery)
-//            query.whereKey("position", nearGeoPoint: userPosition)
+            let userPosition = PFGeoPoint(location: latestLocationForQuery)
+            query.whereKey("position", nearGeoPoint: userPosition)
+            
             query.order(byDescending: "position")
         }else{
             query.order(byAscending: "nombrePartages")
         }
-        query.includeKey("photosSlider")
         query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
             
             if error == nil {
@@ -244,15 +205,18 @@ class AccueilCommerces: UIViewController {
                         self.commerces.append(commerce)
                     }
                     
-                    let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: typeCategorie)
-                    self.headerTypeCommerceImage.image = headerImage
                     self.collectionView.reloadData()
                     SVProgressHUD.dismiss(withDelay: 1)
                 }
             } else {
                 if let err = error{
-//                    let _ = HelperAndKeys.handleParseError(errorCode: (error! as NSError).code)
-                    SVProgressHUD.showError(withStatus: err.localizedDescription)
+                    let nsError = err as NSError
+//                    if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
+                        PFUser.logOut()
+                        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.locationGranted)
+//                    }
+//                    let errorHandle = HelperAndKeys.handleParseError(error: (err as NSError))
+//                    SVProgressHUD.showError(withStatus: err.localizedDescription + " code : \(nsError.code)")
                     SVProgressHUD.dismiss(withDelay: 2)
                 }
             }
@@ -266,7 +230,7 @@ class AccueilCommerces: UIViewController {
             if let cell = sender as? UICollectionViewCell {
                 let indexPath = self.collectionView.indexPath(for: cell)!
                 let detailViewController = segue.destination as! DetailCommerceViewController
-                detailViewController.commerceObject = self.commerces[indexPath.row] // like this
+                detailViewController.commerceObject = self.commerces[indexPath.row]
             }
         }
     }
@@ -366,8 +330,19 @@ extension AccueilCommerces : DropDownMenuDelegate {
     @IBAction func choose(_ sender: AnyObject) {
         let itemChoose = (sender as! DropDownMenuCell).textLabel!.text
         titleView.title = itemChoose
+        titleChoose = itemChoose
         labelHeaderCategorie.text = itemChoose!
-        queryObjectsFromDB(typeCategorie: itemChoose!, withLocation: locationGranted)
+        let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
+        self.headerTypeCommerceImage.image = headerImage
+//        print(self.locationGranted)
+//        print("First Load Finished : \(HelperAndKeys.isAppFirstLoadFinished())")
+        
+        // Au premier chargement on ne fait pas de requette
+        if HelperAndKeys.isAppFirstLoadFinished() {
+            self.locationGranted = HelperAndKeys.hasGrantedLocationFilter()
+            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: self.locationGranted)
+        }
+        
         if didLoad {
             titleView.toggleMenu()
         }
@@ -400,21 +375,22 @@ extension AccueilCommerces : STLocationRequestControllerDelegate{
         switch event {
         case .locationRequestAuthorized:
             self.locationManager.startUpdatingLocation()
+            HelperAndKeys.setAppFirstLoadFinished()
             locationGranted = true
+            HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
+            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
             break
-        case .locationRequestDenied:
+        case .locationRequestDenied, .notNowButtonTapped:
+            HelperAndKeys.setAppFirstLoadFinished()
             locationGranted = false
+            HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
+            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
             break
-        case .notNowButtonTapped:
-            locationGranted = false
-            break
-        case .didPresented:
-            locationGranted = false
-            break
-        case .didDisappear:
-            locationGranted = false
+        case  .didPresented, .didDisappear:
             break
         }
+        
+        
     }
 }
 
@@ -431,86 +407,6 @@ extension AccueilCommerces: CLLocationManagerDelegate {
         self.latestLocationForQuery = locations.last
     }
     
-}
-
-extension AccueilCommerces : PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
-    func showDialogConnection(){
-        definesPresentationContext = true
-        // En vous inscrivant, vous pourrez profiter de tous les avantages de l'application, tels que les promotions des commerçants ou l'accès direct à vos commerces favoris.
-        let dialog = AZDialogViewController(title: "Connexion", message: "Veuillez vous connecter afin d'accéder à votre espace personnel")
-        dialog.dismissDirection = .bottom
-        dialog.dismissWithOutsideTouch = true
-        dialog.showSeparator = true
-        dialog.allowDragGesture = false
-        dialog.addAction(AZDialogAction(title: "Connexion") { (dialog) -> (Void) in
-            self.showParseUI()
-            dialog.dismiss()
-        })
-        dialog.cancelEnabled = true
-        dialog.cancelButtonStyle = { (button,height) in
-            button.setTitle("ANNULER", for: [])
-            return true // must return true, otherwise cancel button won't show.
-        }
-        dialog.show(in: self)
-    }
-    
-    func showParseUI(){
-        let logInController = PFLogInViewController()
-        logInController.delegate = self
-        logInController.fields = [PFLogInFields.usernameAndPassword,
-                                  PFLogInFields.logInButton,
-                                  PFLogInFields.signUpButton,
-                                  PFLogInFields.passwordForgotten,
-                                  PFLogInFields.dismissButton,
-                                  PFLogInFields.facebook]
-        logInController.emailAsUsername = true
-        logInController.facebookPermissions = ["email", "public_profile"]
-        logInController.logInView?.logo?.alpha = 0
-        
-        logInController.signUpController?.signUpView?.logo?.alpha = 0
-        
-        if let presented = self.presentedViewController {
-            presented.removeFromParentViewController()
-        }
-        
-        self.present(logInController, animated: true, completion: nil)
-    }
-
-    func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
-        self.getFacebookInformations(user: user)
-        print("Login")
-        logInController.dismiss(animated: true)
-        if let story = self.storyboard {
-            let nav = story.instantiateViewController(withIdentifier: "choose_type_compte") as! UINavigationController
-            self.present(nav, animated: true)
-        }
-//        print("succesful login : \(user.description)")
-    }
-    
-    func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
-        if let parseError = error{
-            let nserror = parseError as NSError
-            print("Erreur de login : \nCode (\(nserror.code))\n     -> \(nserror.localizedDescription)")
-        }
-    }
-    
-    // Inscription classique (par mail)
-    func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
-       print("succesful signup : \(user.description)")
-    }
-    
-    func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
-        if let parseError = error{
-            let nserror = parseError as NSError
-            print("Erreur de signup : \nCode (\(nserror.code))\n     -> \(nserror.localizedDescription)")
-        }
-    }
-    
-    // Fonction pour definir des mots de passe trop faibles
-    func signUpViewController(_ signUpController: PFSignUpViewController, shouldBeginSignUp info: [String : String]) -> Bool {
-        print("Aucune conditions particulières pour le mot de passe")
-        return true
-    }
 }
 
 extension UIView {

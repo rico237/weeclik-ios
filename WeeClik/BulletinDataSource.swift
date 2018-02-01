@@ -16,7 +16,7 @@ enum BulletinDataSource {
 
     // MARK: - Pages
     
-    static func makeFilterPage(isLocation : Bool) -> PageBulletinItem {
+    static func makeFilterPage() -> PageBulletinItem {
         
         let page = PageBulletinItem(title: "Préférence de filtrage")
         page.image = #imageLiteral(resourceName: "icon")
@@ -24,23 +24,22 @@ enum BulletinDataSource {
         
 //        print(isLocation)
         
-        page.descriptionText = isLocation ? "Vous avez choisit pour le moment d'afficher les commerces en fonction de votre position" : "Vous avez choisit pour le moment d'afficher les commerces en fonction de leur popularité"
-        page.actionButtonTitle = isLocation ? "Trier par popularité" : "Trier par position"
-        page.alternativeButtonTitle = "Annuler"
+        page.descriptionText = "Vous avez choisit pour le moment d'afficher les commerces en fonction de votre position"
+        page.actionButtonTitle = "Trier par position"
+        page.alternativeButtonTitle = "Nombre de partage"
         
         page.isDismissable = true
         
         return page
     }
     
-    static func makeIntroFilterPage() -> PageBulletinItem {
-        let page = PageBulletinItem(title: "Bienvenue sur WeeClik")
-        page.image = #imageLiteral(resourceName: "icon")
+    static func makeFilterNextPage() -> PageBulletinItem {
+        let page = PageBulletinItem(title: "Filtre enregistré")
+//        page.image = #imageLiteral(resourceName: "Certificate_valid_icon")
         page.imageAccessibilityLabel = "⚠️"
         
-        page.descriptionText = "Afin de vous offrir la meilleure expérience possible, préfériez-vous obtenir vos commerces selon votre position ou selon le plus grand nombre de partage ?"
-        page.actionButtonTitle = "Ma position"
-        page.alternativeButtonTitle = "Nombre de partage"
+        page.descriptionText = "Filtre enregistré avec succès, la liste des commerces va maintenant être rechargé"
+        page.actionButtonTitle = "OK"
         
         page.isDismissable = true
         

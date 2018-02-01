@@ -16,6 +16,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Alamofire (4.5.1)
+  - ASJExpandableTextView (0.4)
   - AZDialogView (1.1.6)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -27,6 +28,7 @@ PODS:
   - Compose (1.2.3)
   - CRNotifications (1.1.3)
   - DropDownMenuKit (0.8.4)
+  - FaceAware (1.3.0)
   - FBSDKCoreKit (4.27.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.27.0):
@@ -35,9 +37,8 @@ PODS:
     - FBSDKCoreKit
   - Font-Awesome-Swift (1.6.4)
   - FormSheetTextView (1.2.0)
-  - GooglePlacesSearchController (0.1.7)
   - KJNavigationViewAnimation (0.1.0)
-  - KRLCollectionViewGridLayout (0.4.1)
+  - KRLCollectionViewGridLayout (1.0.0)
   - ObjectMapper (3.0.0)
   - Parse (1.15.3):
     - Bolts/Tasks (~> 1.8)
@@ -63,26 +64,27 @@ PODS:
   - SwiftMailgun (1.0.1):
     - Alamofire
     - ObjectMapper
-  - TGLParallaxCarousel (1.0.0)
+  - TLPhotoPicker (1.3.4)
   - TPKeyboardAvoiding (1.3.1)
   - ZKCarousel (0.1.0)
 
 DEPENDENCIES:
   - AABlurAlertController (~> 1.2)
   - AFNetworking
+  - ASJExpandableTextView (~> 0.4)
   - AZDialogView (~> 1.1)
   - Bolts (~> 1.8)
   - BulletinBoard (from `https://github.com/alexaubry/BulletinBoard.git`)
   - Compose (~> 1.2)
   - CRNotifications (from `https://github.com/dkcas11/CRNotifications.git`)
   - DropDownMenuKit (~> 0.8.4)
+  - FaceAware (from `https://github.com/BeauNouvelle/FaceAware.git`)
   - FBSDKCoreKit (~> 4.23)
   - FBSDKLoginKit (~> 4.23)
   - FBSDKShareKit (~> 4.23)
   - FormSheetTextView (~> 1.0)
-  - GooglePlacesSearchController
   - KJNavigationViewAnimation (from `https://github.com/KiranJasvanee/KJNavigationViewAnimation.git`)
-  - KRLCollectionViewGridLayout (~> 0.4)
+  - KRLCollectionViewGridLayout (~> 1.0)
   - Parse (~> 1.14)
   - ParseFacebookUtilsV4 (~> 1.11)
   - ParseUI (~> 1.2)
@@ -92,8 +94,8 @@ DEPENDENCIES:
   - STLocationRequest (~> 1.4)
   - SVProgressHUD (~> 2.1)
   - SwiftMailgun (~> 1.0)
-  - TGLParallaxCarousel (from `https://github.com/taglia3/TGLParallaxCarousel.git`)
-  - TPKeyboardAvoiding (from `https://github.com/JoakimLiu/TPKeyboardAvoiding.git`)
+  - TLPhotoPicker (~> 1.3.4)
+  - TPKeyboardAvoiding (from `https://github.com/michaeltyson/TPKeyboardAvoiding.git`)
   - ZKCarousel (~> 0.1)
 
 EXTERNAL SOURCES:
@@ -101,14 +103,14 @@ EXTERNAL SOURCES:
     :git: https://github.com/alexaubry/BulletinBoard.git
   CRNotifications:
     :git: https://github.com/dkcas11/CRNotifications.git
+  FaceAware:
+    :git: https://github.com/BeauNouvelle/FaceAware.git
   KJNavigationViewAnimation:
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
   Sparrow:
     :git: https://github.com/IvanVorobei/Sparrow.git
-  TGLParallaxCarousel:
-    :git: https://github.com/taglia3/TGLParallaxCarousel.git
   TPKeyboardAvoiding:
-    :git: https://github.com/JoakimLiu/TPKeyboardAvoiding.git
+    :git: https://github.com/michaeltyson/TPKeyboardAvoiding.git
 
 CHECKOUT OPTIONS:
   BulletinBoard:
@@ -117,37 +119,38 @@ CHECKOUT OPTIONS:
   CRNotifications:
     :commit: cf1c03e1a6f7e3d9b3cb4d3bc3dcc4d3927f8444
     :git: https://github.com/dkcas11/CRNotifications.git
+  FaceAware:
+    :commit: 1694516aaabfb28349a686e5d4d54ed65fdec844
+    :git: https://github.com/BeauNouvelle/FaceAware.git
   KJNavigationViewAnimation:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
   Sparrow:
     :commit: 7415a10e150d6344a10b11572d0d85f3df83319c
     :git: https://github.com/IvanVorobei/Sparrow.git
-  TGLParallaxCarousel:
-    :commit: 521d166a6cc2e9098f67ed2aa69c146f948140e8
-    :git: https://github.com/taglia3/TGLParallaxCarousel.git
   TPKeyboardAvoiding:
-    :commit: f374aac412ca0e99e5540bcb37bf5a354afc7da4
-    :git: https://github.com/JoakimLiu/TPKeyboardAvoiding.git
+    :commit: 7bb8adb26a529bf4eb228b9714456cde84ea2d0b
+    :git: https://github.com/michaeltyson/TPKeyboardAvoiding.git
 
 SPEC CHECKSUMS:
   AABlurAlertController: 7463fc59d9906e07040439d2bc80c56f313a3fa4
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  ASJExpandableTextView: bfc429e37d4835e628127d3aa09a5e6971e9bfe4
   AZDialogView: 42731f7c9c7d38dab12c8823afd2236edb6f798a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   BulletinBoard: 54365043ff1ad71a6cfc3ec796a5c1ce507d71ea
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
   CRNotifications: d2a800776785d0ed651ab680776e036bc251493a
   DropDownMenuKit: 3800deee46883bb09725376d987900768532f588
+  FaceAware: 4229821b9fba4336598f32273ed9ec4e463428c6
   FBSDKCoreKit: ebc6c5f5b3f0e72396041050e2266781a38ac587
   FBSDKLoginKit: 887be4b7452e1c5a3cc4485ce152529965a0c41e
   FBSDKShareKit: 4f83956d4ca2960730fe7588a168eb8d535c06dc
   Font-Awesome-Swift: 86c5ec8d1e251b834fb2b2e34cdcb1f480ade751
   FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
-  GooglePlacesSearchController: 0ac4fedf1582d2e44329c417a6eed80ccf62d716
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
-  KRLCollectionViewGridLayout: 6363dc7e3d91cf1f97e19ed20846764566659596
+  KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
   Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
@@ -158,10 +161,10 @@ SPEC CHECKSUMS:
   STLocationRequest: 8da5c62df4bb7b148dedce464ea2c53cf561ae2d
   SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
   SwiftMailgun: 311a28057e0ced2dbcfbc8320e4aa282511877d2
-  TGLParallaxCarousel: 94c8b4f271f0c1a1a3d973da1206f31771255e44
+  TLPhotoPicker: a211c287ebd065566ddf570fc0724f6e683b967e
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
   ZKCarousel: 36143c4667c89c70c89ccda9e1e01af2fcbb5a9e
 
-PODFILE CHECKSUM: cf3af76bbcb373a1b6c058f29b0dc93f7cbe3a82
+PODFILE CHECKSUM: 8419413bdb2b13e31a051807f727233b8287ab60
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

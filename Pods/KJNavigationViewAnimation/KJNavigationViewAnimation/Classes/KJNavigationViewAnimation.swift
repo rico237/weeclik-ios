@@ -421,7 +421,7 @@ extension KJNavigationViewAnimation {
         let progressUpTo = self.HEIGHT_OF_CUSTOMVIEW_BEFORE_ANIMATION-self.HEIGHT_OF_CUSTOMVIEW_AFTER_ANIMATION
         let progressReached = Float(self.constraintHeightOfNavigationView.constant)-self.HEIGHT_OF_CUSTOMVIEW_AFTER_ANIMATION
         let alphaForAppearance = 1.0-(progressReached/progressUpTo)
-        print(alphaForAppearance)
+//        print(alphaForAppearance)
         for view in self.instancesAffectsForAppearance {
             view.alpha = CGFloat(alphaForAppearance)
         }

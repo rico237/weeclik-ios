@@ -1,0 +1,6 @@
+framework module ASJExpandableTextView {
+  umbrella header "ASJExpandableTextView-umbrella.h"
+
+  export *
+  module * { export * }
+}

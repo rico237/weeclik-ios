@@ -241,16 +241,19 @@ class HelperAndKeys {
         return secondsBetween / secondsInHour
     }
     
-    static func getListOfCategories() -> Array<String>{
+    static func getListOfCategories() -> [String]{
         return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme"]
     }
     
-    static func handleParseError(errorCode: Int) -> String{
-        switch errorCode {
+    static func handleParseError(error: NSError) -> String{
+        switch error.code {
         case PFErrorCode.errorConnectionFailed.rawValue :
             return "Il y a eu un problème de connexion veuillez réessayer plus tard."
+        case PFErrorCode.errorInvalidSessionToken.rawValue :
+            PFUser.logOut()
+            return "Il y a eu un problème de connexion veuillez réessayer."
         default:
-            return ""
+            return error.localizedDescription + " code : \(error.code)"
         }
     }
     
@@ -268,6 +271,28 @@ class HelperAndKeys {
     static func sendBugReport(message: String){
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         print("Créer une fonction de bug report avec le detail + la version de l'app : \(versionNumber)")
+    }
+    
+    static func isAppFirstLoadFinished() -> Bool{
+        let use = UserDefaults.standard
+        return use.bool(forKey: "isAppFirstLoad")
+    }
+    
+    static func setAppFirstLoadFinished(){
+        let use = UserDefaults.standard
+        use.set(true, forKey: "isAppFirstLoad")
+        use.synchronize()
+    }
+    
+    static func hasGrantedLocationFilter() -> Bool{
+        let use = UserDefaults.standard
+        return use.bool(forKey: "filterPreference")
+    }
+    
+    static func setLocationFilterPreference(locationGranted: Bool){
+        let use = UserDefaults.standard
+        use.set(locationGranted, forKey: "filterPreference")
+        use.synchronize()
     }
     
     static func logOutUser(){

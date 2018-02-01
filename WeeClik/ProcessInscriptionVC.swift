@@ -9,6 +9,15 @@
 import UIKit
 
 class ProcessInscriptionVC: UIViewController {
+    var viewController : UIViewController? = nil
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let vc = viewController {
+            vc.dismiss(animated: false)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let dest = segue.destination as! SaisieDeDonneesVC
         if let ide = segue.identifier{

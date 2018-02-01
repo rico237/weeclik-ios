@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0910"
+   LastUpgradeVersion = "0920"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "93FC804623A37144A73400513A126874"
+               BlueprintIdentifier = "447B072232052CDDD00E148172B0A7CB"
                BuildableName = "ZKCarousel.framework"
                BlueprintName = "ZKCarousel"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "93FC804623A37144A73400513A126874"
+            BlueprintIdentifier = "447B072232052CDDD00E148172B0A7CB"
             BuildableName = "ZKCarousel.framework"
             BlueprintName = "ZKCarousel"
             ReferencedContainer = "container:Pods.xcodeproj">

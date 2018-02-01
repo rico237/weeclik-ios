@@ -103,14 +103,11 @@
       "scale" : "2x"
     },
     {
-<<<<<<< HEAD
       "idiom" : "ios-marketing",
       "size" : "1024x1024",
-=======
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
       "filename" : "iTunesArtwork@2x.png",
->>>>>>> e4745b20ddf58a72c3b4c88d8f36a5229da7e14f
       "scale" : "1x"
     }
   ],

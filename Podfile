@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'WeeClik' do
   use_frameworks!
@@ -25,8 +25,8 @@ target 'WeeClik' do
   pod 'RAReorderableLayout', '~> 0.6'
   
   pod 'KJNavigationViewAnimation', :git => 'https://github.com/KiranJasvanee/KJNavigationViewAnimation.git'
-  
-  pod 'KRLCollectionViewGridLayout', '~> 0.4'
+  # Pour de bonnes grille en fonction de l'écran
+  pod 'KRLCollectionViewGridLayout', '~> 1.0'
   # Composition de message
   pod 'FormSheetTextView', '~> 1.0'
   # Popup action with blured background
@@ -42,7 +42,7 @@ target 'WeeClik' do
   # Carrousel de démo à la connexion
   pod 'ZKCarousel', '~> 0.1'
   # Carrousel en parallax
-  pod 'TGLParallaxCarousel', :git => 'https://github.com/taglia3/TGLParallaxCarousel.git'
+  #pod 'TGLParallaxCarousel', :git => 'https://github.com/taglia3/TGLParallaxCarousel.git'
   # AlertController with blur
   pod 'AABlurAlertController', '~> 1.2'
   # Notification pour le partage de nouveau activé
@@ -50,7 +50,11 @@ target 'WeeClik' do
   # Carte pour les filtres
   pod 'BulletinBoard', :git => 'https://github.com/alexaubry/BulletinBoard.git'
   # Scroll automatique pour faciliter l'utilisation du clavier
-  pod 'TPKeyboardAvoiding', :git => 'https://github.com/JoakimLiu/TPKeyboardAvoiding.git'
-  # Chercher le nom d'une ville
-  pod 'GooglePlacesSearchController', '~> 0.1'
+  pod 'TPKeyboardAvoiding', :git => 'https://github.com/michaeltyson/TPKeyboardAvoiding.git'
+  # Choisir une photo dans la bibliothèque du téléphone
+  pod 'TLPhotoPicker', '~> 1.3.4'
+  # Positionner les photos de profil en fonction du visage (detection du visage)
+  pod 'FaceAware', :git => 'https://github.com/BeauNouvelle/FaceAware.git'
+  # UITextView agrandit avec le text + Placeholder
+  pod 'ASJExpandableTextView', '~> 0.4'
 end
