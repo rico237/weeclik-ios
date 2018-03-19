@@ -16,12 +16,19 @@ import UIKit
 import Parse
 import MessageUI
 import MapKit
+import LGButton
 
 class DetailCommerceViewController: UIViewController {
+    
+    
+    @IBOutlet weak var shareButton: LGButton!
     
     var commerceObject : Commerce!
     var commerceID : String!
     let userDefaults : UserDefaults = UserDefaults.standard
+    
+    @IBOutlet weak var imageScroller: ImageScroller!
+    @IBOutlet weak var pageIndicatorLabel: UILabel!
     
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var mailButton: UIButton!
@@ -32,41 +39,67 @@ class DetailCommerceViewController: UIViewController {
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var nomCommerceLabel: UILabel!
     @IBOutlet weak var categorieLabel: UILabel!
-    @IBOutlet weak var videoButton: UIButton!
+//    @IBOutlet weak var headerMapIcon: UIImageView!
+    @IBOutlet weak var headerPartagesLabel: UILabel!
+//    @IBOutlet weak var headerPartageIcon: UIImageView!
+    @IBOutlet weak var headerDistanceLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
-    var promotionsH : CGFloat = 0.0
-    var descriptionH : CGFloat = 0.0
+//    var sampleImagesUrls = ["https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5a87b630333405.563390560768a.jpg",
+//                            "https://mir-s3-cdn-cf.behance.net/project_modules/fs/3b10c357981735.59eda2fb7d7c5.jpg",
+//                            "https://cdn.dribbble.com/users/237483/screenshots/3233293/treetop.png",
+//                            "https://cdn.dribbble.com/users/237483/screenshots/3086220/attachments/651074/whatashittyyear-attach.png",
+//                            "https://cdn.dribbble.com/users/237483/screenshots/4065365/breakfast.png",
+//                            "https://cdn.dribbble.com/users/237483/screenshots/2823366/bixbycanyonbridge.png"]
+    var sampleImagesUrls = [String]()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        updateAllViews()
-        self.tableView.reloadData()
-    }
+    var promotionsH  : CGFloat = 0.0
+    var descriptionH : CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0)
+        
         self.view.backgroundColor = HelperAndKeys.getBackgroundColor()
         
+        // Share actions
+        self.shareButton.addTarget(self, action: #selector(shareCommerce), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Share_icon") , style: .plain, target: self, action: #selector(shareCommerce))
         
         self.nomCommerceLabel.text = commerceObject.nom
-        self.categorieLabel.text = commerceObject.type
+        self.categorieLabel.text   = commerceObject.type
+
+        initScrollersAndGalleries()
         
         self.title = "Weeclik"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         updateAllViews()
+        
+        
+        // Refresh UI
+        self.tableView.reloadData()
+    }
+    
+    func initScrollersAndGalleries(){
+        self.imageScroller.isAutoScrollEnabled  = true
+        self.imageScroller.isAutoLoadingEnabled = true
+        self.imageScroller.scrollTimeInterval   = 2.0
+        self.imageScroller.scrollView.bounces   = false
     }
     
     @objc func updateAllViews(){
         // Mise a jour de notre variable globale pour l'ensemble de nos fonctions
-        commerceID = commerceObject.objectId.description
+        commerceID = self.commerceObject.objectId.description
         
-        // Cache le bouton vidéo si aucune video n'est présente
-        videoButton.alpha = commerceObject.videosCommerce == nil ? 0:1
-        videoButton.isEnabled = commerceObject.videosCommerce == nil ? false:true
+        // Charger les photos dans le slider
+        loadPhotosFromDB()
+        loadSliderFromFetchedPhotos()
     }
     
     func saveCommerceIdInUserDefaults(){
@@ -77,18 +110,43 @@ class DetailCommerceViewController: UIViewController {
         self.tableView.reloadData()
     }
     
+    func loadSliderFromFetchedPhotos(){
+        if sampleImagesUrls.count > 1{
+            imageScroller.setupScrollerWithImages(images: sampleImagesUrls)
+        }
+    }
+    
+    func loadPhotosFromDB(){
+        let queryPhotos = PFQuery(className: "Commerce_Photos")
+        queryPhotos.whereKey("commerce", equalTo: self.commerceObject.pfObject)
+        queryPhotos.order(byDescending: "updatedAt")
+        queryPhotos.findObjectsInBackground { (objects, err) in
+            if (err != nil) {
+                // TODO: Error Handling
+                print("Erreur de chargement du slider => \(String(describing: err?.localizedDescription))")
+            } else {
+                if objects != nil {
+                    // TEST:
+                    self.sampleImagesUrls = []
+                    for obj in objects!{
+                        let fileUrl = (obj["photo"] as? PFFile)?.url
+                        if fileUrl != nil {
+                            self.sampleImagesUrls.append(fileUrl!)
+                        }
+                    }
+                    //print("Sample urls : \n    \(self.sampleImagesUrls)")
+                    self.loadSliderFromFetchedPhotos()
+                }
+            }
+        }
+    }
+    
     @objc func shareCommerce(){
         if HelperAndKeys.canShareAgain(objectId: commerceID){
-            if MFMessageComposeViewController.canSendText(){
-                let composeVC = MFMessageComposeViewController()
-                composeVC.messageComposeDelegate = self
-                // Configure the fields of the interface.
-                composeVC.body = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse)"
-                // Present the view controller modally.
-                self.present(composeVC, animated: true, completion: nil)
-            }else{
-                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors du partage par SMS", title: "Erreur", viewController: self)
-            }
+            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse)"
+            let activit = UIActivityViewController(activityItems: [str], applicationActivities: nil)
+            self.present(activit, animated: true, completion: nil)
+            
         } else {
             // Attendre avant de partager
             let date = HelperAndKeys.getSharingStringDate(objectId: commerceID)
@@ -97,52 +155,22 @@ class DetailCommerceViewController: UIViewController {
         }
     }
     
-    // Voir toutes les photos en plein écran
+    // Voir toutes la liste des photos et vidéos
     @IBAction func showSlideShow(_ sender: Any) {
-        
-    }
-    
-    // Lire la vidéo en plein écran
-    @IBAction func showVideoCommerce(_ sender: Any) {
-        
+
     }
 }
 
 extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSource{
     
-    var sections : Int {get {return 3 }}
-    var heightForHeaderAndFooter : CGFloat {get {return 25/4 }}
+    var sections : Int {get {return 3}}
+    var heightForHeaderAndFooter : CGFloat {get {return 25/4}}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var identifier = "PromotionsCell"
+        var identifier = "ShareButtonCell"
         
         var cell : UITableViewCell
-        
         if indexPath.section == 1 {
-            identifier = "InfosGeneral"
-            cell = (tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? InformationGeneralCell)!
-            if self.commerceObject != nil{
-                let scell = cell as! InformationGeneralCell
-                scell.mailLabel.text = self.commerceObject.mail
-                scell.adresseLabel.text = self.commerceObject.adresse
-                scell.telLabel.text = self.commerceObject.tel
-                scell.webLabel.text = self.commerceObject.siteWeb
-                
-                if let imageThumbnailFile = self.commerceObject.thumbnail {
-                    self.headerImage.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-                }
-                else if let coverPhoto = self.commerceObject.coverPhoto{
-                    self.headerImage.sd_setImage(with: URL(string: coverPhoto.url!))
-                }
-                else {
-                    self.headerImage.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: self.commerceObject.type)
-                }
-                
-                let back = cell.viewWithTag(77)
-                back?.setCardView(view: back!)
-            }
-        }
-        else if indexPath.section == 0{
             identifier = "PromotionsCell"
             cell = (tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? PromotionsCell)!
             if self.commerceObject != nil{
@@ -160,7 +188,7 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
                 self.promotionsH = newSize.height
                 scell.promotionTextView.frame = newFrame
                 
-                scell.alreadyShared.image = HelperAndKeys.canShareAgain(objectId: commerceID) ? UIImage(named: "Certificate_icon") : UIImage(named: "Certificate_valid_icon")
+                scell.alreadyShared.image = HelperAndKeys.canShareAgain(objectId: self.commerceObject.objectId.description) ? UIImage(named: "Certificate_icon") : UIImage(named: "Certificate_valid_icon")
                 
                 let back = cell.viewWithTag(88)
                 back?.setCardView(view: back!)
@@ -199,9 +227,9 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return 1}
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1{
-            return 236
-        } else if indexPath.section == 0 {
+        if indexPath.section == 0{
+            return 74
+        } else if indexPath.section == 1 {
             return self.promotionsH + 52 // 50 = Marges haut et bas + le label "Promotions"
         } else if indexPath.section == 2 {
             return self.descriptionH + 42
@@ -212,12 +240,16 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
     
     func numberOfSections(in tableView: UITableView) -> Int {return sections}
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 0 ? heightForHeaderAndFooter*2 : heightForHeaderAndFooter
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == sections-1 ? heightForHeaderAndFooter*2 : heightForHeaderAndFooter
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == self.sections-1 {
+            return 0
+        } else {
+            return section == 0 ? 0 : heightForHeaderAndFooter
+        }
     }
 }
 
@@ -296,7 +328,7 @@ extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{
             HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.", title: "Erreur", viewController: self)
             break
         case .sent:
-            HelperAndKeys.showAlertWithMessage(theMessage: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion. Il sera valable jusqu'au : \n", title: "Merci pour votre confiance", viewController: self)
+            HelperAndKeys.showAlertWithMessage(theMessage: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.", title: "Merci pour votre confiance", viewController: self)
             // On a bien partagé -> sauvegarde dans le UserDefaults
 //            saveCommerceIdInUserDefaults(viewController: self)
             break
@@ -304,3 +336,4 @@ extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{
         controller.dismiss(animated: true, completion: nil)
     }
 }
+

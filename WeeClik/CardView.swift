@@ -31,7 +31,6 @@ class CardView: UIView {
     
     @IBInspectable var shadowOffsetWidth: Int = 0
     @IBInspectable var shadowOffsetHeight: Int = 3
-    @IBInspectable var shadowColor: UIColor? = UIColor.black
     @IBInspectable var shadowOpacity: Float = 0.5
     
     override func layoutSubviews() {
@@ -39,7 +38,7 @@ class CardView: UIView {
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         
         layer.masksToBounds = false
-        layer.shadowColor = shadowColor?.cgColor
+        layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
         layer.shadowOpacity = shadowOpacity
         layer.shadowPath = shadowPath.cgPath

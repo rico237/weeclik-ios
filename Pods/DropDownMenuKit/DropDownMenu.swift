@@ -99,6 +99,7 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 		didSet {
 			oldValue?.removeFromSuperview()
 			backgroundView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
 			if let backgroundView = backgroundView {
 				insertSubview(backgroundView, belowSubview: contentView)
 			}
@@ -118,6 +119,7 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 		menuView.bounces = false
 		menuView.showsVerticalScrollIndicator = true
 		menuView.showsHorizontalScrollIndicator = false
+        menuView.backgroundColor = UIColor.clear
 
 		contentView.addSubview(menuView)
 
@@ -129,7 +131,7 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 
 		menuView.dataSource = self
 		menuView.delegate = self
-
+        
 		autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		isHidden = true
 
@@ -268,7 +270,11 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 	}
 
 	open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return menuCells[indexPath.row]
+        let cell = menuCells[indexPath.row]
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.textColor = UIColor.darkGray
+        cell.backgroundColor = UIColor(hex: "A6E3FF")
+		return cell
 	}
 	
 	open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {

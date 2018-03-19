@@ -29,6 +29,8 @@ import BulletinBoard
 
 class AccueilCommerces: UIViewController {
 
+    let columnLayout = GridFlowLayout(cellsPerRow: 2, minimumInteritemSpacing: 10, minimumLineSpacing: 10, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    
     var titleView       : DropDownTitleView!
     var toutesCat       : Array<String>!
     var catCells        : Array<DropDownMenuCell> = []
@@ -50,10 +52,6 @@ class AccueilCommerces: UIViewController {
     @IBOutlet var navigationBarMenu: DropDownMenu!
     @IBOutlet weak var viewKJNavigation: KJNavigationViewAnimation!
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    var layoutCollection: KRLCollectionViewGridLayout {
-        return self.collectionView?.collectionViewLayout as! KRLCollectionViewGridLayout
-    }
     
     var introBulletin = BulletinDataSource.makeFilterNextPage()
     
@@ -91,7 +89,16 @@ class AccueilCommerces: UIViewController {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
         
+        self.collectionView.delegate   = self
+        self.collectionView.dataSource = self
         self.collectionView.backgroundColor  = HelperAndKeys.getBackgroundColor()
+        self.collectionView.collectionViewLayout = columnLayout
+        if #available(iOS 11.0, *) {
+            self.collectionView.contentInsetAdjustmentBehavior = .always
+        } else {
+            // Fallback on earlier versions
+        }
+//        self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "commerceCell")
         
         // Liste toutes les catégories possibles
         toutesCat = HelperAndKeys.getListOfCategories()
@@ -99,8 +106,6 @@ class AccueilCommerces: UIViewController {
         
         // Creation du Menu catégories
         viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
-        collectionView.delegate   = self
-        collectionView.dataSource = self
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
         
@@ -108,20 +113,16 @@ class AccueilCommerces: UIViewController {
         let title = prepareNavigationBarMenuTitleView()
         prepareNavigationBarMenu(title)
         
-        
-        // Mise en place de la taille des cellules pour chaque commerce (notre grille de commerce)
-        let inset = 10 as CGFloat
-        layoutCollection.sectionInset = UIEdgeInsets(top: inset*2, left: inset, bottom: inset*2, right: inset)
-        layoutCollection.numberOfItemsPerLine = 2
-        layoutCollection.aspectRatio = 1
-        
         self.checkLocationServicePermission()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationBarMenu.container = view
         didLoad = true
+        
+        
         
 //        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage)), UIBarButtonItem(image: UIImage(named:"Logout_icon"), style: .plain, target: self, action: #selector(logOut(_:)))]
 //        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage)), UIBarButtonItem(image: UIImage(named:"Logout_icon"), style: .plain, target: self, action: #selector(logOut(_:)))]
@@ -186,13 +187,13 @@ class AccueilCommerces: UIViewController {
         let query = PFQuery(className: "Commerce")
         query.whereKey("typeCommerce", equalTo: typeCategorie)
         query.includeKeys(["thumbnailPrincipal", "photosSlider"])
-        if withLocation{
+        if withLocation {
             let userPosition = PFGeoPoint(location: latestLocationForQuery)
             query.whereKey("position", nearGeoPoint: userPosition)
-            
+
             query.order(byDescending: "position")
-        }else{
-            query.order(byAscending: "nombrePartages")
+        } else {
+            query.order(byDescending: "nombrePartages")
         }
         query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
             
@@ -242,34 +243,30 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! CommerceViewCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! AccueilCollectionViewCell
+
         let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
-        
+
         let comm = self.commerces[indexPath.row]
-        
+
         // Ajout du contenu (valeures)
         cell.nomCommerce.text = comm.nom
         cell.nombrePartageLabel.text = String(comm.partages)
-        
+
         // Ajout de couleur
         cell.nomCommerce.textColor = textColor
         cell.nombrePartageLabel.textColor = textColor
-        
+
         if let imageThumbnailFile = comm.thumbnail {
             cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-        }else if let coverPhoto = comm.coverPhoto{
+        } else if let coverPhoto = comm.coverPhoto {
             cell.thumbnailPicture.sd_setImage(with: URL(string: coverPhoto.url!))
-        }
-        else {
+        } else {
             cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
         }
-        
-        
-        let background = cell.viewWithTag(999)!
-        background.setCardView(view: background)
         return cell
     }
+
 }
 
 extension AccueilCommerces : DropDownMenuDelegate {
@@ -413,17 +410,5 @@ extension UIView {
     func setCardView(view : UIView){
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 3;
-    }
-    
-    func setShadow(view : UIView){
-        
-        view.layer.cornerRadius = 0
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 0)
-        
-        view.layer.masksToBounds = false
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 20, height: 20);
-        view.layer.shadowOpacity = 1
-        view.layer.shadowPath = shadowPath.cgPath
     }
 }

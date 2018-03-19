@@ -39,6 +39,7 @@ open class DropDownTitleView : UIControl {
 
 		titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
 		titleLabel.textColor = UIColor.white
+        titleLabel.textAlignment = .center
 
 		return titleLabel
 	}()

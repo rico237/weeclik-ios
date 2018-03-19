@@ -1,0 +1,6 @@
+framework module HWAlertsPickers {
+  umbrella header "HWAlertsPickers-umbrella.h"
+
+  export *
+  module * { export * }
+}

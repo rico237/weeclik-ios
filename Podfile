@@ -14,7 +14,7 @@ target 'WeeClik' do
   pod 'ParseFacebookUtilsV4', '~> 1.11'
   pod 'SDWebImage', '~> 4.0'
   pod 'SVProgressHUD', '~> 2.1'
-  pod 'AFNetworking'
+  #pod 'AFNetworking'
   #pod 'mailgun', '~> 1.0.3'
   
   # Pour la page recherche
@@ -41,8 +41,6 @@ target 'WeeClik' do
   pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
   # Carrousel de démo à la connexion
   pod 'ZKCarousel', '~> 0.1'
-  # Carrousel en parallax
-  #pod 'TGLParallaxCarousel', :git => 'https://github.com/taglia3/TGLParallaxCarousel.git'
   # AlertController with blur
   pod 'AABlurAlertController', '~> 1.2'
   # Notification pour le partage de nouveau activé
@@ -57,4 +55,21 @@ target 'WeeClik' do
   pod 'FaceAware', :git => 'https://github.com/BeauNouvelle/FaceAware.git'
   # UITextView agrandit avec le text + Placeholder
   pod 'ASJExpandableTextView', '~> 0.4'
+  # Actions et Alerts
+  # ou pod 'RLBAlertsPickers', '~> 1.0'
+  pod 'HWAlertsPickers', :git => 'https://github.com/rico237/Alerts-Pickers.git'
+  # Acid buttons
+  pod 'LGButton', '~> 1.0'
+  # Palette de couleures
+  pod 'Hue', '~> 3.0'
+  # Bouttons de chargement (avec progres)
+  pod 'CRNetworkButton', '~> 1.0'
+  # Boutton flottant
+  pod 'Floaty', '~> 4.0.0'
+  # Message sous la barre de navigation
+  pod 'Zingle', :git => 'https://github.com/hemangshah/Zingle.git'
+  # Many Usefull UI/UX Elements
+  pod 'Material', '~> 2.0'
+  # Tableview quand il n'ya pas de donnés
+  pod 'DZNEmptyDataSet'
 end
