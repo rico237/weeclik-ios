@@ -190,7 +190,7 @@ class AccueilCommerces: UIViewController {
         if withLocation {
             let userPosition = PFGeoPoint(location: latestLocationForQuery)
             query.whereKey("position", nearGeoPoint: userPosition)
-
+            
             query.order(byDescending: "position")
         } else {
             query.order(byDescending: "nombrePartages")
@@ -251,7 +251,17 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
 
         // Ajout du contenu (valeures)
         cell.nomCommerce.text = comm.nom
-        cell.nombrePartageLabel.text = String(comm.partages)
+        
+        if self.prefFiltreLocation {
+            // Filtré par positions
+            cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
+            cell.imagePartage.image = UIImage(named: "Map_Icon")
+        } else {
+            // Filtré par nombre de partages
+            cell.nombrePartageLabel.text = String(comm.partages)
+            cell.imagePartage.image = UIImage(named: "PartagesIcon")
+        }
+        
 
         // Ajout de couleur
         cell.nomCommerce.textColor = textColor
@@ -259,14 +269,20 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
 
         if let imageThumbnailFile = comm.thumbnail {
             cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-        } else if let coverPhoto = comm.coverPhoto {
+        }
+        else if let coverPhoto = comm.coverPhoto {
             cell.thumbnailPicture.sd_setImage(with: URL(string: coverPhoto.url!))
-        } else {
+        }
+        else {
             cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
         }
         return cell
     }
 
+    func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
+        
+        return ""
+    }
 }
 
 extension AccueilCommerces : DropDownMenuDelegate {

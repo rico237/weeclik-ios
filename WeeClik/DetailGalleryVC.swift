@@ -111,9 +111,9 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return UIColor.init(hex: "#F0F3F5")
     }
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
-        return NSAttributedString(string: "Envoyer")
-    }
+//    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
+//        return NSAttributedString(string: "Envoyer")
+//    }
 //    func customView(forEmptyDataSet scrollView: UIScrollView!) -> UIView! {
 //
 //    }
