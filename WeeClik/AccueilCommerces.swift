@@ -43,6 +43,7 @@ class AccueilCommerces: UIViewController {
     var locationGranted : Bool! = false     // On a obtenu la position de l'utilisateur
     let locationManager = CLLocationManager()
     var latestLocationForQuery : CLLocation!
+    let defaults        = UserDefaults.standard
     var prefFiltreLocation = false            // Savoir si les commerces sont filtrés par location ou partages
     var titleChoose : String! = ""
     
@@ -68,7 +69,6 @@ class AccueilCommerces: UIViewController {
         }
         bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
             // Action par nombre
-//            print(self.prefFiltreLocation)
             if self.prefFiltreLocation == true {
                 self.prefFiltreLocation = !self.prefFiltreLocation
             }
@@ -76,6 +76,10 @@ class AccueilCommerces: UIViewController {
         }
         introBulletin.actionHandler = { (item : BulletinItem) in
             item.manager?.dismissBulletin(animated:true)
+            
+            self.defaults.set(self.prefFiltreLocation, forKey: HelperAndKeys.getLocationPreferenceKey())
+            self.defaults.synchronize()
+            
             self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.prefFiltreLocation)
         }
         bulletinPageIntro.nextItem = introBulletin
@@ -98,7 +102,17 @@ class AccueilCommerces: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-//        self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "commerceCell")
+        
+        // Choisir le filtrage par defaut (Position ou partage)
+        if defaults.contains(key: HelperAndKeys.getLocationPreferenceKey()) {
+            // la clé existe donc on peut recuperer la valeure
+            prefFiltreLocation = defaults.bool(forKey: HelperAndKeys.getLocationPreferenceKey())
+        } else {
+            // la clé n'existe pas
+            defaults.set(prefFiltreLocation, forKey: HelperAndKeys.getLocationPreferenceKey())
+            defaults.synchronize()
+        }
+        
         
         // Liste toutes les catégories possibles
         toutesCat = HelperAndKeys.getListOfCategories()
@@ -138,11 +152,9 @@ class AccueilCommerces: UIViewController {
         filterBulletinManager.presentBulletin(above: self)
     }
     
-    @IBAction func searchBarPressed(_ sender:Any){
+    @IBAction func searchBarButtonPressed(_ sender:Any){
         print("Search")
     }
-    
-    
     
     func checkLocationServicePermission() {
         if CLLocationManager.locationServicesEnabled() {
@@ -177,7 +189,6 @@ class AccueilCommerces: UIViewController {
     }
     
     func queryObjectsFromDB(typeCategorie : String, withLocation : Bool){
-//        print("Function queryObject with location enabled : \(withLocation)")
         
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
@@ -190,8 +201,8 @@ class AccueilCommerces: UIViewController {
         if withLocation {
             let userPosition = PFGeoPoint(location: latestLocationForQuery)
             query.whereKey("position", nearGeoPoint: userPosition)
+            query.order(byAscending: "position")
             
-            query.order(byDescending: "position")
         } else {
             query.order(byDescending: "nombrePartages")
         }
@@ -252,16 +263,17 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         // Ajout du contenu (valeures)
         cell.nomCommerce.text = comm.nom
         
+        print(self.prefFiltreLocation)
+        
         if self.prefFiltreLocation {
             // Filtré par positions
             cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
-            cell.imagePartage.image = UIImage(named: "Map_Icon")
+            cell.imagePartage.image = UIImage(named: "Map_icon")
         } else {
             // Filtré par nombre de partages
             cell.nombrePartageLabel.text = String(comm.partages)
             cell.imagePartage.image = UIImage(named: "PartagesIcon")
         }
-        
 
         // Ajout de couleur
         cell.nomCommerce.textColor = textColor
@@ -269,19 +281,27 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
 
         if let imageThumbnailFile = comm.thumbnail {
             cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-        }
-        else if let coverPhoto = comm.coverPhoto {
-            cell.thumbnailPicture.sd_setImage(with: URL(string: coverPhoto.url!))
-        }
-        else {
+        } else {
             cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
         }
         return cell
     }
 
     func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
+        guard (self.latestLocationForQuery != nil) else {
+            return ""
+        }
         
-        return ""
+        var distance = GeoHelper.distance(lat1: self.latestLocationForQuery.coordinate.latitude, lon1: self.latestLocationForQuery.coordinate.longitude, lat2: (commerce.location?.latitude)!, lon2: (commerce.location?.longitude)!, unit: "K")
+        
+        if distance < 1 {
+            distance *= 1000
+            commerce.distanceFromUser = "\(Int(distance)) m"
+            return "\(Int(distance)) m"
+        } else {
+            commerce.distanceFromUser = "\(Int(distance)) Km"
+            return "\(Int(distance)) Km"
+        }
     }
 }
 
@@ -420,11 +440,4 @@ extension AccueilCommerces: CLLocationManagerDelegate {
         self.latestLocationForQuery = locations.last
     }
     
-}
-
-extension UIView {
-    func setCardView(view : UIView){
-        view.layer.masksToBounds = true
-        view.layer.cornerRadius = 3;
-    }
 }

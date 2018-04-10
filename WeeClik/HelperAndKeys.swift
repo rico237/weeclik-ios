@@ -39,6 +39,10 @@ class HelperAndKeys {
         return "JVQZMCuNYvnecPWvWFDTZa8A"
     }
     
+    static func getLocationPreferenceKey() -> String{
+        return "locationUserDefault"
+    }
+    
     static func showNotification(type : String , title: String, message: String, delay: TimeInterval){
         var crType : CRNotificationType
         switch type {

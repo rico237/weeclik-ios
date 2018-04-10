@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F6300F8131F38E743F7CFF186CFD9BB9"
-               BuildableName = "Pods_WeeClik.framework"
-               BlueprintName = "Pods-WeeClik"
+               BlueprintIdentifier = "7F45F2F21482C3777494ACE42307212D"
+               BuildableName = "Async.framework"
+               BlueprintName = "AsyncSwift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F6300F8131F38E743F7CFF186CFD9BB9"
-            BuildableName = "Pods_WeeClik.framework"
-            BlueprintName = "Pods-WeeClik"
+            BlueprintIdentifier = "7F45F2F21482C3777494ACE42307212D"
+            BuildableName = "Async.framework"
+            BlueprintName = "AsyncSwift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

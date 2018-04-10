@@ -72,4 +72,6 @@ target 'WeeClik' do
   pod 'Material', '~> 2.0'
   # Tableview quand il n'ya pas de donnés
   pod 'DZNEmptyDataSet'
+  # async functions
+  pod 'AsyncSwift'
 end

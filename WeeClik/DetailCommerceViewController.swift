@@ -8,11 +8,13 @@
 
 // TODO : ouvrir le lien dans l'app et non le navigateur du tel (forcer l'user a rester dans l'application)
 // TODO : mettre la description a 500 caractère max
-// TODO : vv fonction de timer pour l'attente de re-partage qui appele a la fin cette fonction vv
+// TODO : vv fonction de timer pour l'attente de rvarartage qui appele a la fin cette fonction vv
 // TODO : faire le slideshow photo automatique
 // TODO : faire le bouton vidéo
+// TODO : 6. Faire une verification sur l'autorisation de la position plutot qu'une verification sur la valeur enregistré de la distance
 
 import UIKit
+import Foundation
 import Parse
 import MessageUI
 import MapKit
@@ -27,6 +29,8 @@ class DetailCommerceViewController: UIViewController {
     var commerceID : String!
     let userDefaults : UserDefaults = UserDefaults.standard
     
+    let composeVC = MFMailComposeViewController()
+    
     @IBOutlet weak var imageScroller: ImageScroller!
     @IBOutlet weak var pageIndicatorLabel: UILabel!
     
@@ -39,19 +43,13 @@ class DetailCommerceViewController: UIViewController {
     @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var nomCommerceLabel: UILabel!
     @IBOutlet weak var categorieLabel: UILabel!
-//    @IBOutlet weak var headerMapIcon: UIImageView!
     @IBOutlet weak var headerPartagesLabel: UILabel!
-//    @IBOutlet weak var headerPartageIcon: UIImageView!
     @IBOutlet weak var headerDistanceLabel: UILabel!
+    
+    @IBOutlet weak var distanceView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
     
-//    var sampleImagesUrls = ["https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5a87b630333405.563390560768a.jpg",
-//                            "https://mir-s3-cdn-cf.behance.net/project_modules/fs/3b10c357981735.59eda2fb7d7c5.jpg",
-//                            "https://cdn.dribbble.com/users/237483/screenshots/3233293/treetop.png",
-//                            "https://cdn.dribbble.com/users/237483/screenshots/3086220/attachments/651074/whatashittyyear-attach.png",
-//                            "https://cdn.dribbble.com/users/237483/screenshots/4065365/breakfast.png",
-//                            "https://cdn.dribbble.com/users/237483/screenshots/2823366/bixbycanyonbridge.png"]
     var sampleImagesUrls = [String]()
     
     var promotionsH  : CGFloat = 0.0
@@ -59,6 +57,10 @@ class DetailCommerceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.headerImage.isHidden = false
+        self.view.backgroundColor = UIColor.white
         
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0)
         
@@ -70,7 +72,17 @@ class DetailCommerceViewController: UIViewController {
         
         self.nomCommerceLabel.text = commerceObject.nom
         self.categorieLabel.text   = commerceObject.type
-
+        
+        // 6. TODO
+        if self.commerceObject.distanceFromUser == "" {
+            self.distanceView.isHidden = true
+        } else {
+            self.headerDistanceLabel.text = self.commerceObject.distanceFromUser
+            self.distanceView.isHidden = false
+        }
+        
+        self.headerPartagesLabel.text = String(self.commerceObject.partages)
+        
         initScrollersAndGalleries()
         
         self.title = "Weeclik"
@@ -81,9 +93,13 @@ class DetailCommerceViewController: UIViewController {
         
         updateAllViews()
         
-        
         // Refresh UI
         self.tableView.reloadData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.imageScroller.stopTimer()
     }
     
     func initScrollersAndGalleries(){
@@ -112,6 +128,7 @@ class DetailCommerceViewController: UIViewController {
     
     func loadSliderFromFetchedPhotos(){
         if sampleImagesUrls.count > 1{
+            self.headerImage.isHidden = true
             imageScroller.setupScrollerWithImages(images: sampleImagesUrls)
         }
     }
@@ -155,9 +172,11 @@ class DetailCommerceViewController: UIViewController {
         }
     }
     
-    // Voir toutes la liste des photos et vidéos
-    @IBAction func showSlideShow(_ sender: Any) {
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! DetailGalleryVC
+        destination.commerce = self.commerceObject
+//        destination.photos = commerceObject.photosCommerces
+//        destination.videos = commerceObject.videosCommerce
     }
 }
 
@@ -228,7 +247,8 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
-            return 74
+            return 0
+//            return 74
         } else if indexPath.section == 1 {
             return self.promotionsH + 52 // 50 = Marges haut et bas + le label "Promotions"
         } else if indexPath.section == 2 {
@@ -279,7 +299,7 @@ extension DetailCommerceViewController{
             HelperAndKeys.openMapForPlace(placeName: self.commerceObject.nom, latitude: 23, longitude: 3)
         }
     }
-    @IBAction func mailAction(_ sender: Any) {HelperAndKeys.sendFeedBackOrMessageViaMail(messageToSend: "", isFeedBackMsg: false, commerceMail: self.commerceObject.mail, controller: self)}
+    @IBAction func mailAction(_ sender: Any) {sendFeedBackOrMessageViaMail(messageToSend: "", isFeedBackMsg: false, commerceMail: self.commerceObject.mail)}
     
     @IBAction func callAction(_ sender: Any) {HelperAndKeys.callNumer(phone: self.commerceObject.tel)}
     
@@ -288,33 +308,58 @@ extension DetailCommerceViewController{
     @IBAction func shareActionCell(_ sender: Any) {self.shareCommerce()}
 }
 
-extension CALayer {
-    
-    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
+    func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool, commerceMail : String){
+        let messageAdded : String
+        let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         
-        let border = CALayer()
-        
-        switch edge {
-        case UIRectEdge.top:
-            border.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: thickness)
-            break
-        case UIRectEdge.bottom:
-            border.frame = CGRect.init(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
-            break
-        case UIRectEdge.left:
-            border.frame = CGRect.init(x: 0, y: 0, width: thickness, height: frame.height)
-            break
-        case UIRectEdge.right:
-            border.frame = CGRect.init(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
-            break
-        default:
-            break
+        if !isFeedBackMsg{
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : http://www.google.fr/"
+        }else{
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)"
         }
+        //                let allowedCharacters = NSCharacterSet.urlFragmentAllowed
+        let finalMessage = messageToSend.appending(messageAdded)
         
-        border.backgroundColor = color.cgColor;
-        
-        self.addSublayer(border)
+        if MFMailComposeViewController.canSendMail(){
+            // Configure the fields of the interface.
+            composeVC.mailComposeDelegate = self
+            composeVC.setSubject("Demande de contact via WeeClik")
+            composeVC.setToRecipients([commerceMail])
+            composeVC.setMessageBody(finalMessage, isHTML: true)
+            
+            composeVC.navigationBar.barTintColor = UIColor.white
+            
+            // Present the view controller modally.
+            self.present(composeVC, animated: true, completion: nil)
+        }else{
+//            self.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.", title: "Erreur", viewController: controller)
+        }
     }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        if error == nil {
+            switch result {
+            case .cancelled:
+                print("Annulé")
+                break
+            case .failed:
+                print("Echoué")
+                break
+            case .sent:
+                print("Envoyé")
+                break
+            case .saved:
+                print("Sauvegardé en brouillon")
+                break
+            }
+        } else {
+            // Erreur
+            HelperAndKeys.showAlertWithMessage(theMessage: "", title: "", viewController: self)
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{

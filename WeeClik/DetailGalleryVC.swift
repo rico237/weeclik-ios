@@ -10,19 +10,29 @@ import UIKit
 import Parse
 import Material
 import DZNEmptyDataSet
+import Async
+import SVProgressHUD
 
 class DetailGalleryVC: UIViewController {
 
     @IBOutlet weak var segmentedControl: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var commerce : Commerce!
+    var photos = [PFObject]()
+    var videos = [PFObject]()
+    
     let titles = ["Photos", "Vidéos"]
+    
     fileprivate var buttons = [TabItem]()
     fileprivate var tabBar: TabBar!
     var shdShowVideos = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Gallerie"
+        
         
         // CollectionView Init
         collectionView.register(UINib(nibName:"PhotosVideosCollectionCell", bundle: nil) , forCellWithReuseIdentifier: "Photos/Videos-Cell")
@@ -32,13 +42,70 @@ class DetailGalleryVC: UIViewController {
         // Segmented Control Init - (Choix Photos/Videos)
         prepareButtons()
         prepareTabBar()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        queryMedias()
+    }
+    
+    func queryMedias(){
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.show(withStatus: "Chargement en cours")
+        
+        let group = AsyncGroup()
+        group.userInitiated {
+            self.fetchPhotos()
+        }
+        group.userInitiated {
+            self.fetchVideos()
+        }
+        group.wait()
+        
+        SVProgressHUD.dismiss(withDelay: 1)
+        
+        self.refreshCollection()
+    }
+    
+    func fetchPhotos(){
+        let queryPhotos = PFQuery(className: "Commerce_Photos")
+        queryPhotos.whereKey("commerce", equalTo: self.commerce.pfObject)
+        queryPhotos.addDescendingOrder("updatedAt")
+        
+        do {
+            self.photos = try queryPhotos.findObjects()
+        } catch {
+            let error = error as NSError
+            print("Chargement Photos\n\tErreur \(error.code) : \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchVideos(){
+        let queryVideos = PFQuery(className: "Commerce_Videos")
+        queryVideos.whereKey("leCommerce", equalTo: self.commerce.pfObject)
+        queryVideos.addDescendingOrder("updatedAt")
+        
+        do {
+            self.videos = try queryVideos.findObjects()
+        } catch {
+            let error = error as NSError
+            print("Chargement Videos\n\tErreur \(error.code) : \(error.localizedDescription)")
+        }
     }
     
     func refreshViewWithSelectedInput(selectedInput : Int){
         // Photos = 0 & Videos = 1
         if selectedInput == 0 {shdShowVideos = false}
         else if selectedInput == 1 {shdShowVideos = true}
-        self.collectionView.reloadData()
+        refreshCollection()
+    }
+    
+    func refreshCollection(){
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -54,24 +121,39 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if !shdShowVideos {
-            return 0
+            // Photos
+            return photos.count
         }
-        return 25
+        // Videos
+        return videos.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath) as! PhotosVideosCollectionCell
         
+        var obj : PFObject!
+        var file : PFFile!
+        
         if !shdShowVideos {
+            // Photos
             cell.minuteViewContainer.isHidden = true
+            obj = photos[indexPath.row]
+            file = obj["photo"] as! PFFile
+        } else {
+            obj = videos[indexPath.row]
+            file = obj["video"] as! PFFile
         }
+        
+        let urlStr = file.url ?? ""
+        
+        cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Empty_media_state") , options: .highPriority , completed: nil)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print("Cell touched")
     }
 }
 
@@ -90,9 +172,6 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
             attributedStr.append("photo")
         }
         attributedStr.append(" trouvé pour ce commercant")
-        let attributs : [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.font : UIFont(name: "OpenSans-Regular", size: 18) as Any
-        ]
         return NSAttributedString(string: attributedStr)
     }
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
@@ -103,9 +182,6 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
             attributedStr.append("photo")
         }
         attributedStr.append(" de son commerce")
-        let attributs : [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.font : UIFont(name: "OpenSans-Regular", size: 10) as Any
-        ]
         return NSAttributedString(string: attributedStr)
     }
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
@@ -121,6 +197,7 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         print("TAP")
     }
 }
+
 
 extension DetailGalleryVC : TabBarDelegate {
     

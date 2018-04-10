@@ -20,6 +20,8 @@ class ImageScroller: UIView {
     var isAutoScrollEnabled = false
     var scrollTimeInterval = 3.0
     var isAutoLoadingEnabled = false
+    var timer = Timer()
+    var isTimerRunning = false
     
     func setupScrollerWithImages(images : [String]) {
         scrollView.frame = self.frame
@@ -37,7 +39,7 @@ class ImageScroller: UIView {
 //                print("Image URL : \(image)")
                 let url = URL(string: image)
                 imageView.sd_setImage(with: url, placeholderImage: nil, options: .highPriority, progress: { (recieved, totalSize, url) in
-                    print("Data receive from : \n    \(url?.absoluteString ?? "Null")\nPourcentage reçu : \(recieved*100/totalSize)")
+//                    print("Data receive from : \n    \(url?.absoluteString ?? "Null")\nPourcentage reçu : \(recieved*100/totalSize)")
                 }, completed: { (image, error, cacheType, url) in
 //                    print("Image chargé")
                 })
@@ -54,7 +56,7 @@ class ImageScroller: UIView {
         
         if isAutoScrollEnabled{
             // TODO : si un scroll est fait on supprime le timer puis on le remet
-            Timer.scheduledTimer(timeInterval: scrollTimeInterval, target: self, selector: #selector(autoscroll), userInfo: nil, repeats: true)
+            self.startTimer()
         }
        
     }
@@ -70,7 +72,18 @@ class ImageScroller: UIView {
             }
         }
     }
-
+    
+    func startTimer(){
+        if isTimerRunning == false {
+            timer = Timer.scheduledTimer(timeInterval: scrollTimeInterval, target: self, selector: #selector(autoscroll), userInfo: nil, repeats: true)
+            isTimerRunning = true
+        }
+    }
+    
+    func stopTimer(){
+        timer.invalidate()
+        isTimerRunning = false
+    }
 }
 
 extension ImageScroller : UIScrollViewDelegate{

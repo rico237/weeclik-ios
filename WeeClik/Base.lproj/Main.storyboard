@@ -512,14 +512,15 @@ Weeclik</string>
                                                     <rect key="frame" x="5" y="5" width="352" height="369"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="----" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MB-kv-TYL">
-                                                            <rect key="frame" x="8" y="317" width="308" height="44"/>
+                                                            <rect key="frame" x="8" y="317" width="286" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjG-4H-3yN">
-                                                            <rect key="frame" x="324" y="340" width="20" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 Km" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjG-4H-3yN">
+                                                            <rect key="frame" x="294" y="340" width="50" height="21"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="50" id="Psf-6Q-RyB"/>
                                                                 <constraint firstAttribute="height" constant="21" id="fya-hz-lff"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -536,10 +537,9 @@ Weeclik</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PartagesIcon" translatesAutoresizingMaskIntoConstraints="NO" id="jDL-n3-dPd">
-                                                            <rect key="frame" x="324" y="317" width="20" height="20"/>
+                                                            <rect key="frame" x="294" y="317" width="50" height="20"/>
                                                             <color key="tintColor" red="1" green="0.15059609879999999" blue="0.25012321720000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="20" id="fUJ-f6-KeW"/>
                                                                 <constraint firstAttribute="height" constant="20" id="vv3-6s-7vb"/>
                                                             </constraints>
                                                         </imageView>
@@ -552,7 +552,7 @@ Weeclik</string>
                                                         <constraint firstItem="jDL-n3-dPd" firstAttribute="trailing" secondItem="wjG-4H-3yN" secondAttribute="trailing" id="IkS-kI-zmE"/>
                                                         <constraint firstAttribute="trailing" secondItem="wjG-4H-3yN" secondAttribute="trailing" constant="8" id="NHR-KB-c8p"/>
                                                         <constraint firstAttribute="trailing" secondItem="ZET-IC-B3F" secondAttribute="trailing" id="OdQ-Tu-xVN"/>
-                                                        <constraint firstItem="wjG-4H-3yN" firstAttribute="leading" secondItem="9MB-kv-TYL" secondAttribute="trailing" constant="8" id="QBz-xw-ogv"/>
+                                                        <constraint firstItem="wjG-4H-3yN" firstAttribute="leading" secondItem="9MB-kv-TYL" secondAttribute="trailing" id="QBz-xw-ogv"/>
                                                         <constraint firstItem="ZET-IC-B3F" firstAttribute="leading" secondItem="dfW-H3-fiZ" secondAttribute="leading" id="Rpw-Xl-sse"/>
                                                         <constraint firstItem="wjG-4H-3yN" firstAttribute="top" secondItem="jDL-n3-dPd" secondAttribute="bottom" constant="3" id="bgO-5e-nng"/>
                                                         <constraint firstItem="9MB-kv-TYL" firstAttribute="leading" secondItem="dfW-H3-fiZ" secondAttribute="leading" constant="8" id="iyr-n5-g7x"/>
@@ -774,7 +774,6 @@ Weeclik</string>
                                                         <rect key="frame" x="331.33333333333331" y="0.0" width="82.666666666666686" height="50"/>
                                                         <state key="normal" image="Gallery_icon"/>
                                                         <connections>
-                                                            <action selector="showSlideShow:" destination="D72-xj-5QH" eventType="touchUpInside" id="G6Z-KK-wG8"/>
                                                             <segue destination="fsH-Nt-gAv" kind="show" id="9er-re-yuq"/>
                                                         </connections>
                                                     </button>
@@ -1200,6 +1199,7 @@ Weeclik</string>
                     <connections>
                         <outlet property="callButton" destination="Zaf-9A-n53" id="Ga8-Cs-cYA"/>
                         <outlet property="categorieLabel" destination="ihd-kW-z4C" id="NuJ-2h-t7f"/>
+                        <outlet property="distanceView" destination="Kyr-bi-Vlm" id="8NO-Yd-AGZ"/>
                         <outlet property="headerContainer" destination="egq-4J-IjK" id="2uY-rR-37o"/>
                         <outlet property="headerDistanceLabel" destination="Har-9V-Goe" id="6Aq-hF-Ymu"/>
                         <outlet property="headerImage" destination="FT8-ix-X7C" id="hHY-j7-tKw"/>

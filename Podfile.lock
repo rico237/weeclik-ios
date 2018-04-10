@@ -2,6 +2,7 @@ PODS:
   - AABlurAlertController (1.2.1)
   - Alamofire (4.5.1)
   - ASJExpandableTextView (0.4)
+  - AsyncSwift (2.0.4)
   - AZDialogView (1.1.6)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -70,6 +71,7 @@ PODS:
 DEPENDENCIES:
   - AABlurAlertController (~> 1.2)
   - ASJExpandableTextView (~> 0.4)
+  - AsyncSwift
   - AZDialogView (~> 1.1)
   - Bolts (~> 1.8)
   - BulletinBoard (from `https://github.com/alexaubry/BulletinBoard.git`)
@@ -152,6 +154,7 @@ SPEC CHECKSUMS:
   AABlurAlertController: 7463fc59d9906e07040439d2bc80c56f313a3fa4
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   ASJExpandableTextView: bfc429e37d4835e628127d3aa09a5e6971e9bfe4
+  AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
   AZDialogView: 42731f7c9c7d38dab12c8823afd2236edb6f798a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   BulletinBoard: 54365043ff1ad71a6cfc3ec796a5c1ce507d71ea
@@ -189,6 +192,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 36143c4667c89c70c89ccda9e1e01af2fcbb5a9e
 
-PODFILE CHECKSUM: 50e589d64f1cffa4f92ae7e3cd8c905c67dde786
+PODFILE CHECKSUM: 868a9c033065a15235ab8b26f525d386ef9d04ce
 
 COCOAPODS: 1.4.0

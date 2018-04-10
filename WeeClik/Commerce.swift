@@ -40,14 +40,12 @@ class Commerce: NSObject, NSCoding {
     var descriptionO: String = ""
     
     var thumbnail  : PFFile? = nil
-    var coverPhoto : PFFile? = nil
-    
-    var photosCommerces : [PFObject]? = nil
-    var videosCommerce  : [PFObject]? = nil
     
     var objectId    : String! = "-1"
     var createdAt   : Date?
     var updatedAt   : Date?
+    
+    var distanceFromUser : String = ""
     
     var pfObject : PFObject!
     
@@ -84,6 +82,7 @@ class Commerce: NSObject, NSCoding {
         self.adresse    = parseObject["adresse"] as! String
         self.descriptionO = parseObject["description"] as! String
         self.promotions = parseObject["promotions"] as! String
+        self.location   = (parseObject["position"] as! PFGeoPoint)
         
         self.objectId   = parseObject.objectId
         self.createdAt  = parseObject.createdAt
@@ -94,27 +93,11 @@ class Commerce: NSObject, NSCoding {
                 self.thumbnail = thumbnail
             }
         }
-        
-        if let cover = parseObject["coverPhoto"] as? PFFile {
-            self.coverPhoto = cover
-        }
-        
-        if let photos = parseObject["photosSlider"] as? [PFObject]{
-            if photos.count != 0 {
-                self.photosCommerces = photos
-            }
-        }
-        
-        if let videos = parseObject["videosCommerce"] as? [PFObject]{
-            if videos.count != 0 {
-                self.videosCommerce = videos
-            }
-        }
     }
     
     override var description: String {
         get {
-            return "Commerce {\n     Nom : \(self.nom)\n     Type : \(self.type)\n     Partages : \(self.partages)\n     Id : \(self.objectId)\n}";
+            return "Commerce {\n\t Nom : \(self.nom)\n\t Type : \(self.type)\n\t Partages : \(self.partages)\n\t Id : \(self.objectId)\n}";
         }
     }
     
@@ -150,9 +133,6 @@ class Commerce: NSObject, NSCoding {
         // Optionnels
         if let loc = location {aCoder.encode(loc, forKey: "locationComm")}
         if let thumb = self.thumbnail  {aCoder.encode(thumb, forKey: "thumbnailComm")}
-        if let cover = self.coverPhoto {aCoder.encode(cover, forKey: "coverComm")}
-        if let photosC = self.photosCommerces {aCoder.encode(photosC, forKey: "photosComm")}
-        if let videosC = self.videosCommerce {aCoder.encode(videosC, forKey: "videosComm")}
         
         if let created = createdAt {aCoder.encode(created, forKey: "createdAtComm")}
         if let updated = updatedAt {aCoder.encode(updated, forKey: "updatedAtComm")}
@@ -174,9 +154,6 @@ class Commerce: NSObject, NSCoding {
         // Optionnels
         if let loc = aDecoder.decodeObject(forKey: "locationComm") {self.location = loc as? PFGeoPoint}
         if let thumb = aDecoder.decodeObject(forKey: "thumbnailComm"){self.thumbnail = thumb as? PFFile}
-        if let cover = aDecoder.decodeObject(forKey: "coverComm"){self.coverPhoto = cover as? PFFile}
-        if let photoC = aDecoder.decodeObject(forKey: "photosComm"){self.photosCommerces = photoC as? [PFObject]}
-        if let videosC = aDecoder.decodeObject(forKey: "videosComm"){self.videosCommerce = videosC as? [PFObject]}
         if let created = aDecoder.decodeObject(forKey: "createdAtComm"){self.createdAt = created as? Date}
         if let updated = aDecoder.decodeObject(forKey: "updatedAtComm"){self.updatedAt = updated as? Date}
     }

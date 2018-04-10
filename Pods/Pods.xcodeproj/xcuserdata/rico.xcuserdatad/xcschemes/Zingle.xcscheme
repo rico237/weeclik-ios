@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FC4331DC80C7C3F6512C0D4940058463"
+               BlueprintIdentifier = "C38F7AFC5C7B93C4168C81068243A5F1"
                BuildableName = "Zingle.framework"
                BlueprintName = "Zingle"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FC4331DC80C7C3F6512C0D4940058463"
+            BlueprintIdentifier = "C38F7AFC5C7B93C4168C81068243A5F1"
             BuildableName = "Zingle.framework"
             BlueprintName = "Zingle"
             ReferencedContainer = "container:Pods.xcodeproj">
