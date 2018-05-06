@@ -19,5 +19,69 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeeClik/AjoutCommerceVC.swift"
+            timestampString = "546694105.555894"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeeClik/AjoutCommerceVC.swift"
+            timestampString = "546694105.55629"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WeeClik.AjoutCommerceVC.refreshCommerceMedia(commerceId: Swift.String, photos: Swift.Array&lt;__ObjC.PFObject&gt;) -&gt; ()"
+                  moduleName = "WeeClik"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rico/Lab/GitHubs_Repo/weeclik-ios/WeeClik/AjoutCommerceVC.swift"
+                  timestampString = "546694105.741963"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "2216">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WeeClik.AjoutCommerceVC.refreshCommerceMedia(commerceId: Swift.String, photos: Swift.Array&lt;__ObjC.PFObject&gt;) -&gt; ()"
+                  moduleName = "WeeClik"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rico/Lab/GitHubs_Repo/weeclik-ios/WeeClik/AjoutCommerceVC.swift"
+                  timestampString = "546694105.743896"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "3020">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

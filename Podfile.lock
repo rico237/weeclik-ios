@@ -3,6 +3,7 @@ PODS:
   - Alamofire (4.5.1)
   - ASJExpandableTextView (0.4)
   - AsyncSwift (2.0.4)
+  - Avatar (1.0.3)
   - AZDialogView (1.1.6)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -26,6 +27,7 @@ PODS:
   - Floaty (4.0.0)
   - Font-Awesome-Swift (1.6.4)
   - FormSheetTextView (1.2.0)
+  - Gallery (2.0.2)
   - Hue (3.0.0)
   - HWAlertsPickers (1.0)
   - KJNavigationViewAnimation (0.1.0)
@@ -51,9 +53,9 @@ PODS:
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
   - RAReorderableLayout (0.6.1)
-  - SDWebImage (4.1.2):
-    - SDWebImage/Core (= 4.1.2)
-  - SDWebImage/Core (4.1.2)
+  - SDWebImage (4.2.2):
+    - SDWebImage/Core (= 4.2.2)
+  - SDWebImage/Core (4.2.2)
   - Sparrow/Core (1.1.0)
   - Sparrow/Modules/RequestPermission (1.1.0):
     - Sparrow/Core
@@ -72,6 +74,7 @@ DEPENDENCIES:
   - AABlurAlertController (~> 1.2)
   - ASJExpandableTextView (~> 0.4)
   - AsyncSwift
+  - Avatar
   - AZDialogView (~> 1.1)
   - Bolts (~> 1.8)
   - BulletinBoard (from `https://github.com/alexaubry/BulletinBoard.git`)
@@ -86,6 +89,7 @@ DEPENDENCIES:
   - FBSDKShareKit (~> 4.23)
   - Floaty (~> 4.0.0)
   - FormSheetTextView (~> 1.0)
+  - Gallery
   - Hue (~> 3.0)
   - HWAlertsPickers (from `https://github.com/rico237/Alerts-Pickers.git`)
   - KJNavigationViewAnimation (from `https://github.com/KiranJasvanee/KJNavigationViewAnimation.git`)
@@ -155,6 +159,7 @@ SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   ASJExpandableTextView: bfc429e37d4835e628127d3aa09a5e6971e9bfe4
   AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
+  Avatar: 1d905503a7977e6084714208bb4aef6c0695bd99
   AZDialogView: 42731f7c9c7d38dab12c8823afd2236edb6f798a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   BulletinBoard: 54365043ff1ad71a6cfc3ec796a5c1ce507d71ea
@@ -170,6 +175,7 @@ SPEC CHECKSUMS:
   Floaty: 4f88811bbf08521807f42355db6a9c0db85d5d78
   Font-Awesome-Swift: 86c5ec8d1e251b834fb2b2e34cdcb1f480ade751
   FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
+  Gallery: a5cdf94495b789c622e8286dea6bf6f29a0b3429
   Hue: b8fe1e43eef13631331eebecb2198b68e2622f95
   HWAlertsPickers: a1b97ae8d2d9bac780fad7808f67836eaf0113f4
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
@@ -182,7 +188,7 @@ SPEC CHECKSUMS:
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   RAReorderableLayout: 5b6b87dd4022ee1747fd475623b14f5df940f754
-  SDWebImage: cb6f9f266a9977741efcbc21e618e8be3734c774
+  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
   STLocationRequest: 8da5c62df4bb7b148dedce464ea2c53cf561ae2d
   SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
@@ -192,6 +198,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 36143c4667c89c70c89ccda9e1e01af2fcbb5a9e
 
-PODFILE CHECKSUM: 868a9c033065a15235ab8b26f525d386ef9d04ce
+PODFILE CHECKSUM: 14045a45fdc49621ac7d3b587c3e7d3c84b69c30
 
 COCOAPODS: 1.4.0

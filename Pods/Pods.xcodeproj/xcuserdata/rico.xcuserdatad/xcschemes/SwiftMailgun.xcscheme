@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EDA14261AE1AE98B4BD14759B1CB286D"
+               BlueprintIdentifier = "748F257250FE80C34BD57E209B38D35F"
                BuildableName = "SwiftMailgun.framework"
                BlueprintName = "SwiftMailgun"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EDA14261AE1AE98B4BD14759B1CB286D"
+            BlueprintIdentifier = "748F257250FE80C34BD57E209B38D35F"
             BuildableName = "SwiftMailgun.framework"
             BlueprintName = "SwiftMailgun"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -12,6 +12,7 @@ import TLPhotoPicker
 import Photos
 import AVKit
 import SVProgressHUD
+import Async
 
 class AjoutCommerceVC: UITableViewController {
     
@@ -21,6 +22,7 @@ class AjoutCommerceVC: UITableViewController {
     var selectedVideoData = Data()                  // Data de vidéos
     var didUseFinalSave = false                     // Utilisé le bouton de sauvegarde
     var savedCommerce : Commerce? = nil             // Objet Commerce si on a pas utilisé le bouton sauvegarde
+    var commerceIdToSave = ""                             // Id du commerce à sauvegarder
 //    var pfCommerce : PFObject? = nil
     
     // Valeur des champs entrées
@@ -90,7 +92,7 @@ class AjoutCommerceVC: UITableViewController {
     }
     
     @IBAction func saveInformations(_ sender: Any){
-        finalSave()
+        self.finalSave()
     }
     
     func localSave(){
@@ -112,21 +114,33 @@ class AjoutCommerceVC: UITableViewController {
     func finalSave() {
         print("Finale save")
         didUseFinalSave = true
-        SVProgressHUD.show(withStatus: "Sauvegarde en cours")
-        // Sauvegarde finale pour paiement
-        let commerceToSave = getCommerceFromInfos().getPFObject()
-        commerceToSave.saveInBackground { (didSave, error) in
-            if error == nil {
-                if didSave{
-                    self.savePhotosWithCommerce(commerceId: commerceToSave.objectId!)
-                }
-            } else {
-                print(error?.localizedDescription as Any)
-            }
+        
+        DispatchQueue.main.async {
+            SVProgressHUD.show(withStatus: "Sauvegarde en cours")
         }
+        
+        var photos = [PFObject]()
+        
+        commerceIdToSave =  self.saveCommerce()
+        
+        photos = self.savePhotosWithCommerce(commerceId: commerceIdToSave)
+        
+        
+        self.refreshCommerceMedia(commerceId: commerceIdToSave, photos: photos)
     }
     
-    func savePhotosWithCommerce(commerceId : String){
+    func saveCommerce() -> String{
+        // Sauvegarde finale pour paiement
+        let commerceToSave = getCommerceFromInfos().getPFObject()
+        do {
+            try commerceToSave.save()
+        } catch {
+            print("Erreur : \(error)")
+        }
+        return commerceToSave.objectId!
+    }
+    
+    func savePhotosWithCommerce(commerceId : String) -> [PFObject]{
         
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerceId)
         var photos = [PFObject]()
@@ -134,48 +148,62 @@ class AjoutCommerceVC: UITableViewController {
         for image in self.photoArray {
             if image != #imageLiteral(resourceName: "Plus_icon") {
                 let obj = PFObject(className: "Commerce_Photos")
-                let file = PFFile(name: "photo", data: UIImageJPEGRepresentation(image, 0.7)!)
+                let file = PFFile(name: "photo.jpg", data: UIImageJPEGRepresentation(image, 0.7)!)
+                
                 obj["photo"] = file
                 obj["commerce"] = commerceToSave
                 photos.append(obj)
+                
+                print("Photo ajouté par l'utilisateur")
             }
         }
+        print(photos)
         
         
         if photos.count != 0 {
-            SVProgressHUD.show(withStatus: "Sauvegarde des photos en cours")
-            PFObject.saveAll(inBackground: photos) { (didSave, error) in
-                if didSave {
-                    print("Saving photos")
-                    for obj in photos {
-                        print(obj)
-                    }
-                    self.refreshCommerceMedia(commerceId: commerceId, photos: photos)
-                }
+            DispatchQueue.main.async {
+                SVProgressHUD.show(withStatus: "Sauvegarde des photos en cours")
             }
+            
+            do{
+                
+                print("Saving photos")
+                try PFObject.saveAll(photos)
+                print("Done")
+                
+            } catch {
+                print("Erreur : \(error)")
+            }
+            
         } else {
-            SVProgressHUD.dismiss()
+            DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
+            }
         }
+        
+        return photos
     }
     
     func refreshCommerceMedia(commerceId:String, photos: [PFObject]){
-        SVProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos")
+        DispatchQueue.main.async {
+            SVProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos")
+        }
+        
         let query = PFQuery(className: "Commerce")
         query.whereKey("objectId", equalTo: commerceId)
         var commerceToSave : PFObject
         do {
             try commerceToSave = query.findObjects()[0]
+            
             commerceToSave["photoSlider"] = photos
-            commerceToSave["thumbnailPrincipal"] = photos[0]["photo"] as! PFFile
-            commerceToSave.saveInBackground(block: { (didSave, error) in
-                if didSave {
-                    print("Save final avec media")
-                }
-                SVProgressHUD.dismiss()
-            })
+            commerceToSave["thumbnailPrincipal"] = photos[0]
+            try commerceToSave.save()
+            
         } catch  {
-            SVProgressHUD.dismiss()
             print(error.localizedDescription)
+        }
+        DispatchQueue.main.async {
+            SVProgressHUD.dismiss()
         }
     }
     
@@ -221,7 +249,9 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
             let asset = withTLPHAssets[0]
             if asset.type == .photo || asset.type == .livePhoto {
                 if asset.fullResolutionImage == nil {
-                    SVProgressHUD.showProgress(0, status: "Chargement")
+                    DispatchQueue.main.async {
+                        SVProgressHUD.showProgress(0, status: "Chargement")
+                    }
                     self.getImage(phasset: asset.phAsset)
                 } else {
                     self.photoArray[self.selectedRow] = asset.fullResolutionImage ?? #imageLiteral(resourceName: "Plus_icon")
@@ -230,7 +260,9 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
             else {
                 // Videos
                 if asset.fullResolutionImage == nil {
-                    SVProgressHUD.showProgress(0, status: "Chargement")
+                    DispatchQueue.main.async {
+                        SVProgressHUD.showProgress(0, status: "Chargement")
+                    }
                     self.getVideoThumbnail(phasset: asset.phAsset)
                 } else {
                     self.thumbnailArray[self.videoSelectedRow] = asset.fullResolutionImage!
@@ -264,7 +296,9 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
             options.version = .current
             options.resizeMode = .exact
             options.progressHandler = { (progress,error,stop,info) in
-                SVProgressHUD.showProgress(Float(progress), status:"Chargement")
+                DispatchQueue.main.async {
+                    SVProgressHUD.showProgress(Float(progress), status:"Chargement")
+                }
             }
             _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
                 if let data = imageData,let _ = info {
@@ -281,7 +315,9 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
             videoRequestOptions.version = .original
             videoRequestOptions.isNetworkAccessAllowed = true
             videoRequestOptions.progressHandler = { (progress, error, stop, info) in
-                SVProgressHUD.showProgress(Float(progress), status:"Chargement")
+                DispatchQueue.main.async {
+                    SVProgressHUD.showProgress(Float(progress), status:"Chargement")
+                }
             }
             
             _ = PHImageManager().requestAVAsset(forVideo: asset, options: videoRequestOptions, resultHandler: { (avaAsset, audioMix, info) in

@@ -14,8 +14,6 @@ target 'WeeClik' do
   pod 'ParseFacebookUtilsV4', '~> 1.11'
   pod 'SDWebImage', '~> 4.0'
   pod 'SVProgressHUD', '~> 2.1'
-  #pod 'AFNetworking'
-  #pod 'mailgun', '~> 1.0.3'
   
   # Pour la page recherche
   pod 'Compose', '~> 1.2'
@@ -74,4 +72,10 @@ target 'WeeClik' do
   pod 'DZNEmptyDataSet'
   # async functions
   pod 'AsyncSwift'
+  # zoom photos & videos
+  #pod 'MWPhotoBrowser', :podspec =>'https://raw.githubusercontent.com/moinku07/MWPhotoBrowser/master/MWPhotoBrowser.podspec'
+  # Création d'avatar
+  pod 'Avatar'
+  # Selection des photos et videos pour la création de commerce
+  pod 'Gallery'
 end

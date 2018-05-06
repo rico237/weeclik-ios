@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DF6053F7848A98BB3F7D784BBE75F41A"
+               BlueprintIdentifier = "D5257DF464C3BF0965F9390F1A35E4A5"
                BuildableName = "ZKCarousel.framework"
                BlueprintName = "ZKCarousel"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DF6053F7848A98BB3F7D784BBE75F41A"
+            BlueprintIdentifier = "D5257DF464C3BF0965F9390F1A35E4A5"
             BuildableName = "ZKCarousel.framework"
             BlueprintName = "ZKCarousel"
             ReferencedContainer = "container:Pods.xcodeproj">

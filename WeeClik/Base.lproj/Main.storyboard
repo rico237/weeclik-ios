@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pjU-vJ-tdr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UIg-dk-7Ch">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -612,6 +612,11 @@ Weeclik</string>
                     </view>
                     <navigationItem key="navigationItem" title="WEECLIK" id="jMd-Am-HBN">
                         <barButtonItem key="backBarButtonItem" title="Retour" id="2I3-DC-BFE"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="nLq-wv-TtI">
+                            <connections>
+                                <segue destination="UIg-dk-7Ch" kind="show" id="aBc-ue-aLE"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" image="Filter_icon" id="UQ2-b2-R9R">
                             <connections>
                                 <action selector="filterBarbuttonPressed:" destination="TFJ-bE-40m" id="Xdt-9B-HLr"/>
@@ -1892,6 +1897,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <image name="Website_icon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="aBc-ue-aLE"/>
         <segue reference="rUa-4n-V9T"/>
     </inferredMetricsTieBreakers>
 </document>

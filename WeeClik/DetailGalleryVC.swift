@@ -145,15 +145,24 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
             file = obj["video"] as! PFFile
         }
         
-        let urlStr = file.url ?? ""
-        
-        cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Empty_media_state") , options: .highPriority , completed: nil)
+        // TODO: Faire une vraie image pour un placeholder
+        if let urlStr = file.url {
+            cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"icon") , options: .highPriority , completed: nil)
+        } else {
+            cell.imagePlaceholder.image = UIImage(named:"icon")
+        }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cell touched")
+        if !shdShowVideos {
+            // Photos
+            
+        } else {
+            // Videos
+            
+        }
     }
 }
 
