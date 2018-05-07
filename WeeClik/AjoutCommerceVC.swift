@@ -13,6 +13,7 @@ import Photos
 import AVKit
 import SVProgressHUD
 import Async
+import Crashlytics
 
 class AjoutCommerceVC: UITableViewController {
     
@@ -112,7 +113,6 @@ class AjoutCommerceVC: UITableViewController {
     }
     
     func finalSave() {
-        print("Finale save")
         didUseFinalSave = true
         
         DispatchQueue.main.async {
@@ -120,13 +120,16 @@ class AjoutCommerceVC: UITableViewController {
         }
         
         var photos = [PFObject]()
+        var videos = [PFObject]()
         
+        // Sauvegarde du commerce
         commerceIdToSave =  self.saveCommerce()
-        
+        // Sauvegarde des photos
         photos = self.savePhotosWithCommerce(commerceId: commerceIdToSave)
-        
-        
-        self.refreshCommerceMedia(commerceId: commerceIdToSave, photos: photos)
+        // Sauvegarde des videos
+        videos = self.saveVideosWithCommerce(commerceId: commerceIdToSave)
+        // Mise a jour du commerce avec les photos & videos uploadés
+        self.refreshCommerceMedia(commerceId: commerceIdToSave, photos: photos, videos: videos)
     }
     
     func saveCommerce() -> String{
@@ -138,6 +141,84 @@ class AjoutCommerceVC: UITableViewController {
             print("Erreur : \(error)")
         }
         return commerceToSave.objectId!
+    }
+    
+    func saveVideosWithCommerce(commerceId : String) -> [PFObject]{
+        DispatchQueue.main.async {
+            SVProgressHUD.show(withStatus: "Sauvegarde de la vidéo en cours")
+        }
+        
+        let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerceId)
+        var videos = [PFObject]()
+        let group = AsyncGroup()
+        
+        // Une video a été ajouté par l'utilisateur
+        if self.videoArray.count != 0 {
+            // Parcours de toutes les vidéos ajoutés
+            for i in 0..<self.videoArray.count {
+                
+                let video = self.videoArray[i]
+                
+                // Si on réussit a prendre les data de la vidéo
+                // Dans ce cas on sauvegarde
+                if let asset = video.phAsset {
+
+                    let options = PHVideoRequestOptions()
+                    options.version = .original
+                    options.deliveryMode = .automatic
+                    options.isNetworkAccessAllowed = true
+                    print("1")
+                    
+                    group.userInitiated {
+                        PHImageManager().requestAVAsset(forVideo: asset, options: options, resultHandler: { (asset, mix, nil) in
+                            let myAsset = asset as? AVURLAsset
+                            print("try")
+                            DispatchQueue.main.async {
+                                do {
+                                    let videoData = try Data(contentsOf: (myAsset?.url)!)
+                                    
+                                    
+                                    let obj = PFObject(className: "Commerce_Videos")
+                                    let thumbnail = PFFile(name: "thumbnail.jpg", data: UIImageJPEGRepresentation(self.thumbnailArray[i], 0.5)!)
+                                    
+                                    obj["thumbnail"] = thumbnail
+                                    obj["leCommerce"]  = commerceToSave
+                                    obj["nameVideo"] = self.nomCommerce + "___video-presentation-\(i)"
+                                    obj["video"] = PFFile(name: "video.mp4", data: videoData)
+                                    
+                                    
+                                    videos.append(obj)
+                                    
+                                    
+                                    
+                                } catch  {
+                                    print("exception catch at block - while uploading video")
+                                }
+                            }
+                        })
+                    }
+                    print("2")
+                }
+            }
+            print("3")
+            group.background {
+                do{
+                    print("Saving videos")
+                    try PFObject.saveAll(videos)
+                    
+                    print("4")
+                    
+                    print("Done")
+                } catch {
+                    print("Erreur : \(error)")
+                }
+            }
+            print("5")
+            group.wait()
+            print("6")
+        }
+        
+        return videos
     }
     
     func savePhotosWithCommerce(commerceId : String) -> [PFObject]{
@@ -153,12 +234,8 @@ class AjoutCommerceVC: UITableViewController {
                 obj["photo"] = file
                 obj["commerce"] = commerceToSave
                 photos.append(obj)
-                
-                print("Photo ajouté par l'utilisateur")
             }
         }
-        print(photos)
-        
         
         if photos.count != 0 {
             DispatchQueue.main.async {
@@ -175,33 +252,32 @@ class AjoutCommerceVC: UITableViewController {
                 print("Erreur : \(error)")
             }
             
-        } else {
-            DispatchQueue.main.async {
-                SVProgressHUD.dismiss()
-            }
         }
         
         return photos
     }
     
-    func refreshCommerceMedia(commerceId:String, photos: [PFObject]){
+    func refreshCommerceMedia(commerceId:String, photos: [PFObject], videos: [PFObject]){
         DispatchQueue.main.async {
-            SVProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos")
+            SVProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos & vidéos")
         }
         
-        let query = PFQuery(className: "Commerce")
-        query.whereKey("objectId", equalTo: commerceId)
-        var commerceToSave : PFObject
-        do {
-            try commerceToSave = query.findObjects()[0]
-            
-            commerceToSave["photoSlider"] = photos
-            commerceToSave["thumbnailPrincipal"] = photos[0]
-            try commerceToSave.save()
-            
-        } catch  {
-            print(error.localizedDescription)
+        if photos.count != 0 {
+            let query = PFQuery(className: "Commerce")
+            query.whereKey("objectId", equalTo: commerceId)
+            var commerceToSave : PFObject
+            do {
+                try commerceToSave = query.findObjects()[0]
+                
+                commerceToSave["photoSlider"] = photos
+                commerceToSave["thumbnailPrincipal"] = photos[0]
+                try commerceToSave.save()
+                
+            } catch  {
+                print(error.localizedDescription)
+            }
         }
+        
         DispatchQueue.main.async {
             SVProgressHUD.dismiss()
         }
@@ -209,7 +285,12 @@ class AjoutCommerceVC: UITableViewController {
     
     func getCommerceFromInfos() -> Commerce{
         let comm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce)
+        comm.location = getLocationFromAddress(add: adresseCommerce)
         return comm
+    }
+    
+    func getLocationFromAddress(add : String) -> PFGeoPoint{
+        return PFGeoPoint(latitude: 0.0, longitude: 0.0)
     }
 }
 

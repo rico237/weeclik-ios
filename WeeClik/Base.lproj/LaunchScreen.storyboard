@@ -6,8 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Italic.ttf">
+            <string>OpenSans-Italic</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -24,12 +30,24 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="hr6-kC-joe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeeClik" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jg8-es-GhD">
+                                <rect key="frame" x="24" y="557" width="327" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="aE2-WT-Uzd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="jg8-es-GhD" secondAttribute="bottom" constant="200" id="14I-fj-itl"/>
                             <constraint firstItem="hr6-kC-joe" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3kY-wF-9Ky"/>
                             <constraint firstItem="hr6-kC-joe" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Ea0-Fr-Hrh"/>
+                            <constraint firstItem="jg8-es-GhD" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="8" id="brL-WL-Vg0"/>
                             <constraint firstAttribute="bottom" secondItem="hr6-kC-joe" secondAttribute="bottom" id="lSM-gY-i8A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jg8-es-GhD" secondAttribute="trailing" constant="8" id="t2P-Oa-3rL"/>
                             <constraint firstAttribute="trailing" secondItem="hr6-kC-joe" secondAttribute="trailing" id="zPy-lb-UwT"/>
                         </constraints>
                     </view>

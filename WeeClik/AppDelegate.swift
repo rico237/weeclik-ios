@@ -10,6 +10,9 @@ import UIKit
 import Parse
 import FBSDKCoreKit
 import ParseFacebookUtilsV4
+import Firebase
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         personaliserInteface()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
-        
+        FirebaseApp.configure()
+        Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self])
+
         return true
     }
     

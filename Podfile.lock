@@ -13,10 +13,13 @@ PODS:
   - Bolts/Tasks (1.8.4)
   - BulletinBoard (1.2.0)
   - Compose (1.2.3)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
   - CRNetworkButton (1.0.2)
   - CRNotifications (1.1.3)
   - DropDownMenuKit (0.8.4)
   - DZNEmptyDataSet (1.8.1)
+  - Fabric (1.7.6)
   - FaceAware (1.3.0)
   - FBSDKCoreKit (4.27.0):
     - Bolts (~> 1.7)
@@ -24,10 +27,25 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.27.0):
     - FBSDKCoreKit
+  - Firebase/Core (4.5.0):
+    - FirebaseAnalytics (= 4.0.4)
+    - FirebaseCore (= 4.0.10)
+  - FirebaseAnalytics (4.0.4):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.10):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseInstanceID (2.0.5)
   - Floaty (4.0.0)
   - Font-Awesome-Swift (1.6.4)
   - FormSheetTextView (1.2.0)
   - Gallery (2.0.2)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
+    - GoogleToolboxForMac/Defines (= 2.1.3)
   - Hue (3.0.0)
   - HWAlertsPickers (1.0)
   - KJNavigationViewAnimation (0.1.0)
@@ -40,6 +58,11 @@ PODS:
   - Motion (1.2.5):
     - Motion/Core (= 1.2.5)
   - Motion/Core (1.2.5)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
   - ObjectMapper (3.0.0)
   - Parse (1.15.3):
     - Bolts/Tasks (~> 1.8)
@@ -79,14 +102,17 @@ DEPENDENCIES:
   - Bolts (~> 1.8)
   - BulletinBoard (from `https://github.com/alexaubry/BulletinBoard.git`)
   - Compose (~> 1.2)
+  - Crashlytics (~> 3.10.1)
   - CRNetworkButton (~> 1.0)
   - CRNotifications (from `https://github.com/dkcas11/CRNotifications.git`)
   - DropDownMenuKit (~> 0.8.4)
   - DZNEmptyDataSet
+  - Fabric (~> 1.7.6)
   - FaceAware (from `https://github.com/BeauNouvelle/FaceAware.git`)
   - FBSDKCoreKit (~> 4.23)
   - FBSDKLoginKit (~> 4.23)
   - FBSDKShareKit (~> 4.23)
+  - Firebase/Core
   - Floaty (~> 4.0.0)
   - FormSheetTextView (~> 1.0)
   - Gallery
@@ -109,6 +135,51 @@ DEPENDENCIES:
   - TPKeyboardAvoiding (from `https://github.com/michaeltyson/TPKeyboardAvoiding.git`)
   - Zingle (from `https://github.com/hemangshah/Zingle.git`)
   - ZKCarousel (~> 0.1)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AABlurAlertController
+    - Alamofire
+    - ASJExpandableTextView
+    - AsyncSwift
+    - Avatar
+    - AZDialogView
+    - Bolts
+    - Compose
+    - Crashlytics
+    - CRNetworkButton
+    - DropDownMenuKit
+    - DZNEmptyDataSet
+    - Fabric
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - Floaty
+    - Font-Awesome-Swift
+    - FormSheetTextView
+    - Gallery
+    - GoogleToolboxForMac
+    - Hue
+    - KRLCollectionViewGridLayout
+    - LGButton
+    - Material
+    - Motion
+    - nanopb
+    - ObjectMapper
+    - Parse
+    - ParseFacebookUtilsV4
+    - ParseUI
+    - RAReorderableLayout
+    - SDWebImage
+    - STLocationRequest
+    - SVProgressHUD
+    - SwiftMailgun
+    - TLPhotoPicker
+    - ZKCarousel
 
 EXTERNAL SOURCES:
   BulletinBoard:
@@ -164,18 +235,25 @@ SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   BulletinBoard: 54365043ff1ad71a6cfc3ec796a5c1ce507d71ea
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   CRNetworkButton: 2bfe150c64a46506ade962745a3364f21bef3115
   CRNotifications: d2a800776785d0ed651ab680776e036bc251493a
   DropDownMenuKit: 3800deee46883bb09725376d987900768532f588
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   FaceAware: 4229821b9fba4336598f32273ed9ec4e463428c6
   FBSDKCoreKit: ebc6c5f5b3f0e72396041050e2266781a38ac587
   FBSDKLoginKit: 887be4b7452e1c5a3cc4485ce152529965a0c41e
   FBSDKShareKit: 4f83956d4ca2960730fe7588a168eb8d535c06dc
+  Firebase: d83d287bdb6b1c78320561482706d1fcfc8ddfc1
+  FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
+  FirebaseCore: da5e8e372cb6046212739a4d81e42d32c22907cc
+  FirebaseInstanceID: f2b688c66b972f30d7fa9f5f9f91455454a03b47
   Floaty: 4f88811bbf08521807f42355db6a9c0db85d5d78
   Font-Awesome-Swift: 86c5ec8d1e251b834fb2b2e34cdcb1f480ade751
   FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
   Gallery: a5cdf94495b789c622e8286dea6bf6f29a0b3429
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   Hue: b8fe1e43eef13631331eebecb2198b68e2622f95
   HWAlertsPickers: a1b97ae8d2d9bac780fad7808f67836eaf0113f4
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
@@ -183,10 +261,11 @@ SPEC CHECKSUMS:
   LGButton: 40c36e2b7a274d9cb263420e568bc8890832954e
   Material: b4a5e2919af2d7a1468d83657cde1d873e5e38dc
   Motion: 88a8bee21926af792333f4b9e7170f710e9e48f3
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
   Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
-  ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
-  ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
+  ParseFacebookUtilsV4: bd56a321d78e0880a9594f7ca433ffb1d6ed63c3
+  ParseUI: 2b37a0bc692a3e7666cf0c37b5521dfddd74a1af
   RAReorderableLayout: 5b6b87dd4022ee1747fd475623b14f5df940f754
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
@@ -198,6 +277,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 36143c4667c89c70c89ccda9e1e01af2fcbb5a9e
 
-PODFILE CHECKSUM: 14045a45fdc49621ac7d3b587c3e7d3c84b69c30
+PODFILE CHECKSUM: 26ec1c25f24ffafc27ce2da11ba23d5e6ed58262
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

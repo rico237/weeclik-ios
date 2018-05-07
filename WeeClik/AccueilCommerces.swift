@@ -268,6 +268,7 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         if self.prefFiltreLocation {
             // Filtré par positions
             cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
+            cell.imagePartage.isHidden = self.calculDistanceEntreDeuxPoints(commerce: comm) == "" ? true : false
             cell.imagePartage.image = UIImage(named: "Map_icon")
         } else {
             // Filtré par nombre de partages

@@ -16,8 +16,6 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -27,6 +25,22 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>b7f8a28941b68b9e1c65160a232b11078a3a1260</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>1773255456018247</string>
 	<key>FacebookDisplayName</key>
@@ -47,10 +61,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Nous avons besoin de l'accès à vote caméra afin d'ajouter des photos/vidéos à votre commerce</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Nous avons besoin de l'accès à vos photos/vidéos pour alimenter votre commerce</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pacifico</string>
@@ -80,9 +98,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>Nous avons besoin de l&apos;accès à vote caméra afin d&apos;ajouter des photos/vidéos à votre commerce</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Nous avons besoin de l&apos;accès à vos photos/vidéos pour alimenter votre commerce</string>
 </dict>
 </plist>

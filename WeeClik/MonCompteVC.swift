@@ -29,6 +29,8 @@ class MonCompteVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         isPro = true
+        
+        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
     }
     
     override func viewWillAppear(_ animated: Bool) {

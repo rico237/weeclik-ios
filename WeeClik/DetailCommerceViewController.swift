@@ -8,9 +8,7 @@
 
 // TODO : ouvrir le lien dans l'app et non le navigateur du tel (forcer l'user a rester dans l'application)
 // TODO : mettre la description a 500 caractère max
-// TODO : vv fonction de timer pour l'attente de rvarartage qui appele a la fin cette fonction vv
-// TODO : faire le slideshow photo automatique
-// TODO : faire le bouton vidéo
+// TODO : vv fonction de timer pour l'attente de partage qui appele a la fin cette fonction vv
 // TODO : 6. Faire une verification sur l'autorisation de la position plutot qu'une verification sur la valeur enregistré de la distance
 
 import UIKit

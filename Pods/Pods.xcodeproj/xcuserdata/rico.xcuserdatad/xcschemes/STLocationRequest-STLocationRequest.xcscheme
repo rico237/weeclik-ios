@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0920"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "323AC552369C7422B63C16F7EEA1B14D"
+               BlueprintIdentifier = "717344B08908B410471D95BCEBCAABCF"
                BuildableName = "STLocationRequest.bundle"
                BlueprintName = "STLocationRequest-STLocationRequest"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "323AC552369C7422B63C16F7EEA1B14D"
+            BlueprintIdentifier = "717344B08908B410471D95BCEBCAABCF"
             BuildableName = "STLocationRequest.bundle"
             BlueprintName = "STLocationRequest-STLocationRequest"
             ReferencedContainer = "container:Pods.xcodeproj">

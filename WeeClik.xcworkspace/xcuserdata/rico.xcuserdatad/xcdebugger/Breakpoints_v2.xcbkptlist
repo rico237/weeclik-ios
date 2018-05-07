@@ -26,13 +26,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeeClik/AjoutCommerceVC.swift"
-            timestampString = "546694105.555894"
+            timestampString = "547405790.064189"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "192"
+            endingLineNumber = "192"
+            landmarkName = "saveVideosWithCommerce(commerceId:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;__ObjC.AVAsset&gt;, Swift.Optional&lt;__ObjC.AVAudioMix&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;&gt;) -&gt; () in closure #2 () -&gt; () in WeeClik.AjoutCommerceVC.saveVideosWithCommerce(commerceId: Swift.String) -&gt; Swift.Array&lt;__ObjC.PFObject&gt;"
+                  moduleName = "WeeClik"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rico/Lab/GitHubs_Repo/weeclik-ios/WeeClik/AjoutCommerceVC.swift"
+                  timestampString = "547386704.416375"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "212">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;__ObjC.AVAsset&gt;, Swift.Optional&lt;__ObjC.AVAudioMix&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;&gt;) -&gt; () in closure #2 () -&gt; () in WeeClik.AjoutCommerceVC.saveVideosWithCommerce(commerceId: Swift.String) -&gt; Swift.Array&lt;__ObjC.PFObject&gt;"
+                  moduleName = "WeeClik"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rico/Lab/GitHubs_Repo/weeclik-ios/WeeClik/AjoutCommerceVC.swift"
+                  timestampString = "547386704.41825"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "3028">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;__ObjC.AVAsset&gt;, Swift.Optional&lt;__ObjC.AVAudioMix&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;&gt;) -&gt; () in closure #2 () -&gt; () in WeeClik.AjoutCommerceVC.saveVideosWithCommerce(commerceId: Swift.String) -&gt; Swift.Array&lt;__ObjC.PFObject&gt;"
+                  moduleName = "WeeClik"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rico/Lab/GitHubs_Repo/weeclik-ios/WeeClik/AjoutCommerceVC.swift"
+                  timestampString = "547386704.420094"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "194"
+                  endingLineNumber = "194"
+                  offsetFromSymbolStart = "3396">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,45 +89,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeeClik/AjoutCommerceVC.swift"
-            timestampString = "546694105.55629"
+            timestampString = "547405790.064254"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "saveVideosWithCommerce(commerceId:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "WeeClik.AjoutCommerceVC.refreshCommerceMedia(commerceId: Swift.String, photos: Swift.Array&lt;__ObjC.PFObject&gt;) -&gt; ()"
+                  symbolName = "closure #1 (Swift.Optional&lt;__ObjC.AVAsset&gt;, Swift.Optional&lt;__ObjC.AVAudioMix&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;&gt;) -&gt; () in closure #2 () -&gt; () in WeeClik.AjoutCommerceVC.saveVideosWithCommerce(commerceId: Swift.String) -&gt; Swift.Array&lt;__ObjC.PFObject&gt;"
                   moduleName = "WeeClik"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/rico/Lab/GitHubs_Repo/weeclik-ios/WeeClik/AjoutCommerceVC.swift"
-                  timestampString = "546694105.741963"
+                  timestampString = "547386704.42588"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
-                  offsetFromSymbolStart = "2216">
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "232">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "WeeClik.AjoutCommerceVC.refreshCommerceMedia(commerceId: Swift.String, photos: Swift.Array&lt;__ObjC.PFObject&gt;) -&gt; ()"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Optional&lt;__ObjC.AVAsset&gt;, Swift.Optional&lt;__ObjC.AVAudioMix&gt;, Swift.Optional&lt;Swift.Dictionary&lt;Swift.AnyHashable, Any&gt;&gt;) -&gt; () in closure #2 () -&gt; () in WeeClik.AjoutCommerceVC.saveVideosWithCommerce(commerceId: Swift.String) -&gt; Swift.Array&lt;__ObjC.PFObject&gt;"
                   moduleName = "WeeClik"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/rico/Lab/GitHubs_Repo/weeclik-ios/WeeClik/AjoutCommerceVC.swift"
-                  timestampString = "546694105.743896"
+                  timestampString = "547386704.428391"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
-                  offsetFromSymbolStart = "3020">
+                  startingLineNumber = "152"
+                  endingLineNumber = "152"
+                  offsetFromSymbolStart = "44">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeeClik/AjoutCommerceVC.swift"
+            timestampString = "547405790.0642999"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "saveVideosWithCommerce(commerceId:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

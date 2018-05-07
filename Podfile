@@ -14,6 +14,12 @@ target 'WeeClik' do
   pod 'ParseFacebookUtilsV4', '~> 1.11'
   pod 'SDWebImage', '~> 4.0'
   pod 'SVProgressHUD', '~> 2.1'
+  # Intégration de la librairie Firebase
+  pod 'Firebase/Core'
+  
+  pod 'Fabric', '~> 1.7.6'
+  pod 'Crashlytics', '~> 3.10.1'
+  
   
   # Pour la page recherche
   pod 'Compose', '~> 1.2'

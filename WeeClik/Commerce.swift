@@ -82,7 +82,9 @@ class Commerce: NSObject, NSCoding {
         self.adresse    = parseObject["adresse"] as! String
         self.descriptionO = parseObject["description"] as! String
         self.promotions = parseObject["promotions"] as! String
-        self.location   = (parseObject["position"] as! PFGeoPoint)
+        if let position = parseObject["position"]{
+            self.location = position as! PFGeoPoint
+        }
         
         self.objectId   = parseObject.objectId
         self.createdAt  = parseObject.createdAt

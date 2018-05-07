@@ -53,6 +53,7 @@
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
 		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1FA9BFEF1F26C844004D5F4C /* Commerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA9BFEE1F26C844004D5F4C /* Commerce.swift */; };
+		1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE0161209F20C20040F988 /* GoogleService-Info.plist */; };
 		1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3921FABA78700392060 /* ChangeInfosVC.swift */; };
 		1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3941FABA9A200392060 /* MotDePasseVC.swift */; };
 		1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */; };
@@ -117,6 +118,7 @@
 		1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1FA9BFEE1F26C844004D5F4C /* Commerce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commerce.swift; sourceTree = "<group>"; };
+		1FCE0161209F20C20040F988 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FCED3921FABA78700392060 /* ChangeInfosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfosVC.swift; sourceTree = "<group>"; };
 		1FCED3941FABA9A200392060 /* MotDePasseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotDePasseVC.swift; sourceTree = "<group>"; };
 		1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoHelper.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				1FA473341F1EE7E400D2A306 /* Assets.xcassets */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
 				1FA473391F1EE7E400D2A306 /* Info.plist */,
+				1FCE0161209F20C20040F988 /* GoogleService-Info.plist */,
 				1FEE37421F91187C00E1D1A7 /* BulletinItems */,
 				1F5681E91F2B4FA300B1BAC8 /* Libraries */,
 				1FEBF4671F254F4500146525 /* Fonts */,
@@ -307,7 +310,7 @@
 				1FA473271F1EE7E400D2A306 /* Frameworks */,
 				1FA473281F1EE7E400D2A306 /* Resources */,
 				ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */,
-				8B57D2BF94803C44A890A24A /* [CP] Copy Pods Resources */,
+				1FD2F819209F2A7A004D11D5 /* Fabric Script */,
 			);
 			buildRules = (
 			);
@@ -382,6 +385,7 @@
 				1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */,
 				1FA473351F1EE7E400D2A306 /* Assets.xcassets in Resources */,
 				1FA473331F1EE7E400D2A306 /* Main.storyboard in Resources */,
+				1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */,
 				1FEBF4641F254F3D00146525 /* BebasNeue Light.ttf in Resources */,
 				1FA9BFE61F269CB2004D5F4C /* OpenSans-LightItalic.ttf in Resources */,
 				1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */,
@@ -391,20 +395,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8B57D2BF94803C44A890A24A /* [CP] Copy Pods Resources */ = {
+		1FD2F819209F2A7A004D11D5 /* Fabric Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "Fabric Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" b7f8a28941b68b9e1c65160a232b11078a3a1260 4ba7673d13cf9a9c8845d6d683d569b05ad498467fe93d56034d0f67d59b75dd";
 		};
 		ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -434,6 +437,7 @@
 				"${BUILT_PRODUCTS_DIR}/Font-Awesome-Swift/Font_Awesome_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/FormSheetTextView/FormSheetTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/HWAlertsPickers/HWAlertsPickers.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
@@ -455,6 +459,7 @@
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -479,6 +484,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Font_Awesome_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FormSheetTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HWAlertsPickers.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
@@ -500,6 +506,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -704,6 +711,7 @@
 			baseConfigurationReference = 3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X776XA45RM;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
