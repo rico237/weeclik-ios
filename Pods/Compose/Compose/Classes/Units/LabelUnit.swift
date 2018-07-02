@@ -29,6 +29,7 @@ public struct LabelUnit: ComposingUnit, TwoStepDisplayUnit {
     /// - parameter background:    cell background color
     /// - parameter numberOfLines: number of lines to use
     public init(id: String, text: String?, font: UIFont, color: UIColor, backgroundColor: UIColor, maxHeight: CGFloat? = nil, insets: UIEdgeInsets = UIEdgeInsets(horizontal: 16), numberOfLines: Int = 0) {
+        
         let attributes = [NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: color]
         let attributed = NSAttributedString(string: text ?? "", attributes: attributes)
         self.init(id: id, text: attributed, backgroundColor: backgroundColor, maxHeight: maxHeight, insets: insets, numberOfLines: numberOfLines)

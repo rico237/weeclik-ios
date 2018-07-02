@@ -3,13 +3,13 @@ platform :ios, '10.0'
 
 def projectPods
     # Pods for WeeClik
-    pod 'Bolts', '~> 1.8'
-    pod 'Parse', '~> 1.14'
-    pod 'ParseUI', '~> 1.2'
-    pod 'FBSDKCoreKit', '~> 4.23'
-    pod 'FBSDKShareKit', '~> 4.23'
-    pod 'FBSDKLoginKit', '~> 4.23'
-    pod 'ParseFacebookUtilsV4', '~> 1.11'
+    pod 'Bolts', '~> 1.9'
+    pod 'Parse', '~> 1.16'
+    pod 'Parse/UI'
+    pod 'FBSDKCoreKit', '~> 4'
+    pod 'FBSDKShareKit', '~> 4'
+    pod 'FBSDKLoginKit', '~> 4'
+    pod 'Parse/FacebookUtils', '~> 1.11'
     pod 'SDWebImage', '~> 4.0'
     pod 'SVProgressHUD', '~> 2.1'
     # Intégration de la librairie Firebase
@@ -22,7 +22,7 @@ def projectPods
     # Pour la page recherche
     pod 'Compose', '~> 1.2'
     # pour la selection de catégorie
-    pod 'DropDownMenuKit', '~> 0.8.4'
+    pod 'DropDownMenuKit', :git=> 'https://github.com/rico237/DropDownMenuKit'
     # pour reordoner les photos des commercants
     pod 'RAReorderableLayout', '~> 0.6'
     
@@ -46,9 +46,9 @@ def projectPods
     # AlertController with blur
     pod 'AABlurAlertController', '~> 1.2'
     # Notification pour le partage de nouveau activé
-    pod 'CRNotifications', :git => 'https://github.com/dkcas11/CRNotifications.git'
+    pod 'CRNotifications'
     # Carte pour les filtres
-    pod 'BulletinBoard', :git => 'https://github.com/alexaubry/BulletinBoard.git'
+    pod 'BulletinBoard', '~> 1.3.0'
     # Scroll automatique pour faciliter l'utilisation du clavier
     pod 'TPKeyboardAvoiding', :git => 'https://github.com/michaeltyson/TPKeyboardAvoiding.git'
     # Choisir une photo dans la bibliothèque du téléphone

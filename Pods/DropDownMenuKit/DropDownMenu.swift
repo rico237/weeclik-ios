@@ -274,7 +274,7 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
         let cell = menuCells[indexPath.row]
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.textColor = UIColor.darkGray
-        cell.backgroundColor = UIColor(hex: "A6E3FF")
+        cell.backgroundColor = UIColor(red:0.65, green:0.89, blue:1.00, alpha:1.0)
 		return cell
 	}
 	

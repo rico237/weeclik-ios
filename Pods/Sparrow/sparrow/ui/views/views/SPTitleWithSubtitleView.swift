@@ -103,28 +103,4 @@ class SPTitleWithSubtitleView: UIView {
             self.subtitleLabel.removeShadowForLetters()
         }
     }
-    
-    //OLD
-    /*
-     
-     override func layoutSubviews() {
-     super.layoutSubviews()
-     
-     self.backgroundView.setEqualsFrameFromBounds(self)
-     
-     let heightFactor: CGFloat = 0.565
-     self.titleLabel.frame = CGRect.init(x: 0, y: 0, width: self.frame.width, height: self.frame.height * heightFactor)
-     
-     self.subtitleLabel.frame = CGRect.init(x: 0, y: (self.titleLabel.frame.origin.y + self.titleLabel.frame.height), width: self.frame.width, height: self.frame.height * (1 - heightFactor))
-     
-     if self.isShowShadow {
-     let offset = self.titleLabel.frame.height * 0.03
-     self.titleLabel.setShadowOffsetForLetters(heightOffset: offset, opacity: 0.35)
-     self.subtitleLabel.setShadowOffsetForLetters(heightOffset: offset, opacity: 0.35)
-     } else {
-     self.titleLabel.removeShadowForLetters()
-     self.subtitleLabel.removeShadowForLetters()
-     }
-     }
- */
 }

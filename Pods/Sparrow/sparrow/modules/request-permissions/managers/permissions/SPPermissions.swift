@@ -37,7 +37,8 @@ class SPCameraPermission: SPPermissionInterface {
     }
     
     func request(withComlectionHandler complectionHandler: @escaping ()->()?) {
-        AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: {_ in 
+        AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: {
+            finished in
             DispatchQueue.main.async {
                 complectionHandler()
             }

@@ -12,7 +12,13 @@ import UIKit
 public enum BulletinBackgroundViewStyle {
 
     /**
-     * The background is covered with a semi-transparent view. Similar to the view displayed behind
+     * The background content is not covered.
+     */
+
+    case none
+
+    /**
+     * The background is covered with a semi-transparent view similar to the view displayed behind
      * UIKit alerts and action sheets.
      */
 
@@ -20,20 +26,41 @@ public enum BulletinBackgroundViewStyle {
 
     /**
      * The background is blurred with the specified effect.
+     *
+     * Available on iOS 10.0 and later.
+     *
      * - parameter style: The style of blur to use to cover the background.
      */
 
-    case blurred(style: UIBlurEffectStyle)
+    @available(iOS 10, *)
+    case blurred(style: UIBlurEffectStyle, isDark: Bool)
 
+    
     // MARK: - Convenience
 
     /// The background blurred with a light style.
-    public static let blurredLight: BulletinBackgroundViewStyle = .blurred(style: .light)
+    @available(iOS 10, *)
+    public static let blurredLight: BulletinBackgroundViewStyle = .blurred(style: .light, isDark: false)
 
     /// The background blurred with an extra light style.
-    public static let blurredExtraLight: BulletinBackgroundViewStyle = .blurred(style: .extraLight)
+    @available(iOS 10, *)
+    public static let blurredExtraLight: BulletinBackgroundViewStyle = .blurred(style: .extraLight, isDark: false)
 
     /// The background blurred with a dark style.
-    public static let blurredDark: BulletinBackgroundViewStyle = .blurred(style: .dark)
+    @available(iOS 10, *)
+    public static let blurredDark: BulletinBackgroundViewStyle = .blurred(style: .dark, isDark: true)
+
+    // MARK: - Properties
+
+    /// Whether the background is dark.
+    var isDark: Bool {
+
+        switch self {
+        case .none: return false
+        case .dimmed: return true
+        case .blurred(_, let isDark): return isDark
+        }
+
+    }
 
 }

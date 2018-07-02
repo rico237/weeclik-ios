@@ -22,43 +22,36 @@
 import UIKit
 import AVFoundation
 
-public struct SPAudioPlayer {
+public class SPAudioPlayer: NSObject, AVAudioPlayerDelegate {
     
-    fileprivate var player: AVAudioPlayer
-    var volume: Float {
-        didSet {
-            player.volume = volume
+    fileprivate var player: AVAudioPlayer = AVAudioPlayer()
+    fileprivate var endPlayingComplection: (()->())? = nil
+    
+    func play(fileName: String, complection: (()->())? = nil) {
+        self.endPlayingComplection?()
+        self.player = AVAudioPlayer()
+        let url = Bundle.main.url(forResource: fileName, withExtension: nil)
+        if url == nil {
+            self.endPlayingComplection?()
+            return
         }
-    }
-    var fileName: String = ""
-    
-    init(fileName: String, volume: Float = 1) {
-        self.volume = volume
-        player = AVAudioPlayer()
-        let url = Bundle.main.url(forResource: fileName, withExtension: nil)!
         do {
-            self.player = try AVAudioPlayer(contentsOf: url)
-            player.volume = volume
+            self.player = try AVAudioPlayer(contentsOf: url!)
+            player.volume = 1
+            player.delegate = self
             player.prepareToPlay()
+            player.play()
+            self.endPlayingComplection = complection
         } catch let error as NSError {
             print(error.description)
         }
     }
     
-    func prepareToPlay() {
-        player.prepareToPlay()
-    }
-
-    func play() {
-        player.play()
+    func stop() {
+        player.stop()
     }
     
-    static func notStopBackgroundMusic() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            
-        }
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.endPlayingComplection?()
     }
 }

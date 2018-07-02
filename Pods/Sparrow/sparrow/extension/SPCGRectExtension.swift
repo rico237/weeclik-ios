@@ -30,4 +30,12 @@ extension CGRect {
     var bottomYPosition: CGFloat {
         return self.origin.y + self.height
     }
+    
+    var minSideSize: CGFloat {
+        return min(self.width, self.height)
+    }
+    
+    var isWidthLessThanHeight: Bool {
+        return self.width < self.height
+    }
 }

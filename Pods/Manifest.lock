@@ -1,97 +1,100 @@
 PODS:
   - AABlurAlertController (1.2.1)
-  - Alamofire (4.5.1)
+  - Alamofire (4.7.2)
   - ASJExpandableTextView (0.4)
   - AsyncSwift (2.0.4)
   - Avatar (1.0.3)
-  - AZDialogView (1.1.6)
-  - Bolts (1.8.4):
-    - Bolts/AppLinks (= 1.8.4)
-    - Bolts/Tasks (= 1.8.4)
-  - Bolts/AppLinks (1.8.4):
+  - AZDialogView (1.2.1)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.8.4)
-  - BulletinBoard (1.2.0)
+  - Bolts/Tasks (1.9.0)
+  - BulletinBoard (1.3.0)
   - Compose (1.2.3)
-  - Crashlytics (3.10.1):
-    - Fabric (~> 1.7.5)
+  - Crashlytics (3.10.3):
+    - Fabric (~> 1.7.8)
   - CRNetworkButton (1.0.2)
-  - CRNotifications (1.1.3)
+  - CRNotifications (1.1.5)
   - DropDownMenuKit (0.8.4)
   - DZNEmptyDataSet (1.8.1)
-  - Fabric (1.7.6)
-  - FaceAware (1.3.0)
-  - FBSDKCoreKit (4.27.0):
+  - Fabric (1.7.8)
+  - FaceAware (1.4.0)
+  - FBSDKCoreKit (4.28.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.27.0):
+  - FBSDKLoginKit (4.28.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.27.0):
+  - FBSDKShareKit (4.28.0):
     - FBSDKCoreKit
-  - Firebase/Core (4.5.0):
-    - FirebaseAnalytics (= 4.0.4)
-    - FirebaseCore (= 4.0.10)
-  - FirebaseAnalytics (4.0.4):
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
+  - Firebase/Core (5.4.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.0.1)
+  - Firebase/CoreOnly (5.4.0):
+    - FirebaseCore (= 5.0.5)
+  - FirebaseAnalytics (5.0.1):
+    - FirebaseCore (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
-  - FirebaseCore (4.0.10):
+  - FirebaseCore (5.0.5):
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - nanopb (~> 0.3)
-  - FirebaseInstanceID (2.0.5)
-  - Floaty (4.0.0)
-  - Font-Awesome-Swift (1.6.4)
+  - FirebaseInstanceID (3.1.1):
+    - FirebaseCore (~> 5.0)
+  - Floaty (4.0.1)
+  - Font-Awesome-Swift (1.7.2)
   - FormSheetTextView (1.2.0)
-  - Gallery (2.0.2)
-  - GoogleToolboxForMac/Defines (2.1.3)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - Hue (3.0.0)
+  - Gallery (2.0.6)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - Hue (3.0.1)
   - HWAlertsPickers (1.0)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
-  - LGButton (1.0.4)
-  - Material (2.12.15):
-    - Material/Core (= 2.12.15)
-  - Material/Core (2.12.15):
-    - Motion (~> 1.2.5)
-  - Motion (1.2.5):
-    - Motion/Core (= 1.2.5)
-  - Motion/Core (1.2.5)
+  - LGButton (1.0.5)
+  - Material (2.16.0):
+    - Material/Core (= 2.16.0)
+  - Material/Core (2.16.0):
+    - Motion (~> 1.4.2)
+  - Motion (1.4.2):
+    - Motion/Core (= 1.4.2)
+  - Motion/Core (1.4.2)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - ObjectMapper (3.0.0)
-  - Parse (1.15.3):
-    - Bolts/Tasks (~> 1.8)
-  - ParseFacebookUtilsV4 (1.11.1):
-    - Bolts/Tasks (>= 1.6)
-    - FBSDKCoreKit (~> 4.10)
-    - FBSDKLoginKit (~> 4.10)
-    - FBSDKTVOSKit (~> 4.10)
-    - Parse (~> 1.12)
-  - ParseUI (1.2.0):
-    - Bolts/Tasks (~> 1.3)
-    - Parse (~> 1.9)
+  - ObjectMapper (3.3.0)
+  - Parse (1.17.1):
+    - Parse/Core (= 1.17.1)
+  - Parse/Core (1.17.1):
+    - Bolts/Tasks (~> 1.9)
+  - Parse/FacebookUtils (1.17.1):
+    - FBSDKCoreKit (~> 4.28.0)
+    - FBSDKLoginKit (~> 4.28.0)
+    - FBSDKShareKit (~> 4.28.0)
+    - FBSDKTVOSKit (~> 4.28.0)
+    - Parse/Core
+  - Parse/UI (1.17.1):
+    - Parse/Core
   - RAReorderableLayout (0.6.1)
-  - SDWebImage (4.2.2):
-    - SDWebImage/Core (= 4.2.2)
-  - SDWebImage/Core (4.2.2)
+  - SDWebImage (4.4.1):
+    - SDWebImage/Core (= 4.4.1)
+  - SDWebImage/Core (4.4.1)
   - Sparrow/Core (1.1.0)
   - Sparrow/Modules/RequestPermission (1.1.0):
     - Sparrow/Core
-  - STLocationRequest (1.4.2):
-    - Font-Awesome-Swift (~> 1.6.4)
-  - SVProgressHUD (2.2.1)
+  - STLocationRequest (1.5.1):
+    - Font-Awesome-Swift
+  - SVProgressHUD (2.2.5)
   - SwiftMailgun (1.0.1):
     - Alamofire
     - ObjectMapper
-  - TLPhotoPicker (1.3.4)
-  - TPKeyboardAvoiding (1.3.1)
+  - TLPhotoPicker (1.3.9)
+  - TPKeyboardAvoiding (1.3.2)
   - Zingle (1.3.0)
-  - ZKCarousel (0.1.0)
+  - ZKCarousel (0.1.5)
 
 DEPENDENCIES:
   - AABlurAlertController (~> 1.2)
@@ -99,19 +102,19 @@ DEPENDENCIES:
   - AsyncSwift
   - Avatar
   - AZDialogView (~> 1.1)
-  - Bolts (~> 1.8)
-  - BulletinBoard (from `https://github.com/alexaubry/BulletinBoard.git`)
+  - Bolts (~> 1.9)
+  - BulletinBoard (~> 1.3.0)
   - Compose (~> 1.2)
   - Crashlytics (~> 3.10.1)
   - CRNetworkButton (~> 1.0)
-  - CRNotifications (from `https://github.com/dkcas11/CRNotifications.git`)
-  - DropDownMenuKit (~> 0.8.4)
+  - CRNotifications
+  - DropDownMenuKit (from `https://github.com/rico237/DropDownMenuKit`)
   - DZNEmptyDataSet
   - Fabric (~> 1.7.6)
   - FaceAware (from `https://github.com/BeauNouvelle/FaceAware.git`)
-  - FBSDKCoreKit (~> 4.23)
-  - FBSDKLoginKit (~> 4.23)
-  - FBSDKShareKit (~> 4.23)
+  - FBSDKCoreKit (~> 4)
+  - FBSDKLoginKit (~> 4)
+  - FBSDKShareKit (~> 4)
   - Firebase/Core
   - Floaty (~> 4.0.0)
   - FormSheetTextView (~> 1.0)
@@ -122,9 +125,9 @@ DEPENDENCIES:
   - KRLCollectionViewGridLayout (~> 1.0)
   - LGButton (~> 1.0)
   - Material (~> 2.0)
-  - Parse (~> 1.14)
-  - ParseFacebookUtilsV4 (~> 1.11)
-  - ParseUI (~> 1.2)
+  - Parse (~> 1.16)
+  - Parse/FacebookUtils (~> 1.11)
+  - Parse/UI
   - RAReorderableLayout (~> 0.6)
   - SDWebImage (~> 4.0)
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
@@ -137,7 +140,7 @@ DEPENDENCIES:
   - ZKCarousel (~> 0.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AABlurAlertController
     - Alamofire
     - ASJExpandableTextView
@@ -145,10 +148,11 @@ SPEC REPOS:
     - Avatar
     - AZDialogView
     - Bolts
+    - BulletinBoard
     - Compose
     - Crashlytics
     - CRNetworkButton
-    - DropDownMenuKit
+    - CRNotifications
     - DZNEmptyDataSet
     - Fabric
     - FBSDKCoreKit
@@ -171,8 +175,6 @@ SPEC REPOS:
     - nanopb
     - ObjectMapper
     - Parse
-    - ParseFacebookUtilsV4
-    - ParseUI
     - RAReorderableLayout
     - SDWebImage
     - STLocationRequest
@@ -182,10 +184,8 @@ SPEC REPOS:
     - ZKCarousel
 
 EXTERNAL SOURCES:
-  BulletinBoard:
-    :git: https://github.com/alexaubry/BulletinBoard.git
-  CRNotifications:
-    :git: https://github.com/dkcas11/CRNotifications.git
+  DropDownMenuKit:
+    :git: https://github.com/rico237/DropDownMenuKit
   FaceAware:
     :git: https://github.com/BeauNouvelle/FaceAware.git
   HWAlertsPickers:
@@ -200,14 +200,11 @@ EXTERNAL SOURCES:
     :git: https://github.com/hemangshah/Zingle.git
 
 CHECKOUT OPTIONS:
-  BulletinBoard:
-    :commit: 6ab9de713d5395f47edfe77d5c9af203b6669a93
-    :git: https://github.com/alexaubry/BulletinBoard.git
-  CRNotifications:
-    :commit: cf1c03e1a6f7e3d9b3cb4d3bc3dcc4d3927f8444
-    :git: https://github.com/dkcas11/CRNotifications.git
+  DropDownMenuKit:
+    :commit: 3249d95e63041bc1dacf5d74f65e8438c792449a
+    :git: https://github.com/rico237/DropDownMenuKit
   FaceAware:
-    :commit: 1694516aaabfb28349a686e5d4d54ed65fdec844
+    :commit: 35f8ceb0e68c1c00fe4809d124be27db9296fafe
     :git: https://github.com/BeauNouvelle/FaceAware.git
   HWAlertsPickers:
     :commit: 021e64dd6cfe1bb663d01d3dc8c0a4a9f68dacda
@@ -216,67 +213,65 @@ CHECKOUT OPTIONS:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
   Sparrow:
-    :commit: 7415a10e150d6344a10b11572d0d85f3df83319c
+    :commit: d3becbdd5dbc982a53a461188ea35b818342a9ed
     :git: https://github.com/IvanVorobei/Sparrow.git
   TPKeyboardAvoiding:
-    :commit: 7bb8adb26a529bf4eb228b9714456cde84ea2d0b
+    :commit: 8821c7ed0e29c87e30ba93c11dacb138bd17dae4
     :git: https://github.com/michaeltyson/TPKeyboardAvoiding.git
   Zingle:
-    :commit: 22590ba4bee863b62055f8a31873f72cfe4145c5
+    :commit: d95ea29689dd0eff6729f5520aca93ad5f9d671e
     :git: https://github.com/hemangshah/Zingle.git
 
 SPEC CHECKSUMS:
   AABlurAlertController: 7463fc59d9906e07040439d2bc80c56f313a3fa4
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   ASJExpandableTextView: bfc429e37d4835e628127d3aa09a5e6971e9bfe4
   AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
   Avatar: 1d905503a7977e6084714208bb4aef6c0695bd99
-  AZDialogView: 42731f7c9c7d38dab12c8823afd2236edb6f798a
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  BulletinBoard: 54365043ff1ad71a6cfc3ec796a5c1ce507d71ea
+  AZDialogView: 75a481ef11e78b047e9d7d212a83b76a8d91627f
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
-  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Crashlytics: 2aea305161a2122492698c75af27f2b98aa49a25
   CRNetworkButton: 2bfe150c64a46506ade962745a3364f21bef3115
-  CRNotifications: d2a800776785d0ed651ab680776e036bc251493a
-  DropDownMenuKit: 3800deee46883bb09725376d987900768532f588
+  CRNotifications: 38bd824eea18b77d818e7a317253d2b475f6a241
+  DropDownMenuKit: c79a634ff7efc2cd0239940ceaaebdbb34c56a5e
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
-  FaceAware: 4229821b9fba4336598f32273ed9ec4e463428c6
-  FBSDKCoreKit: ebc6c5f5b3f0e72396041050e2266781a38ac587
-  FBSDKLoginKit: 887be4b7452e1c5a3cc4485ce152529965a0c41e
-  FBSDKShareKit: 4f83956d4ca2960730fe7588a168eb8d535c06dc
-  Firebase: d83d287bdb6b1c78320561482706d1fcfc8ddfc1
-  FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
-  FirebaseCore: da5e8e372cb6046212739a4d81e42d32c22907cc
-  FirebaseInstanceID: f2b688c66b972f30d7fa9f5f9f91455454a03b47
-  Floaty: 4f88811bbf08521807f42355db6a9c0db85d5d78
-  Font-Awesome-Swift: 86c5ec8d1e251b834fb2b2e34cdcb1f480ade751
+  Fabric: fba4684a95df789565b0b27fc5b6e68f1755af32
+  FaceAware: 94410295a219c4a397ce525eab0063d6b17258aa
+  FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
+  FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
+  FBSDKShareKit: 4f525556e0df4cf0f574cb3f01c675434f29d477
+  Firebase: d66f4f29c23f22d96808d9abc174d81d8eee968f
+  FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
+  FirebaseCore: 42b3267233bd21a5abd54117ccc38ca3dd0f8e83
+  FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
+  Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
+  Font-Awesome-Swift: 83ab9db365379ee6025167cec67bdc5d3226a811
   FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
-  Gallery: a5cdf94495b789c622e8286dea6bf6f29a0b3429
-  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  Hue: b8fe1e43eef13631331eebecb2198b68e2622f95
+  Gallery: 5489ae11d8010a3cc163030f6e92d618afbdf4df
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   HWAlertsPickers: a1b97ae8d2d9bac780fad7808f67836eaf0113f4
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
-  LGButton: 40c36e2b7a274d9cb263420e568bc8890832954e
-  Material: b4a5e2919af2d7a1468d83657cde1d873e5e38dc
-  Motion: 88a8bee21926af792333f4b9e7170f710e9e48f3
+  LGButton: 707ce916eb80b73a6c4688df34bee11adbafb663
+  Material: 6a85db48e092012f98704eb085852124f64b07af
+  Motion: 93605fd4dffe44203b56949eb0bc73a9521af7b6
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
-  Parse: cdc0f1f975ee8be0409e66f21b05df4ae067047c
-  ParseFacebookUtilsV4: bd56a321d78e0880a9594f7ca433ffb1d6ed63c3
-  ParseUI: 2b37a0bc692a3e7666cf0c37b5521dfddd74a1af
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   RAReorderableLayout: 5b6b87dd4022ee1747fd475623b14f5df940f754
-  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
+  SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
-  STLocationRequest: 8da5c62df4bb7b148dedce464ea2c53cf561ae2d
-  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
+  STLocationRequest: caa2d648094045699c6f7903d3d0f0e01a21d00c
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftMailgun: 311a28057e0ced2dbcfbc8320e4aa282511877d2
-  TLPhotoPicker: a211c287ebd065566ddf570fc0724f6e683b967e
-  TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
+  TLPhotoPicker: df8fc48fb85466680d2a41de8ab78f94b249e151
+  TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
-  ZKCarousel: 36143c4667c89c70c89ccda9e1e01af2fcbb5a9e
+  ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: ca191ded19494d1247df3e102e77470382407da6
+PODFILE CHECKSUM: 761f2a7d4ce24df63b2c324c5f8ba03d21cca82e
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

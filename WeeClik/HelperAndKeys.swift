@@ -47,13 +47,13 @@ class HelperAndKeys {
         var crType : CRNotificationType
         switch type {
         case "S":
-            crType = .success
+            crType = CRNotifications.success
             break
         case "E":
-            crType = .error
+            crType = CRNotifications.error
             break
         default:
-            crType = .info
+            crType = CRNotifications.info
             break
         }
         CRNotifications.showNotification(type: crType, title: title, message: message, dismissDelay: delay)

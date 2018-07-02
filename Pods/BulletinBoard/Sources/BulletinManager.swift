@@ -8,25 +8,33 @@ import UIKit
 /**
  * An object that manages the presentation of a bulletin.
  *
- * You create a bulletin manager by passing a root `BulletinItem`, that contains the data to display.
+ * You create a bulletin manager using the `init(rootItem:)` initializer, where `rootItem` is the
+ * first bulletin item to display.
  *
- * The manager works similar to a navigation controller. You can push new items to display them and
- * pop existing ones to go back.
+ * The manager works like a navigation controller. You can push new items to the stack to display them
+ * and pop existing ones to go back.
  *
- * You must call the `prepare` function before displaying the view controller or changing the current
- * item.
+ * You must call the `prepare` method before displaying the view controller.
  *
- * `BulletinManager` must be used on the main thread only.
+ * `BulletinManager` must only be used from the main thread.
  */
 
-public final class BulletinManager: NSObject, UIViewControllerTransitioningDelegate {
+public final class BulletinManager {
 
-    /// The view controller displaying the bulletin.
-    private let viewController: BulletinViewController
+    private var viewController: BulletinViewController!
+
+    // MARK: - Configuration
+
+    /**
+     * The style of the view covering the content. Defaults to `.dimmed`.
+     *
+     * Set this value before calling `prepare`. Changing it after will have no effect.
+     */
+
+    public var backgroundViewStyle: BulletinBackgroundViewStyle = .dimmed
+
 
     // MARK: - Private Properties
-
-    private var backgroundViewStyle: BulletinBackgroundViewStyle?
     
     private let rootItem: BulletinItem
 
@@ -37,12 +45,12 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
     private var isPrepared: Bool = false
     private var isPreparing: Bool = false
 
+
     // MARK: - Initialization
 
     /**
-     * Creates a bulletin manager with the list of items to display.
-     *
-     * An item represents the contents available on a single card.
+     * Creates a bulletin manager with the first item to display. An item represents the contents
+     * displayed on a single card.
      *
      * - parameter items: The items to display.
      */
@@ -53,23 +61,25 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
         self.itemsStack = []
         self.currentItem = rootItem
 
-        self.viewController = BulletinViewController()
-
     }
+
 
     // MARK: - Interacting with the Bulletin
 
     /**
-     * Prepares the bulletin iterface and displays the root item.
+     * Prepares the bulletin interface and displays the root item.
      */
 
     public func prepare() {
 
-        precondition(Thread.isMainThread)
+        assertIsMainThread()
 
-        viewController.modalPresentationStyle = .custom
-        viewController.transitioningDelegate = self
+        viewController = BulletinViewController()
         viewController.manager = self
+
+        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.transitioningDelegate = viewController
+        viewController.loadBackgroundView()
 
         isPrepared = true
         isPreparing = true
@@ -82,15 +92,19 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
     /**
      * Hides the contents of the stack and displays a black activity indicator view.
      *
-     * Use this method if you need to perform a long task or fetch som edata before changing the item.
+     * Use this method if you need to perform a long task or fetch some data before changing the item.
      *
-     * Displaying the loading indicator does not change the height of the page. Call one of `push(item:)`,
-     * `popItem` or `popToRootItem` to hide the activity indicator and change the current item.
+     * Displaying the loading indicator does not change the height of the page or the current item.
+     *
+     * Call one of `push(item:)`, `popItem` or `popToRootItem` to hide the activity indicator and change the current item.
      */
 
     public func displayActivityIndicator() {
 
-        precondition(Thread.isMainThread)
+        assertIsPrepared()
+        assertIsMainThread()
+
+        precondition(Thread.isMainThread, "BulletinManager must only be used from the main thread.")
         precondition(isPrepared, "You must call the `prepare` function before interacting with the bulletin.")
 
         viewController.displayActivityIndicator()
@@ -104,7 +118,8 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
 
     public func push(item: BulletinItem) {
 
-        precondition(Thread.isMainThread)
+        assertIsPrepared()
+        assertIsMainThread()
 
         previousItem = currentItem
         itemsStack.append(item)
@@ -120,7 +135,8 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
 
     public func popItem() {
 
-        precondition(Thread.isMainThread)
+        assertIsPrepared()
+        assertIsMainThread()
 
         guard let previousItem = itemsStack.popLast() else {
             popToRootItem()
@@ -145,7 +161,8 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
 
     public func popToRootItem() {
 
-        precondition(Thread.isMainThread)
+        assertIsPrepared()
+        assertIsMainThread()
 
         guard currentItem !== rootItem else {
             return
@@ -167,84 +184,83 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
      *
      * - parameter presentingVC: The view controller to use to present the bulletin.
      * - parameter animated: Whether to animate presentation. Defaults to `true`.
-     * - parameter backgroundStyle: Style which applies to the dimming view. Default to `.dimmed` .
      * - parameter completion: An optional block to execute after presentation. Default to `nil`.
      */
 
     public func presentBulletin(above presentingVC: UIViewController,
                                 animated: Bool = true,
-                                backgroundStyle: BulletinBackgroundViewStyle = .dimmed,
                                 completion: (() -> Void)? = nil) {
 
-        precondition(Thread.isMainThread)
-        precondition(isPrepared, "You must call the `prepare` function before interacting with the bulletin.")
+        assertIsPrepared()
+        assertIsMainThread()
 
-        self.backgroundViewStyle = backgroundStyle
+        viewController.modalPresentationCapturesStatusBarAppearance = true
         presentingVC.present(viewController, animated: animated, completion: completion)
 
     }
 
     /**
-     * Dismisses the bulletin and clears the current page.
+     * Dismisses the bulletin and clears the current page. You will have to call `prepare` before
+     * presenting the bulletin again.
+     *
+     * This method will call the `dismissalHandler` block of the current item if it was set.
      *
      * - parameter animated: Whether to animate dismissal. Defaults to `true`.
-     * - parameter completion: An optional block to execute after dismissal. Default to `nil`.
      */
 
-    public func dismissBulletin(animated: Bool = true,
-                                completion: (() -> Void)? = nil) {
+    public func dismissBulletin(animated: Bool = true) {
 
-        precondition(Thread.isMainThread)
-        precondition(isPrepared, "You must call the `prepare` function before interacting with the bulletin.")
+        assertIsPrepared()
+        assertIsMainThread()
 
         currentItem.tearDown()
         currentItem.manager = nil
 
         viewController.dismiss(animated: animated) {
-
-            completion?()
-
-            for arrangedSubview in self.viewController.contentStackView.arrangedSubviews {
-                self.viewController.contentStackView.removeArrangedSubview(arrangedSubview)
-                arrangedSubview.removeFromSuperview()
-            }
-
-            self.viewController.resetContentView()
-
+            self.completeDismissal()
         }
-
-        currentItem = rootItem
-        tearDownItemsChain(startingAt: self.rootItem)
-        itemsStack.removeAll()
-
-        viewController.manager = nil
-        viewController.transitioningDelegate = nil
 
         isPrepared = false
 
     }
 
-    /// Returns the presentation controller for the bulletin view controller.
-    public func presentationController(forPresented presented: UIViewController,
-                                presenting: UIViewController?,
-                                source: UIViewController) -> UIPresentationController? {
+    /**
+     * Tears down the view controller and item stack after dismissal is finished.
+     */
 
-        precondition(Thread.isMainThread)
+    func completeDismissal() {
 
-        if presented is BulletinViewController {
-            return DimmingPresentationController(presentedViewController: presented, presenting: presenting, style: backgroundViewStyle)
+        currentItem.dismissalHandler?(currentItem)
+
+        for arrangedSubview in viewController.contentStackView.arrangedSubviews {
+            viewController.contentStackView.removeArrangedSubview(arrangedSubview)
+            arrangedSubview.removeFromSuperview()
         }
 
-        return nil
+        viewController.backgroundView = nil
+        viewController.manager = nil
+        viewController.transitioningDelegate = nil
+
+        viewController = nil
+
+        currentItem = self.rootItem
+        tearDownItemsChain(startingAt: self.rootItem)
+
+        for item in itemsStack {
+            tearDownItemsChain(startingAt: item)
+        }
+
+        itemsStack.removeAll()
 
     }
 
-    // MARK: - Management
+    // MARK: - Transitions
 
+    /// Displays the current item.
     private func displayCurrentItem() {
 
-        precondition(isPrepared, "You must call the `prepare` function before interacting with the bulletin.")
         viewController.isDismissable = false
+        viewController.refreshSwipeInteractionController()
 
         // Tear down old item
 
@@ -334,14 +350,26 @@ public final class BulletinManager: NSObject, UIViewControllerTransitioningDeleg
 
     }
 
+    /// Tears down every item on the stack starting from the specified item.
     private func tearDownItemsChain(startingAt item: BulletinItem) {
 
         item.tearDown()
+        item.manager = nil
 
         if let nextItem = item.nextItem {
             tearDownItemsChain(startingAt: nextItem)
         }
 
+    }
+
+    // MARK: - Utilities
+
+    private func assertIsMainThread() {
+        precondition(Thread.isMainThread, "BulletinManager must only be used from the main thread.")
+    }
+
+    private func assertIsPrepared() {
+        precondition(isPrepared, "You must call the `prepare` function before interacting with the bulletin.")
     }
 
 }

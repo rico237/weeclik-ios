@@ -77,7 +77,7 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
         }
     }
     var dialogCenteringPoint: CGPoint {
-        if SPDeviceOrientation.isPortraitOrienation() {
+        if SPDeviceOrientation.isPortraitOrienation {
             return CGPoint(x: self.view.center.x, y: self.view.center.y * dialogViewPortraitYtranslationFactor)
         } else {
             return CGPoint(x: self.view.center.x, y: self.view.center.y * dialogViewLandscapeYtranslationFactor)
@@ -147,7 +147,6 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
         self.contentView.transform = .identity
         self.modalPresentationStyle = .overCurrentContext
         viewController.present(self, animated: false, completion: {
-            
             self.updateLayoutAndSizes()
             self.updateContentViewShadow(yTranslationFactor: self.dialogShadowYtranslationFactor, blurRadiusFactor: self.dialogShadowBlurRadiusFactor, opacity: self.dialogShadowOpacity)
             self.contentView.center = CGPoint.init(
@@ -155,9 +154,7 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
                 y: self.view.center.y * 1.2
             )
             SPHideWindow.dialog.presentWith(view: self.backgroundView)
-            /*SPAnimation.animate(0.6, animations: {
-                self.updateBackground()
-            })*/
+
             delay(0.21, closure: {
                 self.snapBehavior = UISnapBehavior(item: self.contentView, snapTo: self.dialogCenteringPoint)
                 self.animator.addBehavior(self.snapBehavior)
@@ -195,9 +192,7 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
         SPAnimation.animate(SPHideWindow.dialog.duration, animations: {
             self.backgroundView.setGradeAlpha(0, blurRaius: 0)
         }, withComplection: {
-            
             self.dismiss(animated: false, completion: {
-                
                 self.animator.removeAllBehaviors()
                 self.contentView.transform = .identity
                 self.delegate?.didHideDialogController()
@@ -220,7 +215,8 @@ public class SPDialogSwipeController<DialogView: UIView, BottomView: UIView>: SP
             SPAnimationSpring.animate(0.3, animations: {
                 self.actionBeforeRotation()
             }, spring: self.spring, velocity: self.velocity, options: UIViewAnimationOptions.curveEaseIn)
-        }, completion: {(context) in
+        }, completion: {
+            finished in
             SPAnimationSpring.animate(0.35, animations: {
                 self.actionAfterRotation()
             }, spring: self.spring, velocity: self.velocity, options: UIViewAnimationOptions.curveEaseOut)

@@ -45,9 +45,9 @@ class ViewController : UIViewController {
         let carousel = ZKCarousel()
         
         // Create as many slides as you'd like to show in the carousel
-        let slide = ZKCarouselSlide(image: #imageLiteral(resourceName: "demo2"), title: "Hello There 👻", description: "Welcome to the ZKCarousel demo! Swipe left to view more slides!")
-        let slide1 = ZKCarouselSlide(image: #imageLiteral(resourceName: "demo"), title: "A Demo Slide ☝🏼", description: "lorem ipsum devornum cora fusoa foen sdie ha odab ebakldf shjbesd ljkhf")
-        let slide2 = ZKCarouselSlide(image: #imageLiteral(resourceName: "demo2"), title: "Another Demo Slide ✌🏼", description: "lorem ipsum devornum cora fusoa foen ebakldf shjbesd ljkhf")     
+        let slide = ZKCarouselSlide(image: UIImage(), title: "Hello There 👻", description: "Welcome to the ZKCarousel demo! Swipe left to view more slides!")
+        let slide1 = ZKCarouselSlide(image: UIImage(), title: "A Demo Slide ☝🏼", description: "lorem ipsum devornum cora fusoa foen sdie ha odab ebakldf shjbesd ljkhf")
+        let slide2 = ZKCarouselSlide(image: UIImage(), title: "Another Demo Slide ✌🏼", description: "lorem ipsum devornum cora fusoa foen ebakldf shjbesd ljkhf")     
         
         // Add the slides to the carousel
         carousel.slides = [slide, slide1, slide2]
@@ -66,9 +66,15 @@ class ViewController : UIViewController {
 
 ```
 
+#### Auto-Traverse Slides
+There is an option to let ZKCarousel switch between slides automatically. All you have to do is use the `start()` and `stop()` functions on ZKCarousel. You can also set the time interval between slides by setting the `interval` property. The default interval is 1 second.
+
+See example for a working implementation of this.
+
+
 ## Contributions
 
-If you're interested in contributing to `ZKCarousel`, please fork the repository and submit a pull request. All contributions are welcome and encouraged! :)
+If you're interested in contributing to **ZKCarousel**, please fork the repository and submit a pull request. All contributions are welcome and encouraged! :)
 
 For all bug reports, feature requests, etc. please submit an issue to the repository.
 

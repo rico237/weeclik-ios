@@ -8,8 +8,6 @@
 
 import UIKit
 import Parse
-import ParseUI
-import ParseFacebookUtilsV4
 
 class MonCompteVC: UIViewController {
     var isPro = false

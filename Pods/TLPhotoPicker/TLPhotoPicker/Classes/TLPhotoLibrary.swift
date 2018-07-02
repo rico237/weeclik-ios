@@ -54,12 +54,13 @@ class TLPhotoLibrary {
     }
 
     @discardableResult
-    func imageAsset(asset: PHAsset, size: CGSize = CGSize(width: 720, height: 1280), options: PHImageRequestOptions? = nil, completionBlock:@escaping (UIImage)-> Void ) -> PHImageRequestID {
+    func imageAsset(asset: PHAsset, size: CGSize = CGSize(width: 160, height: 160), options: PHImageRequestOptions? = nil, completionBlock:@escaping (UIImage)-> Void ) -> PHImageRequestID {
         var options = options
         if options == nil {
             options = PHImageRequestOptions()
+            options?.isSynchronous = false
             options?.deliveryMode = .highQualityFormat
-            options?.isNetworkAccessAllowed = false
+            options?.isNetworkAccessAllowed = true
         }
         let requestId = self.imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options) { image, info in
             if let image = image {
@@ -74,7 +75,7 @@ class TLPhotoLibrary {
     }
     
     @discardableResult
-    func cloudImageDownload(asset: PHAsset, size: CGSize = PHImageManagerMaximumSize, progressBlock: @escaping (Double) -> Void, completionBlock:@escaping (UIImage?)-> Void ) -> PHImageRequestID {
+    class func cloudImageDownload(asset: PHAsset, size: CGSize = PHImageManagerMaximumSize, progressBlock: @escaping (Double) -> Void, completionBlock:@escaping (UIImage?)-> Void ) -> PHImageRequestID {
         let options = PHImageRequestOptions()
         options.isSynchronous = false
         options.isNetworkAccessAllowed = true
@@ -84,7 +85,7 @@ class TLPhotoLibrary {
         options.progressHandler = { (progress,error,stop,info) in
             progressBlock(progress)
         }
-        let requestId = self.imageManager.requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
+        let requestId = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
             if let data = imageData,let _ = info {
                 completionBlock(UIImage(data: data))
             }
@@ -118,17 +119,18 @@ extension TLPhotoLibrary {
         return options
     }
     
-    func fetchResult(collection: TLAssetsCollection?, maxVideoDuration:TimeInterval?=nil) -> PHFetchResult<PHAsset>? {
+    func fetchResult(collection: TLAssetsCollection?, maxVideoDuration:TimeInterval?=nil, options: PHFetchOptions? = nil) -> PHFetchResult<PHAsset>? {
         guard let phAssetCollection = collection?.phAssetCollection else { return nil }
-        let options = getOption()
+        let options = options ?? getOption()
         if let duration = maxVideoDuration, phAssetCollection.assetCollectionSubtype == .smartAlbumVideos {
             options.predicate = NSPredicate(format: "mediaType = %i AND duration <= %f", PHAssetMediaType.video.rawValue, duration)
         }
         return PHAsset.fetchAssets(in: phAssetCollection, options: options)
     }
     
-    func fetchCollection(allowedVideo: Bool = true, useCameraButton: Bool = true, mediaType: PHAssetMediaType? = nil, maxVideoDuration:TimeInterval? = nil) {
-        let options = getOption()
+    func fetchCollection(allowedVideo: Bool = true, useCameraButton: Bool = true, mediaType: PHAssetMediaType? = nil, maxVideoDuration:TimeInterval? = nil,options: PHFetchOptions? = nil) {
+
+        let options = options ?? getOption()
         
         @discardableResult
         func getSmartAlbum(subType: PHAssetCollectionSubtype, result: inout [TLAssetsCollection]) -> TLAssetsCollection? {

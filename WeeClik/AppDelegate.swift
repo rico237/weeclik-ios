@@ -9,7 +9,6 @@
 import UIKit
 import Parse
 import FBSDKCoreKit
-import ParseFacebookUtilsV4
 import Firebase
 import Fabric
 import Crashlytics

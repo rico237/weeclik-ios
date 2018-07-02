@@ -8,7 +8,6 @@
 
 import UIKit
 import Parse
-import ParseFacebookUtilsV4
 
 class SaisieDeDonneesVC: UIViewController {
     var isPro = false

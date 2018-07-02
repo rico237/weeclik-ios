@@ -25,3 +25,25 @@ public enum SPSnapToSide {
     case left
     case right
 }
+
+public enum SPSystemIconType {
+    case share
+}
+
+public enum SPSocialNetwork {
+    case whatsapp
+    case telegram
+    case vk
+    case facebook
+    case viber
+}
+
+public enum SPOauthState {
+    case succsess
+    case unvalidLogin
+    case invalidLogin
+    case unvalidPassword
+    case invalidPassword
+    case needTwoFactor
+    case error
+}

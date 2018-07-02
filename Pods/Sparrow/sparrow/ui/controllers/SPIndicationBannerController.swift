@@ -112,10 +112,10 @@ public class SPIndicationBannerController<BottomView: UIView>: SPStatusBarManage
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.animator.removeAllBehaviors()
         super.viewWillTransition(to: size, with: coordinator)
-        
         coordinator.animate(alongsideTransition: { (contex) in
             self.updateLayout()
-        },completion: {(context) in
+        }, completion: {
+            finished in
             self.updateLayout()
         })
     }
@@ -139,7 +139,6 @@ public class SPIndicationBannerController<BottomView: UIView>: SPStatusBarManage
         self.bottomView.alpha = 0
         self.modalPresentationStyle = .overCurrentContext
         viewController.present(self, animated: false, completion: {
-            
             SPHideWindow.dialog.presentWith(view: self.backgroundView)
             if self.isShowBottomView {
                 SPAnimation.animate(0.3, animations: {
@@ -164,9 +163,7 @@ public class SPIndicationBannerController<BottomView: UIView>: SPStatusBarManage
         SPAnimation.animate(SPHideWindow.dialog.duration, animations: {
             self.backgroundView.setGradeAlpha(0, blurRaius: 0)
         }, withComplection: {
-            
             self.dismiss(animated: false, completion: {
-                
                 self.animator.removeAllBehaviors()
                 self.delegate?.didHide()
             })
@@ -240,7 +237,6 @@ public class SPIndicationBannerController<BottomView: UIView>: SPStatusBarManage
             let lastFrameViewInList = self.listView.subviews.last?.frame ?? CGRect.zero
             self.hidingView?.frame = CGRect.init(x: self.listView.frame.origin.x, y: self.listView.frame.bottomYPosition - lastFrameViewInList.height, width: lastFrameViewInList.height, height: lastFrameViewInList.height)
         }, options: .curveEaseInOut, withComplection: {
-            
             SPAnimation.animate(0.05, animations: {
                 let itemView = self.listView.subviews.last as! SPItemListView
                 itemView.iconView.alpha = 1
@@ -248,7 +244,6 @@ public class SPIndicationBannerController<BottomView: UIView>: SPStatusBarManage
             SPAnimation.animate(0.1, animations: {
                 self.hidingView?.alpha = 0
             }, withComplection: {
-                
                 self.hidingView?.removeFromSuperview()
                 self.hidingView = nil
             })

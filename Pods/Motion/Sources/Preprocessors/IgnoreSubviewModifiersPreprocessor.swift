@@ -28,54 +28,55 @@
 
 import UIKit
 
-class IgnoreSubviewTransitionsPreprocessor: MotionPreprocessor {
-    /// A reference to a MotionContext.
-    weak var context: MotionContext!
-    
-    /**
-     Processes the transitionary views.
-     - Parameter fromViews: An Array of UIViews.
-     - Parameter toViews: An Array of UIViews.
-     */
-    func process(fromViews: [UIView], toViews: [UIView]) {
-        process(views:fromViews)
-        process(views:toViews)
-    }
-
-    /**
-     Process an Array of views for the cascade animation.
-     - Parameter views: An Array of UIViews.
-     */
-    func process(views: [UIView]) {
-        for v in views {
-            guard let recursive = context[v]?.ignoreSubviewTransitions else {
-                continue
-            }
-            
-            let parentView = v is UITableView ? v.subviews.get(0) ?? v : v
-
-            guard recursive else {
-                for subview in parentView.subviews {
-                    context[subview] = nil
-                }
-                
-                continue
-            }
-            
-            cleanSubviewTransitions(for: parentView)
+class IgnoreSubviewTransitionsPreprocessor: MotionCorePreprocessor {
+  /**
+   Processes the transitionary views.
+   - Parameter fromViews: An Array of UIViews.
+   - Parameter toViews: An Array of UIViews.
+   */
+  override func process(fromViews: [UIView], toViews: [UIView]) {
+    process(views: fromViews)
+    process(views: toViews)
+  }
+  
+  /**
+   Process an Array of views for the cascade animation.
+   - Parameter views: An Array of UIViews.
+   */
+  func process(views: [UIView]) {
+    for v in views {
+      guard let recursive = context[v]?.ignoreSubviewTransitions else {
+        continue
+      }
+      
+      var parentView = v
+      
+      if v is UITableView, let wrapperView = v.subviews.get(0) {
+        parentView = wrapperView
+      }
+      
+      guard recursive else {
+        for subview in parentView.subviews {
+          context[subview] = nil
         }
+        
+        continue
+      }
+      
+      cleanSubviewModifiers(for: parentView)
     }
+  }
 }
 
-extension IgnoreSubviewTransitionsPreprocessor {
-    /**
-     Clears the transition for a given view's subviews.
-     - Parameter for view: A UIView.
-     */
-    fileprivate func cleanSubviewTransitions(for view: UIView) {
-        for v in view.subviews {
-            context[v] = nil
-            cleanSubviewTransitions(for: v)
-        }
+fileprivate extension IgnoreSubviewTransitionsPreprocessor {
+  /**
+   Clears the modifiers for a given view's subviews.
+   - Parameter for view: A UIView.
+   */
+  func cleanSubviewModifiers(for view: UIView) {
+    for v in view.subviews {
+      context[v] = nil
+      cleanSubviewModifiers(for: v)
     }
+  }
 }

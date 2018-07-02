@@ -194,7 +194,7 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         return NSAttributedString(string: attributedStr)
     }
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return UIColor.init(hex: "#F0F3F5")
+        return UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
     }
 //    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
 //        return NSAttributedString(string: "Envoyer")
@@ -225,7 +225,7 @@ extension DetailGalleryVC : TabBarDelegate {
         tabBar.dividerColor = Color.grey.lighten2
         tabBar.dividerAlignment = .top
         
-        tabBar.lineColor = UIColor.init(hex: "#2BB1F2")
+        tabBar.lineColor = UIColor(red:0.17, green:0.69, blue:0.95, alpha:1.0)
         tabBar.lineAlignment = .bottom
         
         tabBar.backgroundColor = Color.grey.lighten5

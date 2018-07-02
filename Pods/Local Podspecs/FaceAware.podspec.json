@@ -1,7 +1,8 @@
 {
   "name": "FaceAware",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "summary": "A UIImageView extension that focus on faces within an image.",
+  "swift_version": "4.1",
   "description": "An extension that gives UIImageView the ability to focus on faces within an image when using AspectFill.",
   "homepage": "https://github.com/BeauNouvelle/FaceAware",
   "screenshots": [
@@ -17,11 +18,11 @@
   },
   "social_media_url": "http://twitter.com/BeauNouvelle",
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source": {
     "git": "https://github.com/BeauNouvelle/FaceAware.git",
-    "tag": "1.3.0"
+    "tag": "1.4.0"
   },
   "source_files": "FaceAware/*.{swift}",
   "exclude_files": "Classes/Exclude"
