@@ -119,7 +119,8 @@ open class DropDownMenu : UIView, UITableViewDataSource, UITableViewDelegate, UI
 		menuView.bounces = false
 		menuView.showsVerticalScrollIndicator = true
 		menuView.showsHorizontalScrollIndicator = false
-        menuView.backgroundColor = UIColor.clear
+        menuView.backgroundColor = UIColor(red:0.66, green:0.89, blue:1.00, alpha:1.00)
+        menuView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
 
 		contentView.addSubview(menuView)
 

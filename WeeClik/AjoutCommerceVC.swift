@@ -135,6 +135,7 @@ class AjoutCommerceVC: UITableViewController {
     func saveCommerce() -> String{
         // Sauvegarde finale pour paiement
         let commerceToSave = getCommerceFromInfos().getPFObject()
+        
         do {
             try commerceToSave.save()
         } catch {
@@ -204,6 +205,7 @@ class AjoutCommerceVC: UITableViewController {
             group.background {
                 do{
                     print("Saving videos")
+                    
                     try PFObject.saveAll(videos)
                     
                     print("4")
@@ -284,7 +286,7 @@ class AjoutCommerceVC: UITableViewController {
     }
     
     func getCommerceFromInfos() -> Commerce{
-        let comm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce)
+        let comm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce, owner:PFUser.current()!)
         comm.location = getLocationFromAddress(add: adresseCommerce)
         return comm
     }

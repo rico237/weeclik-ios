@@ -137,9 +137,6 @@ class AccueilCommerces: UIViewController {
         didLoad = true
         
         
-        
-//        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage)), UIBarButtonItem(image: UIImage(named:"Logout_icon"), style: .plain, target: self, action: #selector(logOut(_:)))]
-//        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Login_icon") , style: .plain, target: self, action: #selector(showConnectionPage)), UIBarButtonItem(image: UIImage(named:"Logout_icon"), style: .plain, target: self, action: #selector(logOut(_:)))]
     }
     
     @IBAction func logOut(_ sender: Any) {

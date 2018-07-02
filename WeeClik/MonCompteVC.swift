@@ -49,7 +49,6 @@ class MonCompteVC: UIViewController {
             if let vue = vueConnexion{
                 vue.removeFromSuperview()
             }
-            self.updateUIBasedOnUser()
             self.queryCommercesArrayBasedOnUser()
         }
     }
@@ -81,7 +80,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             let queryCommerce = PFQuery(className: "Commerce")
             queryCommerce.whereKey("owner", equalTo: currentUser as Any)
             queryCommerce.findObjectsInBackground(block: { (objects, error) in
-                if error != nil {
+                if objects != nil {
                     self.commerces = objects
                     self.updateUIBasedOnUser()
                 }
@@ -91,7 +90,8 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             let queryCommerce = PFUser.query()
             queryCommerce?.whereKey("objectId", equalTo: currentUser?.objectId?.description as Any)
             queryCommerce?.findObjectsInBackground(block: { (objects, error) in
-                if error != nil {
+                if objects != nil {
+//                    print("Nombre de commerces : \(objects?.count ?? 0)")
                     let obj = objects![0] as PFObject
                     self.commerces = obj["mes_partages"] as! [PFObject]
                     self.updateUIBasedOnUser()
@@ -140,8 +140,16 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             cell?.detailTextLabel?.text = (PFUser.current() != nil) ? currentUser?.email : "email"
             return cell!
         } else {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell")
+//            print(self.commerces)
+            let obj = self.commerces[indexPath.row]
+            print(obj)
+            
             let commerceObj = Commerce(parseObject: self.commerces[indexPath.row])
+            
+//            cell?.textLabel?.text = "\(obj["nomCommerce"] as! String) - \(String(obj["nombrePartages"] as! Int)) partages"
+//            cell?.detailTextLabel?.text = "\(obj["statutCommerce"] as! String)"
             cell?.textLabel?.text = commerceObj.nom + " - " + String(commerceObj.partages) + " partages"
             cell?.detailTextLabel?.text = commerceObj.statut
             return cell!
@@ -152,14 +160,17 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
         if tableView ==  self.commercesTableView {
             // Afficher le détail d'un commerce
             let detailViewController = DetailCommerceViewController()
+            
+            
             let commerceObj = Commerce(parseObject: self.commerces[indexPath.row])
+            
+            
+            
             detailViewController.commerceObject = commerceObj
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
 }
-
-
 
 extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
     

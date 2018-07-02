@@ -24,9 +24,10 @@ enum StatutType: String {
 }
 
 @objc(Commerce)
-class Commerce: NSObject, NSCoding {
+public class Commerce: NSObject , NSCoding {
     
     var nom         : String = ""
+    var owner       : PFUser? = nil
     var statut      : String = "Hors ligne - en attente de paiement" // En ligne, Hors ligne - en attente de paiement
 //    var type : CategoryType = .autres
     var type        : String = ""
@@ -39,7 +40,7 @@ class Commerce: NSObject, NSCoding {
     var promotions  : String = ""
     var descriptionO: String = ""
     
-    var thumbnail  : PFFile? = nil
+    var thumbnail   : PFFile? = nil
     
     var objectId    : String! = "-1"
     var createdAt   : Date?
@@ -49,11 +50,11 @@ class Commerce: NSObject, NSCoding {
     
     var pfObject : PFObject!
     
-    required override init() {
+    required override public init() {
         super.init()
     }
     
-    init(withName nom: String, tel: String, mail:String, adresse:String, siteWeb:String, categorie:String, description:String, promotions:String){
+    init(withName nom: String, tel: String, mail:String, adresse:String, siteWeb:String, categorie:String, description:String, promotions:String, owner: PFUser){
         self.pfObject = PFObject(className: "Commerce")
         self.objectId = pfObject.objectId
         self.createdAt = pfObject.createdAt
@@ -67,9 +68,12 @@ class Commerce: NSObject, NSCoding {
         self.type = categorie
         self.descriptionO = description
         self.promotions = promotions
+        self.owner = owner
     }
     
     init(parseObject: PFObject) {
+        
+        print(parseObject)
         self.pfObject = parseObject
         
         self.nom        = parseObject["nomCommerce"] as! String
@@ -83,7 +87,12 @@ class Commerce: NSObject, NSCoding {
         self.descriptionO = parseObject["description"] as! String
         self.promotions = parseObject["promotions"] as! String
         if let position = parseObject["position"]{
-            self.location = position as! PFGeoPoint
+            self.location = position as? PFGeoPoint
+        }
+        
+        
+        if let owner = parseObject["owner"] {
+            self.owner = owner as? PFUser
         }
         
         self.objectId   = parseObject.objectId
@@ -95,9 +104,12 @@ class Commerce: NSObject, NSCoding {
                 self.thumbnail = thumbnail
             }
         }
+        
+        
+        
     }
     
-    override var description: String {
+    override public var description: String {
         get {
             return "Commerce {\n\t Nom : \(self.nom)\n\t Type : \(self.type)\n\t Partages : \(self.partages)\n\t Id : \(self.objectId)\n}";
         }
@@ -115,11 +127,12 @@ class Commerce: NSObject, NSCoding {
         object["siteWeb"] = siteWeb
         object["promotions"] = promotions
         object["description"] = descriptionO
+        object["owner"] = owner
         return object
     }
     
     // Encoding Functions
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(nom, forKey: "nameComm")
         aCoder.encode(statut, forKey: "statutComm")
         aCoder.encode(type, forKey: "statutComm")
@@ -131,16 +144,17 @@ class Commerce: NSObject, NSCoding {
         aCoder.encode(promotions, forKey: "promotionsComm")
         aCoder.encode(descriptionO, forKey: "descriptionComm")
         aCoder.encode(objectId, forKey: "objectIdComm")
-    
+
         // Optionnels
         if let loc = location {aCoder.encode(loc, forKey: "locationComm")}
         if let thumb = self.thumbnail  {aCoder.encode(thumb, forKey: "thumbnailComm")}
-        
+
         if let created = createdAt {aCoder.encode(created, forKey: "createdAtComm")}
         if let updated = updatedAt {aCoder.encode(updated, forKey: "updatedAtComm")}
+        if let owner = self.owner {aCoder.encode(owner, forKey: "owner")}
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         nom = aDecoder.decodeObject (forKey: "nameComm") as! String
         statut = aDecoder.decodeObject (forKey: "statutComm") as! String
         type = aDecoder.decodeObject (forKey: "statutComm") as! String
@@ -152,11 +166,12 @@ class Commerce: NSObject, NSCoding {
         promotions = aDecoder.decodeObject (forKey: "promotionsComm") as! String
         descriptionO = aDecoder.decodeObject (forKey: "descriptionComm") as! String
         objectId = aDecoder.decodeObject (forKey: "objectIdComm") as! String
-        
+
         // Optionnels
         if let loc = aDecoder.decodeObject(forKey: "locationComm") {self.location = loc as? PFGeoPoint}
         if let thumb = aDecoder.decodeObject(forKey: "thumbnailComm"){self.thumbnail = thumb as? PFFile}
         if let created = aDecoder.decodeObject(forKey: "createdAtComm"){self.createdAt = created as? Date}
         if let updated = aDecoder.decodeObject(forKey: "updatedAtComm"){self.updatedAt = updated as? Date}
+        if let ownerP = aDecoder.decodeObject(forKey: "owner"){self.owner = ownerP as? PFUser}
     }
 }

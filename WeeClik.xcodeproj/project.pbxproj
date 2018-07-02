@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F071A3420DEFEB5007AE1ED /* Commerce.swift */; };
 		1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */; };
 		1F08570C1F2D960400932929 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570B1F2D960400932929 /* Pacifico.ttf */; };
 		1F08570E1F2D977600932929 /* UserLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570D1F2D977600932929 /* UserLocation.gpx */; };
@@ -52,7 +53,6 @@
 		1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDE1F269CB2004D5F4C /* OpenSans-Semibold.ttf */; };
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
 		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		1FA9BFEF1F26C844004D5F4C /* Commerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA9BFEE1F26C844004D5F4C /* Commerce.swift */; };
 		1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE0161209F20C20040F988 /* GoogleService-Info.plist */; };
 		1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3921FABA78700392060 /* ChangeInfosVC.swift */; };
 		1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3941FABA9A200392060 /* MotDePasseVC.swift */; };
@@ -64,10 +64,24 @@
 		1FEBF4651F254F3D00146525 /* BebasNeue Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF4601F254F3D00146525 /* BebasNeue Regular.ttf */; };
 		1FEBF4661F254F3D00146525 /* BebasNeue Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF4611F254F3D00146525 /* BebasNeue Thin.ttf */; };
 		1FEE37491F911A5B00E1D1A7 /* BulletinDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE37451F9118AF00E1D1A7 /* BulletinDataSource.swift */; };
-		763A11B00FF725C0589D07E8 /* Pods_WeeClik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F79A0131541A27C572A5AF3 /* Pods_WeeClik.framework */; };
+		788E3A22531FFFF44C80E285 /* Pods_WeeClik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1F7ADB1620DEF4B900916AB8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1F071A3420DEFEB5007AE1ED /* Commerce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commerce.swift; sourceTree = "<group>"; };
 		1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommerceViewController.swift; sourceTree = "<group>"; };
 		1F08570B1F2D960400932929 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
 		1F08570D1F2D977600932929 /* UserLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = UserLocation.gpx; sourceTree = "<group>"; };
@@ -117,7 +131,6 @@
 		1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		1FA9BFEE1F26C844004D5F4C /* Commerce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commerce.swift; sourceTree = "<group>"; };
 		1FCE0161209F20C20040F988 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FCED3921FABA78700392060 /* ChangeInfosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfosVC.swift; sourceTree = "<group>"; };
 		1FCED3941FABA9A200392060 /* MotDePasseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotDePasseVC.swift; sourceTree = "<group>"; };
@@ -132,7 +145,7 @@
 		1FEE37461F9118AF00E1D1A7 /* BackgroundStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundStyles.swift; sourceTree = "<group>"; };
 		3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.debug.xcconfig"; sourceTree = "<group>"; };
 		39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.release.xcconfig"; sourceTree = "<group>"; };
-		6F79A0131541A27C572A5AF3 /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +155,7 @@
 			files = (
 				1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */,
 				1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */,
-				763A11B00FF725C0589D07E8 /* Pods_WeeClik.framework in Frameworks */,
+				788E3A22531FFFF44C80E285 /* Pods_WeeClik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,7 +165,7 @@
 		1F0857061F2D672B00932929 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				1FA9BFEE1F26C844004D5F4C /* Commerce.swift */,
+				1F071A3420DEFEB5007AE1ED /* Commerce.swift */,
 				1F744EB11F9023EE00B892FD /* UserAccount.swift */,
 			);
 			name = Objects;
@@ -284,7 +297,7 @@
 			children = (
 				1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */,
 				1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */,
-				6F79A0131541A27C572A5AF3 /* Pods_WeeClik.framework */,
+				C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -311,6 +324,7 @@
 				1FA473281F1EE7E400D2A306 /* Resources */,
 				ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */,
 				1FD2F819209F2A7A004D11D5 /* Fabric Script */,
+				1F7ADB1620DEF4B900916AB8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -328,7 +342,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Herrick Wolber";
 				TargetAttributes = {
 					1FA473291F1EE7E400D2A306 = {
@@ -539,13 +553,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F7331DB2052BA4300582A7B /* PhotosVideosCollectionCell.swift in Sources */,
-				1FA9BFEF1F26C844004D5F4C /* Commerce.swift in Sources */,
 				1FEE37491F911A5B00E1D1A7 /* BulletinDataSource.swift in Sources */,
 				1F236C6F204F780D00571EA7 /* AccueilCollectionViewCell.swift in Sources */,
 				1F4D4310202AC4D40089FB15 /* ImageScroller.swift in Sources */,
 				1F1112A01F72BB9E001D0C61 /* SaisieDeDonneesVC.swift in Sources */,
 				1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */,
 				1FA53BC01F34F7AB00DEDEA1 /* PromotionsCell.swift in Sources */,
+				1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */,
 				1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */,
 				1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */,
 				1F7331D42052702400582A7B /* DetailGalleryVC.swift in Sources */,
@@ -612,6 +626,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -619,6 +634,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -670,6 +686,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -677,6 +694,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -711,6 +729,7 @@
 			baseConfigurationReference = 3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X776XA45RM;
 				INFOPLIST_FILE = WeeClik/Info.plist;
@@ -729,6 +748,7 @@
 			baseConfigurationReference = 39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = X776XA45RM;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
