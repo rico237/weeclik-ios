@@ -25,6 +25,9 @@ class DetailCommerceViewController: UIViewController {
     
     var commerceObject : Commerce!
     var commerceID : String!
+    
+    var routeCommerceId : String!
+    
     let userDefaults : UserDefaults = UserDefaults.standard
     
     let composeVC = MFMailComposeViewController()
@@ -53,59 +56,6 @@ class DetailCommerceViewController: UIViewController {
     var promotionsH  : CGFloat = 0.0
     var descriptionH : CGFloat = 0.0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        self.headerImage.isHidden = false
-        self.view.backgroundColor = UIColor.white
-        
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0)
-        
-        self.view.backgroundColor = HelperAndKeys.getBackgroundColor()
-        
-        // Share actions
-        self.shareButton.addTarget(self, action: #selector(shareCommerce), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Share_icon") , style: .plain, target: self, action: #selector(shareCommerce))
-        
-        self.nomCommerceLabel.text = commerceObject.nom
-        self.categorieLabel.text   = commerceObject.type
-        
-        // 6. TODO
-        if self.commerceObject.distanceFromUser == "" {
-            self.distanceView.isHidden = true
-        } else {
-            self.headerDistanceLabel.text = self.commerceObject.distanceFromUser
-            self.distanceView.isHidden = false
-        }
-        
-        self.headerPartagesLabel.text = String(self.commerceObject.partages)
-        
-        initScrollersAndGalleries()
-        
-        self.title = "Weeclik"
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        updateAllViews()
-        
-        // Refresh UI
-        self.tableView.reloadData()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.imageScroller.stopTimer()
-    }
-    
-    func initScrollersAndGalleries(){
-        self.imageScroller.isAutoScrollEnabled  = true
-        self.imageScroller.isAutoLoadingEnabled = true
-        self.imageScroller.scrollTimeInterval   = 2.0
-        self.imageScroller.scrollView.bounces   = false
-    }
     
     @objc func updateAllViews(){
         // Mise a jour de notre variable globale pour l'ensemble de nos fonctions
@@ -158,7 +108,7 @@ class DetailCommerceViewController: UIViewController {
     
     @objc func shareCommerce(){
         if HelperAndKeys.canShareAgain(objectId: commerceID){
-            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse)"
+            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse) URL: weeclik://\(self.commerceObject.objectId.description)"
             let activit = UIActivityViewController(activityItems: [str], applicationActivities: nil)
             self.present(activit, animated: true, completion: nil)
             
@@ -173,8 +123,6 @@ class DetailCommerceViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! DetailGalleryVC
         destination.commerce = self.commerceObject
-//        destination.photos = commerceObject.photosCommerces
-//        destination.videos = commerceObject.videosCommerce
     }
 }
 
@@ -272,6 +220,85 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
 }
 
 extension DetailCommerceViewController{
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.headerImage.isHidden = false
+        self.view.backgroundColor = UIColor.white
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0)
+        
+        self.view.backgroundColor = HelperAndKeys.getBackgroundColor()
+        
+        // Share actions
+        self.shareButton.addTarget(self, action: #selector(shareCommerce), for: .touchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Share_icon") , style: .plain, target: self, action: #selector(shareCommerce))
+        self.title = "Weeclik"
+        
+        initScrollersAndGalleries()
+        
+        if let routeId = routeCommerceId {
+            let query = PFQuery(className: "Commerce")
+            query.whereKey("objectId", equalTo: routeId)
+            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            
+            do {
+                let objects = try query.findObjects()
+                let comm = objects[0]
+                
+                commerceObject = Commerce(parseObject: comm)
+                
+            } catch {
+                print(error)
+            }
+            
+        }
+        
+        if commerceObject != nil {
+            
+            self.nomCommerceLabel.text = commerceObject.nom
+            self.categorieLabel.text   = commerceObject.type
+            
+            // 6. TODO
+            if self.commerceObject.distanceFromUser == "" {
+                self.distanceView.isHidden = true
+            } else {
+                self.headerDistanceLabel.text = self.commerceObject.distanceFromUser
+                self.distanceView.isHidden = false
+            }
+            
+            self.headerPartagesLabel.text = String(self.commerceObject.partages)
+        } else {
+            print("Erreur de chargment : Commerce est null")
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if commerceObject != nil {
+            updateAllViews()
+            
+            // Refresh UI
+            self.tableView.reloadData()
+        } else {
+            print("Erreur de chargment : Commerce est null")
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.imageScroller.stopTimer()
+    }
+    
+    func initScrollersAndGalleries(){
+        self.imageScroller.isAutoScrollEnabled  = true
+        self.imageScroller.isAutoLoadingEnabled = true
+        self.imageScroller.scrollTimeInterval   = 2.0
+        self.imageScroller.scrollView.bounces   = false
+    }
+    
     // Customize l'interface utilisateur
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

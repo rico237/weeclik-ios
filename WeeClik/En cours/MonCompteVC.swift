@@ -51,6 +51,13 @@ class MonCompteVC: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailCommerce" {
+//            let nextVC = segue.destination
+            
+        }
+    }
+    
     @IBAction func changeImageProfil(){
         print("Ajouter une fonction pour changer la photo de profil")
     }
@@ -77,6 +84,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             // Prend les commerces du compte pro
             let queryCommerce = PFQuery(className: "Commerce")
             queryCommerce.whereKey("owner", equalTo: currentUser as Any)
+            queryCommerce.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
             queryCommerce.findObjectsInBackground(block: { (objects, error) in
                 if objects != nil {
                     self.commerces = objects
@@ -138,18 +146,11 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             cell?.detailTextLabel?.text = (PFUser.current() != nil) ? currentUser?.email : "email"
             return cell!
         } else {
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell")
-//            print(self.commerces)
             let obj = self.commerces[indexPath.row]
-            print(obj)
-            
-            let commerceObj = Commerce(parseObject: self.commerces[indexPath.row])
-            
-//            cell?.textLabel?.text = "\(obj["nomCommerce"] as! String) - \(String(obj["nombrePartages"] as! Int)) partages"
-//            cell?.detailTextLabel?.text = "\(obj["statutCommerce"] as! String)"
-            cell?.textLabel?.text = commerceObj.nom + " - " + String(commerceObj.partages) + " partages"
-            cell?.detailTextLabel?.text = commerceObj.statut
+
+            cell?.textLabel?.text = "\(obj["nomCommerce"] as! String) - \(String(obj["nombrePartages"] as! Int)) partages"
+            cell?.detailTextLabel?.text = "\(obj["statutCommerce"] as! String)"
             return cell!
         }
     }
@@ -157,15 +158,17 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView ==  self.commercesTableView {
             // Afficher le détail d'un commerce
-            let detailViewController = DetailCommerceViewController()
             
-            
-            let commerceObj = Commerce(parseObject: self.commerces[indexPath.row])
-            
-            
-            
-            detailViewController.commerceObject = commerceObj
-            self.navigationController?.pushViewController(detailViewController, animated: true)
+            if isPro {
+                let detailViewController = AjoutCommerceVC()
+                detailViewController.editingMode = true
+                
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            } else {
+                let detailViewController =  DetailCommerceViewController()
+                
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
         }
     }
 }

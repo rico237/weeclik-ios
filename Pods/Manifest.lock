@@ -12,6 +12,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - BulletinBoard (1.3.0)
+  - Compass (6.0.0)
   - Compose (1.2.3)
   - Crashlytics (3.10.3):
     - Fabric (~> 1.7.8)
@@ -104,6 +105,7 @@ DEPENDENCIES:
   - AZDialogView (~> 1.1)
   - Bolts (~> 1.9)
   - BulletinBoard (~> 1.3.0)
+  - Compass
   - Compose (~> 1.2)
   - Crashlytics (~> 3.10.1)
   - CRNetworkButton (~> 1.0)
@@ -149,6 +151,7 @@ SPEC REPOS:
     - AZDialogView
     - Bolts
     - BulletinBoard
+    - Compass
     - Compose
     - Crashlytics
     - CRNetworkButton
@@ -231,6 +234,7 @@ SPEC CHECKSUMS:
   AZDialogView: 75a481ef11e78b047e9d7d212a83b76a8d91627f
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
+  Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
   Crashlytics: 2aea305161a2122492698c75af27f2b98aa49a25
   CRNetworkButton: 2bfe150c64a46506ade962745a3364f21bef3115
@@ -272,6 +276,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: 761f2a7d4ce24df63b2c324c5f8ba03d21cca82e
+PODFILE CHECKSUM: cf8673e36f847a432f088a0dfe085aa26b0a6d56
 
 COCOAPODS: 1.5.3

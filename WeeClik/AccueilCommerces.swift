@@ -194,7 +194,7 @@ class AccueilCommerces: UIViewController {
         self.commerces = []
         let query = PFQuery(className: "Commerce")
         query.whereKey("typeCommerce", equalTo: typeCategorie)
-        query.includeKeys(["thumbnailPrincipal", "photosSlider"])
+        query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
         if withLocation {
             let userPosition = PFGeoPoint(location: latestLocationForQuery)
             query.whereKey("position", nearGeoPoint: userPosition)
@@ -259,8 +259,6 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
 
         // Ajout du contenu (valeures)
         cell.nomCommerce.text = comm.nom
-        
-        print(self.prefFiltreLocation)
         
         if self.prefFiltreLocation {
             // Filtré par positions

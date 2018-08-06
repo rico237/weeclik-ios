@@ -12,12 +12,13 @@ import FBSDKCoreKit
 import Firebase
 import Fabric
 import Crashlytics
+import Compass
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var postLoginRouter = Router()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -28,7 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics.self])
+        
+        setupRouting()
 
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        try? Navigator.navigate(url: url)
         return true
     }
     
@@ -86,5 +94,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate {
+    func setupRouting() {
+        // [1] Register scheme
+        Navigator.scheme = "weeclik"
+        
+        // [2] Configure routes for Router
+        postLoginRouter.routes = [
+            "commerce:{commerceId}" : CommerceRoute() // ,
+            //"user:{userId}": UserRoute(),
+        ]
+        
+        // [3] Register routes you 'd like to support
+        Navigator.routes = Array(postLoginRouter.routes.keys)
+        
+        // [4] Do the handling
+        Navigator.handle = { [weak self] location in
+            
+            guard let selectedController = self?.window?.visibleViewController else {
+                return
+            }
+            
+            // [5] Choose the current visible controller
+            let currentController = (selectedController as? UINavigationController)?.topViewController
+                ?? selectedController
+            
+            // [6] Navigate
+            self?.postLoginRouter.navigate(to: location, from: currentController)
+        }
+    }
 }
 

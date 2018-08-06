@@ -16,11 +16,28 @@ import Parse
 //    case autres
 //}
 
-enum StatutType: String {
-    case paid = "Paiement",
-    pending = "Hors ligne - en attente de paiement",
-    canceled = "Hors ligne - paiement annulé",
-    error = "Erreur lors du paiement ou du renouvellement"
+protocol StatutTypeDescription {
+    var description : String { get }
+}
+
+enum StatutType: Int, StatutTypeDescription {
+    case pending = 0,
+    paid = 1,
+    canceled = 2,
+    error = 3
+    
+    var description : String {
+        switch self {
+        case .paid :
+            return "Paiement"
+        case .pending :
+            return "Hors ligne - en attente de paiement"
+        case .canceled :
+            return "Hors ligne - paiement annulé"
+        case .error :
+            return "Erreur lors du paiement ou du renouvellement"
+        }
+    }
 }
 
 @objc(Commerce)
@@ -28,7 +45,7 @@ public class Commerce: NSObject , NSCoding {
     
     var nom         : String = ""
     var owner       : PFUser? = nil
-    var statut      : String = "Hors ligne - en attente de paiement" // En ligne, Hors ligne - en attente de paiement
+    var statut      : StatutType = .pending
 //    var type : CategoryType = .autres
     var type        : String = ""
     var partages    : Int = 0
@@ -86,27 +103,35 @@ public class Commerce: NSObject , NSCoding {
         self.adresse    = parseObject["adresse"] as! String
         self.descriptionO = parseObject["description"] as! String
         self.promotions = parseObject["promotions"] as! String
-        if let position = parseObject["position"]{
+        self.statut     = StatutType(rawValue: parseObject["statutCommerce"] as! Int)!
+        
+        if let position   = parseObject["position"]{
             self.location = position as? PFGeoPoint
         }
         
-        
-        if let owner = parseObject["owner"] {
+        if let owner   = parseObject["owner"] {
             self.owner = owner as? PFUser
+        }
+        
+        if let thumbnailObj    = parseObject["thumbnailPrincipal"] as? PFObject {
+            if let thumbnail   = thumbnailObj["photo"] as? PFFile {
+                self.thumbnail = thumbnail
+            }
         }
         
         self.objectId   = parseObject.objectId
         self.createdAt  = parseObject.createdAt
         self.updatedAt  = parseObject.updatedAt
-        
-        if let thumbnailObj = parseObject["thumbnailPrincipal"] as? PFObject {
-            if let thumbnail = thumbnailObj["photo"] as? PFFile{
-                self.thumbnail = thumbnail
-            }
+    }
+    
+    convenience init? (objectId: String) {
+        let query = PFQuery(className: "Commerce")
+        query.whereKey("objectId", equalTo: objectId)
+        query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+        do {self.init(parseObject: try query.getFirstObject())} catch {
+            print(error)
+            return nil
         }
-        
-        
-        
     }
     
     override public var description: String {
@@ -156,7 +181,7 @@ public class Commerce: NSObject , NSCoding {
     
     required public init?(coder aDecoder: NSCoder) {
         nom = aDecoder.decodeObject (forKey: "nameComm") as! String
-        statut = aDecoder.decodeObject (forKey: "statutComm") as! String
+        statut = StatutType(rawValue: aDecoder.decodeObject (forKey: "statutComm") as! Int)!
         type = aDecoder.decodeObject (forKey: "statutComm") as! String
         partages = aDecoder.decodeInteger(forKey: "partagesComm")
         mail = aDecoder.decodeObject (forKey: "mailComm") as! String

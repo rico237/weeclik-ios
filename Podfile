@@ -82,6 +82,8 @@ def projectPods
     pod 'Avatar'
     # Selection des photos et videos pour la création de commerce
     pod 'Gallery'
+    # Routing management
+    pod 'Compass'
 end
 
 target 'WeeClik' do

@@ -23,6 +23,10 @@ class AjoutCommerceVC: UITableViewController {
     var selectedVideoData = Data()                  // Data de vidéos
     var didUseFinalSave = false                     // Utilisé le bouton de sauvegarde
     var savedCommerce : Commerce? = nil             // Objet Commerce si on a pas utilisé le bouton sauvegarde
+    
+    var objectIdCommerce = ""
+    var editingMode = false
+    
     var commerceIdToSave = ""                             // Id du commerce à sauvegarder
 //    var pfCommerce : PFObject? = nil
     
@@ -48,6 +52,11 @@ class AjoutCommerceVC: UITableViewController {
         if let comm = use.object(forKey: "lastCommerce") as? Commerce {
             savedCommerce = comm
         }
+        
+        if objectIdCommerce != "" {
+            savedCommerce = Commerce(objectId: objectIdCommerce)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -267,12 +276,14 @@ class AjoutCommerceVC: UITableViewController {
         if photos.count != 0 {
             let query = PFQuery(className: "Commerce")
             query.whereKey("objectId", equalTo: commerceId)
+            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
             var commerceToSave : PFObject
             do {
-                try commerceToSave = query.findObjects()[0]
+                try commerceToSave = query.getFirstObject()
                 
                 commerceToSave["photoSlider"] = photos
                 commerceToSave["thumbnailPrincipal"] = photos[0]
+                commerceToSave["videos"] = videos
                 try commerceToSave.save()
                 
             } catch  {
