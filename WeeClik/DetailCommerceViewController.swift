@@ -17,6 +17,7 @@ import Parse
 import MessageUI
 import MapKit
 import LGButton
+import SDWebImage
 
 class DetailCommerceViewController: UIViewController {
     
@@ -74,8 +75,9 @@ class DetailCommerceViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    func loadSliderFromFetchedPhotos(){
-        if sampleImagesUrls.count > 1{
+    func loadSliderFromFetchedPhotos() {
+        if sampleImagesUrls.count > 1 {
+            // N images chargé depuis la BDD
             self.headerImage.isHidden = true
             imageScroller.setupScrollerWithImages(images: sampleImagesUrls)
         }
@@ -86,20 +88,17 @@ class DetailCommerceViewController: UIViewController {
         queryPhotos.whereKey("commerce", equalTo: self.commerceObject.pfObject)
         queryPhotos.order(byDescending: "updatedAt")
         queryPhotos.findObjectsInBackground { (objects, err) in
-            if (err != nil) {
+            if err != nil {
                 // TODO: Error Handling
                 print("Erreur de chargement du slider => \(String(describing: err?.localizedDescription))")
             } else {
-                if objects != nil {
-                    // TEST:
+                if let objects = objects {
                     self.sampleImagesUrls = []
-                    for obj in objects!{
-                        let fileUrl = (obj["photo"] as? PFFile)?.url
-                        if fileUrl != nil {
-                            self.sampleImagesUrls.append(fileUrl!)
+                    for obj in objects {
+                        if let fileUrl = (obj["photo"] as? PFFile)?.url {
+                            self.sampleImagesUrls.append(fileUrl)
                         }
                     }
-                    //print("Sample urls : \n    \(self.sampleImagesUrls)")
                     self.loadSliderFromFetchedPhotos()
                 }
             }
@@ -108,7 +107,7 @@ class DetailCommerceViewController: UIViewController {
     
     @objc func shareCommerce(){
         if HelperAndKeys.canShareAgain(objectId: commerceID){
-            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse) URL: weeclik://\(self.commerceObject.objectId.description)"
+            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse) \nURL : weeclik://\(self.commerceObject.objectId.description)"
             let activit = UIActivityViewController(activityItems: [str], applicationActivities: nil)
             self.present(activit, animated: true, completion: nil)
             
@@ -269,6 +268,13 @@ extension DetailCommerceViewController{
             }
             
             self.headerPartagesLabel.text = String(self.commerceObject.partages)
+            
+            
+            if let thumbFile = self.commerceObject.thumbnail {
+                self.headerImage.sd_setImage(with: URL(string: thumbFile.url!))
+            }
+            
+            
         } else {
             print("Erreur de chargment : Commerce est null")
         }

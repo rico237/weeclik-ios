@@ -98,7 +98,11 @@ class AjoutCommerceVC: UITableViewController {
     }
 
     @IBAction func cancelAction(_ sender: Any) {
-        self.dismiss(animated: true)
+        if editingMode {
+            self.navigationController?.dismiss(animated: true)
+        } else {
+            self.dismiss(animated: true)
+        }
     }
     
     @IBAction func saveInformations(_ sender: Any){
@@ -519,13 +523,12 @@ extension AjoutCommerceVC {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "singleInformationCell", for: indexPath) as! NouveauCommerceCell
             cell.setTextFieldViewDataDelegate(delegate: self, tag: 100, placeHolder: "Nom de votre établissement")
             cell.contentTF.text = self.nomCommerce
             return cell
-        } else if indexPath.section == 1{
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "photoCollectionView", for: indexPath) as! AjoutPhotoTVC
             cell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.section)
             return cell

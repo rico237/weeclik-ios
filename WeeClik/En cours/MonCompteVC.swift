@@ -51,13 +51,6 @@ class MonCompteVC: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detailCommerce" {
-//            let nextVC = segue.destination
-            
-        }
-    }
-    
     @IBAction func changeImageProfil(){
         print("Ajouter une fonction pour changer la photo de profil")
     }
@@ -147,10 +140,10 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell")
-            let obj = self.commerces[indexPath.row]
+            let obj = Commerce(parseObject: self.commerces[indexPath.row])
 
-            cell?.textLabel?.text = "\(obj["nomCommerce"] as! String) - \(String(obj["nombrePartages"] as! Int)) partages"
-            cell?.detailTextLabel?.text = "\(obj["statutCommerce"] as! String)"
+            cell?.textLabel?.text = "\(obj.nom) - \(obj.partages) partages"
+            cell?.detailTextLabel?.text = "\(obj.statut.description)"
             return cell!
         }
     }
@@ -158,12 +151,11 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView ==  self.commercesTableView {
             // Afficher le détail d'un commerce
-            
             if isPro {
-                let detailViewController = AjoutCommerceVC()
-                detailViewController.editingMode = true
-                
-                self.navigationController?.pushViewController(detailViewController, animated: true)
+                let story = UIStoryboard(name: "Main", bundle: nil)
+                let ajoutCommerceVC = story.instantiateViewController(withIdentifier: "ajoutCommerce") as! AjoutCommerceVC
+                ajoutCommerceVC.editingMode = true
+                self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
                 let detailViewController =  DetailCommerceViewController()
                 
@@ -194,7 +186,7 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     }
     
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
-        print("succesful login : \(user.description)")
+//        print("succesful login : \(user.description)")
         logInController.dismiss(animated: true)
 //        self.getFacebookInformations(user: user)
 //        nextViewControllerWithUser(user: user, controller: logInController)
@@ -224,7 +216,6 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     func nextViewControllerWithUser(user : PFUser, controller : UIViewController? = nil){
         
         if let story = self.storyboard {
-            print("\nstory\n")
             var identifier : String
             let inscrit = user["inscriptionDone"] as! Bool
             //            identifier = inscrit ? "profil_commerce" : "choose_type_compte"

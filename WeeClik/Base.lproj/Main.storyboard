@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -377,7 +378,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="35A-14-d76" kind="showDetail" id="dNP-Zv-zzE"/>
+                                    <segue destination="35A-14-d76" kind="showDetail" identifier="ajoutCommerce" id="dNP-Zv-zzE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -607,11 +608,18 @@ Weeclik</string>
                     </view>
                     <navigationItem key="navigationItem" title="WEECLIK" id="jMd-Am-HBN">
                         <barButtonItem key="backBarButtonItem" title="Retour" id="2I3-DC-BFE"/>
-                        <barButtonItem key="leftBarButtonItem" image="Login_icon" id="nLq-wv-TtI">
-                            <connections>
-                                <segue destination="FI0-Pl-R44" kind="show" id="Bpj-q1-tMg"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem image="Login_icon" id="nLq-wv-TtI">
+                                <connections>
+                                    <segue destination="FI0-Pl-R44" kind="show" id="Bpj-q1-tMg"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Pay" id="ywJ-3V-3jT">
+                                <connections>
+                                    <segue destination="b3k-dY-gg7" kind="show" id="68b-WC-Dyd"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="Filter" image="Filter_icon" id="UQ2-b2-R9R">
                             <connections>
                                 <action selector="filterBarbuttonPressed:" destination="TFJ-bE-40m" id="Xdt-9B-HLr"/>
@@ -1317,6 +1325,83 @@ Weeclik</string>
             <point key="canvasLocation" x="1401" y="-898"/>
         </scene>
         <!--Navigation Controller-->
+        <scene sceneID="Xtf-5S-I3R">
+            <objects>
+                <navigationController id="b3k-dY-gg7" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HXu-dO-ELH">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pHU-dv-LMW" kind="relationship" relationship="rootViewController" id="8WW-JZ-Obc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cdb-sc-hbh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3020" y="-1679"/>
+        </scene>
+        <!--Choix AbonnmentsVC-->
+        <scene sceneID="I19-4i-ebG">
+            <objects>
+                <viewController storyboardIdentifier="ChoixAbonnmentsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pHU-dv-LMW" customClass="ChoixAbonnmentsVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="53V-Rb-OIf"/>
+                        <viewControllerLayoutGuide type="bottom" id="nrd-aV-zJ8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aUo-O8-tt9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-Hm-caU">
+                                <rect key="frame" x="16" y="96" width="343" height="674"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5F-Cq-XdA" customClass="LGButton" customModule="LGButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="333"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="gradientStartColor">
+                                                <color key="value" red="0.0" green="0.66966283319999997" blue="0.94419819120000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="gradientEndColor">
+                                                <color key="value" red="0.376878202" green="0.9699258208" blue="0.98495191339999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="gradientRotation">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                <color key="value" red="0.19799154999999999" green="0.19481736420000001" blue="0.99302977319999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="titleString" value="TEST"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auT-P6-Afb" customClass="LGButton" customModule="LGButton">
+                                        <rect key="frame" x="0.0" y="341" width="343" height="333"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="B2I-Hm-caU" firstAttribute="top" secondItem="53V-Rb-OIf" secondAttribute="bottom" constant="8" id="6Cf-46-KfE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="B2I-Hm-caU" secondAttribute="trailing" id="A1S-Wy-fJ8"/>
+                            <constraint firstItem="B2I-Hm-caU" firstAttribute="leading" secondItem="aUo-O8-tt9" secondAttribute="leadingMargin" id="Sta-gt-dDb"/>
+                            <constraint firstItem="nrd-aV-zJ8" firstAttribute="top" secondItem="B2I-Hm-caU" secondAttribute="bottom" constant="8" id="ox3-7l-UHj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="KFX-hR-goj"/>
+                    <connections>
+                        <outlet property="testButton" destination="d5F-Cq-XdA" id="GDV-dP-ugM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FDY-D6-AOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3794" y="-1680"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="vNJ-WM-cPq">
             <objects>
                 <navigationController storyboardIdentifier="profil_commerce" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FI0-Pl-R44" sceneMemberID="viewController">
@@ -1337,14 +1422,53 @@ Weeclik</string>
         <!--Nouveau Commerce-->
         <scene sceneID="7L0-WQ-x4p">
             <objects>
-                <tableViewController id="8kB-un-vxW" customClass="AjoutCommerceVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ajoutCommerce" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8kB-un-vxW" customClass="AjoutCommerceVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="40" id="Hcl-Tq-3jl" customClass="TPKeyboardAvoidingTableView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="g8V-pL-PEt">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S23-jY-z7t">
+                                    <rect key="frame" x="16" y="8" width="343" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="d1m-gj-NH4"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="gFx-cK-qJP"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="etE-5V-QeY">
+                                    <rect key="frame" x="16" y="53" width="343" height="45"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyt-T6-7Pc">
+                                            <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="45"/>
+                                            <state key="normal" title="Button"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zuz-k9-05L">
+                                            <rect key="frame" x="179.66666666666663" y="0.0" width="163.33333333333337" height="45"/>
+                                            <state key="normal" title="Button"/>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="S23-jY-z7t" firstAttribute="top" secondItem="g8V-pL-PEt" secondAttribute="top" constant="8" id="7AD-tv-pRZ"/>
+                                <constraint firstAttribute="trailing" secondItem="etE-5V-QeY" secondAttribute="trailing" constant="16" id="FsX-B4-0Ou"/>
+                                <constraint firstAttribute="trailing" secondItem="S23-jY-z7t" secondAttribute="trailing" constant="16" id="aMQ-GZ-G35"/>
+                                <constraint firstAttribute="bottom" secondItem="etE-5V-QeY" secondAttribute="bottom" constant="8" id="b7V-FH-00f"/>
+                                <constraint firstItem="etE-5V-QeY" firstAttribute="top" secondItem="S23-jY-z7t" secondAttribute="bottom" constant="24" id="eQ7-jq-JHE"/>
+                                <constraint firstItem="etE-5V-QeY" firstAttribute="leading" secondItem="g8V-pL-PEt" secondAttribute="leading" constant="16" id="iwQ-Tj-BXE"/>
+                                <constraint firstItem="S23-jY-z7t" firstAttribute="leading" secondItem="g8V-pL-PEt" secondAttribute="leading" constant="16" id="uwE-RG-K9L"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="singleInformationCell" id="yky-e7-LSh" customClass="NouveauCommerceCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="40" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="146" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yky-e7-LSh" id="RFM-6W-1iV">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
@@ -1369,7 +1493,7 @@ Weeclik</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="photoCollectionView" rowHeight="120" id="3vE-ir-PLC" customClass="AjoutPhotoTVC" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="84" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="190" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3vE-ir-PLC" id="3iO-5E-ske">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="119.66666666666667"/>
@@ -1427,7 +1551,7 @@ Weeclik</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="videoCell" rowHeight="150" id="EGw-Ke-XFh" customClass="VideoCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="204" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="310" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EGw-Ke-XFh" id="NN3-NJ-QB6">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="149.66666666666666"/>
@@ -1466,7 +1590,7 @@ Weeclik</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="categorieCell" rowHeight="150" id="1O6-mq-90N" customClass="SelectionCategorieTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="354" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="460" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1O6-mq-90N" id="xCi-q8-JT4">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="149.66666666666666"/>
@@ -1492,7 +1616,7 @@ Weeclik</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationsCommerceCell" id="X51-0e-6mz" customClass="NouveauCommerceCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="504" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="610" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X51-0e-6mz" id="Ejz-M2-JuV">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
@@ -1517,7 +1641,7 @@ Weeclik</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="descriptionCell" id="j2x-ux-h1p" customClass="DescriptionAndPromotionsTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="548" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="654" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j2x-ux-h1p" id="Vt7-bv-IRd">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
@@ -1545,7 +1669,7 @@ Weeclik</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="promotionsCell" id="WI1-OV-oU1" customClass="DescriptionAndPromotionsTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="592" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="698" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WI1-OV-oU1" id="UVS-G6-vZr">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
@@ -1597,12 +1721,12 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDg-IR-rcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7049" y="-1271"/>
+            <point key="canvasLocation" x="7048.8000000000002" y="-1271.6748768472908"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="p3Z-H4-j9S">
             <objects>
-                <navigationController id="35A-14-d76" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigationAjoutCommerce" useStoryboardIdentifierAsRestorationIdentifier="YES" id="35A-14-d76" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s0g-vG-8LD">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

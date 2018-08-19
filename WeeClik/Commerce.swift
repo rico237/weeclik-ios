@@ -24,18 +24,21 @@ enum StatutType: Int, StatutTypeDescription {
     case pending = 0,
     paid = 1,
     canceled = 2,
-    error = 3
+    error = 3,
+    unknown = 4
     
     var description : String {
         switch self {
         case .paid :
-            return "Paiement"
+            return "En ligne"
         case .pending :
             return "Hors ligne - en attente de paiement"
         case .canceled :
             return "Hors ligne - paiement annulé"
         case .error :
             return "Erreur lors du paiement ou du renouvellement"
+        case .unknown :
+            return "Statut inconnu"
         }
     }
 }
@@ -45,7 +48,7 @@ public class Commerce: NSObject , NSCoding {
     
     var nom         : String = ""
     var owner       : PFUser? = nil
-    var statut      : StatutType = .pending
+    var statut      : StatutType = .unknown
 //    var type : CategoryType = .autres
     var type        : String = ""
     var partages    : Int = 0
@@ -103,7 +106,10 @@ public class Commerce: NSObject , NSCoding {
         self.adresse    = parseObject["adresse"] as! String
         self.descriptionO = parseObject["description"] as! String
         self.promotions = parseObject["promotions"] as! String
-        self.statut     = StatutType(rawValue: parseObject["statutCommerce"] as! Int)!
+        
+        if let statutP  = parseObject["statutCommerce"] {
+            self.statut = StatutType(rawValue: statutP as! Int)!
+        }
         
         if let position   = parseObject["position"]{
             self.location = position as? PFGeoPoint

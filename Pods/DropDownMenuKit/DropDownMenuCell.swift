@@ -42,6 +42,8 @@ open class DropDownMenuCell : UITableViewCell {
 	open var iconSize = CGSize(width: 24, height: 24)
 
 	override open func layoutSubviews() {
+        
+//        textLabel?.textColor = UIColor.white
 	
 		if let textLabel = textLabel {
 			if customView != nil && textLabel.text == nil {

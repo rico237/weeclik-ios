@@ -191,15 +191,18 @@ class AccueilCommerces: UIViewController {
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.show(withStatus: "Chargement en cours")
         
+        self.prefFiltreLocation = withLocation
+        
         self.commerces = []
         let query = PFQuery(className: "Commerce")
         query.whereKey("typeCommerce", equalTo: typeCategorie)
         query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+        query.whereKey("statutCommerce", equalTo: 0)
+        
         if withLocation {
             let userPosition = PFGeoPoint(location: latestLocationForQuery)
             query.whereKey("position", nearGeoPoint: userPosition)
             query.order(byAscending: "position")
-            
         } else {
             query.order(byDescending: "nombrePartages")
         }
@@ -207,12 +210,15 @@ class AccueilCommerces: UIViewController {
             
             if error == nil {
                 if let arr = objects{
-//                    print("Number of items in BDD : \(arr.count)")
-                    
                     for obj in arr {
                         let commerce = Commerce(parseObject: obj)
                         self.commerces.append(commerce)
                     }
+                    
+                    let sorteCommerce = self.commerces.sorted(by: {
+                        PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) > PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
+                    })
+                    self.commerces = sorteCommerce
                     
                     self.collectionView.reloadData()
                     SVProgressHUD.dismiss(withDelay: 1)
@@ -224,8 +230,8 @@ class AccueilCommerces: UIViewController {
                         PFUser.logOut()
                         self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.locationGranted)
 //                    }
-//                    let errorHandle = HelperAndKeys.handleParseError(error: (err as NSError))
-//                    SVProgressHUD.showError(withStatus: err.localizedDescription + " code : \(nsError.code)")
+                    
+//                    SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
                     SVProgressHUD.dismiss(withDelay: 2)
                 }
             }
@@ -262,7 +268,10 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         
         if self.prefFiltreLocation {
             // Filtré par positions
-            cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
+//            cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
+            let geo = PFGeoPoint(location: self.latestLocationForQuery)
+            let distance = geo.distanceInKilometers(to: comm.location!)
+            cell.nombrePartageLabel.text = "\(distance)Km"
             cell.imagePartage.isHidden = self.calculDistanceEntreDeuxPoints(commerce: comm) == "" ? true : false
             cell.imagePartage.image = UIImage(named: "Map_icon")
         } else {
@@ -405,13 +414,13 @@ extension AccueilCommerces : STLocationRequestControllerDelegate{
         case .locationRequestAuthorized:
             self.locationManager.startUpdatingLocation()
             HelperAndKeys.setAppFirstLoadFinished()
-            locationGranted = true
+            self.locationGranted = true
             HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
             self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
             break
         case .locationRequestDenied, .notNowButtonTapped:
             HelperAndKeys.setAppFirstLoadFinished()
-            locationGranted = false
+            self.locationGranted = false
             HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
             self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
             break
