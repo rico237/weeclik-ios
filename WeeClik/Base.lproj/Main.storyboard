@@ -1718,6 +1718,10 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="r8d-e8-fGC" id="dfk-Th-Rab"/>
+                        <outlet property="saveButton" destination="Z8S-fO-kyM" id="StI-vE-cps"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDg-IR-rcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

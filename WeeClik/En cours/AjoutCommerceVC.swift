@@ -24,6 +24,9 @@ class AjoutCommerceVC: UITableViewController {
     var didUseFinalSave = false                     // Utilisé le bouton de sauvegarde
     var savedCommerce : Commerce? = nil             // Objet Commerce si on a pas utilisé le bouton sauvegarde
     
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     var objectIdCommerce = ""
     var editingMode = false
     
@@ -61,6 +64,17 @@ class AjoutCommerceVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if editingMode {
+            self.saveButton.title = "Annuler"
+            self.cancelButton.title = "Modifier"
+            self.title = "MODIFIER COMMERCE"
+        } else {
+            self.saveButton.title = "Enregistrer"
+            self.cancelButton.title = "Annuler"
+            self.title = "NOUVEAU COMMERCE"
+        }
+        
         self.loadCommerceInformations()
         self.refreshUI()
     }
@@ -98,11 +112,8 @@ class AjoutCommerceVC: UITableViewController {
     }
 
     @IBAction func cancelAction(_ sender: Any) {
-        if editingMode {
-            self.navigationController?.dismiss(animated: true)
-        } else {
-            self.dismiss(animated: true)
-        }
+        if editingMode {self.navigationController?.popViewController(animated: true)}
+        else {self.navigationController?.dismiss(animated: true)}
     }
     
     @IBAction func saveInformations(_ sender: Any){

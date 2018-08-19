@@ -92,37 +92,25 @@ public class Commerce: NSObject , NSCoding {
     }
     
     init(parseObject: PFObject) {
-        
-        print(parseObject)
         self.pfObject = parseObject
         
-        self.nom        = parseObject["nomCommerce"] as! String
+        if let nom = parseObject["nomCommerce"] as? String {self.nom = nom}
         //        self.type = CategoryType(rawValue: parseObject["typeCommerce"] as! String)!
-        self.type       = parseObject["typeCommerce"] as! String
-        self.partages   = parseObject["nombrePartages"] as! Int
-        self.tel        = parseObject["tel"] as! String
-        self.mail       = parseObject["mail"] as! String
-        self.siteWeb    = parseObject["siteWeb"] as! String
-        self.adresse    = parseObject["adresse"] as! String
-        self.descriptionO = parseObject["description"] as! String
-        self.promotions = parseObject["promotions"] as! String
+        if let type = parseObject["typeCommerce"] as? String {self.type = type}
+        if let partages   = parseObject["nombrePartages"] as? Int {self.partages = partages}
+        if let tel        = parseObject["tel"] as? String {self.tel = tel}
+        if let mail       = parseObject["mail"] as? String {self.mail = mail}
+        if let siteWeb    = parseObject["siteWeb"] as? String {self.siteWeb = siteWeb}
+        if let adresse    = parseObject["adresse"] as? String {self.adresse = adresse}
+        if let descriptionO = parseObject["description"] as? String {self.descriptionO = descriptionO}
+        if let promotions = parseObject["promotions"] as? String {self.promotions = promotions}
         
-        if let statutP  = parseObject["statutCommerce"] {
-            self.statut = StatutType(rawValue: statutP as! Int)!
-        }
-        
-        if let position   = parseObject["position"]{
-            self.location = position as? PFGeoPoint
-        }
-        
-        if let owner   = parseObject["owner"] {
-            self.owner = owner as? PFUser
-        }
+        if let statutP  = parseObject["statutCommerce"] {self.statut = StatutType(rawValue: statutP as! Int)!}
+        if let position = parseObject["position"] as? PFGeoPoint {self.location = position}
+        if let owner    = parseObject["owner"] as? PFUser {self.owner = owner}
         
         if let thumbnailObj    = parseObject["thumbnailPrincipal"] as? PFObject {
-            if let thumbnail   = thumbnailObj["photo"] as? PFFile {
-                self.thumbnail = thumbnail
-            }
+            if let thumbnail   = thumbnailObj["photo"] as? PFFile {self.thumbnail = thumbnail}
         }
         
         self.objectId   = parseObject.objectId

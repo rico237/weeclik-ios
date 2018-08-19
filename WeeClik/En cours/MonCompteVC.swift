@@ -135,8 +135,15 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.changeProfilInfoTVC {
             let cell = tableView.dequeueReusableCell(withIdentifier: "emailChangeCell")
-            cell?.textLabel?.text = (PFUser.current() != nil) ? currentUser!["name"] as! String : "Nom Prénom"
-            cell?.detailTextLabel?.text = (PFUser.current() != nil) ? currentUser?.email : "email"
+            
+            if let user = PFUser.current() {
+                cell?.textLabel?.text = (user["name"] != nil) ? user["name"] as? String : ""
+                cell?.detailTextLabel?.text = user.email
+            } else {
+                cell?.textLabel?.text = "Nom Prénom"
+                cell?.detailTextLabel?.text = "email"
+            }
+            
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell")

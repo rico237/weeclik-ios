@@ -216,7 +216,7 @@ class AccueilCommerces: UIViewController {
                     }
                     
                     let sorteCommerce = self.commerces.sorted(by: {
-                        PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) > PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
+                        PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
                     })
                     self.commerces = sorteCommerce
                     
@@ -268,10 +268,7 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         
         if self.prefFiltreLocation {
             // Filtré par positions
-//            cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
-            let geo = PFGeoPoint(location: self.latestLocationForQuery)
-            let distance = geo.distanceInKilometers(to: comm.location!)
-            cell.nombrePartageLabel.text = "\(distance)Km"
+            cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
             cell.imagePartage.isHidden = self.calculDistanceEntreDeuxPoints(commerce: comm) == "" ? true : false
             cell.imagePartage.image = UIImage(named: "Map_icon")
         } else {
@@ -298,7 +295,7 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         }
         
         var distance = GeoHelper.distance(lat1: self.latestLocationForQuery.coordinate.latitude, lon1: self.latestLocationForQuery.coordinate.longitude, lat2: (commerce.location?.latitude)!, lon2: (commerce.location?.longitude)!, unit: "K")
-        
+
         if distance < 1 {
             distance *= 1000
             commerce.distanceFromUser = "\(Int(distance)) m"
