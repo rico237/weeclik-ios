@@ -1355,31 +1355,115 @@ Weeclik</string>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-Hm-caU">
                                 <rect key="frame" x="16" y="96" width="343" height="674"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5F-Cq-XdA" customClass="LGButton" customModule="LGButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="333"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdf-Mq-JYi">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="674"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prélèvement Annuel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSu-VH-tL1">
+                                                <rect key="frame" x="8" y="8" width="327" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="luF-79-cx8"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fp4-K6-hwL">
+                                                <rect key="frame" x="8" y="37" width="327" height="629"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zS9-Jl-QqF">
+                                                    <size key="itemSize" width="177" height="177"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PaymentCollectionCell_Annuel" id="SNr-wc-iLX" customClass="PaymentCollectionViewCell" customModule="WeeClik" customModuleProvider="target">
+                                                        <rect key="frame" x="75" y="0.0" width="177" height="177"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="177" height="177"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="620-Wq-8aq">
+                                                                    <rect key="frame" x="8" y="8" width="161" height="161"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </view>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Informatique" translatesAutoresizingMaskIntoConstraints="NO" id="jCx-B0-fVy">
+                                                                    <rect key="frame" x="8" y="8" width="161" height="161"/>
+                                                                </imageView>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ty2-bg-zKY" customClass="LGButton" customModule="LGButton">
+                                                                    <rect key="frame" x="20" y="127" width="137" height="30"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="KZh-GN-Cvf"/>
+                                                                    </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                                                            <color key="value" red="0.0" green="0.66966283319999997" blue="0.94419819120000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="gradientStartColor">
+                                                                            <color key="value" red="0.19799154999999999" green="0.19481736420000001" blue="0.99302977319999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="gradientEndColor">
+                                                                            <color key="value" red="0.376878202" green="0.9699258208" blue="0.98495191339999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="15"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="titleString" value="PAYER"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="rightIconFontName" value="fa"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="rightIconString" value="credit-card"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </view>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXK-4f-jeb">
+                                                                    <rect key="frame" x="8" y="8" width="161" height="161"/>
+                                                                </button>
+                                                            </subviews>
+                                                        </view>
+                                                        <constraints>
+                                                            <constraint firstItem="620-Wq-8aq" firstAttribute="trailing" secondItem="jCx-B0-fVy" secondAttribute="trailing" id="4YY-iH-7Ui"/>
+                                                            <constraint firstItem="jCx-B0-fVy" firstAttribute="leading" secondItem="SNr-wc-iLX" secondAttribute="leading" constant="8" id="7Z8-x3-VbM"/>
+                                                            <constraint firstItem="jCx-B0-fVy" firstAttribute="top" secondItem="SNr-wc-iLX" secondAttribute="top" constant="8" id="Cly-yf-afL"/>
+                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="bottom" secondItem="jCx-B0-fVy" secondAttribute="bottom" id="LJ5-nP-qZv"/>
+                                                            <constraint firstItem="620-Wq-8aq" firstAttribute="top" secondItem="jCx-B0-fVy" secondAttribute="top" id="MyM-VG-ZOL"/>
+                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="trailing" secondItem="jCx-B0-fVy" secondAttribute="trailing" id="SuD-UV-tTH"/>
+                                                            <constraint firstAttribute="trailing" secondItem="jCx-B0-fVy" secondAttribute="trailing" constant="8" id="ZOt-H9-7bb"/>
+                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="leading" secondItem="jCx-B0-fVy" secondAttribute="leading" id="c1G-N5-yf4"/>
+                                                            <constraint firstItem="ty2-bg-zKY" firstAttribute="leading" secondItem="SNr-wc-iLX" secondAttribute="leadingMargin" constant="12" id="ms4-Ue-z8K"/>
+                                                            <constraint firstAttribute="bottom" secondItem="jCx-B0-fVy" secondAttribute="bottom" constant="8" id="omD-5R-lxZ"/>
+                                                            <constraint firstItem="620-Wq-8aq" firstAttribute="bottom" secondItem="jCx-B0-fVy" secondAttribute="bottom" id="prt-Od-ueY"/>
+                                                            <constraint firstItem="620-Wq-8aq" firstAttribute="leading" secondItem="jCx-B0-fVy" secondAttribute="leading" id="tfE-RB-Gcl"/>
+                                                            <constraint firstAttribute="trailingMargin" secondItem="ty2-bg-zKY" secondAttribute="trailing" constant="12" id="u1d-5x-Roa"/>
+                                                            <constraint firstAttribute="bottomMargin" secondItem="ty2-bg-zKY" secondAttribute="bottom" constant="12" id="wZH-0M-sMN"/>
+                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="top" secondItem="jCx-B0-fVy" secondAttribute="top" id="xmC-rY-bnW"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="actionButton" destination="XXK-4f-jeb" id="O8j-mj-UUr"/>
+                                                            <outlet property="backgroundImageView" destination="jCx-B0-fVy" id="651-qY-Z1h"/>
+                                                            <outlet property="priceViewLGButton" destination="ty2-bg-zKY" id="yEK-Sm-Wkk"/>
+                                                            <outlet property="shadowView" destination="620-Wq-8aq" id="Xib-fp-brZ"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="pHU-dv-LMW" id="36h-rh-KEM"/>
+                                                    <outlet property="delegate" destination="pHU-dv-LMW" id="LOE-o4-pBh"/>
+                                                </connections>
+                                            </collectionView>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="gradientStartColor">
-                                                <color key="value" red="0.0" green="0.66966283319999997" blue="0.94419819120000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="gradientEndColor">
-                                                <color key="value" red="0.376878202" green="0.9699258208" blue="0.98495191339999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="gradientRotation">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                                <color key="value" red="0.19799154999999999" green="0.19481736420000001" blue="0.99302977319999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="titleString" value="TEST"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auT-P6-Afb" customClass="LGButton" customModule="LGButton">
-                                        <rect key="frame" x="0.0" y="341" width="343" height="333"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="fp4-K6-hwL" secondAttribute="bottom" constant="8" id="EJN-3d-uph"/>
+                                            <constraint firstAttribute="trailing" secondItem="HSu-VH-tL1" secondAttribute="trailing" constant="8" id="IfX-AF-9cJ"/>
+                                            <constraint firstItem="HSu-VH-tL1" firstAttribute="leading" secondItem="Jdf-Mq-JYi" secondAttribute="leading" constant="8" id="Ow7-6d-wdR"/>
+                                            <constraint firstItem="fp4-K6-hwL" firstAttribute="leading" secondItem="Jdf-Mq-JYi" secondAttribute="leading" constant="8" id="b1T-d4-xvr"/>
+                                            <constraint firstItem="HSu-VH-tL1" firstAttribute="top" secondItem="Jdf-Mq-JYi" secondAttribute="top" constant="8" id="d6C-hY-dcg"/>
+                                            <constraint firstItem="fp4-K6-hwL" firstAttribute="top" secondItem="HSu-VH-tL1" secondAttribute="bottom" constant="8" id="dQR-xE-n0j"/>
+                                            <constraint firstAttribute="trailing" secondItem="fp4-K6-hwL" secondAttribute="trailing" constant="8" id="m8K-8Z-UBz"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -1394,12 +1478,13 @@ Weeclik</string>
                     </view>
                     <navigationItem key="navigationItem" id="KFX-hR-goj"/>
                     <connections>
-                        <outlet property="testButton" destination="d5F-Cq-XdA" id="GDV-dP-ugM"/>
+                        <outlet property="collectionView_Annuel" destination="fp4-K6-hwL" id="xlg-4r-fCD"/>
+                        <outlet property="title_Annuel" destination="HSu-VH-tL1" id="Zy0-iY-u5e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FDY-D6-AOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3794" y="-1680"/>
+            <point key="canvasLocation" x="3792.8000000000002" y="-1680.2955665024631"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vNJ-WM-cPq">
@@ -2006,6 +2091,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <image name="Certificate_icon" width="20" height="20"/>
         <image name="Filter_icon" width="20" height="20"/>
         <image name="Gallery_icon" width="20" height="20"/>
+        <image name="Informatique" width="600" height="400"/>
         <image name="Login_icon" width="20" height="20"/>
         <image name="Logo_commerce" width="138" height="141"/>
         <image name="Logo_utilisateur" width="138" height="159"/>

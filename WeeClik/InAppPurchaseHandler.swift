@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import Parse
 
 enum IAPHandlerAlertType{
     case disabled
@@ -26,6 +27,9 @@ enum IAPHandlerAlertType{
 class InAppPurchaseHandler: NSObject {
     static let shared = InAppPurchaseHandler()
     
+    var productIds = [String]()
+    var parseProducts = [PFProduct]()
+    
     let CONSUMABLE_PURCHASE_ID = "8tcgW2xb3c"
     
     fileprivate var productID = ""
@@ -36,6 +40,8 @@ class InAppPurchaseHandler: NSObject {
     
     // MARK: - MAKE PURCHASE OF A PRODUCT
     func canMakePurchases() -> Bool {  return SKPaymentQueue.canMakePayments()  }
+    
+    func getProductArray() -> [SKProduct] { return iapProducts }
 
     func purchaseMyProduct(index: Int){
         if iapProducts.count == 0 { return }
@@ -53,6 +59,24 @@ class InAppPurchaseHandler: NSObject {
         }
     }
     
+    func purchaseMyProductById(identifier: String){
+        if iapProducts.count == 0 { return }
+        
+        if self.canMakePurchases() {
+            if let index = productIds.index(of: identifier) {
+                let product = iapProducts[index]
+                let payment = SKPayment(product: product)
+                SKPaymentQueue.default().add(self)
+                SKPaymentQueue.default().add(payment)
+                
+                print("PRODUCT TO PURCHASE: \(product.productIdentifier)")
+                productID = product.productIdentifier
+            }
+        } else {
+            purchaseStatusBlock?(.disabled)
+        }
+    }
+    
     // MARK: - RESTORE PURCHASE
     func restorePurchase(){
         SKPaymentQueue.default().add(self)
@@ -62,6 +86,18 @@ class InAppPurchaseHandler: NSObject {
     
     // MARK: - FETCH AVAILABLE IAP PRODUCTS
     func fetchAvailableProducts(){
+        
+        let query = PFProduct.query()
+        do {
+            let objectsParse = try query?.findObjects()
+            if let objectsParse = objectsParse {
+                for obj in objectsParse {
+                    parseProducts.append( (obj as! PFProduct) )
+                }
+            }
+        } catch {
+            print(error)
+        }
         
         // Put here your IAP Products ID's
         let productIdentifiers = NSSet(objects:
@@ -81,12 +117,15 @@ extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionO
         if (response.products.count > 0) {
             iapProducts = response.products
             for product in iapProducts{
+                print("\n------------------------------------------------------")
+                productIds.append(product.productIdentifier)
                 let numberFormatter = NumberFormatter()
                 numberFormatter.formatterBehavior = .behavior10_4
                 numberFormatter.numberStyle = .currency
                 numberFormatter.locale = product.priceLocale
                 let price1Str = numberFormatter.string(from: product.price)
-                print(product.localizedDescription + "\nfor just \(price1Str!)")
+                print("Produit : \n\tAppStore Id -> " + product.productIdentifier + "\n\tDescription -> " + product.localizedDescription + "\n\tPrix -> \(price1Str!)")
+                print("------------------------------------------------------\n")
             }
         }
     }
