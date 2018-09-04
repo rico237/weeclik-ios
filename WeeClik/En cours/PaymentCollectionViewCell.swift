@@ -13,10 +13,4 @@ class PaymentCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var shadowView : UIView!
     @IBOutlet weak var priceViewLGButton: LGButton!
     @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var actionButton: UIButton!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        shadowView.layer.cornerRadius = 5
-    }
 }

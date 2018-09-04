@@ -1388,6 +1388,15 @@ Weeclik</string>
                                                                     <rect key="frame" x="8" y="8" width="161" height="161"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaL-I3-yL3">
+                                                                    <rect key="frame" x="16" y="60" width="145" height="30"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="26N-D8-gNp"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Informatique" translatesAutoresizingMaskIntoConstraints="NO" id="jCx-B0-fVy">
                                                                     <rect key="frame" x="8" y="8" width="161" height="161"/>
                                                                 </imageView>
@@ -1418,30 +1427,25 @@ Weeclik</string>
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="rightIconString" value="credit-card"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXK-4f-jeb">
-                                                                    <rect key="frame" x="8" y="8" width="161" height="161"/>
-                                                                </button>
                                                             </subviews>
                                                         </view>
                                                         <constraints>
                                                             <constraint firstItem="620-Wq-8aq" firstAttribute="trailing" secondItem="jCx-B0-fVy" secondAttribute="trailing" id="4YY-iH-7Ui"/>
                                                             <constraint firstItem="jCx-B0-fVy" firstAttribute="leading" secondItem="SNr-wc-iLX" secondAttribute="leading" constant="8" id="7Z8-x3-VbM"/>
                                                             <constraint firstItem="jCx-B0-fVy" firstAttribute="top" secondItem="SNr-wc-iLX" secondAttribute="top" constant="8" id="Cly-yf-afL"/>
-                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="bottom" secondItem="jCx-B0-fVy" secondAttribute="bottom" id="LJ5-nP-qZv"/>
                                                             <constraint firstItem="620-Wq-8aq" firstAttribute="top" secondItem="jCx-B0-fVy" secondAttribute="top" id="MyM-VG-ZOL"/>
-                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="trailing" secondItem="jCx-B0-fVy" secondAttribute="trailing" id="SuD-UV-tTH"/>
                                                             <constraint firstAttribute="trailing" secondItem="jCx-B0-fVy" secondAttribute="trailing" constant="8" id="ZOt-H9-7bb"/>
-                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="leading" secondItem="jCx-B0-fVy" secondAttribute="leading" id="c1G-N5-yf4"/>
+                                                            <constraint firstItem="zaL-I3-yL3" firstAttribute="leading" secondItem="SNr-wc-iLX" secondAttribute="leadingMargin" constant="8" id="fsu-2w-VWH"/>
+                                                            <constraint firstItem="zaL-I3-yL3" firstAttribute="top" secondItem="SNr-wc-iLX" secondAttribute="topMargin" constant="8" id="kGT-yg-Kh6"/>
                                                             <constraint firstItem="ty2-bg-zKY" firstAttribute="leading" secondItem="SNr-wc-iLX" secondAttribute="leadingMargin" constant="12" id="ms4-Ue-z8K"/>
+                                                            <constraint firstAttribute="trailingMargin" secondItem="zaL-I3-yL3" secondAttribute="trailing" constant="8" id="njG-ib-IZZ"/>
                                                             <constraint firstAttribute="bottom" secondItem="jCx-B0-fVy" secondAttribute="bottom" constant="8" id="omD-5R-lxZ"/>
                                                             <constraint firstItem="620-Wq-8aq" firstAttribute="bottom" secondItem="jCx-B0-fVy" secondAttribute="bottom" id="prt-Od-ueY"/>
                                                             <constraint firstItem="620-Wq-8aq" firstAttribute="leading" secondItem="jCx-B0-fVy" secondAttribute="leading" id="tfE-RB-Gcl"/>
                                                             <constraint firstAttribute="trailingMargin" secondItem="ty2-bg-zKY" secondAttribute="trailing" constant="12" id="u1d-5x-Roa"/>
                                                             <constraint firstAttribute="bottomMargin" secondItem="ty2-bg-zKY" secondAttribute="bottom" constant="12" id="wZH-0M-sMN"/>
-                                                            <constraint firstItem="XXK-4f-jeb" firstAttribute="top" secondItem="jCx-B0-fVy" secondAttribute="top" id="xmC-rY-bnW"/>
                                                         </constraints>
                                                         <connections>
-                                                            <outlet property="actionButton" destination="XXK-4f-jeb" id="O8j-mj-UUr"/>
                                                             <outlet property="backgroundImageView" destination="jCx-B0-fVy" id="651-qY-Z1h"/>
                                                             <outlet property="priceViewLGButton" destination="ty2-bg-zKY" id="yEK-Sm-Wkk"/>
                                                             <outlet property="shadowView" destination="620-Wq-8aq" id="Xib-fp-brZ"/>

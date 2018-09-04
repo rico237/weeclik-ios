@@ -12,20 +12,27 @@ import StoreKit
 
 // CocoaPods Libs
 import LGButton
+import Parse
 
-
-class ChoixAbonnmentsVC: UIViewController {
+class ChoixAbonnmentsVC: UIViewController, IAPHandlerDelegate {
+    func didFinishFetchAllProductFromParse(products: [PFProduct]) {
+        self.parseProducts = products
+        self.collectionView_Annuel.reloadData()
+    }
+    
     
     @IBOutlet weak var title_Annuel: UILabel!
     @IBOutlet weak var collectionView_Annuel: UICollectionView!
     
     var purchaseProducts = [SKProduct]()
+    var parseProducts = [PFProduct]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "PAIEMENT"
         
+        InAppPurchaseHandler.shared.delegate = self
         InAppPurchaseHandler.shared.fetchAvailableProducts()
         InAppPurchaseHandler.shared.purchaseStatusBlock = {[weak self] (type) in
             guard let strongSelf = self else{ return }
@@ -38,13 +45,10 @@ class ChoixAbonnmentsVC: UIViewController {
                 strongSelf.present(alertView, animated: true, completion: nil)
             }
         }
-        self.purchaseProducts = InAppPurchaseHandler.shared.getProductArray()
-        
         //testButton.addTarget(self, action: #selector(consumable), for: .touchUpInside)
     }
     
     @objc func consumable(){
-        print("Test")
         InAppPurchaseHandler.shared.purchaseMyProduct(index: 0)
     }
 }
@@ -52,20 +56,25 @@ class ChoixAbonnmentsVC: UIViewController {
 extension ChoixAbonnmentsVC : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return self.parseProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PaymentCollectionCell_Annuel", for: indexPath) as! PaymentCollectionViewCell
         
+        let product = WeeClikProducts(withPFProduct: self.parseProducts[indexPath.row])
+        
         cell.backgroundImageView.layer.cornerRadius = 15
         cell.backgroundImageView.layer.masksToBounds = true
+        
+        cell.priceViewLGButton.titleString = "\(product.price)€"
         
         return cell
     }
     
-    func paiementActionForObjectId(identifier : String) {
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let obj = self.parseProducts[indexPath.row]
+        InAppPurchaseHandler.shared.purchaseMyProductById(identifier: obj.productIdentifier!)
     }
 }
 

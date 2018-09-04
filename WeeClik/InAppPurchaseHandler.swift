@@ -24,13 +24,17 @@ enum IAPHandlerAlertType{
     }
 }
 
+protocol IAPHandlerDelegate: class {
+    func didFinishFetchAllProductFromParse(products: [PFProduct])
+}
+
 class InAppPurchaseHandler: NSObject {
     static let shared = InAppPurchaseHandler()
     
+    weak var delegate : IAPHandlerDelegate?
+    
     var productIds = [String]()
     var parseProducts = [PFProduct]()
-    
-    let CONSUMABLE_PURCHASE_ID = "8tcgW2xb3c"
     
     fileprivate var productID = ""
     fileprivate var productsRequest = SKProductsRequest()
@@ -42,6 +46,8 @@ class InAppPurchaseHandler: NSObject {
     func canMakePurchases() -> Bool {  return SKPaymentQueue.canMakePayments()  }
     
     func getProductArray() -> [SKProduct] { return iapProducts }
+    
+    func getParseProductsArray() -> [PFProduct] {return parseProducts}
 
     func purchaseMyProduct(index: Int){
         if iapProducts.count == 0 { return }
@@ -77,6 +83,35 @@ class InAppPurchaseHandler: NSObject {
         }
     }
     
+    // Changed to use index of string and search for the matching SKProduct
+    func purchaseMyProduct(indexString: String){
+        if iapProducts.count == 0 { return }
+        
+        if self.canMakePurchases() {
+            var product = iapProducts[0]
+            var continue_action = false
+            
+            for products in iapProducts {
+                if (products.productIdentifier == indexString) {
+                    product = products
+                    continue_action = true
+                    break
+                }
+            }
+            
+            if (continue_action) {
+                let payment = SKPayment(product: product)
+                SKPaymentQueue.default().add(self)
+                SKPaymentQueue.default().add(payment)
+                
+                print("PRODUCT TO PURCHASE: \(product.productIdentifier)")
+                productID = product.productIdentifier
+            }
+        } else {
+            purchaseStatusBlock?(.disabled)
+        }
+    }
+    
     // MARK: - RESTORE PURCHASE
     func restorePurchase(){
         SKPaymentQueue.default().add(self)
@@ -86,25 +121,24 @@ class InAppPurchaseHandler: NSObject {
     
     // MARK: - FETCH AVAILABLE IAP PRODUCTS
     func fetchAvailableProducts(){
+        let set = NSMutableSet()
         
         let query = PFProduct.query()
         do {
             let objectsParse = try query?.findObjects()
             if let objectsParse = objectsParse {
                 for obj in objectsParse {
-                    parseProducts.append( (obj as! PFProduct) )
+                    let product = obj as! PFProduct
+                    parseProducts.append( product )
+                    set.add(product.productIdentifier!)
                 }
+                delegate?.didFinishFetchAllProductFromParse(products: parseProducts)
             }
         } catch {
             print(error)
         }
         
-        // Put here your IAP Products ID's
-        let productIdentifiers = NSSet(objects:
-            CONSUMABLE_PURCHASE_ID
-        )
-        
-        productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers as! Set<String>)
+        productsRequest = SKProductsRequest(productIdentifiers: set as! Set<String>)
         productsRequest.delegate = self
         productsRequest.start()
     }

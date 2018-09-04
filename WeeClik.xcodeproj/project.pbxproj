@@ -37,6 +37,7 @@
 		1F744EB21F9023EE00B892FD /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F744EB11F9023EE00B892FD /* UserAccount.swift */; };
 		1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */; };
 		1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */; };
+		1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */; };
 		1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */; };
 		1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
 		1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */; };
@@ -120,6 +121,7 @@
 		1F744EB11F9023EE00B892FD /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccueilCommerces.swift; sourceTree = "<group>"; };
 		1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperAndKeys.swift; sourceTree = "<group>"; };
+		1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeClikProducts.swift; sourceTree = "<group>"; };
 		1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		1FA4732A1F1EE7E400D2A306 /* WeeClik.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeeClik.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				1F071A3420DEFEB5007AE1ED /* Commerce.swift */,
+				1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */,
 				1FCDF66D2117592B00B605BC /* ParseUploadPhotosAndVideos.swift */,
 				1F744EB11F9023EE00B892FD /* UserAccount.swift */,
 			);
@@ -615,6 +618,7 @@
 				1F7331D42052702400582A7B /* DetailGalleryVC.swift in Sources */,
 				1F4D4312202AC4E10089FB15 /* ShadowView.swift in Sources */,
 				1F744EB21F9023EE00B892FD /* UserAccount.swift in Sources */,
+				1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */,
 				1F5E931B204724E4009AACA1 /* GridFlowLayout.swift in Sources */,
 				1F5DE54C1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift in Sources */,
 				1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */,
