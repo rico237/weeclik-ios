@@ -1,0 +1,25 @@
+{
+  "name": "RMGradientView",
+  "version": "0.1.4",
+  "summary": "A simple gradient view with inspectable properties.",
+  "description": "A simple gradient view with IBDesignables that allows you to set colors and gradient direction.",
+  "homepage": "https://github.com/sleepwalkerfx/RMGradientView",
+  "license": {
+    "type": "MIT"
+  },
+  "authors": {
+    "Rukshan Marapana": "rukshan47@gmail.com"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source": {
+    "git": "https://github.com/sleepwalkerfx/RMGradientView.git",
+    "tag": "0.1.4"
+  },
+  "source_files": [
+    "Classes",
+    "Classes/**/*.{swift}"
+  ],
+  "swift_version": "4.0"
+}

@@ -1,0 +1,6 @@
+framework module RMGradientView {
+  umbrella header "RMGradientView-umbrella.h"
+
+  export *
+  module * { export * }
+}

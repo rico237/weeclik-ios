@@ -80,6 +80,7 @@ PODS:
   - Parse/UI (1.17.1):
     - Parse/Core
   - RAReorderableLayout (0.6.1)
+  - RMGradientView (0.1.4)
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
   - SDWebImage/Core (4.4.1)
@@ -131,6 +132,7 @@ DEPENDENCIES:
   - Parse/FacebookUtils (~> 1.11)
   - Parse/UI
   - RAReorderableLayout (~> 0.6)
+  - RMGradientView (from `https://github.com/sleepwalkerfx/RMGradientView.git`)
   - SDWebImage (~> 4.0)
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
   - STLocationRequest (~> 1.4)
@@ -195,6 +197,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/rico237/Alerts-Pickers.git
   KJNavigationViewAnimation:
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
+  RMGradientView:
+    :git: https://github.com/sleepwalkerfx/RMGradientView.git
   Sparrow:
     :git: https://github.com/IvanVorobei/Sparrow.git
   TPKeyboardAvoiding:
@@ -215,6 +219,9 @@ CHECKOUT OPTIONS:
   KJNavigationViewAnimation:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
+  RMGradientView:
+    :commit: 20a0c23032ae3fb5e3ba0f3a61898946fce370ad
+    :git: https://github.com/sleepwalkerfx/RMGradientView.git
   Sparrow:
     :commit: d3becbdd5dbc982a53a461188ea35b818342a9ed
     :git: https://github.com/IvanVorobei/Sparrow.git
@@ -266,6 +273,7 @@ SPEC CHECKSUMS:
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   RAReorderableLayout: 5b6b87dd4022ee1747fd475623b14f5df940f754
+  RMGradientView: 35237e7f233ce96f31074c9b119eb3320e2022ff
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
   STLocationRequest: caa2d648094045699c6f7903d3d0f0e01a21d00c
@@ -276,6 +284,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: cf8673e36f847a432f088a0dfe085aa26b0a6d56
+PODFILE CHECKSUM: 08d8dd5f503919807a791a6cf99acd86ad947e47
 
 COCOAPODS: 1.5.3

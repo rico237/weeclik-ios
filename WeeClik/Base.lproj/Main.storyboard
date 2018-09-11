@@ -451,13 +451,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqC-Zj-3zV">
-                                        <rect key="frame" x="8" y="58.66666666666665" width="359" height="93.333333333333314"/>
+                                        <rect key="frame" x="8" y="58.333333333333336" width="359" height="93.333333333333314"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lz-qk-gY2">
-                                        <rect key="frame" x="8" y="157.33333333333334" width="359" height="65"/>
+                                        <rect key="frame" x="8" y="157" width="359" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="RaY-jb-dfC"/>
                                         </constraints>
@@ -616,7 +616,7 @@ Weeclik</string>
                             </barButtonItem>
                             <barButtonItem title="Pay" id="ywJ-3V-3jT">
                                 <connections>
-                                    <segue destination="b3k-dY-gg7" kind="show" id="68b-WC-Dyd"/>
+                                    <segue destination="HWx-rd-TZZ" kind="show" id="q3c-S2-zyI"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
@@ -637,6 +637,52 @@ Weeclik</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXx-io-zW8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3116" y="233"/>
+        </scene>
+        <!--Choix TarifsTBVC Table View Controller-->
+        <scene sceneID="ohJ-Zl-2Sl">
+            <objects>
+                <tableViewController id="im1-Es-6GP" customClass="ChoixTarifsTBVCTableViewController" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="X5y-M6-10Q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ChoixTarifsTBVCell" rowHeight="465" id="JbS-1L-KPh">
+                                <rect key="frame" x="0.0" y="28" width="375" height="465"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JbS-1L-KPh" id="fTh-0j-dk8">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="464.66666666666669"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WGT-ys-xEj" customClass="XibView" customModule="WeeClik" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="8" width="359" height="448.66666666666669"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="nibName" value="PaymentCell"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="WGT-ys-xEj" secondAttribute="bottom" constant="8" id="6FU-oz-fMb"/>
+                                        <constraint firstItem="WGT-ys-xEj" firstAttribute="top" secondItem="fTh-0j-dk8" secondAttribute="top" constant="8" id="EGR-zL-sXi"/>
+                                        <constraint firstItem="WGT-ys-xEj" firstAttribute="leading" secondItem="fTh-0j-dk8" secondAttribute="leading" constant="8" id="c69-ce-VZ5"/>
+                                        <constraint firstAttribute="trailing" secondItem="WGT-ys-xEj" secondAttribute="trailing" constant="8" id="ktp-cL-Mct"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="im1-Es-6GP" id="ha5-Kb-mLL"/>
+                            <outlet property="delegate" destination="im1-Es-6GP" id="NNd-IA-BO4"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Lyz-ft-fTC"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hH7-nf-lTc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3944.8000000000002" y="1008.6206896551724"/>
         </scene>
         <!--Detail Commerce View Controller-->
         <scene sceneID="Kb1-Ie-gkk">
@@ -1324,6 +1370,85 @@ Weeclik</string>
             </objects>
             <point key="canvasLocation" x="1401" y="-898"/>
         </scene>
+        <!--Choix TarifsVC-->
+        <scene sceneID="epW-Lm-x7a">
+            <objects>
+                <viewController storyboardIdentifier="ChoixTarifsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="asV-04-QDe" customClass="ChoixTarifsVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jmg-WK-s86"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vzc-MM-OVt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gGp-Yp-mB3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I4N-Oq-7MR" customClass="LGButton" customModule="LGButton">
+                                <rect key="frame" x="8" y="96" width="359" height="674"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="gradientRotation">
+                                        <real key="value" value="45"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="0.29999999999999999" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="2" height="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showTouchFeedback" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UxU-nj-jGG">
+                                <rect key="frame" x="8" y="96" width="359" height="674"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5xP-43-2VG">
+                                <rect key="frame" x="24" y="377.66666666666669" width="327" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="cXC-gl-RvS"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Annuel"/>
+                                    <segment title="Mensuel"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="5xP-43-2VG" secondAttribute="trailing" constant="8" id="3Vd-OB-ehS"/>
+                            <constraint firstItem="I4N-Oq-7MR" firstAttribute="leading" secondItem="UxU-nj-jGG" secondAttribute="leading" id="5ie-R0-u3I"/>
+                            <constraint firstAttribute="trailing" secondItem="I4N-Oq-7MR" secondAttribute="trailing" constant="8" id="D0x-hj-i9X"/>
+                            <constraint firstItem="I4N-Oq-7MR" firstAttribute="top" secondItem="Jmg-WK-s86" secondAttribute="bottom" constant="8" id="HFW-Kv-DHj"/>
+                            <constraint firstItem="5xP-43-2VG" firstAttribute="centerY" secondItem="gGp-Yp-mB3" secondAttribute="centerY" id="IIY-N6-8yT"/>
+                            <constraint firstItem="Vzc-MM-OVt" firstAttribute="top" secondItem="I4N-Oq-7MR" secondAttribute="bottom" constant="8" id="Iup-CN-dEM"/>
+                            <constraint firstItem="5xP-43-2VG" firstAttribute="centerX" secondItem="gGp-Yp-mB3" secondAttribute="centerX" id="OqU-Sx-WuU"/>
+                            <constraint firstItem="I4N-Oq-7MR" firstAttribute="trailing" secondItem="UxU-nj-jGG" secondAttribute="trailing" id="Saz-e3-5kE"/>
+                            <constraint firstItem="I4N-Oq-7MR" firstAttribute="bottom" secondItem="UxU-nj-jGG" secondAttribute="bottom" id="Sb9-gE-ObK"/>
+                            <constraint firstItem="I4N-Oq-7MR" firstAttribute="top" secondItem="UxU-nj-jGG" secondAttribute="top" id="cD5-wk-Q0P"/>
+                            <constraint firstItem="I4N-Oq-7MR" firstAttribute="leading" secondItem="gGp-Yp-mB3" secondAttribute="leading" constant="8" id="wEb-Yv-A9R"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="gcP-jZ-BlJ"/>
+                    <connections>
+                        <outlet property="back" destination="UxU-nj-jGG" id="Eej-Vl-fqL"/>
+                        <outlet property="backgroundGradient" destination="I4N-Oq-7MR" id="gag-WM-L4a"/>
+                        <outlet property="choixTypeTarif" destination="5xP-43-2VG" id="mtD-Ou-vxY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yq1-GE-Zyy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092" y="-2170"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Xtf-5S-I3R">
             <objects>
@@ -1338,7 +1463,7 @@ Weeclik</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cdb-sc-hbh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3020" y="-1679"/>
+            <point key="canvasLocation" x="3001" y="-1680"/>
         </scene>
         <!--Choix AbonnmentsVC-->
         <scene sceneID="I19-4i-ebG">
@@ -2086,6 +2211,42 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wdm-13-pJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Pqq-xR-5dp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TxP-2o-0V5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pWS-s6-I8x">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="asV-04-QDe" kind="relationship" relationship="rootViewController" id="1iT-IL-bar"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BXe-zt-vqN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="241" y="-2170"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gvZ-ie-ddu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HWx-rd-TZZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BTe-OM-3dP">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="im1-Es-6GP" kind="relationship" relationship="rootViewController" id="oXP-Ym-1UT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VcY-PC-Sh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3116" y="1009"/>
         </scene>
     </scenes>
     <resources>

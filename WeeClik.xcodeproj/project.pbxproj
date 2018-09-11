@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0477772141BA7300B20CA5 /* ChoixTarifsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */; };
+		1F04777A214407C400B20CA5 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F047778214407C400B20CA5 /* PaymentCell.swift */; };
+		1F04777B214407C400B20CA5 /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F047779214407C400B20CA5 /* PaymentCell.xib */; };
+		1F04777D214407DE00B20CA5 /* XibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04777C214407DE00B20CA5 /* XibView.swift */; };
+		1F04777F21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04777E21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift */; };
 		1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F071A3420DEFEB5007AE1ED /* Commerce.swift */; };
 		1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */; };
 		1F08570C1F2D960400932929 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570B1F2D960400932929 /* Pacifico.ttf */; };
@@ -90,6 +95,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixTarifsVC.swift; sourceTree = "<group>"; };
+		1F047778214407C400B20CA5 /* PaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
+		1F047779214407C400B20CA5 /* PaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentCell.xib; sourceTree = "<group>"; };
+		1F04777C214407DE00B20CA5 /* XibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibView.swift; sourceTree = "<group>"; };
+		1F04777E21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixTarifsTBVCTableViewController.swift; sourceTree = "<group>"; };
 		1F071A3420DEFEB5007AE1ED /* Commerce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commerce.swift; sourceTree = "<group>"; };
 		1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommerceViewController.swift; sourceTree = "<group>"; };
 		1F08570B1F2D960400932929 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
@@ -195,6 +205,8 @@
 		1F0857071F2D675500932929 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				1F047778214407C400B20CA5 /* PaymentCell.swift */,
+				1F047779214407C400B20CA5 /* PaymentCell.xib */,
 				1F236C6D204F780D00571EA7 /* AccueilCollectionViewCell.swift */,
 				1F236C6E204F780D00571EA7 /* AccueilCollectionViewCell.xib */,
 				1F5DE54B1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift */,
@@ -224,6 +236,9 @@
 		1F27628D2114BBB700779342 /* En cours */ = {
 			isa = PBXGroup;
 			children = (
+				1F04777E21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift */,
+				1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */,
+				1F04777C214407DE00B20CA5 /* XibView.swift */,
 				1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */,
 				1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */,
 				1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */,
@@ -446,6 +461,7 @@
 				1FEBF4661F254F3D00146525 /* BebasNeue Thin.ttf in Resources */,
 				1FA9BFE11F269CB2004D5F4C /* OpenSans-BoldItalic.ttf in Resources */,
 				1FEBF4651F254F3D00146525 /* BebasNeue Regular.ttf in Resources */,
+				1F04777B214407C400B20CA5 /* PaymentCell.xib in Resources */,
 				1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */,
 				1FA9BFE31F269CB2004D5F4C /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */,
@@ -515,6 +531,7 @@
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/RAReorderableLayout/RAReorderableLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/RMGradientView/RMGradientView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/STLocationRequest/STLocationRequest.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -561,6 +578,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAReorderableLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMGradientView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STLocationRequest.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -613,6 +631,7 @@
 				1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */,
 				1FA53BC01F34F7AB00DEDEA1 /* PromotionsCell.swift in Sources */,
 				1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */,
+				1F04777D214407DE00B20CA5 /* XibView.swift in Sources */,
 				1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */,
 				1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */,
 				1F7331D42052702400582A7B /* DetailGalleryVC.swift in Sources */,
@@ -620,6 +639,7 @@
 				1F744EB21F9023EE00B892FD /* UserAccount.swift in Sources */,
 				1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */,
 				1F5E931B204724E4009AACA1 /* GridFlowLayout.swift in Sources */,
+				1F04777A214407C400B20CA5 /* PaymentCell.swift in Sources */,
 				1F5DE54C1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift in Sources */,
 				1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */,
 				1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */,
@@ -629,6 +649,7 @@
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */,
 				1F0BBCA61FAE4C3700D91026 /* AjoutCommerceVC.swift in Sources */,
+				1F04777F21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift in Sources */,
 				1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */,
 				1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */,
 				1F0E0B7A212468420048D95B /* InAppPurchaseHandler.swift in Sources */,
@@ -640,6 +661,7 @@
 				1FCDF66E2117592B00B605BC /* ParseUploadPhotosAndVideos.swift in Sources */,
 				1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */,
 				1F5AD2F61FAF898C0048FFE2 /* NouveauCommerceCell.swift in Sources */,
+				1F0477772141BA7300B20CA5 /* ChoixTarifsVC.swift in Sources */,
 				1F5DE54E1FB10AE0000C4E57 /* PhotoCell.swift in Sources */,
 				1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */,
 			);

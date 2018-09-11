@@ -84,6 +84,8 @@ def projectPods
     pod 'Gallery'
     # Routing management
     pod 'Compass'
+    # Gradient
+    pod 'RMGradientView', :git => 'https://github.com/sleepwalkerfx/RMGradientView.git'
 end
 
 target 'WeeClik' do
