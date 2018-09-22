@@ -7,9 +7,6 @@
 //
 import UIKit
 class PaymentCell: UITableViewCell {
-    
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var containerViewFront: UIView!
-    
-    
 }

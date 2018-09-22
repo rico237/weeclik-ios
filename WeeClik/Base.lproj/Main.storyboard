@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pjU-vJ-tdr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pjU-vJ-tdr">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -346,7 +343,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xgq-Wb-xVG">
-                                        <rect key="frame" x="97" y="360" width="180" height="35"/>
+                                        <rect key="frame" x="97.666666666666686" y="360" width="180" height="35"/>
                                         <color key="backgroundColor" red="0.0" green="0.66966283319999997" blue="0.94419819120000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="byV-KQ-cEa"/>
@@ -457,7 +454,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lz-qk-gY2">
-                                        <rect key="frame" x="8" y="157" width="359" height="65"/>
+                                        <rect key="frame" x="8" y="156.66666666666666" width="359" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="RaY-jb-dfC"/>
                                         </constraints>
@@ -711,13 +708,13 @@ Weeclik</string>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom du Commerce" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Urn-zV-wF7">
-                                        <rect key="frame" x="24" y="58.999999999999993" width="366" height="93.333333333333314"/>
+                                        <rect key="frame" x="24" y="58.333333333333336" width="366" height="93.333333333333314"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-kW-z4C">
-                                        <rect key="frame" x="8" y="147.33333333333334" width="398" height="27.333333333333343"/>
+                                        <rect key="frame" x="8" y="146.66666666666666" width="398" height="27.333333333333343"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -878,7 +875,7 @@ Weeclik</string>
                                 <rect key="frame" x="0.0" y="388" width="414" height="429"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShareButtonCell" rowHeight="74" id="Q6K-gV-V35" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShareButtonCell" rowHeight="74" id="Q6K-gV-V35" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="12" width="414" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q6K-gV-V35" id="MfF-zB-b08">
@@ -886,10 +883,10 @@ Weeclik</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="88" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0p-gQ-P0N">
-                                                    <rect key="frame" x="16" y="8" width="382" height="58"/>
+                                                    <rect key="frame" x="16" y="8" width="421" height="58"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1z-Qr-awj" customClass="LGButton" customModule="LGButton">
-                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="58"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="421" height="58"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="fullyRoundedCorners" value="NO"/>
@@ -944,7 +941,7 @@ Weeclik</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfosGeneral" rowHeight="236" id="tWs-tb-qye" customClass="InformationGeneralCell" customModule="WeeClik" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfosGeneral" rowHeight="236" id="tWs-tb-qye" customClass="InformationGeneralCell" customModule="WeeClik" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="86" width="414" height="236"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tWs-tb-qye" id="QRS-6c-Lqx">
@@ -952,52 +949,52 @@ Weeclik</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="77" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ma9-Ik-oei">
-                                                    <rect key="frame" x="16" y="8" width="382" height="220"/>
+                                                    <rect key="frame" x="16" y="8" width="421" height="220"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRE-zm-08x">
-                                                            <rect key="frame" x="8" y="32" width="306" height="20.333333333333329"/>
+                                                            <rect key="frame" x="8" y="32" width="345" height="20.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHh-KC-60L">
-                                                            <rect key="frame" x="8" y="8" width="306" height="18"/>
+                                                            <rect key="frame" x="8" y="8" width="345" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sf-hf-LUm">
-                                                            <rect key="frame" x="8" y="84.333333333333329" width="306" height="20.333333333333329"/>
+                                                            <rect key="frame" x="8" y="84.333333333333329" width="345" height="20.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Téléphone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tZ-H2-Vae">
-                                                            <rect key="frame" x="8" y="60.333333333333329" width="306" height="18"/>
+                                                            <rect key="frame" x="8" y="60.333333333333329" width="345" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Xs-aQ-u3B">
-                                                            <rect key="frame" x="8" y="136.66666666666666" width="306" height="20.333333333333343"/>
+                                                            <rect key="frame" x="8" y="136.66666666666666" width="345" height="20.333333333333343"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adresse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46S-ec-FvG">
-                                                            <rect key="frame" x="8" y="112.66666666666667" width="306" height="18.000000000000014"/>
+                                                            <rect key="frame" x="8" y="112.66666666666667" width="345" height="18.000000000000014"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Site Web" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bph-QA-fbu">
-                                                            <rect key="frame" x="8" y="165" width="306" height="18"/>
+                                                            <rect key="frame" x="8" y="165" width="345" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMz-eq-iJa">
-                                                            <rect key="frame" x="322" y="0.0" width="60" height="220"/>
+                                                            <rect key="frame" x="361" y="0.0" width="60" height="220"/>
                                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="MNw-yj-uk7"/>
@@ -1011,7 +1008,7 @@ Weeclik</string>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thc-wM-IkM">
-                                                            <rect key="frame" x="8" y="189" width="306" height="21"/>
+                                                            <rect key="frame" x="8" y="189" width="345" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1064,7 +1061,7 @@ Weeclik</string>
                                             <outlet property="webLabel" destination="Thc-wM-IkM" id="4xN-45-03z"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PromotionsCell" rowHeight="132" id="yVR-Oh-Yjf" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PromotionsCell" rowHeight="132" id="yVR-Oh-Yjf" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="322" width="414" height="132"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yVR-Oh-Yjf" id="AxH-Pd-sB4">
@@ -1072,23 +1069,23 @@ Weeclik</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="88" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUG-kP-Lat">
-                                                    <rect key="frame" x="16" y="8" width="382" height="116"/>
+                                                    <rect key="frame" x="16" y="8" width="421" height="116"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baj-Vl-I0q">
-                                                            <rect key="frame" x="8" y="34" width="324" height="74"/>
+                                                            <rect key="frame" x="8" y="34" width="363" height="74"/>
                                                             <string key="text">-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Certificate_icon" translatesAutoresizingMaskIntoConstraints="NO" id="vEw-0w-p2s">
-                                                            <rect key="frame" x="340" y="43" width="30" height="30"/>
+                                                            <rect key="frame" x="379" y="43" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="vEw-0w-p2s" secondAttribute="height" multiplier="1:1" id="Fif-cf-nPa"/>
                                                                 <constraint firstAttribute="width" constant="30" id="M2C-iH-Fp8"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMo-oU-WJC">
-                                                            <rect key="frame" x="8" y="8" width="366" height="18"/>
+                                                            <rect key="frame" x="8" y="8" width="405" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="3jH-zS-rah"/>
                                                             </constraints>
@@ -1412,7 +1409,7 @@ Weeclik</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5xP-43-2VG">
-                                <rect key="frame" x="24" y="377.66666666666669" width="327" height="57"/>
+                                <rect key="frame" x="24" y="378" width="327" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="cXC-gl-RvS"/>
                                 </constraints>
@@ -2114,7 +2111,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="x37-dX-HgG">
-                                                <rect key="frame" x="0.0" y="30.666666666666686" width="375" height="139.33333333333334"/>
+                                                <rect key="frame" x="0.0" y="31.333333333333314" width="375" height="138.66666666666666"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ancien mot de passe" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oOd-u4-xWZ" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="45.666666666666664"/>
@@ -2123,13 +2120,13 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nouveau mot de passe" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OWZ-Rz-PDZ" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="46.666666666666629" width="375" height="46"/>
+                                                        <rect key="frame" x="0.0" y="46.666666666666686" width="375" height="45.333333333333343"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirmation du mot de passe" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dG2-ms-o07" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="93.666666666666629" width="375" height="45.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="93" width="375" height="45.666666666666657"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
