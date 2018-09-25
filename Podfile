@@ -81,7 +81,7 @@ def projectPods
     # Création d'avatar
     pod 'Avatar'
     # Selection des photos et videos pour la création de commerce
-    pod 'Gallery'
+    pod 'Gallery', :git => 'https://github.com/hyperoslo/Gallery.git', :branch => 'master'
     # Routing management
     pod 'Compass'
     # Gradient

@@ -11,7 +11,7 @@ struct EditInfo {
     let cropInfo = EditInfo.cropInfo(avAsset)
 
     let layer = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
-    layer.setTransform(EditInfo.transform(avAsset, scale: cropInfo.scale), at: kCMTimeZero)
+    layer.setTransform(EditInfo.transform(avAsset, scale: cropInfo.scale), at: CMTime.init())
 
     let instruction = AVMutableVideoCompositionInstruction()
     instruction.layerInstructions = [layer]
@@ -81,7 +81,7 @@ struct EditInfo {
       end = CMTime(seconds: Config.VideoEditor.maximumDuration, preferredTimescale: 1000)
     }
 
-    return CMTimeRange(start: kCMTimeZero, duration: end)
+    return CMTimeRange(start: CMTime.init(), duration: end)
   }
 
   static var file: (type: AVFileType, pathExtension: String) {

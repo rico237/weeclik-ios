@@ -121,7 +121,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Floaty (~> 4.0.0)
   - FormSheetTextView (~> 1.0)
-  - Gallery
+  - Gallery (from `https://github.com/hyperoslo/Gallery.git`, branch `master`)
   - Hue (~> 3.0)
   - HWAlertsPickers (from `https://github.com/rico237/Alerts-Pickers.git`)
   - KJNavigationViewAnimation (from `https://github.com/KiranJasvanee/KJNavigationViewAnimation.git`)
@@ -170,7 +170,6 @@ SPEC REPOS:
     - Floaty
     - Font-Awesome-Swift
     - FormSheetTextView
-    - Gallery
     - GoogleToolboxForMac
     - Hue
     - KRLCollectionViewGridLayout
@@ -193,6 +192,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/rico237/DropDownMenuKit
   FaceAware:
     :git: https://github.com/BeauNouvelle/FaceAware.git
+  Gallery:
+    :branch: master
+    :git: https://github.com/hyperoslo/Gallery.git
   HWAlertsPickers:
     :git: https://github.com/rico237/Alerts-Pickers.git
   KJNavigationViewAnimation:
@@ -213,6 +215,9 @@ CHECKOUT OPTIONS:
   FaceAware:
     :commit: 35f8ceb0e68c1c00fe4809d124be27db9296fafe
     :git: https://github.com/BeauNouvelle/FaceAware.git
+  Gallery:
+    :commit: bf4d1afe75adadd4da75d963bb84db925eee12f7
+    :git: https://github.com/hyperoslo/Gallery.git
   HWAlertsPickers:
     :commit: 021e64dd6cfe1bb663d01d3dc8c0a4a9f68dacda
     :git: https://github.com/rico237/Alerts-Pickers.git
@@ -260,7 +265,7 @@ SPEC CHECKSUMS:
   Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
   Font-Awesome-Swift: 83ab9db365379ee6025167cec67bdc5d3226a811
   FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
-  Gallery: 5489ae11d8010a3cc163030f6e92d618afbdf4df
+  Gallery: f75c3faefcb5da2cae2150ce3db29fcfbeed8b0f
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   HWAlertsPickers: a1b97ae8d2d9bac780fad7808f67836eaf0113f4
@@ -284,6 +289,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: 08d8dd5f503919807a791a6cf99acd86ad947e47
+PODFILE CHECKSUM: 04a4b570c496da6f613521f5737118c4959c11fc
 
 COCOAPODS: 1.5.3

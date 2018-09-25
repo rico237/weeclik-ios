@@ -53,7 +53,7 @@ public class AdvancedVideoEditor: VideoEditing {
     // Start
     writer.startWriting()
     reader.startReading()
-    writer.startSession(atSourceTime: kCMTimeZero)
+    writer.startSession(atSourceTime: CMTime.init())
 
     // Video
     if let videoOutput = videoOutput, let videoInput = videoInput {

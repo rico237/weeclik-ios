@@ -160,8 +160,17 @@ class AccueilCommerces: UIViewController {
                 locationGranted = false
             } else {
                 if CLLocationManager.authorizationStatus() == .notDetermined{
+                    #if targetEnvironment(simulator)
+                    print("It's an iOS Simulator")
+                    HelperAndKeys.setAppFirstLoadFinished()
+                    self.locationGranted = false
+                    HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
+                    self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
+                    #else
+                    print("It's a device")
                     // Present the STLocationRequestController
                     self.presentLocationRequestController()
+                    #endif
                 } else {
                     // The user has already allowed your app to use location services. Start updating location
                     self.locationManager.startUpdatingLocation()
@@ -421,7 +430,11 @@ extension AccueilCommerces : STLocationRequestControllerDelegate{
             HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
             self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
             break
-        case  .didPresented, .didDisappear:
+        default:
+            HelperAndKeys.setAppFirstLoadFinished()
+            self.locationGranted = false
+            HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
+            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
             break
         }
         
