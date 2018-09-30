@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import SVProgressHUD
 
 class MonCompteVC: UIViewController {
     var isPro = false
@@ -187,6 +188,7 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         logInController.facebookPermissions = ["email", "public_profile"]
         logInController.logInView?.logo?.alpha = 0
         
+        logInController.signUpController?.delegate = self
         logInController.signUpController?.signUpView?.logo?.alpha = 0
         
         self.present(logInController, animated: true, completion: nil)
@@ -208,9 +210,28 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     
     // Inscription classique (par mail)
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
-        signUpController.dismiss(animated: true)
-        print("succesful signup : \(user.description)")
-//        nextViewControllerWithUser(user: user, controller: signUpController)
+        user["mes_partages"] = []
+        user["isPro"] = self.isPro
+        user["inscriptionDone"] = true
+        user["mes_partages_dates"] = []
+        
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setDefaultStyle(.dark)g
+
+        SVProgressHUD.show(withStatus: "Sauvegarde des informations")
+        
+        user.saveInBackground { (success, err) in
+            if success {
+                SVProgressHUD.dismiss(withDelay: 1)
+            } else {
+                let er = err! as NSError
+                print("Error de sauvegarde utilisateur : \n\t-> Code : \(er.code)\n\t-> Description : \(er.localizedDescription)")
+            }
+            
+            // The End
+            print("succesful signup : \(user.description)")
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {

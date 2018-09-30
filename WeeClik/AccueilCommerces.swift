@@ -135,8 +135,16 @@ class AccueilCommerces: UIViewController {
         super.viewDidAppear(animated)
         navigationBarMenu.container = view
         didLoad = true
+    }
+    
+    @IBAction func showProfilPage(_ sender: Any){
+//        if PFUser.current() != nil {
+//            self.performSegue(withIdentifier: "routeConnecte", sender: self)
+//        } else {
+//            self.performSegue(withIdentifier: "routeNonConnecte", sender: self)
+//        }
         
-        
+        self.performSegue(withIdentifier: "routeConnecte", sender: self)
     }
     
     @IBAction func logOut(_ sender: Any) {

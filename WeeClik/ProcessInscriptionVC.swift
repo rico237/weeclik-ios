@@ -21,9 +21,17 @@ class ProcessInscriptionVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let dest = segue.destination as! SaisieDeDonneesVC
         if let ide = segue.identifier{
-            if ide == "showCommerce" {dest.isPro = true}
+            if ide == "showCommerce" {
+                dest.isPro = true
+            }
+        } else {
+            dest.isPro = false
         }
-        
-//        self.dismiss(animated: true)
     }
+    
+    @IBAction func cancelSignIn(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }

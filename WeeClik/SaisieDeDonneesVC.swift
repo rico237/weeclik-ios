@@ -11,7 +11,7 @@ import Parse
 
 class SaisieDeDonneesVC: UIViewController {
     var isPro = false
-    var currentUser = PFUser.current()!
+    var currentUser = PFUser.current()
     var facebookConnection = false
     
     @IBOutlet var logoUser: UIImageView!
@@ -22,7 +22,11 @@ class SaisieDeDonneesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        facebookConnection = PFFacebookUtils.isLinked(with: currentUser)
+        if currentUser == nil {
+            currentUser = PFUser()
+        }
+        
+        facebookConnection = PFFacebookUtils.isLinked(with: currentUser!)
         logoUser.image = isPro ? UIImage(named: "Logo_commerce") : UIImage(named: "Logo_utilisateur")
         saveButton.backgroundColor = isPro ? UIColor(red:0.87, green:0.32, blue:0.32, alpha:1.00) : UIColor(red:0.32, green:0.71, blue:0.90, alpha:1.00)
         saveButton.layer.cornerRadius = 5
@@ -31,8 +35,8 @@ class SaisieDeDonneesVC: UIViewController {
         
         if facebookConnection {
             // Connecté grâce à Facebook
-            nomPrenomTF.text = currentUser["name"] as? String
-            mailTF.text = currentUser["email"] as? String
+            nomPrenomTF.text = currentUser!["name"] as? String
+            mailTF.text = currentUser!["email"] as? String
         }
     }
     
@@ -42,8 +46,8 @@ class SaisieDeDonneesVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        currentUser["email"] = mailTF.text
-        currentUser["name"] = nomPrenomTF.text
-        currentUser.saveInBackground()
+        currentUser!["name"] = nomPrenomTF.text
+        currentUser!.saveInBackground()
         self.dismiss(animated: false) {
             let vc = segue.destination as! UINavigationController
             let destination = vc.viewControllers[0] as! MonCompteVC
