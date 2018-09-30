@@ -216,7 +216,7 @@ class AccueilCommerces: UIViewController {
             query.order(byDescending: "nombrePartages")
         }
         query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
-            
+            print(objects)
             if error == nil {
                 if let arr = objects{
                     for obj in arr {
