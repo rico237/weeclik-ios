@@ -93,7 +93,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 if objects != nil {
 //                    print("Nombre de commerces : \(objects?.count ?? 0)")
                     let obj = objects![0] as PFObject
-                    self.commerces = obj["mes_partages"] as! [PFObject]
+                    self.commerces = obj["mes_partages"] as? [PFObject]
                     self.updateUIBasedOnUser()
                 }
             })
@@ -216,21 +216,22 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         user["mes_partages_dates"] = []
         
         SVProgressHUD.setDefaultMaskType(.clear)
-        SVProgressHUD.setDefaultStyle(.dark)g
-
+        SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.show(withStatus: "Sauvegarde des informations")
         
         user.saveInBackground { (success, err) in
             if success {
-                SVProgressHUD.dismiss(withDelay: 1)
+                SVProgressHUD.dismiss(withDelay: 1, completion: {
+                    print("succesful signup : \(user.description)")
+                    self.dismiss(animated: true, completion: nil)
+                })
             } else {
-                let er = err! as NSError
-                print("Error de sauvegarde utilisateur : \n\t-> Code : \(er.code)\n\t-> Description : \(er.localizedDescription)")
+                SVProgressHUD.dismiss(withDelay: 1, completion: {
+                    let er = err! as NSError
+                    print("Error de sauvegarde utilisateur : \n\t-> Code : \(er.code)\n\t-> Description : \(er.localizedDescription)")
+                    self.dismiss(animated: true, completion: nil)
+                })
             }
-            
-            // The End
-            print("succesful signup : \(user.description)")
-            self.dismiss(animated: true, completion: nil)
         }
     }
     

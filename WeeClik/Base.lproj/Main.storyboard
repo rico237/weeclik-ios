@@ -104,23 +104,23 @@
                                         <rect key="frame" x="0.0" y="174" width="375" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mes informations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Fp-vv-S2u">
-                                                <rect key="frame" x="8" y="0.0" width="359" height="20"/>
+                                                <rect key="frame" x="8" y="0.0" width="359" height="23.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="jWo-Yd-5AY">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="31.333333333333321" width="375" height="96.666666666666686"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nom Prénom" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8KH-An-AyJ" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="49.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes" keyboardType="namePhonePad" textContentType="name"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Adresse Mail" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mzX-TT-wun" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="50.666666666666686" width="375" height="49.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="49" width="375" height="47.666666666666657"/>
                                                         <color key="backgroundColor" red="0.96757203714616524" green="0.97118873672926653" blue="0.98203883547857018" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
@@ -455,13 +455,13 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqC-Zj-3zV">
-                                        <rect key="frame" x="8" y="76" width="359" height="58.333333333333343"/>
+                                        <rect key="frame" x="8" y="58.333333333333336" width="359" height="93.333333333333314"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lz-qk-gY2">
-                                        <rect key="frame" x="8" y="139.33333333333334" width="359" height="65"/>
+                                        <rect key="frame" x="8" y="156.66666666666666" width="359" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="RaY-jb-dfC"/>
                                         </constraints>
@@ -637,7 +637,6 @@ Weeclik</string>
                         <outlet property="labelHeaderCategorie" destination="DqC-Zj-3zV" id="vtK-3x-Ubw"/>
                         <outlet property="viewKJNavigation" destination="ML4-Ky-n0n" id="R81-7c-cd6"/>
                         <segue destination="FI0-Pl-R44" kind="show" identifier="routeConnecte" id="pHI-aO-3hF"/>
-                        <segue destination="GJP-uY-Goj" kind="show" identifier="routeNonConnecte" id="D71-c0-rTa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXx-io-zW8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -717,13 +716,13 @@ Weeclik</string>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom du Commerce" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Urn-zV-wF7">
-                                        <rect key="frame" x="83.666666666666671" y="46.666666666666664" width="246.66666666666663" height="116.66666666666669"/>
+                                        <rect key="frame" x="24" y="58.333333333333336" width="366" height="93.333333333333314"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-kW-z4C">
-                                        <rect key="frame" x="8" y="158.33333333333334" width="398" height="23.333333333333343"/>
+                                        <rect key="frame" x="8" y="146.66666666666666" width="398" height="27.333333333333343"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1998,23 +1997,23 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                         <rect key="frame" x="0.0" y="174" width="375" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mes informations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZ6-9h-XZD">
-                                                <rect key="frame" x="8" y="0.0" width="359" height="20"/>
+                                                <rect key="frame" x="8" y="0.0" width="359" height="23.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mfq-TN-Ph8">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="31.333333333333321" width="375" height="96.666666666666686"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nom Prénom" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lEe-Tk-Gwn" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="49.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes" keyboardType="namePhonePad" textContentType="name"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Adresse Mail" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Gd-UY-9Fl" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="50.666666666666686" width="375" height="49.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="49" width="375" height="47.666666666666657"/>
                                                         <color key="backgroundColor" red="0.96757203709999995" green="0.97118873670000005" blue="0.98203883550000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
@@ -2114,28 +2113,28 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                         <rect key="frame" x="0.0" y="174" width="375" height="170"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changer mon mot de passe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xH-7H-EjH">
-                                                <rect key="frame" x="8" y="0.0" width="359" height="20"/>
+                                                <rect key="frame" x="8" y="0.0" width="359" height="23.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="x37-dX-HgG">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="142"/>
+                                                <rect key="frame" x="0.0" y="31.333333333333314" width="375" height="138.66666666666666"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ancien mot de passe" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oOd-u4-xWZ" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="46.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="45.666666666666664"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nouveau mot de passe" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OWZ-Rz-PDZ" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="47.666666666666686" width="375" height="46.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="46.666666666666686" width="375" height="45.333333333333343"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirmation du mot de passe" textAlignment="natural" clearsOnBeginEditing="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dG2-ms-o07" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="95.333333333333314" width="375" height="46.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="93" width="375" height="45.666666666666657"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>

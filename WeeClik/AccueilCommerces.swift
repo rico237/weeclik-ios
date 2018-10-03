@@ -137,15 +137,7 @@ class AccueilCommerces: UIViewController {
         didLoad = true
     }
     
-    @IBAction func showProfilPage(_ sender: Any){
-//        if PFUser.current() != nil {
-//            self.performSegue(withIdentifier: "routeConnecte", sender: self)
-//        } else {
-//            self.performSegue(withIdentifier: "routeNonConnecte", sender: self)
-//        }
-        
-        self.performSegue(withIdentifier: "routeConnecte", sender: self)
-    }
+    @IBAction func showProfilPage(_ sender: Any){ self.performSegue(withIdentifier: "routeConnecte", sender: self) }
     
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
@@ -224,7 +216,6 @@ class AccueilCommerces: UIViewController {
             query.order(byDescending: "nombrePartages")
         }
         query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
-            print(objects)
             if error == nil {
                 if let arr = objects{
                     for obj in arr {
@@ -243,10 +234,10 @@ class AccueilCommerces: UIViewController {
             } else {
                 if let err = error{
                     let nsError = err as NSError
-//                    if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
+                    if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
                         PFUser.logOut()
                         self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.locationGranted)
-//                    }
+                    }
                     
 //                    SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
                     SVProgressHUD.dismiss(withDelay: 2)

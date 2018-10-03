@@ -244,6 +244,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftMessages-SwiftMessages.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftMessages.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>TLPhotoPicker-TLPhotoPicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>

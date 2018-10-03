@@ -86,6 +86,10 @@ def projectPods
     pod 'Compass'
     # Gradient
     pod 'RMGradientView', :git => 'https://github.com/sleepwalkerfx/RMGradientView.git'
+    # BEST ALERTS & MESSAGES UIs
+    pod 'SwiftMessages'
+    #Manipulation de dates
+    pod 'SwiftDate', '~> 5.0'
 end
 
 target 'WeeClik' do

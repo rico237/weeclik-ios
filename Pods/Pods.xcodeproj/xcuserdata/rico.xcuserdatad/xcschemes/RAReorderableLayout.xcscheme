@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EA3C8FF88529B771DFF8671258FF0B85"
+               BlueprintIdentifier = "1179AB60127EE2705E6C24E212A0EADE"
                BuildableName = "RAReorderableLayout.framework"
                BlueprintName = "RAReorderableLayout"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EA3C8FF88529B771DFF8671258FF0B85"
+            BlueprintIdentifier = "1179AB60127EE2705E6C24E212A0EADE"
             BuildableName = "RAReorderableLayout.framework"
             BlueprintName = "RAReorderableLayout"
             ReferencedContainer = "container:Pods.xcodeproj">
