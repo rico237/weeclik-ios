@@ -12,6 +12,7 @@ import SVProgressHUD
 
 class MonCompteVC: UIViewController {
     var isPro = false
+    
     var commerces : [PFObject]! = []
     var currentUser = PFUser.current()
     
@@ -27,7 +28,8 @@ class MonCompteVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isPro = true
+//        isPro = true
+        self.buttonHeight.constant = isPro ? 40 : 0
         
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
     }
@@ -40,16 +42,39 @@ class MonCompteVC: UIViewController {
         } catch let error as NSError {
             print("Error catching user infos : \n Num : \(error.code) \nDescription : \(error.localizedDescription)")
         }
-
-        self.currentUser = PFUser.current()
-        self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         
-        if (PFUser.current() != nil){
+        
+        
+        
+        if let current = PFUser.current() {
+            self.currentUser = current
+            
+            if let proUser = current["isPro"] as? Bool {
+                // isPro is set
+                isPro = proUser
+                self.imageProfil.image = proUser ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+                self.buttonHeight.constant = isPro ? 40 : 0
+            } else {
+                // Nil found
+                // Redirect -> Choosing controller from pro statement
+                let choosingNav = storyboard?.instantiateViewController(withIdentifier: "choose_type_compte") as! UINavigationController
+                let choosingVC = choosingNav.topViewController as! ProcessInscriptionVC
+                choosingVC.newUser = current
+                self.present(choosingNav, animated: true, completion: nil)
+            }
+            
+            
+            
             if let vue = vueConnexion{
                 vue.removeFromSuperview()
             }
             self.queryCommercesArrayBasedOnUser()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        print("User is pro \(currentUser!["isPro"] as! Bool)")
     }
     
     @IBAction func changeImageProfil(){
@@ -89,13 +114,10 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             // Prend les commerces favoris de l'utilisateur
             let queryCommerce = PFUser.query()
             queryCommerce?.whereKey("objectId", equalTo: currentUser?.objectId?.description as Any)
-            queryCommerce?.findObjectsInBackground(block: { (objects, error) in
-                if objects != nil {
-//                    print("Nombre de commerces : \(objects?.count ?? 0)")
-                    let obj = objects![0] as PFObject
-                    self.commerces = obj["mes_partages"] as? [PFObject]
-                    self.updateUIBasedOnUser()
-                }
+            queryCommerce?.getFirstObjectInBackground(block: { (obj, err) in
+                //                    print("Nombre de commerces : \(objects?.count ?? 0)")
+                self.commerces = obj!["mes_partages"] as? [PFObject]
+                self.updateUIBasedOnUser()
             })
         }
     }
@@ -115,20 +137,25 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
         if tableView == self.changeProfilInfoTVC {
             return 1
         } else {
-            if commerces.count == 0 {
-                if isPro {
-                    // Compte pro
-                    noCommercesLabel.text = "Vous ne possedez aucun commerce pour le moment"
-                    self.buttonHeight.constant = 40
+            if let comm = commerces {
+                if comm.count == 0 {
+                    if isPro {
+                        // Compte pro
+                        noCommercesLabel.text = "Vous ne possedez aucun commerce pour le moment"
+                        self.buttonHeight.constant = 40
+                    } else {
+                        noCommercesLabel.text = "Vous n'avez pour le moment partagé aucun commerce"
+                        self.buttonHeight.constant = 0
+                    }
                 } else {
-                    noCommercesLabel.text = "Vous n'avez pour le moment partagé aucun commerce"
-                    self.buttonHeight.constant = 0
+                    if let vue = noCommerceView {
+                        vue.removeFromSuperview()
+                    }
                 }
             } else {
-                if let vue = noCommerceView {
-                    vue.removeFromSuperview()
-                }
+                return 0
             }
+            
             return commerces.count
         }
     }
@@ -165,9 +192,10 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 ajoutCommerceVC.editingMode = true
                 self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
-                let detailViewController =  DetailCommerceViewController()
-                
-                self.navigationController?.pushViewController(detailViewController, animated: true)
+                //TODO: Show commerce detail
+                print("Show detail of the commerce")
+//                let detailViewController = DetailCommerceViewController()
+//                self.navigationController?.pushViewController(detailViewController, animated: true)
             }
         }
     }
@@ -195,10 +223,10 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     }
     
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
-//        print("succesful login : \(user.description)")
+        if PFFacebookUtils.isLinked(with: user) {
+            self.getFacebookInformations(user: user)
+        }
         logInController.dismiss(animated: true)
-//        self.getFacebookInformations(user: user)
-//        nextViewControllerWithUser(user: user, controller: logInController)
     }
     
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
@@ -210,61 +238,13 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     
     // Inscription classique (par mail)
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
-        user["mes_partages"] = []
-        user["isPro"] = self.isPro
-        user["inscriptionDone"] = true
-        user["mes_partages_dates"] = []
-        
-        SVProgressHUD.setDefaultMaskType(.clear)
-        SVProgressHUD.setDefaultStyle(.dark)
-        SVProgressHUD.show(withStatus: "Sauvegarde des informations")
-        
-        user.saveInBackground { (success, err) in
-            if success {
-                SVProgressHUD.dismiss(withDelay: 1, completion: {
-                    print("succesful signup : \(user.description)")
-                    self.dismiss(animated: true, completion: nil)
-                })
-            } else {
-                SVProgressHUD.dismiss(withDelay: 1, completion: {
-                    let er = err! as NSError
-                    print("Error de sauvegarde utilisateur : \n\t-> Code : \(er.code)\n\t-> Description : \(er.localizedDescription)")
-                    self.dismiss(animated: true, completion: nil)
-                })
-            }
-        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
         if let parseError = error{
             let nserror = parseError as NSError
             print("Erreur de signup : \nCode (\(nserror.code))\n     -> \(nserror.localizedDescription)")
-        }
-    }
-    
-    func nextViewControllerWithUser(user : PFUser, controller : UIViewController? = nil){
-        
-        if let story = self.storyboard {
-            var identifier : String
-            let inscrit = user["inscriptionDone"] as! Bool
-            //            identifier = inscrit ? "profil_commerce" : "choose_type_compte"
-            identifier = "profil_commerce"
-            let nav = story.instantiateViewController(withIdentifier: identifier) as! UINavigationController
-            
-            if let vc = controller{
-                if inscrit == false {
-                    // Utilisateur non inscrit
-                    _ = nav.viewControllers[0] as! ProcessInscriptionVC
-//                    process.viewController = vc
-                } else {
-                    // Utilisateur deja inscrit
-                    let nav = story.instantiateViewController(withIdentifier: identifier) as! UINavigationController
-                    _ = nav.viewControllers[0] as! MonCompteVC
-                }
-                vc.present(nav, animated: true)
-            } else {
-                self.present(nav, animated: true)
-            }
         }
     }
     

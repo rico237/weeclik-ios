@@ -239,6 +239,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftDate.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftMailgun.xcscheme</key>
 		<dict>
 			<key>isShown</key>

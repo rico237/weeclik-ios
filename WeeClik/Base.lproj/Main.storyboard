@@ -12,6 +12,9 @@
         <array key="OpenSans-Bold.ttf">
             <string>OpenSans-Bold</string>
         </array>
+        <array key="OpenSans-BoldItalic.ttf">
+            <string>OpenSans-BoldItalic</string>
+        </array>
         <array key="OpenSans-Italic.ttf">
             <string>OpenSans-Italic</string>
         </array>
@@ -38,20 +41,20 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qiV-I0-2jG">
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAx-sW-vKX">
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kp8-qG-UL1">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="345"/>
+                                        <color key="backgroundColor" red="0.1101035550236702" green="0.68907672166824341" blue="0.96209138631820679" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="Bouton_commerce"/>
+                                        <connections>
+                                            <segue destination="MIf-Y2-RAb" kind="show" identifier="showCommerce" id="vyS-Jv-KPy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAx-sW-vKX">
+                                        <rect key="frame" x="0.0" y="345" width="375" height="345"/>
                                         <color key="backgroundColor" red="0.8675650954246521" green="0.32074099779129028" blue="0.32024765014648438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="Bouton_utilisateur"/>
                                         <connections>
                                             <segue destination="MIf-Y2-RAb" kind="show" id="rUa-4n-V9T"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kp8-qG-UL1">
-                                        <rect key="frame" x="0.0" y="345" width="375" height="345"/>
-                                        <color key="backgroundColor" red="0.32197707891464233" green="0.70703250169754028" blue="0.89468103647232056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="Bouton_commerce"/>
-                                        <connections>
-                                            <segue destination="MIf-Y2-RAb" kind="show" identifier="showCommerce" id="vyS-Jv-KPy"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -59,20 +62,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="qiV-I0-2jG" firstAttribute="top" secondItem="qRW-QC-zlm" secondAttribute="bottom" id="Dqc-S2-70v"/>
                             <constraint firstAttribute="trailing" secondItem="qiV-I0-2jG" secondAttribute="trailing" id="Foj-WT-5ZY"/>
                             <constraint firstItem="yYW-8E-fLC" firstAttribute="top" secondItem="qiV-I0-2jG" secondAttribute="bottom" id="NWK-Jc-kjI"/>
                             <constraint firstItem="qiV-I0-2jG" firstAttribute="leading" secondItem="L0d-01-cs1" secondAttribute="leading" id="oln-kp-nFa"/>
-                            <constraint firstItem="qiV-I0-2jG" firstAttribute="top" secondItem="qRW-QC-zlm" secondAttribute="bottom" id="oou-HP-c9Z"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Syc-Ek-WFz">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="ZHw-6K-Pt7">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="cancelSignIn:" destination="XdO-h0-40b" id="ZS6-ne-bN0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Syc-Ek-WFz"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztz-CT-eFs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -81,7 +77,7 @@
         <!--MON PROFIL-->
         <scene sceneID="HvB-fx-LAZ">
             <objects>
-                <viewController title="MON PROFIL" id="MIf-Y2-RAb" customClass="SaisieDeDonneesVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaisieDeDonneesVC" title="MON PROFIL" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MIf-Y2-RAb" customClass="SaisieDeDonneesVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3He-so-Ebn"/>
                         <viewControllerLayoutGuide type="bottom" id="eSF-EV-wsD"/>
@@ -101,11 +97,11 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnV-o7-6vf">
-                                        <rect key="frame" x="0.0" y="174" width="375" height="128"/>
+                                        <rect key="frame" x="0.0" y="246" width="375" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mes informations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Fp-vv-S2u">
                                                 <rect key="frame" x="8" y="0.0" width="359" height="23.333333333333332"/>
-                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -141,8 +137,8 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1K-y9-6Kr">
-                                        <rect key="frame" x="223" y="326" width="144" height="40"/>
-                                        <color key="backgroundColor" red="0.0" green="0.66966283321380615" blue="0.94419819116592407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="223" y="398" width="144" height="40"/>
+                                        <color key="backgroundColor" red="0.11034316569566727" green="0.68941056728363037" blue="0.9598270058631897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="DA1-7A-7bc"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="144" id="yG9-AF-Ane"/>
@@ -154,19 +150,32 @@
                                             <action selector="saveInfos:" destination="MIf-Y2-RAb" eventType="touchUpInside" id="vJA-34-Kfw"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Création de compte utilisateur" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiW-XH-eNI">
+                                        <rect key="frame" x="8" y="158" width="359" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="1uz-Po-v5I"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans-BoldItalic" family="Open Sans" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.93323183059692383" green="0.9333917498588562" blue="0.93322181701660156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="XiW-XH-eNI" secondAttribute="trailing" constant="8" id="5a4-XJ-5dk"/>
                                     <constraint firstItem="CD5-JO-v89" firstAttribute="centerX" secondItem="unl-WW-NS1" secondAttribute="centerX" id="8Qr-jM-Dmj"/>
                                     <constraint firstItem="XnV-o7-6vf" firstAttribute="centerX" secondItem="unl-WW-NS1" secondAttribute="centerX" id="8VR-Kq-VCc"/>
                                     <constraint firstAttribute="bottom" secondItem="R1K-y9-6Kr" secondAttribute="bottom" constant="202" id="8qJ-Ut-9lb"/>
                                     <constraint firstItem="CD5-JO-v89" firstAttribute="top" secondItem="unl-WW-NS1" secondAttribute="top" constant="20" id="D9p-5q-uUb"/>
-                                    <constraint firstItem="XnV-o7-6vf" firstAttribute="top" secondItem="CD5-JO-v89" secondAttribute="bottom" constant="24" id="FRt-82-f3w"/>
                                     <constraint firstItem="R1K-y9-6Kr" firstAttribute="leading" relation="lessThanOrEqual" secondItem="unl-WW-NS1" secondAttribute="leading" priority="750" constant="262" id="Gv7-I5-tEV"/>
+                                    <constraint firstItem="XiW-XH-eNI" firstAttribute="leading" secondItem="unl-WW-NS1" secondAttribute="leading" constant="8" id="L9O-Nk-azu"/>
                                     <constraint firstAttribute="trailing" secondItem="XnV-o7-6vf" secondAttribute="trailing" id="MNi-Mw-aGA"/>
                                     <constraint firstItem="R1K-y9-6Kr" firstAttribute="top" secondItem="XnV-o7-6vf" secondAttribute="bottom" constant="24" id="Mir-Ob-mUo"/>
+                                    <constraint firstItem="XiW-XH-eNI" firstAttribute="centerX" secondItem="unl-WW-NS1" secondAttribute="centerX" id="P5z-qL-TaM"/>
+                                    <constraint firstItem="XiW-XH-eNI" firstAttribute="top" secondItem="CD5-JO-v89" secondAttribute="bottom" constant="8" id="RYD-7C-Swb"/>
                                     <constraint firstItem="XnV-o7-6vf" firstAttribute="leading" secondItem="unl-WW-NS1" secondAttribute="leading" id="dnA-6E-aBW"/>
                                     <constraint firstAttribute="trailing" secondItem="R1K-y9-6Kr" secondAttribute="trailing" constant="8" id="tYg-fq-XvU"/>
+                                    <constraint firstItem="XnV-o7-6vf" firstAttribute="top" secondItem="XiW-XH-eNI" secondAttribute="bottom" constant="36" id="yQ0-5e-ZkM"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -179,6 +188,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="creationCompteLabel" destination="XiW-XH-eNI" id="ARA-bS-lXG"/>
                         <outlet property="logoUser" destination="CD5-JO-v89" id="eaO-bw-j3w"/>
                         <outlet property="mailTF" destination="mzX-TT-wun" id="hUf-6v-LWC"/>
                         <outlet property="nomPrenomTF" destination="8KH-An-AyJ" id="7hH-mq-2MT"/>
@@ -1069,7 +1079,7 @@ Weeclik</string>
                                             <outlet property="webLabel" destination="Thc-wM-IkM" id="4xN-45-03z"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PromotionsCell" rowHeight="132" id="yVR-Oh-Yjf" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PromotionsCell" rowHeight="132" id="yVR-Oh-Yjf" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="322" width="414" height="132"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yVR-Oh-Yjf" id="AxH-Pd-sB4">
@@ -1077,23 +1087,23 @@ Weeclik</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="88" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUG-kP-Lat">
-                                                    <rect key="frame" x="16" y="8" width="421" height="116"/>
+                                                    <rect key="frame" x="16" y="8" width="382" height="116"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baj-Vl-I0q">
-                                                            <rect key="frame" x="8" y="34" width="363" height="74"/>
+                                                            <rect key="frame" x="8" y="34" width="324" height="74"/>
                                                             <string key="text">-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Certificate_icon" translatesAutoresizingMaskIntoConstraints="NO" id="vEw-0w-p2s">
-                                                            <rect key="frame" x="379" y="43" width="30" height="30"/>
+                                                            <rect key="frame" x="340" y="43" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="vEw-0w-p2s" secondAttribute="height" multiplier="1:1" id="Fif-cf-nPa"/>
                                                                 <constraint firstAttribute="width" constant="30" id="M2C-iH-Fp8"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMo-oU-WJC">
-                                                            <rect key="frame" x="8" y="8" width="405" height="18"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMo-oU-WJC">
+                                                            <rect key="frame" x="8" y="8" width="366" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="3jH-zS-rah"/>
                                                             </constraints>
@@ -1144,7 +1154,7 @@ Weeclik</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ra5-rN-DjA">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ra5-rN-DjA">
                                                             <rect key="frame" x="8" y="8" width="366" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="IsK-dH-WyG"/>
@@ -1360,6 +1370,7 @@ Weeclik</string>
         <!--Navigation Controller-->
         <scene sceneID="1Lu-9f-jLs">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S4V-kr-aLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="choose_type_compte" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GJP-uY-Goj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8sF-pn-j6c">
@@ -1371,7 +1382,6 @@ Weeclik</string>
                         <segue destination="XdO-h0-40b" kind="relationship" relationship="rootViewController" id="xdC-xT-AKR"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S4V-kr-aLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1401" y="-898"/>
         </scene>
@@ -2261,7 +2271,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <image name="Certificate_icon" width="20" height="20"/>
         <image name="Filter_icon" width="20" height="20"/>
         <image name="Gallery_icon" width="20" height="20"/>
-        <image name="Informatique" width="600" height="400"/>
+        <image name="Informatique" width="450" height="300"/>
         <image name="Login_icon" width="20" height="20"/>
         <image name="Logo_commerce" width="138" height="141"/>
         <image name="Logo_utilisateur" width="138" height="159"/>
@@ -2277,6 +2287,6 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <image name="Website_icon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rUa-4n-V9T"/>
+        <segue reference="vyS-Jv-KPy"/>
     </inferredMetricsTieBreakers>
 </document>

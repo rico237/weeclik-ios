@@ -90,6 +90,7 @@ PODS:
   - STLocationRequest (1.5.1):
     - Font-Awesome-Swift
   - SVProgressHUD (2.2.5)
+  - SwiftDate (5.0.9)
   - SwiftMailgun (1.0.1):
     - Alamofire
     - ObjectMapper
@@ -140,6 +141,7 @@ DEPENDENCIES:
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
   - STLocationRequest (~> 1.4)
   - SVProgressHUD (~> 2.1)
+  - SwiftDate (~> 5.0)
   - SwiftMailgun (~> 1.0)
   - SwiftMessages
   - TLPhotoPicker (~> 1.3.4)
@@ -187,6 +189,7 @@ SPEC REPOS:
     - SDWebImage
     - STLocationRequest
     - SVProgressHUD
+    - SwiftDate
     - SwiftMailgun
     - SwiftMessages
     - TLPhotoPicker
@@ -288,6 +291,7 @@ SPEC CHECKSUMS:
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
   STLocationRequest: caa2d648094045699c6f7903d3d0f0e01a21d00c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftDate: 52b718d32ec006861a2be2756cbfa482d438e781
   SwiftMailgun: 311a28057e0ced2dbcfbc8320e4aa282511877d2
   SwiftMessages: da7c981256a65b3e58022d9027a36584cf4eccf5
   TLPhotoPicker: df8fc48fb85466680d2a41de8ab78f94b249e151
@@ -295,6 +299,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: a20122d42f2da8b690db5944ab2cd6d34a236572
+PODFILE CHECKSUM: 415dd6f41ea6b7ff75855b72ab6bcf4acece5275
 
 COCOAPODS: 1.5.3

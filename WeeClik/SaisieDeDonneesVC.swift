@@ -8,13 +8,15 @@
 
 import UIKit
 import Parse
+import SVProgressHUD
 
 class SaisieDeDonneesVC: UIViewController {
-    var isPro = false
+    var isPro: Bool!
     var currentUser = PFUser.current()
     var facebookConnection = false
     
-    @IBOutlet var logoUser: UIImageView!
+    @IBOutlet weak var creationCompteLabel: UILabel!
+    @IBOutlet weak var logoUser: UIImageView!
     @IBOutlet weak var nomPrenomTF: FormTextField!
     @IBOutlet weak var mailTF: FormTextField!
     @IBOutlet weak var saveButton: UIButton!
@@ -22,36 +24,65 @@ class SaisieDeDonneesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if currentUser == nil {
+        if let user = currentUser {
+            if PFFacebookUtils.isLinked(with: user) {
+                // Connecté grâce à Facebook
+                nomPrenomTF.text = user["name"] as? String
+                mailTF.text = user["email"] as? String
+            } else {
+                mailTF.text = user.email
+            }
+        } else {
             currentUser = PFUser()
         }
         
-        facebookConnection = PFFacebookUtils.isLinked(with: currentUser!)
         logoUser.image = isPro ? UIImage(named: "Logo_commerce") : UIImage(named: "Logo_utilisateur")
         saveButton.backgroundColor = isPro ? UIColor(red:0.87, green:0.32, blue:0.32, alpha:1.00) : UIColor(red:0.32, green:0.71, blue:0.90, alpha:1.00)
+        creationCompteLabel.text = isPro ? "Création d'un compte professionnel" : "Création d'un compte utilisateur"
         saveButton.layer.cornerRadius = 5
         mailTF.isEnabled = false
-        
-        
-        if facebookConnection {
-            // Connecté grâce à Facebook
-            nomPrenomTF.text = currentUser!["name"] as? String
-            mailTF.text = currentUser!["email"] as? String
-        }
+        mailTF.isUserInteractionEnabled = false
     }
     
     @IBAction func saveInfos(_ sender: Any) {
-        
+        print("Sauvegarde des infos utilisateur")
+        self.initNewUser()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        currentUser["email"] = mailTF.text
-        currentUser!["name"] = nomPrenomTF.text
-        currentUser!.saveInBackground()
-        self.dismiss(animated: false) {
-            let vc = segue.destination as! UINavigationController
-            let destination = vc.viewControllers[0] as! MonCompteVC
+        let vc = segue.destination as! UINavigationController
+        if let destination = vc.viewControllers[0] as? MonCompteVC {
             destination.isPro = self.isPro
+        }
+    }
+    
+    func initNewUser(){
+        if let user = currentUser {
+            if let name = nomPrenomTF.text{ user["name"] = name }
+            user["mes_partages"] = []
+            user["isPro"] = self.isPro
+            user["inscriptionDone"] = true
+            user["mes_partages_dates"] = []
+            
+            SVProgressHUD.setDefaultMaskType(.clear)
+            SVProgressHUD.setDefaultStyle(.dark)
+            SVProgressHUD.show(withStatus: "Sauvegarde des informations")
+            
+            //TODO: utiliser la valeure success pour afficher un message d'erreur
+            user.saveInBackground { (success, err) in
+                if success {
+                    SVProgressHUD.dismiss(withDelay: 1, completion: {
+                        print("succesful signup : \(user.description)")
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                } else {
+                    SVProgressHUD.dismiss(withDelay: 1, completion: {
+                        let er = err! as NSError
+                        print("Error de sauvegarde utilisateur : \n\t-> Code : \(er.code)\n\t-> Description : \(er.localizedDescription)")
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                }
+            }
         }
     }
 

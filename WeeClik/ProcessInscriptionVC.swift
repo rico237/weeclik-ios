@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Parse
 
 class ProcessInscriptionVC: UIViewController {
     var viewController : UIViewController? = nil
+    var newUser : PFUser!
+    var choosePro = false // false = tous les users -> Client
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -19,19 +22,18 @@ class ProcessInscriptionVC: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let dest = segue.destination as! SaisieDeDonneesVC
-        if let ide = segue.identifier{
-            if ide == "showCommerce" {
-                dest.isPro = true
+        
+        if let vc = segue.destination as? SaisieDeDonneesVC {
+            let button = sender as! UIButton
+            if button.tag == 100 {
+                // Commercant
+                choosePro = true
+            } else {
+                choosePro = false
             }
-        } else {
-            dest.isPro = false
+            
+            vc.currentUser = newUser
+            vc.isPro = choosePro
         }
     }
-    
-    @IBAction func cancelSignIn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    
 }
