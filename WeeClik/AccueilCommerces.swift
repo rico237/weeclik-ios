@@ -114,6 +114,10 @@ class AccueilCommerces: UIViewController {
             defaults.synchronize()
         }
         
+        if self.prefFiltreLocation {
+            self.locationManager.startUpdatingLocation()
+        }
+        
         // Liste toutes les catégories possibles
         toutesCat = HelperAndKeys.getListOfCategories()
         
@@ -231,8 +235,9 @@ class AccueilCommerces: UIViewController {
                     SVProgressHUD.dismiss(withDelay: 2)
                 }
             }
+            
+         self.collectionView.reloadData()
         }
-        self.collectionView.reloadData()
     }
     
     // MARK: - Navigation

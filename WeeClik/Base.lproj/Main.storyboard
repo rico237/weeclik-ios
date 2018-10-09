@@ -622,18 +622,11 @@ Weeclik</string>
                     </view>
                     <navigationItem key="navigationItem" title="WEECLIK" id="jMd-Am-HBN">
                         <barButtonItem key="backBarButtonItem" title="Retour" id="2I3-DC-BFE"/>
-                        <leftBarButtonItems>
-                            <barButtonItem image="Login_icon" id="nLq-wv-TtI">
-                                <connections>
-                                    <action selector="showProfilPage:" destination="TFJ-bE-40m" id="AiY-Eo-j7G"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Pay" id="ywJ-3V-3jT">
-                                <connections>
-                                    <segue destination="HWx-rd-TZZ" kind="show" id="q3c-S2-zyI"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="Login_icon" id="nLq-wv-TtI">
+                            <connections>
+                                <action selector="showProfilPage:" destination="TFJ-bE-40m" id="AiY-Eo-j7G"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" image="Filter_icon" id="UQ2-b2-R9R">
                             <connections>
                                 <action selector="filterBarbuttonPressed:" destination="TFJ-bE-40m" id="Xdt-9B-HLr"/>
@@ -1079,7 +1072,7 @@ Weeclik</string>
                                             <outlet property="webLabel" destination="Thc-wM-IkM" id="4xN-45-03z"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PromotionsCell" rowHeight="132" id="yVR-Oh-Yjf" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PromotionsCell" rowHeight="132" id="yVR-Oh-Yjf" customClass="PromotionsCell" customModule="WeeClik" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="322" width="414" height="132"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yVR-Oh-Yjf" id="AxH-Pd-sB4">
@@ -1087,23 +1080,23 @@ Weeclik</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="88" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uUG-kP-Lat">
-                                                    <rect key="frame" x="16" y="8" width="382" height="116"/>
+                                                    <rect key="frame" x="16" y="8" width="421" height="116"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baj-Vl-I0q">
-                                                            <rect key="frame" x="8" y="34" width="324" height="74"/>
+                                                            <rect key="frame" x="8" y="34" width="363" height="74"/>
                                                             <string key="text">-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café-15% sur le café</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Certificate_icon" translatesAutoresizingMaskIntoConstraints="NO" id="vEw-0w-p2s">
-                                                            <rect key="frame" x="340" y="43" width="30" height="30"/>
+                                                            <rect key="frame" x="379" y="43" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="vEw-0w-p2s" secondAttribute="height" multiplier="1:1" id="Fif-cf-nPa"/>
                                                                 <constraint firstAttribute="width" constant="30" id="M2C-iH-Fp8"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMo-oU-WJC">
-                                                            <rect key="frame" x="8" y="8" width="366" height="18"/>
+                                                            <rect key="frame" x="8" y="8" width="405" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" id="3jH-zS-rah"/>
                                                             </constraints>
@@ -1370,7 +1363,6 @@ Weeclik</string>
         <!--Navigation Controller-->
         <scene sceneID="1Lu-9f-jLs">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S4V-kr-aLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="choose_type_compte" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GJP-uY-Goj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8sF-pn-j6c">
@@ -1382,6 +1374,7 @@ Weeclik</string>
                         <segue destination="XdO-h0-40b" kind="relationship" relationship="rootViewController" id="xdC-xT-AKR"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S4V-kr-aLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1401" y="-898"/>
         </scene>
