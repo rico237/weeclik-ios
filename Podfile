@@ -36,7 +36,8 @@ def projectPods
     # Mailgun Librairie (envoi de mails)
     pod 'SwiftMailgun', '~> 1.0'
     # Fenetre pour de mander la localisation de l'utilisateur
-    pod 'STLocationRequest', '~> 1.4'
+    #pod 'STLocationRequest'
+    pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
     # Fenetre de dialogue pour la connection
     pod 'AZDialogView', '~> 1.1'
     # Demander des permissions

@@ -22,6 +22,18 @@ class HelperAndKeys {
         viewController.present(alertViewController, animated: true, completion: nil)
     }
     
+    static func showSettingsAlert(withTitle title:String, withMessage message:String, presentFrom viewController:UIViewController){
+        let alertController = UIAlertController (title: title, message: message, preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Réglages", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {return}
+            if UIApplication.shared.canOpenURL(settingsUrl) {UIApplication.shared.open(settingsUrl, completionHandler: nil)}
+        }
+        let cancelAction = UIAlertAction(title: "Annuler", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+    
     static func getNavigationBarColor() -> UIColor{
         return UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
     }

@@ -31,55 +31,55 @@ extension SPRequestPermissionData {
         }
         
         static func subtitile() -> String {
-            return "Application needs permission"
+            return "Weeclik a besoin de votre autorisation"
         }
         
         static func advice() -> String {
-            return "Allow permission please. This helps to use application"
+            return "Afin d'afficher les commerces près de vous."
         }
         
         static func advice_additional() -> String {
-            return "You can manage permissions in settings"
+            return "Modifiable dans les réglages"
         }
         
         static func enable_camera() -> String {
-            return "Enable Camera"
+            return "Camera"
         }
         
         static func enable_photoLibrary() -> String {
-            return "Enable PhotoLibrary"
+            return "Photos/vidéos"
         }
         
         static func enable_notification() -> String {
-            return "Enable Notification"
+            return "Notifications"
         }
         
         static func enable_microphone() -> String {
-            return "Enable Microphone"
+            return "Microphone"
         }
         
         static func enable_calendar() -> String {
-            return "Enable Calendar"
+            return "Calendrier"
         }
         
         static func enable_location() -> String {
-            return "Enable Location"
+            return "Localisation"
         }
         
         static func enable_contacts() -> String {
-            return "Enable Contacts"
+            return "Contacts"
         }
         
         static func enable_reminedrs() -> String {
-            return "Enable Reminedrs"
+            return "Rappels"
         }
         
         static func swipe_for_hide() -> String {
-            return "Swipe to hide"
+            return ""
         }
         
         static func cancel() -> String {
-            return "Cancel"
+            return "Annuler"
         }
         
         static func settings() -> String {

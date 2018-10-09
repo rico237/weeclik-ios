@@ -21,11 +21,11 @@ import SVProgressHUD
 import KJNavigationViewAnimation
 import KRLCollectionViewGridLayout
 import SDWebImage
-import STLocationRequest
 import CoreLocation
 import AZDialogView
 import CRNotifications
 import BulletinBoard
+import Sparrow
 
 class AccueilCommerces: UIViewController {
 
@@ -61,17 +61,13 @@ class AccueilCommerces: UIViewController {
         let bulletinPageIntro = BulletinDataSource.makeFilterPage()
         bulletinPageIntro.actionHandler = { item in
             // Action par position
-            if self.prefFiltreLocation == false{
-                self.prefFiltreLocation = true
-            }
+            self.prefFiltreLocation = true
             item.displayNextItem()
 //            item.manager?.dismissBulletin(animated: true)
         }
         bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
             // Action par nombre
-            if self.prefFiltreLocation == true {
-                self.prefFiltreLocation = !self.prefFiltreLocation
-            }
+            self.prefFiltreLocation = false
             item.displayNextItem()
         }
         introBulletin.actionHandler = { (item : BulletinItem) in
@@ -80,7 +76,11 @@ class AccueilCommerces: UIViewController {
             self.defaults.set(self.prefFiltreLocation, forKey: HelperAndKeys.getLocationPreferenceKey())
             self.defaults.synchronize()
             
-            self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.prefFiltreLocation)
+            if self.prefFiltreLocation {
+                self.checkLocationServicePermission()
+            } else {
+                self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: false)
+            }
         }
         bulletinPageIntro.nextItem = introBulletin
         return BulletinManager(rootItem : bulletinPageIntro)
@@ -97,6 +97,7 @@ class AccueilCommerces: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.backgroundColor  = HelperAndKeys.getBackgroundColor()
         self.collectionView.collectionViewLayout = columnLayout
+        
         if #available(iOS 11.0, *) {
             self.collectionView.contentInsetAdjustmentBehavior = .always
         } else {
@@ -113,22 +114,18 @@ class AccueilCommerces: UIViewController {
             defaults.synchronize()
         }
         
-        
         // Liste toutes les catégories possibles
         toutesCat = HelperAndKeys.getListOfCategories()
-        
         
         // Creation du Menu catégories
         viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
-        
         // Ajout du contenu au Menu catégories
         let title = prepareNavigationBarMenuTitleView()
         prepareNavigationBarMenu(title)
         
-        self.checkLocationServicePermission()
-        
+        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.prefFiltreLocation)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -157,41 +154,29 @@ class AccueilCommerces: UIViewController {
         if CLLocationManager.locationServicesEnabled() {
             if CLLocationManager.authorizationStatus() == .denied {
                 // Location Services are denied
-                locationGranted = false
+                HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.", presentFrom: self)
+                self.locationGranted = false
             } else {
-                if CLLocationManager.authorizationStatus() == .notDetermined{
-                    #if targetEnvironment(simulator)
-                    print("It's an iOS Simulator")
-                    HelperAndKeys.setAppFirstLoadFinished()
-                    self.locationGranted = false
-                    HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
-                    self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
-                    #else
-                    print("It's a device")
-                    // Present the STLocationRequestController
-                    self.presentLocationRequestController()
-                    #endif
+                if CLLocationManager.authorizationStatus() == .notDetermined {
+                    SPRequestPermission.dialog.interactive.present(on: self, with: [.locationWhenInUse], dataSource: PermissionDataSource(), delegate: self)
                 } else {
                     // The user has already allowed your app to use location services. Start updating location
                     self.locationManager.startUpdatingLocation()
                     locationGranted = true
+                    self.setLocationSteps()
                 }
             }
         } else {
             // Location Services are disabled
-            HelperAndKeys.showAlertWithMessage(theMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces prèsde vous.", title: "Localisation désactivé", viewController: self)
-            locationGranted = false
+            HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
+            self.locationGranted = false
         }
     }
     
-    func presentLocationRequestController(){
-        let locationRequestController = STLocationRequestController.getInstance()
-        locationRequestController.titleText = "Nous avons besoin de votre position afin de vous afficher les commerces autour de vous"
-        locationRequestController.allowButtonTitle = "Ok"
-        locationRequestController.notNowButtonTitle = "Refuser"
-        locationRequestController.authorizeType = .requestWhenInUseAuthorization
-        locationRequestController.delegate = self
-        locationRequestController.present(onViewController: self)
+    func setLocationSteps(){
+        HelperAndKeys.setAppFirstLoadFinished()
+        HelperAndKeys.setLocationFilterPreference(locationGranted: self.prefFiltreLocation)
+        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.prefFiltreLocation)
     }
     
     func queryObjectsFromDB(typeCategorie : String, withLocation : Bool){
@@ -223,10 +208,13 @@ class AccueilCommerces: UIViewController {
                         self.commerces.append(commerce)
                     }
                     
-                    let sorteCommerce = self.commerces.sorted(by: {
-                        PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
-                    })
-                    self.commerces = sorteCommerce
+                    // tri du tableau par position
+                    if withLocation {
+                        let sorteCommerce = self.commerces.sorted(by: {
+                            PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
+                        })
+                        self.commerces = sorteCommerce
+                    }
                     
                     self.collectionView.reloadData()
                     SVProgressHUD.dismiss(withDelay: 1)
@@ -244,6 +232,7 @@ class AccueilCommerces: UIViewController {
                 }
             }
         }
+        self.collectionView.reloadData()
     }
     
     // MARK: - Navigation
@@ -255,6 +244,52 @@ class AccueilCommerces: UIViewController {
                 let detailViewController = segue.destination as! DetailCommerceViewController
                 detailViewController.commerceObject = self.commerces[indexPath.row]
             }
+        }
+    }
+}
+
+class PermissionDataSource : SPRequestPermissionDialogInteractiveDataSource {
+    override func headerTitle() -> String {
+        return "Demande d'autorisation"
+    }
+    
+    override func headerSubtitle() -> String {
+        return "Weeclik a besoin de votre autorisation pour fonctionner"
+    }
+    
+    override func cancelForAlertDenidPermission() -> String {
+        return "Annuler"
+    }
+    
+    override func settingForAlertDenidPermission() -> String {
+        return "Réglages"
+    }
+    
+    override func subtitleForAlertDenidPermission() -> String {
+        return "Autorisation refusé. Merci de les changer dans les réglages."
+    }
+}
+
+extension AccueilCommerces: SPRequestPermissionEventsDelegate {
+    func didHide() {}
+    
+    func didSelectedPermission(permission: SPRequestPermissionType) {}
+    
+    func didAllowPermission(permission: SPRequestPermissionType) {
+        if case .locationWhenInUse = permission {
+            self.locationManager.startUpdatingLocation()
+            self.locationGranted = true
+            self.prefFiltreLocation = true
+            self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: true)
+        }
+    }
+    
+    func didDeniedPermission(permission: SPRequestPermissionType) {
+        if case .locationWhenInUse = permission {
+            self.locationGranted = false
+            self.prefFiltreLocation = false
+            self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: false)
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }
@@ -316,7 +351,6 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
 }
 
 extension AccueilCommerces : DropDownMenuDelegate {
-    
     func prepareNavigationBarMenuTitleView() -> String {
         titleView = DropDownTitleView()
         titleView.addTarget(self,
@@ -377,8 +411,6 @@ extension AccueilCommerces : DropDownMenuDelegate {
         labelHeaderCategorie.text = itemChoose!
         let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
         self.headerTypeCommerceImage.image = headerImage
-//        print(self.locationGranted)
-//        print("First Load Finished : \(HelperAndKeys.isAppFirstLoadFinished())")
         
         // Au premier chargement on ne fait pas de requette
         if HelperAndKeys.isAppFirstLoadFinished() {
@@ -413,36 +445,7 @@ extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
     }
 }
 
-extension AccueilCommerces : STLocationRequestControllerDelegate{
-    @objc func locationRequestControllerDidChange(_ event: STLocationRequestControllerEvent) {
-        switch event {
-        case .locationRequestAuthorized:
-            self.locationManager.startUpdatingLocation()
-            HelperAndKeys.setAppFirstLoadFinished()
-            self.locationGranted = true
-            HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
-            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
-            break
-        case .locationRequestDenied, .notNowButtonTapped:
-            HelperAndKeys.setAppFirstLoadFinished()
-            self.locationGranted = false
-            HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
-            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
-            break
-        default:
-            HelperAndKeys.setAppFirstLoadFinished()
-            self.locationGranted = false
-            HelperAndKeys.setLocationFilterPreference(locationGranted: self.locationGranted)
-            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: locationGranted)
-            break
-        }
-        
-        
-    }
-}
-
 extension AccueilCommerces: CLLocationManagerDelegate {
-    
     /// CLLocationManagerDelegate DidFailWithError Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error. The Location couldn't be found. \(error)")
@@ -453,5 +456,4 @@ extension AccueilCommerces: CLLocationManagerDelegate {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
     }
-    
 }

@@ -104,16 +104,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Font-Awesome-Swift-Font-Awesome-Swift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Font-Awesome-Swift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>FormSheetTextView-Storyboards.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -215,16 +205,6 @@
 			<false/>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>STLocationRequest-STLocationRequest.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>STLocationRequest.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

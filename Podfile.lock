@@ -43,7 +43,6 @@ PODS:
   - FirebaseInstanceID (3.1.1):
     - FirebaseCore (~> 5.0)
   - Floaty (4.0.1)
-  - Font-Awesome-Swift (1.7.2)
   - FormSheetTextView (1.2.0)
   - Gallery (2.0.6)
   - GoogleToolboxForMac/Defines (2.1.4)
@@ -87,8 +86,6 @@ PODS:
   - Sparrow/Core (1.1.0)
   - Sparrow/Modules/RequestPermission (1.1.0):
     - Sparrow/Core
-  - STLocationRequest (1.5.1):
-    - Font-Awesome-Swift
   - SVProgressHUD (2.2.5)
   - SwiftDate (5.0.9)
   - SwiftMailgun (1.0.1):
@@ -139,7 +136,6 @@ DEPENDENCIES:
   - RMGradientView (from `https://github.com/sleepwalkerfx/RMGradientView.git`)
   - SDWebImage (~> 4.0)
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
-  - STLocationRequest (~> 1.4)
   - SVProgressHUD (~> 2.1)
   - SwiftDate (~> 5.0)
   - SwiftMailgun (~> 1.0)
@@ -174,7 +170,6 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - Floaty
-    - Font-Awesome-Swift
     - FormSheetTextView
     - GoogleToolboxForMac
     - Hue
@@ -187,7 +182,6 @@ SPEC REPOS:
     - Parse
     - RAReorderableLayout
     - SDWebImage
-    - STLocationRequest
     - SVProgressHUD
     - SwiftDate
     - SwiftMailgun
@@ -271,7 +265,6 @@ SPEC CHECKSUMS:
   FirebaseCore: 42b3267233bd21a5abd54117ccc38ca3dd0f8e83
   FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
   Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
-  Font-Awesome-Swift: 83ab9db365379ee6025167cec67bdc5d3226a811
   FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
   Gallery: f75c3faefcb5da2cae2150ce3db29fcfbeed8b0f
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
@@ -289,7 +282,6 @@ SPEC CHECKSUMS:
   RMGradientView: 35237e7f233ce96f31074c9b119eb3320e2022ff
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
-  STLocationRequest: caa2d648094045699c6f7903d3d0f0e01a21d00c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftDate: 52b718d32ec006861a2be2756cbfa482d438e781
   SwiftMailgun: 311a28057e0ced2dbcfbc8320e4aa282511877d2
@@ -299,6 +291,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: 415dd6f41ea6b7ff75855b72ab6bcf4acece5275
+PODFILE CHECKSUM: 3ea93205d1f07afaf1388c963a1cd23491e773f1
 
 COCOAPODS: 1.5.3
