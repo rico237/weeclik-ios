@@ -17,46 +17,52 @@ import Crashlytics
 
 class AjoutCommerceVC: UITableViewController {
     
-    var photoArray : [UIImage]! = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]      // Tableau de photos
-    var videoArray = [TLPHAsset]()                  // Tableau de videos
-    var thumbnailArray : [UIImage] = [UIImage()]    // Tableau de preview des vidéos
-    var selectedVideoData = Data()                  // Data de vidéos
-    var didUseFinalSave = false                     // Utilisé le bouton de sauvegarde
-    var savedCommerce : Commerce? = nil             // Objet Commerce si on a pas utilisé le bouton sauvegarde
+    var photoArray : [UIImage]!     = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]          // Tableau de photos
+    var videoArray                  = [TLPHAsset]()         // Tableau de videos
+    var thumbnailArray : [UIImage]  = [UIImage()]           // Tableau de preview des vidéos
+    var selectedVideoData           = Data()                // Data de vidéos
+    var didUseFinalSave             = false                 // Utilisé le bouton de sauvegarde
+    var savedCommerce : Commerce?   = nil                   // Objet Commerce si on a pas utilisé le bouton sauvegarde
     
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!       // Bouton annuler
+    @IBOutlet weak var saveButton: UIBarButtonItem!         // Bouton Sauvegarder
     
-    var objectIdCommerce = ""
-    var editingMode = false
+    var objectIdCommerce    = ""
+    var editingMode         = false                         // Mode edit d'un commerce
+    var loadedFromBAAS      = false                         // Commerce venant de la BDD cloud
     
-    var commerceIdToSave = ""                             // Id du commerce à sauvegarder
-//    var pfCommerce : PFObject? = nil
+    var commerceIdToSave    = ""                            // Id du commerce à sauvegarder
     
     // Valeur des champs entrées
     // TextField
-    var nomCommerce = "Halo"
-    var telCommerce = "07"
-    var mailCommerce = "@.fr"
-    var adresseCommerce = "adresse"
-    var siteWebCommerce = "http://"
-    var categorieCommerce = "Restauration"
+    var nomCommerce         = "Halo"
+    var telCommerce         = "07"
+    var mailCommerce        = "@.fr"
+    var adresseCommerce     = "adresse"
+    var siteWebCommerce     = "http://"
+    var categorieCommerce   = "Restauration"
     // TextViews
     var descriptionCommerce = "Description"
-    var promotionsCommerce = "promotions"
+    var promotionsCommerce  = "promotions"
     
     // IndexPath pour les photos & videos
-    var selectedRow : Int = 0
-    var videoSelectedRow : Int = 0
+    var selectedRow : Int       = 0
+    var videoSelectedRow : Int  = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let use = UserDefaults.standard
         if let comm = use.object(forKey: "lastCommerce") as? Commerce {
+            self.loadedFromBAAS = false
+            print("Commerce dans les userDefaults")
             savedCommerce = comm
         }
         
         if objectIdCommerce != "" {
+            self.editingMode = true
+            self.loadedFromBAAS = true
+            SVProgressHUD.show(withStatus: "Chargement des données du commerce")
+            print("Commerce existant dans le BAAS")
             savedCommerce = Commerce(objectId: objectIdCommerce)
         }
         
@@ -81,14 +87,34 @@ class AjoutCommerceVC: UITableViewController {
     
     func loadCommerceInformations(){
         if let comm = savedCommerce {
-            nomCommerce = comm.nom
-            telCommerce = comm.tel
-            mailCommerce = comm.mail
-            adresseCommerce = comm.adresse
-            siteWebCommerce = comm.siteWeb
-            categorieCommerce = comm.type
+            nomCommerce         = comm.nom
+            telCommerce         = comm.tel
+            mailCommerce        = comm.mail
+            adresseCommerce     = comm.adresse
+            siteWebCommerce     = comm.siteWeb
+            categorieCommerce   = comm.type
             descriptionCommerce = comm.descriptionO
-            promotionsCommerce = comm.promotions
+            promotionsCommerce  = comm.promotions
+            
+            if loadedFromBAAS {
+                #warning ("faire un run pour voir si cette méthode est bonne, ne plante pas")
+                // Charger les différentes images associés
+                let queryPhotos = PFQuery(className: "Commerce_Photos")
+                queryPhotos.whereKey("commerce", equalTo: comm.pfObject)
+                
+                if let photosBDD = try? queryPhotos.findObjects() {
+                    for (index, obj) in photosBDD.enumerated() {
+                        if index < 3 {
+                            let fileImage       = obj["photo"] as! PFFile
+                            if let imageData    = try? fileImage.getData(){
+                                self.photoArray.append(UIImage(data: imageData) ?? UIImage(named: "Plus_icon")!)
+                            }
+                        }
+                    }
+                }
+                
+                SVProgressHUD.dismiss(withDelay: 1.5)
+            }
         }
     }
     
@@ -313,12 +339,37 @@ class AjoutCommerceVC: UITableViewController {
     
     func getCommerceFromInfos() -> Commerce{
         let comm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce, owner:PFUser.current()!)
-        comm.location = getLocationFromAddress(add: adresseCommerce)
+        comm.location = getLocationFromAddress(address: adresseCommerce)
         return comm
     }
     
-    func getLocationFromAddress(add : String) -> PFGeoPoint{
-        return PFGeoPoint(latitude: 0.0, longitude: 0.0)
+    func getLocationFromAddress(address : String) -> PFGeoPoint{
+        let geo = CLGeocoder()
+        var returnedLocation = PFGeoPoint(latitude: 0.0, longitude: 0.0)
+        var waitForReturn = true
+        var hasBeenLunched = false
+        
+        while waitForReturn {
+            
+            if hasBeenLunched == false {
+                hasBeenLunched = true
+                geo.geocodeAddressString(address) { (arrary, error) in
+                    if error == nil {
+                        if let place = arrary?.first{
+                            if let location = place.location {
+                                returnedLocation = PFGeoPoint(location: location)
+                            }
+                        }
+                        waitForReturn = false
+                    } else {
+                        print(error?.localizedDescription ?? "Erreur création coordonées GPS depuis une adresse")
+                        waitForReturn = false
+                    }
+                }
+            }
+        }
+        
+        return returnedLocation
     }
 }
 
@@ -479,9 +530,7 @@ extension AjoutCommerceVC {
         return 1
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 7
-    }
+    override func numberOfSections(in tableView: UITableView) -> Int {return 7}
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
@@ -490,7 +539,7 @@ extension AjoutCommerceVC {
         case 1: // Case photos
             return (tableView.bounds.width - (3 - 1) * 7) / 3
         case 2: // Case vidéo
-            return 150
+            return 0 // 150
         case 3: // Case selection de la catégorie
             return 150
         case 4: // Case informations supplémentaires
@@ -498,6 +547,11 @@ extension AjoutCommerceVC {
         default:
             return 100
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 2 { return 0 }
+        return 30
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -674,6 +728,6 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
         default:
             break
         }
-        print("Textview with text : \(textView.text) and tag : \(textView.tag)")
+        print("Textview with text : \(String(describing: textView.text)) and tag : \(textView.tag)")
     }
 }

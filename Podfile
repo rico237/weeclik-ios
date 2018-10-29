@@ -18,6 +18,8 @@ def projectPods
     pod 'Fabric', '~> 1.7.6'
     pod 'Crashlytics', '~> 3.10.1'
     
+    pod 'PromiseKit', '~> 6.0'
+    pod 'Alamofire', '~> 4.7'
     
     # Pour la page recherche
     pod 'Compose', '~> 1.2'

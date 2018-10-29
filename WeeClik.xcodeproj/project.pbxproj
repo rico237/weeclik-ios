@@ -30,6 +30,7 @@
 		1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */; };
 		1F4D4310202AC4D40089FB15 /* ImageScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D430F202AC4D40089FB15 /* ImageScroller.swift */; };
 		1F4D4312202AC4E10089FB15 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D4311202AC4E10089FB15 /* ShadowView.swift */; };
+		1F565453217E64AC00C6B112 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F565452217E64AC00C6B112 /* Profile.storyboard */; };
 		1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5681E71F2B4F7900B1BAC8 /* CardView.swift */; };
 		1F5AD2F61FAF898C0048FFE2 /* NouveauCommerceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AD2F51FAF898C0048FFE2 /* NouveauCommerceCell.swift */; };
 		1F5DE54C1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5DE54B1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift */; };
@@ -117,6 +118,7 @@
 		1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonCompteVC.swift; sourceTree = "<group>"; };
 		1F4D430F202AC4D40089FB15 /* ImageScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScroller.swift; sourceTree = "<group>"; };
 		1F4D4311202AC4E10089FB15 /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		1F565452217E64AC00C6B112 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		1F5681E71F2B4F7900B1BAC8 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1F5AD2F51FAF898C0048FFE2 /* NouveauCommerceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NouveauCommerceCell.swift; sourceTree = "<group>"; };
 		1F5CCDFA1FC892D200C86446 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 		1F2762902116EDDF00779342 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				1F565452217E64AC00C6B112 /* Profile.storyboard */,
 				1FA473311F1EE7E400D2A306 /* Main.storyboard */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
 			);
@@ -464,6 +467,7 @@
 				1F04777B214407C400B20CA5 /* PaymentCell.xib in Resources */,
 				1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */,
 				1FA9BFE31F269CB2004D5F4C /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				1F565453217E64AC00C6B112 /* Profile.storyboard in Resources */,
 				1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */,
 				1FA473351F1EE7E400D2A306 /* Assets.xcassets in Resources */,
 				1FA473331F1EE7E400D2A306 /* Main.storyboard in Resources */,
@@ -529,6 +533,7 @@
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RAReorderableLayout/RAReorderableLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/RMGradientView/RMGradientView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -576,6 +581,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAReorderableLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMGradientView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",

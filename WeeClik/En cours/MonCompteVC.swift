@@ -85,6 +85,14 @@ class MonCompteVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("1")
+        if segue.identifier == "ajoutCommerce" {
+            let destination = segue.destination as! AjoutCommerceVC
+//            destination.objectIdCommerce =
+        }
+    }
+    
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
         self.dismiss(animated: true)
@@ -190,6 +198,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 let story = UIStoryboard(name: "Main", bundle: nil)
                 let ajoutCommerceVC = story.instantiateViewController(withIdentifier: "ajoutCommerce") as! AjoutCommerceVC
                 ajoutCommerceVC.editingMode = true
+                ajoutCommerceVC.objectIdCommerce = self.commerces[indexPath.row].objectId!
                 self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
                 //TODO: Show commerce detail

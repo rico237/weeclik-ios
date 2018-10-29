@@ -63,7 +63,6 @@ class AccueilCommerces: UIViewController {
             // Action par position
             self.prefFiltreLocation = true
             item.displayNextItem()
-//            item.manager?.dismissBulletin(animated: true)
         }
         bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
             // Action par nombre
@@ -195,7 +194,7 @@ class AccueilCommerces: UIViewController {
         let query = PFQuery(className: "Commerce")
         query.whereKey("typeCommerce", equalTo: typeCategorie)
         query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-        query.whereKey("statutCommerce", equalTo: 0)
+        query.whereKey("statutCommerce", equalTo: 1)
         
         if withLocation {
             let userPosition = PFGeoPoint(location: latestLocationForQuery)
