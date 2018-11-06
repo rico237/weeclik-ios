@@ -30,6 +30,7 @@
 		1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */; };
 		1F4D4310202AC4D40089FB15 /* ImageScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D430F202AC4D40089FB15 /* ImageScroller.swift */; };
 		1F4D4312202AC4E10089FB15 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D4311202AC4E10089FB15 /* ShadowView.swift */; };
+		1F5581AC2187C9CF00044C0A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F5581AB2187C9CF00044C0A /* CoreLocation.framework */; };
 		1F565453217E64AC00C6B112 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F565452217E64AC00C6B112 /* Profile.storyboard */; };
 		1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5681E71F2B4F7900B1BAC8 /* CardView.swift */; };
 		1F5AD2F61FAF898C0048FFE2 /* NouveauCommerceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AD2F51FAF898C0048FFE2 /* NouveauCommerceCell.swift */; };
@@ -118,6 +119,8 @@
 		1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonCompteVC.swift; sourceTree = "<group>"; };
 		1F4D430F202AC4D40089FB15 /* ImageScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScroller.swift; sourceTree = "<group>"; };
 		1F4D4311202AC4E10089FB15 /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		1F5581AB2187C9CF00044C0A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1F5581AD2188582300044C0A /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1F565452217E64AC00C6B112 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		1F5681E71F2B4F7900B1BAC8 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1F5AD2F51FAF898C0048FFE2 /* NouveauCommerceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NouveauCommerceCell.swift; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F5581AC2187C9CF00044C0A /* CoreLocation.framework in Frameworks */,
 				1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */,
 				1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */,
 				788E3A22531FFFF44C80E285 /* Pods_WeeClik.framework in Frameworks */,
@@ -282,6 +286,7 @@
 		1FA473211F1EE7E400D2A306 = {
 			isa = PBXGroup;
 			children = (
+				1F5581AD2188582300044C0A /* MyPlayground.playground */,
 				1FA4732C1F1EE7E400D2A306 /* WeeClik */,
 				1FA4732B1F1EE7E400D2A306 /* Products */,
 				D4B13352A12466DB4B89E4CC /* Pods */,
@@ -364,6 +369,7 @@
 		A78D9E77AE6519274A12D367 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F5581AB2187C9CF00044C0A /* CoreLocation.framework */,
 				1FBB63A4211F16BD00BCB480 /* StoreKit.framework */,
 				1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */,
 				1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */,
@@ -506,6 +512,7 @@
 				"${BUILT_PRODUCTS_DIR}/ASJExpandableTextView/ASJExpandableTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/AZDialogView/AZDialogView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/AsyncSwift/Async.framework",
 				"${BUILT_PRODUCTS_DIR}/Avatar/Avatar.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -531,6 +538,7 @@
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
+				"${BUILT_PRODUCTS_DIR}/Nominatim/Nominatim.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
@@ -554,6 +562,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASJExpandableTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AZDialogView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Async.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Avatar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
@@ -579,6 +588,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nominatim.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",

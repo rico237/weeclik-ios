@@ -134,20 +134,43 @@ public class Commerce: NSObject , NSCoding {
         }
     }
     
-    func getPFObject() -> PFObject {
-        let object = self.pfObject ?? PFObject(className: "Commerce")
-        object["nomCommerce"] = nom
-        object["statutCommerce"] = statut
-        object["typeCommerce"] = type
-        object["nombrePartages"] = partages
-        object["mail"] = mail
-        object["adresse"] = adresse
-        object["tel"] = tel
-        object["siteWeb"] = siteWeb
-        object["promotions"] = promotions
-        object["description"] = descriptionO
-        object["owner"] = owner
-        return object
+    func getPFObject(objectId: String, fromBaas: Bool) -> PFObject {
+        var object = self.pfObject ?? PFObject(className: "Commerce")
+        
+        if fromBaas {
+            let quer = PFQuery(className: "Commerce")
+            quer.whereKey("objectId", equalTo: objectId)
+            do {
+                object = try quer.getFirstObject()
+            } catch {
+                print("func getPFObject(objectId: String, fromBaas: Bool) -> PFObject \n\tErreur lors de la création d'object Commerce : \(error.localizedDescription)")
+            }
+            return object
+        } else {
+            object["nomCommerce"] = nom
+            object["statutCommerce"] = statut
+            object["typeCommerce"] = type
+            object["nombrePartages"] = partages
+            object["mail"] = mail
+            object["adresse"] = adresse
+            object["tel"] = tel
+            object["siteWeb"] = siteWeb
+            object["promotions"] = promotions
+            object["description"] = descriptionO
+            object["owner"] = owner
+            return object
+        }
+    }
+    
+    func saveAll(){
+        
+    }
+    
+    func saveLocation(lat: Double, long: Double){
+        if let object = self.pfObject {
+            object["position"] = PFGeoPoint(latitude: lat, longitude: long)
+            object.saveInBackground()
+        }
     }
     
     // Encoding Functions

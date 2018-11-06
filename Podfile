@@ -21,6 +21,8 @@ def projectPods
     pod 'PromiseKit', '~> 6.0'
     pod 'Alamofire', '~> 4.7'
     
+    pod 'Nominatim'
+    
     # Pour la page recherche
     pod 'Compose', '~> 1.2'
     # pour la selection de catégorie
@@ -81,6 +83,7 @@ def projectPods
     pod 'AsyncSwift'
     # zoom photos & videos
     #pod 'MWPhotoBrowser', :podspec =>'https://raw.githubusercontent.com/moinku07/MWPhotoBrowser/master/MWPhotoBrowser.podspec'
+    pod 'AppImageViewer'
     # Création d'avatar
     pod 'Avatar'
     # Selection des photos et videos pour la création de commerce

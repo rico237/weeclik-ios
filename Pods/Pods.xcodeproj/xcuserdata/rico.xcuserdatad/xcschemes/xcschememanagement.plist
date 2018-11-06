@@ -24,6 +24,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AppImageViewer-AppImageViewer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AppImageViewer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AsyncSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -165,6 +175,11 @@
 			<false/>
 		</dict>
 		<key>Motion.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Nominatim.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

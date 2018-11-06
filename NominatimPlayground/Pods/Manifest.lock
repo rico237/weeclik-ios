@@ -1,0 +1,16 @@
+PODS:
+  - Nominatim (0.9.2)
+
+DEPENDENCIES:
+  - Nominatim
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Nominatim
+
+SPEC CHECKSUMS:
+  Nominatim: 2083a9f3073c4f738c1e6669e3f3381494072cb7
+
+PODFILE CHECKSUM: 269132a1ee796297a11da79de88cd1f8afa81592
+
+COCOAPODS: 1.5.3

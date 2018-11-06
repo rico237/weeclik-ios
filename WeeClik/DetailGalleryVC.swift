@@ -12,11 +12,14 @@ import Material
 import DZNEmptyDataSet
 import Async
 import SVProgressHUD
+import AppImageViewer
 
 class DetailGalleryVC: UIViewController {
 
     @IBOutlet weak var segmentedControl: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var fetchedPhotos = [UIImage?]()
     
     var commerce : Commerce!
     var photos = [PFObject]()
@@ -80,6 +83,15 @@ class DetailGalleryVC: UIViewController {
             let error = error as NSError
             print("Chargement Photos\n\tErreur \(error.code) : \(error.localizedDescription)")
         }
+        
+        for obj in self.photos {
+            let file = obj["photo"] as! PFFile
+            if let data = try? file.getData() {
+                if let image = UIImage(data: data){
+                    self.fetchedPhotos.append(image)
+                }
+            }
+        }
     }
     
     func fetchVideos(){
@@ -133,7 +145,7 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath) as! PhotosVideosCollectionCell
         
         var obj : PFObject!
-        var file : PFFile!
+        var file : PFFile
         
         if !shdShowVideos {
             // Photos
@@ -156,14 +168,21 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        HelperAndKeys.showAlertWithMessage(theMessage: "Fonction disponible dans une prochaine mise à jour", title: "Développement en cours", viewController: self)
-        
         if !shdShowVideos {
             // Photos
-            
+            if self.fetchedPhotos.count != 0 {
+                for image in self.fetchedPhotos {
+                    
+                    if let image = image {
+                        let appImage = ViewerImage.appImage(forImage: image)
+                        let viewer = AppImageViewer(originImage: image, photos: [appImage], animatedFromView: self.view)
+                        present(viewer, animated: true, completion: nil)
+                    }
+                }
+            }
         } else {
             // Videos
-            
+            HelperAndKeys.showAlertWithMessage(theMessage: "Fonction disponible dans une prochaine mise à jour", title: "Développement en cours", viewController: self)
         }
     }
 }

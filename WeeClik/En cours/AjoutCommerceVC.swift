@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
+import Nominatim
+
 import Parse
 import TLPhotoPicker
 import Photos
@@ -18,6 +21,7 @@ import Crashlytics
 class AjoutCommerceVC: UITableViewController {
     
     var photoArray : [UIImage]!     = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]          // Tableau de photos
+    var loadedPhotos                = [PFObject]()
     var videoArray                  = [TLPHAsset]()         // Tableau de videos
     var thumbnailArray : [UIImage]  = [UIImage()]           // Tableau de preview des vidéos
     var selectedVideoData           = Data()                // Data de vidéos
@@ -32,6 +36,8 @@ class AjoutCommerceVC: UITableViewController {
     var loadedFromBAAS      = false                         // Commerce venant de la BDD cloud
     
     var commerceIdToSave    = ""                            // Id du commerce à sauvegarder
+    
+    lazy var geocoder = CLGeocoder()
     
     // Valeur des champs entrées
     // TextField
@@ -97,21 +103,25 @@ class AjoutCommerceVC: UITableViewController {
             promotionsCommerce  = comm.promotions
             
             if loadedFromBAAS {
-                #warning ("faire un run pour voir si cette méthode est bonne, ne plante pas")
                 // Charger les différentes images associés
                 let queryPhotos = PFQuery(className: "Commerce_Photos")
                 queryPhotos.whereKey("commerce", equalTo: comm.pfObject)
                 
                 if let photosBDD = try? queryPhotos.findObjects() {
                     for (index, obj) in photosBDD.enumerated() {
+                        loadedPhotos.append(obj)
+                        
                         if index < 3 {
                             let fileImage       = obj["photo"] as! PFFile
                             if let imageData    = try? fileImage.getData(){
-                                self.photoArray.append(UIImage(data: imageData) ?? UIImage(named: "Plus_icon")!)
+                                
+                                self.photoArray.insert(UIImage(data: imageData) ?? UIImage(named: "Plus_icon")!, at: index)
                             }
                         }
                     }
                 }
+                
+                self.tableView.reloadData()
                 
                 SVProgressHUD.dismiss(withDelay: 1.5)
             }
@@ -123,10 +133,6 @@ class AjoutCommerceVC: UITableViewController {
             SVProgressHUD.dismiss()
             self.tableView.reloadData()
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -178,13 +184,37 @@ class AjoutCommerceVC: UITableViewController {
         photos = self.savePhotosWithCommerce(commerceId: commerceIdToSave)
         // Sauvegarde des videos
         videos = self.saveVideosWithCommerce(commerceId: commerceIdToSave)
+        
+        geocoder.geocodeAddressString(getCommerceFromInfos().adresse) { (placemarks, error) in
+            
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let placemarks = placemarks, placemarks.count > 0 {
+                    if let location = placemarks.first?.location {
+                        print("location : \(location.debugDescription)")
+                        if self.loadedFromBAAS {
+                            let query = PFQuery(className: "Commerce")
+                            query.whereKey("objectId", equalTo: self.saveCommerce())
+                            if let com = try? query.getFirstObject() {
+                                com["location"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                                com.saveInBackground()
+                            }
+                        } else {
+                            self.getCommerceFromInfos().location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                        }
+                    }
+                }
+            }
+        }
         // Mise a jour du commerce avec les photos & videos uploadés
         self.refreshCommerceMedia(commerceId: commerceIdToSave, photos: photos, videos: videos)
     }
     
     func saveCommerce() -> String{
         // Sauvegarde finale pour paiement
-        let commerceToSave = getCommerceFromInfos().getPFObject()
+        let fetchComm = getCommerceFromInfos()
+        let commerceToSave = fetchComm.getPFObject(objectId: self.objectIdCommerce, fromBaas: self.loadedFromBAAS)
         
         do {
             try commerceToSave.save()
@@ -192,6 +222,10 @@ class AjoutCommerceVC: UITableViewController {
             print("Erreur : \(error)")
         }
         return commerceToSave.objectId!
+    }
+    
+    func updateGeolocationOfCommerce(commerce: Commerce, lat: Double, long: Double) {
+        commerce.saveLocation(lat: lat, long: long)
     }
     
     func saveVideosWithCommerce(commerceId : String) -> [PFObject]{
@@ -289,6 +323,16 @@ class AjoutCommerceVC: UITableViewController {
             }
         }
         
+        if loadedFromBAAS {
+            for obj in self.loadedPhotos {
+                do {
+                    try obj.delete()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
         if photos.count != 0 {
             DispatchQueue.main.async {
                 SVProgressHUD.show(withStatus: "Sauvegarde des photos en cours")
@@ -311,7 +355,7 @@ class AjoutCommerceVC: UITableViewController {
     
     func refreshCommerceMedia(commerceId:String, photos: [PFObject], videos: [PFObject]){
         DispatchQueue.main.async {
-            SVProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos & vidéos")
+            SVProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos")
         }
         
         if photos.count != 0 {
@@ -333,43 +377,14 @@ class AjoutCommerceVC: UITableViewController {
         }
         
         DispatchQueue.main.async {
-            SVProgressHUD.dismiss()
+            SVProgressHUD.dismiss(withDelay: 2)
         }
     }
     
-    func getCommerceFromInfos() -> Commerce{
+    func getCommerceFromInfos() -> Commerce {
+        // TODO: ajouter le if du BAAS
         let comm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce, owner:PFUser.current()!)
-        comm.location = getLocationFromAddress(address: adresseCommerce)
         return comm
-    }
-    
-    func getLocationFromAddress(address : String) -> PFGeoPoint{
-        let geo = CLGeocoder()
-        var returnedLocation = PFGeoPoint(latitude: 0.0, longitude: 0.0)
-        var waitForReturn = true
-        var hasBeenLunched = false
-        
-        while waitForReturn {
-            
-            if hasBeenLunched == false {
-                hasBeenLunched = true
-                geo.geocodeAddressString(address) { (arrary, error) in
-                    if error == nil {
-                        if let place = arrary?.first{
-                            if let location = place.location {
-                                returnedLocation = PFGeoPoint(location: location)
-                            }
-                        }
-                        waitForReturn = false
-                    } else {
-                        print(error?.localizedDescription ?? "Erreur création coordonées GPS depuis une adresse")
-                        waitForReturn = false
-                    }
-                }
-            }
-        }
-        
-        return returnedLocation
     }
 }
 
@@ -729,5 +744,17 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
             break
         }
         print("Textview with text : \(String(describing: textView.text)) and tag : \(textView.tag)")
+    }
+}
+
+extension UIImage {
+    func isEqualToImage(image: UIImage) -> Bool {
+        let data1: Data = UIImageJPEGRepresentation(self, 1)!
+        let data2: Data = UIImageJPEGRepresentation(image, 1)!
+        return data1 == data2
+    }
+    
+    func isEqualToData(data: Data) -> Bool {
+        return UIImageJPEGRepresentation(self, 1) == data
     }
 }

@@ -73,9 +73,4 @@ class GeoHelper: NSObject {
         print(distance(lat1: Double(32.9697), lon1: Double(-96.80322), lat2: Double(29.46786), lon2: Double(-98.53506), unit: "K"), "Kilometers")
         print(distance(lat1: Double(32.9697), lon1: Double(-96.80322), lat2: Double(29.46786), lon2: Double(-98.53506), unit: "N"), "Nautical Miles")
     }
-    
-    
-    
-    
-    
 }
