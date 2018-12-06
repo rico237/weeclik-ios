@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pjU-vJ-tdr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pjU-vJ-tdr">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -33,26 +33,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ML4-Ky-n0n" customClass="KJNavigationViewAnimation" customModule="KJNavigationViewAnimation">
-                                <rect key="frame" x="0.0" y="88" width="375" height="250"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="200"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Restauration" translatesAutoresizingMaskIntoConstraints="NO" id="lYw-Ey-a9H">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                     </imageView>
                                     <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WRC-Vw-laF">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqC-Zj-3zV">
-                                        <rect key="frame" x="8" y="76" width="359" height="58.333333333333343"/>
+                                        <rect key="frame" x="8" y="13.333333333333329" width="359" height="93.333333333333329"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lz-qk-gY2">
-                                        <rect key="frame" x="8" y="139.33333333333334" width="359" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="RaY-jb-dfC"/>
-                                        </constraints>
+                                        <rect key="frame" x="8" y="111.66666666666667" width="359" height="54.666666666666671"/>
                                         <string key="text">On aime, on partage
 Weeclik</string>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
@@ -63,11 +60,11 @@ Weeclik</string>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="WRC-Vw-laF" firstAttribute="top" secondItem="lYw-Ey-a9H" secondAttribute="top" id="5Tm-eC-e9v"/>
-                                    <constraint firstItem="DqC-Zj-3zV" firstAttribute="centerY" secondItem="ML4-Ky-n0n" secondAttribute="centerY" constant="-20" id="AV6-ku-8Vb"/>
+                                    <constraint firstItem="DqC-Zj-3zV" firstAttribute="centerY" secondItem="ML4-Ky-n0n" secondAttribute="centerY" constant="-40" id="AV6-ku-8Vb"/>
                                     <constraint firstAttribute="trailing" secondItem="lYw-Ey-a9H" secondAttribute="trailing" id="AYf-Gt-4eF"/>
                                     <constraint firstAttribute="trailing" secondItem="DqC-Zj-3zV" secondAttribute="trailing" constant="8" id="Dp8-JY-80j"/>
                                     <constraint firstItem="1lz-qk-gY2" firstAttribute="trailing" secondItem="DqC-Zj-3zV" secondAttribute="trailing" id="HhI-la-ssh"/>
-                                    <constraint firstAttribute="height" constant="250" id="LPp-KM-CU0"/>
+                                    <constraint firstAttribute="height" constant="200" id="LPp-KM-CU0"/>
                                     <constraint firstItem="WRC-Vw-laF" firstAttribute="bottom" secondItem="lYw-Ey-a9H" secondAttribute="bottom" id="drD-Dc-f7S"/>
                                     <constraint firstItem="lYw-Ey-a9H" firstAttribute="top" secondItem="ML4-Ky-n0n" secondAttribute="top" id="eRc-BC-lfa"/>
                                     <constraint firstItem="lYw-Ey-a9H" firstAttribute="leading" secondItem="ML4-Ky-n0n" secondAttribute="leading" id="emW-Ig-7Ia"/>
@@ -79,8 +76,35 @@ Weeclik</string>
                                     <constraint firstItem="1lz-qk-gY2" firstAttribute="leading" secondItem="DqC-Zj-3zV" secondAttribute="leading" id="vv8-Qq-DDb"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Pv-87-f8o">
-                                <rect key="frame" x="0.0" y="338" width="375" height="440"/>
+                            <collectionView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aBu-m9-dNf">
+                                <rect key="frame" x="0.0" y="288" width="375" height="90"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="dhA-h5-iJs"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="KCF-a6-lSR">
+                                    <size key="itemSize" width="130" height="90"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoriesCollectionViewCell" id="ujx-oM-ggL" customClass="CategoriesCollectionViewCell" customModule="WeeClik" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="TFJ-bE-40m" id="wWp-LP-WlG"/>
+                                    <outlet property="delegate" destination="TFJ-bE-40m" id="FPl-bg-57p"/>
+                                </connections>
+                            </collectionView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5Pv-87-f8o">
+                                <rect key="frame" x="0.0" y="378" width="375" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1Fk-re-Myl">
                                     <size key="itemSize" width="362" height="379"/>
@@ -90,7 +114,7 @@ Weeclik</string>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="commerceCell" id="Pfk-LB-Y6K" customClass="AccueilCollectionViewCell" customModule="WeeClik" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="30.666666666666668" width="362" height="379"/>
+                                        <rect key="frame" x="0.0" y="10.666666666666666" width="362" height="379"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="362" height="379"/>
@@ -189,12 +213,15 @@ Weeclik</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="5Pv-87-f8o" firstAttribute="top" secondItem="aBu-m9-dNf" secondAttribute="bottom" id="0Lp-u8-goC"/>
                             <constraint firstItem="5Pv-87-f8o" firstAttribute="leading" secondItem="OKg-N9-bU6" secondAttribute="leading" id="4SU-tV-tm7"/>
                             <constraint firstItem="ML4-Ky-n0n" firstAttribute="top" secondItem="Sg3-Nh-StR" secondAttribute="bottom" id="Hl5-wc-pUj"/>
                             <constraint firstItem="ML4-Ky-n0n" firstAttribute="leading" secondItem="OKg-N9-bU6" secondAttribute="leading" id="SeG-1K-Hmo"/>
+                            <constraint firstItem="aBu-m9-dNf" firstAttribute="top" secondItem="ML4-Ky-n0n" secondAttribute="bottom" id="a0V-ix-kIK"/>
+                            <constraint firstAttribute="trailing" secondItem="aBu-m9-dNf" secondAttribute="trailing" id="cFw-B5-dko"/>
                             <constraint firstAttribute="trailing" secondItem="ML4-Ky-n0n" secondAttribute="trailing" id="ctT-ZT-NEm"/>
                             <constraint firstAttribute="trailing" secondItem="5Pv-87-f8o" secondAttribute="trailing" id="ieF-L1-1sc"/>
-                            <constraint firstItem="5Pv-87-f8o" firstAttribute="top" secondItem="ML4-Ky-n0n" secondAttribute="bottom" id="nyp-48-8QM"/>
+                            <constraint firstItem="aBu-m9-dNf" firstAttribute="leading" secondItem="OKg-N9-bU6" secondAttribute="leading" id="meu-HE-cQB"/>
                             <constraint firstItem="0hb-f3-grQ" firstAttribute="top" secondItem="5Pv-87-f8o" secondAttribute="bottom" id="oCV-Nd-gji"/>
                         </constraints>
                     </view>
@@ -222,7 +249,7 @@ Weeclik</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXx-io-zW8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3116" y="233"/>
+            <point key="canvasLocation" x="3116" y="232.75862068965517"/>
         </scene>
         <!--Choix TarifsTBVC Table View Controller-->
         <scene sceneID="ohJ-Zl-2Sl">
@@ -297,13 +324,13 @@ Weeclik</string>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom du Commerce" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="25" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Urn-zV-wF7">
-                                        <rect key="frame" x="83.666666666666671" y="46.666666666666664" width="246.66666666666663" height="116.66666666666669"/>
+                                        <rect key="frame" x="24" y="58.333333333333336" width="366" height="93.333333333333314"/>
                                         <fontDescription key="fontDescription" name="Pacifico" family="Pacifico" pointSize="50"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihd-kW-z4C">
-                                        <rect key="frame" x="8" y="158.33333333333334" width="398" height="23.333333333333343"/>
+                                        <rect key="frame" x="8" y="146.66666666666666" width="398" height="27.333333333333343"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>

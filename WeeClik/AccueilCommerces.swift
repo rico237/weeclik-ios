@@ -137,6 +137,22 @@ class AccueilCommerces: UIViewController {
         didLoad = true
     }
     
+    func chooseCategorie(itemChoose: String) {
+        titleView.title = itemChoose
+        titleChoose = itemChoose
+        labelHeaderCategorie.text = itemChoose
+        
+        
+        let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
+        self.headerTypeCommerceImage.image = headerImage
+        
+        // Au premier chargement on ne fait pas de requette
+        if HelperAndKeys.isAppFirstLoadFinished() {
+            self.locationGranted = HelperAndKeys.hasGrantedLocationFilter()
+            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: self.locationGranted)
+        }
+    }
+    
     @IBAction func showProfilPage(_ sender: Any){ self.performSegue(withIdentifier: "routeConnecte", sender: self) }
     
     @IBAction func logOut(_ sender: Any) {
@@ -151,6 +167,20 @@ class AccueilCommerces: UIViewController {
     
     @IBAction func searchBarButtonPressed(_ sender:Any){
         print("Search")
+    }
+    
+    func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
+        guard (self.latestLocationForQuery != nil) else {
+            return ""
+        }
+        let distance = PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: commerce.location)
+        
+        if distance < 1 {
+            commerce.distanceFromUser = "\(Int(distance * 1000)) m"
+        } else {
+            commerce.distanceFromUser = "\(Int(distance)) Km"
+        }
+        return commerce.distanceFromUser
     }
     
     func checkLocationServicePermission() {
@@ -274,7 +304,7 @@ class PermissionDataSource : SPRequestPermissionDialogInteractiveDataSource {
     }
 }
 
-extension AccueilCommerces: SPRequestPermissionEventsDelegate {
+extension AccueilCommerces : SPRequestPermissionEventsDelegate {
     func didHide() {}
     
     func didSelectedPermission(permission: SPRequestPermissionType) {}
@@ -300,56 +330,75 @@ extension AccueilCommerces: SPRequestPermissionEventsDelegate {
 
 extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.commerces.count
+        if collectionView.tag == 0 {
+            // Menu
+            return HelperAndKeys.getListOfCategories().count
+        } else {
+            // Commerces
+            return self.commerces.count
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! AccueilCollectionViewCell
-
-        let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
-
-        let comm = self.commerces[indexPath.row]
-
-        // Ajout du contenu (valeures)
-        cell.nomCommerce.text = comm.nom
-        
-        if self.prefFiltreLocation {
-            // Filtré par positions
-            cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
-            cell.imagePartage.isHidden = self.calculDistanceEntreDeuxPoints(commerce: comm) == "" ? true : false
-            cell.imagePartage.image = UIImage(named: "Map_icon")
-        } else {
-            // Filtré par nombre de partages
-            cell.nombrePartageLabel.text = String(comm.partages)
-            cell.imagePartage.image = UIImage(named: "PartagesIcon")
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.tag == 0 {
+            // Menu
+            // Hack for text to be visible when selected
+            collectionView.deselectItem(at: indexPath, animated: false)
+            let cats = HelperAndKeys.getListOfCategories()
+            self.chooseCategorie(itemChoose: cats[indexPath.row])
+            collectionView.reloadData()
         }
-
-        // Ajout de couleur
-        cell.nomCommerce.textColor = textColor
-        cell.nombrePartageLabel.textColor = textColor
-
-        if let imageThumbnailFile = comm.thumbnail {
-            cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-        } else {
-            cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
-        }
-        return cell
     }
-
-    func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
-        guard (self.latestLocationForQuery != nil) else {
-            return ""
-        }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        var distance = GeoHelper.distance(lat1: self.latestLocationForQuery.coordinate.latitude, lon1: self.latestLocationForQuery.coordinate.longitude, lat2: (commerce.location?.latitude)!, lon2: (commerce.location?.longitude)!, unit: "K")
-
-        if distance < 1 {
-            distance *= 1000
-            commerce.distanceFromUser = "\(Int(distance)) m"
-            return "\(Int(distance)) m"
-        } else {
-            commerce.distanceFromUser = "\(Int(distance)) Km"
-            return "\(Int(distance)) Km"
+        // Categories selection
+        if collectionView.tag == 0 {
+            // Register nib's cell
+            collectionView.register(UINib(nibName: "CategoriesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoriesCollectionViewCell")
+            // List of categories
+            let cats = HelperAndKeys.getListOfCategories()
+            // Cell creation
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as! CategoriesCollectionViewCell
+            cell.typeName.text = cats[indexPath.row]
+            cell.backgroundCategorie.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: cats[indexPath.row])
+            return cell
+        }
+        // Commerce cells
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! AccueilCollectionViewCell
+            
+            let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
+            
+            let comm = self.commerces[indexPath.row]
+            
+            // Ajout du contenu (valeures)
+            cell.nomCommerce.text = comm.nom
+            
+            if self.prefFiltreLocation {
+                // Filtré par positions
+                cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
+                cell.imagePartage.isHidden = self.calculDistanceEntreDeuxPoints(commerce: comm) == "" ? true : false
+                cell.imagePartage.image = UIImage(named: "Map_icon")
+            } else {
+                // Filtré par nombre de partages
+                cell.nombrePartageLabel.text = String(comm.partages)
+                cell.imagePartage.image = UIImage(named: "PartagesIcon")
+            }
+            
+            // Ajout de couleur
+            cell.nomCommerce.textColor = textColor
+            cell.nombrePartageLabel.textColor = textColor
+            
+            if let imageThumbnailFile = comm.thumbnail {
+                cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
+            } else {
+                cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
+            }
+            
+            return cell
         }
     }
 }
@@ -413,6 +462,8 @@ extension AccueilCommerces : DropDownMenuDelegate {
         titleView.title = itemChoose
         titleChoose = itemChoose
         labelHeaderCategorie.text = itemChoose!
+        
+        
         let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
         self.headerTypeCommerceImage.image = headerImage
         
@@ -449,7 +500,7 @@ extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
     }
 }
 
-extension AccueilCommerces: CLLocationManagerDelegate {
+extension AccueilCommerces : CLLocationManagerDelegate {
     /// CLLocationManagerDelegate DidFailWithError Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error. The Location couldn't be found. \(error)")

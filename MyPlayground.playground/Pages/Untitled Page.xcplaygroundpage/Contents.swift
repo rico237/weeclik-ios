@@ -3,7 +3,7 @@
 import UIKit
 import CoreLocation
 import PlaygroundSupport
-import Nominatim
+
 
 class MyViewController : UIViewController {
     let label = UILabel()
