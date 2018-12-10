@@ -25,8 +25,6 @@ def projectPods
     
     # Pour la page recherche
     pod 'Compose', '~> 1.2'
-    # pour la selection de catégorie
-    pod 'DropDownMenuKit', :git=> 'https://github.com/rico237/DropDownMenuKit'
     # pour reordoner les photos des commercants
     pod 'RAReorderableLayout', '~> 0.6'
     

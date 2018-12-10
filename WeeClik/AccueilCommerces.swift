@@ -6,13 +6,12 @@
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
-// TODO: Ajouter un message si il n'ya pas d'objet
-// TODO: Ajouter un systeme de pagination pour le chargement des commerces
-// TODO: Filtrer les commerce par geolocalisation autour de l'utilisateur
-// TODO: Ajouter les boutons du menu
-// TODO: Gerer les pbs de connexions si trop long afficher un message d'erreur
-// TODO: Ajouter les commerces favoris
-// TODO: Ajouter le filtre des commerces selon le filtre de leboncoin ios
+// TODO : Ajouter un message si il n'ya pas d'objet
+// TODO : Ajouter un systeme de pagination pour le chargement des commerces
+// TODO : Ajouter les boutons du menu
+// TODO : Gerer les pbs de connexions si trop long afficher un message d'erreur
+// TODO : Ajouter les commerces favoris
+// TODO : Ajouter le filtre des commerces selon le filtre de leboncoin ios
 
 import UIKit
 import DropDownMenuKit
@@ -31,31 +30,26 @@ class AccueilCommerces: UIViewController {
 
     let columnLayout = GridFlowLayout(cellsPerRow: 2, minimumInteritemSpacing: 10, minimumLineSpacing: 10, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     
-    var titleView       : DropDownTitleView!
-    var toutesCat       : Array<String>!
+    var toutesCat       : Array<String>! = HelperAndKeys.getListOfCategories()
     var catCells        : Array<DropDownMenuCell> = []
     var commerces       : Array<Commerce> = []
-    var didLoad         : Bool! = false     // Pour charger le contenu du menu des catégories
-    var firstLoad       : Bool! = false     // Whether we have loaded the first set of objects
-    var currentPage     : Int! = 0          // The last page that was loaded
-    var lastLoadCount   : Int! = -1         // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
-    let itemsPerPages   : Int! = 25         // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
-    var locationGranted : Bool! = false     // On a obtenu la position de l'utilisateur
+    var currentPage     : Int! = 0                  // The last page that was loaded
+    var lastLoadCount   : Int! = -1                 // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
+    let itemsPerPages   : Int! = 25                 // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
+    var locationGranted : Bool! = false             // On a obtenu la position de l'utilisateur
     let locationManager = CLLocationManager()
     var latestLocationForQuery : CLLocation!
     let defaults        = UserDefaults.standard
-    var prefFiltreLocation = false            // Savoir si les commerces sont filtrés par location ou partages
-    var titleChoose : String! = ""
+    var prefFiltreLocation = false                  // Savoir si les commerces sont filtrés par location ou partages
+    var titleChoose : String! = "Restauration"      // First category to be loaded
     
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var headerTypeCommerceImage: UIImageView!
-    @IBOutlet var navigationBarMenu: DropDownMenu!
     @IBOutlet weak var viewKJNavigation: KJNavigationViewAnimation!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var introBulletin = BulletinDataSource.makeFilterNextPage()
-    
     
     lazy var filterBulletinManager : BulletinManager = {
         let bulletinPageIntro = BulletinDataSource.makeFilterPage()
@@ -78,7 +72,7 @@ class AccueilCommerces: UIViewController {
             if self.prefFiltreLocation {
                 self.checkLocationServicePermission()
             } else {
-                self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: false)
+                self.chooseCategorie(itemChoose: self.titleChoose)
             }
         }
         bulletinPageIntro.nextItem = introBulletin
@@ -99,8 +93,6 @@ class AccueilCommerces: UIViewController {
         
         if #available(iOS 11.0, *) {
             self.collectionView.contentInsetAdjustmentBehavior = .always
-        } else {
-            // Fallback on earlier versions
         }
         
         // Choisir le filtrage par defaut (Position ou partage)
@@ -117,40 +109,22 @@ class AccueilCommerces: UIViewController {
             self.locationManager.startUpdatingLocation()
         }
         
-        // Liste toutes les catégories possibles
-        toutesCat = HelperAndKeys.getListOfCategories()
-        
         // Creation du Menu catégories
         viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
-        // Ajout du contenu au Menu catégories
-        let title = prepareNavigationBarMenuTitleView()
-        prepareNavigationBarMenu(title)
-        
-        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.prefFiltreLocation)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationBarMenu.container = view
-        didLoad = true
+        self.chooseCategorie(itemChoose: self.titleChoose)
     }
     
     func chooseCategorie(itemChoose: String) {
-        titleView.title = itemChoose
-        titleChoose = itemChoose
+        self.titleChoose = itemChoose
         labelHeaderCategorie.text = itemChoose
-        
         
         let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
         self.headerTypeCommerceImage.image = headerImage
         
-        // Au premier chargement on ne fait pas de requette
-        if HelperAndKeys.isAppFirstLoadFinished() {
-            self.locationGranted = HelperAndKeys.hasGrantedLocationFilter()
-            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: self.locationGranted)
-        }
+        self.locationGranted = HelperAndKeys.hasGrantedLocationFilter()
+        self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: self.locationGranted)
     }
     
     @IBAction func showProfilPage(_ sender: Any){ self.performSegue(withIdentifier: "routeConnecte", sender: self) }
@@ -207,9 +181,8 @@ class AccueilCommerces: UIViewController {
     }
     
     func setLocationSteps(){
-        HelperAndKeys.setAppFirstLoadFinished()
         HelperAndKeys.setLocationFilterPreference(locationGranted: self.prefFiltreLocation)
-        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.prefFiltreLocation)
+        self.chooseCategorie(itemChoose: self.titleChoose)
     }
     
     func queryObjectsFromDB(typeCategorie : String, withLocation : Bool){
@@ -257,7 +230,7 @@ class AccueilCommerces: UIViewController {
                     let nsError = err as NSError
                     if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
                         PFUser.logOut()
-                        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: self.locationGranted)
+                        self.chooseCategorie(itemChoose: self.titleChoose)
                     }
                     
 //                    SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
@@ -314,7 +287,9 @@ extension AccueilCommerces : SPRequestPermissionEventsDelegate {
             self.locationManager.startUpdatingLocation()
             self.locationGranted = true
             self.prefFiltreLocation = true
+            // TODO: Reecrire la methode pour utiliser la fonction chooseCategorie
             self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: true)
+//            self.chooseCategorie(itemChoose: self.titleChoose)
         }
     }
     
@@ -322,7 +297,9 @@ extension AccueilCommerces : SPRequestPermissionEventsDelegate {
         if case .locationWhenInUse = permission {
             self.locationGranted = false
             self.prefFiltreLocation = false
+            // TODO: Reecrire la methode pour utiliser la fonction chooseCategorie
             self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: false)
+//            self.chooseCategorie(itemChoose: self.titleChoose)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -332,7 +309,7 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
             // Menu
-            return HelperAndKeys.getListOfCategories().count
+            return self.toutesCat.count
         } else {
             // Commerces
             return self.commerces.count
@@ -344,34 +321,27 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             // Menu
             // Hack for text to be visible when selected
             collectionView.deselectItem(at: indexPath, animated: false)
-            let cats = HelperAndKeys.getListOfCategories()
-            self.chooseCategorie(itemChoose: cats[indexPath.row])
+            self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row])
             collectionView.reloadData()
         }
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         // Categories selection
         if collectionView.tag == 0 {
             // Register nib's cell
             collectionView.register(UINib(nibName: "CategoriesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoriesCollectionViewCell")
-            // List of categories
-            let cats = HelperAndKeys.getListOfCategories()
             // Cell creation
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as! CategoriesCollectionViewCell
-            cell.typeName.text = cats[indexPath.row]
-            cell.backgroundCategorie.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: cats[indexPath.row])
+            cell.typeName.text = self.toutesCat[indexPath.row]
+            cell.backgroundCategorie.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: self.toutesCat[indexPath.row])
             return cell
         }
         // Commerce cells
         else {
+            collectionView.register(UINib(nibName: "AccueilCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! AccueilCollectionViewCell
-            
             let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
-            
             let comm = self.commerces[indexPath.row]
             
             // Ajout du contenu (valeures)
@@ -400,88 +370,6 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             
             return cell
         }
-    }
-}
-
-extension AccueilCommerces : DropDownMenuDelegate {
-    func prepareNavigationBarMenuTitleView() -> String {
-        titleView = DropDownTitleView()
-        titleView.addTarget(self,
-                            action: #selector(AccueilCommerces.willToggleNavigationBarMenu(_:)),
-                            for: .touchUpInside)
-        
-        titleView.titleLabel.textColor = UIColor.white
-        titleView.imageView.tintColor = UIColor.white
-        
-        navigationItem.titleView = titleView
-        
-        return titleView.title!
-    }
-    
-    func prepareNavigationBarMenu(_ currentChoice: String) {
-        navigationBarMenu = DropDownMenu(frame: view.bounds)
-        navigationBarMenu.delegate = self
-        
-        for string in toutesCat  {
-            
-            let cell = DropDownMenuCell()
-            cell.textLabel!.text = string
-            cell.menuAction = #selector(AccueilCommerces.choose(_:))
-            cell.menuTarget = self
-            if currentChoice == cell.textLabel!.text {
-                cell.accessoryType = .checkmark
-            }
-            
-            catCells.append(cell)
-        }
-        
-        navigationBarMenu.menuCells = catCells
-        navigationBarMenu.selectMenuCell(catCells[13])
-//        navigationBarMenu.selectMenuCell(catCells.first!)
-        
-        // For a simple gray overlay in background
-        navigationBarMenu.backgroundView = UIView(frame: navigationBarMenu.bounds)
-        navigationBarMenu.backgroundView!.backgroundColor = UIColor.black
-        navigationBarMenu.backgroundAlpha = 0.7
-    }
-    
-    @IBAction func showToolbarMenu() {if titleView.isUp {titleView.toggleMenu()}}
-    // Quand on appui sur la bar de navigation
-    @IBAction func willToggleNavigationBarMenu(_ sender: DropDownTitleView) {if sender.isUp {navigationBarMenu.hide()} else {navigationBarMenu.show()}}
-    // Quand on appui sur le fond
-    func didTapInDropDownMenuBackground(_ menu: DropDownMenu) {if menu == navigationBarMenu {titleView.toggleMenu()} else {menu.hide()}}
-    
-    /**
-     
-     Choose action
-     
-     */
-    
-    @IBAction func choose(_ sender: AnyObject) {
-        let itemChoose = (sender as! DropDownMenuCell).textLabel!.text
-        titleView.title = itemChoose
-        titleChoose = itemChoose
-        labelHeaderCategorie.text = itemChoose!
-        
-        
-        let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
-        self.headerTypeCommerceImage.image = headerImage
-        
-        // Au premier chargement on ne fait pas de requette
-        if HelperAndKeys.isAppFirstLoadFinished() {
-            self.locationGranted = HelperAndKeys.hasGrantedLocationFilter()
-            self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: self.locationGranted)
-        }
-        
-        if didLoad {
-            titleView.toggleMenu()
-        }
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        coordinator.animate(alongsideTransition: { (context) in }, completion: nil)
     }
 }
 

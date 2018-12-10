@@ -288,16 +288,16 @@ class HelperAndKeys {
         print("Créer une fonction de bug report avec le detail + la version de l'app : \(versionNumber)")
     }
     
-    static func isAppFirstLoadFinished() -> Bool{
-        let use = UserDefaults.standard
-        return use.bool(forKey: "isAppFirstLoad")
-    }
-    
-    static func setAppFirstLoadFinished(){
-        let use = UserDefaults.standard
-        use.set(true, forKey: "isAppFirstLoad")
-        use.synchronize()
-    }
+//    static func isAppFirstLoadFinished() -> Bool{
+//        let use = UserDefaults.standard
+//        return use.bool(forKey: "isAppFirstLoad")
+//    }
+//
+//    static func setAppFirstLoadFinished(){
+//        let use = UserDefaults.standard
+//        use.set(true, forKey: "isAppFirstLoad")
+//        use.synchronize()
+//    }
     
     static func hasGrantedLocationFilter() -> Bool{
         let use = UserDefaults.standard

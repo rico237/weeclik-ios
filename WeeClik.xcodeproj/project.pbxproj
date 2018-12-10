@@ -407,6 +407,7 @@
 				ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */,
 				1FD2F819209F2A7A004D11D5 /* Fabric Script */,
 				1F7ADB1620DEF4B900916AB8 /* Embed Frameworks */,
+				1FAF388F21BDEE18007CF16B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -494,6 +495,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1FAF388F21BDEE18007CF16B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"\n";
+		};
 		1FD2F819209F2A7A004D11D5 /* Fabric Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
