@@ -209,6 +209,10 @@ Weeclik</string>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="TFJ-bE-40m" id="THx-Rh-sVn"/>
+                                    <outlet property="delegate" destination="TFJ-bE-40m" id="i5z-4p-ArP"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

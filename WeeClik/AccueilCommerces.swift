@@ -14,7 +14,6 @@
 // TODO : Ajouter le filtre des commerces selon le filtre de leboncoin ios
 
 import UIKit
-import DropDownMenuKit
 import Parse
 import SVProgressHUD
 import KJNavigationViewAnimation
@@ -26,22 +25,22 @@ import CRNotifications
 import BulletinBoard
 import Sparrow
 
+// Life Cycle & other functions
 class AccueilCommerces: UIViewController {
 
     let columnLayout = GridFlowLayout(cellsPerRow: 2, minimumInteritemSpacing: 10, minimumLineSpacing: 10, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     
-    var toutesCat       : Array<String>! = HelperAndKeys.getListOfCategories()
-    var catCells        : Array<DropDownMenuCell> = []
-    var commerces       : Array<Commerce> = []
-    var currentPage     : Int! = 0                  // The last page that was loaded
-    var lastLoadCount   : Int! = -1                 // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
-    let itemsPerPages   : Int! = 25                 // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
-    var locationGranted : Bool! = false             // On a obtenu la position de l'utilisateur
-    let locationManager = CLLocationManager()
+    var toutesCat       : Array<String>!    = HelperAndKeys.getListOfCategories()
+    var commerces       : Array<Commerce>   = []
+    var currentPage     : Int! = 0                      // The last page that was loaded
+    var lastLoadCount   : Int! = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
+    let itemsPerPages   : Int! = 25                     // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
+    let locationManager         = CLLocationManager()
     var latestLocationForQuery : CLLocation!
-    let defaults        = UserDefaults.standard
-    var prefFiltreLocation = false                  // Savoir si les commerces sont filtrés par location ou partages
-    var titleChoose : String! = "Restauration"      // First category to be loaded
+    let defaults                = UserDefaults.standard
+    var prefFiltreLocation      = false                 // Savoir si les commerces sont filtrés par location ou partages
+    var locationGranted : Bool! = false                 // On a obtenu la position de l'utilisateur
+    var titleChoose : String!   = "Restauration"        // First category to be loaded
     
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
@@ -54,26 +53,26 @@ class AccueilCommerces: UIViewController {
     lazy var filterBulletinManager : BulletinManager = {
         let bulletinPageIntro = BulletinDataSource.makeFilterPage()
         bulletinPageIntro.actionHandler = { item in
-            // Action par position
+            // By location
             self.prefFiltreLocation = true
             item.displayNextItem()
         }
         bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
-            // Action par nombre
+            // By number
             self.prefFiltreLocation = false
             item.displayNextItem()
         }
         introBulletin.actionHandler = { (item : BulletinItem) in
+            // Last action
             item.manager?.dismissBulletin(animated:true)
-            
-            self.defaults.set(self.prefFiltreLocation, forKey: HelperAndKeys.getLocationPreferenceKey())
-            self.defaults.synchronize()
             
             if self.prefFiltreLocation {
                 self.checkLocationServicePermission()
             } else {
                 self.chooseCategorie(itemChoose: self.titleChoose)
             }
+            
+            HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
         }
         bulletinPageIntro.nextItem = introBulletin
         return BulletinManager(rootItem : bulletinPageIntro)
@@ -81,117 +80,66 @@ class AccueilCommerces: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Init location manager (get user location)
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
-        
-        self.collectionView.delegate   = self
-        self.collectionView.dataSource = self
+        // Init collectionview for commerces (object cells)
         self.collectionView.backgroundColor  = HelperAndKeys.getBackgroundColor()
         self.collectionView.collectionViewLayout = columnLayout
+        if #available(iOS 11.0, *) {self.collectionView.contentInsetAdjustmentBehavior = .always}
         
-        if #available(iOS 11.0, *) {
-            self.collectionView.contentInsetAdjustmentBehavior = .always
-        }
-        
-        // Choisir le filtrage par defaut (Position ou partage)
-        if defaults.contains(key: HelperAndKeys.getLocationPreferenceKey()) {
-            // la clé existe donc on peut recuperer la valeure
-            prefFiltreLocation = defaults.bool(forKey: HelperAndKeys.getLocationPreferenceKey())
-        } else {
-            // la clé n'existe pas
-            defaults.set(prefFiltreLocation, forKey: HelperAndKeys.getLocationPreferenceKey())
-            defaults.synchronize()
-        }
-        
-        if self.prefFiltreLocation {
-            self.locationManager.startUpdatingLocation()
-        }
-        
-        // Creation du Menu catégories
+        // Init of retracting header (header image)
         viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
+        // Choisir le filtrage par defaut (Position ou partage)
+        if defaults.contains(key: HelperAndKeys.getPrefFilterLocationKey()) {
+            // la clé existe donc on peut recuperer la valeure
+            self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
+        } else {
+            // la clé n'existe pas
+            HelperAndKeys.setPrefFiltreLocation(filtreLocation: false)
+            self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
+        }
+        
+        // Check for location permission
+        // If doesn't exist permission will be asked when user want to
+        if defaults.contains(key: HelperAndKeys.getLocationPreferenceKey()) {
+            // Key exist so we fetch the value
+            self.locationGranted = HelperAndKeys.getLocationGranted()
+        }
+        
+        // Update user position if filtre location is enabled
+        if self.prefFiltreLocation {
+            self.locationManager.startUpdatingLocation()
+        }
+
+        // Load first object based on location or number of sharing
         self.chooseCategorie(itemChoose: self.titleChoose)
     }
-    
+}
+
+
+// Parse functions (model in MVC)
+extension AccueilCommerces {
     func chooseCategorie(itemChoose: String) {
+        // Update UI
         self.titleChoose = itemChoose
-        labelHeaderCategorie.text = itemChoose
+        self.labelHeaderCategorie.text = itemChoose
+        self.headerTypeCommerceImage.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
         
-        let headerImage = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
-        self.headerTypeCommerceImage.image = headerImage
+        // Update Data
+        self.queryObjectsFromDB(typeCategorie: titleChoose)
+    }
+    
+    func queryObjectsFromDB(typeCategorie : String){
         
-        self.locationGranted = HelperAndKeys.hasGrantedLocationFilter()
-        self.queryObjectsFromDB(typeCategorie: titleChoose, withLocation: self.locationGranted)
-    }
-    
-    @IBAction func showProfilPage(_ sender: Any){ self.performSegue(withIdentifier: "routeConnecte", sender: self) }
-    
-    @IBAction func logOut(_ sender: Any) {
-        PFUser.logOutInBackground()
-        HelperAndKeys.showAlertWithMessage(theMessage: "Vous êtes bien déconnecté", title: "Deconnexion", viewController: self)
-    }
-    
-    @IBAction func filterBarbuttonPressed(_ sender: Any) {
-        filterBulletinManager.prepare()
-        filterBulletinManager.presentBulletin(above: self)
-    }
-    
-    @IBAction func searchBarButtonPressed(_ sender:Any){
-        print("Search")
-    }
-    
-    func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
-        guard (self.latestLocationForQuery != nil) else {
-            return ""
-        }
-        let distance = PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: commerce.location)
-        
-        if distance < 1 {
-            commerce.distanceFromUser = "\(Int(distance * 1000)) m"
-        } else {
-            commerce.distanceFromUser = "\(Int(distance)) Km"
-        }
-        return commerce.distanceFromUser
-    }
-    
-    func checkLocationServicePermission() {
-        if CLLocationManager.locationServicesEnabled() {
-            if CLLocationManager.authorizationStatus() == .denied {
-                // Location Services are denied
-                HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.", presentFrom: self)
-                self.locationGranted = false
-            } else {
-                if CLLocationManager.authorizationStatus() == .notDetermined {
-                    SPRequestPermission.dialog.interactive.present(on: self, with: [.locationWhenInUse], dataSource: PermissionDataSource(), delegate: self)
-                } else {
-                    // The user has already allowed your app to use location services. Start updating location
-                    self.locationManager.startUpdatingLocation()
-                    locationGranted = true
-                    self.setLocationSteps()
-                }
-            }
-        } else {
-            // Location Services are disabled
-            HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
-            self.locationGranted = false
-        }
-    }
-    
-    func setLocationSteps(){
-        HelperAndKeys.setLocationFilterPreference(locationGranted: self.prefFiltreLocation)
-        self.chooseCategorie(itemChoose: self.titleChoose)
-    }
-    
-    func queryObjectsFromDB(typeCategorie : String, withLocation : Bool){
+        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.show(withStatus: "Chargement en cours")
-        
-        self.prefFiltreLocation = withLocation
         
         self.commerces = []
         let query = PFQuery(className: "Commerce")
@@ -199,7 +147,7 @@ class AccueilCommerces: UIViewController {
         query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
         query.whereKey("statutCommerce", equalTo: 1)
         
-        if withLocation {
+        if self.prefFiltreLocation {
             let userPosition = PFGeoPoint(location: latestLocationForQuery)
             query.whereKey("position", nearGeoPoint: userPosition)
             query.order(byAscending: "position")
@@ -215,7 +163,7 @@ class AccueilCommerces: UIViewController {
                     }
                     
                     // tri du tableau par position
-                    if withLocation {
+                    if self.prefFiltreLocation {
                         let sorteCommerce = self.commerces.sorted(by: {
                             PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
                         })
@@ -233,13 +181,19 @@ class AccueilCommerces: UIViewController {
                         self.chooseCategorie(itemChoose: self.titleChoose)
                     }
                     
-//                    SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
+                    SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
                     SVProgressHUD.dismiss(withDelay: 2)
                 }
             }
-            
-         self.collectionView.reloadData()
+            self.collectionView.reloadData()
         }
+    }
+}
+// Routing & Navigation Bar functions
+extension AccueilCommerces {
+    // Search actions
+    @IBAction func searchBarButtonPressed(_ sender:Any){
+        print("Search")
     }
     
     // MARK: - Navigation
@@ -253,58 +207,20 @@ class AccueilCommerces: UIViewController {
             }
         }
     }
-}
-
-class PermissionDataSource : SPRequestPermissionDialogInteractiveDataSource {
-    override func headerTitle() -> String {
-        return "Demande d'autorisation"
+    @IBAction func showProfilPage(_ sender: Any){ self.performSegue(withIdentifier: "routeConnecte", sender: self) }
+    
+    @IBAction func logOut(_ sender: Any) {
+        PFUser.logOutInBackground()
+        HelperAndKeys.showAlertWithMessage(theMessage: "Vous êtes bien déconnecté", title: "Deconnexion", viewController: self)
     }
     
-    override func headerSubtitle() -> String {
-        return "Weeclik a besoin de votre autorisation pour fonctionner"
-    }
-    
-    override func cancelForAlertDenidPermission() -> String {
-        return "Annuler"
-    }
-    
-    override func settingForAlertDenidPermission() -> String {
-        return "Réglages"
-    }
-    
-    override func subtitleForAlertDenidPermission() -> String {
-        return "Autorisation refusé. Merci de les changer dans les réglages."
+    // Selection between location and max number of share
+    @IBAction func filterBarbuttonPressed(_ sender: Any) {
+        filterBulletinManager.prepare()
+        filterBulletinManager.presentBulletin(above: self)
     }
 }
-
-extension AccueilCommerces : SPRequestPermissionEventsDelegate {
-    func didHide() {}
-    
-    func didSelectedPermission(permission: SPRequestPermissionType) {}
-    
-    func didAllowPermission(permission: SPRequestPermissionType) {
-        if case .locationWhenInUse = permission {
-            self.locationManager.startUpdatingLocation()
-            self.locationGranted = true
-            self.prefFiltreLocation = true
-            // TODO: Reecrire la methode pour utiliser la fonction chooseCategorie
-            self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: true)
-//            self.chooseCategorie(itemChoose: self.titleChoose)
-        }
-    }
-    
-    func didDeniedPermission(permission: SPRequestPermissionType) {
-        if case .locationWhenInUse = permission {
-            self.locationGranted = false
-            self.prefFiltreLocation = false
-            // TODO: Reecrire la methode pour utiliser la fonction chooseCategorie
-            self.queryObjectsFromDB(typeCategorie: self.titleChoose, withLocation: false)
-//            self.chooseCategorie(itemChoose: self.titleChoose)
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-}
-
+// Functions for collections (Data & Delegate)
 extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
@@ -372,7 +288,7 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         }
     }
 }
-
+// Header Window above objects
 extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         viewKJNavigation.scrollviewMethod?.scrollViewDidScroll(scrollView)
@@ -387,7 +303,7 @@ extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
         viewKJNavigation.scrollviewMethod?.scrollViewDidEndDecelerating(scrollView)
     }
 }
-
+// Functions for location and distance
 extension AccueilCommerces : CLLocationManagerDelegate {
     /// CLLocationManagerDelegate DidFailWithError Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -398,5 +314,94 @@ extension AccueilCommerces : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
+    }
+    
+    func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
+        guard (self.latestLocationForQuery != nil) else {
+            return "--"
+        }
+        let distance = PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: commerce.location)
+        
+        if distance < 1 {
+            commerce.distanceFromUser = "\(Int(distance * 1000)) m"
+        } else {
+            commerce.distanceFromUser = "\(Int(distance)) Km"
+        }
+        return commerce.distanceFromUser
+    }
+}
+// Functions for requesting localisation permission
+extension AccueilCommerces : SPRequestPermissionEventsDelegate {
+    func didHide() {}
+    
+    func didSelectedPermission(permission: SPRequestPermissionType) {}
+    
+    func didAllowPermission(permission: SPRequestPermissionType) {
+        if case .locationWhenInUse = permission {
+            self.locationManager.startUpdatingLocation()
+            self.locationGranted = true
+            self.prefFiltreLocation = true
+            HelperAndKeys.setPrefFiltreLocation(filtreLocation: true)
+            HelperAndKeys.setLocationGranted(locationGranted: true)
+            self.chooseCategorie(itemChoose: self.titleChoose)
+        }
+    }
+    
+    func didDeniedPermission(permission: SPRequestPermissionType) {
+        if case .locationWhenInUse = permission {
+            self.locationGranted = false
+            self.prefFiltreLocation = false
+            HelperAndKeys.setPrefFiltreLocation(filtreLocation: false)
+            HelperAndKeys.setLocationGranted(locationGranted: false)
+            self.chooseCategorie(itemChoose: self.titleChoose)
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func checkLocationServicePermission() {
+        if CLLocationManager.locationServicesEnabled() {
+            if CLLocationManager.authorizationStatus() == .denied {
+                // Location Services are denied
+                HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.", presentFrom: self)
+                self.locationGranted = false
+            } else {
+                if CLLocationManager.authorizationStatus() == .notDetermined {
+                    SPRequestPermission.dialog.interactive.present(on: self, with: [.locationWhenInUse], dataSource: PermissionDataSource(), delegate: self)
+                } else {
+                    // The user has already allowed your app to use location services. Start updating location
+                    self.locationManager.startUpdatingLocation()
+                    self.locationGranted = true
+                }
+            }
+        } else {
+            // Location Services are disabled
+            HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
+            self.locationGranted = false
+        }
+        
+        HelperAndKeys.setLocationGranted(locationGranted: self.locationGranted)
+        self.chooseCategorie(itemChoose: self.titleChoose)
+    }
+}
+// Custom UI for asking permission (alert controller)
+class PermissionDataSource : SPRequestPermissionDialogInteractiveDataSource {
+    override func headerTitle() -> String {
+        return "Demande d'autorisation"
+    }
+    
+    override func headerSubtitle() -> String {
+        return "Weeclik a besoin de votre autorisation pour fonctionner"
+    }
+    
+    override func cancelForAlertDenidPermission() -> String {
+        return "Annuler"
+    }
+    
+    override func settingForAlertDenidPermission() -> String {
+        return "Réglages"
+    }
+    
+    override func subtitleForAlertDenidPermission() -> String {
+        return "Autorisation refusé. Merci de les changer dans les réglages."
     }
 }

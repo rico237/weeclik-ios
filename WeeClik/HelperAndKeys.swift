@@ -51,7 +51,33 @@ class HelperAndKeys {
     }
     
     static func getLocationPreferenceKey() -> String{
-        return "locationUserDefault"
+        return "locationPreference"
+    }
+    
+    static func getPrefFilterLocationKey() -> String{
+        return "filterPreference"
+    }
+    
+    static func getPrefFiltreLocation() -> Bool{
+        let use = UserDefaults.standard
+        return use.bool(forKey: "filterPreference")
+    }
+    
+    static func setPrefFiltreLocation(filtreLocation: Bool){
+        let use = UserDefaults.standard
+        use.set(filtreLocation, forKey: "filterPreference")
+        use.synchronize()
+    }
+    
+    static func getLocationGranted() -> Bool{
+        let use = UserDefaults.standard
+        return use.bool(forKey: "locationPreference")
+    }
+    
+    static func setLocationGranted(locationGranted: Bool){
+        let use = UserDefaults.standard
+        use.set(locationGranted, forKey: "locationPreference")
+        use.synchronize()
     }
     
     static func showNotification(type : String , title: String, message: String, delay: TimeInterval){
@@ -142,22 +168,6 @@ class HelperAndKeys {
         alertViewController.addAction(defaultAction)
         controller.present(alertViewController, animated: true, completion: nil)
     }
-    
-//    static func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool){
-//        
-//        let messageAdded : String
-//        
-//        if !isFeedBackMsg{
-//            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nTéléchargez-la ici : http://www.google.fr/"
-//        }else{
-//            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nNuméro de version de l'app : "
-//        }
-//        
-//        let allowedCharacters = NSCharacterSet.urlFragmentAllowed
-//        let finalMessage = messageToSend.appending(messageAdded)
-//        let finalMessEncoded = finalMessage.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
-//        print(finalMessEncoded!)
-//    }
     
     static func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool, commerceMail : String, controller : UIViewController){
         let messageAdded : String
@@ -288,28 +298,6 @@ class HelperAndKeys {
         print("Créer une fonction de bug report avec le detail + la version de l'app : \(versionNumber)")
     }
     
-//    static func isAppFirstLoadFinished() -> Bool{
-//        let use = UserDefaults.standard
-//        return use.bool(forKey: "isAppFirstLoad")
-//    }
-//
-//    static func setAppFirstLoadFinished(){
-//        let use = UserDefaults.standard
-//        use.set(true, forKey: "isAppFirstLoad")
-//        use.synchronize()
-//    }
-    
-    static func hasGrantedLocationFilter() -> Bool{
-        let use = UserDefaults.standard
-        return use.bool(forKey: "filterPreference")
-    }
-    
-    static func setLocationFilterPreference(locationGranted: Bool){
-        let use = UserDefaults.standard
-        use.set(locationGranted, forKey: "filterPreference")
-        use.synchronize()
-    }
-    
     static func logOutUser(){
         PFUser.logOut()
     }
@@ -348,4 +336,39 @@ class HelperAndKeys {
             comm.saveInBackground()
         })
     }
+   
+    
+    /*
+     
+     LOST FUNCTIONS
+     
+     */
+    
+    
+    //    static func isAppFirstLoadFinished() -> Bool{
+    //        let use = UserDefaults.standard
+    //        return use.bool(forKey: "isAppFirstLoad")
+    //    }
+    //
+    //    static func setAppFirstLoadFinished(){
+    //        let use = UserDefaults.standard
+    //        use.set(true, forKey: "isAppFirstLoad")
+    //        use.synchronize()
+    //    }
+    
+    //    static func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool){
+    //
+    //        let messageAdded : String
+    //
+    //        if !isFeedBackMsg{
+    //            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nTéléchargez-la ici : http://www.google.fr/"
+    //        }else{
+    //            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nNuméro de version de l'app : "
+    //        }
+    //
+    //        let allowedCharacters = NSCharacterSet.urlFragmentAllowed
+    //        let finalMessage = messageToSend.appending(messageAdded)
+    //        let finalMessEncoded = finalMessage.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
+    //        print(finalMessEncoded!)
+    //    }
 }
