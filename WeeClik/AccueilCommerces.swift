@@ -135,7 +135,7 @@ extension AccueilCommerces {
     
     func queryObjectsFromDB(typeCategorie : String){
         
-        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
+//        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
@@ -239,6 +239,9 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             collectionView.deselectItem(at: indexPath, animated: false)
             self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row])
             collectionView.reloadData()
+        } else {
+            // Objects
+            self.performSegue(withIdentifier: "commerceDetailSegue", sender: collectionView.cellForItem(at: indexPath))
         }
     }
     
