@@ -5,7 +5,6 @@ PODS:
   - ASJExpandableTextView (0.4)
   - AsyncSwift (2.0.4)
   - Avatar (1.0.3)
-  - AZDialogView (1.2.1)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -19,7 +18,6 @@ PODS:
     - Fabric (~> 1.7.8)
   - CRNetworkButton (1.0.2)
   - CRNotifications (1.1.5)
-  - DropDownMenuKit (0.8.4)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.7.8)
   - FaceAware (1.4.0)
@@ -90,6 +88,7 @@ PODS:
   - PromiseKit/UIKit (6.5.2):
     - PromiseKit/CorePromise
   - RAReorderableLayout (0.6.1)
+  - ReachabilitySwift (4.3.0)
   - RMGradientView (0.1.4)
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
@@ -117,7 +116,6 @@ DEPENDENCIES:
   - ASJExpandableTextView (~> 0.4)
   - AsyncSwift
   - Avatar
-  - AZDialogView (~> 1.1)
   - Bolts (~> 1.9)
   - BulletinBoard (~> 1.3.0)
   - Compass
@@ -125,7 +123,6 @@ DEPENDENCIES:
   - Crashlytics (~> 3.10.1)
   - CRNetworkButton (~> 1.0)
   - CRNotifications
-  - DropDownMenuKit (from `https://github.com/rico237/DropDownMenuKit`)
   - DZNEmptyDataSet
   - Fabric (~> 1.7.6)
   - FaceAware (from `https://github.com/BeauNouvelle/FaceAware.git`)
@@ -148,6 +145,7 @@ DEPENDENCIES:
   - Parse/UI
   - PromiseKit (~> 6.0)
   - RAReorderableLayout (~> 0.6)
+  - ReachabilitySwift
   - RMGradientView (from `https://github.com/sleepwalkerfx/RMGradientView.git`)
   - SDWebImage (~> 4.0)
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
@@ -168,7 +166,6 @@ SPEC REPOS:
     - ASJExpandableTextView
     - AsyncSwift
     - Avatar
-    - AZDialogView
     - Bolts
     - BulletinBoard
     - Compass
@@ -199,6 +196,7 @@ SPEC REPOS:
     - Parse
     - PromiseKit
     - RAReorderableLayout
+    - ReachabilitySwift
     - SDWebImage
     - SVProgressHUD
     - SwiftDate
@@ -208,8 +206,6 @@ SPEC REPOS:
     - ZKCarousel
 
 EXTERNAL SOURCES:
-  DropDownMenuKit:
-    :git: https://github.com/rico237/DropDownMenuKit
   FaceAware:
     :git: https://github.com/BeauNouvelle/FaceAware.git
   Gallery:
@@ -229,9 +225,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/hemangshah/Zingle.git
 
 CHECKOUT OPTIONS:
-  DropDownMenuKit:
-    :commit: 3249d95e63041bc1dacf5d74f65e8438c792449a
-    :git: https://github.com/rico237/DropDownMenuKit
   FaceAware:
     :commit: 35f8ceb0e68c1c00fe4809d124be27db9296fafe
     :git: https://github.com/BeauNouvelle/FaceAware.git
@@ -264,7 +257,6 @@ SPEC CHECKSUMS:
   ASJExpandableTextView: bfc429e37d4835e628127d3aa09a5e6971e9bfe4
   AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
   Avatar: 1d905503a7977e6084714208bb4aef6c0695bd99
-  AZDialogView: 75a481ef11e78b047e9d7d212a83b76a8d91627f
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
   Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
@@ -272,7 +264,6 @@ SPEC CHECKSUMS:
   Crashlytics: 2aea305161a2122492698c75af27f2b98aa49a25
   CRNetworkButton: 2bfe150c64a46506ade962745a3364f21bef3115
   CRNotifications: 38bd824eea18b77d818e7a317253d2b475f6a241
-  DropDownMenuKit: c79a634ff7efc2cd0239940ceaaebdbb34c56a5e
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: fba4684a95df789565b0b27fc5b6e68f1755af32
   FaceAware: 94410295a219c4a397ce525eab0063d6b17258aa
@@ -300,6 +291,7 @@ SPEC CHECKSUMS:
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
   RAReorderableLayout: 5b6b87dd4022ee1747fd475623b14f5df940f754
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   RMGradientView: 35237e7f233ce96f31074c9b119eb3320e2022ff
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
@@ -312,6 +304,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: 37f70eee310ce1e300a4a8ee25c93e7be9f1a9c6
+PODFILE CHECKSUM: c41b818c6be74384bced3f64f1b88188f60e6a98
 
 COCOAPODS: 1.5.3

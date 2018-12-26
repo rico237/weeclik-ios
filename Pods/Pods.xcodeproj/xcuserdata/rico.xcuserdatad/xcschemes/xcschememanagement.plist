@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AZDialogView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -75,11 +70,6 @@
 			<false/>
 		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>DropDownMenuKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -220,6 +210,11 @@
 			<false/>
 		</dict>
 		<key>RMGradientView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

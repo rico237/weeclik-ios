@@ -43,9 +43,6 @@ class MonCompteVC: UIViewController {
             print("Error catching user infos : \n Num : \(error.code) \nDescription : \(error.localizedDescription)")
         }
         
-        
-        
-        
         if let current = PFUser.current() {
             self.currentUser = current
             
@@ -213,7 +210,8 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
     
     @IBAction func showParseUI(){
-        let logInController = PFLogInViewController()
+        // Login Part
+        let logInController = LoginViewController()
         logInController.delegate = self
         logInController.fields = [PFLogInFields.usernameAndPassword,
                                   PFLogInFields.logInButton,
@@ -223,10 +221,10 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
                                   PFLogInFields.facebook]
         logInController.emailAsUsername = true
         logInController.facebookPermissions = ["email", "public_profile"]
-        logInController.logInView?.logo?.alpha = 0
         
+        // SignUp Part
+        logInController.signUpController = SignUpViewController()
         logInController.signUpController?.delegate = self
-        logInController.signUpController?.signUpView?.logo?.alpha = 0
         
         self.present(logInController, animated: true, completion: nil)
     }

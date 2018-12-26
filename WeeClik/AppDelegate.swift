@@ -53,11 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func personaliserInteface(){
-//        UINavigationBar.appearance().barTintColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
-//        UINavigationBar.appearance().isTranslucent = false
-//        UINavigationBar.appearance().tintColor = UIColor.white
-//
-//
+        UINavigationBar.appearance().barTintColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().tintColor = UIColor.white
+        
         let shadow = NSShadow()
         shadow.shadowColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         shadow.shadowOffset = CGSize(width: 0, height: 1)
@@ -67,15 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedStringKey.shadow : shadow,
             NSAttributedStringKey.font : UIFont(name: "BebasNeue", size: 21.0) as Any
         ]
-        
-        // Sets background to a blank/empty image
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-        // Sets shadow (line below the bar) to a blank image
-        UINavigationBar.appearance().shadowImage = UIImage()
-        // Sets the translucent background color
-        UINavigationBar.appearance().backgroundColor = .clear
-        // Set translucent. (Default value is already true, so this can be removed if desired.)
-        UINavigationBar.appearance().isTranslucent = true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

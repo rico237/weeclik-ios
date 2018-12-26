@@ -6,10 +6,9 @@
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
-// TODO : ouvrir le lien dans l'app et non le navigateur du tel (forcer l'user a rester dans l'application)
-// TODO : mettre la description a 500 caractère max
-// TODO : vv fonction de timer pour l'attente de partage qui appele a la fin cette fonction vv
-// TODO : 6. Faire une verification sur l'autorisation de la position plutot qu'une verification sur la valeur enregistré de la distance
+// UP : ouvrir le lien dans l'app et non le navigateur du tel (forcer l'user a rester dans l'application)
+// UP : mettre la description a 500 caractère max
+// TODO: vv fonction de timer pour l'attente de partage qui appele a la fin cette fonction vv
 
 import UIKit
 import Foundation
@@ -26,6 +25,9 @@ class DetailCommerceViewController: UIViewController {
     
     var commerceObject : Commerce!
     var commerceID : String!
+    
+    var prefFiltreLocation: Bool!
+    var hasGrantedLocation: Bool!
     
     var routeCommerceId : String!
     
@@ -259,23 +261,23 @@ extension DetailCommerceViewController{
             self.nomCommerceLabel.text = commerceObject.nom
             self.categorieLabel.text   = commerceObject.type
             
-            // 6. TODO
-            if self.commerceObject.distanceFromUser == "" {
-                self.distanceView.isHidden = true
-            } else {
+            self.hasGrantedLocation = HelperAndKeys.getLocationGranted()
+            self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
+            
+            if self.hasGrantedLocation && self.prefFiltreLocation {
                 self.headerDistanceLabel.text = self.commerceObject.distanceFromUser
-                self.distanceView.isHidden = false
+            } else {
+                self.headerDistanceLabel.text = "--"
             }
             
             self.headerPartagesLabel.text = String(self.commerceObject.partages)
             
-            
             if let thumbFile = self.commerceObject.thumbnail {
                 self.headerImage.sd_setImage(with: URL(string: thumbFile.url!))
             }
-            
-            
         } else {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue durant le chargement du commerce. Veuillez réessayer ultérieurement", title: "Erreur de chargement", viewController: self)
             print("Erreur de chargment : Commerce est null")
         }
     }

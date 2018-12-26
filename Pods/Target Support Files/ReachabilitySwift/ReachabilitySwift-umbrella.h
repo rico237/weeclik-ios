@@ -10,8 +10,7 @@
 #endif
 #endif
 
-#import "DropDownMenu.h"
 
-FOUNDATION_EXPORT double DropDownMenuKitVersionNumber;
-FOUNDATION_EXPORT const unsigned char DropDownMenuKitVersionString[];
+FOUNDATION_EXPORT double ReachabilityVersionNumber;
+FOUNDATION_EXPORT const unsigned char ReachabilityVersionString[];
 

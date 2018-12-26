@@ -40,8 +40,6 @@ def projectPods
     # Fenetre pour de mander la localisation de l'utilisateur
     #pod 'STLocationRequest'
     pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
-    # Fenetre de dialogue pour la connection
-    pod 'AZDialogView', '~> 1.1'
     # Demander des permissions
     pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
     # Carrousel de démo à la connexion
@@ -94,6 +92,8 @@ def projectPods
     pod 'SwiftMessages'
     #Manipulation de dates
     pod 'SwiftDate', '~> 5.0'
+    # Savoir si il y a internet
+    pod 'ReachabilitySwift'
 end
 
 target 'WeeClik' do
