@@ -16,6 +16,7 @@
 		1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */; };
 		1F08570C1F2D960400932929 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570B1F2D960400932929 /* Pacifico.ttf */; };
 		1F08570E1F2D977600932929 /* UserLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570D1F2D977600932929 /* UserLocation.gpx */; };
+		1F0B9DF921D54083008120F4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B9DF821D54083008120F4 /* Login.storyboard */; };
 		1F0BBCA61FAE4C3700D91026 /* AjoutCommerceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */; };
 		1F0E0B7A212468420048D95B /* InAppPurchaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */; };
 		1F0E0B7E212482590048D95B /* ChoixAbonnmentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */; };
@@ -115,6 +116,7 @@
 		1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommerceViewController.swift; sourceTree = "<group>"; };
 		1F08570B1F2D960400932929 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
 		1F08570D1F2D977600932929 /* UserLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = UserLocation.gpx; sourceTree = "<group>"; };
+		1F0B9DF821D54083008120F4 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutCommerceVC.swift; sourceTree = "<group>"; };
 		1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseHandler.swift; sourceTree = "<group>"; };
 		1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixAbonnmentsVC.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				1F565452217E64AC00C6B112 /* Profile.storyboard */,
+				1F0B9DF821D54083008120F4 /* Login.storyboard */,
 				1F9EE55421D142420086EF72 /* Experiences.storyboard */,
 				1FA473311F1EE7E400D2A306 /* Main.storyboard */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
@@ -516,6 +519,7 @@
 				1FA473331F1EE7E400D2A306 /* Main.storyboard in Resources */,
 				1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */,
 				1FE76BCA21B9D0E000209F3C /* CategoriesCollectionViewCell.xib in Resources */,
+				1F0B9DF921D54083008120F4 /* Login.storyboard in Resources */,
 				1FEBF4641F254F3D00146525 /* BebasNeue Light.ttf in Resources */,
 				1F9EE56321D2DB830086EF72 /* SearchCell.xib in Resources */,
 				1FA9BFE61F269CB2004D5F4C /* OpenSans-LightItalic.ttf in Resources */,
@@ -551,7 +555,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" b7f8a28941b68b9e1c65160a232b11078a3a1260 4ba7673d13cf9a9c8845d6d683d569b05ad498467fe93d56034d0f67d59b75dd";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" b7f8a28941b68b9e1c65160a232b11078a3a1260 4ba7673d13cf9a9c8845d6d683d569b05ad498467fe93d56034d0f67d59b75dd\n";
 		};
 		ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

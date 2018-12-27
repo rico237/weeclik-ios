@@ -881,7 +881,7 @@ Weeclik</string>
         <scene sceneID="p3A-vT-N2e">
             <objects>
                 <tableViewController id="Afn-TB-G1n" customClass="SearchViewController" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jaf-uI-pPj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jaf-uI-pPj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -948,7 +948,7 @@ Weeclik</string>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Afn-TB-G1n" kind="relationship" relationship="rootViewController" id="O7j-G3-rtk"/>
+                        <segue destination="Afn-TB-G1n" kind="relationship" relationship="rootViewController" id="Gm7-nN-WvU"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xas-L0-qpI" userLabel="First Responder" sceneMemberID="firstResponder"/>

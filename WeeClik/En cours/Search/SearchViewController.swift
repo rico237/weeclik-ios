@@ -22,6 +22,7 @@ class SearchViewController: UITableViewController {
         print("Nombre commrerce : \(commerces.count)")
         self.tableView.tableFooterView = UIView()
         setupSearchController()
+        tableView.reloadData()
     }
     
     func setupSearchController(){
@@ -33,6 +34,14 @@ class SearchViewController: UITableViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         
         tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
     }
     
     func filterRowsForSearchedText(_ searchText: String) {
@@ -107,7 +116,6 @@ extension SearchViewController{
         } else {
             detail.commerceObject = self.commerces[(tableView.indexPathForSelectedRow?.row)!]
         }
-        
         self.navigationController?.pushViewController(detail, animated: true)
     }
 }
