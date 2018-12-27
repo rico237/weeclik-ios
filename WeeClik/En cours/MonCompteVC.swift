@@ -82,14 +82,6 @@ class MonCompteVC: UIViewController {
         self.dismiss(animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("1")
-        if segue.identifier == "ajoutCommerce" {
-            let destination = segue.destination as! AjoutCommerceVC
-//            destination.objectIdCommerce =
-        }
-    }
-    
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
         self.dismiss(animated: true)
@@ -102,30 +94,6 @@ class MonCompteVC: UIViewController {
 }
 
 extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
-    
-    func queryCommercesArrayBasedOnUser(){
-        if isPro {
-            // Prend les commerces du compte pro
-            let queryCommerce = PFQuery(className: "Commerce")
-            queryCommerce.whereKey("owner", equalTo: currentUser as Any)
-            queryCommerce.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-            queryCommerce.findObjectsInBackground(block: { (objects, error) in
-                if objects != nil {
-                    self.commerces = objects
-                    self.updateUIBasedOnUser()
-                }
-            })
-        } else {
-            // Prend les commerces favoris de l'utilisateur
-            let queryCommerce = PFUser.query()
-            queryCommerce?.whereKey("objectId", equalTo: currentUser?.objectId?.description as Any)
-            queryCommerce?.getFirstObjectInBackground(block: { (obj, err) in
-                //                    print("Nombre de commerces : \(objects?.count ?? 0)")
-                self.commerces = obj!["mes_partages"] as? [PFObject]
-                self.updateUIBasedOnUser()
-            })
-        }
-    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == self.changeProfilInfoTVC{
@@ -191,8 +159,10 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView ==  self.commercesTableView {
             // Afficher le détail d'un commerce
+            let story = UIStoryboard(name: "Main", bundle: nil)
+            // TODO: Remove this part
+            isPro = false
             if isPro {
-                let story = UIStoryboard(name: "Main", bundle: nil)
                 let ajoutCommerceVC = story.instantiateViewController(withIdentifier: "ajoutCommerce") as! AjoutCommerceVC
                 ajoutCommerceVC.editingMode = true
                 ajoutCommerceVC.objectIdCommerce = self.commerces[indexPath.row].objectId!
@@ -200,9 +170,37 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             } else {
                 //TODO: Show commerce detail
                 print("Show detail of the commerce")
-//                let detailViewController = DetailCommerceViewController()
-//                self.navigationController?.pushViewController(detailViewController, animated: true)
+                let detailViewController = story.instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
+                detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
+                self.navigationController?.pushViewController(detailViewController, animated: true)
             }
+        }
+    }
+}
+
+// Data related
+extension MonCompteVC {
+    func queryCommercesArrayBasedOnUser(){
+        if isPro {
+            // Prend les commerces du compte pro
+            let queryCommerce = PFQuery(className: "Commerce")
+            queryCommerce.whereKey("owner", equalTo: currentUser as Any)
+            queryCommerce.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            queryCommerce.findObjectsInBackground(block: { (objects, error) in
+                if objects != nil {
+                    self.commerces = objects
+                    self.updateUIBasedOnUser()
+                }
+            })
+        } else {
+            // Prend les commerces favoris de l'utilisateur
+            let queryCommerce = PFUser.query()
+            queryCommerce?.whereKey("objectId", equalTo: currentUser?.objectId?.description as Any)
+            queryCommerce?.getFirstObjectInBackground(block: { (obj, err) in
+                //                    print("Nombre de commerces : \(objects?.count ?? 0)")
+                self.commerces = obj!["mes_partages"] as? [PFObject]
+                self.updateUIBasedOnUser()
+            })
         }
     }
 }
