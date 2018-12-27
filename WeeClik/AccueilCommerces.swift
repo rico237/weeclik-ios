@@ -29,6 +29,8 @@ class AccueilCommerces: UIViewController {
 
     let columnLayout = GridFlowLayout(cellsPerRow: 2, minimumInteritemSpacing: 10, minimumLineSpacing: 10, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     
+    private let refreshControl = UIRefreshControl()
+    
     let network: NetworkManager = NetworkManager.sharedInstance
     var toutesCat       : Array<String>!    = HelperAndKeys.getListOfCategories()
     var commerces       : [Commerce]   = []
@@ -87,6 +89,13 @@ class AccueilCommerces: UIViewController {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
         // Init collectionview for commerces (object cells)
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Chargement des commerces")
+        if #available(iOS 10.0, *) {
+            self.collectionView.refreshControl = refreshControl
+        } else {
+            self.collectionView.addSubview(refreshControl)
+        }
+        self.refreshControl.addTarget(self, action: #selector(refreshCollectionData(_:)), for: .valueChanged)
         self.collectionView.backgroundColor  = HelperAndKeys.getBackgroundColor()
         self.collectionView.collectionViewLayout = columnLayout
         if #available(iOS 11.0, *) {self.collectionView.contentInsetAdjustmentBehavior = .always}
@@ -133,7 +142,9 @@ class AccueilCommerces: UIViewController {
         HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
     }
     
-    
+    @objc private func refreshCollectionData(_ sender: Any) {
+        self.queryObjectsFromDB(typeCategorie: self.titleChoose)
+    }
 }
 
 
@@ -152,6 +163,7 @@ extension AccueilCommerces {
     func queryObjectsFromDB(typeCategorie : String){
         
 //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
+        self.refreshControl.beginRefreshing()
         
         NetworkManager.isReachable { (networkInstance) in
             
@@ -206,6 +218,9 @@ extension AccueilCommerces {
                 self.collectionView.reloadData()
             }
         }
+        
+        self.refreshControl.endRefreshing()
+        
     }
 }
 // Routing & Navigation Bar functions
