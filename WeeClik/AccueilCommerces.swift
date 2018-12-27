@@ -8,10 +8,10 @@
 
 // TODO : Ajouter un message si il n'ya pas d'objet
 // TODO : Ajouter un systeme de pagination pour le chargement des commerces
-// TODO : Ajouter les boutons du menu
 // TODO : Gerer les pbs de connexions si trop long afficher un message d'erreur
-// TODO : Ajouter les commerces favoris
-// TODO : Ajouter le filtre des commerces selon le filtre de leboncoin ios
+
+// UP : Ajouter les commerces favoris
+// UP : Ajouter le filtre des commerces selon le filtre de leboncoin ios
 
 import UIKit
 import Parse
@@ -20,7 +20,6 @@ import KJNavigationViewAnimation
 import KRLCollectionViewGridLayout
 import SDWebImage
 import CoreLocation
-import AZDialogView
 import CRNotifications
 import BulletinBoard
 import Sparrow
@@ -30,8 +29,9 @@ class AccueilCommerces: UIViewController {
 
     let columnLayout = GridFlowLayout(cellsPerRow: 2, minimumInteritemSpacing: 10, minimumLineSpacing: 10, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     
+    let network: NetworkManager = NetworkManager.sharedInstance
     var toutesCat       : Array<String>!    = HelperAndKeys.getListOfCategories()
-    var commerces       : Array<Commerce>   = []
+    var commerces       : [Commerce]   = []
     var currentPage     : Int! = 0                      // The last page that was loaded
     var lastLoadCount   : Int! = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
     let itemsPerPages   : Int! = 25                     // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
@@ -47,6 +47,8 @@ class AccueilCommerces: UIViewController {
     @IBOutlet weak var headerTypeCommerceImage: UIImageView!
     @IBOutlet weak var viewKJNavigation: KJNavigationViewAnimation!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
     
     var introBulletin = BulletinDataSource.makeFilterNextPage()
     
@@ -118,6 +120,20 @@ class AccueilCommerces: UIViewController {
         // Load first object based on location or number of sharing
         self.chooseCategorie(itemChoose: self.titleChoose)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        HelperAndKeys.setLocationGranted(locationGranted: self.locationGranted)
+        HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
+    }
+    
+    
 }
 
 
@@ -135,57 +151,60 @@ extension AccueilCommerces {
     
     func queryObjectsFromDB(typeCategorie : String){
         
-        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
+//        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         
-        SVProgressHUD.setDefaultMaskType(.clear)
-        SVProgressHUD.setDefaultStyle(.dark)
-        SVProgressHUD.show(withStatus: "Chargement en cours")
-        
-        self.commerces = []
-        let query = PFQuery(className: "Commerce")
-        query.whereKey("typeCommerce", equalTo: typeCategorie)
-        query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-        query.whereKey("statutCommerce", equalTo: 1)
-        
-        if self.prefFiltreLocation {
-            let userPosition = PFGeoPoint(location: latestLocationForQuery)
-            query.whereKey("position", nearGeoPoint: userPosition)
-            query.order(byAscending: "position")
-        } else {
-            query.order(byDescending: "nombrePartages")
-        }
-        query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
-            if error == nil {
-                if let arr = objects{
-                    for obj in arr {
-                        let commerce = Commerce(parseObject: obj)
-                        self.commerces.append(commerce)
-                    }
-                    
-                    // tri du tableau par position
-                    if self.prefFiltreLocation {
-                        let sorteCommerce = self.commerces.sorted(by: {
-                            PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
-                        })
-                        self.commerces = sorteCommerce
-                    }
-                    
-                    self.collectionView.reloadData()
-                    SVProgressHUD.dismiss(withDelay: 1)
-                }
+        NetworkManager.isReachable { (networkInstance) in
+            
+            SVProgressHUD.setDefaultMaskType(.clear)
+            SVProgressHUD.setDefaultStyle(.dark)
+            SVProgressHUD.show(withStatus: "Chargement en cours")
+            
+            self.commerces = []
+            let query = PFQuery(className: "Commerce")
+            query.whereKey("typeCommerce", equalTo: typeCategorie)
+            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            query.whereKey("statutCommerce", equalTo: 1)
+            
+            if self.prefFiltreLocation {
+                let userPosition = PFGeoPoint(location: self.latestLocationForQuery)
+                query.whereKey("position", nearGeoPoint: userPosition)
+                query.order(byAscending: "position")
             } else {
-                if let err = error{
-                    let nsError = err as NSError
-                    if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
-                        PFUser.logOut()
-                        self.chooseCategorie(itemChoose: self.titleChoose)
-                    }
-                    
-                    SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
-                    SVProgressHUD.dismiss(withDelay: 2)
-                }
+                query.order(byDescending: "nombrePartages")
             }
-            self.collectionView.reloadData()
+            query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
+                if error == nil {
+                    if let arr = objects{
+                        for obj in arr {
+                            let commerce = Commerce(parseObject: obj)
+                            self.commerces.append(commerce)
+                        }
+                        
+                        // tri du tableau par position
+                        if self.prefFiltreLocation {
+                            let sorteCommerce = self.commerces.sorted(by: {
+                                PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
+                            })
+                            self.commerces = sorteCommerce
+                        }
+                        
+                        self.collectionView.reloadData()
+                        SVProgressHUD.dismiss(withDelay: 1)
+                    }
+                } else {
+                    if let err = error{
+                        let nsError = err as NSError
+                        if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
+                            PFUser.logOut()
+                            self.chooseCategorie(itemChoose: self.titleChoose)
+                        }
+                        
+                        SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
+                        SVProgressHUD.dismiss(withDelay: 2)
+                    }
+                }
+                self.collectionView.reloadData()
+            }
         }
     }
 }
@@ -198,16 +217,23 @@ extension AccueilCommerces {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "commerceDetailSegue" {
             if let cell = sender as? UICollectionViewCell {
                 let indexPath = self.collectionView.indexPath(for: cell)!
                 let detailViewController = segue.destination as! DetailCommerceViewController
                 detailViewController.commerceObject = self.commerces[indexPath.row]
             }
+        } else if segue.identifier == "searchSegue" {
+            let nav = segue.destination as! UINavigationController
+            let searchController = nav.topViewController as! SearchViewController
+            searchController.commerces = self.commerces
         }
     }
-    @IBAction func showProfilPage(_ sender: Any){ self.performSegue(withIdentifier: "routeConnecte", sender: self) }
+    @IBAction func showProfilPage(_ sender: Any){
+        // routeConnecte
+        self.performSegue(withIdentifier: "routeConnecte", sender: self)
+//        self.present(LoginViewController(), animated: true, completion: nil)
+    }
     
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
@@ -239,6 +265,9 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             collectionView.deselectItem(at: indexPath, animated: false)
             self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row])
             collectionView.reloadData()
+        } else {
+            // Objects
+            self.performSegue(withIdentifier: "commerceDetailSegue", sender: collectionView.cellForItem(at: indexPath))
         }
     }
     
@@ -255,28 +284,32 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         }
         // Commerce cells
         else {
-            collectionView.register(UINib(nibName: "AccueilCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! AccueilCollectionViewCell
+            collectionView.register(UINib(nibName: "CommerceCVC", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! CommerceCVC
             let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
             let comm = self.commerces[indexPath.row]
             
             // Ajout du contenu (valeures)
             cell.nomCommerce.text = comm.nom
+            cell.nombrePartageLabel.text = String(comm.partages)
+            let distanceFromUser = self.calculDistanceEntreDeuxPoints(commerce: comm)
+            comm.distanceFromUser = distanceFromUser
             
-            if self.prefFiltreLocation {
+            if self.prefFiltreLocation && self.locationGranted {
                 // Filtré par positions
-                cell.nombrePartageLabel.text = self.calculDistanceEntreDeuxPoints(commerce: comm)
-                cell.imagePartage.isHidden = self.calculDistanceEntreDeuxPoints(commerce: comm) == "" ? true : false
-                cell.imagePartage.image = UIImage(named: "Map_icon")
+                if (comm.distanceFromUser == "") {
+                    cell.distanceLabel.text = "--"
+                } else {
+                    cell.distanceLabel.text = comm.distanceFromUser
+                }
             } else {
-                // Filtré par nombre de partages
-                cell.nombrePartageLabel.text = String(comm.partages)
-                cell.imagePartage.image = UIImage(named: "PartagesIcon")
+                cell.distanceLabel.text = "--"
             }
             
             // Ajout de couleur
             cell.nomCommerce.textColor = textColor
             cell.nombrePartageLabel.textColor = textColor
+            cell.distanceLabel.textColor = textColor
             
             if let imageThumbnailFile = comm.thumbnail {
                 cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
