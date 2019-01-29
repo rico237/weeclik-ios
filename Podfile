@@ -37,8 +37,7 @@ def projectPods
     pod 'AABlurAlertController', '~> 1.2'
     # Mailgun Librairie (envoi de mails)
     pod 'SwiftMailgun', '~> 1.0'
-    # Fenetre pour de mander la localisation de l'utilisateur
-    #pod 'STLocationRequest'
+    # Demande de permissions
     pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
     # Demander des permissions
     pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
