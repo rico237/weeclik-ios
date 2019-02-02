@@ -39,8 +39,6 @@ def projectPods
     pod 'SwiftMailgun', '~> 1.0'
     # Demande de permissions
     pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
-    # Demander des permissions
-    pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # AlertController with blur
