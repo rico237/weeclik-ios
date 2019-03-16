@@ -77,6 +77,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Nous avons besoin de l'accès à vote caméra afin d'ajouter des photos/vidéos à votre commerce</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Nous avons besoin de l'accès à vos contacts pour créer un groupe.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -100,7 +102,7 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string>Experiences</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

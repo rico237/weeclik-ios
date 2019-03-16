@@ -14,12 +14,9 @@ PODS:
   - BulletinBoard (1.3.0)
   - Compass (6.0.0)
   - Compose (1.2.3)
-  - Crashlytics (3.10.3):
-    - Fabric (~> 1.7.8)
   - CRNetworkButton (1.0.2)
   - CRNotifications (1.1.5)
   - DZNEmptyDataSet (1.8.1)
-  - Fabric (1.7.8)
   - FaceAware (1.4.0)
   - FBSDKCoreKit (4.28.0):
     - Bolts (~> 1.7)
@@ -27,26 +24,9 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.28.0):
     - FBSDKCoreKit
-  - Firebase/Core (5.4.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.0.1)
-  - Firebase/CoreOnly (5.4.0):
-    - FirebaseCore (= 5.0.5)
-  - FirebaseAnalytics (5.0.1):
-    - FirebaseCore (~> 5.0)
-    - FirebaseInstanceID (~> 3.0)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - nanopb (~> 0.3)
-  - FirebaseCore (5.0.5):
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-  - FirebaseInstanceID (3.1.1):
-    - FirebaseCore (~> 5.0)
   - Floaty (4.0.1)
   - FormSheetTextView (1.2.0)
   - Gallery (2.0.6)
-  - GoogleToolboxForMac/Defines (2.1.4)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
-    - GoogleToolboxForMac/Defines (= 2.1.4)
   - Hue (3.0.1)
   - HWAlertsPickers (1.0)
   - KJNavigationViewAnimation (0.1.0)
@@ -59,11 +39,6 @@ PODS:
   - Motion (1.4.2):
     - Motion/Core (= 1.4.2)
   - Motion/Core (1.4.2)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
   - Nominatim (0.9.2)
   - ObjectMapper (3.3.0)
   - Parse (1.17.1):
@@ -104,6 +79,7 @@ PODS:
   - SwiftMessages (6.0.0):
     - SwiftMessages/App (= 6.0.0)
   - SwiftMessages/App (6.0.0)
+  - SwiftMultiSelect (0.2.4)
   - TLPhotoPicker (1.3.9)
   - TPKeyboardAvoiding (1.3.2)
   - Zingle (1.3.0)
@@ -120,16 +96,13 @@ DEPENDENCIES:
   - BulletinBoard (~> 1.3.0)
   - Compass
   - Compose (~> 1.2)
-  - Crashlytics (~> 3.10.1)
   - CRNetworkButton (~> 1.0)
   - CRNotifications
   - DZNEmptyDataSet
-  - Fabric (~> 1.7.6)
   - FaceAware (from `https://github.com/BeauNouvelle/FaceAware.git`)
   - FBSDKCoreKit (~> 4)
   - FBSDKLoginKit (~> 4)
   - FBSDKShareKit (~> 4)
-  - Firebase/Core
   - Floaty (~> 4.0.0)
   - FormSheetTextView (~> 1.0)
   - Gallery (from `https://github.com/hyperoslo/Gallery.git`, branch `master`)
@@ -153,6 +126,7 @@ DEPENDENCIES:
   - SwiftDate (~> 5.0)
   - SwiftMailgun (~> 1.0)
   - SwiftMessages
+  - SwiftMultiSelect (from `https://github.com/rico237/SwiftMultiSelect.git`)
   - TLPhotoPicker (~> 1.3.4)
   - TPKeyboardAvoiding (from `https://github.com/michaeltyson/TPKeyboardAvoiding.git`)
   - Zingle (from `https://github.com/hemangshah/Zingle.git`)
@@ -170,27 +144,19 @@ SPEC REPOS:
     - BulletinBoard
     - Compass
     - Compose
-    - Crashlytics
     - CRNetworkButton
     - CRNotifications
     - DZNEmptyDataSet
-    - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseCore
-    - FirebaseInstanceID
     - Floaty
     - FormSheetTextView
-    - GoogleToolboxForMac
     - Hue
     - KRLCollectionViewGridLayout
     - LGButton
     - Material
     - Motion
-    - nanopb
     - Nominatim
     - ObjectMapper
     - Parse
@@ -219,6 +185,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/sleepwalkerfx/RMGradientView.git
   Sparrow:
     :git: https://github.com/IvanVorobei/Sparrow.git
+  SwiftMultiSelect:
+    :git: https://github.com/rico237/SwiftMultiSelect.git
   TPKeyboardAvoiding:
     :git: https://github.com/michaeltyson/TPKeyboardAvoiding.git
   Zingle:
@@ -243,6 +211,9 @@ CHECKOUT OPTIONS:
   Sparrow:
     :commit: d3becbdd5dbc982a53a461188ea35b818342a9ed
     :git: https://github.com/IvanVorobei/Sparrow.git
+  SwiftMultiSelect:
+    :commit: a0eea8ebef5a7bb2e277eda91d938289fc763e23
+    :git: https://github.com/rico237/SwiftMultiSelect.git
   TPKeyboardAvoiding:
     :commit: 8821c7ed0e29c87e30ba93c11dacb138bd17dae4
     :git: https://github.com/michaeltyson/TPKeyboardAvoiding.git
@@ -261,23 +232,16 @@ SPEC CHECKSUMS:
   BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
   Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
-  Crashlytics: 2aea305161a2122492698c75af27f2b98aa49a25
   CRNetworkButton: 2bfe150c64a46506ade962745a3364f21bef3115
   CRNotifications: 38bd824eea18b77d818e7a317253d2b475f6a241
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  Fabric: fba4684a95df789565b0b27fc5b6e68f1755af32
   FaceAware: 94410295a219c4a397ce525eab0063d6b17258aa
   FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
   FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
   FBSDKShareKit: 4f525556e0df4cf0f574cb3f01c675434f29d477
-  Firebase: d66f4f29c23f22d96808d9abc174d81d8eee968f
-  FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
-  FirebaseCore: 42b3267233bd21a5abd54117ccc38ca3dd0f8e83
-  FirebaseInstanceID: f3f0657372592ecdfdfe2cac604a5a75758376a6
   Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
   FormSheetTextView: bc8e4cdc19a00e79ebca652731c3866786de6dd1
   Gallery: f75c3faefcb5da2cae2150ce3db29fcfbeed8b0f
-  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   HWAlertsPickers: a1b97ae8d2d9bac780fad7808f67836eaf0113f4
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
@@ -285,7 +249,6 @@ SPEC CHECKSUMS:
   LGButton: 707ce916eb80b73a6c4688df34bee11adbafb663
   Material: 6a85db48e092012f98704eb085852124f64b07af
   Motion: 93605fd4dffe44203b56949eb0bc73a9521af7b6
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Nominatim: 2083a9f3073c4f738c1e6669e3f3381494072cb7
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
@@ -299,11 +262,12 @@ SPEC CHECKSUMS:
   SwiftDate: 52b718d32ec006861a2be2756cbfa482d438e781
   SwiftMailgun: 311a28057e0ced2dbcfbc8320e4aa282511877d2
   SwiftMessages: da7c981256a65b3e58022d9027a36584cf4eccf5
+  SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f
   TLPhotoPicker: df8fc48fb85466680d2a41de8ab78f94b249e151
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: ddd95f485f50a3578049ea5d2d13b751b1669431
+PODFILE CHECKSUM: 1a38a1039c4e9e3c3e35c8124ee88081945ec4fc
 
 COCOAPODS: 1.5.3

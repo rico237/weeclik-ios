@@ -28,8 +28,8 @@ class MonCompteVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        isPro = true
-        self.buttonHeight.constant = isPro ? 40 : 0
+        isPro = true
+        isProUpdateUI()
         
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
     }
@@ -49,8 +49,7 @@ class MonCompteVC: UIViewController {
             if let proUser = current["isPro"] as? Bool {
                 // isPro is set
                 isPro = proUser
-                self.imageProfil.image = proUser ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-                self.buttonHeight.constant = isPro ? 40 : 0
+                isProUpdateUI()
             } else {
                 // Nil found
                 // Redirect -> Choosing controller from pro statement
@@ -69,12 +68,19 @@ class MonCompteVC: UIViewController {
         }
     }
     
+    func isProUpdateUI(){
+        self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+        self.buttonHeight.constant = isPro ? 40 : 0
+        self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment" : "Vous n'avez pour le moment partagé aucun commerce"
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        print("User is pro \(currentUser!["isPro"] as! Bool)")
+        print("User is pro \(currentUser!["isPro"] as! Bool)")
     }
     
     @IBAction func changeImageProfil(){
+        // TODO: Change image profil
         print("Ajouter une fonction pour changer la photo de profil")
     }
 
@@ -88,6 +94,7 @@ class MonCompteVC: UIViewController {
     }
     
     func updateUIBasedOnUser(){
+//        isProUpdateUI()
         self.changeProfilInfoTVC.reloadData()
         self.commercesTableView.reloadData()
     }
@@ -112,14 +119,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
         } else {
             if let comm = commerces {
                 if comm.count == 0 {
-                    if isPro {
-                        // Compte pro
-                        noCommercesLabel.text = "Vous ne possedez aucun commerce pour le moment"
-                        self.buttonHeight.constant = 40
-                    } else {
-                        noCommercesLabel.text = "Vous n'avez pour le moment partagé aucun commerce"
-                        self.buttonHeight.constant = 0
-                    }
+                    isProUpdateUI()
                 } else {
                     if let vue = noCommerceView {
                         vue.removeFromSuperview()
@@ -160,16 +160,12 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
         if tableView ==  self.commercesTableView {
             // Afficher le détail d'un commerce
             let story = UIStoryboard(name: "Main", bundle: nil)
-            // TODO: Remove this part
-            isPro = false
             if isPro {
                 let ajoutCommerceVC = story.instantiateViewController(withIdentifier: "ajoutCommerce") as! AjoutCommerceVC
                 ajoutCommerceVC.editingMode = true
                 ajoutCommerceVC.objectIdCommerce = self.commerces[indexPath.row].objectId!
                 self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
-                //TODO: Show commerce detail
-                print("Show detail of the commerce")
                 let detailViewController = story.instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
                 detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
                 self.navigationController?.pushViewController(detailViewController, animated: true)

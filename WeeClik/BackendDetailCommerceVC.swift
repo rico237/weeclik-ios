@@ -13,7 +13,6 @@ import Photos
 import AVKit
 import SVProgressHUD
 import Async
-import Crashlytics
 
 class BackendDetailCommerceVC: UITableViewController {
     

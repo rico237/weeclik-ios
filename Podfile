@@ -12,16 +12,14 @@ def projectPods
     pod 'Parse/FacebookUtils', '~> 1.11'
     pod 'SDWebImage', '~> 4.0'
     pod 'SVProgressHUD', '~> 2.1'
-    # Intégration de la librairie Firebase
-    pod 'Firebase/Core'
-    
-    pod 'Fabric', '~> 1.7.6'
-    pod 'Crashlytics', '~> 3.10.1'
     
     pod 'PromiseKit', '~> 6.0'
     pod 'Alamofire', '~> 4.7'
     
     pod 'Nominatim'
+    
+    # Selection Multiple de contacts
+    pod 'SwiftMultiSelect', :git => 'https://github.com/rico237/SwiftMultiSelect.git'
     
     # Pour la page recherche
     pod 'Compose', '~> 1.2'

@@ -11,18 +11,20 @@
 // TODO: vv fonction de timer pour l'attente de partage qui appele a la fin cette fonction vv
 
 import UIKit
+import Contacts
 import Foundation
 import Parse
 import MessageUI
 import MapKit
 import LGButton
 import SDWebImage
+import SwiftMultiSelect
 
 class DetailCommerceViewController: UIViewController {
     
-    
     @IBOutlet weak var shareButton: LGButton!
     
+    var shrdString = [String]()
     var commerceObject : Commerce!
     var commerceID : String!
     
@@ -90,10 +92,11 @@ class DetailCommerceViewController: UIViewController {
         queryPhotos.whereKey("commerce", equalTo: self.commerceObject.pfObject)
         queryPhotos.order(byDescending: "updatedAt")
         queryPhotos.findObjectsInBackground { (objects, err) in
-            if err != nil {
-                // TODO: Error Handling
-                print("Erreur de chargement du slider => \(String(describing: err?.localizedDescription))")
+            
+            if let err = err {
+                HelperAndKeys.showAlertWithMessage(theMessage: err.localizedDescription, title: "Chargement des images", viewController: self)
             } else {
+                
                 if let objects = objects {
                     self.sampleImagesUrls = []
                     for obj in objects {
@@ -108,9 +111,23 @@ class DetailCommerceViewController: UIViewController {
     }
     
     @objc func shareCommerce(){
+        SwiftMultiSelect.delegate = self
+        
         if HelperAndKeys.canShareAgain(objectId: commerceID){
             let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse) \nURL : weeclik://\(self.commerceObject.objectId.description)"
-            let activit = UIActivityViewController(activityItems: [str], applicationActivities: nil)
+            
+            let customItem = ShareToGroupsActivity(title: "Partager à un groupe d'amis") { sharedItems in
+                guard let shar = sharedItems as? [String] else {return}
+                
+                self.shrdString = shar
+                
+                Config.doneString = "Valider"
+                Config.viewTitle  = "Création d'un groupe"
+                
+                SwiftMultiSelect.Show(to: self)
+            }
+            
+            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
             self.present(activit, animated: true, completion: nil)
             
         } else {
@@ -371,7 +388,10 @@ extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        if error == nil {
+        if let error = error {
+            // Erreur
+            HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur", viewController: self)
+        } else {
             switch result {
             case .cancelled:
                 print("Annulé")
@@ -386,9 +406,6 @@ extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
                 print("Sauvegardé en brouillon")
                 break
             }
-        } else {
-            // Erreur
-            HelperAndKeys.showAlertWithMessage(theMessage: "", title: "", viewController: self)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -415,3 +432,69 @@ extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{
     }
 }
 
+extension DetailCommerceViewController : SwiftMultiSelectDelegate {
+    
+    //MARK: - SwiftMultiSelectDelegate
+    
+    //User write something in searchbar
+    func userDidSearch(searchString: String) {
+//        print("User is looking for: \(searchString)")
+    }
+    
+    //User did unselect an item
+    func swiftMultiSelect(didUnselectItem item: SwiftMultiSelectItem) {
+//        print("row: \(item.title) has been deselected!")
+    }
+    
+    //User did select an item
+    func swiftMultiSelect(didSelectItem item: SwiftMultiSelectItem) {
+//        print("item: \(item.title) has been selected!")
+    }
+    
+    //User did close controller with no selection
+    func didCloseSwiftMultiSelect() {
+//        print("no items selected")
+    }
+    
+    //User completed selection
+    func swiftMultiSelect(didSelectItems items: [SwiftMultiSelectItem]) {
+        var phoneNumbers  = [String]()
+        var emailAdresses = [String]()
+        
+        for item in items{
+            
+            if let userInfo = item.userInfo as? CNContact {
+                
+                for email in userInfo.emailAddresses {
+                    print(email.value)
+                    emailAdresses.append(email.value as String)
+                    break
+                }
+                
+                print("All numbers: \(userInfo.phoneNumbers.count)")
+                
+                for ContctNumVar: CNLabeledValue in userInfo.phoneNumbers
+                {
+//  let label = ContctNumVar.label  // Label : CNLabelPhoneNumberiPhone, CNLabelPhoneNumberMobile, CNLabelPhoneNumberMain
+                    let FulMobNumVar    = ContctNumVar.value
+                    let MccNamVar       = FulMobNumVar.value(forKey: "countryCode") as? String
+                    let MobNumVar       = FulMobNumVar.value(forKey: "digits") as? String
+                    
+                    if let country = MccNamVar {
+                        if country == "fr" {
+                            if let phoneNum = MobNumVar {
+                                print("Append phone number : \(phoneNum)")
+                                phoneNumbers.append(phoneNum)
+                                break
+                            }
+                        }
+                    }
+                    
+                }
+
+            }
+            
+        }
+        
+    }
+}

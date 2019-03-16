@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m30-Zs-DYE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -344,8 +344,155 @@
             </objects>
             <point key="canvasLocation" x="3001" y="-981"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PJN-a3-eX9">
+            <objects>
+                <navigationController id="m30-Zs-DYE" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hmb-6e-Zrg">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="WDd-BX-5we" kind="relationship" relationship="rootViewController" id="V0b-Xu-rlh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ifv-WP-9Jd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2977" y="-292"/>
+        </scene>
+        <!--Sharing To GroupsVC-->
+        <scene sceneID="OkU-D8-aBB">
+            <objects>
+                <viewController id="WDd-BX-5we" customClass="SharingToGroupsVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XcE-tk-Z4R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4DM-W4-XVE">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOU-c8-ktC">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="762"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_commerce" translatesAutoresizingMaskIntoConstraints="NO" id="z5W-lm-IWT">
+                                                <rect key="frame" x="112.5" y="24" width="150" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="jR3-CJ-k02"/>
+                                                    <constraint firstAttribute="width" secondItem="z5W-lm-IWT" secondAttribute="height" multiplier="1:1" id="kbT-5c-jbx"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dernière étape" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UK-G1-STn">
+                                                <rect key="frame" x="16" y="194" width="343" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="icO-Tz-PdS"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jq0-5i-ya2">
+                                                <rect key="frame" x="16" y="246" width="343" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="VU0-MC-RqN"/>
+                                                </constraints>
+                                                <string key="text">Après un première année d'essai à 160€, Weeclik passe à 320€. 
+Annulez à tout moment.</string>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="62q-T6-Qbu">
+                                                <rect key="frame" x="16" y="342" width="343" height="100"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUg-7q-DNy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="46"/>
+                                                        <color key="backgroundColor" red="0.86756509540000004" green="0.32074099779999998" blue="0.3202476501" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                        <state key="normal" title="Essayer votre première année">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="circleCorner" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-mL-VBu">
+                                                        <rect key="frame" x="0.0" y="54" width="343" height="46"/>
+                                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                        <state key="normal" title="Non merci">
+                                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="bUg-7q-DNy" firstAttribute="leading" secondItem="62q-T6-Qbu" secondAttribute="leading" id="5fd-Hj-sIF"/>
+                                                    <constraint firstAttribute="height" constant="100" id="Ime-ND-1iB"/>
+                                                    <constraint firstItem="4f0-mL-VBu" firstAttribute="leading" secondItem="62q-T6-Qbu" secondAttribute="leading" id="Z3e-u1-2zi"/>
+                                                    <constraint firstAttribute="trailing" secondItem="4f0-mL-VBu" secondAttribute="trailing" id="aP0-A2-62A"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bUg-7q-DNy" secondAttribute="trailing" id="xrb-q2-kgn"/>
+                                                </constraints>
+                                            </stackView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwN-2M-YTA">
+                                                <rect key="frame" x="16" y="468" width="343" height="274"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <mutableString key="text">À la fin de cette période d'essai, l'abonnement sera automatiquement converti en un abonnement annuel standard (320€).
+Votre paiement sera débité de votre compte iTunes et votre abonnement sera automatiquement renouvelé pour la même durée et le même prix jusqu'à ce que vous l'annuliez dans vos paramètres iTunes au moins 24 heures avant la fin de la période en cours. Un abonnement se renouvellant est débité de votre compte iTunes dans les 24 heures précédant la dateeffective de renouvellement. L'utilisateur perd le bénéfice de sa periode d'essai dès son annulation. En vous abonnant, vous acceptez nos &lt;a href="#"&gt;Conditions générales&lt;/a&gt; et &lt;a href="#"&gt;Politique de Confidentialité&lt;/a&gt;</mutableString>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="url"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="z5W-lm-IWT" firstAttribute="centerX" secondItem="lOU-c8-ktC" secondAttribute="centerX" id="0kV-6G-dTW"/>
+                                            <constraint firstAttribute="trailing" secondItem="1UK-G1-STn" secondAttribute="trailing" constant="16" id="95A-1N-iyI"/>
+                                            <constraint firstItem="1UK-G1-STn" firstAttribute="leading" secondItem="lOU-c8-ktC" secondAttribute="leading" constant="16" id="HBZ-SF-I8w"/>
+                                            <constraint firstAttribute="trailing" secondItem="62q-T6-Qbu" secondAttribute="trailing" constant="16" id="HKN-W2-wxv"/>
+                                            <constraint firstItem="62q-T6-Qbu" firstAttribute="top" secondItem="jq0-5i-ya2" secondAttribute="bottom" constant="26" id="LGq-NZ-slO"/>
+                                            <constraint firstItem="62q-T6-Qbu" firstAttribute="leading" secondItem="lOU-c8-ktC" secondAttribute="leading" constant="16" id="MpF-lN-cRY"/>
+                                            <constraint firstItem="jq0-5i-ya2" firstAttribute="leading" secondItem="lOU-c8-ktC" secondAttribute="leading" constant="16" id="SmZ-vv-AZ3"/>
+                                            <constraint firstItem="jq0-5i-ya2" firstAttribute="top" secondItem="1UK-G1-STn" secondAttribute="bottom" constant="16" id="T5M-pl-GJl"/>
+                                            <constraint firstAttribute="trailing" secondItem="vwN-2M-YTA" secondAttribute="trailing" constant="16" id="UCm-PE-Fdb"/>
+                                            <constraint firstItem="1UK-G1-STn" firstAttribute="top" secondItem="z5W-lm-IWT" secondAttribute="bottom" constant="20" id="VkV-oY-QrR"/>
+                                            <constraint firstItem="vwN-2M-YTA" firstAttribute="top" secondItem="62q-T6-Qbu" secondAttribute="bottom" constant="26" id="p0N-RI-InL"/>
+                                            <constraint firstAttribute="bottom" secondItem="vwN-2M-YTA" secondAttribute="bottom" constant="20" id="pM6-B2-3uT"/>
+                                            <constraint firstAttribute="height" constant="762" id="qoM-Rx-RjL"/>
+                                            <constraint firstAttribute="trailing" secondItem="jq0-5i-ya2" secondAttribute="trailing" constant="16" id="uvW-cG-fud"/>
+                                            <constraint firstItem="z5W-lm-IWT" firstAttribute="top" secondItem="lOU-c8-ktC" secondAttribute="top" constant="24" id="x71-53-y3M"/>
+                                            <constraint firstItem="vwN-2M-YTA" firstAttribute="leading" secondItem="lOU-c8-ktC" secondAttribute="leading" constant="16" id="zwk-eZ-qdQ"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="lOU-c8-ktC" secondAttribute="bottom" id="LeU-yK-cUO"/>
+                                    <constraint firstItem="lOU-c8-ktC" firstAttribute="width" secondItem="4DM-W4-XVE" secondAttribute="width" id="QPA-di-8ft"/>
+                                    <constraint firstAttribute="trailing" secondItem="lOU-c8-ktC" secondAttribute="trailing" id="rZq-lv-69y"/>
+                                    <constraint firstItem="lOU-c8-ktC" firstAttribute="top" secondItem="4DM-W4-XVE" secondAttribute="top" id="tYO-9b-qqU"/>
+                                    <constraint firstItem="lOU-c8-ktC" firstAttribute="leading" secondItem="4DM-W4-XVE" secondAttribute="leading" id="yiT-FT-oP8"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4DM-W4-XVE" firstAttribute="bottom" secondItem="ysh-lO-x2n" secondAttribute="bottom" id="472-EM-JAR"/>
+                            <constraint firstItem="4DM-W4-XVE" firstAttribute="leading" secondItem="ysh-lO-x2n" secondAttribute="leading" id="fEX-UK-dbB"/>
+                            <constraint firstItem="4DM-W4-XVE" firstAttribute="trailing" secondItem="ysh-lO-x2n" secondAttribute="trailing" id="pXN-aL-xyQ"/>
+                            <constraint firstItem="4DM-W4-XVE" firstAttribute="top" secondItem="ysh-lO-x2n" secondAttribute="top" id="trs-gc-ADb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ysh-lO-x2n"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hkQ-Rh-iks"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kYG-O1-WUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3830" y="-293"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Informatique" width="450" height="300"/>
+        <image name="Logo_commerce" width="138" height="141"/>
     </resources>
 </document>

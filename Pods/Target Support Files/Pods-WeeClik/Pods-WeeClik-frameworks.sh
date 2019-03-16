@@ -163,7 +163,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FormSheetTextView/FormSheetTextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HWAlertsPickers/HWAlertsPickers.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Hue/Hue.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework"
@@ -184,11 +183,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AABlurAlertController/AABlurAlertController.framework"
@@ -211,7 +210,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FormSheetTextView/FormSheetTextView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HWAlertsPickers/HWAlertsPickers.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Hue/Hue.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework"
@@ -232,11 +230,11 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

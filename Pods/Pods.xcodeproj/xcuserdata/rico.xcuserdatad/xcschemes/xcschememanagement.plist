@@ -94,11 +94,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FirebaseCore.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Floaty.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -115,11 +110,6 @@
 			<false/>
 		</dict>
 		<key>Gallery.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -254,6 +244,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftMultiSelect.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>TLPhotoPicker-TLPhotoPicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -275,11 +270,6 @@
 			<false/>
 		</dict>
 		<key>Zingle.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

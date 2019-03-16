@@ -16,7 +16,6 @@ import Photos
 import AVKit
 import SVProgressHUD
 import Async
-import Crashlytics
 
 class AjoutCommerceVC: UITableViewController {
     
