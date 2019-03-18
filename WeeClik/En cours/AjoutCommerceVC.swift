@@ -8,8 +8,6 @@
 
 import UIKit
 import CoreLocation
-import Nominatim
-
 import Parse
 import TLPhotoPicker
 import Photos

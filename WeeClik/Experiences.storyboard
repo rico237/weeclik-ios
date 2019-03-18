@@ -360,10 +360,10 @@
             </objects>
             <point key="canvasLocation" x="2977" y="-292"/>
         </scene>
-        <!--Sharing To GroupsVC-->
+        <!--PaymentVC-->
         <scene sceneID="OkU-D8-aBB">
             <objects>
-                <viewController id="WDd-BX-5we" customClass="SharingToGroupsVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WDd-BX-5we" customClass="PaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XcE-tk-Z4R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -381,7 +381,7 @@
                                                     <constraint firstAttribute="width" secondItem="z5W-lm-IWT" secondAttribute="height" multiplier="1:1" id="kbT-5c-jbx"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dernière étape" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UK-G1-STn">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-50% la première année" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UK-G1-STn">
                                                 <rect key="frame" x="16" y="194" width="343" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="icO-Tz-PdS"/>
@@ -417,6 +417,10 @@ Annulez à tout moment.</string>
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="processPurchase:" destination="WDd-BX-5we" eventType="touchUpInside" id="cdb-lH-l1g"/>
+                                                            <segue destination="22V-y8-Z34" kind="showDetail" identifier="paymentStatus" id="YSz-Dl-BzO"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-mL-VBu">
                                                         <rect key="frame" x="0.0" y="54" width="343" height="46"/>
@@ -424,6 +428,9 @@ Annulez à tout moment.</string>
                                                         <state key="normal" title="Non merci">
                                                             <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="cancelPurchase:" destination="WDd-BX-5we" eventType="touchUpInside" id="wzu-SV-OEf"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -437,8 +444,8 @@ Annulez à tout moment.</string>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vwN-2M-YTA">
                                                 <rect key="frame" x="16" y="468" width="343" height="274"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <mutableString key="text">À la fin de cette période d'essai, l'abonnement sera automatiquement converti en un abonnement annuel standard (320€).
-Votre paiement sera débité de votre compte iTunes et votre abonnement sera automatiquement renouvelé pour la même durée et le même prix jusqu'à ce que vous l'annuliez dans vos paramètres iTunes au moins 24 heures avant la fin de la période en cours. Un abonnement se renouvellant est débité de votre compte iTunes dans les 24 heures précédant la dateeffective de renouvellement. L'utilisateur perd le bénéfice de sa periode d'essai dès son annulation. En vous abonnant, vous acceptez nos &lt;a href="#"&gt;Conditions générales&lt;/a&gt; et &lt;a href="#"&gt;Politique de Confidentialité&lt;/a&gt;</mutableString>
+                                                <string key="text">À la fin de cette période d'essai, l'abonnement sera automatiquement converti en un abonnement annuel standard (320€).
+Votre paiement sera débité de votre compte iTunes et votre abonnement sera automatiquement renouvelé pour la même durée et le même prix jusqu'à ce que vous l'annuliez dans vos paramètres iTunes au moins 24 heures avant la fin de la période en cours. Un abonnement se renouvellant est débité de votre compte iTunes dans les 24 heures précédant la dateeffective de renouvellement. L'utilisateur perd le bénéfice de sa periode d'essai dès son annulation. En vous abonnant, vous acceptez nos &lt;a href="#"&gt;Conditions générales&lt;/a&gt; et &lt;a href="#"&gt;Politique de Confidentialité&lt;/a&gt;</string>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="url"/>
@@ -485,10 +492,45 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                         <viewLayoutGuide key="safeArea" id="ysh-lO-x2n"/>
                     </view>
                     <navigationItem key="navigationItem" id="hkQ-Rh-iks"/>
+                    <connections>
+                        <outlet property="legalTextView" destination="vwN-2M-YTA" id="i87-z2-a7D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kYG-O1-WUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3830" y="-293"/>
+        </scene>
+        <!--After PaymentVC-->
+        <scene sceneID="Mmu-ZK-rRb">
+            <objects>
+                <viewController id="22V-y8-Z34" customClass="AfterPaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h4v-9b-2WQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgY-ls-3k5" customClass="LOTAnimatedControl">
+                                <rect key="frame" x="62.5" y="208.5" width="250" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bgY-ls-3k5" secondAttribute="height" multiplier="1:1" id="QtE-0D-56z"/>
+                                    <constraint firstAttribute="width" constant="250" id="vhd-6r-Vau"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bgY-ls-3k5" firstAttribute="centerY" secondItem="h4v-9b-2WQ" secondAttribute="centerY" id="3eQ-17-80m"/>
+                            <constraint firstItem="bgY-ls-3k5" firstAttribute="centerX" secondItem="h4v-9b-2WQ" secondAttribute="centerX" id="ysw-2n-HJP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3SG-7c-RuW"/>
+                    </view>
+                    <connections>
+                        <outlet property="lot" destination="bgY-ls-3k5" id="wOK-sZ-S8Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z3Q-7V-r4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4668" y="-293.70314842578711"/>
         </scene>
     </scenes>
     <resources>

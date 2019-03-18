@@ -12,7 +12,7 @@ import TLPhotoPicker
 import Photos
 import AVKit
 import SVProgressHUD
-import Async
+
 
 class BackendDetailCommerceVC: UITableViewController {
     

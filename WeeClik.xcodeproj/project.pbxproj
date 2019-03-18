@@ -47,6 +47,8 @@
 		1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */; };
 		1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89A11A2239B470007952CC /* ContactTVCell.swift */; };
 		1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */; };
+		1F8F0882223F128C008177C4 /* loader-success-failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F0881223F128C008177C4 /* loader-success-failed.json */; };
+		1F8F0884223F12C3008177C4 /* AfterPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */; };
 		1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
 		1F9EE55521D142420086EF72 /* Experiences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9EE55421D142420086EF72 /* Experiences.storyboard */; };
 		1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
@@ -74,6 +76,7 @@
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
 		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBB63A4211F16BD00BCB480 /* StoreKit.framework */; };
+		1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */; };
 		1FCDF66E2117592B00B605BC /* ParseUploadPhotosAndVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDF66D2117592B00B605BC /* ParseUploadPhotosAndVideos.swift */; };
 		1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE0161209F20C20040F988 /* GoogleService-Info.plist */; };
 		1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3921FABA78700392060 /* ChangeInfosVC.swift */; };
@@ -152,6 +155,8 @@
 		1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeClikProducts.swift; sourceTree = "<group>"; };
 		1F89A11A2239B470007952CC /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		1F8F0881223F128C008177C4 /* loader-success-failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-success-failed.json"; sourceTree = "<group>"; };
+		1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterPaymentVC.swift; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		1F9EE55421D142420086EF72 /* Experiences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Experiences.storyboard; sourceTree = "<group>"; };
 		1F9EE55621D146B00086EF72 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +187,7 @@
 		1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		1FBB63A4211F16BD00BCB480 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		1FCDF66D2117592B00B605BC /* ParseUploadPhotosAndVideos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseUploadPhotosAndVideos.swift; sourceTree = "<group>"; };
 		1FCE0161209F20C20040F988 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FCED3921FABA78700392060 /* ChangeInfosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfosVC.swift; sourceTree = "<group>"; };
@@ -314,6 +320,14 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
+		1F8F0880223F120F008177C4 /* Lottie Assets */ = {
+			isa = PBXGroup;
+			children = (
+				1F8F0881223F128C008177C4 /* loader-success-failed.json */,
+			);
+			name = "Lottie Assets";
+			sourceTree = "<group>";
+		};
 		1FA473211F1EE7E400D2A306 = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +353,7 @@
 				1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */,
 				1F08570D1F2D977600932929 /* UserLocation.gpx */,
 				1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */,
+				1F8F0880223F120F008177C4 /* Lottie Assets */,
 				1F2762912116EE0100779342 /* Routing */,
 				1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */,
 				1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */,
@@ -348,6 +363,7 @@
 				1FC228FB22356A850024ED5B /* Creation groupes */,
 				1F7331D32052702400582A7B /* DetailGalleryVC.swift */,
 				1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */,
+				1FC42C48223ECD7100AB0C39 /* Paiement */,
 				1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */,
 				1F2762902116EDDF00779342 /* Storyboards */,
 				1F27628D2114BBB700779342 /* En cours */,
@@ -378,6 +394,15 @@
 				1F89A11A2239B470007952CC /* ContactTVCell.swift */,
 			);
 			name = "Creation groupes";
+			sourceTree = "<group>";
+		};
+		1FC42C48223ECD7100AB0C39 /* Paiement */ = {
+			isa = PBXGroup;
+			children = (
+				1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */,
+				1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */,
+			);
+			name = Paiement;
 			sourceTree = "<group>";
 		};
 		1FE910E221D2E89D00CEA0F3 /* Search */ = {
@@ -533,6 +558,7 @@
 				1F565453217E64AC00C6B112 /* Profile.storyboard in Resources */,
 				1FF5C6282236EE1800D936B4 /* CreationGroupes.storyboard in Resources */,
 				1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */,
+				1F8F0882223F128C008177C4 /* loader-success-failed.json in Resources */,
 				1FA473351F1EE7E400D2A306 /* Assets.xcassets in Resources */,
 				1FA473331F1EE7E400D2A306 /* Main.storyboard in Resources */,
 				1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */,
@@ -568,15 +594,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AABlurAlertController/AABlurAlertController.framework",
-				"${BUILT_PRODUCTS_DIR}/ASJExpandableTextView/ASJExpandableTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/AsyncSwift/Async.framework",
-				"${BUILT_PRODUCTS_DIR}/Avatar/Avatar.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BulletinBoard.framework",
-				"${BUILT_PRODUCTS_DIR}/CRNetworkButton/CRNetworkButton.framework",
 				"${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework",
 				"${BUILT_PRODUCTS_DIR}/Compass/Compass.framework",
 				"${BUILT_PRODUCTS_DIR}/Compose/Compose.framework",
@@ -584,9 +606,7 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FaceAware/FaceAware.framework",
 				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
-				"${BUILT_PRODUCTS_DIR}/FormSheetTextView/FormSheetTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
 				"${BUILT_PRODUCTS_DIR}/HWAlertsPickers/HWAlertsPickers.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
@@ -595,36 +615,26 @@
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
-				"${BUILT_PRODUCTS_DIR}/Nominatim/Nominatim.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/RAReorderableLayout/RAReorderableLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/RMGradientView/RMGradientView.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Sparrow/Sparrow.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftMailgun/SwiftMailgun.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework",
 				"${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AABlurAlertController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ASJExpandableTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Async.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Avatar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BulletinBoard.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CRNetworkButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CRNotifications.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Compass.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Compose.framework",
@@ -632,9 +642,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FaceAware.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FormSheetTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HWAlertsPickers.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
@@ -643,24 +651,18 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nominatim.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAReorderableLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RMGradientView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparrow.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMailgun.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMultiSelect.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLPhotoPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -705,6 +707,7 @@
 				1FE76BC921B9D0E000209F3C /* CategoriesCollectionViewCell.swift in Sources */,
 				1FA53BC01F34F7AB00DEDEA1 /* PromotionsCell.swift in Sources */,
 				1F9EE56221D2DB830086EF72 /* SearchCell.swift in Sources */,
+				1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */,
 				1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */,
 				1F04777D214407DE00B20CA5 /* XibView.swift in Sources */,
 				1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */,
@@ -721,6 +724,7 @@
 				1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */,
 				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,
 				1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */,
+				1F8F0884223F12C3008177C4 /* AfterPaymentVC.swift in Sources */,
 				1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */,
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */,
