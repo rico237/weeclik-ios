@@ -24,9 +24,14 @@ class ChangeInfosVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isPro = true // TODO: mettre une vrai condition
+        
+        // TODO: mettre une vrai condition
+        isPro = true
         self.profilPicture.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveProfilInformations))
+        // TODO: A tester = voir si l'utilisateur peut toujours selectionner / modifier ses informations.
+        mailTF.isEnabled = false
+        mailTF.isUserInteractionEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +43,8 @@ class ChangeInfosVC: UIViewController {
     
     @objc func saveProfilInformations(){
         currentUser!["name"] = nomPrenomTF.text
-//        currentUser?.email = mailTF.text
+        //        TODO: Pouvoir véritablement changer l'adresse email de l'utilisateur
+        //        currentUser?.email = mailTF.text
         
         if fromCloud == false {
             selectedData = UIImageJPEGRepresentation(self.profilPicture.image!, 0.7)!
@@ -46,8 +52,8 @@ class ChangeInfosVC: UIViewController {
         
         let profilPic = PFFile(name: "image_de_profil-"+(currentUser?.objectId)!, data: selectedData)
         currentUser!["profilPicFile"] = profilPic
-        
         currentUser?.saveInBackground()
+        
         let alert = UIAlertController(title: "Modification enregistré", message: "Vos informations ont été changé avec succès", preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
             self.navigationController?.popViewController(animated: true)
