@@ -11,16 +11,63 @@ PODS:
   - BulletinBoard (1.3.0)
   - Compass (6.0.0)
   - Compose (1.2.3)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
   - CRNotifications (1.1.5)
   - DZNEmptyDataSet (1.8.1)
+  - Fabric (1.9.0)
   - FBSDKCoreKit (4.28.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.28.0):
     - FBSDKCoreKit
   - FBSDKShareKit (4.28.0):
     - FBSDKCoreKit
+  - Firebase/Core (5.18.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 5.7.0)
+  - Firebase/CoreOnly (5.18.0):
+    - FirebaseCore (= 5.3.1)
+  - FirebaseAnalytics (5.7.0):
+    - FirebaseCore (~> 5.3)
+    - FirebaseInstanceID (~> 3.6)
+    - GoogleAppMeasurement (= 5.7.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (5.3.1):
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseInstanceID (3.7.0):
+    - FirebaseCore (~> 5.2)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GoogleUtilities/UserDefaults (~> 5.2)
   - Floaty (4.0.1)
   - Gallery (2.0.6)
+  - GoogleAppMeasurement (5.7.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - GoogleUtilities/AppDelegateSwizzler (5.5.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.5.0)
+  - GoogleUtilities/Logger (5.5.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.5.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.5.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.5.0)"
+  - GoogleUtilities/Reachability (5.5.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (5.5.0):
+    - GoogleUtilities/Logger
   - Hue (3.0.1)
   - HWAlertsPickers (1.0)
   - KJNavigationViewAnimation (0.1.0)
@@ -31,9 +78,15 @@ PODS:
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
     - Motion (~> 1.4.3)
+  - MobilePlayer (1.3.0)
   - Motion (1.4.3):
     - Motion/Core (= 1.4.3)
   - Motion/Core (1.4.3)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
   - Parse (1.17.1):
     - Parse/Core (= 1.17.1)
   - Parse/Core (1.17.1):
@@ -77,11 +130,14 @@ DEPENDENCIES:
   - BulletinBoard (~> 1.3.0)
   - Compass
   - Compose (~> 1.2)
+  - Crashlytics
   - CRNotifications
   - DZNEmptyDataSet
+  - Fabric
   - FBSDKCoreKit (~> 4)
   - FBSDKLoginKit (~> 4)
   - FBSDKShareKit (~> 4)
+  - Firebase/Core
   - Floaty (~> 4.0.0)
   - Gallery (from `https://github.com/hyperoslo/Gallery.git`, branch `master`)
   - Hue (~> 3.0)
@@ -91,6 +147,7 @@ DEPENDENCIES:
   - LGButton (~> 1.0)
   - lottie-ios (~> 2.5.3)
   - Material (~> 2.0)
+  - MobilePlayer (from `https://github.com/rico237/mobileplayer-ios.git`)
   - Parse (~> 1.16)
   - Parse/FacebookUtils (~> 1.11)
   - Parse/UI
@@ -114,18 +171,27 @@ SPEC REPOS:
     - BulletinBoard
     - Compass
     - Compose
+    - Crashlytics
     - CRNotifications
     - DZNEmptyDataSet
+    - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
     - Floaty
+    - GoogleAppMeasurement
+    - GoogleUtilities
     - Hue
     - KRLCollectionViewGridLayout
     - LGButton
     - lottie-ios
     - Material
     - Motion
+    - nanopb
     - Parse
     - PromiseKit
     - ReachabilitySwift
@@ -142,6 +208,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/rico237/Alerts-Pickers.git
   KJNavigationViewAnimation:
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
+  MobilePlayer:
+    :git: https://github.com/rico237/mobileplayer-ios.git
   Sparrow:
     :git: https://github.com/IvanVorobei/Sparrow.git
   SwiftMultiSelect:
@@ -161,6 +229,9 @@ CHECKOUT OPTIONS:
   KJNavigationViewAnimation:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
+  MobilePlayer:
+    :commit: 476e981bc0cee7b54f433a1a0cb60541754fb64a
+    :git: https://github.com/rico237/mobileplayer-ios.git
   Sparrow:
     :commit: d3becbdd5dbc982a53a461188ea35b818342a9ed
     :git: https://github.com/IvanVorobei/Sparrow.git
@@ -182,13 +253,21 @@ SPEC CHECKSUMS:
   BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
   Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
   Compose: e76de3b7b59bac4f133e360cb639307ddd7cf0cc
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CRNotifications: 38bd824eea18b77d818e7a317253d2b475f6a241
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
   FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
   FBSDKShareKit: 4f525556e0df4cf0f574cb3f01c675434f29d477
+  Firebase: 02f3281965c075426141a0ce1277e9de6649cab9
+  FirebaseAnalytics: 23851fe602c872130a2c5c55040b302120346cc2
+  FirebaseCore: 52f851b30e11360f1e67cf04b1edfebf0a47a2d3
+  FirebaseInstanceID: bd6fc5a258884e206fd5c474ebe4f5b00e21770e
   Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
   Gallery: f75c3faefcb5da2cae2150ce3db29fcfbeed8b0f
+  GoogleAppMeasurement: 6cf307834da065863f9faf4c0de0a936d81dd832
+  GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   HWAlertsPickers: a1b97ae8d2d9bac780fad7808f67836eaf0113f4
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
@@ -196,7 +275,9 @@ SPEC CHECKSUMS:
   LGButton: 707ce916eb80b73a6c4688df34bee11adbafb663
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
+  MobilePlayer: e50e2160830f3db51d6e08067318aec6a9d39408
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
   PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
@@ -209,6 +290,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: 7ea9a95639dd612532425d52baee29e74d658a79
+PODFILE CHECKSUM: 0835cbdf2853fe0764d407c490a597b0281e1ab9
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

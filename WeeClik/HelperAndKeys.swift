@@ -270,6 +270,19 @@ class HelperAndKeys {
         return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme"]
     }
     
+    /// Has safe area
+    ///
+    /// with notch: 44.0 on iPhone X, XS, XS Max, XR.
+    ///
+    /// without notch: 20.0 on iPhone 8 on iOS 12+.
+    ///
+    static var hasSafeArea: Bool {
+        guard #available(iOS 11.0, *), let topPadding = UIApplication.shared.keyWindow?.safeAreaInsets.top, topPadding > 24 else {
+            return false
+        }
+        return true
+    }
+    
     static func handleParseError(error: NSError) -> String{
         switch error.code {
         case PFErrorCode.errorConnectionFailed.rawValue :

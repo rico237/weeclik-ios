@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "05CB50B67627FDF368CB9C71FB1CC03C"
+               BlueprintIdentifier = "968517FFAFD08037C13978079EE08040"
+               BuildableName = "KJNavigationViewAnimation.framework"
                BlueprintName = "KJNavigationViewAnimation"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "KJNavigationViewAnimation.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

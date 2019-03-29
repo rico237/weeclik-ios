@@ -8,27 +8,22 @@ import Lottie
 class AfterPaymentVC: UIViewController {
     
     @IBOutlet weak var lot: LOTAnimatedControl!
-    
+    var successPurchase = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         let animationView = lot.animationView
         animationView.setAnimation(named: "loader-success-failed")
-        animationView.play()
         
+        if successPurchase {
+            animationView.play(fromFrame: 0, toFrame: 380) { (finished) in
+                animationView.pause()
+            }
+        } else {
+            animationView.play(fromFrame: 400, toFrame: 800) { (finished) in
+                animationView.pause()
+            }
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

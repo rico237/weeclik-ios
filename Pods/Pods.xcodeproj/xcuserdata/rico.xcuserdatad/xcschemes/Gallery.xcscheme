@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BB4E12B19311EF52068B16873A21E70D"
+               BlueprintIdentifier = "DC078140A7E690DE7832661B50CE7F52"
+               BuildableName = "Gallery.framework"
                BlueprintName = "Gallery"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Gallery.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

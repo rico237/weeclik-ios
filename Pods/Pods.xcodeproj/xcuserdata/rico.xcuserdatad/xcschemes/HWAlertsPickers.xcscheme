@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4FC1096CCA808DDDFE3025E9DF8526D0"
+               BlueprintIdentifier = "8D084543EB11AD2298BD1B4A388B4D09"
+               BuildableName = "HWAlertsPickers.framework"
                BlueprintName = "HWAlertsPickers"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "HWAlertsPickers.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

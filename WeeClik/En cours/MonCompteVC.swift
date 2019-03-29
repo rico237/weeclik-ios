@@ -49,7 +49,7 @@ class MonCompteVC: UIViewController {
             if let proUser = current["isPro"] as? Bool {
                 // isPro is set
                 isPro = proUser
-                isProUpdateUI()
+//                isProUpdateUI()
             } else {
                 // Nil found
                 // Redirect -> Choosing controller from pro statement
@@ -76,7 +76,7 @@ class MonCompteVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("User is pro \(currentUser!["isPro"] as! Bool)")
+//        print("User is pro \(currentUser!["isPro"] as! Bool)")
     }
     
     @IBAction func changeImageProfil(){

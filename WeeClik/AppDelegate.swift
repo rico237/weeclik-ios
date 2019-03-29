@@ -13,6 +13,7 @@ import Compass
 import Contacts
 import ContactsUI
 import SwiftMultiSelect
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         parseConfiguration()
-        personaliserInteface()
+        globalUiConfiguration()
+        firebaseConfiguration()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         
@@ -44,6 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
+    func firebaseConfiguration(){
+        // Use Firebase library to configure APIs
+        FirebaseApp.configure()
+    }
+    
     func parseConfiguration(){
         let configuration = ParseClientConfiguration {
             $0.applicationId = HelperAndKeys.getServerAppId()
@@ -52,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.initialize(with: configuration)
     }
     
-    func personaliserInteface(){
+    func globalUiConfiguration(){
         UINavigationBar.appearance().barTintColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.white

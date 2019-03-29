@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -313,6 +314,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zuz-k9-05L">
                                             <rect key="frame" x="179.5" y="0.0" width="163.5" height="45"/>
                                             <state key="normal" title="Button"/>
+                                            <connections>
+                                                <segue destination="ImN-HC-CpM" kind="show" id="UVY-Ff-im1"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
@@ -1033,6 +1037,205 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JZk-rE-jc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5294" y="-2122"/>
+        </scene>
+        <!--Experiences-->
+        <scene sceneID="yWK-Tc-njl">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Experiences" id="IRd-7Y-sbA" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyE-Bu-jMM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5365" y="-1546"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ftg-rl-QfP">
+            <objects>
+                <navigationController id="euI-9c-d2t" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tUu-6l-BtC">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZNi-z4-I6E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2977" y="-292"/>
+        </scene>
+        <!--PaymentVC-->
+        <scene sceneID="cCi-hk-vA8">
+            <objects>
+                <viewController id="ImN-HC-CpM" customClass="PaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RhM-gz-AVD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1X-90-KLS">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4vE-Wq-627">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="762"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_commerce" translatesAutoresizingMaskIntoConstraints="NO" id="SHR-q2-BmT">
+                                                <rect key="frame" x="112.5" y="24" width="150" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="Hsj-p2-ObG"/>
+                                                    <constraint firstAttribute="width" secondItem="SHR-q2-BmT" secondAttribute="height" multiplier="1:1" id="J4z-Sn-mrD"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-50% la première année" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCZ-yE-yRD">
+                                                <rect key="frame" x="16" y="194" width="343" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="Lpy-7k-7Y1"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YXi-Tm-Q5F">
+                                                <rect key="frame" x="16" y="246" width="343" height="70"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="fj4-nz-5wC"/>
+                                                </constraints>
+                                                <string key="text">Après un première année d'essai à 160€, Weeclik passe à 320€. 
+Annulez à tout moment.</string>
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NL8-v4-M2B">
+                                                <rect key="frame" x="16" y="342" width="343" height="100"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VnU-Bj-O1G">
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="46"/>
+                                                        <color key="backgroundColor" red="0.86756509540000004" green="0.32074099779999998" blue="0.3202476501" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                        <state key="normal" title="Essayer votre première année">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="circleCorner" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="processPurchase:" destination="ImN-HC-CpM" eventType="touchUpInside" id="RuS-tI-lXE"/>
+                                                            <segue destination="WWR-1x-vp5" kind="show" identifier="resultPayment" id="7bG-bD-bOk"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="feH-zJ-iFY">
+                                                        <rect key="frame" x="0.0" y="54" width="343" height="46"/>
+                                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                        <state key="normal" title="Non merci">
+                                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="cancelPurchase:" destination="ImN-HC-CpM" eventType="touchUpInside" id="JhW-QO-Qyr"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="VnU-Bj-O1G" secondAttribute="trailing" id="7HU-4i-Frk"/>
+                                                    <constraint firstItem="feH-zJ-iFY" firstAttribute="leading" secondItem="NL8-v4-M2B" secondAttribute="leading" id="aD0-1e-u47"/>
+                                                    <constraint firstAttribute="trailing" secondItem="feH-zJ-iFY" secondAttribute="trailing" id="cQo-s3-wLB"/>
+                                                    <constraint firstAttribute="height" constant="100" id="hN1-MG-39p"/>
+                                                    <constraint firstItem="VnU-Bj-O1G" firstAttribute="leading" secondItem="NL8-v4-M2B" secondAttribute="leading" id="ka5-Nc-5Dy"/>
+                                                </constraints>
+                                            </stackView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPe-TH-k1q">
+                                                <rect key="frame" x="16" y="468" width="343" height="274"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <string key="text">À la fin de cette période d'essai, l'abonnement sera automatiquement converti en un abonnement annuel standard (320€).
+Votre paiement sera débité de votre compte iTunes et votre abonnement sera automatiquement renouvelé pour la même durée et le même prix jusqu'à ce que vous l'annuliez dans vos paramètres iTunes au moins 24 heures avant la fin de la période en cours. Un abonnement se renouvelant est débité de votre compte iTunes dans les 24 heures précédant la date effective de renouvellement. L'utilisateur perd le bénéfice de sa période d'essai dès son annulation. En vous abonnant, vous acceptez nos Conditions générales et Politique de Confidentialité.</string>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="url"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="LCZ-yE-yRD" secondAttribute="trailing" constant="16" id="1vB-iY-dWX"/>
+                                            <constraint firstAttribute="trailing" secondItem="NL8-v4-M2B" secondAttribute="trailing" constant="16" id="DIa-LU-UQ1"/>
+                                            <constraint firstAttribute="bottom" secondItem="xPe-TH-k1q" secondAttribute="bottom" constant="20" id="Ddg-hW-HDg"/>
+                                            <constraint firstItem="SHR-q2-BmT" firstAttribute="top" secondItem="4vE-Wq-627" secondAttribute="top" constant="24" id="EZa-La-XNp"/>
+                                            <constraint firstAttribute="trailing" secondItem="YXi-Tm-Q5F" secondAttribute="trailing" constant="16" id="Fon-dw-2bP"/>
+                                            <constraint firstItem="LCZ-yE-yRD" firstAttribute="top" secondItem="SHR-q2-BmT" secondAttribute="bottom" constant="20" id="Hz9-Qw-L3c"/>
+                                            <constraint firstAttribute="height" constant="762" id="WRC-1S-ACK"/>
+                                            <constraint firstItem="NL8-v4-M2B" firstAttribute="top" secondItem="YXi-Tm-Q5F" secondAttribute="bottom" constant="26" id="XuH-Rl-iX2"/>
+                                            <constraint firstItem="YXi-Tm-Q5F" firstAttribute="top" secondItem="LCZ-yE-yRD" secondAttribute="bottom" constant="16" id="bYD-kx-HuV"/>
+                                            <constraint firstItem="SHR-q2-BmT" firstAttribute="centerX" secondItem="4vE-Wq-627" secondAttribute="centerX" id="f77-Qp-Lj5"/>
+                                            <constraint firstItem="xPe-TH-k1q" firstAttribute="leading" secondItem="4vE-Wq-627" secondAttribute="leading" constant="16" id="ghp-hH-iKj"/>
+                                            <constraint firstAttribute="trailing" secondItem="xPe-TH-k1q" secondAttribute="trailing" constant="16" id="mcJ-vb-Nzq"/>
+                                            <constraint firstItem="NL8-v4-M2B" firstAttribute="leading" secondItem="4vE-Wq-627" secondAttribute="leading" constant="16" id="ph3-Pm-x4h"/>
+                                            <constraint firstItem="LCZ-yE-yRD" firstAttribute="leading" secondItem="4vE-Wq-627" secondAttribute="leading" constant="16" id="py8-7J-q9Y"/>
+                                            <constraint firstItem="xPe-TH-k1q" firstAttribute="top" secondItem="NL8-v4-M2B" secondAttribute="bottom" constant="26" id="qGA-Ew-9oh"/>
+                                            <constraint firstItem="YXi-Tm-Q5F" firstAttribute="leading" secondItem="4vE-Wq-627" secondAttribute="leading" constant="16" id="xIe-p2-Kve"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4vE-Wq-627" secondAttribute="trailing" id="0Ai-Fc-1J2"/>
+                                    <constraint firstItem="4vE-Wq-627" firstAttribute="width" secondItem="V1X-90-KLS" secondAttribute="width" id="NuY-1M-7sa"/>
+                                    <constraint firstItem="4vE-Wq-627" firstAttribute="leading" secondItem="V1X-90-KLS" secondAttribute="leading" id="ZGv-b0-uGG"/>
+                                    <constraint firstItem="4vE-Wq-627" firstAttribute="top" secondItem="V1X-90-KLS" secondAttribute="top" id="fuv-Qa-Tqt"/>
+                                    <constraint firstAttribute="bottom" secondItem="4vE-Wq-627" secondAttribute="bottom" id="hUb-bK-Isu"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="V1X-90-KLS" firstAttribute="leading" secondItem="Fp9-ZD-51o" secondAttribute="leading" id="1ff-RZ-Eoj"/>
+                            <constraint firstItem="V1X-90-KLS" firstAttribute="trailing" secondItem="Fp9-ZD-51o" secondAttribute="trailing" id="ku6-7D-mh0"/>
+                            <constraint firstItem="V1X-90-KLS" firstAttribute="bottom" secondItem="Fp9-ZD-51o" secondAttribute="bottom" id="qFI-Dg-l3K"/>
+                            <constraint firstItem="V1X-90-KLS" firstAttribute="top" secondItem="Fp9-ZD-51o" secondAttribute="top" id="sFV-k0-r9y"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Fp9-ZD-51o"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="c6P-at-ku4">
+                        <barButtonItem key="rightBarButtonItem" title="Restaurer" id="LCf-19-qVx">
+                            <connections>
+                                <action selector="restorePurchase:" destination="ImN-HC-CpM" id="yG8-3N-zXs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="legalTextView" destination="xPe-TH-k1q" id="BJA-f3-L7O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bHD-KF-HYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3830" y="-293"/>
+        </scene>
+        <!--After PaymentVC-->
+        <scene sceneID="yQL-EW-fuD">
+            <objects>
+                <viewController id="WWR-1x-vp5" customClass="AfterPaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w1F-SB-NqV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgJ-4E-dyv" customClass="LOTAnimatedControl">
+                                <rect key="frame" x="62.5" y="208.5" width="250" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="1nm-hE-nQi"/>
+                                    <constraint firstAttribute="width" secondItem="jgJ-4E-dyv" secondAttribute="height" multiplier="1:1" id="NiJ-QY-sbQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jgJ-4E-dyv" firstAttribute="centerY" secondItem="w1F-SB-NqV" secondAttribute="centerY" id="8U4-K1-d6T"/>
+                            <constraint firstItem="jgJ-4E-dyv" firstAttribute="centerX" secondItem="w1F-SB-NqV" secondAttribute="centerX" id="va0-CB-8MT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="r66-BS-R7e"/>
+                    </view>
+                    <connections>
+                        <outlet property="lot" destination="jgJ-4E-dyv" id="2ka-iL-rz5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hcF-Mo-QUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4545" y="-293"/>
         </scene>
     </scenes>
     <resources>

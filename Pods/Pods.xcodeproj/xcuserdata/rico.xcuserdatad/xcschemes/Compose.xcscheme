@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5B4EF158277647A197C3FEB30AB5144C"
+               BlueprintIdentifier = "C54A3102241AA7BFEAF3EACF7DA0334D"
+               BuildableName = "Compose.framework"
                BlueprintName = "Compose"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Compose.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

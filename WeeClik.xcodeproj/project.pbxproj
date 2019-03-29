@@ -128,6 +128,7 @@
 		1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseHandler.swift; sourceTree = "<group>"; };
 		1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixAbonnmentsVC.swift; sourceTree = "<group>"; };
 		1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaisieDeDonneesVC.swift; sourceTree = "<group>"; };
+		1F16BD22224CC66E0007F6F0 /* WeeClik.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeeClik.entitlements; sourceTree = "<group>"; };
 		1F27628E2116E7EA00779342 /* Routers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routers.swift; sourceTree = "<group>"; };
 		1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
@@ -264,6 +265,7 @@
 		1F0857081F2D676900932929 /* Helper and Secrets */ = {
 			isa = PBXGroup;
 			children = (
+				1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */,
 				1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */,
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
 				1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */,
@@ -349,14 +351,14 @@
 		1FA4732C1F1EE7E400D2A306 /* WeeClik */ = {
 			isa = PBXGroup;
 			children = (
+				1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */,
+				1F16BD22224CC66E0007F6F0 /* WeeClik.entitlements */,
 				1F9EE55621D146B00086EF72 /* LoginViewController.swift */,
 				1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */,
 				1F08570D1F2D977600932929 /* UserLocation.gpx */,
-				1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */,
 				1F8F0880223F120F008177C4 /* Lottie Assets */,
 				1F2762912116EE0100779342 /* Routing */,
 				1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */,
-				1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */,
 				1FE76BC721B9D0E000209F3C /* CategoriesCollectionViewCell.swift */,
 				1FE76BC821B9D0E000209F3C /* CategoriesCollectionViewCell.xib */,
 				1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */,
@@ -511,6 +513,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -520,7 +525,9 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
+				fr,
 			);
 			mainGroup = 1FA473211F1EE7E400D2A306;
 			productRefGroup = 1FA4732B1F1EE7E400D2A306 /* Products */;
@@ -593,7 +600,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/AsyncSwift/Async.framework",
@@ -608,12 +615,14 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/HWAlertsPickers/HWAlertsPickers.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/MobilePlayer/MobilePlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
@@ -627,6 +636,7 @@
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -644,12 +654,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HWAlertsPickers.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MobilePlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
@@ -663,10 +675,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EABDEA5EE38056C8856DD69F /* [CP] Check Pods Manifest.lock */ = {
@@ -894,6 +907,7 @@
 			baseConfigurationReference = 3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X776XA45RM;
@@ -913,6 +927,7 @@
 			baseConfigurationReference = 39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = X776XA45RM;
 				INFOPLIST_FILE = WeeClik/Info.plist;

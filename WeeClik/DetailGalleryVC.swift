@@ -13,6 +13,7 @@ import DZNEmptyDataSet
 import Async
 import SVProgressHUD
 import AppImageViewer
+import MobilePlayer
 
 class DetailGalleryVC: UIViewController {
 
@@ -149,18 +150,20 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         
         if !shdShowVideos {
             // Photos
-            cell.minuteViewContainer.isHidden = true
             obj = photos[indexPath.row]
             file = obj["photo"] as! PFFile
+            cell.minuteViewContainer.isHidden = true
         } else {
             obj = videos[indexPath.row]
-            file = obj["video"] as! PFFile
+            cell.timeLabel.text = obj["time"] as? String
+            file = obj["thumbnail"] as! PFFile
+            cell.minuteViewContainer.isHidden = false
         }
         
         if let urlStr = file.url {
             cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Placeholder_carre") , options: .highPriority , completed: nil)
         } else {
-            cell.imagePlaceholder.image = UIImage(named:"icon")
+            cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
         }
         
         return cell
@@ -182,7 +185,16 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
             }
         } else {
             // Videos
-            HelperAndKeys.showAlertWithMessage(theMessage: "Fonction disponible dans une prochaine mise à jour", title: "Développement en cours", viewController: self)
+            let parseObject = self.videos[indexPath.row]
+            let videoFile = parseObject["video"] as! PFFile
+            if let url = URL(string: videoFile.url!) {
+                let playerVC = MobilePlayerViewController(contentURL: url)
+                playerVC.title = parseObject["nameVideo"] as? String
+                playerVC.activityItems = [url]
+                present(playerVC, animated: true, completion: nil)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Problème de chargement de la vidéo", title: "Erreur", viewController: self)
+            }
         }
     }
 }

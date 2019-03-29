@@ -16,6 +16,11 @@ def projectPods
     pod 'Parse', '~> 1.16'
     pod 'Parse/UI'
     
+    # Firebase + Fabric integration
+    pod 'Firebase/Core'
+    pod 'Fabric'
+    pod 'Crashlytics'
+    
     # Facebook integration
     pod 'FBSDKCoreKit', '~> 4'
     pod 'FBSDKShareKit', '~> 4'
@@ -79,6 +84,8 @@ def projectPods
     pod 'Material', '~> 2.0'
     # async functions
     pod 'AsyncSwift'
+    # Video Player
+    pod 'MobilePlayer', :git => 'https://github.com/weeclik/mobileplayer-ios.git'
     
     ################################
     ################################
