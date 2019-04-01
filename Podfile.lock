@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.7.2)
-  - AppImageViewer (1.0.3)
+  - AppImageViewer (1.0.10):
+    - SDWebImage (~> 4.0)
   - AsyncSwift (2.0.4)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
@@ -124,7 +125,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
-  - AppImageViewer
+  - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
   - AsyncSwift
   - Bolts (~> 1.9)
   - BulletinBoard (~> 1.3.0)
@@ -147,7 +148,7 @@ DEPENDENCIES:
   - LGButton (~> 1.0)
   - lottie-ios (~> 2.5.3)
   - Material (~> 2.0)
-  - MobilePlayer (from `https://github.com/rico237/mobileplayer-ios.git`)
+  - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
   - Parse (~> 1.16)
   - Parse/FacebookUtils (~> 1.11)
   - Parse/UI
@@ -165,7 +166,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - AppImageViewer
     - AsyncSwift
     - Bolts
     - BulletinBoard
@@ -201,6 +201,8 @@ SPEC REPOS:
     - ZKCarousel
 
 EXTERNAL SOURCES:
+  AppImageViewer:
+    :git: https://github.com/weeclik/AppImageViewer.git
   Gallery:
     :branch: master
     :git: https://github.com/hyperoslo/Gallery.git
@@ -209,7 +211,7 @@ EXTERNAL SOURCES:
   KJNavigationViewAnimation:
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
   MobilePlayer:
-    :git: https://github.com/rico237/mobileplayer-ios.git
+    :git: https://github.com/weeclik/mobileplayer-ios.git
   Sparrow:
     :git: https://github.com/IvanVorobei/Sparrow.git
   SwiftMultiSelect:
@@ -220,6 +222,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/hemangshah/Zingle.git
 
 CHECKOUT OPTIONS:
+  AppImageViewer:
+    :commit: 6ccfab7a85e1ed1db41c29a8c4ea78674b1f0cb6
+    :git: https://github.com/weeclik/AppImageViewer.git
   Gallery:
     :commit: bf4d1afe75adadd4da75d963bb84db925eee12f7
     :git: https://github.com/hyperoslo/Gallery.git
@@ -230,8 +235,8 @@ CHECKOUT OPTIONS:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
   MobilePlayer:
-    :commit: 476e981bc0cee7b54f433a1a0cb60541754fb64a
-    :git: https://github.com/rico237/mobileplayer-ios.git
+    :commit: 5f9cf6c1726eac8e0be240830d948dfbcbc9549d
+    :git: https://github.com/weeclik/mobileplayer-ios.git
   Sparrow:
     :commit: d3becbdd5dbc982a53a461188ea35b818342a9ed
     :git: https://github.com/IvanVorobei/Sparrow.git
@@ -247,7 +252,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  AppImageViewer: 57330743b4c8b007ab05ad2e57cdaac931c951ab
+  AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
   AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
@@ -290,6 +295,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: 0835cbdf2853fe0764d407c490a597b0281e1ab9
+PODFILE CHECKSUM: dca2a3a91fafadcec87abe5f70031f7890ec2a54
 
 COCOAPODS: 1.6.1

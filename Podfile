@@ -78,8 +78,8 @@ def projectPods
     pod 'KJNavigationViewAnimation', :git => 'https://github.com/KiranJasvanee/KJNavigationViewAnimation.git'
     # Savoir si il y a internet
     pod 'ReachabilitySwift'
-    # ????
-    pod 'AppImageViewer'
+    # Détail & zoom des images
+    pod 'AppImageViewer', :git => 'https://github.com/weeclik/AppImageViewer.git'
     # Many Usefull UI/UX Elements
     pod 'Material', '~> 2.0'
     # async functions
@@ -95,31 +95,52 @@ def projectPods
     ################################
     ################################
     
-    # Mailgun Librairie (envoi de mails)
-    #pod 'SwiftMailgun', '~> 1.0'
-    # pour reordoner les photos des commercants
-    #pod 'RAReorderableLayout', '~> 0.6'
+    ###------------GENERALE---------------##
     
-    # Composition de message
-    #pod 'FormSheetTextView', '~> 1.0'
-    # Popup action with blured background
-    #pod 'AABlurAlertController', '~> 1.2'
-    # Positionner les photos de profil en fonction du visage (detection du visage)
-    #pod 'FaceAware', :git => 'https://github.com/BeauNouvelle/FaceAware.git'
-    # UITextView agrandit avec le text + Placeholder
-    #pod 'ASJExpandableTextView', '~> 0.4'
-    # Bouttons de chargement (avec progres)
-    #pod 'CRNetworkButton', '~> 1.0'
-    # zoom photos & videos
-    #pod 'MWPhotoBrowser', :podspec =>'https://raw.githubusercontent.com/moinku07/MWPhotoBrowser/master/MWPhotoBrowser.podspec'
-    # Création d'avatar
-    #pod 'Avatar'
-    # Gradient
-    #pod 'RMGradientView', :git => 'https://github.com/sleepwalkerfx/RMGradientView.git'
+    
+    
     # BEST ALERTS & MESSAGES UIs
     #pod 'SwiftMessages'
     #Manipulation de dates
     #pod 'SwiftDate', '~> 5.0'
+    # Mailgun Librairie (envoi de mails)
+    #pod 'SwiftMailgun', '~> 1.0'
+    
+    
+    
+    ###-------------MESSAGERIE--------------##
+    
+    # Ajout de notification InApp pour le chat instantané
+    #https://github.com/lucabecchetti/InAppNotify
+    # Composition de message
+    #pod 'FormSheetTextView', '~> 1.0'
+    # UITextView agrandit avec le text + Placeholder
+    #pod 'ASJExpandableTextView', '~> 0.4'
+    
+    
+    
+    ###-------------PROFIL--------------##
+    
+    # Positionner les photos de profil en fonction du visage (detection du visage)
+    #pod 'FaceAware', :git => 'https://github.com/BeauNouvelle/FaceAware.git'
+    
+    
+    
+    ###------------COMMERCES---------------##
+    
+    # pour reordoner les photos des commercants
+    #pod 'RAReorderableLayout', '~> 0.6'
+    # Bouttons de chargement (avec progres)
+    #pod 'CRNetworkButton', '~> 1.0'
+    
+    
+    
+    ###-----------?????????----------------##
+    
+    # Popup action with blured background
+    #pod 'AABlurAlertController', '~> 1.2'
+    # Gradient
+    #pod 'RMGradientView', :git => 'https://github.com/sleepwalkerfx/RMGradientView.git'
 end
 
 target 'WeeClik' do
