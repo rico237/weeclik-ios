@@ -308,7 +308,6 @@
 		1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */ = {
 			isa = PBXGroup;
 			children = (
-				1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */,
 				1FCDF66D2117592B00B605BC /* ParseUploadPhotosAndVideos.swift */,
 			);
 			name = "Ajouts de nouveaux commerces";
@@ -341,6 +340,7 @@
 		1F0B8354224EA04A00F09FF5 /* (Accueil) Liste des commercants & detail */ = {
 			isa = PBXGroup;
 			children = (
+				1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */,
 				1FE76BC721B9D0E000209F3C /* CategoriesCollectionViewCell.swift */,
 				1FE76BC821B9D0E000209F3C /* CategoriesCollectionViewCell.xib */,
 				1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */,
@@ -352,7 +352,6 @@
 		1F27628D2114BBB700779342 /* En cours */ = {
 			isa = PBXGroup;
 			children = (
-				1FE910E221D2E89D00CEA0F3 /* Search */,
 				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
 				1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */,
 			);
@@ -426,6 +425,7 @@
 				1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */,
 				1F0B8354224EA04A00F09FF5 /* (Accueil) Liste des commercants & detail */,
 				1FC228FB22356A850024ED5B /* Creation groupes */,
+				1FE910E221D2E89D00CEA0F3 /* Search */,
 				1FC42C48223ECD7100AB0C39 /* Paiement */,
 				1F2762902116EDDF00779342 /* Storyboards */,
 				1F27628D2114BBB700779342 /* En cours */,

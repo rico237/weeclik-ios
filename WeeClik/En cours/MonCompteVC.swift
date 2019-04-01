@@ -16,6 +16,7 @@ class MonCompteVC: UIViewController {
     var commerces : [PFObject]! = []
     var currentUser = PFUser.current()
     
+    @IBOutlet weak var nouveauCommerceButton: UIButton!
     @IBOutlet weak var imageProfil : UIImageView!
     @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     @IBOutlet weak var vueConnexion: UIView!
@@ -26,6 +27,8 @@ class MonCompteVC: UIViewController {
     @IBOutlet weak var noCommerceView: UIView!
     @IBOutlet weak var noCommercesLabel: UILabel!
     
+    @IBOutlet weak var rightButtonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leftButtonConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         isPro = true
@@ -70,6 +73,11 @@ class MonCompteVC: UIViewController {
     
     func isProUpdateUI(){
         self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+        
+        if HelperAndKeys.hasSafeArea {
+            self.leftButtonConstraint.constant = 16
+            self.rightButtonConstraint.constant = 16
+        }
         self.buttonHeight.constant = isPro ? 40 : 0
         self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment" : "Vous n'avez pour le moment partagé aucun commerce"
     }

@@ -14,7 +14,7 @@ class SKIndicatorView: UIActivityIndicatorView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        style = SKPhotoBrowserOptions.indicatorStyle
+        activityIndicatorViewStyle = SKPhotoBrowserOptions.indicatorStyle
         color = SKPhotoBrowserOptions.indicatorColor
     }
 }
@@ -94,7 +94,7 @@ open class ViewerZoomingScrollView: UIScrollView {
         delegate = self
         showsHorizontalScrollIndicator = true
         showsVerticalScrollIndicator = true
-        decelerationRate = UIScrollView.DecelerationRate.fast
+        decelerationRate = UIScrollView.DecelerationRate()
         autoresizingMask = [.flexibleWidth, .flexibleTopMargin, .flexibleBottomMargin, .flexibleRightMargin, .flexibleLeftMargin]
     }
     
