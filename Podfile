@@ -13,7 +13,8 @@ def projectPods
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
-    pod 'Parse', '~> 1.16'
+    pod 'Parse', '~> 1.17.2'
+    # pod 'Parse', '~> 1.16'
     pod 'Parse/UI'
     
     # Firebase + Fabric integration
@@ -22,10 +23,11 @@ def projectPods
     pod 'Crashlytics'
     
     # Facebook integration
-    pod 'FBSDKCoreKit', '~> 4'
-    pod 'FBSDKShareKit', '~> 4'
-    pod 'FBSDKLoginKit', '~> 4'
-    pod 'Parse/FacebookUtils', '~> 1.11'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKLoginKit'
+    
+    pod 'Parse/FacebookUtils' #, '~> 1.11'
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.0'

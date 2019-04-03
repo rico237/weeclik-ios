@@ -60,7 +60,7 @@ public class Commerce: NSObject , NSCoding {
     var promotions  : String = ""
     var descriptionO: String = ""
     
-    var thumbnail   : PFFile? = nil
+    var thumbnail   : PFFileObject? = nil
     
     var objectId    : String! = "-1"
     var createdAt   : Date?
@@ -91,6 +91,7 @@ public class Commerce: NSObject , NSCoding {
         self.owner = owner
     }
     
+    @objc
     init(parseObject: PFObject) {
         self.pfObject = parseObject
         
@@ -110,7 +111,7 @@ public class Commerce: NSObject , NSCoding {
         if let owner    = parseObject["owner"] as? PFUser {self.owner = owner}
         
         if let thumbnailObj    = parseObject["thumbnailPrincipal"] as? PFObject {
-            if let thumbnail   = thumbnailObj["photo"] as? PFFile {self.thumbnail = thumbnail}
+            if let thumbnail   = thumbnailObj["photo"] as? PFFileObject {self.thumbnail = thumbnail}
         }
         
         self.objectId   = parseObject.objectId
@@ -148,7 +149,7 @@ public class Commerce: NSObject , NSCoding {
             return object
         } else {
             object["nomCommerce"] = nom
-            object["statutCommerce"] = statut
+            object["statutCommerce"] = statut.rawValue
             object["typeCommerce"] = type
             object["nombrePartages"] = partages
             object["mail"] = mail
@@ -211,7 +212,7 @@ public class Commerce: NSObject , NSCoding {
 
         // Optionnels
         if let loc = aDecoder.decodeObject(forKey: "locationComm") {self.location = loc as? PFGeoPoint}
-        if let thumb = aDecoder.decodeObject(forKey: "thumbnailComm"){self.thumbnail = thumb as? PFFile}
+        if let thumb = aDecoder.decodeObject(forKey: "thumbnailComm"){self.thumbnail = thumb as? PFFileObject}
         if let created = aDecoder.decodeObject(forKey: "createdAtComm"){self.createdAt = created as? Date}
         if let updated = aDecoder.decodeObject(forKey: "updatedAtComm"){self.updatedAt = updated as? Date}
         if let ownerP = aDecoder.decodeObject(forKey: "owner"){self.owner = ownerP as? PFUser}

@@ -86,7 +86,7 @@ class DetailGalleryVC: UIViewController {
         }
         
         for obj in self.photos {
-            let file = obj["photo"] as! PFFile
+            let file = obj["photo"] as! PFFileObject
             if let data = try? file.getData() {
                 if let image = UIImage(data: data){
                     self.fetchedPhotos.append(image)
@@ -146,17 +146,17 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath) as! PhotosVideosCollectionCell
         
         var obj : PFObject!
-        var file : PFFile
+        var file : PFFileObject
         
         if !shdShowVideos {
             // Photos
             obj = photos[indexPath.row]
-            file = obj["photo"] as! PFFile
+            file = obj["photo"] as! PFFileObject
             cell.minuteViewContainer.isHidden = true
         } else {
             obj = videos[indexPath.row]
             cell.timeLabel.text = obj["time"] as? String
-            file = obj["thumbnail"] as! PFFile
+            file = obj["thumbnail"] as! PFFileObject
             cell.minuteViewContainer.isHidden = false
         }
         
@@ -186,7 +186,7 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         } else {
             // Videos
             let parseObject = self.videos[indexPath.row]
-            let videoFile = parseObject["video"] as! PFFile
+            let videoFile = parseObject["video"] as! PFFileObject
             if let url = URL(string: videoFile.url!) {
                 let playerVC = MobilePlayerViewController(contentURL: url)
                 playerVC.title = parseObject["nameVideo"] as? String

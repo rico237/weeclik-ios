@@ -17,11 +17,11 @@ PODS:
   - CRNotifications (1.1.5)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.9.0)
-  - FBSDKCoreKit (4.28.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.28.0):
+  - FBSDKCoreKit (4.44.0):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.44.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.28.0):
+  - FBSDKShareKit (4.43.0):
     - FBSDKCoreKit
   - Firebase/Core (5.18.0):
     - Firebase/CoreOnly
@@ -88,17 +88,15 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - Parse (1.17.1):
-    - Parse/Core (= 1.17.1)
-  - Parse/Core (1.17.1):
+  - Parse (1.17.2):
+    - Parse/Core (= 1.17.2)
+  - Parse/Core (1.17.2):
     - Bolts/Tasks (~> 1.9)
-  - Parse/FacebookUtils (1.17.1):
-    - FBSDKCoreKit (~> 4.28.0)
-    - FBSDKLoginKit (~> 4.28.0)
-    - FBSDKShareKit (~> 4.28.0)
-    - FBSDKTVOSKit (~> 4.28.0)
+  - Parse/FacebookUtils (1.17.2):
+    - Bolts (~> 1.9)
+    - FBSDKLoginKit (~> 4.33)
     - Parse/Core
-  - Parse/UI (1.17.1):
+  - Parse/UI (1.17.2):
     - Parse/Core
   - PromiseKit (6.5.2):
     - PromiseKit/CorePromise (= 6.5.2)
@@ -135,9 +133,9 @@ DEPENDENCIES:
   - CRNotifications
   - DZNEmptyDataSet
   - Fabric
-  - FBSDKCoreKit (~> 4)
-  - FBSDKLoginKit (~> 4)
-  - FBSDKShareKit (~> 4)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
   - Firebase/Core
   - Floaty (~> 4.0.0)
   - Gallery (from `https://github.com/hyperoslo/Gallery.git`, branch `master`)
@@ -149,8 +147,8 @@ DEPENDENCIES:
   - lottie-ios (~> 2.5.3)
   - Material (~> 2.0)
   - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
-  - Parse (~> 1.16)
-  - Parse/FacebookUtils (~> 1.11)
+  - Parse (~> 1.17.2)
+  - Parse/FacebookUtils
   - Parse/UI
   - PromiseKit (~> 6.0)
   - ReachabilitySwift
@@ -262,9 +260,9 @@ SPEC CHECKSUMS:
   CRNotifications: 38bd824eea18b77d818e7a317253d2b475f6a241
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
-  FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
-  FBSDKShareKit: 4f525556e0df4cf0f574cb3f01c675434f29d477
+  FBSDKCoreKit: 8bcd4503afe43f28823c2175a6142a7f50f1bf28
+  FBSDKLoginKit: 93c5a407ab1a6a17b1b38cff57e89991f714d878
+  FBSDKShareKit: 5216050ba1406c3ad5fafdc07ee87afa6a8d2942
   Firebase: 02f3281965c075426141a0ce1277e9de6649cab9
   FirebaseAnalytics: 23851fe602c872130a2c5c55040b302120346cc2
   FirebaseCore: 52f851b30e11360f1e67cf04b1edfebf0a47a2d3
@@ -283,7 +281,7 @@ SPEC CHECKSUMS:
   MobilePlayer: e50e2160830f3db51d6e08067318aec6a9d39408
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Parse: d3edaf8c7c722cb33cb83ba7821d015ae32d362d
+  Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
   PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
@@ -295,6 +293,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: dca2a3a91fafadcec87abe5f70031f7890ec2a54
+PODFILE CHECKSUM: 3df2d8c6b505d5170d656749b1a147b377d6a0ef
 
 COCOAPODS: 1.6.1

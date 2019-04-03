@@ -17,7 +17,7 @@ class WeeClikProducts: NSObject {
     var price : Double = 0.0
     var isMonthly : Bool = false
     var productIdentifier : String = ""
-    var icon : PFFile?
+    var icon : PFFileObject?
     
     var parseProduct : PFProduct? = nil
     

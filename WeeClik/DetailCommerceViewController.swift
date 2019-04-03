@@ -100,7 +100,7 @@ class DetailCommerceViewController: UIViewController {
                 if let objects = objects {
                     self.sampleImagesUrls = []
                     for obj in objects {
-                        if let fileUrl = (obj["photo"] as? PFFile)?.url {
+                        if let fileUrl = (obj["photo"] as? PFFileObject)?.url {
                             self.sampleImagesUrls.append(fileUrl)
                         }
                     }

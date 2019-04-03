@@ -50,7 +50,7 @@ class ChangeInfosVC: UIViewController {
             selectedData = UIImageJPEGRepresentation(self.profilPicture.image!, 0.7)!
         }
         
-        let profilPic = PFFile(name: "image_de_profil-"+(currentUser?.objectId)!, data: selectedData)
+        let profilPic = PFFileObject(name: "image_de_profil-"+(currentUser?.objectId)!, data: selectedData)
         currentUser!["profilPicFile"] = profilPic
         currentUser?.saveInBackground()
         
