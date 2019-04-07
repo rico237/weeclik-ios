@@ -297,50 +297,67 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="g8V-pL-PEt">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S23-jY-z7t">
-                                    <rect key="frame" x="16" y="8" width="382" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- -" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S23-jY-z7t">
+                                    <rect key="frame" x="16" y="8" width="382" height="65"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="21" id="d1m-gj-NH4"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="gFx-cK-qJP"/>
+                                        <constraint firstAttribute="height" constant="65" id="d1m-gj-NH4"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="etE-5V-QeY">
-                                    <rect key="frame" x="16" y="53" width="382" height="45"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyt-T6-7Pc">
-                                            <rect key="frame" x="0.0" y="0.0" width="183" height="45"/>
-                                            <state key="normal" title="Button"/>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zuz-k9-05L">
-                                            <rect key="frame" x="199" y="0.0" width="183" height="45"/>
-                                            <state key="normal" title="Button"/>
-                                            <connections>
-                                                <segue destination="ImN-HC-CpM" kind="show" id="UVY-Ff-im1"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyt-T6-7Pc">
+                                    <rect key="frame" x="16" y="89" width="183" height="43"/>
+                                    <state key="normal" title="En savoir plus"/>
+                                    <connections>
+                                        <action selector="seeMoreDetailAboutStatus:" destination="8kB-un-vxW" eventType="touchUpInside" id="Bkg-9M-33u"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zuz-k9-05L">
+                                    <rect key="frame" x="215" y="89" width="183" height="43"/>
+                                    <color key="backgroundColor" red="0.86756509540000004" green="0.32074099779999998" blue="0.3202476501" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                    <state key="normal" title="Payer">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                            <size key="value" width="1" height="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="payAction:" destination="8kB-un-vxW" eventType="touchUpInside" id="d8C-N8-ybK"/>
+                                        <segue destination="ImN-HC-CpM" kind="show" id="UVY-Ff-im1"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="S23-jY-z7t" firstAttribute="top" secondItem="g8V-pL-PEt" secondAttribute="top" constant="8" id="7AD-tv-pRZ"/>
-                                <constraint firstAttribute="trailing" secondItem="etE-5V-QeY" secondAttribute="trailing" constant="16" id="FsX-B4-0Ou"/>
+                                <constraint firstItem="yyt-T6-7Pc" firstAttribute="top" secondItem="S23-jY-z7t" secondAttribute="bottom" constant="16" id="CvQ-bd-McW"/>
+                                <constraint firstItem="yyt-T6-7Pc" firstAttribute="leading" secondItem="g8V-pL-PEt" secondAttribute="leading" constant="16" id="J08-u6-Zo9"/>
+                                <constraint firstAttribute="bottom" secondItem="Zuz-k9-05L" secondAttribute="bottom" constant="8" id="JVH-Nj-Ooz"/>
                                 <constraint firstAttribute="trailing" secondItem="S23-jY-z7t" secondAttribute="trailing" constant="16" id="aMQ-GZ-G35"/>
-                                <constraint firstAttribute="bottom" secondItem="etE-5V-QeY" secondAttribute="bottom" constant="8" id="b7V-FH-00f"/>
-                                <constraint firstItem="etE-5V-QeY" firstAttribute="top" secondItem="S23-jY-z7t" secondAttribute="bottom" constant="24" id="eQ7-jq-JHE"/>
-                                <constraint firstItem="etE-5V-QeY" firstAttribute="leading" secondItem="g8V-pL-PEt" secondAttribute="leading" constant="16" id="iwQ-Tj-BXE"/>
+                                <constraint firstItem="Zuz-k9-05L" firstAttribute="top" secondItem="S23-jY-z7t" secondAttribute="bottom" constant="16" id="gcd-Ux-zES"/>
+                                <constraint firstItem="Zuz-k9-05L" firstAttribute="leading" secondItem="yyt-T6-7Pc" secondAttribute="trailing" constant="16" id="mTG-PR-M1w"/>
+                                <constraint firstAttribute="trailing" secondItem="Zuz-k9-05L" secondAttribute="trailing" constant="16" id="oVV-Y3-1DS"/>
+                                <constraint firstItem="Zuz-k9-05L" firstAttribute="width" secondItem="yyt-T6-7Pc" secondAttribute="width" id="rTh-DG-YNn"/>
+                                <constraint firstAttribute="bottom" secondItem="yyt-T6-7Pc" secondAttribute="bottom" constant="8" id="rqs-c8-FeG"/>
                                 <constraint firstItem="S23-jY-z7t" firstAttribute="leading" secondItem="g8V-pL-PEt" secondAttribute="leading" constant="16" id="uwE-RG-K9L"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="singleInformationCell" id="yky-e7-LSh" customClass="NouveauCommerceCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="146" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="180" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yky-e7-LSh" id="RFM-6W-1iV">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -365,7 +382,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="photoCollectionView" rowHeight="120" id="3vE-ir-PLC" customClass="AjoutPhotoTVC" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="190" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="224" width="414" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3vE-ir-PLC" id="3iO-5E-ske">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="119.5"/>
@@ -423,7 +440,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="videoCell" rowHeight="150" id="EGw-Ke-XFh" customClass="VideoCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="310" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="344" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EGw-Ke-XFh" id="NN3-NJ-QB6">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="149.5"/>
@@ -462,7 +479,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="categorieCell" rowHeight="150" id="1O6-mq-90N" customClass="SelectionCategorieTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="460" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="494" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1O6-mq-90N" id="xCi-q8-JT4">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="149.5"/>
@@ -488,7 +505,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationsCommerceCell" id="X51-0e-6mz" customClass="NouveauCommerceCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="610" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="644" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X51-0e-6mz" id="Ejz-M2-JuV">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -513,7 +530,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="descriptionCell" id="j2x-ux-h1p" customClass="DescriptionAndPromotionsTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="654" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="688" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j2x-ux-h1p" id="Vt7-bv-IRd">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -541,7 +558,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="promotionsCell" id="WI1-OV-oU1" customClass="DescriptionAndPromotionsTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="698" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="732" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WI1-OV-oU1" id="UVS-G6-vZr">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -592,7 +609,10 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="r8d-e8-fGC" id="dfk-Th-Rab"/>
+                        <outlet property="paymentButton" destination="Zuz-k9-05L" id="sdX-wL-Dl4"/>
                         <outlet property="saveButton" destination="Z8S-fO-kyM" id="StI-vE-cps"/>
+                        <outlet property="seeMoreButton" destination="yyt-T6-7Pc" id="eaS-YK-TQK"/>
+                        <outlet property="statusDescription" destination="S23-jY-z7t" id="fp0-oT-tNe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDg-IR-rcy" userLabel="First Responder" sceneMemberID="firstResponder"/>

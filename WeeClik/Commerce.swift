@@ -10,24 +10,14 @@ import Foundation
 import UIKit
 import Parse
 
-//enum CategoryType: String{
-//    case restaurants
-//    case plomberie
-//    case autres
-//}
-
-protocol StatutTypeDescription {
-    var description : String { get }
-}
-
-enum StatutType: Int, StatutTypeDescription {
+enum StatutType: Int {
     case pending = 0,
     paid = 1,
     canceled = 2,
     error = 3,
     unknown = 4
     
-    var description : String {
+    func label() -> String {
         switch self {
         case .paid :
             return "En ligne"
@@ -40,6 +30,10 @@ enum StatutType: Int, StatutTypeDescription {
         case .unknown :
             return "Statut inconnu"
         }
+    }
+    
+    var description: String {
+        get { return label() }
     }
 }
 

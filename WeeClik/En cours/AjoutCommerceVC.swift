@@ -35,6 +35,11 @@ class AjoutCommerceVC: UITableViewController {
     
     lazy var geocoder = CLGeocoder()
     
+    // Payment Status View Outlets
+    @IBOutlet weak var statusDescription: UILabel!
+    @IBOutlet weak var seeMoreButton: UIButton!
+    @IBOutlet weak var paymentButton: UIButton!
+    
     // Valeur des champs entrées
     // TextField
     var nomCommerce         = "Halo"
@@ -74,8 +79,8 @@ class AjoutCommerceVC: UITableViewController {
         super.viewWillAppear(animated)
         
         if editingMode {
-            self.saveButton.title = "Annuler"
-            self.cancelButton.title = "Modifier"
+            self.saveButton.title = "Modifier"
+            self.cancelButton.title = "Annuler"
             self.title = "MODIFIER COMMERCE"
         } else {
             self.saveButton.title = "Enregistrer"
@@ -85,6 +90,39 @@ class AjoutCommerceVC: UITableViewController {
         
         self.loadCommerceInformations()
         self.refreshUI()
+    }
+    
+    func refreshUIPaymentStatus(){
+        if editingMode {
+            // Modification commerce existant
+            self.tableView.tableHeaderView?.frame.size.height = 140
+            
+            if let savedCommerce = savedCommerce {
+                self.statusDescription.text = "Statut : \n\(savedCommerce.statut.label())"
+                self.seeMoreButton.isEnabled = true
+                if savedCommerce.statut == .paid || savedCommerce.statut == .error || savedCommerce.statut == .unknown {
+                    self.paymentButton.isHidden = true
+                    self.paymentButton.isUserInteractionEnabled = false
+                } else {
+                    // Canceled || Pending
+                    self.paymentButton.isHidden = false
+                    self.paymentButton.isUserInteractionEnabled = true
+                }
+            } else {
+                self.statusDescription.text = "Statut : \nInconnu"
+                self.seeMoreButton.isEnabled = false
+                self.paymentButton.isHidden = true
+                self.paymentButton.isUserInteractionEnabled = false
+            }
+        } else {
+            // Nouveau commerce
+            self.tableView.tableHeaderView?.frame.size.height = 0
+            self.statusDescription.text = ""
+            self.statusDescription.text = "Statut : \nInconnu"
+            self.seeMoreButton.isEnabled = false
+            self.paymentButton.isHidden = true
+            self.paymentButton.isUserInteractionEnabled = false
+        }
     }
     
     func loadCommerceInformations(){
@@ -125,6 +163,9 @@ class AjoutCommerceVC: UITableViewController {
     }
     
     func refreshUI(){
+        // Paiement
+        self.refreshUIPaymentStatus()
+        
         DispatchQueue.main.async {
             SVProgressHUD.dismiss()
             self.tableView.reloadData()
@@ -150,9 +191,9 @@ class AjoutCommerceVC: UITableViewController {
     
     func localSave(){
         // Sauvegarde des infos dans le tel
-        print("Local save")
-        let localCommerce = getCommerceFromInfos()
-        print(localCommerce.description)
+//        print("Local save")
+//        let localCommerce = getCommerceFromInfos()
+//        print(localCommerce.description)
         
         //        let userDefaults = UserDefaults.standard
         //        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: localCommerce), forKey: "lastCommerce")
@@ -392,6 +433,14 @@ class AjoutCommerceVC: UITableViewController {
     }
 }
 
+// Status View Functions
+extension AjoutCommerceVC {
+    @IBAction func seeMoreDetailAboutStatus(_ sender: Any) {
+    }
+    @IBAction func payAction(_ sender: Any) {
+    }
+}
+
 extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
     func showSelection(forPhoto : Bool) {
         let viewController = TLPhotosPickerViewController()
@@ -546,7 +595,7 @@ extension AjoutCommerceVC {
         case 1: // Case photos
             return (tableView.bounds.width - (3 - 1) * 7) / 3
         case 2: // Case vidéo
-            return 150 // 150
+            return 0 // 150
         case 3: // Case selection de la catégorie
             return 150
         case 4: // Case informations supplémentaires
@@ -557,7 +606,7 @@ extension AjoutCommerceVC {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if section == 2 { return 0 }
+        if section == 2 { return 0 } // Video
         return 30
     }
     
@@ -754,16 +803,3 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
         print("Textview with text : \(String(describing: textView.text)) and tag : \(textView.tag)")
     }
 }
-
-extension UIImage {
-    func isEqualToImage(image: UIImage) -> Bool {
-        let data1: Data = UIImageJPEGRepresentation(self, 1)!
-        let data2: Data = UIImageJPEGRepresentation(image, 1)!
-        return data1 == data2
-    }
-    
-    func isEqualToData(data: Data) -> Bool {
-        return UIImageJPEGRepresentation(self, 1) == data
-    }
-}
-

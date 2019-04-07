@@ -12,6 +12,18 @@ class Extensions: NSObject {
 
 }
 
+extension UIImage {
+    func isEqualToImage(image: UIImage) -> Bool {
+        let data1: Data = UIImageJPEGRepresentation(self, 1)!
+        let data2: Data = UIImageJPEGRepresentation(image, 1)!
+        return data1 == data2
+    }
+    
+    func isEqualToData(data: Data) -> Bool {
+        return UIImageJPEGRepresentation(self, 1) == data
+    }
+}
+
 extension UIView {
     func setCardView(view : UIView){
         view.layer.masksToBounds = true
@@ -68,11 +80,11 @@ extension CALayer {
 }
 
 public extension UIWindow {
-    public var visibleViewController: UIViewController? {
+    var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
     
-    public static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
+    static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
         if let nc = vc as? UINavigationController {
             return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
         } else if let tc = vc as? UITabBarController {
