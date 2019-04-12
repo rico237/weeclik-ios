@@ -221,7 +221,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AppImageViewer:
-    :commit: 6ccfab7a85e1ed1db41c29a8c4ea78674b1f0cb6
+    :commit: 6bc8039001dbaa5aa0a7ded008a90a4578baf0aa
     :git: https://github.com/weeclik/AppImageViewer.git
   Gallery:
     :commit: bf4d1afe75adadd4da75d963bb84db925eee12f7
@@ -233,7 +233,7 @@ CHECKOUT OPTIONS:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git
   MobilePlayer:
-    :commit: 5f9cf6c1726eac8e0be240830d948dfbcbc9549d
+    :commit: 73fddf1846739c1e11861abbb6b849abc6777b33
     :git: https://github.com/weeclik/mobileplayer-ios.git
   Sparrow:
     :commit: d3becbdd5dbc982a53a461188ea35b818342a9ed
