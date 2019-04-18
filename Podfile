@@ -108,12 +108,16 @@ def projectPods
     
     # BEST ALERTS & MESSAGES UIs
     #pod 'SwiftMessages'
+    #pod 'SwiftEntryKit', '1.0.1'                     # Use this    <--------
+    
     #Manipulation de dates
     #pod 'SwiftDate', '~> 5.0'
     # Mailgun Librairie (envoi de mails)
     #pod 'SwiftMailgun', '~> 1.0'
     
-    
+    # UserDefaults with AES-256 encryption
+    #pod 'SecureDefaults', '1.0.3' # Swift 5.0
+    #pod 'SecureDefaults', '1.0.0' # Swift 4.2
     
     ###-------------MESSAGERIE--------------##
     
@@ -144,8 +148,6 @@ def projectPods
     
     ###-----------?????????----------------##
     
-    # Popup action with blured background
-    #pod 'AABlurAlertController', '~> 1.2'
     # Gradient
     #pod 'RMGradientView', :git => 'https://github.com/sleepwalkerfx/RMGradientView.git'
 end
