@@ -5,6 +5,8 @@
 //  Can be seen in Payment storyboard (Payment.storyboard)
 //
 
+// TODO: Mettre a jour parse pour les stats
+
 import UIKit
 import StoreKit
 import Parse
@@ -16,6 +18,8 @@ class PaymentVC: UIViewController, IAPHandlerDelegate {
     var parseProducts = [PFProduct]()
     var didFinishFetchProducts = false
     var didFinishPurchaseFunction = false
+    var currentUser = PFUser.current()
+    var purchasedObject : PFProduct?
     
     @IBOutlet weak var legalTextView: UITextView!
 
@@ -34,7 +38,7 @@ class PaymentVC: UIViewController, IAPHandlerDelegate {
             case .purchased:
                 let alertView = UIAlertController(title: "Paiement réussi", message: type.message(), preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .default, handler: { (alert) in
-                    
+                    self?.handleSuccessPayment()
                 })
                 alertView.addAction(action)
                 strongSelf.present(alertView, animated: true, completion: nil)
@@ -67,6 +71,15 @@ class PaymentVC: UIViewController, IAPHandlerDelegate {
             
 //            self.didFinishPurchaseFunction = true
         }
+    }
+    
+    func handleSuccessPayment(){
+        // Update Stats for billing
+        let statPurchase = PFObject(className: "StatsPurchase")
+        statPurchase["user"] = currentUser!
+        
+        // Upload to server
+        statPurchase.saveEventually()
     }
     
     func updateCGUText(){

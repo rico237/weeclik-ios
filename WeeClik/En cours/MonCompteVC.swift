@@ -9,16 +9,19 @@
 import UIKit
 import Parse
 import SVProgressHUD
+import SwiftyStoreKit
 
 class MonCompteVC: UIViewController {
-    var isPro = false
+    var isPro = false                   // Savoir si l'utilisateur est de type pro
+    var hasPaidForNewCommerce = false   // Permet de savoir si on peut créer un nouveau commerce vers la BDD
     
-    var commerces : [PFObject]! = []
-    var currentUser = PFUser.current()
+    var commerces : [PFObject]! = []    // La liste des commerces dans le BAAS
+    var currentUser = PFUser.current()  // Utilisateur connecté
+    
+    let purchasedProductID = "rFK3UKsB" // TODO: replace
     
     @IBOutlet weak var nouveauCommerceButton: UIButton!
     @IBOutlet weak var imageProfil : UIImageView!
-    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     @IBOutlet weak var vueConnexion: UIView!
     @IBOutlet weak var gridView: UIView!
     @IBOutlet weak var changeProfilInfoTVC: UITableView!
@@ -27,11 +30,14 @@ class MonCompteVC: UIViewController {
     @IBOutlet weak var noCommerceView: UIView!
     @IBOutlet weak var noCommercesLabel: UILabel!
     
+    // Contraintes du bouton de création d'un commerce
+    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     @IBOutlet weak var rightButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftButtonConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        isPro = true
+//        isPro = true
         isProUpdateUI()
         
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
@@ -52,7 +58,7 @@ class MonCompteVC: UIViewController {
             if let proUser = current["isPro"] as? Bool {
                 // isPro is set
                 isPro = proUser
-//                isProUpdateUI()
+                isProUpdateUI()
             } else {
                 // Nil found
                 // Redirect -> Choosing controller from pro statement
@@ -61,8 +67,6 @@ class MonCompteVC: UIViewController {
                 choosingVC.newUser = current
                 self.present(choosingNav, animated: true, completion: nil)
             }
-            
-            
             
             if let vue = vueConnexion{
                 vue.removeFromSuperview()
@@ -78,7 +82,8 @@ class MonCompteVC: UIViewController {
             self.leftButtonConstraint.constant = 16
             self.rightButtonConstraint.constant = 16
         }
-        self.buttonHeight.constant = isPro ? 40 : 0
+        print("Bouton height \(isPro)")
+        self.buttonHeight.constant = isPro ? 50 : 0
         self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment" : "Vous n'avez pour le moment partagé aucun commerce"
     }
     
@@ -102,7 +107,7 @@ class MonCompteVC: UIViewController {
     }
     
     func updateUIBasedOnUser(){
-//        isProUpdateUI()
+        isProUpdateUI()
         self.changeProfilInfoTVC.reloadData()
         self.commercesTableView.reloadData()
     }
@@ -180,6 +185,119 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+}
+
+// Navigation related
+extension MonCompteVC {
+//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+//        // Permet de verifier si l'user a payer avant la création d'un commerce
+//        if identifier == "ajoutCommerce" {
+//            buyProduct()
+//            return hasPaidForNewCommerce
+//        }
+//
+//        return shouldPerformSegue(withIdentifier: identifier, sender: sender)
+//    }
+    
+    func buyProduct(){
+        SwiftyStoreKit.retrieveProductsInfo([self.purchasedProductID]) { result in
+            if let product = result.retrievedProducts.first {
+                let priceString = product.localizedPrice!
+                print("Product: \(product.localizedDescription), price: \(priceString)")
+                SwiftyStoreKit.purchaseProduct(product, quantity: 1, atomically: true) { result in
+                    // handle result (same as above)
+                    switch result {
+                    case .success(let product):
+                        // fetch content from your server, then:
+                        if product.needsFinishTransaction {
+                            SwiftyStoreKit.finishTransaction(product.transaction)
+                        }
+                        print("Purchase Success: \(product.productId)")
+                        self.processusPaiement()
+                        // TODO: Sauvegarder la stat dans parse
+                        break
+                    case .error(let error):
+                        switch error.code {
+                        case .unknown: print("Unknown error. Please contact support")
+                        case .clientInvalid: print("Not allowed to make the payment")
+                        case .paymentCancelled: break
+                        case .paymentInvalid: print("The purchase identifier was invalid")
+                        case .paymentNotAllowed: print("The device is not allowed to make the payment")
+                        case .storeProductNotAvailable: print("The product is not available in the current storefront")
+                        case .cloudServicePermissionDenied: print("Access to cloud service information is not allowed")
+                        case .cloudServiceNetworkConnectionFailed: print("Could not connect to the network")
+                        case .cloudServiceRevoked: print("User has revoked permission to use this cloud service")
+                        default: print((error as NSError).localizedDescription)
+                        }
+                    }
+                }
+            } else if let invalidProductId = result.invalidProductIDs.first {
+                print("Invalid product identifier: \(invalidProductId)")
+            }
+            else {
+                print("Error: \(result.error)")
+            }
+        }
+    }
+    
+    func testProduct(){
+        PFPurchase.buyProduct("rFK3UKsB") { (error) in
+            if let error = error {
+                print(error)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Acheté avec succès", title: "Validé", viewController: self)
+            }
+        }
+    }
+    
+    func processusPaiement() -> Bool {
+        // TODO: faire de vrai tests pour le paiement
+        
+        // [1] Effectuer la demande de paiement
+        
+        // [2] Verifier le retour
+        
+        // [3] Si payé -> crée un commerce vide
+        if let currentUser = currentUser {
+            let newCommerce = PFObject(className: "Commerce")
+            newCommerce["nomCommerce"] = "Nouveau Commerce"
+            newCommerce["statutCommerce"] = StatutType.unknown.hashValue as NSNumber
+            newCommerce["brouillon"] = true
+            newCommerce["owner"] = currentUser
+//            newCommerce.acl = PFACL(user: currentUser)
+            
+//            do {
+//                try newCommerce.save()
+//            }
+//            catch {
+//                print("\(error.localizedDescription)")
+//            }
+            
+            newCommerce.saveEventually { (success, error) in
+                if let error = error {
+                    HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce", viewController: self)
+                } else {
+                    if success {
+                        // [4] Une fois la création faite -> afficher page de création de commerce
+                        self.hasPaidForNewCommerce = true
+                        self.performSegue(withIdentifier: "ajoutCommerce", sender: self.nouveauCommerceButton)
+                        
+                    } else {
+                        HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.", title: "Erreur création de commerce", viewController: self)
+                    }
+                }
+            }
+        } else {
+            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.", title: "Problème de connexion", viewController: self)
+        }
+        
+        return self.hasPaidForNewCommerce
+    }
+}
+
+// Payment related
+extension MonCompteVC {
+    
 }
 
 // Data related

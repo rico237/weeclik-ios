@@ -14,6 +14,7 @@ import Contacts
 import ContactsUI
 import SwiftMultiSelect
 import Firebase
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         parseConfiguration()
         globalUiConfiguration()
         firebaseConfiguration()
+        purchaseObserver()
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         
@@ -57,6 +60,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.server = HelperAndKeys.getServerURL()
         }
         Parse.initialize(with: configuration)
+    }
+    
+    func purchaseObserver(){
+        // see notes below for the meaning of Atomic / Non-Atomic
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        // TODO: Maybe load things from server ?
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                }
+            }
+        }
+        
+        SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
+//            TEST = itms-services://?action=purchaseIntent&bundleId=com.example.app&productIdentifier=product_name
+//            if PFUser.current() != nil {
+//                // TODO: Handle purchase made from store
+//                return true
+//            }
+            return false
+        }
     }
     
     func globalUiConfiguration(){

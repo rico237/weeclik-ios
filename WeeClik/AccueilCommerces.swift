@@ -176,6 +176,7 @@ extension AccueilCommerces {
             query.whereKey("typeCommerce", equalTo: typeCategorie)
             query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
             query.whereKey("statutCommerce", equalTo: 1)
+            query.whereKey("brouillon", equalTo: false)
             
             if self.prefFiltreLocation {
                 let userPosition = PFGeoPoint(location: self.latestLocationForQuery)

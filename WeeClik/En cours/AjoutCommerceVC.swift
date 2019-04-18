@@ -53,7 +53,7 @@ class AjoutCommerceVC: UITableViewController {
     var promotionsCommerce  = "promotions"
     
     // IndexPath pour les photos & videos
-    var selectedRow : Int       = 0
+    var selectedRow      : Int  = 0
     var videoSelectedRow : Int  = 0
     
     override func viewDidLoad() {
@@ -92,7 +92,7 @@ class AjoutCommerceVC: UITableViewController {
         self.refreshUI()
     }
     
-    func refreshUIPaymentStatus(){
+    func refreshUIPaymentStatus() {
         if editingMode {
             // Modification commerce existant
             self.tableView.tableHeaderView?.frame.size.height = 140
@@ -215,42 +215,17 @@ class AjoutCommerceVC: UITableViewController {
         var photos = [PFObject]()
 //        var videos = [PFObject]()
         
-        // Sauvegarde du commerce
+        // [1] Sauvegarde du commerce
         commerceIdToSave =  self.saveCommerce()
         
-        // Sauvegarde des photos
+        // [2] Sauvegarde des photos
         photos = self.savePhotosWithCommerce(commerceId: commerceIdToSave)
         
-        // Sauvegarde des videos
+        // [3] Sauvegarde des videos
         self.saveVideosWithCommerce(commerceId: commerceIdToSave)
 //        videos = self.saveVideosWithCommerce(commerceId: commerceIdToSave)
         
-        
-        geocoder.geocodeAddressString(getCommerceFromInfos().adresse) { (placemarks, error) in
-            
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                if let placemarks = placemarks, placemarks.count > 0 {
-                    if let location = placemarks.first?.location {
-                        print("location : \(location.debugDescription)")
-                        if self.loadedFromBAAS {
-                            let query = PFQuery(className: "Commerce")
-                            query.whereKey("objectId", equalTo: self.saveCommerce())
-                            if let com = try? query.getFirstObject() {
-                                com["location"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                                com.saveInBackground()
-                            }
-                        } else {
-                            self.getCommerceFromInfos().location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                        }
-                    }
-                }
-            }
-        }
-        
-        
-        // Mise a jour du commerce avec les photos & videos uploadés
+        // [4] Mise a jour du commerce avec les photos & videos uploadés
         self.refreshCommerceMedia(commerceId: commerceIdToSave, photos: photos)
     }
     
@@ -259,18 +234,33 @@ class AjoutCommerceVC: UITableViewController {
         let fetchComm = getCommerceFromInfos()
         let commerceToSave = fetchComm.getPFObject(objectId: self.objectIdCommerce, fromBaas: self.loadedFromBAAS)
         
-        
-        
         do {
             try commerceToSave.save()
         } catch {
             print("Erreur : \(error)")
         }
+        
+        // Update location from adresse
+        geocoder.geocodeAddressString(fetchComm.adresse) { (placemarks, error) in
+            
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let placemarks = placemarks, placemarks.count > 0 {
+                    if let location = placemarks.first?.location {
+                        print("location : \(location.debugDescription)")
+                        if self.loadedFromBAAS {
+                            commerceToSave["location"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                            commerceToSave.saveInBackground()
+                        } else {
+                            self.getCommerceFromInfos().location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                        }
+                    }
+                }
+            }
+        }
+        
         return commerceToSave.objectId!
-    }
-    
-    func updateGeolocationOfCommerce(commerce: Commerce, lat: Double, long: Double) {
-        commerce.saveLocation(lat: lat, long: long)
     }
     
     func saveVideosWithCommerce(commerceId : String) {
@@ -332,11 +322,6 @@ class AjoutCommerceVC: UITableViewController {
                                 }, progressBlock: { (progress32) in
                                     print("Progress : \(progress32)%")
                                 })
-                                
-                                
-                                
-                                
-                                
                                 
                             } catch  {
                                 print("exception catch at block - while uploading video")

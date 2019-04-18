@@ -14,11 +14,12 @@ def projectPods
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
     pod 'Parse', '~> 1.17.2'
-    # pod 'Parse', '~> 1.16'
     pod 'Parse/UI'
     
     # Firebase + Fabric integration
     pod 'Firebase/Core'
+    pod 'Firebase/Performance'
+    
     pod 'Fabric', '~> 1.9.0'
     pod 'Crashlytics', '~> 3.12.0'
     
@@ -27,7 +28,7 @@ def projectPods
     pod 'FBSDKShareKit'
     pod 'FBSDKLoginKit'
     
-    pod 'Parse/FacebookUtils' #, '~> 1.11'
+    pod 'Parse/FacebookUtils'
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.0'
@@ -88,6 +89,10 @@ def projectPods
     pod 'AsyncSwift'
     # Video Player
     pod 'MobilePlayer', :git => 'https://github.com/weeclik/mobileplayer-ios.git'
+    
+    # In App Purchase (IAP) Libs
+    pod 'SwiftyStoreKit', '~> 0.14.2'
+    
     
     ################################
     ################################

@@ -40,7 +40,7 @@ final class MobilePlayerControlsView: UIView {
     if topBar.elements.count == 0 {
       topBar.addElement(usingConfig: ButtonConfig(dictionary: ["type": "button", "identifier": "close"]))
       topBar.addElement(usingConfig: LabelConfig(dictionary: ["type": "label", "identifier": "title"]))
-      //topBar.addElement(usingConfig: ButtonConfig(dictionary: ["type": "button", "identifier": "action"]))
+      topBar.addElement(usingConfig: ButtonConfig(dictionary: ["type": "button", "identifier": "action"]))
     }
     addSubview(topBar)
     if bottomBar.elements.count == 0 {
@@ -58,43 +58,45 @@ final class MobilePlayerControlsView: UIView {
 
   override func layoutSubviews() {
     let size = bounds.size
-    
-    var topSafeAreaHeight: CGFloat = 0
-    var bottomSafeAreaHeight: CGFloat = 0
-    
+
+    let iPhoneX = UIDevice().userInterfaceIdiom == .phone && (UIScreen.main.nativeBounds.height == 2436 || UIScreen.main.nativeBounds.height == 1792 || UIScreen.main.nativeBounds.height == 2688)
+    let landscape = UIDevice.current.orientation.isLandscape
+    var topSafeAreaHeight: CGFloat = 0.0
+    var bottomSafeAreaHeight: CGFloat = 0.0
+
     if #available(iOS 11.0, *) {
         let window = UIApplication.shared.windows[0]
         let safeFrame = window.safeAreaLayoutGuide.layoutFrame
         topSafeAreaHeight = safeFrame.minY
         bottomSafeAreaHeight = window.frame.maxY - safeFrame.maxY
     }
-    
+
     previewImageView.frame = bounds
     activityIndicatorView.sizeToFit()
     activityIndicatorView.frame.origin = CGPoint(
-      x: (size.width - activityIndicatorView.frame.size.width) / 2,
-      y: (size.height - activityIndicatorView.frame.size.height) / 2)
+        x: (size.width - activityIndicatorView.frame.size.width) / 2,
+        y: (size.height - activityIndicatorView.frame.size.height) / 2)
     topBar.sizeToFit()
     topBar.frame = CGRect(
-      x: 0,
-      y: controlsHidden ? -topBar.frame.size.height : topSafeAreaHeight,
-      width: size.width,
-      height: topBar.frame.size.height)
+        x: (iPhoneX && landscape) ? 44 : 0,
+        y: controlsHidden ? -topBar.frame.size.height : topSafeAreaHeight,
+        width: size.width - ((iPhoneX && landscape) ? 88 : 0),
+        height: topBar.frame.size.height)
     topBar.alpha = controlsHidden ? 0 : 1
     bottomBar.sizeToFit()
     bottomBar.frame = CGRect(
-      x: 0,
-      y: size.height - (controlsHidden ? 0 : bottomBar.frame.size.height + bottomSafeAreaHeight),
-      width: size.width,
-      height: bottomBar.frame.size.height)
+        x: (iPhoneX && landscape) ? 44 : 0,
+        y: size.height - (controlsHidden ? 0 : bottomBar.frame.size.height + bottomSafeAreaHeight),
+        width: size.width - ((iPhoneX && landscape) ? 88 : 0),
+        height: bottomBar.frame.size.height)
     bottomBar.alpha = controlsHidden ? 0 : 1
     overlayContainerView.frame = CGRect(
-      x: 0,
-      y: controlsHidden ? 0 : topBar.frame.size.height,
-      width: size.width,
-      height: size.height - (controlsHidden ? 0 : (topBar.frame.size.height + bottomBar.frame.size.height)))
+        x: 0,
+        y: controlsHidden ? 0 : topBar.frame.size.height,
+        width: size.width,
+        height: size.height - (controlsHidden ? 0 : (topBar.frame.size.height + bottomBar.frame.size.height)))
     for overlay in overlayContainerView.subviews {
-      overlay.frame = overlayContainerView.bounds
+        overlay.frame = overlayContainerView.bounds
     }
     super.layoutSubviews()
   }
