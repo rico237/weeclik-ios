@@ -283,6 +283,10 @@ class HelperAndKeys {
         return true
     }
     
+    static var isPhoneX: Bool {
+        return UIDevice.isIphoneX
+    }
+    
     static func handleParseError(error: NSError) -> String{
         switch error.code {
         case PFErrorCode.errorConnectionFailed.rawValue :

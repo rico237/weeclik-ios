@@ -40,6 +40,8 @@ enum StatutType: Int {
 @objc(Commerce)
 public class Commerce: NSObject , NSCoding {
     
+    static let PurchaseNotification = "WeeclikProductsPurchaseNotification"
+    
     var nom         : String = ""
     var owner       : PFUser? = nil
     var statut      : StatutType = .unknown
@@ -53,6 +55,7 @@ public class Commerce: NSObject , NSCoding {
     var siteWeb     : String = ""
     var promotions  : String = ""
     var descriptionO: String = ""
+    var brouillon   : Bool   = true
     
     var thumbnail   : PFFileObject? = nil
     
@@ -98,6 +101,7 @@ public class Commerce: NSObject , NSCoding {
         if let siteWeb    = parseObject["siteWeb"] as? String {self.siteWeb = siteWeb}
         if let adresse    = parseObject["adresse"] as? String {self.adresse = adresse}
         if let descriptionO = parseObject["description"] as? String {self.descriptionO = descriptionO}
+        if let brouillon = parseObject["brouillon"] as? Bool {self.brouillon = brouillon}
         if let promotions = parseObject["promotions"] as? String {self.promotions = promotions}
         
         if let statutP  = parseObject["statutCommerce"] {self.statut = StatutType(rawValue: statutP as! Int)!}
@@ -125,7 +129,7 @@ public class Commerce: NSObject , NSCoding {
     
     override public var description: String {
         get {
-            return "Commerce {\n\t Nom : \(self.nom)\n\t Type : \(self.type)\n\t Partages : \(self.partages)\n\t Id : \(self.objectId)\n}";
+            return "Commerce {\n\t Nom : \(self.nom)\n\t Type : \(self.type)\n\t Partages : \(self.partages)\n\t Id : \(String(describing: self.objectId))\n}";
         }
     }
     
@@ -152,6 +156,7 @@ public class Commerce: NSObject , NSCoding {
             object["siteWeb"] = siteWeb
             object["promotions"] = promotions
             object["description"] = descriptionO
+            object["brouillon"] = brouillon
             object["owner"] = owner
             return object
         }
@@ -168,6 +173,89 @@ public class Commerce: NSObject , NSCoding {
         }
     }
     
+    public static func daysRemainingOnSubscription() -> Int {
+        if let expiryDate = UserSettings.shared.expirationDate {
+            return Calendar.current.dateComponents([.day], from: Date(), to: expiryDate).day!
+        }
+        return 0
+    }
+    
+    public static func getExpiryDateString() -> String {
+        let remaining = daysRemainingOnSubscription()
+        if remaining > 0, let expiryDate = UserSettings.shared.expirationDate {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            return "Subscribed! \nExpires: \(dateFormatter.string(from: expiryDate)) (\(remaining) Days)"
+        }
+        return "Not Subscribed"
+    }
+    
+    public static func syncExpiration(local: Date?, completion: @escaping (_ object: PFObject?) -> ()) {
+        // Query Parse for expiration date.
+        
+        guard let user = PFUser.current(),
+            let userID = user.objectId,
+            user.isAuthenticated else {
+                return
+        }
+        
+        
+        let query = PFUser.query()
+        query!.getObjectInBackground(withId: userID) {
+            object, error in
+            
+            let parseExpiration = object?[expirationDateKey] as? Date
+            
+            // Get to latest date between Parse and local.
+            var latestDate: Date?
+            if parseExpiration == nil {
+                latestDate = local
+            } else if local == nil {
+                latestDate = parseExpiration
+            } else if parseExpiration!.compare(local!) == .orderedDescending {
+                latestDate = parseExpiration
+            } else {
+                latestDate = local
+            }
+            
+            if let latestDate = latestDate {
+                // Update local
+                UserSettings.shared.expirationDate = latestDate
+                
+                // See if subscription valid
+                if latestDate.compare(Date()) == .orderedDescending {
+                    //TODO: do someting
+                }
+            }
+            
+            completion(object)
+        }
+    }
+    private static func handleMonthlySubscription(months: Int) {
+        // Update local and Parse with new subscription.
+        
+        syncExpiration(local: UserSettings.shared.expirationDate) {
+            object in
+            
+            // Increase local
+            UserSettings.shared.increaseRandomExpirationDate(by: months)
+            
+            // Update Parse with extended purchase
+            object?[expirationDateKey] = UserSettings.shared.expirationDate
+            object?.saveInBackground()
+            
+        }
+        
+    }
+    
+    public static func paidUp() -> Bool {
+        var paidUp = false
+        if self.daysRemainingOnSubscription() > 0 {
+            paidUp = true
+        }
+        return paidUp
+    }
+    
     // Encoding Functions
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(nom, forKey: "nameComm")
@@ -180,6 +268,7 @@ public class Commerce: NSObject , NSCoding {
         aCoder.encode(siteWeb, forKey: "sitewebComm")
         aCoder.encode(promotions, forKey: "promotionsComm")
         aCoder.encode(descriptionO, forKey: "descriptionComm")
+        aCoder.encode(brouillon, forKey: "brouillon")
         aCoder.encode(objectId, forKey: "objectIdComm")
 
         // Optionnels
@@ -202,7 +291,8 @@ public class Commerce: NSObject , NSCoding {
         siteWeb = aDecoder.decodeObject (forKey: "sitewebComm") as! String
         promotions = aDecoder.decodeObject (forKey: "promotionsComm") as! String
         descriptionO = aDecoder.decodeObject (forKey: "descriptionComm") as! String
-        objectId = aDecoder.decodeObject (forKey: "objectIdComm") as! String
+        brouillon = aDecoder.decodeBool(forKey: "brouillon")
+        objectId = (aDecoder.decodeObject (forKey: "objectIdComm") as! String)
 
         // Optionnels
         if let loc = aDecoder.decodeObject(forKey: "locationComm") {self.location = loc as? PFGeoPoint}

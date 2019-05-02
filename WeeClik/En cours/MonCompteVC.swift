@@ -10,15 +10,17 @@ import UIKit
 import Parse
 import SVProgressHUD
 import SwiftyStoreKit
+import SPLarkController
 
 class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
     var hasPaidForNewCommerce = false   // Permet de savoir si on peut créer un nouveau commerce vers la BDD
+    var isAdminUser = false
     
     var commerces : [PFObject]! = []    // La liste des commerces dans le BAAS
     var currentUser = PFUser.current()  // Utilisateur connecté
     
-    let purchasedProductID = "rFK3UKsB" // TODO: replace
+    let purchasedProductID = "abo.sans.renouvellement" // TODO: replace
     
     @IBOutlet weak var nouveauCommerceButton: UIButton!
     @IBOutlet weak var imageProfil : UIImageView!
@@ -37,10 +39,22 @@ class MonCompteVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // TODO: remove (test purpose)
 //        isPro = true
+        isAdminUser = true
         isProUpdateUI()
         
-        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
+        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:))), UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsPanel))]
+    }
+    
+    @objc func showSettingsPanel(){
+        let controller = UIViewController()
+        let transitionDelegate = SPLarkTransitioningDelegate()
+        transitionDelegate.customHeight = 35
+        controller.transitioningDelegate = transitionDelegate
+        controller.modalPresentationStyle = .custom
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        self.present(controller, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +68,14 @@ class MonCompteVC: UIViewController {
         
         if let current = PFUser.current() {
             self.currentUser = current
+            
+            // TODO: bouton uniquement pour les admins
+//            if let isAdminUser = current["isAdmin"] as? Bool {
+//                if isAdminUser {
+//                    // true
+//
+//                }
+//            }
             
             if let proUser = current["isPro"] as? Bool {
                 // isPro is set
@@ -76,15 +98,29 @@ class MonCompteVC: UIViewController {
     }
     
     func isProUpdateUI(){
-        self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+//        print("Bouton height \(isPro)")
+//        print("Is iPhone X : \(HelperAndKeys.isPhoneX)")
         
-        if HelperAndKeys.hasSafeArea {
-            self.leftButtonConstraint.constant = 16
-            self.rightButtonConstraint.constant = 16
+        if self.imageProfil != nil {
+            self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         }
-        print("Bouton height \(isPro)")
-        self.buttonHeight.constant = isPro ? 50 : 0
-        self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment" : "Vous n'avez pour le moment partagé aucun commerce"
+        
+        if self.leftButtonConstraint != nil {
+            self.leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 16 : 0
+        }
+        
+        if self.rightButtonConstraint != nil {
+            self.rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 16 : 0
+        }
+        
+        if self.buttonHeight != nil {
+            self.buttonHeight.constant = isPro ? 50 : 0
+        }
+
+        if self.noCommercesLabel != nil {
+            self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment" : "Vous n'avez pour le moment partagé aucun commerce"
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -190,13 +226,15 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 // Navigation related
 extension MonCompteVC {
 //    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+//        print("Identifier \(identifier)")
+//
 //        // Permet de verifier si l'user a payer avant la création d'un commerce
 //        if identifier == "ajoutCommerce" {
 //            buyProduct()
 //            return hasPaidForNewCommerce
 //        }
 //
-//        return shouldPerformSegue(withIdentifier: identifier, sender: sender)
+//        return true
 //    }
     
     func buyProduct(){

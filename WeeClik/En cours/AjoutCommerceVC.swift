@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 import Parse
-import TLPhotoPicker
+import TLPhotoPicker  // TODO: Regarder sur le github de la lib si je peux récup facilement le fichier video pour l'upload
 import Photos
 import AVKit
 import SVProgressHUD
@@ -231,13 +231,14 @@ class AjoutCommerceVC: UITableViewController {
     
     func saveCommerce() -> String{
         // Sauvegarde finale pour paiement
-        let fetchComm = getCommerceFromInfos()
-        let commerceToSave = fetchComm.getPFObject(objectId: self.objectIdCommerce, fromBaas: self.loadedFromBAAS)
+        let fetchComm = getCommerceFromInfos() // Commerce Object
+        let commerceToSave = fetchComm.getPFObject(objectId: self.objectIdCommerce, fromBaas: self.loadedFromBAAS) // PFObject
         
         do {
             try commerceToSave.save()
         } catch {
             print("Erreur : \(error)")
+            HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur", viewController: self)
         }
         
         // Update location from adresse
@@ -398,7 +399,8 @@ class AjoutCommerceVC: UITableViewController {
                 
                 commerceToSave["photoSlider"] = photos
                 commerceToSave["thumbnailPrincipal"] = photos[0]
-//                commerceToSave["videos"] = videos
+                commerceToSave["videos"] = []
+//                commerceToSave["video"] = video
                 try commerceToSave.save()
                 
             } catch  {

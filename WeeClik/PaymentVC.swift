@@ -13,7 +13,7 @@ import Parse
 
 class PaymentVC: UIViewController, IAPHandlerDelegate {
     
-    let storeProductId = "rFK3UKsB"
+    let storeProductId = "abo.sans.renouvellement"
     var purchaseProducts = [SKProduct]()
     var parseProducts = [PFProduct]()
     var didFinishFetchProducts = false
@@ -74,12 +74,20 @@ class PaymentVC: UIViewController, IAPHandlerDelegate {
     }
     
     func handleSuccessPayment(){
+        // [1] Update stats with purchase
         // Update Stats for billing
         let statPurchase = PFObject(className: "StatsPurchase")
         statPurchase["user"] = currentUser!
         
         // Upload to server
         statPurchase.saveEventually()
+        
+        // [2] Create a new commerce for user
+        let newCommerce = PFObject(className: "Commerce")
+        newCommerce["owner"] = currentUser!
+        
+        // Upload to server
+        newCommerce.saveEventually()
     }
     
     func updateCGUText(){
@@ -128,7 +136,8 @@ class PaymentVC: UIViewController, IAPHandlerDelegate {
         if let navigationCntrl = self.navigationController {
             // return to product or profil
 //            navigationCntrl.popToViewController(UIViewController, animated: true)
-            navigationCntrl.popToRootViewController(animated: true)
+//            navigationCntrl.popToRootViewController(animated: true)
+            navigationCntrl.popViewController(animated: true)
         } else {
             self.dismiss(animated: true, completion: nil)
         }

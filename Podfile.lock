@@ -3,6 +3,8 @@ PODS:
   - AppImageViewer (1.0.10):
     - SDWebImage (~> 4.0)
   - AsyncSwift (2.0.4)
+  - AwaitKit (5.1.0):
+    - PromiseKit (~> 6)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -146,6 +148,7 @@ PODS:
   - Sparrow/Core (1.1.0)
   - Sparrow/Modules/RequestPermission (1.1.0):
     - Sparrow/Core
+  - SPLarkController (1.0.5)
   - SVProgressHUD (2.2.5)
   - SwiftMultiSelect (0.2.4)
   - SwiftyStoreKit (0.14.2)
@@ -158,6 +161,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
   - AsyncSwift
+  - AwaitKit (~> 5.1.0)
   - Bolts (~> 1.9)
   - BulletinBoard (~> 1.3.0)
   - Compass
@@ -188,6 +192,7 @@ DEPENDENCIES:
   - ReachabilitySwift
   - SDWebImage (~> 4.0)
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
+  - SPLarkController (from `https://github.com/weeclik/SPLarkController.git`)
   - SVProgressHUD (~> 2.1)
   - SwiftMultiSelect (from `https://github.com/rico237/SwiftMultiSelect.git`)
   - SwiftyStoreKit (~> 0.14.2)
@@ -200,6 +205,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AsyncSwift
+    - AwaitKit
     - Bolts
     - BulletinBoard
     - Compass
@@ -254,6 +260,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/weeclik/mobileplayer-ios.git
   Sparrow:
     :git: https://github.com/IvanVorobei/Sparrow.git
+  SPLarkController:
+    :git: https://github.com/weeclik/SPLarkController.git
   SwiftMultiSelect:
     :git: https://github.com/rico237/SwiftMultiSelect.git
   TPKeyboardAvoiding:
@@ -280,6 +288,9 @@ CHECKOUT OPTIONS:
   Sparrow:
     :commit: d3becbdd5dbc982a53a461188ea35b818342a9ed
     :git: https://github.com/IvanVorobei/Sparrow.git
+  SPLarkController:
+    :commit: 4152903fd29b4aab5346b25af0dca255be3b6cc4
+    :git: https://github.com/weeclik/SPLarkController.git
   SwiftMultiSelect:
     :commit: a0eea8ebef5a7bb2e277eda91d938289fc763e23
     :git: https://github.com/rico237/SwiftMultiSelect.git
@@ -294,6 +305,7 @@ SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
   AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
+  AwaitKit: a8a3d8982097ee09ac75f5c5d3952fbcc2f26f1c
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 23c9d98cac654fd484d76f2a0655669974e9bd9c
   Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
@@ -334,6 +346,7 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
+  SPLarkController: ccf7c0b7337db271d6fbf55607bf4420ebad121c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f
   SwiftyStoreKit: cc399645796b094022fb650c148a0aed25995873
@@ -342,6 +355,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: 9b12cf1208f3a8eec72553eba48caa014c77a0b5
+PODFILE CHECKSUM: c8942cf2832678c763c762e7ef922ba043df1796
 
 COCOAPODS: 1.6.1

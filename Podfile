@@ -86,12 +86,16 @@ def projectPods
     # Many Usefull UI/UX Elements
     pod 'Material', '~> 2.0'
     # async functions
-    pod 'AsyncSwift'
+    pod 'AsyncSwift'                # Surement à supprimer & utiliser AwaitKit -v
+    pod 'AwaitKit', '~> 5.1.0'
     # Video Player
     pod 'MobilePlayer', :git => 'https://github.com/weeclik/mobileplayer-ios.git'
     
     # In App Purchase (IAP) Libs
     pod 'SwiftyStoreKit', '~> 0.14.2'
+    
+    # Settings panel
+    pod 'SPLarkController', :git => 'https://github.com/weeclik/SPLarkController.git'
     
     
     ################################

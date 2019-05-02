@@ -216,7 +216,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="35A-14-d76" kind="showDetail" identifier="ajoutCommerce" id="dNP-Zv-zzE"/>
+                                    <segue destination="dPQ-GF-S7O" kind="showDetail" id="ueS-iX-mwU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1061,17 +1061,20 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
             <point key="canvasLocation" x="5365" y="-1546"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="Ftg-rl-QfP">
+        <scene sceneID="e8f-wY-gQp">
             <objects>
-                <navigationController id="euI-9c-d2t" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tUu-6l-BtC">
+                <navigationController id="dPQ-GF-S7O" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4dJ-lp-Whf">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="ImN-HC-CpM" kind="relationship" relationship="rootViewController" id="vHo-LJ-Qj1"/>
+                    </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZNi-z4-I6E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="svs-TV-92y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2977" y="-292"/>
+            <point key="canvasLocation" x="9259" y="-899"/>
         </scene>
         <!--PaymentVC-->
         <scene sceneID="cCi-hk-vA8">
@@ -1132,7 +1135,6 @@ Annulez à tout moment.</string>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="processPurchase:" destination="ImN-HC-CpM" eventType="touchUpInside" id="RuS-tI-lXE"/>
-                                                            <segue destination="WWR-1x-vp5" kind="show" identifier="resultPayment" id="7bG-bD-bOk"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="feH-zJ-iFY">
@@ -1217,7 +1219,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bHD-KF-HYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3830" y="-293"/>
+            <point key="canvasLocation" x="10186" y="-1255"/>
         </scene>
         <!--After PaymentVC-->
         <scene sceneID="yQL-EW-fuD">
@@ -1249,7 +1251,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hcF-Mo-QUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4545" y="-293"/>
+            <point key="canvasLocation" x="10923" y="-1255"/>
         </scene>
     </scenes>
     <resources>
@@ -1261,6 +1263,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
         <image name="Logout_icon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="vHo-LJ-Qj1"/>
         <segue reference="AJE-VH-nVt"/>
     </inferredMetricsTieBreakers>
 </document>
