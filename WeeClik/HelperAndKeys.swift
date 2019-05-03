@@ -58,6 +58,28 @@ class HelperAndKeys {
         return "filterPreference"
     }
     
+    static func getPaymentKey() -> String {
+        return "payment_enabled"
+    }
+    
+    static func setUserDefaultsValue(value: Any, forKey key:String) {
+        let use = UserDefaults.standard
+        use.set(value, forKey: key)
+        use.synchronize()
+    }
+    
+    static func getUserDefaultsValue(forKey key: String, withExpectedType expectedType: String) -> Any? {
+        let use = UserDefaults.standard; let type = expectedType.lowercased()
+        
+        if type == "bool" {
+            return use.bool(forKey: key)
+        } else if type == "string" {
+            return use.string(forKey: key)
+        }
+        
+        return nil
+    }
+    
     static func getPrefFiltreLocation() -> Bool{
         let use = UserDefaults.standard
         return use.bool(forKey: "filterPreference")

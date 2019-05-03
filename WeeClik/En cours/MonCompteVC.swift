@@ -16,7 +16,7 @@ class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
     var hasPaidForNewCommerce = false   // Permet de savoir si on peut créer un nouveau commerce vers la BDD
     var isAdminUser = false
-    var testPayment = false
+    var paymentEnabled = true
     
     var commerces : [PFObject]! = []    // La liste des commerces dans le BAAS
     var currentUser = PFUser.current()  // Utilisateur connecté
@@ -43,9 +43,13 @@ class MonCompteVC: UIViewController {
         // TODO: remove (test purpose)
 //        isPro = true
         isAdminUser = true
+        
         isProUpdateUI()
         if isAdminUser {
-            self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:))), UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsPanel))]
+            self.navigationItem.leftBarButtonItems = [
+                UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:))),
+                UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsPanel))
+            ]
         } else {
             self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
         }
@@ -53,17 +57,23 @@ class MonCompteVC: UIViewController {
     }
     
     @objc func showSettingsPanel(){
-        let controller = UIViewController()
+        let controller = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil)
+        
         let transitionDelegate = SPLarkTransitioningDelegate()
-        transitionDelegate.customHeight = 35
+        transitionDelegate.customHeight = 185
         controller.transitioningDelegate = transitionDelegate
         controller.modalPresentationStyle = .custom
         controller.modalPresentationCapturesStatusBarAppearance = true
-        self.present(controller, animated: true, completion: nil)
+        self.present(controller, animated: true, completion: {
+            print("completion finished")
+            SPLarkController.updatePresentingController(parent: self)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        print("viewwill")
         
         do {
             try PFUser.current()?.fetch()
@@ -131,6 +141,8 @@ class MonCompteVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        print("User is pro \(currentUser!["isPro"] as! Bool)")
+        print("view did")
+        paymentEnabled = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? true
     }
     
     @IBAction func changeImageProfil(){
@@ -231,9 +243,9 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 // Navigation related
 extension MonCompteVC {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        print("Identifier \(identifier)")
+        print("Identifier \(identifier) & paymentEnabled \(paymentEnabled)")
 
-        if testPayment {
+        if paymentEnabled {
             // Permet de verifier si l'user a payer avant la création d'un commerce
             if identifier == "ajoutCommerce" {
                 buyProduct()

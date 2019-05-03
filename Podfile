@@ -37,6 +37,11 @@ def projectPods
     
     # Add promises like in javascript
     pod 'PromiseKit', '~> 6.0'
+    # async functions
+    pod 'AsyncSwift'                # Surement à supprimer & utiliser AwaitKit -v
+    pod 'AwaitKit', '~> 5.1.0'
+    
+    
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 4.7'
     
@@ -85,17 +90,18 @@ def projectPods
     pod 'AppImageViewer', :git => 'https://github.com/weeclik/AppImageViewer.git'
     # Many Usefull UI/UX Elements
     pod 'Material', '~> 2.0'
-    # async functions
-    pod 'AsyncSwift'                # Surement à supprimer & utiliser AwaitKit -v
-    pod 'AwaitKit', '~> 5.1.0'
     # Video Player
     pod 'MobilePlayer', :git => 'https://github.com/weeclik/mobileplayer-ios.git'
     
     # In App Purchase (IAP) Libs
     pod 'SwiftyStoreKit', '~> 0.14.2'
+    #Manipulation de dates
+    pod 'SwiftDate', '~> 5.0'
     
     # Settings panel
     pod 'SPLarkController', :git => 'https://github.com/weeclik/SPLarkController.git'
+    # Observable data & nsnotificationcenrter
+    pod 'Hanson'
     
     
     ################################
@@ -114,8 +120,7 @@ def projectPods
     #pod 'SwiftMessages'
     #pod 'SwiftEntryKit', '1.0.1'                     # Use this    <--------
     
-    #Manipulation de dates
-    #pod 'SwiftDate', '~> 5.0'
+    
     # Mailgun Librairie (envoi de mails)
     #pod 'SwiftMailgun', '~> 1.0'
     

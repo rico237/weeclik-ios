@@ -46,6 +46,8 @@
 		1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */; };
 		1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */; };
 		1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */; };
+		1F830EB6227B3411003E8F1F /* AdminMonProfilSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */; };
+		1F830EB7227B3411003E8F1F /* AdminMonProfilSettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */; };
 		1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89A11A2239B470007952CC /* ContactTVCell.swift */; };
 		1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */; };
 		1F8F0882223F128C008177C4 /* loader-success-failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F0881223F128C008177C4 /* loader-success-failed.json */; };
@@ -167,6 +169,8 @@
 		1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccueilCommerces.swift; sourceTree = "<group>"; };
 		1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperAndKeys.swift; sourceTree = "<group>"; };
 		1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeClikProducts.swift; sourceTree = "<group>"; };
+		1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMonProfilSettingsVC.swift; sourceTree = "<group>"; };
+		1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminMonProfilSettingsVC.xib; sourceTree = "<group>"; };
 		1F89A11A2239B470007952CC /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		1F8F0881223F128C008177C4 /* loader-success-failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-success-failed.json"; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				1FC42C48223ECD7100AB0C39 /* Paiement */,
 				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
 				1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */,
+				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
+				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
 			);
 			path = "En cours";
 			sourceTree = "<group>";
@@ -697,6 +703,7 @@
 				1FF5C6282236EE1800D936B4 /* CreationGroupes.storyboard in Resources */,
 				1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */,
 				1F8F0882223F128C008177C4 /* loader-success-failed.json in Resources */,
+				1F830EB7227B3411003E8F1F /* AdminMonProfilSettingsVC.xib in Resources */,
 				1FA473351F1EE7E400D2A306 /* Assets.xcassets in Resources */,
 				1FA473331F1EE7E400D2A306 /* Main.storyboard in Resources */,
 				1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */,
@@ -777,6 +784,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/HWAlertsPickers/HWAlertsPickers.framework",
+				"${BUILT_PRODUCTS_DIR}/Hanson/Hanson.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
@@ -792,6 +800,7 @@
 				"${BUILT_PRODUCTS_DIR}/SPLarkController/SPLarkController.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Sparrow/Sparrow.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework",
@@ -822,6 +831,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HWAlertsPickers.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hanson.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
@@ -837,6 +847,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPLarkController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparrow.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMultiSelect.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLPhotoPicker.framework",
@@ -903,6 +914,7 @@
 				1F5DE54C1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift in Sources */,
 				1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */,
 				1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */,
+				1F830EB6227B3411003E8F1F /* AdminMonProfilSettingsVC.swift in Sources */,
 				1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */,
 				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,
 				1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */,

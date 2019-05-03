@@ -154,6 +154,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Hanson.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Hue.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -255,6 +260,11 @@
 			<false/>
 		</dict>
 		<key>Sparrow.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftDate.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
