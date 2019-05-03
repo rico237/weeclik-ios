@@ -259,6 +259,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SecureDefaults.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Sparrow.xcscheme</key>
 		<dict>
 			<key>isShown</key>

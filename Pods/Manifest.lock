@@ -146,6 +146,7 @@ PODS:
   - SDWebImage (4.4.1):
     - SDWebImage/Core (= 4.4.1)
   - SDWebImage/Core (4.4.1)
+  - SecureDefaults (1.0.3)
   - Sparrow/Core (1.1.0)
   - Sparrow/Modules/RequestPermission (1.1.0):
     - Sparrow/Core
@@ -194,6 +195,7 @@ DEPENDENCIES:
   - PromiseKit (~> 6.0)
   - ReachabilitySwift
   - SDWebImage (~> 4.0)
+  - SecureDefaults (= 1.0.3)
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
   - SPLarkController (from `https://github.com/weeclik/SPLarkController.git`)
   - SVProgressHUD (~> 2.1)
@@ -246,6 +248,7 @@ SPEC REPOS:
     - Protobuf
     - ReachabilitySwift
     - SDWebImage
+    - SecureDefaults
     - SVProgressHUD
     - SwiftDate
     - SwiftyStoreKit
@@ -352,6 +355,7 @@ SPEC CHECKSUMS:
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   SDWebImage: 47e9b5b925cbce75946c23f0c42dd19464189af4
+  SecureDefaults: 0c4ceefd81f5ea452d465f43499ae94108deeaca
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
   SPLarkController: ccf7c0b7337db271d6fbf55607bf4420ebad121c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -363,6 +367,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: fa1af5e6a2ae40f99b296b9f16664b6a04540155
+PODFILE CHECKSUM: 58076d3839050745b6806df8ffc8cfc777907058
 
 COCOAPODS: 1.6.1

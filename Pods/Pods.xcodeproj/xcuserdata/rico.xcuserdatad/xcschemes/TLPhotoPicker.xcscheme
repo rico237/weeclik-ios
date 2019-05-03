@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "77ADCE15F983BB41C31E7DB75EC353FA"
+               BlueprintIdentifier = "E64398F4A7F63A3EA573779BD2E98845"
                BuildableName = "TLPhotoPicker.framework"
                BlueprintName = "TLPhotoPicker"
                ReferencedContainer = "container:Pods.xcodeproj">

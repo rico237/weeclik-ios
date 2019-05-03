@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3DFDCFABBE69815BFFBD6A9273DD6B38"
+               BlueprintIdentifier = "674E568037B5E9D569753EA5C348B124"
                BuildableName = "ZKCarousel.framework"
                BlueprintName = "ZKCarousel"
                ReferencedContainer = "container:Pods.xcodeproj">
