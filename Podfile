@@ -103,6 +103,8 @@ def projectPods
     # Observable data & nsnotificationcenrter
     pod 'Hanson'
     
+    # UserDefaults with AES-256 encryption
+    pod 'SecureDefaults', '1.0.3' # Swift 5.0
     
     ################################
     ################################
@@ -123,10 +125,6 @@ def projectPods
     
     # Mailgun Librairie (envoi de mails)
     #pod 'SwiftMailgun', '~> 1.0'
-    
-    # UserDefaults with AES-256 encryption
-    #pod 'SecureDefaults', '1.0.3' # Swift 5.0
-    #pod 'SecureDefaults', '1.0.0' # Swift 4.2
     
     ###-------------MESSAGERIE--------------##
     
