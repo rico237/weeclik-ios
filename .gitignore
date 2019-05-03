@@ -78,3 +78,6 @@ fastlane/test_output
 iOSInjectionProject/
 
 \.DS_Store
+WeeClik.xcworkspace/xcuserdata/rico.xcuserdatad/UserInterfaceState.xcuserstate
+WeeClik.xcworkspace/xcuserdata/rico.xcuserdatad/*.xcuserstate
+*.xcuserstate

@@ -216,7 +216,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="dPQ-GF-S7O" kind="showDetail" id="ueS-iX-mwU"/>
+                                    <segue destination="35A-14-d76" kind="show" identifier="ajoutCommerce" id="lRF-7i-ZL4"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1263,7 +1263,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
         <image name="Logout_icon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vHo-LJ-Qj1"/>
+        <segue reference="UVY-Ff-im1"/>
         <segue reference="AJE-VH-nVt"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -35,13 +35,13 @@ extension UIDevice {
 
 extension UIImage {
     func isEqualToImage(image: UIImage) -> Bool {
-        let data1: Data = UIImageJPEGRepresentation(self, 1)!
-        let data2: Data = UIImageJPEGRepresentation(image, 1)!
+        let data1: Data = self.jpegData(compressionQuality: 1)!
+        let data2: Data = image.jpegData(compressionQuality: 1)!
         return data1 == data2
     }
     
     func isEqualToData(data: Data) -> Bool {
-        return UIImageJPEGRepresentation(self, 1) == data
+        return self.jpegData(compressionQuality: 1) == data
     }
 }
 

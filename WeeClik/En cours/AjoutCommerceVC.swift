@@ -299,7 +299,7 @@ class AjoutCommerceVC: UITableViewController {
                                 let pffile = PFFileObject(name: "video.mp4", data: videoData)
                                 
                                 let obj = PFObject(className: "Commerce_Videos")
-                                let thumbnail = PFFileObject(name: "thumbnail.jpg", data: UIImageJPEGRepresentation(self.thumbnailArray[i], 0.5)!)
+                                let thumbnail = PFFileObject(name: "thumbnail.jpg", data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!)
                                 
                                 obj["thumbnail"] = thumbnail
                                 obj["leCommerce"]  = commerceToSave
@@ -346,7 +346,7 @@ class AjoutCommerceVC: UITableViewController {
         for image in self.photoArray {
             if image != #imageLiteral(resourceName: "Plus_icon") {
                 let obj = PFObject(className: "Commerce_Photos")
-                let file = PFFileObject(name: "photo.jpg", data: UIImageJPEGRepresentation(image, 0.7)!)
+                let file = PFFileObject(name: "photo.jpg", data: image.jpegData(compressionQuality: 0.7)!)
                 
                 obj["photo"] = file
                 obj["commerce"] = commerceToSave

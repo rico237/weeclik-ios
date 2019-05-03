@@ -102,6 +102,7 @@ PODS:
   - GoogleUtilities/UserDefaults (5.5.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
+  - Hanson (1.2)
   - Hue (3.0.1)
   - HWAlertsPickers (1.0)
   - KJNavigationViewAnimation (0.1.0)
@@ -150,6 +151,7 @@ PODS:
     - Sparrow/Core
   - SPLarkController (1.0.5)
   - SVProgressHUD (2.2.5)
+  - SwiftDate (5.1.0)
   - SwiftMultiSelect (0.2.4)
   - SwiftyStoreKit (0.14.2)
   - TLPhotoPicker (1.3.9)
@@ -177,6 +179,7 @@ DEPENDENCIES:
   - Firebase/Performance
   - Floaty (~> 4.0.0)
   - Gallery (from `https://github.com/hyperoslo/Gallery.git`, branch `master`)
+  - Hanson
   - Hue (~> 3.0)
   - HWAlertsPickers (from `https://github.com/rico237/Alerts-Pickers.git`)
   - KJNavigationViewAnimation (from `https://github.com/KiranJasvanee/KJNavigationViewAnimation.git`)
@@ -194,6 +197,7 @@ DEPENDENCIES:
   - Sparrow/Modules/RequestPermission (from `https://github.com/IvanVorobei/Sparrow.git`)
   - SPLarkController (from `https://github.com/weeclik/SPLarkController.git`)
   - SVProgressHUD (~> 2.1)
+  - SwiftDate (~> 5.0)
   - SwiftMultiSelect (from `https://github.com/rico237/SwiftMultiSelect.git`)
   - SwiftyStoreKit (~> 0.14.2)
   - TLPhotoPicker (~> 1.3.4)
@@ -229,6 +233,7 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
+    - Hanson
     - Hue
     - KRLCollectionViewGridLayout
     - LGButton
@@ -242,6 +247,7 @@ SPEC REPOS:
     - ReachabilitySwift
     - SDWebImage
     - SVProgressHUD
+    - SwiftDate
     - SwiftyStoreKit
     - TLPhotoPicker
     - ZKCarousel
@@ -330,6 +336,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  Hanson: c1c3c653e348c0885d46c22747476c775c72de13
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   HWAlertsPickers: a1b97ae8d2d9bac780fad7808f67836eaf0113f4
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
@@ -348,6 +355,7 @@ SPEC CHECKSUMS:
   Sparrow: 86b8f0d7598dc52ff2b06bb1df05feb297d1821f
   SPLarkController: ccf7c0b7337db271d6fbf55607bf4420ebad121c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f
   SwiftyStoreKit: cc399645796b094022fb650c148a0aed25995873
   TLPhotoPicker: df8fc48fb85466680d2a41de8ab78f94b249e151
@@ -355,6 +363,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: e05ed07901a4732949fae62b84ef0e4a58cf74cb
 
-PODFILE CHECKSUM: c8942cf2832678c763c762e7ef922ba043df1796
+PODFILE CHECKSUM: fa1af5e6a2ae40f99b296b9f16664b6a04540155
 
 COCOAPODS: 1.6.1

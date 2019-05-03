@@ -16,8 +16,8 @@ import CRNotifications
 class HelperAndKeys {
     
     static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController){
-        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertControllerStyle.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { (action) -> Void in}
+        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in}
         alertViewController.addAction(defaultAction)
         viewController.present(alertViewController, animated: true, completion: nil)
     }
@@ -25,7 +25,7 @@ class HelperAndKeys {
     static func showSettingsAlert(withTitle title:String, withMessage message:String, presentFrom viewController:UIViewController){
         let alertController = UIAlertController (title: title, message: message, preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: "Réglages", style: .default) { (_) -> Void in
-            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {return}
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
             if UIApplication.shared.canOpenURL(settingsUrl) {UIApplication.shared.open(settingsUrl, completionHandler: nil)}
         }
         let cancelAction = UIAlertAction(title: "Annuler", style: .default, handler: nil)
@@ -56,6 +56,28 @@ class HelperAndKeys {
     
     static func getPrefFilterLocationKey() -> String{
         return "filterPreference"
+    }
+    
+    static func getPaymentKey() -> String {
+        return "payment_enabled"
+    }
+    
+    static func setUserDefaultsValue(value: Any, forKey key:String) {
+        let use = UserDefaults.standard
+        use.set(value, forKey: key)
+        use.synchronize()
+    }
+    
+    static func getUserDefaultsValue(forKey key: String, withExpectedType expectedType: String) -> Any? {
+        let use = UserDefaults.standard; let type = expectedType.lowercased()
+        
+        if type == "bool" {
+            return use.bool(forKey: key)
+        } else if type == "string" {
+            return use.string(forKey: key)
+        }
+        
+        return nil
     }
     
     static func getPrefFiltreLocation() -> Bool{
@@ -153,8 +175,8 @@ class HelperAndKeys {
     
     static func visitWebsite(site: String, controller: UIViewController){
         
-        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?", message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?", preferredStyle: UIAlertControllerStyle.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { (action) -> Void in
+        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?", message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?", preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in
             if let url = URL(string: site), UIApplication.shared.canOpenURL(url) {
                 if #available(iOS 10, *) {
                     UIApplication.shared.open(url)
@@ -163,7 +185,7 @@ class HelperAndKeys {
                 }
             }
         }
-        let cancelAction = UIAlertAction.init(title: "Annuler", style: UIAlertActionStyle.destructive) {(action) -> Void in}
+        let cancelAction = UIAlertAction.init(title: "Annuler", style: UIAlertAction.Style.destructive) {(action) -> Void in}
         alertViewController.addAction(cancelAction)
         alertViewController.addAction(defaultAction)
         controller.present(alertViewController, animated: true, completion: nil)
@@ -203,7 +225,7 @@ class HelperAndKeys {
         
         let regionDistance:CLLocationDistance = 10000
         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
         let options = [
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
             MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
