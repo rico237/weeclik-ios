@@ -106,13 +106,13 @@ class PaymentVC: UIViewController, IAPHandlerDelegate {
         legalTextView.isEditable = false
         let fullRange = NSMakeRange(0, attributedString.length)
         
-        attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: style, range: fullRange)
-        attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: 14), range: fullRange)
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: fullRange)
+        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 14), range: fullRange)
         
         legalTextView.linkTextAttributes = [
-            NSAttributedStringKey.foregroundColor.rawValue: UIColor.blue,
-            NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
-            ] as [String : Any]
+            NSAttributedString.Key.foregroundColor: UIColor.blue,
+            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
+            ] as [NSAttributedString.Key : Any]
         
         legalTextView.attributedText = attributedString
     }

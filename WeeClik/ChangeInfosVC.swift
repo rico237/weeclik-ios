@@ -47,7 +47,7 @@ class ChangeInfosVC: UIViewController {
         //        currentUser?.email = mailTF.text
         
         if fromCloud == false {
-            selectedData = UIImageJPEGRepresentation(self.profilPicture.image!, 0.7)!
+            selectedData = self.profilPicture.image!.jpegData(compressionQuality: 0.7)!
         }
         
         let profilPic = PFFileObject(name: "image_de_profil-"+(currentUser?.objectId)!, data: selectedData)

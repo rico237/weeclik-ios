@@ -245,7 +245,7 @@ extension DetailCommerceViewController{
         self.headerImage.isHidden = false
         self.view.backgroundColor = UIColor.white
         
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 70, 0)
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
         
         self.view.backgroundColor = HelperAndKeys.getBackgroundColor()
         
