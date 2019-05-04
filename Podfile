@@ -24,9 +24,9 @@ def projectPods
     pod 'Crashlytics', '~> 3.12.0'
     
     # Facebook integration
-    pod 'FBSDKCoreKit'
-    pod 'FBSDKShareKit'
-    pod 'FBSDKLoginKit'
+    pod 'FBSDKCoreKit', '4.33.0'
+    pod 'FBSDKShareKit', '4.33.0'
+    pod 'FBSDKLoginKit', '4.33.0'
     
     pod 'Parse/FacebookUtils'
     
@@ -43,33 +43,31 @@ def projectPods
     
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
-    pod 'Alamofire', '~> 4.7'
+    pod 'Alamofire', '~> 5.0.0-beta.5'
     
     # Animation RBnB Lottie
     pod 'lottie-ios', '~> 2.5.3'
     # Selection des photos et videos pour la création de commerce
-    pod 'Gallery', :git => 'https://github.com/hyperoslo/Gallery.git', :branch => 'master'
+    pod 'Gallery'
     # Demande de permissions
-    pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git'
+    #pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git' # Changé de git
+    pod 'SPPermission'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # Notification pour le partage de nouveau activé
     pod 'CRNotifications'
     # Carte pour les filtres
-    pod 'BulletinBoard', '~> 1.3.0'
+    pod 'BulletinBoard', '~> 3.0.0'
     # Scroll automatique pour faciliter l'utilisation du clavier
     pod 'TPKeyboardAvoiding', :git => 'https://github.com/michaeltyson/TPKeyboardAvoiding.git'
     # Choisir une photo dans la bibliothèque du téléphone
-    pod 'TLPhotoPicker', '~> 1.3.4'
-    # Actions et Alerts
-    # ou pod 'RLBAlertsPickers', '~> 1.0'
-    pod 'HWAlertsPickers', :git => 'https://github.com/rico237/Alerts-Pickers.git'
+    pod 'TLPhotoPicker', '~> 1.8.8' #, '1.3.9'
     # Acid buttons
     pod 'LGButton', '~> 1.0'
     # Palette de couleures
     pod 'Hue', '~> 3.0'
     # Boutton flottant
-    pod 'Floaty', '~> 4.0.0'
+    pod 'Floaty', '~> 4.2.0'
     # Message sous la barre de navigation
     pod 'Zingle', :git => 'https://github.com/hemangshah/Zingle.git'
     # Tableview quand il n'ya pas de donnés
@@ -77,13 +75,13 @@ def projectPods
     # Selection Multiple de contacts
     pod 'SwiftMultiSelect', :git => 'https://github.com/rico237/SwiftMultiSelect.git'
     # Pour la page recherche
-    pod 'Compose', '~> 1.2'
+    #pod 'Compose', '~> 1.2'
     # Pour de bonnes grille en fonction de l'écran
     pod 'KRLCollectionViewGridLayout', '~> 1.0'
     # Routing management
     pod 'Compass'
     # Permet de remonter le header au scroll  (Accueil)
-    pod 'KJNavigationViewAnimation', :git => 'https://github.com/KiranJasvanee/KJNavigationViewAnimation.git'
+    pod 'KJNavigationViewAnimation', :git => 'https://github.com/weeclik/KJNavigationViewAnimation.git'
     # Savoir si il y a internet
     pod 'ReachabilitySwift'
     # Détail & zoom des images
@@ -99,7 +97,7 @@ def projectPods
     pod 'SwiftDate', '~> 5.0'
     
     # Settings panel
-    pod 'SPLarkController', :git => 'https://github.com/weeclik/SPLarkController.git'
+    pod 'SPLarkController', '1.0.6'
     # Observable data & nsnotificationcenrter
     pod 'Hanson'
     

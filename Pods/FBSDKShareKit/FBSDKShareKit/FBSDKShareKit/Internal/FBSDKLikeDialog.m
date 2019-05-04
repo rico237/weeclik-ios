@@ -21,6 +21,7 @@
 #import "FBSDKCoreKit+Internal.h"
 #import "FBSDKShareConstants.h"
 #import "FBSDKShareDefines.h"
+#import "FBSDKShareError.h"
 
 @implementation FBSDKLikeDialog
 
@@ -61,9 +62,8 @@
 {
   NSError *error;
   if (![self canLike]) {
-    error = [NSError fbErrorWithDomain:FBSDKShareErrorDomain
-                                  code:FBSDKShareErrorDialogNotAvailable
-                               message:@"Like dialog is not available."];
+    error = [FBSDKShareError errorWithCode:FBSDKShareDialogNotAvailableErrorCode
+                                   message:@"Like dialog is not available."];
     [_delegate likeDialog:self didFailWithError:error];
     return NO;
   }
@@ -83,7 +83,7 @@
                                                                                  methodVersion:nil
                                                                                     parameters:parameters
                                                                                       userInfo:nil];
-  FBSDKBridgeAPIResponseBlock completionBlock = ^(FBSDKBridgeAPIResponse *response) {
+  FBSDKBridgeAPICallbackBlock completionBlock = ^(FBSDKBridgeAPIResponse *response) {
     [self _handleCompletionWithDialogResults:response.responseParameters error:response.error];
   };
 
@@ -97,8 +97,8 @@
                                                                                         parameters:parameters
                                                                                           userInfo:nil];
     void (^networkCompletionBlock)(FBSDKBridgeAPIResponse *) = ^(FBSDKBridgeAPIResponse *response) {
-      if (response.error.code == FBSDKErrorAppVersionUnsupported) {
-        [[FBSDKBridgeAPI sharedInstance] openBridgeAPIRequest:webRequest
+      if (response.error.code == FBSDKAppVersionUnsupportedErrorCode) {
+        [[FBSDKApplicationDelegate sharedInstance] openBridgeAPIRequest:webRequest
                                                 useSafariViewController:useSafariViewController
                                                      fromViewController:self.fromViewController
                                                         completionBlock:completionBlock];
@@ -106,12 +106,12 @@
         completionBlock(response);
       }
     };
-    [[FBSDKBridgeAPI sharedInstance] openBridgeAPIRequest:nativeRequest
+    [[FBSDKApplicationDelegate sharedInstance] openBridgeAPIRequest:nativeRequest
                                             useSafariViewController:useSafariViewController
                                                  fromViewController:self.fromViewController
                                                     completionBlock:networkCompletionBlock];
   } else {
-    [[FBSDKBridgeAPI sharedInstance] openBridgeAPIRequest:webRequest
+    [[FBSDKApplicationDelegate sharedInstance] openBridgeAPIRequest:webRequest
                                             useSafariViewController:useSafariViewController
                                                  fromViewController:self.fromViewController
                                                     completionBlock:completionBlock];
@@ -122,11 +122,9 @@
 
 - (BOOL)validateWithError:(NSError *__autoreleasing *)errorRef
 {
-  if (!self.objectID.length) {
+  if (![self.objectID length]) {
     if (errorRef != NULL) {
-      *errorRef = [NSError fbRequiredArgumentErrorWithDomain:FBSDKShareErrorDomain
-                                                        name:@"objectID"
-                                                     message:nil];
+      *errorRef = [FBSDKShareError requiredArgumentErrorWithName:@"objectID" message:nil];
     }
     return NO;
   }

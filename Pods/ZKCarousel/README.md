@@ -1,6 +1,6 @@
 # ZKCarousel
-
-[![CI Status](http://img.shields.io/travis/ZacharyKhan/ZKCarousel.svg?style=flat)](https://travis-ci.org/ZacharyKhan/ZKCarousel)
+[![Build Status](https://travis-ci.org/ZacharyKhan/ZKCarousel.svg?branch=master)](https://travis-ci.org/ZacharyKhan/ZKCarousel)
+[![Swift 4.2](https://img.shields.io/badge/swift-4.2-orange.svg)](https://swift.org)
 [![Version](https://img.shields.io/cocoapods/v/ZKCarousel.svg?style=flat)](http://cocoapods.org/pods/ZKCarousel)
 [![License](https://img.shields.io/cocoapods/l/ZKCarousel.svg?style=flat)](http://cocoapods.org/pods/ZKCarousel)
 [![Platform](https://img.shields.io/cocoapods/p/ZKCarousel.svg?style=flat)](http://cocoapods.org/pods/ZKCarousel)
@@ -67,7 +67,7 @@ class ViewController : UIViewController {
 ```
 
 #### Auto-Traverse Slides
-There is an option to let ZKCarousel switch between slides automatically. All you have to do is use the `start()` and `stop()` functions on ZKCarousel. You can also set the time interval between slides by setting the `interval` property. The default interval is 1 second.
+There is an option to let ZKCarousel switch between slides automatically. All you have to do is use the `start()` and `stop()` functions on ZKCarousel. You can also set the time interval between slides by setting the `interval` property. The default interval is 2 seconds.
 
 See example for a working implementation of this.
 
@@ -81,3 +81,5 @@ For all bug reports, feature requests, etc. please submit an issue to the reposi
 ## License
 
 ZKCarousel is available under the MIT license. See the LICENSE file for more info.
+
+

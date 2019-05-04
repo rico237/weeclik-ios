@@ -140,7 +140,7 @@ public class KJNavigationViewAnimation: UIView {
     
     func addBlurr() {
         // blurr effect
-        let blurreffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurreffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         viewBlurrOne = UIVisualEffectView(effect: blurreffect)
         viewBlurrOne.frame = self.bounds
         viewBlurrOne.autoresizingMask = [.flexibleWidth, .flexibleHeight]

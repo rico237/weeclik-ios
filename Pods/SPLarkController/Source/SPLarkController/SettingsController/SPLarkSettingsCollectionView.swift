@@ -21,7 +21,7 @@
 
 import UIKit
 
-class SPLarkSettingsCollectionView: UICollectionView {
+open class SPLarkSettingsCollectionView: UICollectionView {
     
     let layout = UICollectionViewFlowLayout()
     let cellIdentificator: String = "SPLarkSettingsCollectionViewCell"
@@ -45,11 +45,7 @@ class SPLarkSettingsCollectionView: UICollectionView {
     
     internal func commonInit() {
         self.backgroundColor = UIColor.clear
-        #if swift(>=5.0)
         self.decelerationRate = UIScrollView.DecelerationRate.fast
-        #elseif swift(>=4.0)
-        self.decelerationRate = UIScrollViewDecelerationRateFast
-        #endif
         self.delaysContentTouches = false
         self.isPagingEnabled = false
         self.showsHorizontalScrollIndicator = false

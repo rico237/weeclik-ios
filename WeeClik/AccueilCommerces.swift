@@ -21,8 +21,8 @@ import KRLCollectionViewGridLayout
 import SDWebImage
 import CoreLocation
 import CRNotifications
-import BulletinBoard
-import Sparrow
+import BLTNBoard
+import SPPermission
 
 // Life Cycle & other functions
 class AccueilCommerces: UIViewController {
@@ -54,19 +54,19 @@ class AccueilCommerces: UIViewController {
     
     var introBulletin = BulletinDataSource.makeFilterNextPage()
     
-    lazy var filterBulletinManager : BulletinManager = {
+    lazy var filterBulletinManager : BLTNItemManager = {
         let bulletinPageIntro = BulletinDataSource.makeFilterPage()
         bulletinPageIntro.actionHandler = { item in
             // By location
             self.prefFiltreLocation = true
-            item.displayNextItem()
+            item.manager?.displayNextItem()
         }
-        bulletinPageIntro.alternativeHandler = { (item : BulletinItem) in
+        bulletinPageIntro.alternativeHandler = { (item : BLTNItem) in
             // By number
             self.prefFiltreLocation = false
-            item.displayNextItem()
+            item.manager?.displayNextItem()
         }
-        introBulletin.actionHandler = { (item : BulletinItem) in
+        introBulletin.actionHandler = { (item : BLTNItem) in
             // Last action
             item.manager?.dismissBulletin(animated:true)
             
@@ -78,8 +78,9 @@ class AccueilCommerces: UIViewController {
             
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
         }
-        bulletinPageIntro.nextItem = introBulletin
-        return BulletinManager(rootItem : bulletinPageIntro)
+        bulletinPageIntro.next = introBulletin
+        bulletinPageIntro.requiresCloseButton = false
+        return BLTNItemManager(rootItem : bulletinPageIntro)
     }()
     
     override func viewDidLoad() {
@@ -258,8 +259,7 @@ extension AccueilCommerces {
     
     // Selection between location and max number of share
     @IBAction func filterBarbuttonPressed(_ sender: Any) {
-        filterBulletinManager.prepare()
-        filterBulletinManager.presentBulletin(above: self)
+        filterBulletinManager.showBulletin(above: self)
     }
 }
 // Functions for collections (Data & Delegate)
@@ -380,12 +380,10 @@ extension AccueilCommerces : CLLocationManagerDelegate {
     }
 }
 // Functions for requesting localisation permission
-extension AccueilCommerces : SPRequestPermissionEventsDelegate {
+extension AccueilCommerces : SPPermissionDialogDelegate {
     func didHide() {}
     
-    func didSelectedPermission(permission: SPRequestPermissionType) {}
-    
-    func didAllowPermission(permission: SPRequestPermissionType) {
+    func didAllow(permission: SPPermissionType) {
         if case .locationWhenInUse = permission {
             self.locationManager.startUpdatingLocation()
             self.locationGranted = true
@@ -396,7 +394,7 @@ extension AccueilCommerces : SPRequestPermissionEventsDelegate {
         }
     }
     
-    func didDeniedPermission(permission: SPRequestPermissionType) {
+    func didDenied(permission: SPPermissionType) {
         if case .locationWhenInUse = permission {
             self.locationGranted = false
             self.prefFiltreLocation = false
@@ -415,7 +413,7 @@ extension AccueilCommerces : SPRequestPermissionEventsDelegate {
                 self.locationGranted = false
             } else {
                 if CLLocationManager.authorizationStatus() == .notDetermined {
-                    SPRequestPermission.dialog.interactive.present(on: self, with: [.locationWhenInUse], dataSource: PermissionDataSource(), delegate: self)
+                    SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: PermissionDataSource())
                 } else {
                     // The user has already allowed your app to use location services. Start updating location
                     self.locationManager.startUpdatingLocation()
@@ -433,24 +431,16 @@ extension AccueilCommerces : SPRequestPermissionEventsDelegate {
     }
 }
 // Custom UI for asking permission (alert controller)
-class PermissionDataSource : SPRequestPermissionDialogInteractiveDataSource {
-    override func headerTitle() -> String {
-        return "Demande d'autorisation"
-    }
+class PermissionDataSource : SPPermissionDialogDataSource {
     
-    override func headerSubtitle() -> String {
-        return "Weeclik a besoin de votre autorisation pour fonctionner"
-    }
+    // TODO: Maybe customize more
     
-    override func cancelForAlertDenidPermission() -> String {
-        return "Annuler"
-    }
+    var dialogTitle: String = "Demande d'autorisation"
+    var dialogSubtitle: String = "Weeclik a besoin de votre autorisation pour fonctionner"
+    var cancelTitle: String = "Annuler"
+    var settingsTitle: String = "Réglages"
     
-    override func settingForAlertDenidPermission() -> String {
-        return "Réglages"
-    }
-    
-    override func subtitleForAlertDenidPermission() -> String {
+    func deniedSubtitle(for permission: SPPermissionType) -> String? {
         return "Autorisation refusé. Merci de les changer dans les réglages."
     }
 }

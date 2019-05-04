@@ -35,7 +35,7 @@ NSString *const FBSDKTokenInformationUUIDKey = @"com.facebook.sdk:TokenInformati
 
 @implementation FBSDKAccessTokenCacheV3
 
-- (FBSDKAccessToken *)accessToken
+- (FBSDKAccessToken *)fetchAccessToken
 {
   // Check NSUserDefaults ( <= v3.16 )
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -50,7 +50,7 @@ NSString *const FBSDKTokenInformationUUIDKey = @"com.facebook.sdk:TokenInformati
   [defaults synchronize];
 }
 
-- (void)setAccessToken:(FBSDKAccessToken *)token
+- (void)cacheAccessToken:(FBSDKAccessToken *)token
 {
   //no-op.
   NSAssert(NO, @"deprecated cache FBSDKAccessTokenCacheV3 should not be used to cache a token");
@@ -72,8 +72,7 @@ NSString *const FBSDKTokenInformationUUIDKey = @"com.facebook.sdk:TokenInformati
                                                    appID:dictionary[FBSDK_TOKEN_INFORMATION_APP_ID_KEY]
                                                   userID:dictionary[FBSDK_TOKEN_INFORMATION_USER_FBID_KEY]
                                           expirationDate:expirationDate
-                                             refreshDate:dictionary[FBSDK_TOKEN_INFORMATION_REFRESH_DATE_KEY]
-                                             dataAccessExpirationDate:nil];
+                                             refreshDate:dictionary[FBSDK_TOKEN_INFORMATION_REFRESH_DATE_KEY]];
   }
   return nil;
 }
