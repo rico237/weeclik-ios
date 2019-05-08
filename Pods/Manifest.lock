@@ -102,7 +102,6 @@ PODS:
   - GoogleUtilities/UserDefaults (5.8.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
-  - Hanson (1.2)
   - Hue (3.0.1)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
@@ -177,7 +176,6 @@ DEPENDENCIES:
   - Firebase/Performance
   - Floaty (~> 4.2.0)
   - Gallery
-  - Hanson
   - Hue (~> 3.0)
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
@@ -232,7 +230,6 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
-    - Hanson
     - Hue
     - KRLCollectionViewGridLayout
     - LGButton
@@ -317,7 +314,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
-  Hanson: c1c3c653e348c0885d46c22747476c775c72de13
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
@@ -345,6 +341,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 37d3474bf2eed5d9a99ca430d63f81ff6e620978
+PODFILE CHECKSUM: f4eb04cd4fefeb3354677eaa16eef5beb041ab83
 
 COCOAPODS: 1.6.1
