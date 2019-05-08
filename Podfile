@@ -104,6 +104,9 @@ def projectPods
     # UserDefaults with AES-256 encryption
     pod 'SecureDefaults', '1.0.3' # Swift 5.0
     
+    # COmpression d'images
+    pod 'WXImageCompress', '~> 0.1.2'
+    
     ################################
     ################################
     #                              #
@@ -112,9 +115,21 @@ def projectPods
     ################################
     ################################
     
+    ###------------A RANGER---------------##
+    
+    # Montrer les libs utilisés
+    #pod 'AcknowList' #(procédure détaillé sur leur githhub -> https://github.com/vtourraine/AcknowList
+    
+    # Avoir le concentement de l'utilisateur
+    # pod 'SmartlookConsentSDK'
+    
+    # App store receipt validation (auto renewable)
+    #https://github.com/Cocoanetics/Kvitto/tree/develop
+    
+    
+    
+    
     ###------------GENERALE---------------##
-    
-    
     
     # BEST ALERTS & MESSAGES UIs
     #pod 'SwiftMessages'

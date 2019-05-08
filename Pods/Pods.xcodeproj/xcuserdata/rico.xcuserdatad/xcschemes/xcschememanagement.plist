@@ -289,6 +289,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>WXImageCompress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ZKCarousel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
