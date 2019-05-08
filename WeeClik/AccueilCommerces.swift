@@ -227,10 +227,6 @@ extension AccueilCommerces {
 }
 // Routing & Navigation Bar functions
 extension AccueilCommerces {
-    // Search actions
-    @IBAction func searchBarButtonPressed(_ sender:Any){
-        print("Search")
-    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -310,6 +306,9 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             cell.nombrePartageLabel.text = String(comm.partages)
             let distanceFromUser = self.calculDistanceEntreDeuxPoints(commerce: comm)
             comm.distanceFromUser = distanceFromUser
+            
+            cell.imageDistance.tintColor = textColor
+            cell.imagePartage.tintColor  = textColor
             
             if self.prefFiltreLocation && self.locationGranted {
                 // Filtré par positions

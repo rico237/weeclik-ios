@@ -38,6 +38,7 @@ class AdminMonProfilSettingsVC: UIViewController {
     
     func getUserDefaultsOptions() {
         enabled1 = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
+        enables[0] = enabled1
         updateButtonUIs()
     }
     
@@ -64,6 +65,9 @@ class AdminMonProfilSettingsVC: UIViewController {
         }
     }
     
-    @IBAction func payment_option_action(_ sender: Any) { HelperAndKeys.setUserDefaultsValue(value: !enabled1, forKey: HelperAndKeys.getPaymentKey())}
+    @IBAction func payment_option_action(_ sender: Any) {
+        HelperAndKeys.setUserDefaultsValue(value: !enabled1, forKey: HelperAndKeys.getPaymentKey())
+        getUserDefaultsOptions()
+    }
     
 }

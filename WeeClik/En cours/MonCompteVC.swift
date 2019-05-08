@@ -23,6 +23,8 @@ class MonCompteVC: UIViewController {
     
     let purchasedProductID = "abo.sans.renouvellement" // TODO: replace
     
+    let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil)
+    
     @IBOutlet weak var nouveauCommerceButton: UIButton!
     @IBOutlet weak var imageProfil : UIImageView!
     @IBOutlet weak var vueConnexion: UIView!
@@ -49,17 +51,12 @@ class MonCompteVC: UIViewController {
     }
     
     @objc func showSettingsPanel(){
-        let controller = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil)
-        
         let transitionDelegate = SPLarkTransitioningDelegate()
         transitionDelegate.customHeight = 185
-        controller.transitioningDelegate = transitionDelegate
-        controller.modalPresentationStyle = .custom
-        controller.modalPresentationCapturesStatusBarAppearance = true
-        self.present(controller, animated: true, completion: {
-            print("completion finished")
-            SPLarkController.updatePresentingController(parent: self)
-        })
+        panelController.transitioningDelegate = transitionDelegate
+        panelController.modalPresentationStyle = .custom
+        panelController.modalPresentationCapturesStatusBarAppearance = true
+        self.present(panelController, animated: true, completion: nil)
     }
     
     func updateAdminUI(){
@@ -153,7 +150,6 @@ class MonCompteVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        print("User is pro \(currentUser!["isPro"] as! Bool)")
-        paymentEnabled = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? true
     }
     
     @IBAction func changeImageProfil(){
@@ -254,6 +250,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 // Navigation related
 extension MonCompteVC {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        paymentEnabled = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? true
         print("Identifier \(identifier) & paymentEnabled \(paymentEnabled)")
 
         if paymentEnabled {
@@ -413,6 +410,14 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         // SignUp Part
         logInController.signUpController = SignUpViewController()
         logInController.signUpController?.delegate = self
+//        logInController.signUpController?.emailAsUsername = true
+        logInController.signUpController?.fields = [.usernameAndPassword, .signUpButton, .additional, .dismissButton]
+        logInController.signUpController?.signUpView?.usernameField?.keyboardType = .emailAddress
+        logInController.signUpController?.signUpView?.additionalField?.isSecureTextEntry = true
+        logInController.signUpController?.signUpView?.additionalField?.keyboardType = .alphabet
+//        logInController.signUpController?.signUpView?.additionalField?.textContentType = .password
+        logInController.signUpController?.signUpView?.usernameField?.placeholder = "Email"
+        logInController.signUpController?.signUpView?.additionalField?.placeholder = "Confirmation du mot de passe"
         
         self.present(logInController, animated: true, completion: nil)
     }
@@ -433,6 +438,8 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     
     // Inscription classique (par mail)
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
+        user.email = user.username
+        user.saveInBackground()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -446,7 +453,22 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     // Fonction pour definir des mots de passe trop faibles
     func signUpViewController(_ signUpController: PFSignUpViewController, shouldBeginSignUp info: [String : String]) -> Bool {
         print("Aucune conditions particulières pour le mot de passe")
-        return true
+        // ["username": "jilji@gmail.com", "password": "es", "additional": "es"]
+        
+        if HelperAndKeys.isValid(info["username"] ?? "") {
+            // Email + MDP OK
+            if info["password"] == info["additional"] {
+                return true
+            } else {
+                // MDP différents
+                HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe et sa confirmation sont différents", title: "Erreur de mot de passe", viewController: signUpController)
+                return false
+            }
+        } else {
+            // Email invalide
+            HelperAndKeys.showAlertWithMessage(theMessage: "L'adresse email saisie est incorrecte", title: "Email invalide", viewController: signUpController)
+            return false
+        }
     }
     
     func getFacebookInformations(user : PFUser) {

@@ -98,8 +98,6 @@ def projectPods
     
     # Settings panel
     pod 'SPLarkController', '1.0.6'
-    # Observable data & nsnotificationcenrter
-    pod 'Hanson'
     
     # UserDefaults with AES-256 encryption
     pod 'SecureDefaults', '1.0.3' # Swift 5.0
