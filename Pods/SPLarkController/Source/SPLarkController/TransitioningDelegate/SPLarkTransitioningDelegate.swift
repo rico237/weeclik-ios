@@ -24,10 +24,8 @@ import UIKit
 public final class SPLarkTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     public var customHeight: CGFloat? = nil
-    var swipeToDismissEnabled: Bool = true
-    var translateForDismiss: CGFloat = 100
-        
-    public override init() {}
+    public var swipeToDismissEnabled: Bool = true
+    public var translateForDismiss: CGFloat = 100
     
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         let controller = SPLarkPresentationController(presentedViewController: presented, presenting: presenting)

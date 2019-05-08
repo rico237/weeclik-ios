@@ -49,11 +49,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Compose.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Crashlytics.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -145,11 +140,6 @@
 			<false/>
 		</dict>
 		<key>GoogleUtilities.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>HWAlertsPickers.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -254,12 +244,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SPPermission.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Sparrow.xcscheme</key>
+		<key>SecureDefaults.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -290,6 +285,11 @@
 			<false/>
 		</dict>
 		<key>TPKeyboardAvoiding.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>WXImageCompress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

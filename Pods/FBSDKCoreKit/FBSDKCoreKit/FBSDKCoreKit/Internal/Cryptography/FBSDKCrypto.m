@@ -28,7 +28,7 @@
 static const uint8_t kFBSDK_CRYPTO_CURRENT_VERSION = 1;
 static const uint8_t kFBSDK_CRYPTO_CURRENT_MASTER_KEY_LENGTH = 16;
 
-static inline void FBSDKCryptoWriteIntBigEndian(uint8_t *buffer, uint32_t value)
+FBSDK_STATIC_INLINE void FBSDKCryptoWriteIntBigEndian(uint8_t *buffer, uint32_t value)
 {
   buffer[3] = (uint8_t)(value & 0xff);
   buffer[2] = (uint8_t)((value >> 8) & 0xff);
@@ -36,7 +36,7 @@ static inline void FBSDKCryptoWriteIntBigEndian(uint8_t *buffer, uint32_t value)
   buffer[0] = (uint8_t)((value >> 24) & 0xff);
 }
 
-static inline void FBSDKCryptoBlankData(NSData *data)
+FBSDK_STATIC_INLINE void FBSDKCryptoBlankData(NSData *data)
 {
   if (!data) {
     return;
@@ -45,7 +45,7 @@ static inline void FBSDKCryptoBlankData(NSData *data)
 }
 
 // Note: the following simple derivation function is NOT suitable for passwords or weak keys
-static inline NSData *FBSDKCryptoMakeSubKey(uint8_t *key, size_t len, uint32_t idx)
+FBSDK_STATIC_INLINE NSData *FBSDKCryptoMakeSubKey(uint8_t *key, size_t len, uint32_t idx)
 {
   if (!key || len < 10) {
     return nil;
@@ -78,7 +78,7 @@ static inline NSData *FBSDKCryptoMakeSubKey(uint8_t *key, size_t len, uint32_t i
   NSData *masterKeyData = [FBSDKCrypto randomBytes:kFBSDK_CRYPTO_CURRENT_MASTER_KEY_LENGTH + 1];
 
   // force the first byte to be the crypto version
-  uint8_t *first = (uint8_t *)masterKeyData.bytes;
+  uint8_t *first = (uint8_t *) [masterKeyData bytes];
   *first = kFBSDK_CRYPTO_CURRENT_VERSION;
 
   NSString *masterKey = [FBSDKBase64 encodeData:masterKeyData];
@@ -111,8 +111,8 @@ static inline NSData *FBSDKCryptoMakeSubKey(uint8_t *key, size_t len, uint32_t i
 {
   if ((self = [super init])) {
     NSData *masterKeyData = [FBSDKBase64 decodeAsData:masterKey];
-    NSUInteger len = masterKeyData.length;
-    uint8_t *first = (uint8_t *)masterKeyData.bytes;
+    NSUInteger len = [masterKeyData length];
+    uint8_t *first = (uint8_t *) [masterKeyData bytes];
 
     if (len == 0 || first == nil || *first != kFBSDK_CRYPTO_CURRENT_VERSION) {
       // only one version supported at the moment

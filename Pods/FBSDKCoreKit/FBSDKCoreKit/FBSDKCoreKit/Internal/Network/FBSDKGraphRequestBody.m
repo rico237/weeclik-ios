@@ -18,24 +18,22 @@
 
 #import "FBSDKGraphRequestBody.h"
 
-#import "FBSDKCrypto.h"
 #import "FBSDKGraphRequestDataAttachment.h"
 #import "FBSDKLogger.h"
 #import "FBSDKSettings.h"
 
+#define kStringBoundary @"3i2ndDfv2rTHiSisAbouNdArYfORhtTPEefj3q2f"
 #define kNewline @"\r\n"
 
 @implementation FBSDKGraphRequestBody
 {
   NSMutableData *_data;
   NSMutableDictionary *_json;
-  NSString *_stringBoundary;
 }
 
 - (instancetype)init
 {
   if ((self = [super init])) {
-    _stringBoundary = [FBSDKCrypto randomString:32];
     _data = [[NSMutableData alloc] init];
     _json = [NSMutableDictionary dictionary];
   }
@@ -48,14 +46,14 @@
   if (_json) {
     return @"application/json";
   } else {
-    return [NSString stringWithFormat:@"multipart/form-data; boundary=%@", _stringBoundary];
+    return [NSString stringWithFormat:@"multipart/form-data; boundary=%@",kStringBoundary];
   }
 }
 
 - (void)appendUTF8:(NSString *)utf8
 {
-  if (!_data.length) {
-    NSString *headerUTF8 = [NSString stringWithFormat:@"--%@%@", _stringBoundary, kNewline];
+  if (![_data length]) {
+    NSString *headerUTF8 = [NSString stringWithFormat:@"--%@%@", kStringBoundary, kNewline];
     NSData *headerData = [headerUTF8 dataUsingEncoding:NSUTF8StringEncoding];
     [_data appendData:headerData];
   }
@@ -71,7 +69,7 @@
     [self appendUTF8:value];
   }];
   if (key && value) {
-    _json[key] = value;
+    [_json setObject:value forKey:key];
   }
   [logger appendFormat:@"\n    %@:\t%@", key, (NSString *)value];
 }
@@ -82,10 +80,10 @@
 {
   NSData *data = UIImageJPEGRepresentation(image, [FBSDKSettings JPEGCompressionQuality]);
   [self _appendWithKey:key filename:key contentType:@"image/jpeg" contentBlock:^{
-    [self->_data appendData:data];
+    [_data appendData:data];
   }];
   _json = nil;
-  [logger appendFormat:@"\n    %@:\t<Image - %lu kB>", key, (unsigned long)(data.length / 1024)];
+  [logger appendFormat:@"\n    %@:\t<Image - %lu kB>", key, (unsigned long)([data length] / 1024)];
 }
 
 - (void)appendWithKey:(NSString *)key
@@ -93,10 +91,10 @@
                logger:(FBSDKLogger *)logger
 {
   [self _appendWithKey:key filename:key contentType:@"content/unknown" contentBlock:^{
-    [self->_data appendData:data];
+    [_data appendData:data];
   }];
   _json = nil;
-  [logger appendFormat:@"\n    %@:\t<Data - %lu kB>", key, (unsigned long)(data.length / 1024)];
+  [logger appendFormat:@"\n    %@:\t<Data - %lu kB>", key, (unsigned long)([data length] / 1024)];
 }
 
 - (void)appendWithKey:(NSString *)key
@@ -107,10 +105,10 @@
   NSString *contentType = dataAttachment.contentType ?: @"content/unknown";
   NSData *data = dataAttachment.data;
   [self _appendWithKey:key filename:filename contentType:contentType contentBlock:^{
-    [self->_data appendData:data];
+    [_data appendData:data];
   }];
   _json = nil;
-  [logger appendFormat:@"\n    %@:\t<Data - %lu kB>", key, (unsigned long)(data.length / 1024)];
+  [logger appendFormat:@"\n    %@:\t<Data - %lu kB>", key, (unsigned long)([data length] / 1024)];
 }
 
 - (NSData *)data
@@ -149,7 +147,7 @@
   if (contentBlock != NULL) {
     contentBlock();
   }
-  [self appendUTF8:[[NSString alloc] initWithFormat:@"%@--%@%@", kNewline, _stringBoundary, kNewline]];
+  [self appendUTF8:[[NSString alloc] initWithFormat:@"%@--%@%@", kNewline, kStringBoundary, kNewline]];
 }
 
 @end
