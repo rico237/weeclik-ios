@@ -27,7 +27,7 @@ static const CGFloat kButtonHeight = 28.0;
 static const CGFloat kRightMargin = 8.0;
 static const CGFloat kPaddingBetweenLogoTitle = 8.0;
 
-@interface FBSDKLoginButton() <FBSDKButtonImpressionTracking>
+@interface FBSDKLoginButton() <FBSDKButtonImpressionTracking, UIActionSheetDelegate>
 @end
 
 @implementation FBSDKLoginButton
@@ -127,7 +127,7 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-  if (self.hidden) {
+  if ([self isHidden]) {
     return CGSizeZero;
   }
   UIFont *font = self.titleLabel.font;
@@ -142,6 +142,19 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
   CGFloat buttonWidth = kFBLogoLeftMargin + kFBLogoSize + kPaddingBetweenLogoTitle + titleWidth + kRightMargin;
   return CGSizeMake(buttonWidth, kButtonHeight);
 }
+
+#pragma mark - UIActionSheetDelegate
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex == 0) {
+    [_loginManager logOut];
+    [self.delegate loginButtonDidLogOut:self];
+  }
+}
+#pragma clang diagnostic pop
 
 #pragma mark - FBSDKButtonImpressionTracking
 
@@ -171,11 +184,11 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
 
   [self configureWithIcon:nil
                     title:logInTitle
-          backgroundColor:self.backgroundColor
+          backgroundColor:[self backgroundColor]
          highlightedColor:nil
             selectedTitle:logOutTitle
              selectedIcon:nil
-            selectedColor:self.backgroundColor
+            selectedColor:[self backgroundColor]
  selectedHighlightedColor:nil];
   self.titleLabel.textAlignment = NSTextAlignmentCenter;
   [self addConstraint:[NSLayoutConstraint constraintWithItem:self
@@ -198,14 +211,14 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
 
 - (void)_accessTokenDidChangeNotification:(NSNotification *)notification
 {
-  if (notification.userInfo[FBSDKAccessTokenDidChangeUserIDKey] || notification.userInfo[FBSDKAccessTokenDidExpireKey]) {
+  if (notification.userInfo[FBSDKAccessTokenDidChangeUserID] || notification.userInfo[FBSDKAccessTokenDidExpire]) {
     [self _updateContent];
   }
 }
 
 - (void)_buttonPressed:(id)sender
 {
-  [self logTapEventWithEventName:FBSDKAppEventNameFBSDKLoginButtonDidTap parameters:self.analyticsParameters];
+  [self logTapEventWithEventName:FBSDKAppEventNameFBSDKLoginButtonDidTap parameters:[self analyticsParameters]];
   if ([FBSDKAccessToken currentAccessTokenIsActive]) {
     NSString *title = nil;
 
@@ -230,26 +243,38 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
     NSLocalizedStringWithDefaultValue(@"LoginButton.ConfirmLogOut", @"FacebookSDK", [FBSDKInternalUtility bundleForStrings],
                                       @"Log Out",
                                       @"The label for the FBSDKLoginButton action sheet to confirm logging out");
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
-    alertController.popoverPresentationController.sourceView = self;
-    alertController.popoverPresentationController.sourceRect = self.bounds;
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:cancelTitle
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:nil];
-    UIAlertAction *logout = [UIAlertAction actionWithTitle:logOutTitle
-                                                     style:UIAlertActionStyleDestructive
-                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                     [self->_loginManager logOut];
-                                                     [self.delegate loginButtonDidLogOut:self];
-                                                   }];
-    [alertController addAction:cancel];
-    [alertController addAction:logout];
-    UIViewController *topMostViewController = [FBSDKInternalUtility topMostViewController];
-    [topMostViewController presentViewController:alertController
-                                        animated:YES
-                                      completion:nil];
+    if ([UIAlertController class]) {
+      UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                               message:nil
+                                                                        preferredStyle:UIAlertControllerStyleActionSheet];
+      alertController.popoverPresentationController.sourceView = self;
+      alertController.popoverPresentationController.sourceRect = self.bounds;
+      UIAlertAction *cancel = [UIAlertAction actionWithTitle:cancelTitle
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+      UIAlertAction *logout = [UIAlertAction actionWithTitle:logOutTitle
+                                                       style:UIAlertActionStyleDestructive
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                       [_loginManager logOut];
+                                                       [self.delegate loginButtonDidLogOut:self];
+                                                     }];
+      [alertController addAction:cancel];
+      [alertController addAction:logout];
+      UIViewController *topMostViewController = [FBSDKInternalUtility topMostViewController];
+      [topMostViewController presentViewController:alertController
+                                          animated:YES
+                                        completion:nil];
+    } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+      UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:title
+                                                         delegate:self
+                                                cancelButtonTitle:cancelTitle
+                                           destructiveButtonTitle:logOutTitle
+                                                otherButtonTitles:nil];
+      [sheet showInView:self];
+#pragma clang diagnostic pop
+    }
   } else {
     if ([self.delegate respondsToSelector:@selector(loginButtonWillLogin:)]) {
       if (![self.delegate loginButtonWillLogin:self]) {
@@ -280,6 +305,7 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
   return NSLocalizedStringWithDefaultValue(@"LoginButton.LogOut", @"FacebookSDK", [FBSDKInternalUtility bundleForStrings],
                                            @"Log out",
                                            @"The label for the FBSDKLoginButton when the user is currently logged in");
+  ;
 }
 
 - (NSString *)_longLogInTitle
@@ -322,8 +348,8 @@ static const CGFloat kPaddingBetweenLogoTitle = 8.0;
       [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         NSString *userID = [FBSDKTypeUtility stringValue:result[@"id"]];
         if (!error && [[FBSDKAccessToken currentAccessToken].userID isEqualToString:userID]) {
-          self->_userName = [FBSDKTypeUtility stringValue:result[@"name"]];
-          self->_userID = userID;
+          _userName = [FBSDKTypeUtility stringValue:result[@"name"]];
+          _userID = userID;
         }
       }];
     }

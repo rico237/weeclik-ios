@@ -24,6 +24,7 @@
 #import "FBSDKBridgeAPIProtocolWebV1.h"
 #import "FBSDKBridgeAPIProtocolWebV2.h"
 #import "FBSDKInternalUtility.h"
+#import "FBSDKMacros.h"
 #import "FBSDKSettings.h"
 #import "FBSDKUtility.h"
 
@@ -93,9 +94,21 @@ NSString *const FBSDKBridgeAPIVersionKey = @"version";
     _parameters = [parameters copy];
     _userInfo = [userInfo copy];
 
-    _actionID = [NSUUID UUID].UUIDString;
+    _actionID = [[NSUUID UUID] UUIDString];
   }
   return self;
+}
+
+- (instancetype)init
+{
+  FBSDK_NOT_DESIGNATED_INITIALIZER(initWithProtocol:protocolType:scheme:methodName:methodVersion:parameters:userInfo:);
+  return [self initWithProtocol:nil
+                   protocolType:FBSDKBridgeAPIProtocolTypeWeb
+                         scheme:nil
+                     methodName:nil
+                  methodVersion:nil
+                     parameters:nil
+                       userInfo:nil];
 }
 
 #pragma mark - Public Methods

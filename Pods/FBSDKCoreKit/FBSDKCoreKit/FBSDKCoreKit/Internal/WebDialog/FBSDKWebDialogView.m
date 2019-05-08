@@ -120,14 +120,9 @@
   CGRect webViewBounds = _webView.bounds;
   _loadingView.center = CGPointMake(CGRectGetMidX(webViewBounds), CGRectGetMidY(webViewBounds));
 
-  if (CGRectGetHeight(webViewBounds) == 0.0) {
-    _closeButton.alpha = 0.0;
-  } else {
-    _closeButton.alpha = 1.0;
-    CGRect closeButtonFrame = _closeButton.bounds;
-    closeButtonFrame.origin = bounds.origin;
-    _closeButton.frame = CGRectIntegral(closeButtonFrame);
-  }
+  CGRect closeButtonFrame = _closeButton.bounds;
+  closeButtonFrame.origin = bounds.origin;
+  _closeButton.frame = CGRectIntegral(closeButtonFrame);
 }
 
 #pragma mark - Actions
@@ -167,7 +162,7 @@ shouldStartLoadWithRequest:(NSURLRequest *)request
       NSInteger errorCode = [FBSDKTypeUtility integerValue:parameters[@"error_code"]];
       if (errorCode) {
         NSString *errorMessage = [FBSDKTypeUtility stringValue:parameters[@"error_msg"]];
-        NSError *error = [NSError fbErrorWithCode:errorCode message:errorMessage];
+        NSError *error = [FBSDKError errorWithCode:errorCode message:errorMessage];
         [_delegate webDialogView:self didFailWithError:error];
       } else {
         [_delegate webDialogViewDidCancel:self];

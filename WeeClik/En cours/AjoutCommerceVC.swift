@@ -13,6 +13,7 @@ import TLPhotoPicker  // TODO: Regarder sur le github de la lib si je peux récu
 import Photos
 import AVKit
 import SVProgressHUD
+import WXImageCompress
 
 class AjoutCommerceVC: UITableViewController {
     
@@ -346,7 +347,8 @@ class AjoutCommerceVC: UITableViewController {
         for image in self.photoArray {
             if image != #imageLiteral(resourceName: "Plus_icon") {
                 let obj = PFObject(className: "Commerce_Photos")
-                let file = PFFileObject(name: "photo.jpg", data: image.jpegData(compressionQuality: 0.7)!)
+                let compressedImage = image.wxCompress()
+                let file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 1)!)
                 
                 obj["photo"] = file
                 obj["commerce"] = commerceToSave

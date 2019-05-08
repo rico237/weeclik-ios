@@ -18,9 +18,11 @@
 
 #import "FBSDKLoginManager+Internal.h"
 
-FOUNDATION_EXPORT NSString *const FBSDKLoginManagerLoggerAuthMethod_Native;
-FOUNDATION_EXPORT NSString *const FBSDKLoginManagerLoggerAuthMethod_Browser;
-FOUNDATION_EXPORT NSString *const FBSDKLoginManagerLoggerAuthMethod_SFVC;
+extern NSString *const FBSDKLoginManagerLoggerAuthMethod_Native;
+extern NSString *const FBSDKLoginManagerLoggerAuthMethod_Browser;
+extern NSString *const FBSDKLoginManagerLoggerAuthMethod_System;
+extern NSString *const FBSDKLoginManagerLoggerAuthMethod_Webview;
+extern NSString *const FBSDKLoginManagerLoggerAuthMethod_SFVC;
 
 
 @interface FBSDKLoginManagerLogger : NSObject

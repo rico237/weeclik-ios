@@ -1,7 +1,7 @@
 {
   "name": "Gallery",
   "summary": "Something good about gallery",
-  "version": "2.0.6",
+  "version": "2.2.0",
   "homepage": "https://github.com/hyperoslo/Gallery",
   "license": "MIT",
   "authors": {
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/hyperoslo/Gallery.git",
-    "tag": "2.0.6"
+    "tag": "2.2.0"
   },
   "social_media_url": "https://twitter.com/hyperoslo",
   "platforms": {
@@ -28,6 +28,6 @@
     "AVKit"
   ],
   "pod_target_xcconfig": {
-    "SWIFT_VERSION": "4.0"
+    "SWIFT_VERSION": "4.2"
   }
 }

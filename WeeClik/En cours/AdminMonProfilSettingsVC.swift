@@ -11,9 +11,9 @@ import UIKit
 class AdminMonProfilSettingsVC: UIViewController {
     
     var enabled1 = Bool(false), enabled2 = Bool(false), enabled3 = Bool(false), enabled4 = Bool(false)
-
-    let enabledButtonColor : UIColor = UIColor.init(hex: "#2561fe")
-    let disabledButtonColor: UIColor = UIColor.init(hex: "#aaaaaa")
+    
+    let enabledButtonColor : UIColor = UIColor.init(hexFromString: "#2561fe")
+    let disabledButtonColor: UIColor = UIColor.init(hexFromString: "#aaaaaa")
     
     @IBOutlet weak var option1: UIButton!   // Option : Paiement pour création de nouveau commerce
     @IBOutlet weak var option2: UIButton!
@@ -47,16 +47,16 @@ class AdminMonProfilSettingsVC: UIViewController {
             let ena = enables[i]
             
             if !button.isHidden && ena {
-                button.setBackgroundColor(enabledButtonColor, forState: .normal)
+                button.backgroundColor = enabledButtonColor
             } else {
-                button.setBackgroundColor(disabledButtonColor, forState: .normal)
+                button.backgroundColor = disabledButtonColor
             }
         }
     }
 
     func uiInit(){
         
-        self.view.backgroundColor = UIColor.init(hex: "#040404")
+        self.view.backgroundColor = UIColor.init(hexFromString: "#040404")
         
         for button in buttons {
             button.setTitleColor(disabledButtonColor, for: .normal)

@@ -72,7 +72,7 @@
 
 - (void)_accessTokenDidChangeNotification:(NSNotification *)notification
 {
-  if (![notification.userInfo[FBSDKAccessTokenDidChangeUserIDKey] boolValue]) {
+  if (![notification.userInfo[FBSDKAccessTokenDidChangeUserID] boolValue]) {
     return;
   }
   _recipientIDs = nil;
@@ -93,7 +93,7 @@
     if (!error) {
       NSArray *items = [FBSDKTypeUtility arrayValue:result[@"data"]];
       NSArray *recipientIDs = [items valueForKey:@"recipient_id"];
-      self->_recipientIDs = [[NSSet alloc] initWithArray:recipientIDs];
+      _recipientIDs = [[NSSet alloc] initWithArray:recipientIDs];
     }
   }];
 }

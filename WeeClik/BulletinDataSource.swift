@@ -4,7 +4,7 @@
  */
 
 import UIKit
-import BulletinBoard
+import BLTNBoard
 
 /**
  * A set of tools to interact with the demo data.
@@ -16,9 +16,9 @@ enum BulletinDataSource {
 
     // MARK: - Pages
     
-    static func makeFilterPage() -> PageBulletinItem {
+    static func makeFilterPage() -> BLTNPageItem {
         
-        let page = PageBulletinItem(title: "Préférence de filtrage")
+        let page = BLTNPageItem(title: "Préférence de filtrage")
         page.image = #imageLiteral(resourceName: "icon")
         page.imageAccessibilityLabel = "⚠️"
         
@@ -27,20 +27,20 @@ enum BulletinDataSource {
         page.descriptionText = "Vous avez choisit pour le moment d'afficher les commerces en fonction de votre position"
         page.actionButtonTitle = "Trier par position"
         page.alternativeButtonTitle = "Nombre de partage"
-        
+        page.requiresCloseButton = false
         page.isDismissable = true
         
         return page
     }
     
-    static func makeFilterNextPage() -> PageBulletinItem {
-        let page = PageBulletinItem(title: "Filtre enregistré")
+    static func makeFilterNextPage() -> BLTNPageItem {
+        let page = BLTNPageItem(title: "Filtre enregistré")
 //        page.image = #imageLiteral(resourceName: "Certificate_valid_icon")
         page.imageAccessibilityLabel = "⚠️"
         
         page.descriptionText = "Filtre enregistré avec succès, la liste des commerces va maintenant être rechargé"
         page.actionButtonTitle = "OK"
-        
+        page.requiresCloseButton = false
         page.isDismissable = true
         
         return page
@@ -55,9 +55,9 @@ enum BulletinDataSource {
      * The action button presents the next item (the notification page).
      */
 
-    static func makeIntroPage() -> PageBulletinItem {
+    static func makeIntroPage() -> BLTNPageItem {
 
-        let page = PageBulletinItem(title: "Welcome to Instanimal")
+        let page = BLTNPageItem(title: "Welcome to Instanimal")
         page.image = #imageLiteral(resourceName: "icon")
         page.imageAccessibilityLabel = "⚠️"
 
@@ -67,10 +67,10 @@ enum BulletinDataSource {
         page.isDismissable = false
 
         page.actionHandler = { item in
-            item.displayNextItem()
+            item.manager?.displayNextItem()
         }
 
-        page.nextItem = makeNotitificationsPage()
+        page.next = makeNotitificationsPage()
 
         return page
 
@@ -86,9 +86,9 @@ enum BulletinDataSource {
      * starts a notification registration request.
      */
 
-    static func makeNotitificationsPage() -> PageBulletinItem {
+    static func makeNotitificationsPage() -> BLTNPageItem {
 
-        let page = PageBulletinItem(title: "Push Notifications")
+        let page = BLTNPageItem(title: "Push Notifications")
         page.image = #imageLiteral(resourceName: "Certificate_valid_icon")
         page.imageAccessibilityLabel = "Notifications Icon"
 
@@ -99,14 +99,14 @@ enum BulletinDataSource {
         page.isDismissable = false
 
         page.actionHandler = { item in
-            item.displayNextItem()
+            item.manager?.displayNextItem()
         }
-
+        
         page.alternativeHandler = { item in
-            item.displayNextItem()
+            item.manager?.displayNextItem()
         }
 
-        page.nextItem = makeLocationPage()
+        page.next = makeLocationPage()
 
         return page
 
@@ -122,9 +122,9 @@ enum BulletinDataSource {
      * requests permission for location.
      */
 
-    static func makeLocationPage() -> PageBulletinItem {
+    static func makeLocationPage() -> BLTNPageItem {
 
-        let page = PageBulletinItem(title: "Customize Feed")
+        let page = BLTNPageItem(title: "Customize Feed")
         page.image = #imageLiteral(resourceName: "Certificate_valid_icon")
         page.imageAccessibilityLabel = "Location Icon"
 
@@ -132,18 +132,17 @@ enum BulletinDataSource {
         page.actionButtonTitle = "Send location data"
         page.alternativeButtonTitle = "No thanks"
 
-        page.shouldCompactDescriptionText = true
         page.isDismissable = false
 
         page.actionHandler = { item in
-            item.displayNextItem()
+            item.manager?.displayNextItem()
         }
 
         page.alternativeHandler = { item in
-            item.displayNextItem()
+            item.manager?.displayNextItem()
         }
 
-        page.nextItem = makeCompletionPage()
+        page.next = makeCompletionPage()
 
         return page
 
@@ -158,13 +157,14 @@ enum BulletinDataSource {
      * The action button dismisses the bulletin. The alternative button pops to the root item.
      */
 
-    static func makeCompletionPage() -> PageBulletinItem {
+    static func makeCompletionPage() -> BLTNPageItem {
 
-        let page = PageBulletinItem(title: "Setup Completed")
+        let page = BLTNPageItem(title: "Setup Completed")
         page.image = #imageLiteral(resourceName: "Certificate_valid_icon")
         page.imageAccessibilityLabel = "Checkmark"
-        page.interfaceFactory.tintColor = #colorLiteral(red: 0.2941176471, green: 0.8509803922, blue: 0.3921568627, alpha: 1)
-        page.interfaceFactory.actionButtonTitleColor = .white
+        page.appearance.actionButtonColor = #colorLiteral(red: 0.2941176471, green: 0.8509803922, blue: 0.3921568627, alpha: 1)
+        page.appearance.alternativeButtonTitleColor = #colorLiteral(red: 0.2941176471, green: 0.8509803922, blue: 0.3921568627, alpha: 1)
+        page.appearance.actionButtonTitleColor = .white
 
         page.descriptionText = "Instanimal is ready for you to use. Happy browsing!"
         page.actionButtonTitle = "Get started"

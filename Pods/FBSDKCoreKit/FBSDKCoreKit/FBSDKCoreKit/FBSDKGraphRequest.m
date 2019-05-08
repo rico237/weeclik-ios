@@ -38,6 +38,11 @@ static NSString *const kPostHTTPMethod = @"POST";
 
 @implementation FBSDKGraphRequest
 
+- (instancetype)init NS_UNAVAILABLE
+{
+  assert(0);
+}
+
 - (instancetype)initWithGraphPath:(NSString *)graphPath
                        parameters:(NSDictionary *)parameters {
   return [self initWithGraphPath:graphPath
@@ -153,7 +158,6 @@ static NSString *const kPostHTTPMethod = @"POST";
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   NSURL *parsedURL = [NSURL URLWithString:[baseUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 #pragma clang pop
-
   if ([httpMethod isEqualToString:kPostHTTPMethod] && !forBatch) {
     return baseUrl;
   }
@@ -177,7 +181,7 @@ static NSString *const kPostHTTPMethod = @"POST";
   NSString *debugValue = [FBSDKSettings graphAPIDebugParamValue];
   if (debugValue) {
     NSMutableDictionary *mutableParams = [NSMutableDictionary dictionaryWithDictionary:params];
-    mutableParams[@"debug"] = debugValue;
+    [mutableParams setObject:debugValue forKey:@"debug"];
     return mutableParams;
   }
 
@@ -205,7 +209,7 @@ static NSString *const kPostHTTPMethod = @"POST";
   if (self.HTTPMethod) {
     [result appendFormat:@", HTTPMethod: %@", self.HTTPMethod];
   }
-  [result appendFormat:@", parameters: %@>", self.parameters.description];
+  [result appendFormat:@", parameters: %@>", [self.parameters description]];
   return result;
 }
 
