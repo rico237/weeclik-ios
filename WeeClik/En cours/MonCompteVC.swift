@@ -44,16 +44,8 @@ class MonCompteVC: UIViewController {
 //        isPro = true
         isAdminUser = true
         
-        isProUpdateUI()
-        if isAdminUser {
-            self.navigationItem.leftBarButtonItems = [
-                UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:))),
-                UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsPanel))
-            ]
-        } else {
-            self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
-        }
-        
+        isProUpdateUI() // Update liste of commerce for pro users
+        updateAdminUI() // Update UINavigationBar
     }
     
     @objc func showSettingsPanel(){
@@ -70,10 +62,19 @@ class MonCompteVC: UIViewController {
         })
     }
     
+    func updateAdminUI(){
+        if isAdminUser {
+            self.navigationItem.leftBarButtonItems = [
+                UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:))),
+                UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsPanel))
+            ]
+        } else {
+            self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        print("viewwill")
         
         do {
             try PFUser.current()?.fetch()
@@ -84,13 +85,24 @@ class MonCompteVC: UIViewController {
         if let current = PFUser.current() {
             self.currentUser = current
             
-            // TODO: bouton uniquement pour les admins
-//            if let isAdminUser = current["isAdmin"] as? Bool {
-//                if isAdminUser {
-//                    // true
-//
-//                }
-//            }
+            let adminRole = PFRole.query()
+            adminRole?.whereKey("users", equalTo: current)
+            adminRole?.findObjectsInBackground(block: { (results, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    if let results = results {
+                        let roles = results as! [PFRole]
+                        for role  in roles {
+                            if role.name == "admin" {
+                                self.isAdminUser = true
+                                self.updateAdminUI()
+                            }
+                        }
+                    }
+                }
+            })
+            
             
             if let proUser = current["isPro"] as? Bool {
                 // isPro is set
@@ -141,7 +153,6 @@ class MonCompteVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 //        print("User is pro \(currentUser!["isPro"] as! Bool)")
-        print("view did")
         paymentEnabled = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? true
     }
     
