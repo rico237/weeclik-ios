@@ -11,19 +11,22 @@ import Parse
 import SVProgressHUD
 import SwiftyStoreKit
 import SPLarkController
+import SwiftDate
 
 class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
     var hasPaidForNewCommerce = false   // Permet de savoir si on peut créer un nouveau commerce vers la BDD
-    var isAdminUser = false
-    var paymentEnabled = true
+    var isAdminUser = false             // TEST VAR Permet d'afficher les options admins
+    var paymentEnabled = true           // TEST VAR (permet de switcher la demande de paiement)
+    
+    var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
     
     var commerces : [PFObject]! = []    // La liste des commerces dans le BAAS
     var currentUser = PFUser.current()  // Utilisateur connecté
     
-    let purchasedProductID = "abo.sans.renouvellement" // TODO: replace
+    let purchasedProductID = "abo.sans.renouvellement" // TODO: replace (ID du produit apple a acheter)
     
-    let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil)
+    let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
     
     @IBOutlet weak var nouveauCommerceButton: UIButton!
     @IBOutlet weak var imageProfil : UIImageView!
@@ -44,7 +47,7 @@ class MonCompteVC: UIViewController {
         super.viewDidLoad()
         // TODO: remove (test purpose)
 //        isPro = true
-        isAdminUser = true
+//        isAdminUser = true
         
         isProUpdateUI() // Update liste of commerce for pro users
         updateAdminUI() // Update UINavigationBar
@@ -82,6 +85,15 @@ class MonCompteVC: UIViewController {
         if let current = PFUser.current() {
             self.currentUser = current
             
+            // Regarde si une image de profil a été chargé
+            // Sinon on affiche l'image de base weeclik
+            if let profilPicURL = currentUser!["profilePictureURL"] as? String {
+                if profilPicURL != "" {
+                    self.userProfilePicURL = profilPicURL
+                }
+            }
+            
+            // Recup le role de l'utilisateur (ex: admin)
             let adminRole = PFRole.query()
             adminRole?.whereKey("users", equalTo: current)
             adminRole?.findObjectsInBackground(block: { (results, error) in
@@ -100,7 +112,7 @@ class MonCompteVC: UIViewController {
                 }
             })
             
-            
+            // Recup si l'utilisateur est un pro (commercant)
             if let proUser = current["isPro"] as? Bool {
                 // isPro is set
                 isPro = proUser
@@ -117,6 +129,8 @@ class MonCompteVC: UIViewController {
             if let vue = vueConnexion{
                 vue.removeFromSuperview()
             }
+            
+            // Récupère ces commerces (favoris si utilisateur normal)
             self.queryCommercesArrayBasedOnUser()
         }
     }
@@ -126,7 +140,23 @@ class MonCompteVC: UIViewController {
 //        print("Is iPhone X : \(HelperAndKeys.isPhoneX)")
         
         if self.imageProfil != nil {
-            self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+            
+            self.imageProfil.layer.borderColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00).cgColor
+            
+            if self.userProfilePicURL != "" {
+                let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+                self.imageProfil.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload , completed: nil)
+                self.imageProfil.layer.cornerRadius = self.imageProfil.frame.size.width / 2
+                self.imageProfil.clipsToBounds = true
+                self.imageProfil.layer.borderWidth = 3
+                self.imageProfil.layer.masksToBounds = true
+            } else {
+                self.imageProfil.layer.cornerRadius = 0
+                self.imageProfil.clipsToBounds = true
+                self.imageProfil.layer.borderWidth = 0
+                self.imageProfil.layer.masksToBounds = false
+                self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+            }
         }
         
         if self.leftButtonConstraint != nil {
@@ -265,21 +295,29 @@ extension MonCompteVC {
     }
     
     func buyProduct(){
+        
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.show(withStatus: "Chargement du paiement")
+        
         SwiftyStoreKit.retrieveProductsInfo([self.purchasedProductID]) { result in
+            
+            
             if let product = result.retrievedProducts.first {
                 let priceString = product.localizedPrice!
                 print("Product: \(product.localizedDescription), price: \(priceString)")
                 SwiftyStoreKit.purchaseProduct(product, quantity: 1, atomically: true) { result in
-                    // handle result (same as above)
+                    
+                    SVProgressHUD.dismiss()
+                    
                     switch result {
                     case .success(let product):
                         // fetch content from your server, then:
+                        self.processusPaiement()
                         if product.needsFinishTransaction {
                             SwiftyStoreKit.finishTransaction(product.transaction)
                         }
                         print("Purchase Success: \(product.productId)")
-                        self.processusPaiement()
-                        // TODO: Sauvegarder la stat dans parse
                         break
                     case .error(let error):
                         switch error.code {
@@ -300,36 +338,76 @@ extension MonCompteVC {
                 print("Invalid product identifier: \(invalidProductId)")
             }
             else {
-                print("Error: \(result.error)")
+                print("Error: \(String(describing: result.error))")
             }
         }
     }
     
-    func testProduct(){
-        PFPurchase.buyProduct("rFK3UKsB") { (error) in
+    // Pare.com purchase
+//    func testProduct(){
+//        PFPurchase.buyProduct("rFK3UKsB") { (error) in
+//            if let error = error {
+//                print(error)
+//            } else {
+//                HelperAndKeys.showAlertWithMessage(theMessage: "Acheté avec succès", title: "Validé", viewController: self)
+//            }
+//        }
+//    }
+    
+    func saveStatForPurchase(forUser user: PFUser, andCommerce commerce: PFObject){
+        let stat            = PFObject(className: "StatsPurchase")
+        stat["user"]        = user
+        stat["commerce"]    = commerce
+        let queryProduct    = PFProduct.query()
+        
+        queryProduct?.whereKey("productIdentifier", equalTo: self.purchasedProductID)
+        let product             = queryProduct?.getFirstObjectInBackground()
+        stat["typeAbonnement"]  = product
+        
+        stat.saveInBackground { (success, error) in
             if let error = error {
-                print(error)
+                ParseErrorCodeHandler.handleUnknownError(error: error)
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Acheté avec succès", title: "Validé", viewController: self)
+                if !success {
+                    // TODO: Nous envoyer une notification sur le sujet du pb
+                }
             }
         }
     }
     
-    func processusPaiement() -> Bool {
+    func processusPaiement() {
         // TODO: faire de vrai tests pour le paiement
-        
         // [1] Effectuer la demande de paiement
-        
         // [2] Verifier le retour
-        
         // [3] Si payé -> crée un commerce vide
         if let currentUser = currentUser {
             let newCommerce = PFObject(className: "Commerce")
             newCommerce["nomCommerce"] = "Nouveau Commerce"
-            newCommerce["statutCommerce"] = StatutType.unknown.hashValue as NSNumber
+            newCommerce["statutCommerce"] = 1
+            newCommerce["nombrePartages"] = 0
             newCommerce["brouillon"] = true
+            newCommerce["typeCommerce"] = "Alimentaire"
+            // TextField
+            newCommerce["adresse"] = ""
+            newCommerce["promotions"] = ""
+            newCommerce["photoSlider"] = []
+            newCommerce["siteWeb"] = ""
+            newCommerce["mail"] = ""
+            newCommerce["tel"] = ""
+            newCommerce["description"] = ""
+            newCommerce["videos"] = []
+            newCommerce["tags"] = []
+            newCommerce["position"] = PFGeoPoint(latitude: 0, longitude: 0)
             newCommerce["owner"] = currentUser
-//            newCommerce.acl = PFACL(user: currentUser)
+            
+            let testPurpose = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getScheduleKey(), withExpectedType: "bool") as? Bool ?? false
+            if testPurpose {
+                newCommerce["endSubscription"] = Date() + 30.seconds
+            } else {
+                newCommerce["endSubscription"] = Date() + 1.years
+            }
+            
+            newCommerce.acl = PFACL(user: currentUser)
             
 //            do {
 //                try newCommerce.save()
@@ -338,14 +416,17 @@ extension MonCompteVC {
 //                print("\(error.localizedDescription)")
 //            }
             
-            newCommerce.saveEventually { (success, error) in
+            newCommerce.saveInBackground { (success, error) in
                 if let error = error {
                     HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce", viewController: self)
                 } else {
                     if success {
+                        // Commerce crée on sauvegarde les stats
+                        self.saveStatForPurchase(forUser: currentUser, andCommerce: newCommerce)
+                        self.queryCommercesArrayBasedOnUser()
                         // [4] Une fois la création faite -> afficher page de création de commerce
                         self.hasPaidForNewCommerce = true
-                        self.performSegue(withIdentifier: "ajoutCommerce", sender: self.nouveauCommerceButton)
+                        self.performSegue(withIdentifier: "ajoutCommerce", sender: self)
                         
                     } else {
                         HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.", title: "Erreur création de commerce", viewController: self)
@@ -355,14 +436,7 @@ extension MonCompteVC {
         } else {
             HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.", title: "Problème de connexion", viewController: self)
         }
-        
-        return self.hasPaidForNewCommerce
     }
-}
-
-// Payment related
-extension MonCompteVC {
-    
 }
 
 // Data related
@@ -455,7 +529,7 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         print("Aucune conditions particulières pour le mot de passe")
         // ["username": "jilji@gmail.com", "password": "es", "additional": "es"]
         
-        if HelperAndKeys.isValid(info["username"] ?? "") {
+        if HelperAndKeys.isValidEMail(info["username"] ?? "") {
             // Email + MDP OK
             if info["password"] == info["additional"] {
                 return true
