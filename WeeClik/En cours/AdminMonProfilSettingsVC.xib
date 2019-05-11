@@ -45,7 +45,7 @@
                             <rect key="frame" x="16" y="52" width="183" height="54.5"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Paiement">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="circleCorner" value="NO"/>
@@ -57,10 +57,10 @@
                                 <action selector="payment_option_action:" destination="-1" eventType="touchUpInside" id="Gbx-tk-hNc"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRU-PD-JGS">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRU-PD-JGS">
                             <rect key="frame" x="215" y="52" width="183" height="54.5"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" title="Button">
+                            <state key="normal" title="Schedule : 1 an">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -69,8 +69,11 @@
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="schedule_option_action:" destination="-1" eventType="touchUpInside" id="yHz-jv-6jo"/>
+                            </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lo-u7-GL2">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lo-u7-GL2">
                             <rect key="frame" x="16" y="114.5" width="183" height="54.5"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button">
@@ -83,7 +86,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
-                        <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ak-Ig-BxI">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ak-Ig-BxI">
                             <rect key="frame" x="215" y="114.5" width="183" height="54.5"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button">
@@ -96,9 +99,22 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yH1-a1-7Kj">
+                            <rect key="frame" x="368" y="8" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="L7Z-1t-fhP"/>
+                                <constraint firstAttribute="height" constant="30" id="xxb-lK-gjf"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="CloseIcon"/>
+                            <connections>
+                                <action selector="closeView:" destination="-1" eventType="touchUpInside" id="Kvw-h7-aft"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstItem="SRU-PD-JGS" firstAttribute="height" secondItem="mYc-Hc-B4h" secondAttribute="height" id="0wm-Ij-XcH"/>
+                        <constraint firstItem="yH1-a1-7Kj" firstAttribute="top" secondItem="u2I-I3-o8g" secondAttribute="top" constant="8" id="34U-jX-UPv"/>
                         <constraint firstItem="2ak-Ig-BxI" firstAttribute="leading" secondItem="3lo-u7-GL2" secondAttribute="trailing" constant="16" id="3DQ-Ct-QmX"/>
                         <constraint firstItem="lIU-0T-F6e" firstAttribute="top" secondItem="u2I-I3-o8g" secondAttribute="top" constant="8" id="3a6-Xl-KfB"/>
                         <constraint firstItem="3lo-u7-GL2" firstAttribute="height" secondItem="mYc-Hc-B4h" secondAttribute="height" id="5bf-Hy-lVc"/>
@@ -108,6 +124,7 @@
                         <constraint firstItem="3lo-u7-GL2" firstAttribute="width" secondItem="mYc-Hc-B4h" secondAttribute="width" id="CPe-Mu-TYf"/>
                         <constraint firstItem="SRU-PD-JGS" firstAttribute="width" secondItem="mYc-Hc-B4h" secondAttribute="width" id="CnZ-CW-mZT"/>
                         <constraint firstItem="lIU-0T-F6e" firstAttribute="leading" secondItem="u2I-I3-o8g" secondAttribute="leading" constant="16" id="D5U-rq-cYC"/>
+                        <constraint firstAttribute="trailing" secondItem="yH1-a1-7Kj" secondAttribute="trailing" constant="16" id="EQ2-UP-rMn"/>
                         <constraint firstAttribute="height" constant="185" id="EyY-p5-T5H"/>
                         <constraint firstItem="2ak-Ig-BxI" firstAttribute="height" secondItem="3lo-u7-GL2" secondAttribute="height" id="GRX-ET-5Ln"/>
                         <constraint firstItem="2ak-Ig-BxI" firstAttribute="top" secondItem="3lo-u7-GL2" secondAttribute="top" id="GZi-iS-NLg"/>
@@ -135,4 +152,7 @@
             <point key="canvasLocation" x="-439" y="-334"/>
         </view>
     </objects>
+    <resources>
+        <image name="CloseIcon" width="20" height="20"/>
+    </resources>
 </document>

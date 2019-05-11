@@ -14,6 +14,7 @@ import Photos
 import AVKit
 import SVProgressHUD
 import WXImageCompress
+import SwiftDate
 
 class AjoutCommerceVC: UITableViewController {
     
@@ -96,10 +97,12 @@ class AjoutCommerceVC: UITableViewController {
     func refreshUIPaymentStatus() {
         if editingMode {
             // Modification commerce existant
-            self.tableView.tableHeaderView?.frame.size.height = 140
+            self.tableView.tableHeaderView?.frame.size.height = 160
             
             if let savedCommerce = savedCommerce {
-                self.statusDescription.text = "Statut : \n\(savedCommerce.statut.label())"
+                let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
+                let endSub = savedCommerce.pfObject["endSubscription"] as! Date
+                self.statusDescription.text = "Statut : \n\(savedCommerce.statut.label())\nFin : \(endSub.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))"
                 self.seeMoreButton.isEnabled = true
                 if savedCommerce.statut == .paid || savedCommerce.statut == .error || savedCommerce.statut == .unknown {
                     self.paymentButton.isHidden = true

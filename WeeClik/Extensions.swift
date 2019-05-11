@@ -10,6 +10,11 @@ import UIKit
 
 class Extensions: NSObject {}
 
+extension Error {
+    var code: Int { return (self as NSError).code }
+    var domain: String { return (self as NSError).domain }
+}
+
 extension UIColor {
     convenience init(hexFromString:String, alpha:CGFloat = 1.0) {
         var cString:String = hexFromString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -62,6 +67,14 @@ extension UIImage {
     
     func isEqualToData(data: Data) -> Bool {
         return self.jpegData(compressionQuality: 1) == data
+    }
+    
+    public func rounded(radius: CGFloat) -> UIImage {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        UIBezierPath(roundedRect: rect, cornerRadius: radius).addClip()
+        draw(in: rect)
+        return UIGraphicsGetImageFromCurrentImageContext()!
     }
 }
 

@@ -28,6 +28,7 @@
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
 		1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */; };
+		1F4AF13C2286D0A3005FD179 /* ParseErrorCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */; };
 		1F4D4310202AC4D40089FB15 /* ImageScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D430F202AC4D40089FB15 /* ImageScroller.swift */; };
 		1F4D4312202AC4E10089FB15 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D4311202AC4E10089FB15 /* ShadowView.swift */; };
 		1F5581AC2187C9CF00044C0A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F5581AB2187C9CF00044C0A /* CoreLocation.framework */; };
@@ -149,6 +150,7 @@
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
 		1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonCompteVC.swift; sourceTree = "<group>"; };
+		1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseErrorCodeHandler.swift; sourceTree = "<group>"; };
 		1F4D430F202AC4D40089FB15 /* ImageScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScroller.swift; sourceTree = "<group>"; };
 		1F4D4311202AC4E10089FB15 /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		1F5581AB2187C9CF00044C0A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -299,6 +301,7 @@
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
 				1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */,
 				1FD6F56C20729A5100EC9DF3 /* Extensions.swift */,
+				1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */,
 			);
 			name = "Helper & Secrets";
 			sourceTree = "<group>";
@@ -913,6 +916,7 @@
 				1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */,
 				1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */,
 				1F830EB6227B3411003E8F1F /* AdminMonProfilSettingsVC.swift in Sources */,
+				1F4AF13C2286D0A3005FD179 /* ParseErrorCodeHandler.swift in Sources */,
 				1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */,
 				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,
 				1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */,
