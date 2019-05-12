@@ -144,6 +144,7 @@ class AccueilCommerces: UIViewController {
     }
     
     @objc private func refreshCollectionData(_ sender: Any) {
+        // From refresh
         self.queryObjectsFromDB(typeCategorie: self.titleChoose)
     }
 }
@@ -308,7 +309,6 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             comm.distanceFromUser = distanceFromUser
             
             cell.imageDistance.tintColor = textColor
-            cell.imagePartage.tintColor  = textColor
             
             if self.prefFiltreLocation && self.locationGranted {
                 // Filtré par positions

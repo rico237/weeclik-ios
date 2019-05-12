@@ -929,14 +929,6 @@ Weeclik</string>
             </objects>
             <point key="canvasLocation" x="5742.3999999999996" y="-330.29556650246309"/>
         </scene>
-        <!--navigationAjoutCommerce-->
-        <scene sceneID="gCC-Jf-qjb">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="navigationAjoutCommerce" storyboardName="Profile" referencedIdentifier="navigationAjoutCommerce" id="QuE-Mk-CoL" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vDF-7K-cJa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5316" y="-330.29556650246309"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="qDP-uA-J6b">
             <objects>

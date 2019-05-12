@@ -42,7 +42,7 @@ class AdminMonProfilSettingsVC: UIViewController {
         
         // TODO: Ajouter des options, si necessaire
         
-        enables[0] = enabled1
+        enables[0] = !enabled1
         enables[1] = enabled2
         enables[2] = enabled3
         enables[3] = enabled4
@@ -50,6 +50,7 @@ class AdminMonProfilSettingsVC: UIViewController {
     }
     
     func updateButtonUIs(){
+        
         for i in 0...buttons.count - 1 {
             let button = buttons[i]
             let ena = enables[i]
