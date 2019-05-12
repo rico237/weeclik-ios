@@ -17,7 +17,7 @@ class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
     var hasPaidForNewCommerce = false   // Permet de savoir si on peut créer un nouveau commerce vers la BDD
     var isAdminUser = false             // TEST VAR Permet d'afficher les options admins
-    var paymentEnabled = true           // TEST VAR (permet de switcher la demande de paiement)
+    var paymentDeactivated = false      // TEST VAR (permet de switcher la demande de paiement)
     
     var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
     
@@ -291,10 +291,10 @@ extension MonCompteVC {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        paymentEnabled = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? true
-        print("Identifier \(identifier) & paymentEnabled \(paymentEnabled)")
+        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
+        print("Identifier \(identifier) & paymentDeactivated \(paymentDeactivated)")
 
-        if paymentEnabled {
+        if !paymentDeactivated {
             // Permet de verifier si l'user a payer avant la création d'un commerce
             if identifier == "ajoutCommerce" {
                 buyProduct()
@@ -367,15 +367,15 @@ extension MonCompteVC {
             }
         }
         
-//        if let queryRole = PFRole.query() {
-//            queryRole.whereKey("name", equalTo: "admin")
-//            if let adminRole = try? queryRole.findObjects().first as? PFRole {
-//                let acl = PFACL()
-//                acl.setReadAccess(true, for: adminRole)
-//                acl.setWriteAccess(true, for: adminRole)
-//                stat.acl = acl
-//            }
-//        }
+        if let queryRole = PFRole.query() {
+            queryRole.whereKey("name", equalTo: "admin")
+            if let adminRole = try? queryRole.findObjects().first as? PFRole {
+                let acl = PFACL()
+                acl.setReadAccess(true, for: adminRole)
+                acl.setWriteAccess(true, for: adminRole)
+                stat.acl = acl
+            }
+        }
         
         stat.saveInBackground { (success, error) in
             
