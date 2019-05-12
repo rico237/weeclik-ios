@@ -24,6 +24,8 @@ class MonCompteVC: UIViewController {
     var commerces : [PFObject]! = []    // La liste des commerces dans le BAAS
     var currentUser = PFUser.current()  // Utilisateur connecté
     
+    var newCommerceID = ""
+    
     let purchasedProductID = "abo.sans.renouvellement" // TODO: replace (ID du produit apple a acheter)
     
     let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
@@ -66,7 +68,7 @@ class MonCompteVC: UIViewController {
         if isAdminUser {
             self.navigationItem.leftBarButtonItems = [
                 UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:))),
-                UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettingsPanel))
+                UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showSettingsPanel))
             ]
         } else {
             self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
@@ -279,6 +281,15 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 
 // Navigation related
 extension MonCompteVC {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ajoutCommerce" {
+            let ajoutCommerceVC = segue.destination as! AjoutCommerceVC
+            ajoutCommerceVC.editingMode = true
+            ajoutCommerceVC.objectIdCommerce = self.newCommerceID
+        }
+    }
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         paymentEnabled = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? true
         print("Identifier \(identifier) & paymentEnabled \(paymentEnabled)")
@@ -343,28 +354,31 @@ extension MonCompteVC {
         }
     }
     
-    // Pare.com purchase
-//    func testProduct(){
-//        PFPurchase.buyProduct("rFK3UKsB") { (error) in
-//            if let error = error {
-//                print(error)
-//            } else {
-//                HelperAndKeys.showAlertWithMessage(theMessage: "Acheté avec succès", title: "Validé", viewController: self)
-//            }
-//        }
-//    }
-    
     func saveStatForPurchase(forUser user: PFUser, andCommerce commerce: PFObject){
         let stat            = PFObject(className: "StatsPurchase")
         stat["user"]        = user
         stat["commerce"]    = commerce
-        let queryProduct    = PFProduct.query()
         
-        queryProduct?.whereKey("productIdentifier", equalTo: self.purchasedProductID)
-        let product             = queryProduct?.getFirstObjectInBackground()
-        stat["typeAbonnement"]  = product
+        if let queryProduct = PFProduct.query() {
+            queryProduct.whereKey("productIdentifier", equalTo: self.purchasedProductID)
+            
+            if let product = try? queryProduct.findObjects().last as? PFProduct {
+                stat["typeAbonnement"]  = product
+            }
+        }
+        
+//        if let queryRole = PFRole.query() {
+//            queryRole.whereKey("name", equalTo: "admin")
+//            if let adminRole = try? queryRole.findObjects().first as? PFRole {
+//                let acl = PFACL()
+//                acl.setReadAccess(true, for: adminRole)
+//                acl.setWriteAccess(true, for: adminRole)
+//                stat.acl = acl
+//            }
+//        }
         
         stat.saveInBackground { (success, error) in
+            
             if let error = error {
                 ParseErrorCodeHandler.handleUnknownError(error: error)
             } else {
@@ -387,7 +401,6 @@ extension MonCompteVC {
             newCommerce["nombrePartages"] = 0
             newCommerce["brouillon"] = true
             newCommerce["typeCommerce"] = "Alimentaire"
-            // TextField
             newCommerce["adresse"] = ""
             newCommerce["promotions"] = ""
             newCommerce["photoSlider"] = []
@@ -409,25 +422,18 @@ extension MonCompteVC {
             
             newCommerce.acl = PFACL(user: currentUser)
             
-//            do {
-//                try newCommerce.save()
-//            }
-//            catch {
-//                print("\(error.localizedDescription)")
-//            }
-            
             newCommerce.saveInBackground { (success, error) in
                 if let error = error {
                     HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce", viewController: self)
                 } else {
                     if success {
                         // Commerce crée on sauvegarde les stats
+                        self.newCommerceID = newCommerce.objectId!
                         self.saveStatForPurchase(forUser: currentUser, andCommerce: newCommerce)
                         self.queryCommercesArrayBasedOnUser()
                         // [4] Une fois la création faite -> afficher page de création de commerce
                         self.hasPaidForNewCommerce = true
                         self.performSegue(withIdentifier: "ajoutCommerce", sender: self)
-                        
                     } else {
                         HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.", title: "Erreur création de commerce", viewController: self)
                     }

@@ -216,7 +216,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="35A-14-d76" kind="show" identifier="ajoutCommerce" id="lRF-7i-ZL4"/>
+                                    <segue destination="8kB-un-vxW" kind="show" identifier="ajoutCommerce" id="Gn7-Qz-XUG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -621,22 +621,6 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDg-IR-rcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8350" y="-1271"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="p3Z-H4-j9S">
-            <objects>
-                <navigationController storyboardIdentifier="navigationAjoutCommerce" useStoryboardIdentifierAsRestorationIdentifier="YES" id="35A-14-d76" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s0g-vG-8LD">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="8kB-un-vxW" kind="relationship" relationship="rootViewController" id="8ms-Oc-ZXs"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Th-M9-t0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7394" y="-1271"/>
         </scene>
         <!--MON PROFIL-->
         <scene sceneID="NbB-lR-Jhj">

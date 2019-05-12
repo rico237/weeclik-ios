@@ -63,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func purchaseObserver(){
-        print("Purchase observer")
         // see notes below for the meaning of Atomic / Non-Atomic
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             print("Purchase complete transactions")

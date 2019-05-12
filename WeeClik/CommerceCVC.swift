@@ -22,7 +22,7 @@ class CommerceCVC: UICollectionViewCell {
     
     override open func layoutSubviews(){
         super.layoutSubviews()
-//        self.imagePartage.tintColor = UIColor.red
+        self.imagePartage.tintColor = .red
 //        self.imageDistance.tintColor = .red
         self.thumbnailPicture.roundCorners([.topLeft, .topRight], radius: 5)
     }
