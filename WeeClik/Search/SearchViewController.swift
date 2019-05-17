@@ -10,8 +10,6 @@ import UIKit
 import Parse
 import SDWebImage
 
-// ERROR : Trouver bug sur l'espace créé en bas du table view
-
 class SearchViewController: UITableViewController {
     var commerces = [Commerce]()
     var filteredComm = [Commerce]()
@@ -19,7 +17,6 @@ class SearchViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Nombre commrerce : \(commerces.count)")
         self.tableView.tableFooterView = UIView()
         setupSearchController()
         tableView.reloadData()

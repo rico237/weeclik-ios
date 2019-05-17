@@ -246,7 +246,6 @@ extension AccueilCommerces {
     @IBAction func showProfilPage(_ sender: Any){
         // routeConnecte
         self.performSegue(withIdentifier: "routeConnecte", sender: self)
-//        self.present(LoginViewController(), animated: true, completion: nil)
     }
     
     @IBAction func logOut(_ sender: Any) {

@@ -16,10 +16,10 @@ def projectPods
     pod 'Parse', '~> 1.17.2'
     pod 'Parse/UI'
     
-    # Firebase + Fabric integration
+    # Firebase + Performance
     pod 'Firebase/Core'
     pod 'Firebase/Performance'
-    
+    # Firebase Crashlytics
     pod 'Fabric', '~> 1.9.0'
     pod 'Crashlytics', '~> 3.12.0'
     
