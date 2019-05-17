@@ -90,8 +90,7 @@ Weeclik</string>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="SearchIcon"/>
                                         <connections>
-                                            <action selector="searchBarButtonPressed:" destination="TFJ-bE-40m" eventType="touchUpInside" id="zad-dh-uC4"/>
-                                            <segue destination="H14-hP-VxH" kind="showDetail" identifier="searchSegue" id="44e-7x-Of0"/>
+                                            <segue destination="H14-hP-VxH" kind="show" identifier="searchSegue" id="C0a-w4-b0k"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -864,6 +863,7 @@ Weeclik</string>
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pjU-vJ-tdr" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="atg-Vr-JOe"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jCp-3Y-Tdw">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -940,7 +940,7 @@ Weeclik</string>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Afn-TB-G1n" kind="relationship" relationship="rootViewController" id="Gm7-nN-WvU"/>
+                        <segue destination="Afn-TB-G1n" kind="relationship" relationship="rootViewController" id="MoS-t9-XUg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xas-L0-qpI" userLabel="First Responder" sceneMemberID="firstResponder"/>
