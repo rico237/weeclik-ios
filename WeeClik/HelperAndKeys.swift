@@ -12,6 +12,7 @@ import Parse
 import MapKit
 import MessageUI
 import CRNotifications
+import SwiftDate
 
 class HelperAndKeys {
     
@@ -265,11 +266,10 @@ class HelperAndKeys {
     }
     
     static func canShareAgain(objectId : String) -> Bool{
-        let date = self.getSharingTimer(forCommerceId: objectId)
-        if date != nil {
-            let timeDiff = self.minutesBetweenDates(date1: date!, date2: Date())
+        if let date = self.getSharingTimer(forCommerceId: objectId) {
+            let isAfterIntervalle = date.isAfterDate(date + 5.minutes, granularity: .minute)
             // TODO: Mettre le veritable intervalle
-            if timeDiff >= 1 {
+            if isAfterIntervalle {
                 self.removeCommerce(forCommerceId: objectId)
                 return true
             } else {
@@ -284,12 +284,6 @@ class HelperAndKeys {
         let stringCat = forCommerceId+"_date"
         UserDefaults.standard.removeObject(forKey: stringCat)
         UserDefaults.standard.synchronize()
-    }
-    
-    static func minutesBetweenDates(date1: Date, date2: Date) -> Int {
-        let secondsBetween = abs(Int(date1.timeIntervalSince(date2)))
-        let secondsInHour = 60
-        return secondsBetween / secondsInHour
     }
     
     static func getListOfCategories() -> [String]{
@@ -339,10 +333,6 @@ class HelperAndKeys {
     static func sendBugReport(message: String){
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         print("Créer une fonction de bug report avec le detail + la version de l'app : \(versionNumber)")
-    }
-    
-    static func logOutUser(){
-        PFUser.logOut()
     }
     
     // TODO: Construire une veritable requette de stats (perfection)

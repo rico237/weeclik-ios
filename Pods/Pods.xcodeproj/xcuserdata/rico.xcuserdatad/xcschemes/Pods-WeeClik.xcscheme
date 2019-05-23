@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9501B8808C19431C59B690DAD4E4C2A0"
+               BlueprintIdentifier = "E30FFD35D19C23BFFB8BAE61D751621B"
                BuildableName = "Pods_WeeClik.framework"
                BlueprintName = "Pods-WeeClik"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9501B8808C19431C59B690DAD4E4C2A0"
+            BlueprintIdentifier = "E30FFD35D19C23BFFB8BAE61D751621B"
             BuildableName = "Pods_WeeClik.framework"
             BlueprintName = "Pods-WeeClik"
             ReferencedContainer = "container:Pods.xcodeproj">

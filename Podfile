@@ -34,6 +34,7 @@ def projectPods
     pod 'SDWebImage', '~> 4.0'
     # UIAlert with progress utilities
     pod 'SVProgressHUD', '~> 2.1'
+    pod 'IHProgressHUD', '~> 0.1.4' # Maybe change for this one <----
     
     # Add promises like in javascript
     pod 'PromiseKit', '~> 6.0'

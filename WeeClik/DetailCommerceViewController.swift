@@ -89,7 +89,7 @@ class DetailCommerceViewController: UIViewController {
     
     func loadPhotosFromDB(){
         let queryPhotos = PFQuery(className: "Commerce_Photos")
-        queryPhotos.whereKey("commerce", equalTo: self.commerceObject.pfObject)
+        queryPhotos.whereKey("commerce", equalTo: self.commerceObject.pfObject!)
         queryPhotos.order(byDescending: "updatedAt")
         queryPhotos.findObjectsInBackground { (objects, err) in
             
@@ -111,7 +111,7 @@ class DetailCommerceViewController: UIViewController {
     }
     
     @objc func shareCommerce(){
-        SwiftMultiSelect.delegate = self
+        
         
         if HelperAndKeys.canShareAgain(objectId: commerceID){
             let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse) \nURL : weeclik://\(self.commerceObject.objectId.description)"
@@ -121,6 +121,8 @@ class DetailCommerceViewController: UIViewController {
                 
                 self.shrdString = shar
                 
+                SwiftMultiSelect.delegate = self
+                
                 Config.doneString = "Valider"
                 Config.viewTitle  = "Création d'un groupe"
                 
@@ -128,6 +130,40 @@ class DetailCommerceViewController: UIViewController {
             }
             
             let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
+            activit.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems:[Any]?, error: Error?) in
+                // Return if cancelled
+                if (!completed) {
+                    print("user clicked cancel")
+                    return
+                }
+                
+                if activityType == UIActivity.ActivityType.mail {
+                    print("share throgh mail")
+                }
+                else if activityType == UIActivity.ActivityType.message {
+                    print("share trhought Message IOS")
+                }
+                else if activityType == UIActivity.ActivityType.postToTwitter {
+                    print("posted to twitter")
+                }
+                else if activityType == UIActivity.ActivityType.postToFacebook {
+                    print("posted to facebook")
+                }
+                else if activityType == UIActivity.ActivityType.copyToPasteboard {
+                    print("copied to clipboard")
+                }
+                else if activityType!.rawValue == "net.whatsapp.WhatsApp.ShareExtension" {
+                    print("activity type is whatsapp")
+                }
+                else if activityType!.rawValue == "com.google.Gmail.ShareExtension" {
+                    print("activity type is Gmail")
+                }
+                else {
+                    // You can add this activity type after getting the value from console for other apps.
+                    print("activity type is: \(String(describing: activityType))")
+                }
+            }
+            
             self.present(activit, animated: true, completion: nil)
             
         } else {
@@ -382,8 +418,6 @@ extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
             
             // Present the view controller modally.
             self.present(composeVC, animated: true, completion: nil)
-        }else{
-//            self.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.", title: "Erreur", viewController: controller)
         }
     }
     
@@ -397,14 +431,18 @@ extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
                 print("Annulé")
                 break
             case .failed:
-                print("Echoué")
+                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.", title: "Erreur", viewController: self)
                 break
             case .sent:
-                print("Envoyé")
+                HelperAndKeys.showAlertWithMessage(theMessage: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.", title: "Merci pour votre confiance", viewController: self)
+                // On a bien partagé -> sauvegarde dans le UserDefaults
+                saveCommerceIdInUserDefaults()
                 break
             case .saved:
                 print("Sauvegardé en brouillon")
                 break
+            @unknown default:
+                print("unknown result")
             }
         }
         self.dismiss(animated: true, completion: nil)
@@ -417,7 +455,7 @@ extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{
                                       didFinishWith result: MessageComposeResult) {
         switch result {
         case .cancelled:
-//            HelperAndKeys.showNotification(type: "", title: "Title", message: "Message", delay: 2)
+            print("Ecriture de message annulé")
             break
         case .failed:
             HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.", title: "Erreur", viewController: self)
@@ -425,8 +463,10 @@ extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{
         case .sent:
             HelperAndKeys.showAlertWithMessage(theMessage: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.", title: "Merci pour votre confiance", viewController: self)
             // On a bien partagé -> sauvegarde dans le UserDefaults
-//            saveCommerceIdInUserDefaults(viewController: self)
+            saveCommerceIdInUserDefaults()
             break
+        @unknown default:
+            print("Unknown result from switch case in Message Compose Delegates")
         }
         controller.dismiss(animated: true, completion: nil)
     }
