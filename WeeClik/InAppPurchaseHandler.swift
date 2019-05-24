@@ -14,12 +14,14 @@ enum IAPHandlerAlertType{
     case disabled
     case restored
     case purchased
+    case failed
     
     func message() -> String{
         switch self {
-            case .disabled: return "Purchases are disabled in your device!"
-            case .restored: return "You've successfully restored your purchase!"
-            case .purchased: return "You've successfully bought this purchase!"
+            case .disabled: return "Les achats sont désactivés sur votre appareil"
+            case .restored: return "Votre abonnement à bien été restauré !"
+            case .purchased: return "Vous avez bien soucrit à l'abonnement annuel !"
+            case .failed: return "Un problème est arrivé durant l'achat! Merci de réessayer plus tard."
         }
     }
 }
@@ -35,6 +37,7 @@ class InAppPurchaseHandler: NSObject {
     
     var productIds = [String]()
     var parseProducts = [PFProduct]()
+    var productBeingPurchased : PFProduct!
     
     fileprivate var productID = ""
     fileprivate var productsRequest = SKProductsRequest()
@@ -142,6 +145,22 @@ class InAppPurchaseHandler: NSObject {
         productsRequest.delegate = self
         productsRequest.start()
     }
+    
+    func updatePurchaseParseObject() {
+        let query = PFProduct.query()
+        query?.findObjectsInBackground(block: { (products, error) in
+            if let error = error as NSError? {
+                print("Error : \n\tCode : \(error.code)\n\tMessage : \(error.localizedDescription)")
+            } else if let products = products as? [PFProduct] {
+                for prod in products {
+                    if prod.productIdentifier == "" {
+                        prod.incrementKey("purchased")
+                        prod.saveEventually()
+                    }
+                }
+            }
+        })
+    }
 }
 
 extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionObserver{
@@ -176,16 +195,19 @@ extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionO
                 case .purchased:
                     print("purchased")
                     SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+//                    updatePurchaseParseObject(object: productBeingPurchased)
                     purchaseStatusBlock?(.purchased)
                     break
                     
                 case .failed:
                     print("failed")
                     SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+//                    purchaseStatusBlock?(.failed)
                     break
                 case .restored:
                     print("restored")
                     SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+//                    purchaseStatusBlock?(.restored)
                     break
                     
                 default: break

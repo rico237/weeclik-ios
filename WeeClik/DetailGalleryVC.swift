@@ -13,6 +13,7 @@ import DZNEmptyDataSet
 import Async
 import SVProgressHUD
 import AppImageViewer
+import MobilePlayer
 
 class DetailGalleryVC: UIViewController {
 
@@ -85,7 +86,7 @@ class DetailGalleryVC: UIViewController {
         }
         
         for obj in self.photos {
-            let file = obj["photo"] as! PFFile
+            let file = obj["photo"] as! PFFileObject
             if let data = try? file.getData() {
                 if let image = UIImage(data: data){
                     self.fetchedPhotos.append(image)
@@ -145,22 +146,24 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath) as! PhotosVideosCollectionCell
         
         var obj : PFObject!
-        var file : PFFile
+        var file : PFFileObject
         
         if !shdShowVideos {
             // Photos
-            cell.minuteViewContainer.isHidden = true
             obj = photos[indexPath.row]
-            file = obj["photo"] as! PFFile
+            file = obj["photo"] as! PFFileObject
+            cell.minuteViewContainer.isHidden = true
         } else {
             obj = videos[indexPath.row]
-            file = obj["video"] as! PFFile
+            cell.timeLabel.text = obj["time"] as? String
+            file = obj["thumbnail"] as! PFFileObject
+            cell.minuteViewContainer.isHidden = false
         }
         
         if let urlStr = file.url {
             cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Placeholder_carre") , options: .highPriority , completed: nil)
         } else {
-            cell.imagePlaceholder.image = UIImage(named:"icon")
+            cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
         }
         
         return cell
@@ -170,19 +173,33 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         
         if !shdShowVideos {
             // Photos
-            if self.fetchedPhotos.count != 0 {
-                for image in self.fetchedPhotos {
-                    
-                    if let image = image {
-                        let appImage = ViewerImage.appImage(forImage: image)
-                        let viewer = AppImageViewer(originImage: image, photos: [appImage], animatedFromView: self.view)
-                        present(viewer, animated: true, completion: nil)
+            var images = [ViewerImageProtocol]()
+            var originImage = UIImage()
+            for i in 0...self.fetchedPhotos.count - 1 {
+                if let image = self.fetchedPhotos[i] {
+                    if i == indexPath.row {
+                        originImage = image
                     }
+                    let appImage = ViewerImage.appImage(forImage: image)
+                    images.append(appImage)
                 }
             }
+            
+            let viewer = AppImageViewer(originImage: originImage, photos: images, animatedFromView: self.view)
+            viewer.currentPageIndex = indexPath.row
+            present(viewer, animated: true, completion: nil)
         } else {
             // Videos
-            HelperAndKeys.showAlertWithMessage(theMessage: "Fonction disponible dans une prochaine mise à jour", title: "Développement en cours", viewController: self)
+            let parseObject = self.videos[indexPath.row]
+            let videoFile = parseObject["video"] as! PFFileObject
+            if let url = URL(string: videoFile.url!) {
+                let playerVC = MobilePlayerViewController(contentURL: url)
+                playerVC.title = parseObject["nameVideo"] as? String
+                playerVC.activityItems = [url]
+                present(playerVC, animated: true, completion: nil)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Problème de chargement de la vidéo", title: "Erreur", viewController: self)
+            }
         }
     }
 }

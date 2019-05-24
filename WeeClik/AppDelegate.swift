@@ -9,39 +9,49 @@
 import UIKit
 import Parse
 import FBSDKCoreKit
-import Firebase
-import Fabric
-import Crashlytics
 import Compass
+import Contacts
+import ContactsUI
+import SwiftMultiSelect
+import Firebase
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var postLoginRouter = Router()
+    
+    //Contacts store
+    public static var contactStore  = CNContactStore()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         parseConfiguration()
-        personaliserInteface()
+        globalUiConfiguration()
+        firebaseConfiguration()
+        purchaseObserver()
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
-        FirebaseApp.configure()
-        Fabric.sharedSDK().debug = true
-        Fabric.with([Crashlytics.self])
         
         setupRouting()
 
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         try? Navigator.navigate(url: url)
         return true
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+    
+    func firebaseConfiguration(){
+        // Use Firebase library to configure APIs
+        FirebaseApp.configure()
     }
     
     func parseConfiguration(){
@@ -52,7 +62,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.initialize(with: configuration)
     }
     
-    func personaliserInteface(){
+    func purchaseObserver(){
+        // see notes below for the meaning of Atomic / Non-Atomic
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            print("Purchase complete transactions")
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        // TODO: Maybe load things from server ?
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                // Unlock content
+                case .failed, .purchasing, .deferred:
+                    print("Nothing with status : \(purchase.transaction.transactionState)")
+                    break // do nothing
+                @unknown default:
+                    fatalError("Unknow value passed for purchaseObserver - Payment function - AppDelegate")
+                }
+            }
+        }
+        
+        SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
+//            TEST = itms-services://?action=purchaseIntent&bundleId=com.example.app&productIdentifier=product_name
+//            if PFUser.current() != nil {
+//                // TODO: Handle purchase made from store
+//                return true
+//            }
+            return false
+        }
+    }
+    
+    func globalUiConfiguration(){
         UINavigationBar.appearance().barTintColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.white
@@ -62,9 +104,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         shadow.shadowOffset = CGSize(width: 0, height: 1)
 
         UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedStringKey.foregroundColor : UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
-            NSAttributedStringKey.shadow : shadow,
-            NSAttributedStringKey.font : UIFont(name: "BebasNeue", size: 21.0) as Any
+            NSAttributedString.Key.foregroundColor : UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
+            NSAttributedString.Key.shadow : shadow,
+            NSAttributedString.Key.font : UIFont(name: "BebasNeue", size: 21.0) as Any
         ]
     }
 
@@ -92,6 +134,130 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate {
+    // Contacts functions
+    
+    class func getAppDelegate() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    /// Function to request access for PhoneBook
+    ///
+    /// - Parameter completionHandler: completionHandler description
+    class func requestForAccess(_ completionHandler: @escaping (_ accessGranted: Bool) -> Void) {
+        
+        let authorizationStatus = CNContactStore.authorizationStatus(for: CNEntityType.contacts)
+        
+        switch authorizationStatus {
+        case .authorized:
+            completionHandler(true)
+            
+        case .denied, .notDetermined:
+            self.contactStore.requestAccess(for: CNEntityType.contacts, completionHandler: { (access, accessError) -> Void in
+                if access {
+                    completionHandler(access)
+                }
+                else {
+                    if authorizationStatus == CNAuthorizationStatus.denied {
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            print("\(accessError!.localizedDescription)\n\nPlease allow the app to access your contacts through the Settings.")
+                        })
+                    }
+                }
+            })
+            
+        default:
+            completionHandler(false)
+        }
+    }
+    
+    
+    /// Function to get contacts from device
+    ///
+    /// - Parameters:
+    ///   - keys: array of keys to get
+    ///   - completionHandler: callback function, contains contacts array as parameter
+    public class func getContacts(_ keys:[CNKeyDescriptor] = [CNContactGivenNameKey as CNKeyDescriptor, CNContactFamilyNameKey as CNKeyDescriptor, CNContactEmailAddressesKey as CNKeyDescriptor, CNContactOrganizationNameKey as CNKeyDescriptor, CNContactPhoneNumbersKey as CNKeyDescriptor, CNContactViewController.descriptorForRequiredKeys()],completionHandler: @escaping (_ success:Bool, _ contacts: [SwiftMultiSelectItem]?) -> Void){
+        
+        self.requestForAccess { (accessGranted) -> Void in
+            if accessGranted {
+                
+                var contactsArray = [SwiftMultiSelectItem]()
+                
+                let contactFetchRequest = CNContactFetchRequest(keysToFetch: self.allowedContactKeys())
+                
+                do {
+                    var row = 0
+                    try self.contactStore.enumerateContacts(with: contactFetchRequest, usingBlock: { (contact, stop) -> Void in
+                        
+                        var username    = "\(contact.givenName) \(contact.familyName)"
+                        var companyName = contact.organizationName
+                        
+                        if username.trimmingCharacters(in: .whitespacesAndNewlines) == "" && companyName != ""{
+                            username        = companyName
+                            companyName     = ""
+                        }
+                        
+                        let item_contact = SwiftMultiSelectItem(row: row, title: username, description: companyName, image: nil, imageURL: nil, color: nil, userInfo: contact)
+                        contactsArray.append(item_contact)
+                        
+                        row += 1
+                        
+                    })
+                    completionHandler(true, contactsArray)
+                }
+                    
+                    //Catching exception as enumerateContactsWithFetchRequest can throw errors
+                catch let error as NSError {
+                    
+                    print(error.localizedDescription)
+                    
+                }
+                
+            }else{
+                completionHandler(false, nil)
+            }
+        }
+        
+    }
+    /// Get allowed keys
+    ///
+    /// - Returns: array
+    class func allowedContactKeys() -> [CNKeyDescriptor]{
+        
+        return [
+            CNContactNamePrefixKey as CNKeyDescriptor,
+            CNContactGivenNameKey as CNKeyDescriptor,
+            CNContactMiddleNameKey as CNKeyDescriptor,
+            CNContactFamilyNameKey as CNKeyDescriptor,
+            CNContactNameSuffixKey as CNKeyDescriptor,
+            //CNContactNicknameKey,
+            //CNContactPhoneticGivenNameKey,
+            //CNContactPhoneticMiddleNameKey,
+            //CNContactPhoneticFamilyNameKey,
+            CNContactOrganizationNameKey as CNKeyDescriptor,
+            //CNContactDepartmentNameKey,
+            //CNContactJobTitleKey,
+            //CNContactBirthdayKey,
+            //CNContactNonGregorianBirthdayKey,
+            //CNContactNoteKey,
+            CNContactImageDataKey as CNKeyDescriptor,
+            CNContactThumbnailImageDataKey as CNKeyDescriptor,
+            CNContactImageDataAvailableKey as CNKeyDescriptor,
+            //CNContactTypeKey,
+            CNContactPhoneNumbersKey as CNKeyDescriptor,
+            CNContactEmailAddressesKey as CNKeyDescriptor,
+            //CNContactPostalAddressesKey,
+            CNContactDatesKey as CNKeyDescriptor,
+            //CNContactUrlAddressesKey,
+            //CNContactRelationsKey,
+            //CNContactSocialProfilesKey,
+            //CNContactInstantMessageAddressesKey
+        ]
+        
+    }
 }
 
 extension AppDelegate {
@@ -124,4 +290,3 @@ extension AppDelegate {
         }
     }
 }
-

@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2784A93ADA3760DDABC3CE415609A14E"
+               BlueprintIdentifier = "FD952B0EB5FB31E3A3A96C01615219B6"
+               BuildableName = "Compass.framework"
                BlueprintName = "Compass"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Compass.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

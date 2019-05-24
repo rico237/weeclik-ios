@@ -12,12 +12,13 @@ import Parse
 import MapKit
 import MessageUI
 import CRNotifications
+import SwiftDate
 
 class HelperAndKeys {
     
     static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController){
-        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertControllerStyle.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { (action) -> Void in}
+        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in}
         alertViewController.addAction(defaultAction)
         viewController.present(alertViewController, animated: true, completion: nil)
     }
@@ -25,7 +26,7 @@ class HelperAndKeys {
     static func showSettingsAlert(withTitle title:String, withMessage message:String, presentFrom viewController:UIViewController){
         let alertController = UIAlertController (title: title, message: message, preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: "Réglages", style: .default) { (_) -> Void in
-            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {return}
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
             if UIApplication.shared.canOpenURL(settingsUrl) {UIApplication.shared.open(settingsUrl, completionHandler: nil)}
         }
         let cancelAction = UIAlertAction(title: "Annuler", style: .default, handler: nil)
@@ -56,6 +57,32 @@ class HelperAndKeys {
     
     static func getPrefFilterLocationKey() -> String{
         return "filterPreference"
+    }
+    
+    static func getPaymentKey() -> String {
+        return "payment_enabled"
+    }
+    
+    static func getScheduleKey() -> String {
+        return "shedule_key"
+    }
+    
+    static func setUserDefaultsValue(value: Any, forKey key:String) {
+        let use = UserDefaults.standard
+        use.set(value, forKey: key)
+        use.synchronize()
+    }
+    
+    static func getUserDefaultsValue(forKey key: String, withExpectedType expectedType: String) -> Any? {
+        let use = UserDefaults.standard; let type = expectedType.lowercased()
+        
+        if type == "bool" {
+            return use.bool(forKey: key)
+        } else if type == "string" {
+            return use.string(forKey: key)
+        }
+        
+        return nil
     }
     
     static func getPrefFiltreLocation() -> Bool{
@@ -153,8 +180,8 @@ class HelperAndKeys {
     
     static func visitWebsite(site: String, controller: UIViewController){
         
-        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?", message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?", preferredStyle: UIAlertControllerStyle.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default) { (action) -> Void in
+        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?", message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?", preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in
             if let url = URL(string: site), UIApplication.shared.canOpenURL(url) {
                 if #available(iOS 10, *) {
                     UIApplication.shared.open(url)
@@ -163,7 +190,7 @@ class HelperAndKeys {
                 }
             }
         }
-        let cancelAction = UIAlertAction.init(title: "Annuler", style: UIAlertActionStyle.destructive) {(action) -> Void in}
+        let cancelAction = UIAlertAction.init(title: "Annuler", style: UIAlertAction.Style.destructive) {(action) -> Void in}
         alertViewController.addAction(cancelAction)
         alertViewController.addAction(defaultAction)
         controller.present(alertViewController, animated: true, completion: nil)
@@ -203,7 +230,7 @@ class HelperAndKeys {
         
         let regionDistance:CLLocationDistance = 10000
         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
         let options = [
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
             MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
@@ -239,11 +266,10 @@ class HelperAndKeys {
     }
     
     static func canShareAgain(objectId : String) -> Bool{
-        let date = self.getSharingTimer(forCommerceId: objectId)
-        if date != nil {
-            let timeDiff = self.minutesBetweenDates(date1: date!, date2: Date())
+        if let date = self.getSharingTimer(forCommerceId: objectId) {
+            let isAfterIntervalle = date.isAfterDate(date + 5.minutes, granularity: .minute)
             // TODO: Mettre le veritable intervalle
-            if timeDiff >= 1 {
+            if isAfterIntervalle {
                 self.removeCommerce(forCommerceId: objectId)
                 return true
             } else {
@@ -260,14 +286,25 @@ class HelperAndKeys {
         UserDefaults.standard.synchronize()
     }
     
-    static func minutesBetweenDates(date1: Date, date2: Date) -> Int {
-        let secondsBetween = abs(Int(date1.timeIntervalSince(date2)))
-        let secondsInHour = 60
-        return secondsBetween / secondsInHour
-    }
-    
     static func getListOfCategories() -> [String]{
         return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme"]
+    }
+    
+    /// Has safe area
+    ///
+    /// with notch: 44.0 on iPhone X, XS, XS Max, XR.
+    ///
+    /// without notch: 20.0 on iPhone 8 on iOS 12+.
+    ///
+    static var hasSafeArea: Bool {
+        guard #available(iOS 11.0, *), let topPadding = UIApplication.shared.keyWindow?.safeAreaInsets.top, topPadding > 24 else {
+            return false
+        }
+        return true
+    }
+    
+    static var isPhoneX: Bool {
+        return UIDevice.isIphoneX
     }
     
     static func handleParseError(error: NSError) -> String{
@@ -296,10 +333,6 @@ class HelperAndKeys {
     static func sendBugReport(message: String){
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         print("Créer une fonction de bug report avec le detail + la version de l'app : \(versionNumber)")
-    }
-    
-    static func logOutUser(){
-        PFUser.logOut()
     }
     
     // TODO: Construire une veritable requette de stats (perfection)
@@ -335,6 +368,21 @@ class HelperAndKeys {
             comm.incrementKey("nombrePartages")
             comm.saveInBackground()
         })
+    }
+    
+    /// Validate email string
+    ///
+    /// - parameter email: A String that rappresent an email address
+    ///
+    /// - returns: A Boolean value indicating whether an email is valid.
+    static func isValidEMail(_ email: String) -> Bool {
+        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
+        "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" + "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5" +
+        "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
+        "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
+        return emailTest.evaluate(with: email)
     }
    
     

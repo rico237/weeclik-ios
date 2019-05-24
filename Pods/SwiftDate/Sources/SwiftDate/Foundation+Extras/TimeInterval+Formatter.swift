@@ -36,25 +36,25 @@ public extension TimeInterval {
 		/// The preferred style for units.
 		/// By default is `.abbreviated`.
 		public var unitsStyle: DateComponentsFormatter.UnitsStyle = .abbreviated
-		
+
 		/// Locale of the formatter
 		public var locale: LocaleConvertible? {
-			set { self.calendar.locale = newValue?.toLocale() }
-			get { return self.calendar.locale }
+			set { calendar.locale = newValue?.toLocale() }
+			get { return calendar.locale }
 		}
-		
+
 		/// Calendar
-		public var calendar: Calendar = Calendar.autoupdatingCurrent
+		public var calendar = Calendar.autoupdatingCurrent
 
 		public func apply(toFormatter formatter: DateComponentsFormatter) {
-			formatter.allowsFractionalUnits = self.allowsFractionalUnits
-			formatter.allowedUnits = self.allowedUnits
-			formatter.collapsesLargestUnit = self.collapsesLargestUnit
-			formatter.maximumUnitCount = self.maximumUnitCount
-			formatter.unitsStyle = self.unitsStyle
-			formatter.calendar = self.calendar
+			formatter.allowsFractionalUnits = allowsFractionalUnits
+			formatter.allowedUnits = allowedUnits
+			formatter.collapsesLargestUnit = collapsesLargestUnit
+			formatter.maximumUnitCount = maximumUnitCount
+			formatter.unitsStyle = unitsStyle
+			formatter.calendar = calendar
 		}
-		
+
 		public init() {}
 	}
 
@@ -69,20 +69,25 @@ public extension TimeInterval {
 		})
 	}
 
+	@available(*, deprecated: 5.0.13, obsoleted: 5.1, message: "Use toIntervalString function instead")
+	public func toString(options callback: ((inout ComponentsFormatterOptions) -> Void)? = nil) -> String {
+		return self.toIntervalString(options: callback)
+	}
+
 	/// Format a time interval in a string with desidered components with passed style.
 	///
 	/// - Parameters:
 	///   - units: units to include in string.
 	///   - style: style of the units, by default is `.abbreviated`
 	/// - Returns: string representation
-	public func toString(options callback: ((inout ComponentsFormatterOptions) -> Void)? = nil) -> String {
+	public func toIntervalString(options callback: ((inout ComponentsFormatterOptions) -> Void)? = nil) -> String {
 		let formatter = TimeInterval.sharedFormatter()
 		var options = ComponentsFormatterOptions()
 		callback?(&options)
 		options.apply(toFormatter: formatter)
 		return (formatter.string(from: self) ?? "")
 	}
-	
+
 	/// Format a time interval in a string with desidered components with passed style.
 	///
 	/// - Parameter options: options for formatting.
@@ -98,7 +103,7 @@ public extension TimeInterval {
 	/// - Parameter zero: behaviour with zero.
 	/// - Returns: string representation
 	public func toClock(zero: DateComponentsFormatter.ZeroFormattingBehavior = .pad) -> String {
-		return self.toString(options: {
+		return toIntervalString(options: {
 			$0.unitsStyle = .positional
 			$0.zeroFormattingBehavior = zero
 		})
@@ -132,7 +137,7 @@ public extension TimeInterval {
 	///
 	/// - returns: the value of interval expressed in selected `Calendar.Component`
 	public func toUnit(_ component: Calendar.Component, to refDate: DateInRegion? = nil) -> Int? {
-		return self.toUnits([component], to: refDate)[component]
+		return toUnits([component], to: refDate)[component]
 	}
-	
+
 }

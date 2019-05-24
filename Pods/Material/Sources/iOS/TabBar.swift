@@ -199,6 +199,18 @@ public enum TabBarStyle: Int {
   case scrollable
 }
 
+public enum TabBarCenteringStyle {
+  case never
+  case auto
+  case always
+}
+
+public enum TabBarLineStyle {
+  case auto
+  case fixed(CGFloat)
+  case custom((TabItem) -> CGFloat)
+}
+
 open class TabBar: Bar {
   /// A dictionary of TabItemLineStates to UIColors for the line.
   fileprivate var lineColorForState = [TabItemLineState: UIColor]()
@@ -229,6 +241,20 @@ open class TabBar: Bar {
       layoutSubviews()
     }
   }
+
+  /// An enum that determines the tab bar centering style.
+  open var tabBarCenteringStyle = TabBarCenteringStyle.always {
+    didSet {
+      layoutSubviews()
+    }
+  }
+  
+  /// An enum that determines the tab bar items style.
+  open var tabBarLineStyle = TabBarLineStyle.auto {
+    didSet {
+      layoutSubviews()
+    }
+  }
   
   /// A reference to the scroll view when the tab bar style is scrollable.
   open let scrollView = UIScrollView()
@@ -249,10 +275,8 @@ open class TabBar: Bar {
   
   /// The currently selected tabItem.
   open internal(set) var selectedTabItem: TabItem? {
-    willSet {
-      selectedTabItem?.isSelected = false
-    }
     didSet {
+      oldValue?.isSelected = false
       selectedTabItem?.isSelected = true
     }
   }
@@ -475,15 +499,37 @@ fileprivate extension TabBar {
     }
     
     guard shouldNotAnimateLineView else {
+      let f = lineFrame(for: v, forMotion: true)
       line.animate(.duration(0),
-                   .size(width: v.bounds.width, height: lineHeight),
-                   .position(x: v.center.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight / 2 : lineHeight / 2))
+                   .size(f.size),
+                   .position(f.origin))
       return
     }
     
-    line.frame = CGRect(x: v.frame.origin.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight : 0, width: v.bounds.width, height: lineHeight)
+    line.frame = lineFrame(for: v)
     
     shouldNotAnimateLineView = false
+  }
+  
+  func lineFrame(for tabItem: TabItem, forMotion: Bool = false) -> CGRect {
+    let y = .bottom == lineAlignment ? scrollView.bounds.height - (forMotion ? lineHeight / 2 : lineHeight) : (forMotion ? lineHeight / 2 : 0)
+    
+    let w: CGFloat = {
+      switch tabBarLineStyle {
+      case .auto:
+        return tabItem.bounds.width
+        
+      case .fixed(let w):
+        return w
+        
+      case .custom(let closure):
+        return closure(tabItem)
+      }
+    }()
+    
+    let x = forMotion ? tabItem.center.x : (tabItem.frame.origin.x + (tabItem.bounds.width - w) / 2)
+    
+    return CGRect(x: x, y: y, width: w, height: lineHeight)
   }
 }
 
@@ -601,9 +647,11 @@ fileprivate extension TabBar {
     
     selectedTabItem = tabItem
     
+    let f = lineFrame(for: tabItem, forMotion: true)
+    
     line.animate(.duration(0.25),
-                 .size(width: tabItem.bounds.width, height: lineHeight),
-                 .position(x: tabItem.center.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight / 2 : lineHeight / 2),
+                 .size(f.size),
+                 .position(f.origin),
                  .completion({ [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] in
                     guard let `self` = self else {
                       return
@@ -627,9 +675,31 @@ fileprivate extension TabBar {
       return
     }
     
-    if !scrollView.bounds.contains(v.frame) {
-      let contentOffsetX = (v.frame.origin.x < scrollView.bounds.minX) ? v.frame.origin.x : v.frame.maxX - scrollView.bounds.width
-      let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
+    let contentOffsetX: CGFloat? = {
+      let shouldScroll = !scrollView.bounds.contains(v.frame)
+      
+      switch tabBarCenteringStyle {
+      case .auto:
+        guard shouldScroll else {
+          return nil
+        }
+        
+        fallthrough
+        
+      case .always:
+        return v.center.x - bounds.width / 2
+      
+      case .never:
+        guard shouldScroll else {
+          return nil
+        }
+      
+        return v.frame.origin.x < scrollView.bounds.minX ? v.frame.origin.x : v.frame.maxX - scrollView.bounds.width
+      }
+    }()
+    
+    if let x = contentOffsetX {
+      let normalizedOffsetX = min(max(x, 0), scrollView.contentSize.width - scrollView.bounds.width)
       scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
     }
   }

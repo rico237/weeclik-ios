@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "12841390DE2C84F3129B716BF7358D69"
+               BlueprintIdentifier = "4BDCFF6E0866502EEE82F8E0541D160C"
+               BuildableName = "Zingle.framework"
                BlueprintName = "Zingle"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Zingle.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

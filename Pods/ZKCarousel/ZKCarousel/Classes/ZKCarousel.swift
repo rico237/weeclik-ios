@@ -13,7 +13,11 @@ final public class ZKCarousel: UIView, UICollectionViewDelegateFlowLayout, UICol
     
     public var slides : [ZKCarouselSlide] = [] {
         didSet {
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.pageControl.numberOfPages = self.slides.count
+                self.pageControl.size(forNumberOfPages: self.slides.count)
+            }
         }
     }
     
@@ -24,7 +28,6 @@ final public class ZKCarousel: UIView, UICollectionViewDelegateFlowLayout, UICol
     
     public lazy var pageControl : UIPageControl = {
         let control = UIPageControl()
-        control.numberOfPages = 3
         control.currentPage = 0
         control.hidesForSinglePage = true
         control.pageIndicatorTintColor = .lightGray
@@ -75,7 +78,8 @@ final public class ZKCarousel: UIView, UICollectionViewDelegateFlowLayout, UICol
         NSLayoutConstraint(item: pageControl, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: -20).isActive = true
         NSLayoutConstraint(item: pageControl, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -5).isActive = true
         NSLayoutConstraint(item: pageControl, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25).isActive = true
-        self.bringSubview(toFront: pageControl)
+        
+        self.bringSubviewToFront(pageControl)
     }
     
     @objc private func tapGestureHandler(tap: UITapGestureRecognizer?) {
@@ -122,7 +126,6 @@ final public class ZKCarousel: UIView, UICollectionViewDelegateFlowLayout, UICol
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(slides.count)
         return self.slides.count
     }
     
@@ -220,9 +223,6 @@ fileprivate class carouselCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint(item: self.titleLabel, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: -15).isActive = true
         NSLayoutConstraint(item: self.titleLabel, attribute: .bottom, relatedBy: .equal, toItem: self.descriptionLabel, attribute: .top, multiplier: 1.0, constant: 8).isActive = true
         NSLayoutConstraint(item: self.titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 43).isActive = true
-        
-        self.addConstraintsWithFormat("H:|-15-[v0]-15-|", views: self.titleLabel)
-        self.addConstraintsWithFormat("V:[v0(43)]-[v1]", views: self.titleLabel, self.descriptionLabel)
     }
     
     private func parseData(forSlide slide: ZKCarouselSlide) {
@@ -272,7 +272,7 @@ extension UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
     }
     
     
@@ -287,3 +287,5 @@ extension UIImageView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
+
+

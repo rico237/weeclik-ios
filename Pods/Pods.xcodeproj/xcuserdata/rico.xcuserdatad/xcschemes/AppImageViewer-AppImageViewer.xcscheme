@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3F54C5C0202823480470D4D637B9137"
+               BlueprintIdentifier = "A3D07FE4AB58E1C473F72250B8B43566"
                BuildableName = "AppImageViewer.bundle"
                BlueprintName = "AppImageViewer-AppImageViewer"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C3F54C5C0202823480470D4D637B9137"
+            BlueprintIdentifier = "A3D07FE4AB58E1C473F72250B8B43566"
             BuildableName = "AppImageViewer.bundle"
             BlueprintName = "AppImageViewer-AppImageViewer"
             ReferencedContainer = "container:Pods.xcodeproj">

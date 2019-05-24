@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pjU-vJ-tdr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pjU-vJ-tdr">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -90,8 +90,7 @@ Weeclik</string>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="SearchIcon"/>
                                         <connections>
-                                            <action selector="searchBarButtonPressed:" destination="TFJ-bE-40m" eventType="touchUpInside" id="zad-dh-uC4"/>
-                                            <segue destination="H14-hP-VxH" kind="showDetail" identifier="searchSegue" id="44e-7x-Of0"/>
+                                            <segue destination="H14-hP-VxH" kind="show" identifier="searchSegue" id="C0a-w4-b0k"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -864,6 +863,7 @@ Weeclik</string>
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pjU-vJ-tdr" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="atg-Vr-JOe"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="jCp-3Y-Tdw">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -929,14 +929,6 @@ Weeclik</string>
             </objects>
             <point key="canvasLocation" x="5742.3999999999996" y="-330.29556650246309"/>
         </scene>
-        <!--navigationAjoutCommerce-->
-        <scene sceneID="gCC-Jf-qjb">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="navigationAjoutCommerce" storyboardName="Profile" referencedIdentifier="navigationAjoutCommerce" id="QuE-Mk-CoL" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vDF-7K-cJa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5316" y="-330.29556650246309"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="qDP-uA-J6b">
             <objects>
@@ -948,7 +940,7 @@ Weeclik</string>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Afn-TB-G1n" kind="relationship" relationship="rootViewController" id="Gm7-nN-WvU"/>
+                        <segue destination="Afn-TB-G1n" kind="relationship" relationship="rootViewController" id="MoS-t9-XUg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xas-L0-qpI" userLabel="First Responder" sceneMemberID="firstResponder"/>
