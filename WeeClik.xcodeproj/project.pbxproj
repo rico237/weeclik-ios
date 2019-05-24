@@ -664,9 +664,9 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
 				fr,
-				en,
 			);
 			mainGroup = 1FA473211F1EE7E400D2A306;
 			productRefGroup = 1FA4732B1F1EE7E400D2A306 /* Products */;

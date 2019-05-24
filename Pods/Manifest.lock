@@ -271,7 +271,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AppImageViewer:
-    :commit: d53af8388c64851cd4fe75f65177d87a39134584
+    :commit: 99c65f169d566f757f64764b3b5f4f59113d65b7
     :git: https://github.com/weeclik/AppImageViewer.git
   KJNavigationViewAnimation:
     :commit: d73526855a411e4ec7abdd1b68b6c44f56a9cb78
