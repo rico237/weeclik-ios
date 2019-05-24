@@ -495,7 +495,7 @@ private extension AppImageViewer {
     func configureToolbar() {
         toolbar = ViewerToolbar(frame: frameForToolbarAtOrientation(), browser: self)    
         toolbar.backgroundColor = .clear
-        view.addSubview(toolbar)
+        //view.addSubview(toolbar)
     }
 
     func setControlsHidden(_ hidden: Bool, animated: Bool, permanent: Bool) {

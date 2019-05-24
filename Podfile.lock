@@ -225,15 +225,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/hemangshah/Zingle.git
 
 CHECKOUT OPTIONS:
-  FaceAware:
-    :commit: 35f8ceb0e68c1c00fe4809d124be27db9296fafe
-    :git: https://github.com/BeauNouvelle/FaceAware.git
-  Gallery:
-    :commit: bf4d1afe75adadd4da75d963bb84db925eee12f7
-    :git: https://github.com/hyperoslo/Gallery.git
-  HWAlertsPickers:
-    :commit: 021e64dd6cfe1bb663d01d3dc8c0a4a9f68dacda
-    :git: https://github.com/rico237/Alerts-Pickers.git
+  AppImageViewer:
+    :commit: 99c65f169d566f757f64764b3b5f4f59113d65b7
+    :git: https://github.com/weeclik/AppImageViewer.git
   KJNavigationViewAnimation:
     :commit: 9d0fae33aee97af8579dd0f0ff4d8dcf0509bed9
     :git: https://github.com/KiranJasvanee/KJNavigationViewAnimation.git

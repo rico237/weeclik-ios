@@ -170,16 +170,21 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         
         if !shdShowVideos {
             // Photos
-            if self.fetchedPhotos.count != 0 {
-                for image in self.fetchedPhotos {
-                    
-                    if let image = image {
-                        let appImage = ViewerImage.appImage(forImage: image)
-                        let viewer = AppImageViewer(originImage: image, photos: [appImage], animatedFromView: self.view)
-                        present(viewer, animated: true, completion: nil)
+            var images = [ViewerImageProtocol]()
+            var originImage = UIImage()
+            for i in 0...self.fetchedPhotos.count - 1 {
+                if let image = self.fetchedPhotos[i] {
+                    if i == indexPath.row {
+                        originImage = image
                     }
+                    let appImage = ViewerImage.appImage(forImage: image)
+                    images.append(appImage)
                 }
             }
+            
+            let viewer = AppImageViewer(originImage: originImage, photos: images, animatedFromView: self.view)
+            viewer.currentPageIndex = indexPath.row
+            present(viewer, animated: true, completion: nil)
         } else {
             // Videos
             HelperAndKeys.showAlertWithMessage(theMessage: "Fonction disponible dans une prochaine mise à jour", title: "Développement en cours", viewController: self)
