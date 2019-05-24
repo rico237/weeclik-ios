@@ -16,6 +16,7 @@ import SVProgressHUD
 import WXImageCompress
 import SwiftDate
 import IHProgressHUD
+import AwaitKit
 
 class AjoutCommerceVC: UITableViewController {
     
@@ -35,7 +36,8 @@ class AjoutCommerceVC: UITableViewController {
     var editingMode         = false                         // Mode edit d'un commerce
     var loadedFromBAAS      = false                         // Commerce venant de la BDD cloud
     
-    var commerceIdToSave    = ""                            // Id du commerce à sauvegarder
+    var photos = [PFObject]()                               // Photos to be processed for saving
+    var videos = [PFObject]()                               // Videos to pe processed for saving
     
     lazy var geocoder = CLGeocoder()
     
@@ -200,7 +202,12 @@ class AjoutCommerceVC: UITableViewController {
     @IBAction func saveInformations(_ sender: Any){
         if !isSaving { // isSaving = false
             print("Hit save button")
-            self.finalSave()
+            self.saveButton.isEnabled = false
+            DispatchQueue.main.async(execute: {
+                IHProgressHUD.show(withStatus: "Sauvegarde en cours")
+                self.finalSave()
+            })
+            
         }
     }
     
@@ -222,64 +229,54 @@ class AjoutCommerceVC: UITableViewController {
     
     func finalSave() {
         
-        DispatchQueue.main.async {
-            IHProgressHUD.show(withStatus: "Sauvegarde en cours")
-        }
-        
         didUseFinalSave = true
         isSaving = true
         
-        
-        var photos = [PFObject]()
-//        var videos = [PFObject]()
-        
         // [1] Sauvegarde du commerce
-        commerceIdToSave =  self.saveCommerce()
-        
-        // [2] Sauvegarde des photos
-        photos = self.savePhotosWithCommerce(commerceId: commerceIdToSave)
-        
+        let fetchComm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce, owner:PFUser.current()!) // Comerce Object
+        let commerceToSave = fetchComm.getPFObject(objectId: self.objectIdCommerce, fromBaas: self.loadedFromBAAS) // PFObject
+        commerceToSave.saveInBackground { (success, error) in
+            if let error = error {
+                ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur", viewController: self)
+                self.saveOfCommerceEnded()
+            } else {
+                self.updateGeoLocation(commerce: fetchComm)
+                // [2] Sauvegarde des photos
+                self.savePhotosWithCommerce(commerceId: self.objectIdCommerce)
+            }
+        }
+
         // [3] Sauvegarde des videos
-        self.saveVideosWithCommerce(commerceId: commerceIdToSave)
-//        videos = self.saveVideosWithCommerce(commerceId: commerceIdToSave)
+//        self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
+//        videos = self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
         
-        // [4] Mise a jour du commerce avec les photos & videos uploadés
-        self.refreshCommerceMedia(commerceId: commerceIdToSave, photos: photos)
+//        // [4] Mise a jour du commerce avec les photos & videos uploadés
+//        self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
     }
     
-    func saveCommerce() -> String{
-        // Sauvegarde finale pour paiement
-        let fetchComm = getCommerceFromInfos() // Commerce Object
-        let commerceToSave = fetchComm.getPFObject(objectId: self.objectIdCommerce, fromBaas: self.loadedFromBAAS) // PFObject
-        
-        do {
-            try commerceToSave.save()
-        } catch {
-            print("Erreur : \(error)")
-            HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur", viewController: self)
-        }
-        
+    func updateGeoLocation(commerce: Commerce){
         // Update location from adresse
-        geocoder.geocodeAddressString(fetchComm.adresse) { (placemarks, error) in
+        geocoder.geocodeAddressString(commerce.adresse) { (placemarks, error) in
             
             if let error = error {
                 print("GeocodeAdress error = \(error.localizedDescription)")
             } else {
                 if let placemarks = placemarks, placemarks.count > 0 {
                     if let location = placemarks.first?.location {
-//                        print("location : \(location.debugDescription)")
+                        //                        print("location : \(location.debugDescription)")
                         if self.loadedFromBAAS {
-                            commerceToSave["location"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                            commerceToSave.saveInBackground()
+                            let commerceToSave = commerce.pfObject
+                            commerceToSave!["location"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                            commerceToSave!.saveInBackground()
                         } else {
-                            self.getCommerceFromInfos().location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                            let comm = Commerce(withName: self.nomCommerce, tel: self.telCommerce, mail: self.mailCommerce, adresse: self.adresseCommerce, siteWeb: self.siteWebCommerce, categorie: self.categorieCommerce, description: self.descriptionCommerce, promotions: self.promotionsCommerce, owner:PFUser.current()!)
+                            comm.location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                         }
                     }
                 }
             }
         }
-        
-        return commerceToSave.objectId!
     }
     
     func saveVideosWithCommerce(commerceId : String) {
@@ -355,7 +352,8 @@ class AjoutCommerceVC: UITableViewController {
         
     }
     
-    func savePhotosWithCommerce(commerceId : String) -> [PFObject]{
+    func savePhotosWithCommerce(commerceId : String) {
+        IHProgressHUD.show(withStatus: "Sauvegarde des photos en cours")
         
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerceId)
         var photos = [PFObject]()
@@ -373,36 +371,31 @@ class AjoutCommerceVC: UITableViewController {
         }
         
         if loadedFromBAAS {
-            for obj in self.loadedPhotos {
-                do {
-                    try obj.delete()
-                } catch {
-                    print("Save Photo func - Delete error - \(error.localizedDescription)")
+            PFObject.deleteAll(inBackground: self.loadedPhotos) { (success, error) in
+                if let error = error {
+                    print("Save Photo func - Delete error")
+                    ParseErrorCodeHandler.handleUnknownError(error: error)
+                } else {
+                    if photos.count != 0 {
+                        PFObject.saveAll(inBackground: photos, block: { (success, error) in
+                            if let error = error {
+                                print("Save Photo func - Delete error")
+                                ParseErrorCodeHandler.handleUnknownError(error: error)
+                                self.saveOfCommerceEnded()
+                            } else {
+                                self.photos = photos
+                                
+                                // [4] Mise a jour du commerce avec les photos & videos uploadés
+                                self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
+                            }
+                        })
+                    }
                 }
             }
         }
-        
-        if photos.count != 0 {
-            
-            IHProgressHUD.show(withStatus: "Sauvegarde des photos en cours")
-            
-            
-            do{
-                
-                print("Saving photos")
-                try PFObject.saveAll(photos)
-                print("Done")
-                
-            } catch {
-                print("Erreur : \(error)")
-            }
-            
-        }
-        
-        return photos
     }
     
-    func refreshCommerceMedia(commerceId:String, photos: [PFObject]){
+    func refreshCommerceMedia(commerceId:String){
         
         IHProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos")
         
@@ -411,6 +404,7 @@ class AjoutCommerceVC: UITableViewController {
             query.whereKey("objectId", equalTo: commerceId)
             query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
             var commerceToSave : PFObject
+            
             do {
                 try commerceToSave = query.getFirstObject()
                 
@@ -418,25 +412,29 @@ class AjoutCommerceVC: UITableViewController {
                 commerceToSave["thumbnailPrincipal"] = photos[0]
                 commerceToSave["videos"] = []
 //                commerceToSave["video"] = video
-                try commerceToSave.save()
+                commerceToSave.saveInBackground { (success, error) in
+                    if let error =  error {
+                        ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                    }
+                    print("Commerce refresh with media")
+                    self.saveOfCommerceEnded()
+                }
                 
             } catch  {
-                print("RefreshCommerceMedia func - \(error.localizedDescription)")
+                print("RefreshCommerceMedia func - Code : \(error.code)\n\t \(error.localizedDescription)")
+                self.saveOfCommerceEnded()
             }
         }
-        
-        DispatchQueue.global(qos: .default).async {
-            IHProgressHUD.dismissWithDelay(2)
-        }
-        
-        isSaving = false
     }
     
-    func getCommerceFromInfos() -> Commerce {
-        // TODO: ajouter le if du BAAS
-        let comm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce, owner:PFUser.current()!)
-        return comm
+    func saveOfCommerceEnded(){
+        isSaving = false
+        DispatchQueue.main.async(execute: {
+            IHProgressHUD.dismiss()
+        })
+        self.saveButton.isEnabled = true
     }
+    
 }
 
 // Status View Functions
