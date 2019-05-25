@@ -86,7 +86,7 @@ class AjoutCommerceVC: UITableViewController {
             print("Commerce existant dans le BAAS - loadedFromBAAS \(loadedFromBAAS)")
             savedCommerce = Commerce(objectId: objectIdCommerce)
         }
-        
+        self.loadCommerceInformations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,8 +101,6 @@ class AjoutCommerceVC: UITableViewController {
             self.cancelButton.title = "Annuler"
             self.title = "NOUVEAU COMMERCE"
         }
-        
-        self.loadCommerceInformations()
     }
     
     func refreshUIPaymentStatus() {
