@@ -360,7 +360,7 @@ class AjoutCommerceVC: UITableViewController {
             if image != #imageLiteral(resourceName: "Plus_icon") {
                 let obj = PFObject(className: "Commerce_Photos")
                 let compressedImage = image.wxCompress()
-                let file = PFFileObject(name: "photo.jpeg", data: compressedImage.jpegData(compressionQuality: 1)!)
+                let file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 0.6)!)
                 
                 obj["photo"] = file
                 obj["commerce"] = commerceToSave
