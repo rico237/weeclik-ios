@@ -155,8 +155,6 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AsyncSwift/Async.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AwaitKit/AwaitKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework"
@@ -201,8 +199,6 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AsyncSwift/Async.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/AwaitKit/AwaitKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework"

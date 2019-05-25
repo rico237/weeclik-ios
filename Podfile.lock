@@ -2,9 +2,6 @@ PODS:
   - Alamofire (5.0.0-beta.6)
   - AppImageViewer (1.0.10):
     - SDWebImage (~> 4.0)
-  - AsyncSwift (2.0.4)
-  - AwaitKit (5.1.0):
-    - PromiseKit (~> 6)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -159,10 +156,8 @@ PODS:
   - ZKCarousel (0.2.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.0.0-beta.5)
+  - Alamofire (~> 5.0.0-beta.6)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
-  - AsyncSwift
-  - AwaitKit (~> 5.1.0)
   - Bolts (~> 1.9)
   - BulletinBoard (~> 3.0.0)
   - Compass
@@ -188,7 +183,7 @@ DEPENDENCIES:
   - Parse (~> 1.17.2)
   - Parse/FacebookUtils
   - Parse/UI
-  - PromiseKit (~> 6.0)
+  - PromiseKit (~> 6.8)
   - ReachabilitySwift
   - SDWebImage (~> 4.0)
   - SecureDefaults (= 1.0.3)
@@ -207,8 +202,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - AsyncSwift
-    - AwaitKit
     - Bolts
     - BulletinBoard
     - Compass
@@ -292,8 +285,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
-  AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
-  AwaitKit: a8a3d8982097ee09ac75f5c5d3952fbcc2f26f1c
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
   Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
@@ -345,6 +336,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 1461f6c542acc3277070fff0dd13e6b2e4e1d8ef
+PODFILE CHECKSUM: 7b7e4455dd204188fa93aea6bd7726aa211d5264
 
 COCOAPODS: 1.6.1

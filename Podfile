@@ -37,21 +37,17 @@ def projectPods
     pod 'IHProgressHUD', '~> 0.1.4' # Maybe change for this one <----
     
     # Add promises like in javascript
-    pod 'PromiseKit', '~> 6.0'
-    # async functions
-    pod 'AsyncSwift'                # Surement à supprimer & utiliser AwaitKit -v
-    pod 'AwaitKit', '~> 5.1.0'
+    pod 'PromiseKit', '~> 6.8'
     
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
-    pod 'Alamofire', '~> 5.0.0-beta.5'
+    pod 'Alamofire', '~> 5.0.0-beta.6'
     
     # Animation RBnB Lottie
     pod 'lottie-ios', '~> 2.5.3'
     # Selection des photos et videos pour la création de commerce
     pod 'Gallery'
     # Demande de permissions
-    #pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git' # Changé de git
     pod 'SPPermission'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
@@ -62,7 +58,7 @@ def projectPods
     # Scroll automatique pour faciliter l'utilisation du clavier
     pod 'TPKeyboardAvoiding', :git => 'https://github.com/michaeltyson/TPKeyboardAvoiding.git'
     # Choisir une photo dans la bibliothèque du téléphone
-    pod 'TLPhotoPicker', '~> 1.8.8' #, '1.3.9'
+    pod 'TLPhotoPicker', '~> 1.8.8'
     # Acid buttons
     pod 'LGButton', '~> 1.0'
     # Palette de couleures
