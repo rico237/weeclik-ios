@@ -37,6 +37,8 @@ class DetailGalleryVC: UIViewController {
         
         self.title = "Gallerie"
         
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setDefaultStyle(.dark)
         
         // CollectionView Init
         collectionView.register(UINib(nibName:"PhotosVideosCollectionCell", bundle: nil) , forCellWithReuseIdentifier: "Photos/Videos-Cell")
@@ -49,14 +51,12 @@ class DetailGalleryVC: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         queryMedias()
     }
     
     func queryMedias(){
-        SVProgressHUD.setDefaultMaskType(.clear)
-        SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.show(withStatus: "Chargement en cours")
         
         let group = AsyncGroup()
@@ -74,37 +74,45 @@ class DetailGalleryVC: UIViewController {
     }
     
     func fetchPhotos(){
+        guard let parseCommerce = self.commerce.pfObject else {return}
+        
         let queryPhotos = PFQuery(className: "Commerce_Photos")
-        queryPhotos.whereKey("commerce", equalTo: self.commerce.pfObject)
+        queryPhotos.whereKey("commerce", equalTo: parseCommerce)
         queryPhotos.addDescendingOrder("updatedAt")
         
-        do {
-            self.photos = try queryPhotos.findObjects()
-        } catch {
-            let error = error as NSError
-            print("Chargement Photos\n\tErreur \(error.code) : \(error.localizedDescription)")
-        }
-        
-        for obj in self.photos {
-            let file = obj["photo"] as! PFFileObject
-            if let data = try? file.getData() {
-                if let image = UIImage(data: data){
-                    self.fetchedPhotos.append(image)
+        queryPhotos.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                print("Erreur Chargement Photos DetailGalleryVC")
+                ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+            } else {
+                // Success
+                self.photos = objects ?? []
+                for obj in self.photos {
+                    let file = obj["photo"] as! PFFileObject
+                    if let data = try? file.getData() {
+                        if let image = UIImage(data: data){
+                            self.fetchedPhotos.append(image)
+                        }
+                    }
                 }
             }
-        }
+        })
     }
     
     func fetchVideos(){
+        guard let parseCommerce = self.commerce.pfObject else {return}
+        
         let queryVideos = PFQuery(className: "Commerce_Videos")
-        queryVideos.whereKey("leCommerce", equalTo: self.commerce.pfObject)
+        queryVideos.whereKey("leCommerce", equalTo: parseCommerce)
         queryVideos.addDescendingOrder("updatedAt")
         
-        do {
-            self.videos = try queryVideos.findObjects()
-        } catch {
-            let error = error as NSError
-            print("Chargement Videos\n\tErreur \(error.code) : \(error.localizedDescription)")
+        queryVideos.findObjectsInBackground { (objects, error) in
+            if let error = error {
+                print("Erreur Chargement Videos DetailGalleryVC")
+                ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+            } else {
+                self.videos = objects ?? []
+            }
         }
     }
     
@@ -234,6 +242,9 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
     }
+    
+    // TODO: envoyer mail au commercant pour qu'il ajoute du contenu
+    //
 //    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
 //        return NSAttributedString(string: "Envoyer")
 //    }
@@ -273,7 +284,7 @@ extension DetailGalleryVC : TabBarDelegate {
     }
     
     @objc func tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
-        self.refreshViewWithSelectedInput(selectedInput: self.titles.index(of: tabItem.title!)!)
+        self.refreshViewWithSelectedInput(selectedInput: self.titles.firstIndex(of: tabItem.title!)!)
     }
     
 //    @objc func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {}
