@@ -34,6 +34,7 @@ class ImageScroller: UIView {
         self.scrollView.contentSize = CGSize(width: CGFloat(images.count) * self.frame.size.width, height: self.frame.height)
         for image in images{
             let imageView = UIImageView(frame: CGRect(x: x, y: y, width: self.frame.width, height: self.frame.height))
+            imageView.contentMode = .scaleAspectFill
             if isAutoLoadingEnabled{
                 // Load from URL
 //                print("Image URL : \(image)")
