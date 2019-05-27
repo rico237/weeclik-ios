@@ -15,12 +15,38 @@ PODS:
   - CRNotifications (1.2.0)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.9.0)
-  - FBSDKCoreKit (4.33.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.33.0):
+  - FacebookCore (0.6.0):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.43)
+  - FacebookLogin (0.6.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.43)
+    - FBSDKLoginKit (~> 4.43)
+  - FacebookSDK (4.44.1):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit (= 4.44.1)
+    - FacebookSDK/MarketingKit (= 4.44.1)
+  - FacebookSDK/CoreKit (4.44.1):
+    - Bolts (~> 1.9)
     - FBSDKCoreKit
-  - FBSDKShareKit (4.33.0):
-    - FBSDKCoreKit (~> 4.33.0)
+  - FacebookSDK/MarketingKit (4.44.1):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit
+    - FBSDKMarketingKit
+  - FacebookShare (0.6.1):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.43)
+    - FBSDKShareKit (~> 4.43)
+  - FBSDKCoreKit (4.44.1):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.44.1):
+    - FBSDKCoreKit
+  - FBSDKMarketingKit (4.38.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.44.1):
+    - FBSDKCoreKit
   - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.8.1)
@@ -165,9 +191,11 @@ DEPENDENCIES:
   - CRNotifications
   - DZNEmptyDataSet
   - Fabric (~> 1.9.0)
-  - FBSDKCoreKit (= 4.33.0)
-  - FBSDKLoginKit (= 4.33.0)
-  - FBSDKShareKit (= 4.33.0)
+  - FacebookCore
+  - FacebookLogin
+  - FacebookSDK
+  - FacebookShare
+  - FBSDKLoginKit
   - Firebase/Core
   - Firebase/Performance
   - Floaty (~> 4.2.0)
@@ -209,8 +237,13 @@ SPEC REPOS:
     - CRNotifications
     - DZNEmptyDataSet
     - Fabric
+    - FacebookCore
+    - FacebookLogin
+    - FacebookSDK
+    - FacebookShare
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - FBSDKMarketingKit
     - FBSDKShareKit
     - Firebase
     - FirebaseABTesting
@@ -292,9 +325,14 @@ SPEC CHECKSUMS:
   CRNotifications: 563cdf6d3d3110a4c7d82ed33fd92c05f1ea1f27
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
-  FBSDKLoginKit: 88cb456349cfb3b554427ce4f8b43729d85dfb40
-  FBSDKShareKit: 1869cb24db2cea90666a50cb9d568deb38e2d16e
+  FacebookCore: 38cd3a4078738d6f648eb9b6b9d35b02d693e9a1
+  FacebookLogin: 658b0569961a081a0890f5f4dbf69ced00657d9e
+  FacebookSDK: 98dd798abb2fe8148d010d30f5d9b4b47bc30922
+  FacebookShare: 84bccbc222fc09c839b851925ad6c295a4ab7840
+  FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
+  FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
+  FBSDKMarketingKit: e609f39d74ab273cf52e2f8b7e8829ed412b2827
+  FBSDKShareKit: 526d4cfb713d24855fa23d0dd74e191accd3a720
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
@@ -336,6 +374,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 7b7e4455dd204188fa93aea6bd7726aa211d5264
+PODFILE CHECKSUM: 5233a2722aea9412108d363e4d4ec24fbaf8caa4
 
 COCOAPODS: 1.6.1

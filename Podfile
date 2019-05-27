@@ -24,9 +24,15 @@ def projectPods
     pod 'Crashlytics', '~> 3.12.0'
     
     # Facebook integration
-    pod 'FBSDKCoreKit', '4.33.0'
-    pod 'FBSDKShareKit', '4.33.0'
-    pod 'FBSDKLoginKit', '4.33.0'
+    pod 'FacebookSDK'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
+    
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKPlacesKit'
     
     pod 'Parse/FacebookUtils'
     
