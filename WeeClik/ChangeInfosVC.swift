@@ -29,7 +29,6 @@ class ChangeInfosVC: UIViewController {
         isPro = true
         self.profilPicture.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveProfilInformations))
-        // TODO: A tester = voir si l'utilisateur peut toujours selectionner / modifier ses informations.
         mailTF.isEnabled = false
         mailTF.isUserInteractionEnabled = false
     }

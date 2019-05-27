@@ -10,7 +10,6 @@ import UIKit
 import Parse
 import Material
 import DZNEmptyDataSet
-import Async
 import SVProgressHUD
 import AppImageViewer
 import MobilePlayer
@@ -57,20 +56,8 @@ class DetailGalleryVC: UIViewController {
     }
     
     func queryMedias(){
-        SVProgressHUD.show(withStatus: "Chargement en cours")
-        
-        let group = AsyncGroup()
-        group.userInitiated {
-            self.fetchPhotos()
-        }
-        group.userInitiated {
-            self.fetchVideos()
-        }
-        group.wait()
-        
-        SVProgressHUD.dismiss(withDelay: 1)
-        
-        self.refreshCollection()
+        SVProgressHUD.show(withStatus: "Chargement des images et vidéos du commerce")
+        self.fetchPhotos()
     }
     
     func fetchPhotos(){
@@ -86,7 +73,7 @@ class DetailGalleryVC: UIViewController {
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else {
                 // Success
-                self.photos = objects ?? []
+                self.photos = objects!
                 for obj in self.photos {
                     let file = obj["photo"] as! PFFileObject
                     if let data = try? file.getData() {
@@ -96,6 +83,7 @@ class DetailGalleryVC: UIViewController {
                     }
                 }
             }
+            self.fetchVideos()
         })
     }
     
@@ -113,6 +101,8 @@ class DetailGalleryVC: UIViewController {
             } else {
                 self.videos = objects ?? []
             }
+            SVProgressHUD.dismiss(withDelay: 1)
+            self.refreshCollection()
         }
     }
     

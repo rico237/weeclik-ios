@@ -123,7 +123,7 @@ class AccueilCommerces: UIViewController {
         }
         
         // Update user position if filtre location is enabled
-        if self.prefFiltreLocation {
+        if self.prefFiltreLocation || self.locationGranted {
             self.locationManager.startUpdatingLocation()
         }
 
@@ -309,13 +309,9 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             
             cell.imageDistance.tintColor = textColor
             
-            if self.prefFiltreLocation && self.locationGranted {
-                // Filtré par positions
-                if (comm.distanceFromUser == "") {
-                    cell.distanceLabel.text = "--"
-                } else {
-                    cell.distanceLabel.text = comm.distanceFromUser
-                }
+            if self.locationGranted {
+                // Autorisation de position
+                cell.distanceLabel.text = comm.distanceFromUser == "" ? "--" : comm.distanceFromUser
             } else {
                 cell.distanceLabel.text = "--"
             }

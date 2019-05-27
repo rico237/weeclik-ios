@@ -39,12 +39,6 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="focusOnFaces" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41y-XH-yf3">
-                                <rect key="frame" x="142" y="96" width="130" height="130"/>
-                                <connections>
-                                    <action selector="changeImageProfil" destination="UIg-dk-7Ch" eventType="touchUpInside" id="Opr-Hq-LL3"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqY-IY-Ifl">
                                 <rect key="frame" x="0.0" y="351" width="414" height="461"/>
                                 <subviews>
@@ -216,19 +210,17 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="8kB-un-vxW" kind="show" identifier="ajoutCommerce" id="Gn7-Qz-XUG"/>
+                                    <segue destination="dPQ-GF-S7O" kind="showDetail" id="vst-q8-6cY"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.89365428686141968" green="0.90569108724594116" blue="0.92223101854324341" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YSU-Qh-xTa" firstAttribute="trailing" secondItem="nRx-6V-wgg" secondAttribute="trailing" id="8Uf-O8-ib4"/>
-                            <constraint firstItem="41y-XH-yf3" firstAttribute="trailing" secondItem="PLG-aX-LTL" secondAttribute="trailing" id="AfR-aL-ukE"/>
                             <constraint firstItem="tqY-IY-Ifl" firstAttribute="top" secondItem="0bI-Pa-SCR" secondAttribute="bottom" constant="20" id="BYh-3y-nle"/>
                             <constraint firstItem="nRx-6V-wgg" firstAttribute="top" secondItem="YSU-Qh-xTa" secondAttribute="top" id="FKK-rV-dcY"/>
                             <constraint firstItem="tqY-IY-Ifl" firstAttribute="leading" secondItem="YSU-Qh-xTa" secondAttribute="leading" id="IHg-zG-ZXF"/>
                             <constraint firstItem="PLG-aX-LTL" firstAttribute="centerX" secondItem="YSU-Qh-xTa" secondAttribute="centerX" id="IgE-8x-qk4"/>
-                            <constraint firstItem="41y-XH-yf3" firstAttribute="bottom" secondItem="PLG-aX-LTL" secondAttribute="bottom" id="J1z-FS-RlD"/>
                             <constraint firstItem="lTu-fU-dTA" firstAttribute="top" secondItem="tqY-IY-Ifl" secondAttribute="bottom" id="TSV-iS-Wqo"/>
                             <constraint firstItem="YSU-Qh-xTa" firstAttribute="bottom" secondItem="nRx-6V-wgg" secondAttribute="bottom" id="UaC-RW-Mz7"/>
                             <constraint firstItem="lTu-fU-dTA" firstAttribute="leading" secondItem="YSU-Qh-xTa" secondAttribute="leading" id="WJU-4m-0JH"/>
@@ -239,9 +231,7 @@
                             <constraint firstItem="YSU-Qh-xTa" firstAttribute="trailing" secondItem="tqY-IY-Ifl" secondAttribute="trailing" id="lEe-ZU-d6c"/>
                             <constraint firstItem="YSU-Qh-xTa" firstAttribute="bottom" secondItem="lTu-fU-dTA" secondAttribute="bottom" id="laH-jN-NrZ"/>
                             <constraint firstItem="0bI-Pa-SCR" firstAttribute="top" secondItem="PLG-aX-LTL" secondAttribute="bottom" constant="8" id="qff-9s-lsm"/>
-                            <constraint firstItem="41y-XH-yf3" firstAttribute="leading" secondItem="PLG-aX-LTL" secondAttribute="leading" id="qtK-k5-G5y"/>
                             <constraint firstItem="YSU-Qh-xTa" firstAttribute="trailing" secondItem="0bI-Pa-SCR" secondAttribute="trailing" id="tWc-41-l9m"/>
-                            <constraint firstItem="41y-XH-yf3" firstAttribute="top" secondItem="PLG-aX-LTL" secondAttribute="top" id="tcL-hQ-PV9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YSU-Qh-xTa"/>
                     </view>
@@ -268,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDN-xb-icq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6103" y="-898"/>
+            <point key="canvasLocation" x="6581" y="-525"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vNJ-WM-cPq">
@@ -286,7 +276,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dwp-6O-lVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5294" y="-898"/>
+            <point key="canvasLocation" x="5771" y="-525"/>
         </scene>
         <!--Nouveau Commerce-->
         <scene sceneID="7L0-WQ-x4p">
@@ -338,8 +328,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="payAction:" destination="8kB-un-vxW" eventType="touchUpInside" id="d8C-N8-ybK"/>
-                                        <segue destination="ImN-HC-CpM" kind="show" id="UVY-Ff-im1"/>
+                                        <segue destination="ImN-HC-CpM" kind="show" identifier="renewOfCommerce" id="UVY-Ff-im1"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -620,7 +609,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDg-IR-rcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8350" y="-1271"/>
+            <point key="canvasLocation" x="6580" y="581"/>
         </scene>
         <!--MON PROFIL-->
         <scene sceneID="NbB-lR-Jhj">
@@ -852,7 +841,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sca-4I-rRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8350" y="-527"/>
+            <point key="canvasLocation" x="8236" y="-525"/>
         </scene>
         <!--Process InscriptionVC-->
         <scene sceneID="IMS-FU-szZ">
@@ -897,7 +886,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4KB-Fb-qvc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6126" y="-2122"/>
+            <point key="canvasLocation" x="6581" y="-1306"/>
         </scene>
         <!--MON PROFIL-->
         <scene sceneID="8o8-gA-zR7">
@@ -1019,7 +1008,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mYB-dJ-ZOA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7393" y="-2122"/>
+            <point key="canvasLocation" x="7412" y="-1306"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VhU-tD-pfn">
@@ -1037,7 +1026,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JZk-rE-jc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5294" y="-2122"/>
+            <point key="canvasLocation" x="5770" y="-1306"/>
         </scene>
         <!--Experiences-->
         <scene sceneID="yWK-Tc-njl">
@@ -1045,7 +1034,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 <viewControllerPlaceholder storyboardName="Experiences" id="IRd-7Y-sbA" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tyE-Bu-jMM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5365" y="-1546"/>
+            <point key="canvasLocation" x="8010" y="-1306"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="e8f-wY-gQp">
@@ -1061,7 +1050,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="svs-TV-92y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9259" y="-899"/>
+            <point key="canvasLocation" x="5770" y="216"/>
         </scene>
         <!--PaymentVC-->
         <scene sceneID="cCi-hk-vA8">
@@ -1072,7 +1061,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1X-90-KLS">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4vE-Wq-627">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
@@ -1206,7 +1195,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bHD-KF-HYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10186" y="-1255"/>
+            <point key="canvasLocation" x="7413" y="216"/>
         </scene>
         <!--After PaymentVC-->
         <scene sceneID="yQL-EW-fuD">
@@ -1238,7 +1227,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hcF-Mo-QUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10923" y="-1255"/>
+            <point key="canvasLocation" x="8235" y="196"/>
         </scene>
     </scenes>
     <resources>
@@ -1251,6 +1240,6 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UVY-Ff-im1"/>
-        <segue reference="AJE-VH-nVt"/>
+        <segue reference="5RR-ww-a1L"/>
     </inferredMetricsTieBreakers>
 </document>
