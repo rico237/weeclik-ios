@@ -214,7 +214,7 @@ extension AccueilCommerces {
                             self.chooseCategorie(itemChoose: self.titleChoose)
                         }
                         
-                        SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
+                        SVProgressHUD.showError(withStatus: ParseErrorCodeHandler.handleParseError(error: err))
                         SVProgressHUD.dismiss(withDelay: 2)
                     }
                 }

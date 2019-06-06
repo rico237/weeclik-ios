@@ -108,6 +108,13 @@ def projectPods
     # COmpression d'images
     pod 'WXImageCompress', '~> 0.1.2'
     
+    
+    # geocoding and reverse geocoding (Google or apple)
+    pod 'LMGeocoderSwift', '~> 1.0.1'
+    # debuging Tools
+    pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
+    
+    
     ################################
     ################################
     #                              #
@@ -115,6 +122,12 @@ def projectPods
     #                              #
     ################################
     ################################
+    
+    # Faire un tuto d'utilisation weeclik
+    #pod "Elissa" #en association avec pod 'EasyClosure'
+    
+    # Enchaine des actions des qu'une action a été faite
+    #pod 'EasyClosure'
     
     ###------------A RANGER---------------##
     
@@ -131,6 +144,9 @@ def projectPods
     
     
     ###------------GENERALE---------------##
+    
+    # check fields with your custom regular expressions or use default ones ordered by types (email, username, password, url, price...)
+    #pod 'AnimatedField'
     
     # BEST ALERTS & MESSAGES UIs
     #pod 'SwiftMessages'

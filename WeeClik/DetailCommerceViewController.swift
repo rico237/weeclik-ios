@@ -19,6 +19,7 @@ import MapKit
 import LGButton
 import SDWebImage
 import SwiftMultiSelect
+import SwiftDate
 
 class DetailCommerceViewController: UIViewController {
     
@@ -71,12 +72,33 @@ class DetailCommerceViewController: UIViewController {
         loadSliderFromFetchedPhotos()
     }
     
+    func updateCommerce(){
+        if let routeId = routeCommerceId {
+            let query = PFQuery(className: "Commerce")
+            query.whereKey("objectId", equalTo: routeId)
+            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            
+            do {
+                let objects = try query.findObjects()
+                let comm = objects[0]
+                
+                commerceObject = Commerce(parseObject: comm)
+                
+            } catch {
+                print(error)
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
+    
     func saveCommerceIdInUserDefaults(){
         // Met dans le UserDefaults + ajoute une notification au moment écoulé
-        HelperAndKeys.setSharingTime(forCommerceId: commerceID, commerceName : commerceObject.nom)
+        HelperAndKeys.setSharingTime(forCommerceId: commerceID)
         // Met à jour les données dans la BDD distante
-        HelperAndKeys.saveStatsInDb(commerce: self.commerceObject.pfObject)
-        self.tableView.reloadData()
+        HelperAndKeys.saveStatsInDb(commerce: self.commerceObject.pfObject, user: PFUser.current())
+        
+        self.updateCommerce()
     }
     
     func loadSliderFromFetchedPhotos() {
@@ -158,19 +180,30 @@ class DetailCommerceViewController: UIViewController {
                 else if activityType!.rawValue == "com.google.Gmail.ShareExtension" {
                     print("activity type is Gmail")
                 }
+                else if activityType!.rawValue == "com.apple.mobilenotes.SharingExtension" {
+                    print("activity type is Notes")
+                }
                 else {
                     // You can add this activity type after getting the value from console for other apps.
-                    print("activity type is: \(String(describing: activityType))")
+                    print("activity type is: \(String(describing: activityType?.rawValue))")
                 }
+                
+                self.saveCommerceIdInUserDefaults()
             }
             
             self.present(activit, animated: true, completion: nil)
             
         } else {
             // Attendre avant de partager
-            let date = HelperAndKeys.getSharingStringDate(objectId: commerceID)
+            let da = HelperAndKeys.getSharingTimer(forCommerceId: commerceID)
+            if let da = da {
+                let date = da + 1.days
+                let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
+                HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager à cette date :\n\(date.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))", title: "Merci pour votre confiance", viewController: self)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager demain.", title: "Merci pour votre confiance", viewController: self)
+            }
             
-            HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager à cette date :\n\(String(describing: date))", title: "Merci", viewController: self)
         }
     }
     
@@ -292,22 +325,7 @@ extension DetailCommerceViewController{
         
         initScrollersAndGalleries()
         
-        if let routeId = routeCommerceId {
-            let query = PFQuery(className: "Commerce")
-            query.whereKey("objectId", equalTo: routeId)
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-            
-            do {
-                let objects = try query.findObjects()
-                let comm = objects[0]
-                
-                commerceObject = Commerce(parseObject: comm)
-                
-            } catch {
-                print(error)
-            }
-            
-        }
+        self.updateCommerce()
         
         if commerceObject != nil {
             
@@ -317,8 +335,8 @@ extension DetailCommerceViewController{
             self.hasGrantedLocation = HelperAndKeys.getLocationGranted()
             self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
             
-            if self.hasGrantedLocation && self.prefFiltreLocation {
-                self.headerDistanceLabel.text = self.commerceObject.distanceFromUser
+            if self.hasGrantedLocation {
+                self.headerDistanceLabel.text = self.commerceObject.distanceFromUser  == "" ? "--" : self.commerceObject.distanceFromUser
             } else {
                 self.headerDistanceLabel.text = "--"
             }
@@ -340,12 +358,12 @@ extension DetailCommerceViewController{
         
         if commerceObject != nil {
             updateAllViews()
-            
-            // Refresh UI
-            self.tableView.reloadData()
         } else {
             print("Erreur de chargment : Commerce est null")
         }
+        
+        // Refresh UI
+        self.tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -363,6 +381,9 @@ extension DetailCommerceViewController{
     // Customize l'interface utilisateur
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Refresh UI
+        self.tableView.reloadData()
         
         mailButton.layoutIfNeeded()
         callButton.layoutIfNeeded()

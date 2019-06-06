@@ -73,22 +73,6 @@ class AjoutCommerceVC: UITableViewController {
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(1.5)
-        
-        let use = UserDefaults.standard
-        if let comm = use.object(forKey: "lastCommerce") as? Commerce {
-            self.loadedFromBAAS = false
-            print("Commerce dans les userDefaults")
-            savedCommerce = comm
-        }
-        
-        if objectIdCommerce != "" {
-            self.editingMode = true
-            self.loadedFromBAAS = true
-            
-            SVProgressHUD.show(withStatus: "Chargement du commerce")
-            savedCommerce = Commerce(objectId: objectIdCommerce)
-        }
-        self.loadCommerceInformations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +94,23 @@ class AjoutCommerceVC: UITableViewController {
 //            self.tableView.tableHeaderView?.frame.size.height = 0
 //        }
         self.tableView.tableHeaderView?.frame.size.height = 0
+        
+        let use = UserDefaults.standard
+        if let comm = use.object(forKey: "lastCommerce") as? Commerce {
+            self.loadedFromBAAS = false
+            print("Commerce dans les userDefaults")
+            savedCommerce = comm
+        }
+        
+        if objectIdCommerce != "" {
+            self.editingMode = true
+            self.loadedFromBAAS = true
+            
+            SVProgressHUD.show(withStatus: "Chargement du commerce")
+            savedCommerce = Commerce(objectId: objectIdCommerce)
+        }
+        self.loadCommerceInformations()
+        
     }
     
     func refreshUIPaymentStatus() {
@@ -117,6 +118,7 @@ class AjoutCommerceVC: UITableViewController {
             // Modification commerce existant
             if let savedCommerce = savedCommerce {
                 // Est en mode brouillon
+                // FIXME: Disparait dans une navigation pop
                 if (savedCommerce.pfObject["brouillon"] as! Bool) {
                     self.tableView.tableHeaderView?.frame.size.height = 0
                 } else {
@@ -175,7 +177,7 @@ class AjoutCommerceVC: UITableViewController {
                         // Success
                         
                         if let photosBDD = objects {
-                            
+                            self.photoArray = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]
                             for (index, obj) in photosBDD.enumerated() {
                                 self.loadedPhotos.append(obj) // Tous les images (afin de les supprimer avant l'update)
                                 // 3 première images

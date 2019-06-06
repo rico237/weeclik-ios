@@ -13,6 +13,7 @@ PODS:
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - CRNotifications (1.2.0)
+  - DBDebugToolkit (0.5.0)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.9.0)
   - FacebookCore (0.6.0):
@@ -44,6 +45,8 @@ PODS:
   - FBSDKLoginKit (4.44.1):
     - FBSDKCoreKit
   - FBSDKMarketingKit (4.38.0):
+    - FBSDKCoreKit
+  - FBSDKPlacesKit (4.44.1):
     - FBSDKCoreKit
   - FBSDKShareKit (4.44.1):
     - FBSDKCoreKit
@@ -130,6 +133,7 @@ PODS:
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
   - LGButton (1.1.6)
+  - LMGeocoderSwift (1.0.1)
   - lottie-ios (2.5.3)
   - Material (2.16.4):
     - Material/Core (= 2.16.4)
@@ -189,13 +193,17 @@ DEPENDENCIES:
   - Compass
   - Crashlytics (~> 3.12.0)
   - CRNotifications
+  - DBDebugToolkit (~> 0.5.0)
   - DZNEmptyDataSet
   - Fabric (~> 1.9.0)
   - FacebookCore
   - FacebookLogin
   - FacebookSDK
   - FacebookShare
+  - FBSDKCoreKit
   - FBSDKLoginKit
+  - FBSDKPlacesKit
+  - FBSDKShareKit
   - Firebase/Core
   - Firebase/Performance
   - Floaty (~> 4.2.0)
@@ -205,6 +213,7 @@ DEPENDENCIES:
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
   - LGButton (~> 1.0)
+  - LMGeocoderSwift (~> 1.0.1)
   - lottie-ios (~> 2.5.3)
   - Material (~> 2.0)
   - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
@@ -235,6 +244,7 @@ SPEC REPOS:
     - Compass
     - Crashlytics
     - CRNotifications
+    - DBDebugToolkit
     - DZNEmptyDataSet
     - Fabric
     - FacebookCore
@@ -244,6 +254,7 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKMarketingKit
+    - FBSDKPlacesKit
     - FBSDKShareKit
     - Firebase
     - FirebaseABTesting
@@ -262,6 +273,7 @@ SPEC REPOS:
     - IHProgressHUD
     - KRLCollectionViewGridLayout
     - LGButton
+    - LMGeocoderSwift
     - lottie-ios
     - Material
     - Motion
@@ -323,6 +335,7 @@ SPEC CHECKSUMS:
   Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CRNotifications: 563cdf6d3d3110a4c7d82ed33fd92c05f1ea1f27
+  DBDebugToolkit: c04bb6f618051d3de447a4b4323f37826116cfed
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FacebookCore: 38cd3a4078738d6f648eb9b6b9d35b02d693e9a1
@@ -332,6 +345,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
   FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
   FBSDKMarketingKit: e609f39d74ab273cf52e2f8b7e8829ed412b2827
+  FBSDKPlacesKit: 51ea17fa8c831088177676ce10b740e4497934b0
   FBSDKShareKit: 526d4cfb713d24855fa23d0dd74e191accd3a720
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
@@ -351,6 +365,7 @@ SPEC CHECKSUMS:
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
+  LMGeocoderSwift: eeeaee3ca88975a88df1092d94f656216f6767ee
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   MobilePlayer: e50e2160830f3db51d6e08067318aec6a9d39408
@@ -374,6 +389,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 5233a2722aea9412108d363e4d4ec24fbaf8caa4
+PODFILE CHECKSUM: 2f337180a9f27e2aca06be356afc4828be34e7e6
 
 COCOAPODS: 1.6.1
