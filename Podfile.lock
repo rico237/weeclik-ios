@@ -10,17 +10,46 @@ PODS:
   - Bolts/Tasks (1.9.0)
   - BulletinBoard (3.0.0)
   - Compass (6.0.0)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
+  - Crashlytics (3.13.1):
+    - Fabric (~> 1.10.1)
   - CRNotifications (1.2.0)
+  - DBDebugToolkit (0.5.0)
   - DZNEmptyDataSet (1.8.1)
-  - Fabric (1.9.0)
-  - FBSDKCoreKit (4.33.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.33.0):
+  - Fabric (1.10.1)
+  - FacebookCore (0.6.0):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.43)
+  - FacebookLogin (0.6.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.43)
+    - FBSDKLoginKit (~> 4.43)
+  - FacebookSDK (4.44.1):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit (= 4.44.1)
+    - FacebookSDK/MarketingKit (= 4.44.1)
+  - FacebookSDK/CoreKit (4.44.1):
+    - Bolts (~> 1.9)
     - FBSDKCoreKit
-  - FBSDKShareKit (4.33.0):
-    - FBSDKCoreKit (~> 4.33.0)
+  - FacebookSDK/MarketingKit (4.44.1):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit
+    - FBSDKMarketingKit
+  - FacebookShare (0.6.1):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.43)
+    - FBSDKShareKit (~> 4.43)
+  - FBSDKCoreKit (4.44.1):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.44.1):
+    - FBSDKCoreKit
+  - FBSDKMarketingKit (4.38.0):
+    - FBSDKCoreKit
+  - FBSDKPlacesKit (4.44.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.44.1):
+    - FBSDKCoreKit
   - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.8.1)
@@ -99,12 +128,13 @@ PODS:
   - GoogleUtilities/UserDefaults (5.8.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
-  - Hue (3.0.1)
+  - Hue (5.0.0)
   - IHProgressHUD (0.1.4)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
   - LGButton (1.1.6)
-  - lottie-ios (2.5.3)
+  - LMGeocoderSwift (1.0.1)
+  - lottie-ios (3.1.0)
   - Material (2.16.4):
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
@@ -139,16 +169,16 @@ PODS:
     - PromiseKit/CorePromise
   - Protobuf (3.7.0)
   - ReachabilitySwift (4.3.1)
-  - SDWebImage (4.4.6):
-    - SDWebImage/Core (= 4.4.6)
-  - SDWebImage/Core (4.4.6)
+  - SDWebImage (4.4.7):
+    - SDWebImage/Core (= 4.4.7)
+  - SDWebImage/Core (4.4.7)
   - SecureDefaults (1.0.3)
-  - SPLarkController (1.0.6)
+  - SPLarkController (1.0.9)
   - SPPermission (3.0.6)
   - SVProgressHUD (2.2.5)
-  - SwiftDate (5.1.0)
+  - SwiftDate (6.0.3)
   - SwiftMultiSelect (0.2.4)
-  - SwiftyStoreKit (0.14.2)
+  - SwiftyStoreKit (0.15.0)
   - TLPhotoPicker (1.8.8)
   - TPKeyboardAvoiding (1.3.2)
   - WXImageCompress (0.1.2)
@@ -161,38 +191,45 @@ DEPENDENCIES:
   - Bolts (~> 1.9)
   - BulletinBoard (~> 3.0.0)
   - Compass
-  - Crashlytics (~> 3.12.0)
+  - Crashlytics (~> 3.13)
   - CRNotifications
+  - DBDebugToolkit (~> 0.5.0)
   - DZNEmptyDataSet
-  - Fabric (~> 1.9.0)
-  - FBSDKCoreKit (= 4.33.0)
-  - FBSDKLoginKit (= 4.33.0)
-  - FBSDKShareKit (= 4.33.0)
+  - Fabric (~> 1.10)
+  - FacebookCore
+  - FacebookLogin
+  - FacebookSDK
+  - FacebookShare
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKPlacesKit
+  - FBSDKShareKit
   - Firebase/Core
   - Firebase/Performance
   - Floaty (~> 4.2.0)
   - Gallery
-  - Hue (~> 3.0)
+  - Hue (~> 5.0)
   - IHProgressHUD (~> 0.1.4)
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
   - LGButton (~> 1.0)
-  - lottie-ios (~> 2.5.3)
-  - Material (~> 2.0)
+  - LMGeocoderSwift (~> 1.0.1)
+  - lottie-ios (~> 3.1)
+  - Material (~> 2.16)
   - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
   - Parse (~> 1.17.2)
   - Parse/FacebookUtils
   - Parse/UI
   - PromiseKit (~> 6.8)
   - ReachabilitySwift
-  - SDWebImage (~> 4.0)
-  - SecureDefaults (= 1.0.3)
-  - SPLarkController (= 1.0.6)
+  - SDWebImage (~> 4.4.7)
+  - SecureDefaults (~> 1.0)
+  - SPLarkController (~> 1.0.9)
   - SPPermission
   - SVProgressHUD (~> 2.1)
-  - SwiftDate (~> 5.0)
+  - SwiftDate (~> 6.0.3)
   - SwiftMultiSelect (from `https://github.com/rico237/SwiftMultiSelect.git`)
-  - SwiftyStoreKit (~> 0.14.2)
+  - SwiftyStoreKit (~> 0.15.0)
   - TLPhotoPicker (~> 1.8.8)
   - TPKeyboardAvoiding (from `https://github.com/michaeltyson/TPKeyboardAvoiding.git`)
   - WXImageCompress (~> 0.1.2)
@@ -207,10 +244,17 @@ SPEC REPOS:
     - Compass
     - Crashlytics
     - CRNotifications
+    - DBDebugToolkit
     - DZNEmptyDataSet
     - Fabric
+    - FacebookCore
+    - FacebookLogin
+    - FacebookSDK
+    - FacebookShare
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - FBSDKMarketingKit
+    - FBSDKPlacesKit
     - FBSDKShareKit
     - Firebase
     - FirebaseABTesting
@@ -229,6 +273,7 @@ SPEC REPOS:
     - IHProgressHUD
     - KRLCollectionViewGridLayout
     - LGButton
+    - LMGeocoderSwift
     - lottie-ios
     - Material
     - Motion
@@ -288,13 +333,20 @@ SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
   Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
   CRNotifications: 563cdf6d3d3110a4c7d82ed33fd92c05f1ea1f27
+  DBDebugToolkit: c04bb6f618051d3de447a4b4323f37826116cfed
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
-  FBSDKLoginKit: 88cb456349cfb3b554427ce4f8b43729d85dfb40
-  FBSDKShareKit: 1869cb24db2cea90666a50cb9d568deb38e2d16e
+  Fabric: f6f21452846788bb44595d73e9909d79d328e617
+  FacebookCore: 38cd3a4078738d6f648eb9b6b9d35b02d693e9a1
+  FacebookLogin: 658b0569961a081a0890f5f4dbf69ced00657d9e
+  FacebookSDK: 98dd798abb2fe8148d010d30f5d9b4b47bc30922
+  FacebookShare: 84bccbc222fc09c839b851925ad6c295a4ab7840
+  FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
+  FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
+  FBSDKMarketingKit: e609f39d74ab273cf52e2f8b7e8829ed412b2827
+  FBSDKPlacesKit: 51ea17fa8c831088177676ce10b740e4497934b0
+  FBSDKShareKit: 526d4cfb713d24855fa23d0dd74e191accd3a720
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
@@ -308,12 +360,13 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
-  Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
+  Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
   IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
-  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  LMGeocoderSwift: eeeaee3ca88975a88df1092d94f656216f6767ee
+  lottie-ios: 9467723922dfff46f6d4e3019c32594a62440b7c
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   MobilePlayer: e50e2160830f3db51d6e08067318aec6a9d39408
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
@@ -322,20 +375,20 @@ SPEC CHECKSUMS:
   PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
-  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SecureDefaults: 0c4ceefd81f5ea452d465f43499ae94108deeaca
-  SPLarkController: e2fd924047b0245da5797488773e5ea4c87c6571
+  SPLarkController: af253e70e5e07f6d55a7960f8da37f363c276455
   SPPermission: 7403d2e53b002bfea6e93e63cd33ac840e5cc98d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
+  SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f
-  SwiftyStoreKit: cc399645796b094022fb650c148a0aed25995873
+  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   TLPhotoPicker: f90e8567aa33fff6b1b9cad4adbd57090b200acc
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   WXImageCompress: 80e0ae96ff3af7d00917a380eba0e592bacaaada
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 7b7e4455dd204188fa93aea6bd7726aa211d5264
+PODFILE CHECKSUM: 9866f3feab81aba84a599f10f8c4b3dcb0d91907
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.1

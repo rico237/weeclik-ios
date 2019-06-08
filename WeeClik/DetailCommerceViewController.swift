@@ -19,6 +19,7 @@ import MapKit
 import LGButton
 import SDWebImage
 import SwiftMultiSelect
+import SwiftDate
 
 class DetailCommerceViewController: UIViewController {
     
@@ -71,12 +72,33 @@ class DetailCommerceViewController: UIViewController {
         loadSliderFromFetchedPhotos()
     }
     
+    func updateCommerce(){
+        if let routeId = routeCommerceId {
+            let query = PFQuery(className: "Commerce")
+            query.whereKey("objectId", equalTo: routeId)
+            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            
+            do {
+                let objects = try query.findObjects()
+                let comm = objects[0]
+                
+                commerceObject = Commerce(parseObject: comm)
+                
+            } catch {
+                print(error)
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
+    
     func saveCommerceIdInUserDefaults(){
         // Met dans le UserDefaults + ajoute une notification au moment écoulé
-        HelperAndKeys.setSharingTime(forCommerceId: commerceID, commerceName : commerceObject.nom)
+        HelperAndKeys.setSharingTime(forCommerceId: commerceID)
         // Met à jour les données dans la BDD distante
-        HelperAndKeys.saveStatsInDb(commerce: self.commerceObject.pfObject)
-        self.tableView.reloadData()
+        HelperAndKeys.saveStatsInDb(commerce: self.commerceObject.pfObject, user: PFUser.current())
+        
+        self.updateCommerce()
     }
     
     func loadSliderFromFetchedPhotos() {
@@ -132,8 +154,19 @@ class DetailCommerceViewController: UIViewController {
             let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
             activit.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems:[Any]?, error: Error?) in
                 // Return if cancelled
-                if (!completed) {
-                    print("user clicked cancel")
+                if (!completed) {return}
+                
+                let refused : [String] = [
+                    "com.apple.mobilenotes.SharingExtension",
+                    UIActivity.ActivityType.copyToPasteboard.rawValue
+                ]
+                
+                if refused.contains(activityType!.rawValue) {
+                    self.showAlertWithMessageWithMail(
+                        theMessage: "Nous considérons que cette application n'est pas autorisée à être utilisé pour partager un commerce. Vous pouvez cependant nous faire changer d'avis. 🤯",
+                        title: "Application non autorisé",
+                        preComposedBody: "Salut Weeclik,\n\nvous avez refusé l'utilisation de l'application suivante : \n\nNom de l'application : < Ajoutez le nom de l'application >\nId : \(activityType?.rawValue ?? "< Nom de l'application utilisé >")\n\n\nPour les raisons suivantes je pense que vous devriez l'activer : \n\n< Ajoutez vos raisons ici >\n\n< Ajoutez une image une ou plusieurs captures d'écran si vous le souhaitez >"
+                    )
                     return
                 }
                 
@@ -149,9 +182,6 @@ class DetailCommerceViewController: UIViewController {
                 else if activityType == UIActivity.ActivityType.postToFacebook {
                     print("posted to facebook")
                 }
-                else if activityType == UIActivity.ActivityType.copyToPasteboard {
-                    print("copied to clipboard")
-                }
                 else if activityType!.rawValue == "net.whatsapp.WhatsApp.ShareExtension" {
                     print("activity type is whatsapp")
                 }
@@ -159,18 +189,33 @@ class DetailCommerceViewController: UIViewController {
                     print("activity type is Gmail")
                 }
                 else {
-                    // You can add this activity type after getting the value from console for other apps.
-                    print("activity type is: \(String(describing: activityType))")
+                    // [1] On envoi un mail pour l'intégration de l'app à Weeclik
+                    MailHelper.sendErrorMail(content: "Une application inconnue a été utilisée pour la fonction de partage. \nL'identifiant de l'app : \(activityType.debugDescription)")
+                    // [2] On affiche un message d'erreur à l'utilisateur pour une future intégration
+                    HelperAndKeys.showAlertWithMessage(theMessage: "Nous ne prenons pas encore cette application pour le partage. Nous ferons au plus vite pour l'ajouter au réseau Weeclik", title: "Application non prise en charge", viewController: self)
+                    
+                    #if DEBUG
+                    print("activity type is: \(String(describing: activityType?.rawValue))")
+                    #endif
+                    return
                 }
+                
+                self.saveCommerceIdInUserDefaults()
             }
             
             self.present(activit, animated: true, completion: nil)
             
         } else {
             // Attendre avant de partager
-            let date = HelperAndKeys.getSharingStringDate(objectId: commerceID)
+            let da = HelperAndKeys.getSharingTimer(forCommerceId: commerceID)
+            if let da = da {
+                let date = da + 1.days
+                let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
+                HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager à cette date :\n\(date.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))", title: "Merci pour votre confiance", viewController: self)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager demain.", title: "Merci pour votre confiance", viewController: self)
+            }
             
-            HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager à cette date :\n\(String(describing: date))", title: "Merci", viewController: self)
         }
     }
     
@@ -292,22 +337,7 @@ extension DetailCommerceViewController{
         
         initScrollersAndGalleries()
         
-        if let routeId = routeCommerceId {
-            let query = PFQuery(className: "Commerce")
-            query.whereKey("objectId", equalTo: routeId)
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-            
-            do {
-                let objects = try query.findObjects()
-                let comm = objects[0]
-                
-                commerceObject = Commerce(parseObject: comm)
-                
-            } catch {
-                print(error)
-            }
-            
-        }
+        self.updateCommerce()
         
         if commerceObject != nil {
             
@@ -317,8 +347,8 @@ extension DetailCommerceViewController{
             self.hasGrantedLocation = HelperAndKeys.getLocationGranted()
             self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
             
-            if self.hasGrantedLocation && self.prefFiltreLocation {
-                self.headerDistanceLabel.text = self.commerceObject.distanceFromUser
+            if self.hasGrantedLocation {
+                self.headerDistanceLabel.text = self.commerceObject.distanceFromUser  == "" ? "--" : self.commerceObject.distanceFromUser
             } else {
                 self.headerDistanceLabel.text = "--"
             }
@@ -340,12 +370,12 @@ extension DetailCommerceViewController{
         
         if commerceObject != nil {
             updateAllViews()
-            
-            // Refresh UI
-            self.tableView.reloadData()
         } else {
             print("Erreur de chargment : Commerce est null")
         }
+        
+        // Refresh UI
+        self.tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -364,15 +394,12 @@ extension DetailCommerceViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Refresh UI
+        self.tableView.reloadData()
+        
         mailButton.layoutIfNeeded()
         callButton.layoutIfNeeded()
         websiteButton.layoutIfNeeded()
-        
-        let colorBorder = UIColor(red:0.59, green:0.59, blue:0.59, alpha:0.35)
-        
-        mailButton.layer.addBorder(edge: .left, color: colorBorder, thickness: 1)
-        callButton.layer.addBorder(edge: .left, color: colorBorder, thickness: 1)
-        websiteButton.layer.addBorder(edge: .left, color: colorBorder, thickness: 1)
     }
 }
 
@@ -395,6 +422,39 @@ extension DetailCommerceViewController{
 }
 
 extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
+    
+    func showAlertWithMessageWithMail(theMessage:String, title:String, preComposedBody:String = ""){
+        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) -> Void in
+            alertViewController.dismiss(animated: true, completion: nil)
+        }
+        alertViewController.addAction(defaultAction)
+        
+        let mailAction = UIAlertAction(title: "Envoyer un mail", style: .default) { (action) in
+            if MFMailComposeViewController.canSendMail(){
+                let composeVC = MFMailComposeViewController()
+                
+                // Configure the fields of the interface.
+                composeVC.setSubject("Partage via une application non autorisé")
+                composeVC.setToRecipients(["contact@herrick-wolber.fr"])
+                
+                if preComposedBody != "" {
+                    composeVC.setMessageBody(preComposedBody, isHTML: false)
+                }
+                
+                composeVC.navigationBar.barTintColor = UIColor.white
+                
+                // Present the view controller modally.
+                self.present(composeVC, animated: true, completion: nil)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.", title: "Erreur", viewController: self)
+            }
+        }
+        alertViewController.addAction(mailAction)
+        
+        self.present(alertViewController, animated: true, completion: nil)
+    }
+    
     func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool, commerceMail : String){
         let messageAdded : String
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String

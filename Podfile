@@ -20,18 +20,24 @@ def projectPods
     pod 'Firebase/Core'
     pod 'Firebase/Performance'
     # Firebase Crashlytics
-    pod 'Fabric', '~> 1.9.0'
-    pod 'Crashlytics', '~> 3.12.0'
+    pod 'Fabric', '~> 1.10'
+    pod 'Crashlytics', '~> 3.13'
     
     # Facebook integration
-    pod 'FBSDKCoreKit', '4.33.0'
-    pod 'FBSDKShareKit', '4.33.0'
-    pod 'FBSDKLoginKit', '4.33.0'
+    pod 'FacebookSDK'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
+    
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKPlacesKit'
     
     pod 'Parse/FacebookUtils'
     
     # Chergement des images depuis internet
-    pod 'SDWebImage', '~> 4.0'
+    pod 'SDWebImage', '~> 4.4.7'
     # UIAlert with progress utilities
     pod 'SVProgressHUD', '~> 2.1'
     pod 'IHProgressHUD', '~> 0.1.4' # Maybe change for this one <----
@@ -44,7 +50,7 @@ def projectPods
     pod 'Alamofire', '~> 5.0.0-beta.6'
     
     # Animation RBnB Lottie
-    pod 'lottie-ios', '~> 2.5.3'
+    pod 'lottie-ios', '~> 3.1'
     # Selection des photos et videos pour la création de commerce
     pod 'Gallery'
     # Demande de permissions
@@ -62,7 +68,7 @@ def projectPods
     # Acid buttons
     pod 'LGButton', '~> 1.0'
     # Palette de couleures
-    pod 'Hue', '~> 3.0'
+    pod 'Hue', '~> 5.0'
     # Boutton flottant
     pod 'Floaty', '~> 4.2.0'
     # Message sous la barre de navigation
@@ -84,23 +90,30 @@ def projectPods
     # Détail & zoom des images
     pod 'AppImageViewer', :git => 'https://github.com/weeclik/AppImageViewer.git'
     # Many Usefull UI/UX Elements
-    pod 'Material', '~> 2.0'
+    pod 'Material', '~> 2.16'
     # Video Player
     pod 'MobilePlayer', :git => 'https://github.com/weeclik/mobileplayer-ios.git'
     
     # In App Purchase (IAP) Libs
-    pod 'SwiftyStoreKit', '~> 0.14.2'
+    pod 'SwiftyStoreKit', '~> 0.15.0'
     #Manipulation de dates
-    pod 'SwiftDate', '~> 5.0'
+    pod 'SwiftDate', '~> 6.0.3'
     
     # Settings panel
-    pod 'SPLarkController', '1.0.6'
+    pod 'SPLarkController', '~> 1.0.9'
     
     # UserDefaults with AES-256 encryption
-    pod 'SecureDefaults', '1.0.3' # Swift 5.0
+    pod 'SecureDefaults', '~> 1.0' # Swift 5.0
     
     # COmpression d'images
     pod 'WXImageCompress', '~> 0.1.2'
+    
+    
+    # geocoding and reverse geocoding (Google or apple)
+    pod 'LMGeocoderSwift', '~> 1.0.1'
+    # debuging Tools
+    pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
+    
     
     ################################
     ################################
@@ -109,6 +122,12 @@ def projectPods
     #                              #
     ################################
     ################################
+    
+    # Faire un tuto d'utilisation weeclik
+    #pod "Elissa" #en association avec pod 'EasyClosure'
+    
+    # Enchaine des actions des qu'une action a été faite
+    #pod 'EasyClosure'
     
     ###------------A RANGER---------------##
     
@@ -125,6 +144,9 @@ def projectPods
     
     
     ###------------GENERALE---------------##
+    
+    # check fields with your custom regular expressions or use default ones ordered by types (email, username, password, url, price...)
+    #pod 'AnimatedField'
     
     # BEST ALERTS & MESSAGES UIs
     #pod 'SwiftMessages'

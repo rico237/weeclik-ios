@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "33B1D50115B7BBBAE2E6766BD9EA1F11"
+               BlueprintIdentifier = "3CBE366D25C3692AAE548A9B678264C8"
                BuildableName = "BLTNBoard.framework"
                BlueprintName = "BulletinBoard"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "33B1D50115B7BBBAE2E6766BD9EA1F11"
+            BlueprintIdentifier = "3CBE366D25C3692AAE548A9B678264C8"
             BuildableName = "BLTNBoard.framework"
             BlueprintName = "BulletinBoard"
             ReferencedContainer = "container:Pods.xcodeproj">

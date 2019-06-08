@@ -16,6 +16,11 @@ import SwiftMultiSelect
 import Firebase
 import SwiftyStoreKit
 
+#if DEBUG
+import DBDebugToolkit
+#endif
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -26,6 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public static var contactStore  = CNContactStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        #if DEBUG
+        DBDebugToolkit.setup()
+        #endif
         
         parseConfiguration()
         globalUiConfiguration()

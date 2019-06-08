@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import SVProgressHUD
+import SwiftDate
 
 class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
@@ -202,10 +203,39 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell")
+            
             let obj = Commerce(parseObject: self.commerces[indexPath.row])
-
+            
             cell?.textLabel?.text = "\(obj.nom) - \(obj.partages) partages"
-            cell?.detailTextLabel?.text = "\(obj.statut.description)"
+            
+            if (obj.brouillon) {
+                cell?.detailTextLabel?.text = "Brouillon - Sauvegarder pour publier"
+            } else {
+                cell?.detailTextLabel?.text = "\(obj.statut.description)"
+            }
+            
+//            if isPro {
+//                let obj = Commerce(parseObject: self.commerces[indexPath.row])
+//
+//                cell?.textLabel?.text = "\(obj.nom) - \(obj.partages) partages"
+//
+//                if (obj.brouillon) {
+//                    cell?.detailTextLabel?.text = "Brouillon - Sauvegarder pour publier"
+//                } else {
+//                    cell?.detailTextLabel?.text = "\(obj.statut.description)"
+//                }
+//            } else {
+//                let obj = self.commerces[indexPath.row]
+//                let commerce = Commerce(parseObject: obj["commercePartage"] as! PFObject )
+//                cell?.textLabel?.text = "\(commerce.nom) - Partagé \(obj["nbrPartage"] ?? "0") fois"
+//                let arrayDate = obj["mes_partages_dates"] as! Array<String>
+//                let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
+//                let lastPartage = Date(arrayDate.first ?? "")
+//                if let lastPartage = lastPartage {
+//                    cell?.detailTextLabel?.text = "Dernier partage : \(lastPartage.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))"
+//                }
+//            }
+            
             return cell!
         }
     }
@@ -240,17 +270,24 @@ extension MonCompteVC {
                 if objects != nil {
                     self.commerces = objects
                     self.updateUIBasedOnUser()
+                } else if let error = error {
+                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
                 }
             })
         } else {
             // Prend les commerces favoris de l'utilisateur
-            let queryCommerce = PFUser.query()
-            queryCommerce?.whereKey("objectId", equalTo: currentUser?.objectId?.description as Any)
-            queryCommerce?.getFirstObjectInBackground(block: { (obj, err) in
-                //                    print("Nombre de commerces : \(objects?.count ?? 0)")
-                self.commerces = obj!["mes_partages"] as? [PFObject]
-                self.updateUIBasedOnUser()
-            })
+            
+//            let queryCommerce = PFQuery(className: "StatsPartage")
+//            queryCommerce.whereKey("utilisateurPartageur", equalTo: currentUser!)
+//            queryCommerce.includeKeys(["utilisateurPartageur", "commercePartage"])
+//            queryCommerce.findObjectsInBackground { (objects, error) in
+//                if let partages = objects {
+//                    self.commerces = partages
+//                    self.updateUIBasedOnUser()
+//                } else if let error = error {
+//                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+//                }
+//            }
         }
     }
 }

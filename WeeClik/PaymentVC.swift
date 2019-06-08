@@ -73,8 +73,6 @@ class PaymentVC: UIViewController {
         super.viewDidLoad()
         self.title = "PAIEMENT"
         
-        print(self.renewingCommerceId)
-        
         SVProgressHUD.setHapticsEnabled(true)
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setDefaultStyle(.dark)
@@ -132,8 +130,7 @@ class PaymentVC: UIViewController {
     
     func renewCommerceEndDate(){
         let query = PFQuery(className: "Commerce")
-        query.whereKey("objectId", equalTo: self.renewingCommerceId)
-        query.getFirstObjectInBackground { (commerce, error) in
+        query.getObjectInBackground(withId: self.renewingCommerceId) { (commerce, error) in
             if let error = error {
                 print("Erreur retrieving commerce info - func renewCommerceEndDate")
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
@@ -155,6 +152,8 @@ class PaymentVC: UIViewController {
                         commerce["endSubscription"] = lastEndDate + 1.years
                     }
                 }
+                
+                commerce["statutCommerce"] = 1
                 
                 commerce.saveInBackground { (success, error) in
                     if success {
@@ -184,7 +183,6 @@ class PaymentVC: UIViewController {
             else if results.restoredPurchases.count > 0 {
                 for purchase in results.restoredPurchases {
                     // fetch content from your server, then:
-                    print(purchase)
                     if purchase.needsFinishTransaction {
                         SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
@@ -247,10 +245,9 @@ class PaymentVC: UIViewController {
             acl.setReadAccess(true, forRoleWithName: "admin")
             acl.setReadAccess(true, for: currentUser)
             
-            acl.setWriteAccess(true, forRoleWithName: "Public")
+            acl.setWriteAccess(false, forRoleWithName: "Public")
             acl.setWriteAccess(true, forRoleWithName: "admin")
             acl.setWriteAccess(true, for: currentUser)
-            
             
             newCommerce.acl = acl
             
@@ -296,24 +293,16 @@ class PaymentVC: UIViewController {
                 product.incrementKey("purchased")
                 product.saveInBackground { (success, error) in
                     if let error = error {
+                        print("Error function retrieve PFProduct - func saveStatForPurchase")
                         ParseErrorCodeHandler.handleUnknownError(error: error)
                     }
                 }
             }
         }
         
-        if let queryRole = PFRole.query() {
-            queryRole.whereKey("name", equalTo: "admin")
-            if let adminRole = try? queryRole.findObjects().first as? PFRole {
-                let acl = PFACL()
-                acl.setReadAccess(true, for: adminRole)
-                acl.setWriteAccess(true, for: adminRole)
-                stat.acl = acl
-            }
-        }
-        
         stat.saveInBackground { (success, error) in
             if let error = error {
+                print("Error function save stat - func saveStatForPurchase")
                 ParseErrorCodeHandler.handleUnknownError(error: error)
                 SVProgressHUD.dismiss(withDelay: 1.5)
             }
@@ -325,6 +314,7 @@ class PaymentVC: UIViewController {
         SVProgressHUD.show(withStatus: "Chargement du paiement")
         
         SwiftyStoreKit.retrieveProductsInfo([self.purchasedProductID]) { result in
+            SVProgressHUD.dismiss(withDelay: 1.5)
             
             if let product = result.retrievedProducts.first {
                 let priceString = product.localizedPrice!
@@ -364,15 +354,15 @@ class PaymentVC: UIViewController {
                 }
             } else if let invalidProductId = result.invalidProductIDs.first {
                 print("Invalid product identifier: \(invalidProductId)")
-                SVProgressHUD.dismiss(withDelay: 1.5)
                 // TODO: Send mail - CRITIC ERROR
             }
             else {
                 print("Error: \(String(describing: result.error))")
                 ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false) // TODO: change it is not a parse error
-                SVProgressHUD.dismiss(withDelay: 1.5)
             }
         }
+        
+        
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

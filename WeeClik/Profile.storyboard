@@ -1061,7 +1061,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1X-90-KLS">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4vE-Wq-627">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
@@ -1182,13 +1182,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Fp9-ZD-51o"/>
                     </view>
-                    <navigationItem key="navigationItem" id="c6P-at-ku4">
-                        <barButtonItem key="rightBarButtonItem" title="Restaurer" id="LCf-19-qVx">
-                            <connections>
-                                <action selector="restorePurchase:" destination="ImN-HC-CpM" id="yG8-3N-zXs"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="c6P-at-ku4"/>
                     <connections>
                         <outlet property="legalTextView" destination="xPe-TH-k1q" id="BJA-f3-L7O"/>
                     </connections>
@@ -1205,13 +1199,16 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgJ-4E-dyv" customClass="LOTAnimatedControl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgJ-4E-dyv" customClass="AnimationView">
                                 <rect key="frame" x="82" y="323" width="250" height="250"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="1nm-hE-nQi"/>
                                     <constraint firstAttribute="width" secondItem="jgJ-4E-dyv" secondAttribute="height" multiplier="1:1" id="NiJ-QY-sbQ"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="loader-success-failed"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1221,13 +1218,10 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="r66-BS-R7e"/>
                     </view>
-                    <connections>
-                        <outlet property="lot" destination="jgJ-4E-dyv" id="2ka-iL-rz5"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hcF-Mo-QUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8235" y="196"/>
+            <point key="canvasLocation" x="8235" y="216"/>
         </scene>
     </scenes>
     <resources>
@@ -1239,7 +1233,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
         <image name="Logout_icon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UVY-Ff-im1"/>
+        <segue reference="vHo-LJ-Qj1"/>
         <segue reference="5RR-ww-a1L"/>
     </inferredMetricsTieBreakers>
 </document>
