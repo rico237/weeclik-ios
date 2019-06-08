@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "625F6B072D12A093D5EE77E10A154186"
+               BlueprintIdentifier = "2C67B289452A03DB2BFAA63535D7BF3A"
                BuildableName = "CRNotifications.framework"
                BlueprintName = "CRNotifications"
                ReferencedContainer = "container:Pods.xcodeproj">

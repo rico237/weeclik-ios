@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7E497ED86109A319C3C9C63E62DD67CF"
+               BlueprintIdentifier = "7CB9DDEEC3F33BA3548240CEF6749842"
                BuildableName = "SPLarkController.framework"
                BlueprintName = "SPLarkController"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "109B948CEAA004A615A41F330ED61A66"
+               BlueprintIdentifier = "D2A775A88EA787684F2905BCB73F96D1"
                BuildableName = "Floaty.framework"
                BlueprintName = "Floaty"
                ReferencedContainer = "container:Pods.xcodeproj">

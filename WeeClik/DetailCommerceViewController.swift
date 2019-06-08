@@ -158,11 +158,15 @@ class DetailCommerceViewController: UIViewController {
                 
                 let refused : [String] = [
                     "com.apple.mobilenotes.SharingExtension",
-                    UIActivity.ActivityType.copyToPasteboard
+                    UIActivity.ActivityType.copyToPasteboard.rawValue
                 ]
                 
-                if refused.contains(activityType) {
-                    HelperAndKeys.showAlertWithMessageWithMail(theMessage: "Nous considérons que cette application n'est pas autorisé à être utilisé pour partager un commerce.", title: "Application non autorisé", viewController: self, withMail: true, preComposedBody: "Salut Weeclik,\nVous avez refusé l'utilisation de l'application suivante : \n\(activityType.debugDescription)\n\nPour les raisons suivante je pense que vous devriez l'activer : \n< Ajoutez vos raisons ici >\n< Ajoutez une image une ou plusieurs captures d'écran si vous le souhaitez >")
+                if refused.contains(activityType!.rawValue) {
+                    self.showAlertWithMessageWithMail(
+                        theMessage: "Nous considérons que cette application n'est pas autorisée à être utilisé pour partager un commerce. Vous pouvez cependant nous faire changer d'avis. 🤯",
+                        title: "Application non autorisé",
+                        preComposedBody: "Salut Weeclik,\n\nvous avez refusé l'utilisation de l'application suivante : \n\nNom de l'application : < Ajoutez le nom de l'application >\nId : \(activityType?.rawValue ?? "< Nom de l'application utilisé >")\n\n\nPour les raisons suivantes je pense que vous devriez l'activer : \n\n< Ajoutez vos raisons ici >\n\n< Ajoutez une image une ou plusieurs captures d'écran si vous le souhaitez >"
+                    )
                     return
                 }
                 
@@ -186,9 +190,9 @@ class DetailCommerceViewController: UIViewController {
                 }
                 else {
                     // [1] On envoi un mail pour l'intégration de l'app à Weeclik
-                    MailHelper.sendErrorMail(content: "Une application inconnu a ete utilise pour la fonction de partage. \nL'identifiant de l'app : \(activityType.debugDescription)")
+                    MailHelper.sendErrorMail(content: "Une application inconnue a été utilisée pour la fonction de partage. \nL'identifiant de l'app : \(activityType.debugDescription)")
                     // [2] On affiche un message d'erreur à l'utilisateur pour une future intégration
-                    HelperAndKeys.showAlertWithMessage(theMessage: "Nous ne prennons pas encore cette apllication pour le partage. Nous ferrons au plus vite pour l'ajouter au réseau Weeclik", title: "Application non prise en charge", viewController: self)
+                    HelperAndKeys.showAlertWithMessage(theMessage: "Nous ne prenons pas encore cette application pour le partage. Nous ferons au plus vite pour l'ajouter au réseau Weeclik", title: "Application non prise en charge", viewController: self)
                     
                     #if DEBUG
                     print("activity type is: \(String(describing: activityType?.rawValue))")
@@ -418,6 +422,39 @@ extension DetailCommerceViewController{
 }
 
 extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
+    
+    func showAlertWithMessageWithMail(theMessage:String, title:String, preComposedBody:String = ""){
+        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) -> Void in
+            alertViewController.dismiss(animated: true, completion: nil)
+        }
+        alertViewController.addAction(defaultAction)
+        
+        let mailAction = UIAlertAction(title: "Envoyer un mail", style: .default) { (action) in
+            if MFMailComposeViewController.canSendMail(){
+                let composeVC = MFMailComposeViewController()
+                
+                // Configure the fields of the interface.
+                composeVC.setSubject("Partage via une application non autorisé")
+                composeVC.setToRecipients(["contact@herrick-wolber.fr"])
+                
+                if preComposedBody != "" {
+                    composeVC.setMessageBody(preComposedBody, isHTML: false)
+                }
+                
+                composeVC.navigationBar.barTintColor = UIColor.white
+                
+                // Present the view controller modally.
+                self.present(composeVC, animated: true, completion: nil)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.", title: "Erreur", viewController: self)
+            }
+        }
+        alertViewController.addAction(mailAction)
+        
+        self.present(alertViewController, animated: true, completion: nil)
+    }
+    
     func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool, commerceMail : String){
         let messageAdded : String
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String

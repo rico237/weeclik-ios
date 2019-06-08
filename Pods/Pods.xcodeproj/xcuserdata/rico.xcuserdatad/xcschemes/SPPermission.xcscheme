@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "10939DD53E8876B55B7DC46D38509F69"
+               BlueprintIdentifier = "3298F3CA0DE482AFE70B9293215F6109"
                BuildableName = "SPPermission.framework"
                BlueprintName = "SPPermission"
                ReferencedContainer = "container:Pods.xcodeproj">

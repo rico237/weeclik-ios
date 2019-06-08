@@ -16,38 +16,13 @@ import SwiftDate
 
 class HelperAndKeys {
     
-    static func showAlertWithMessageWithMail(theMessage:String, title:String, viewController:UIViewController, withMail: Bool = false, preComposedBody:String = ""){
-        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) -> Void in}
-        alertViewController.addAction(defaultAction)
-        if withMail {
-            let mailAction = UIAlertAction(title: "Envoyer un mail", style: .default) { (action) in
-                if MFMailComposeViewController.canSendMail(){
-                    let composeVC = MFMailComposeViewController()
-                    
-                    // Configure the fields of the interface.
-                    composeVC.setSubject("Partage via une application non autorisé")
-                    composeVC.setToRecipients(["contact@herrick-wolber.fr"])
-                    
-                    if preComposedBody != "" {
-                        composeVC.setMessageBody(preComposedBody, isHTML: false)
-                    }
-                    
-                    composeVC.navigationBar.barTintColor = UIColor.white
-                    
-                    // Present the view controller modally.
-                    viewController.present(composeVC, animated: true, completion: nil)
-                } else {
-                    self.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.", title: "Erreur", viewController: controller)
-                }
-            }
-            alertViewController.addAction(mailAction)
-        }
-        viewController.present(alertViewController, animated: true, completion: nil)
-    }
-    
     static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController){
-        self.showAlertWithMessageWithMail(theMessage: theMessage, title: title, viewController: viewController)
+        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) -> Void in
+            alertViewController.dismiss(animated: true, completion: nil)
+        }
+        alertViewController.addAction(defaultAction)
+        viewController.present(alertViewController, animated: true, completion: nil)
     }
     
     static func showSettingsAlert(withTitle title:String, withMessage message:String, presentFrom viewController:UIViewController){
