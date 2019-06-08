@@ -1199,13 +1199,16 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgJ-4E-dyv" customClass="LOTAnimatedControl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgJ-4E-dyv" customClass="AnimationView">
                                 <rect key="frame" x="82" y="323" width="250" height="250"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="1nm-hE-nQi"/>
                                     <constraint firstAttribute="width" secondItem="jgJ-4E-dyv" secondAttribute="height" multiplier="1:1" id="NiJ-QY-sbQ"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="loader-success-failed"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1215,13 +1218,10 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="r66-BS-R7e"/>
                     </view>
-                    <connections>
-                        <outlet property="lot" destination="jgJ-4E-dyv" id="2ka-iL-rz5"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hcF-Mo-QUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8235" y="196"/>
+            <point key="canvasLocation" x="8235" y="216"/>
         </scene>
     </scenes>
     <resources>

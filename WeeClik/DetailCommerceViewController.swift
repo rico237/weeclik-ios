@@ -154,8 +154,15 @@ class DetailCommerceViewController: UIViewController {
             let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
             activit.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems:[Any]?, error: Error?) in
                 // Return if cancelled
-                if (!completed) {
-                    print("user clicked cancel")
+                if (!completed) {return}
+                
+                let refused : [String] = [
+                    "com.apple.mobilenotes.SharingExtension",
+                    UIActivity.ActivityType.copyToPasteboard
+                ]
+                
+                if refused.contains(activityType) {
+                    HelperAndKeys.showAlertWithMessageWithMail(theMessage: "Nous considérons que cette application n'est pas autorisé à être utilisé pour partager un commerce.", title: "Application non autorisé", viewController: self, withMail: true, preComposedBody: "Salut Weeclik,\nVous avez refusé l'utilisation de l'application suivante : \n\(activityType.debugDescription)\n\nPour les raisons suivante je pense que vous devriez l'activer : \n< Ajoutez vos raisons ici >\n< Ajoutez une image une ou plusieurs captures d'écran si vous le souhaitez >")
                     return
                 }
                 
@@ -171,21 +178,22 @@ class DetailCommerceViewController: UIViewController {
                 else if activityType == UIActivity.ActivityType.postToFacebook {
                     print("posted to facebook")
                 }
-                else if activityType == UIActivity.ActivityType.copyToPasteboard {
-                    print("copied to clipboard")
-                }
                 else if activityType!.rawValue == "net.whatsapp.WhatsApp.ShareExtension" {
                     print("activity type is whatsapp")
                 }
                 else if activityType!.rawValue == "com.google.Gmail.ShareExtension" {
                     print("activity type is Gmail")
                 }
-                else if activityType!.rawValue == "com.apple.mobilenotes.SharingExtension" {
-                    print("activity type is Notes")
-                }
                 else {
-                    // You can add this activity type after getting the value from console for other apps.
+                    // [1] On envoi un mail pour l'intégration de l'app à Weeclik
+                    MailHelper.sendErrorMail(content: "Une application inconnu a ete utilise pour la fonction de partage. \nL'identifiant de l'app : \(activityType.debugDescription)")
+                    // [2] On affiche un message d'erreur à l'utilisateur pour une future intégration
+                    HelperAndKeys.showAlertWithMessage(theMessage: "Nous ne prennons pas encore cette apllication pour le partage. Nous ferrons au plus vite pour l'ajouter au réseau Weeclik", title: "Application non prise en charge", viewController: self)
+                    
+                    #if DEBUG
                     print("activity type is: \(String(describing: activityType?.rawValue))")
+                    #endif
+                    return
                 }
                 
                 self.saveCommerceIdInUserDefaults()
@@ -388,12 +396,6 @@ extension DetailCommerceViewController{
         mailButton.layoutIfNeeded()
         callButton.layoutIfNeeded()
         websiteButton.layoutIfNeeded()
-        
-        let colorBorder = UIColor(red:0.59, green:0.59, blue:0.59, alpha:0.35)
-        
-        mailButton.layer.addBorder(edge: .left, color: colorBorder, thickness: 1)
-        callButton.layer.addBorder(edge: .left, color: colorBorder, thickness: 1)
-        websiteButton.layer.addBorder(edge: .left, color: colorBorder, thickness: 1)
     }
 }
 

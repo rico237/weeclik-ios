@@ -16,11 +16,38 @@ import SwiftDate
 
 class HelperAndKeys {
     
-    static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController){
+    static func showAlertWithMessageWithMail(theMessage:String, title:String, viewController:UIViewController, withMail: Bool = false, preComposedBody:String = ""){
         let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in}
+        let defaultAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) -> Void in}
         alertViewController.addAction(defaultAction)
+        if withMail {
+            let mailAction = UIAlertAction(title: "Envoyer un mail", style: .default) { (action) in
+                if MFMailComposeViewController.canSendMail(){
+                    let composeVC = MFMailComposeViewController()
+                    
+                    // Configure the fields of the interface.
+                    composeVC.setSubject("Partage via une application non autorisé")
+                    composeVC.setToRecipients(["contact@herrick-wolber.fr"])
+                    
+                    if preComposedBody != "" {
+                        composeVC.setMessageBody(preComposedBody, isHTML: false)
+                    }
+                    
+                    composeVC.navigationBar.barTintColor = UIColor.white
+                    
+                    // Present the view controller modally.
+                    viewController.present(composeVC, animated: true, completion: nil)
+                } else {
+                    self.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.", title: "Erreur", viewController: controller)
+                }
+            }
+            alertViewController.addAction(mailAction)
+        }
         viewController.present(alertViewController, animated: true, completion: nil)
+    }
+    
+    static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController){
+        self.showAlertWithMessageWithMail(theMessage: theMessage, title: title, viewController: viewController)
     }
     
     static func showSettingsAlert(withTitle title:String, withMessage message:String, presentFrom viewController:UIViewController){
@@ -282,7 +309,7 @@ class HelperAndKeys {
     }
     
     static func getListOfCategories() -> [String]{
-        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme"]
+        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme", "Autre"]
     }
     
     /// Has safe area
@@ -379,39 +406,4 @@ class HelperAndKeys {
         let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
-   
-    
-    /*
-     
-     LOST FUNCTIONS
-     
-     */
-    
-    
-    //    static func isAppFirstLoadFinished() -> Bool{
-    //        let use = UserDefaults.standard
-    //        return use.bool(forKey: "isAppFirstLoad")
-    //    }
-    //
-    //    static func setAppFirstLoadFinished(){
-    //        let use = UserDefaults.standard
-    //        use.set(true, forKey: "isAppFirstLoad")
-    //        use.synchronize()
-    //    }
-    
-    //    static func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool){
-    //
-    //        let messageAdded : String
-    //
-    //        if !isFeedBackMsg{
-    //            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nTéléchargez-la ici : http://www.google.fr/"
-    //        }else{
-    //            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nNuméro de version de l'app : "
-    //        }
-    //
-    //        let allowedCharacters = NSCharacterSet.urlFragmentAllowed
-    //        let finalMessage = messageToSend.appending(messageAdded)
-    //        let finalMessEncoded = finalMessage.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
-    //        print(finalMessEncoded!)
-    //    }
 }
