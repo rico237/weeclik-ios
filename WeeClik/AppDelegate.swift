@@ -80,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case .purchased, .restored:
                     if purchase.needsFinishTransaction {
                         // Deliver content from server, then:
-                        // TODO: Maybe load things from server ?
                         SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
                 // Unlock content

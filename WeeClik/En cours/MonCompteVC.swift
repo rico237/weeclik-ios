@@ -377,7 +377,6 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
         
         graphRequest?.start(completionHandler: { (request, result, error) in
-            //            let err = error! as NSError
             if (error == nil) {
                 // handle successful response
                 if let data = result as? [String:Any] {
@@ -389,11 +388,11 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
                     user.saveInBackground()
                 }
             }
-                //            else if (err.userInfo["error"]["type"] == "OAuthException") {
-                //                // Since the request failed, we can check if it was due to an invalid session
-                //                print("The facebook session was invalidated")
-                //                PFFacebookUtils.unlinkUser(inBackground: PFUser.current()!)
-                //            }
+//            else if let err = error as NSError?, err.userInfo["error"]!["type"] == "OAuthException" {
+//                // Since the request failed, we can check if it was due to an invalid session
+//                print("The facebook session was invalidated")
+//                PFFacebookUtils.unlinkUser(inBackground: PFUser.current()!)
+//            }
             else {
                 print("Some other error: \(String(describing: error?.localizedDescription))")
             }
