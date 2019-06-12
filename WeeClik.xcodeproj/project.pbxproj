@@ -312,10 +312,12 @@
 		1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */ = {
 			isa = PBXGroup;
 			children = (
+				1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */,
 				1FCED3921FABA78700392060 /* ChangeInfosVC.swift */,
 				1FCED3941FABA9A200392060 /* MotDePasseVC.swift */,
 			);
 			name = "Profil utilisateur";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		1F0B834F224E9AE900F09FF5 /* Inconnu */ = {
@@ -390,7 +392,7 @@
 			children = (
 				1FC42C48223ECD7100AB0C39 /* Paiement */,
 				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
-				1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */,
+				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
 				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
 				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
 			);
@@ -472,7 +474,6 @@
 				1F2762912116EE0100779342 /* Routing */,
 				1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */,
 				1F0B834F224E9AE900F09FF5 /* Inconnu */,
-				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
 				1F0B8353224E9F9600F09FF5 /* Assets & Config Files */,
 				1FEE37421F91187C00E1D1A7 /* BulletinItems */,
 				1F5681E91F2B4FA300B1BAC8 /* Libraries */,

@@ -40,6 +40,8 @@ class MonCompteVC: UIViewController {
         isProUpdateUI() // Update liste of commerce for pro users
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -84,16 +86,18 @@ class MonCompteVC: UIViewController {
     
     func updateProfilPic(forUser user: PFUser){
         // Regarde si une image de profil a été chargé
+        // sinon si une image est lié via facebook
         // Sinon on affiche l'image de base weeclik
-        if let profilPicURL = user["profilePictureURL"] as? String {
-            if profilPicURL != "" {
-                self.userProfilePicURL = profilPicURL
-            }
-        } else if let profilFile = user["profilPicFile"] as? PFFileObject {
+        if let profilFile = user["profilPicFile"] as? PFFileObject {
             if let url = profilFile.url {
                 if url != "" {
                     self.userProfilePicURL = url
                 }
+            }
+        }
+        else if let profilPicURL = user["profilePictureURL"] as? String {
+            if profilPicURL != "" {
+                self.userProfilePicURL = profilPicURL
             }
         }
         
@@ -288,6 +292,15 @@ extension MonCompteVC {
 //                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
 //                }
 //            }
+        }
+    }
+}
+
+extension MonCompteVC {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailProfil" {
+            let vc = segue.destination as! ChangeInfosVC
+            vc.isPro = self.isPro
         }
     }
 }

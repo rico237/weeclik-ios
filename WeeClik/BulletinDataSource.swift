@@ -24,7 +24,7 @@ enum BulletinDataSource {
         
         page.descriptionText = "Vous avez choisit pour le moment d'afficher les commerces en fonction de votre position"
         page.actionButtonTitle = "Trier par position"
-        page.alternativeButtonTitle = "Nombre de partage"
+        page.alternativeButtonTitle = "Trier par nombre de partage"
         page.requiresCloseButton = false
         page.isDismissable = true
         

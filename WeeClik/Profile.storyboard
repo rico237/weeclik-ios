@@ -688,7 +688,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                             <color key="titleColor" red="1" green="0.15059609879999999" blue="0.25012321720000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Z70-B6-HlE" kind="show" id="tXj-zT-ea3"/>
+                                            <segue destination="Z70-B6-HlE" kind="show" identifier="mdpChange" id="tXj-zT-ea3"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -837,6 +837,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         <outlet property="actualPasswordTF" destination="oOd-u4-xWZ" id="Liy-vg-NjB"/>
                         <outlet property="confirmPasswordTF" destination="dG2-ms-o07" id="0QF-Ey-yxS"/>
                         <outlet property="newPasswordTF" destination="OWZ-Rz-PDZ" id="zbc-qI-nWt"/>
+                        <outlet property="profilPicture" destination="4Pl-s1-T96" id="ukg-Ci-sPe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sca-4I-rRP" userLabel="First Responder" sceneMemberID="firstResponder"/>

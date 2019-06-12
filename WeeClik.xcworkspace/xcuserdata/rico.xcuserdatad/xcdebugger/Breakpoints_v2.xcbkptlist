@@ -169,13 +169,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeeClik/MonCompteVC.swift"
-            timestampString = "555006798.542158"
+            timestampString = "582075860.585784"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "MonCompteVC"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -185,12 +185,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeeClik/MonCompteVC.swift"
-            timestampString = "555006798.5424809"
+            timestampString = "582075860.586174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "updateUIBasedOnUser()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
