@@ -350,6 +350,12 @@ extension DetailCommerceViewController{
             self.nomCommerceLabel.text = commerceObject.nom
             self.categorieLabel.text   = commerceObject.type
             
+            if #available(iOS 11.0, *) {
+                self.nomCommerceLabel.font = FontHelper.getScaledFont(forFont: "Pacifico", textStyle: .title1)
+                self.nomCommerceLabel.fontSize = 40
+                self.nomCommerceLabel.adjustsFontForContentSizeCategory = true
+            }
+            
             self.hasGrantedLocation = HelperAndKeys.getLocationGranted()
             self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
             

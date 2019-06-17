@@ -206,28 +206,43 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             
             return cell!
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell")
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
             let obj = Commerce(parseObject: self.commerces[indexPath.row])
             
-            cell?.textLabel?.text = "\(obj.nom) - \(obj.partages) partages"
+            cell.partageIcon.tintColor = UIColor.red
+            
+            if self.isPro {
+                cell.descriptionLabel.isHidden = false
+            } else {
+                cell.descriptionLabel.isHidden = true
+            }
+            
+            cell.titre.text = "\(obj.nom)"
+            cell.nbrPartage.text = "\(obj.partages)"
+            
+            if let imageThumbnailFile = obj.thumbnail {
+                cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
+            } else {
+                cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
+            }
             
             if (obj.brouillon) {
-                cell?.detailTextLabel?.text = "Brouillon - Sauvegarder pour publier"
+                cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier"
+                cell.descriptionLabel.textColor = .lightText
             } else {
-                cell?.detailTextLabel?.text = "\(obj.statut.description)"
+                cell.descriptionLabel.text = "\(obj.statut.description)"
+                switch obj.statut {
+                case .canceled, .error, .unknown, .pending:
+                    cell.descriptionLabel.textColor = UIColor.red
+                    break
+                case .paid:
+                    cell.descriptionLabel.textColor = UIColor.init(hexFromString: "#00d06b")
+                    break
+                }
             }
             
 //            if isPro {
-//                let obj = Commerce(parseObject: self.commerces[indexPath.row])
-//
-//                cell?.textLabel?.text = "\(obj.nom) - \(obj.partages) partages"
-//
-//                if (obj.brouillon) {
-//                    cell?.detailTextLabel?.text = "Brouillon - Sauvegarder pour publier"
-//                } else {
-//                    cell?.detailTextLabel?.text = "\(obj.statut.description)"
-//                }
+
 //            } else {
 //                let obj = self.commerces[indexPath.row]
 //                let commerce = Commerce(parseObject: obj["commercePartage"] as! PFObject )
@@ -240,7 +255,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 //                }
 //            }
             
-            return cell!
+            return cell
         }
     }
     
