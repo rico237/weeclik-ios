@@ -46,28 +46,12 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="461"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commercesCell" textLabel="KXm-cI-RSt" detailTextLabel="ICX-V4-O4H" style="IBUITableViewCellStyleSubtitle" id="qzF-gw-Y6M">
-                                                <rect key="frame" x="0.0" y="40" width="414" height="44"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commercesCell" rowHeight="107" id="qzF-gw-Y6M">
+                                                <rect key="frame" x="0.0" y="40" width="414" height="107"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qzF-gw-Y6M" id="DSf-Rv-FK4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="376" height="106.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KXm-cI-RSt">
-                                                            <rect key="frame" x="20" y="5" width="33.5" height="20.5"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ICX-V4-O4H">
-                                                            <rect key="frame" x="20" y="25.5" width="44" height="14.5"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
@@ -258,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDN-xb-icq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6581" y="-525"/>
+            <point key="canvasLocation" x="6579.7101449275369" y="-525"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vNJ-WM-cPq">
@@ -418,6 +402,10 @@
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
+                                            <connections>
+                                                <outlet property="dataSource" destination="8kB-un-vxW" id="qBX-ei-vTF"/>
+                                                <outlet property="delegate" destination="8kB-un-vxW" id="Tta-0G-9Z7"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <constraints>
@@ -1235,6 +1223,6 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vHo-LJ-Qj1"/>
-        <segue reference="5RR-ww-a1L"/>
+        <segue reference="AJE-VH-nVt"/>
     </inferredMetricsTieBreakers>
 </document>
