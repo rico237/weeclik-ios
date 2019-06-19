@@ -332,49 +332,98 @@ class AjoutCommerceVC: UITableViewController {
                     options.deliveryMode = .automatic
                     options.isNetworkAccessAllowed = true
                     
-                    DispatchQueue.main.async {
-                        PHImageManager().requestAVAsset(forVideo: asset, options: options, resultHandler: { (asset, mix, nil) in
-                            
-                            
-                            let myAsset = asset as? AVURLAsset
-                            print("try")
-                            
-                            do {
-                                let videoData = try Data(contentsOf: (myAsset?.url)!)
-                                let pffile = PFFileObject(name: "video.mp4", data: videoData)
-                                
-                                let obj = PFObject(className: "Commerce_Videos")
-                                let thumbnail = PFFileObject(name: "thumbnail.jpg", data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!)
-                                
-                                obj["thumbnail"]  = thumbnail
-                                obj["leCommerce"] = commerceToSave
-                                obj["nameVideo"]  = self.nomCommerce + "__video-presentation-\(i)"
-                                obj["video"] = pffile
-                                
-                                
-                                pffile?.saveInBackground({ (success, error) in
-                                    if let error = error {
-                                        print("Erreur while uploading \(error.localizedDescription)")
-                                    } else {
-                                        // Pas d'erreur
-                                        if success {
-                                            // OK
-                                            print("Upload réussi")
-//                                            obj.saveInBackground()
-                                        } else {
-                                            print("Upload failed")
-                                        }
-                                    }
-                                }, progressBlock: { (progress32) in
-                                    print("Progress : \(progress32)%")
-                                })
-                                
-                            } catch  {
-                                print("exception catch at block - while uploading video")
+                    video.exportVideoFile(options: options, progressBlock: { (progress) in
+                        print("Progress \(progress)")
+                    }) { (url, unknown) in
+                        
+                        print("Video export \(url) & \(unknown)")
+                        
+                        print("try")
+                        var videoData: Data?
+                        do {
+                            videoData = try Data(contentsOf: url)
+                        } catch {
+                            print("exception catch at block - while uploading video")
+                            videoData = nil
+                            return
+                        }
+                        
+                        print("Done getting video data\n Now tries to save pffile object")
+                        
+                        let pffile          = PFFileObject(data: videoData!, contentType: "video/mp4")  // video/mov ??
+                        let obj             = PFObject(className: "Commerce_Videos")
+                        let thumbnail       = PFFileObject(name: "thumbnail.jpg", data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!)
+                        
+                        obj["thumbnail"]    = thumbnail
+                        obj["leCommerce"]   = commerceToSave
+                        obj["time"]         = asset.duration.stringFormatted()
+                        obj["nameVideo"]    = self.nomCommerce + "__video-presentation-\(i)"
+                        obj["video"]        = pffile
+                        
+                        
+                        pffile.saveInBackground({ (success, error) in
+                            if let error = error {
+                                print("Erreur while uploading \(error.localizedDescription)")
+                            } else {
+                                // Pas d'erreur
+                                if success {
+                                    // OK
+                                    print("Upload réussi")
+//                                    obj.saveInBackground()
+                                } else {
+                                    print("Upload failed")
+                                }
                             }
-                            
+                        }, progressBlock: { (progress32) in
+                            print("Progress : \(progress32)%")
                         })
+                            
+                        
                     }
+                    
+//                    DispatchQueue.main.async {
+//                        PHImageManager().requestAVAsset(forVideo: asset, options: options, resultHandler: { (asset, mix, nil) in
+//
+//
+//                            let myAsset = asset as? AVURLAsset
+//                            print("try")
+//
+//                            do {
+//                                let videoData = try Data(contentsOf: (myAsset?.url)!)
+//                                let pffile = PFFileObject(data: videoData, contentType: "video/mp4")
+//
+//                                let obj = PFObject(className: "Commerce_Videos")
+//                                let thumbnail = PFFileObject(name: "thumbnail.jpg", data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!)
+//
+//                                obj["thumbnail"]  = thumbnail
+//                                obj["leCommerce"] = commerceToSave
+//                                obj["nameVideo"]  = self.nomCommerce + "__video-presentation-\(i)"
+//                                obj["video"] = pffile
+//
+//
+//                                pffile.saveInBackground({ (success, error) in
+//                                    if let error = error {
+//                                        print("Erreur while uploading \(error.localizedDescription)")
+//                                    } else {
+//                                        // Pas d'erreur
+//                                        if success {
+//                                            // OK
+//                                            print("Upload réussi")
+////                                            obj.saveInBackground()
+//                                        } else {
+//                                            print("Upload failed")
+//                                        }
+//                                    }
+//                                }, progressBlock: { (progress32) in
+//                                    print("Progress : \(progress32)%")
+//                                })
+//
+//                            } catch  {
+//                                print("exception catch at block - while uploading video")
+//                            }
+//
+//                        })
+//                    }
                     
                     
                 }
@@ -393,7 +442,13 @@ class AjoutCommerceVC: UITableViewController {
             if image != #imageLiteral(resourceName: "Plus_icon") {
                 let obj = PFObject(className: "Commerce_Photos")
                 let compressedImage = image.wxCompress()
-                let file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 0.6)!)
+                let file: PFFileObject!
+                do {
+                    file = try PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 0.6)!, contentType: "image/jpeg")
+                } catch {
+                    print("Error while setting content type jpeg")
+                    file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 0.6)!)
+                }
                 
                 obj["photo"] = file
                 obj["commerce"] = commerceToSave
