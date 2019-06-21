@@ -80,6 +80,8 @@
 		1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDE1F269CB2004D5F4C /* OpenSans-Semibold.ttf */; };
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
 		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		1FB2D89722BCCFD800C0FDC6 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */; };
+		1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */; };
 		1FB9B2B2226E785E009C3E65 /* WeeClikUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B2B1226E785E009C3E65 /* WeeClikUITests.swift */; };
 		1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBB63A4211F16BD00BCB480 /* StoreKit.framework */; };
 		1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */; };
@@ -211,6 +213,8 @@
 		1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
+		1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAreaViewController.swift; sourceTree = "<group>"; };
 		1FB9B2A9226E76B7009C3E65 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1FB9B2AF226E785E009C3E65 /* WeeClikUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeClikUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FB9B2B1226E785E009C3E65 /* WeeClikUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeClikUITests.swift; sourceTree = "<group>"; };
@@ -395,6 +399,7 @@
 		1F27628D2114BBB700779342 /* En cours */ = {
 			isa = PBXGroup;
 			children = (
+				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
 				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
 				1FC42C48223ECD7100AB0C39 /* Paiement */,
 				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
@@ -414,6 +419,7 @@
 				1F9EE55421D142420086EF72 /* Experiences.storyboard */,
 				1FA473311F1EE7E400D2A306 /* Main.storyboard */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
+				1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -725,6 +731,7 @@
 				1F0B9DF921D54083008120F4 /* Login.storyboard in Resources */,
 				1FEBF4641F254F3D00146525 /* BebasNeue Light.ttf in Resources */,
 				1F9EE56321D2DB830086EF72 /* SearchCell.xib in Resources */,
+				1FB2D89722BCCFD800C0FDC6 /* Test.storyboard in Resources */,
 				1FA9BFE61F269CB2004D5F4C /* OpenSans-LightItalic.ttf in Resources */,
 				1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */,
 			);
@@ -946,6 +953,7 @@
 				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,
 				1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */,
 				1F8F0884223F12C3008177C4 /* AfterPaymentVC.swift in Sources */,
+				1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */,
 				1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */,
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */,
