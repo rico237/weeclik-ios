@@ -22,7 +22,8 @@ class ParseErrorCodeHandler {
         }
         
         print("Erreur Inconnu :\n\tCode : \(error.code)\n\tDomain : \(error.domain)\n\tLocalizedDescription : \(error.localizedDescription)")
-        print("Envoi d'un mail aux admins pas encore mis en place (a faire)")
+        print("Envoi d'un mail aux admins a tester")
+        MailHelper.sendErrorMail()
     }
     
     static func handleParseError(error: Error) -> String{

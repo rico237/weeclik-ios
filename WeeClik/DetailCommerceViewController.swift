@@ -133,10 +133,11 @@ class DetailCommerceViewController: UIViewController {
     }
     
     @objc func shareCommerce(){
-        
-        
+
         if HelperAndKeys.canShareAgain(objectId: commerceID){
-            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse) \nURL : weeclik://\(self.commerceObject.objectId.description)"
+            let str = "Salut, j’ai aimé \(self.commerceObject.nom), je te partage donc ce commerce situé à l’adresse : \n\(self.commerceObject.adresse) http://maps.google.com/maps?f=q&q=(\(self.commerceObject.location?.latitude ?? 0),\(self.commerceObject.location?.longitude ?? 0))"
+            
+//            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(self.commerceObject.nom)\nTéléphone : \(self.commerceObject.tel)\nAdresse : \(self.commerceObject.adresse) \nURL : weeclik://\(self.commerceObject.objectId.description)"
             
             let customItem = ShareToGroupsActivity(title: "Partager à un groupe d'amis") { sharedItems in
                 guard let shar = sharedItems as? [String] else {return}
@@ -151,14 +152,37 @@ class DetailCommerceViewController: UIViewController {
                 SwiftMultiSelect.Show(to: self)
             }
             
+            
+            
             let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
+            if #available(iOS 11.0, *) {
+                activit.excludedActivityTypes = [
+                    .markupAsPDF, .postToVimeo, .postToWeibo, .postToFlickr, .postToTencentWeibo,
+                    .copyToPasteboard, .openInIBooks, .assignToContact, .addToReadingList,
+                    .saveToCameraRoll, .print
+                ]
+            } else {
+                // Fallback on earlier versions
+                activit.excludedActivityTypes = [
+                    .postToVimeo, .postToWeibo, .postToFlickr, .postToTencentWeibo,
+                    .copyToPasteboard, .openInIBooks, .assignToContact, .addToReadingList,
+                    .saveToCameraRoll, .print
+                ]
+            }
             activit.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems:[Any]?, error: Error?) in
                 // Return if cancelled
                 if (!completed) {return}
                 
+                // Extensions refusé comme partage valide
                 let refused : [String] = [
                     "com.apple.mobilenotes.SharingExtension",
                     UIActivity.ActivityType.copyToPasteboard.rawValue
+                ]
+                // Extensions autorisées comme partage valide
+                let autorized : [String] = [
+                    UIActivity.ActivityType.mail.rawValue, UIActivity.ActivityType.message.rawValue,
+                    UIActivity.ActivityType.postToTwitter.rawValue, UIActivity.ActivityType.postToFacebook.rawValue,
+                    "net.whatsapp.WhatsApp.ShareExtension", "com.google.Gmail.ShareExtension"
                 ]
                 
                 if refused.contains(activityType!.rawValue) {
@@ -169,24 +193,8 @@ class DetailCommerceViewController: UIViewController {
                     )
                     return
                 }
-                
-                if activityType == UIActivity.ActivityType.mail {
-                    print("share throgh mail")
-                }
-                else if activityType == UIActivity.ActivityType.message {
-                    print("share trhought Message IOS")
-                }
-                else if activityType == UIActivity.ActivityType.postToTwitter {
-                    print("posted to twitter")
-                }
-                else if activityType == UIActivity.ActivityType.postToFacebook {
-                    print("posted to facebook")
-                }
-                else if activityType!.rawValue == "net.whatsapp.WhatsApp.ShareExtension" {
-                    print("activity type is whatsapp")
-                }
-                else if activityType!.rawValue == "com.google.Gmail.ShareExtension" {
-                    print("activity type is Gmail")
+                else if autorized.contains(activityType!.rawValue) {
+                    self.saveCommerceIdInUserDefaults()
                 }
                 else {
                     // [1] On envoi un mail pour l'intégration de l'app à Weeclik
@@ -199,8 +207,6 @@ class DetailCommerceViewController: UIViewController {
                     #endif
                     return
                 }
-                
-                self.saveCommerceIdInUserDefaults()
             }
             
             self.present(activit, animated: true, completion: nil)
@@ -332,7 +338,7 @@ extension DetailCommerceViewController{
         
         // Share actions
         self.shareButton.addTarget(self, action: #selector(shareCommerce), for: .touchUpInside)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Share_icon") , style: .plain, target: self, action: #selector(shareCommerce))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Share_icon") , style: .plain, target: self, action: #selector(shareCommerce))
         self.title = "Weeclik"
         
         initScrollersAndGalleries()
@@ -343,6 +349,12 @@ extension DetailCommerceViewController{
             
             self.nomCommerceLabel.text = commerceObject.nom
             self.categorieLabel.text   = commerceObject.type
+            
+            if #available(iOS 11.0, *) {
+                self.nomCommerceLabel.font = FontHelper.getScaledFont(forFont: "Pacifico", textStyle: .title1)
+                self.nomCommerceLabel.fontSize = 40
+                self.nomCommerceLabel.adjustsFontForContentSizeCategory = true
+            }
             
             self.hasGrantedLocation = HelperAndKeys.getLocationGranted()
             self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()

@@ -108,6 +108,8 @@ def projectPods
     # COmpression d'images
     pod 'WXImageCompress', '~> 0.1.2'
     
+    # verification d'images a caractere porno
+    pod 'NSFWDetector' # https://github.com/lovoo/NSFWDetector
     
     # geocoding and reverse geocoding (Google or apple)
     pod 'LMGeocoderSwift', '~> 1.0.1'

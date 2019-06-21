@@ -144,22 +144,28 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath) as! PhotosVideosCollectionCell
         
         var obj : PFObject!
-        var file : PFFileObject
+        var file : PFFileObject?
         
         if !shdShowVideos {
             // Photos
             obj = photos[indexPath.row]
-            file = obj["photo"] as! PFFileObject
+            file = obj["photo"] as? PFFileObject
             cell.minuteViewContainer.isHidden = true
         } else {
             obj = videos[indexPath.row]
             cell.timeLabel.text = obj["time"] as? String
-            file = obj["thumbnail"] as! PFFileObject
+            if let thumb = obj["thumbnail"] as? PFFileObject {
+                file = thumb
+            }
             cell.minuteViewContainer.isHidden = false
         }
         
-        if let urlStr = file.url {
-            cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Placeholder_carre") , options: .highPriority , completed: nil)
+        if let file = file {
+            if let urlStr = file.url {
+                cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Placeholder_carre") , options: .highPriority , completed: nil)
+            } else {
+                cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
+            }
         } else {
             cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
         }

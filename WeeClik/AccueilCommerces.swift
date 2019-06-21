@@ -90,7 +90,7 @@ class AccueilCommerces: UIViewController {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
         // Init collectionview for commerces (object cells)
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Chargement des commerces")
+        self.refreshControl.attributedTitle = NSAttributedString(string: "")
         if #available(iOS 10.0, *) {
             self.collectionView.refreshControl = refreshControl
         } else {
@@ -126,7 +126,7 @@ class AccueilCommerces: UIViewController {
         if self.prefFiltreLocation || self.locationGranted {
             self.locationManager.startUpdatingLocation()
         }
-
+        print("First load")
         // Load first object based on location or number of sharing
         self.chooseCategorie(itemChoose: self.titleChoose)
     }
@@ -134,6 +134,9 @@ class AccueilCommerces: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        if self.commerces.count != 0 {
+            self.discretReload()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -143,8 +146,14 @@ class AccueilCommerces: UIViewController {
         HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
     }
     
+    func discretReload(){
+        print("Discret reload")
+        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
+    }
+    
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
+        print("refresh reload")
         self.queryObjectsFromDB(typeCategorie: self.titleChoose)
     }
 }
@@ -162,16 +171,17 @@ extension AccueilCommerces {
         self.queryObjectsFromDB(typeCategorie: titleChoose)
     }
     
-    func queryObjectsFromDB(typeCategorie : String){
-        
+    func queryObjectsFromDB(typeCategorie : String, withHUD showHud: Bool = true){
+        print("Ftech with show hud \(showHud)")
 //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         self.refreshControl.beginRefreshing()
         
         NetworkManager.isReachable { (networkInstance) in
-            
-            SVProgressHUD.setDefaultMaskType(.clear)
-            SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.show(withStatus: "Chargement en cours")
+            if showHud {
+                SVProgressHUD.setDefaultMaskType(.clear)
+                SVProgressHUD.setDefaultStyle(.dark)
+                SVProgressHUD.show(withStatus: "Chargement en cours")
+            }
             
             self.commerces = []
             let query = PFQuery(className: "Commerce")
@@ -188,42 +198,47 @@ extension AccueilCommerces {
                 query.order(byDescending: "nombrePartages")
             }
             query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
-                if error == nil {
-                    if let arr = objects{
-                        for obj in arr {
-                            let commerce = Commerce(parseObject: obj)
-                            self.commerces.append(commerce)
-                        }
-                        
-                        // tri du tableau par position
-                        if self.prefFiltreLocation {
-                            let sorteCommerce = self.commerces.sorted(by: {
-                                PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
-                            })
-                            self.commerces = sorteCommerce
-                        }
-                        
-                        self.collectionView.reloadData()
-                        SVProgressHUD.dismiss(withDelay: 1)
+                
+                if let error = error {
+                    if error.code == PFErrorCode.errorInvalidSessionToken.rawValue {
+                        PFUser.logOut()
+                        self.chooseCategorie(itemChoose: self.titleChoose)
                     }
-                } else {
-                    if let err = error{
-                        let nsError = err as NSError
-                        if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
-                            PFUser.logOut()
-                            self.chooseCategorie(itemChoose: self.titleChoose)
-                        }
-                        
-                        SVProgressHUD.showError(withStatus: ParseErrorCodeHandler.handleParseError(error: err))
+                    
+                    if showHud {
+                        SVProgressHUD.showError(withStatus: ParseErrorCodeHandler.handleParseError(error: error))
                         SVProgressHUD.dismiss(withDelay: 2)
                     }
+                } else if let objects = objects {
+                    for obj in objects {
+                        let commerce = Commerce(parseObject: obj)
+                        self.commerces.append(commerce)
+                    }
+                    
+                    // tri du tableau par position
+                    if self.prefFiltreLocation {
+                        let sorteCommerce = self.commerces.sorted(by: {
+                            PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
+                        })
+                        self.commerces = sorteCommerce
+                    }
+                    
+                    if showHud {
+                        SVProgressHUD.dismiss(withDelay: 1)
+                    }
+                    
                 }
+                print("Did finish loading commerces")
                 self.collectionView.reloadData()
             }
         }
         
-        self.refreshControl.endRefreshing()
+        NetworkManager.isUnreachable { (networkInstance) in
+            // TODO: ajouter un message / illustration si pas de connection
+            print("No connection")
+        }
         
+        self.refreshControl.endRefreshing()
     }
 }
 // Routing & Navigation Bar functions

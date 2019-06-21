@@ -148,6 +148,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - NSFWDetector (1.1.0)
   - Parse (1.17.2):
     - Parse/Core (= 1.17.2)
   - Parse/Core (1.17.2):
@@ -217,6 +218,7 @@ DEPENDENCIES:
   - lottie-ios (~> 3.1)
   - Material (~> 2.16)
   - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
+  - NSFWDetector
   - Parse (~> 1.17.2)
   - Parse/FacebookUtils
   - Parse/UI
@@ -278,6 +280,7 @@ SPEC REPOS:
     - Material
     - Motion
     - nanopb
+    - NSFWDetector
     - Parse
     - PromiseKit
     - Protobuf
@@ -371,6 +374,7 @@ SPEC CHECKSUMS:
   MobilePlayer: e50e2160830f3db51d6e08067318aec6a9d39408
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NSFWDetector: aefec2254932bdc933cccc9385abfe07ae36a7a1
   Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
   PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
@@ -389,6 +393,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 9866f3feab81aba84a599f10f8c4b3dcb0d91907
+PODFILE CHECKSUM: a4fb79cbe34b185d64d4b84f47426127c03da760
 
 COCOAPODS: 1.7.1

@@ -15,7 +15,8 @@ class ShareToGroupsActivity: UIActivity {
     var action: ([Any]) -> Void
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
-        return true
+        for case is String in activityItems { return true }
+        return false
     }
     
     override func prepare(withActivityItems activityItems: [Any]) {
@@ -38,11 +39,11 @@ class ShareToGroupsActivity: UIActivity {
     }
     
     override var activityImage: UIImage? {
-        return UIImage(named: "Group_icon")
+        return UIImage(named: "icon")
     }
     
     override var activityType: UIActivity.ActivityType? {
-        return UIActivity.ActivityType(rawValue: "fr.herrick-wolber.WeeClik.activity")
+        return UIActivity.ActivityType(rawValue: "fr.herrick-wolber.Weeclik.activity")
     }
     
     override class var activityCategory: UIActivity.Category {

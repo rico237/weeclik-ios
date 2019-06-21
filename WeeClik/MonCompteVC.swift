@@ -40,6 +40,8 @@ class MonCompteVC: UIViewController {
         isProUpdateUI() // Update liste of commerce for pro users
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -84,16 +86,18 @@ class MonCompteVC: UIViewController {
     
     func updateProfilPic(forUser user: PFUser){
         // Regarde si une image de profil a été chargé
+        // sinon si une image est lié via facebook
         // Sinon on affiche l'image de base weeclik
-        if let profilPicURL = user["profilePictureURL"] as? String {
-            if profilPicURL != "" {
-                self.userProfilePicURL = profilPicURL
-            }
-        } else if let profilFile = user["profilPicFile"] as? PFFileObject {
+        if let profilFile = user["profilPicFile"] as? PFFileObject {
             if let url = profilFile.url {
                 if url != "" {
                     self.userProfilePicURL = url
                 }
+            }
+        }
+        else if let profilPicURL = user["profilePictureURL"] as? String {
+            if profilPicURL != "" {
+                self.userProfilePicURL = profilPicURL
             }
         }
         
@@ -202,28 +206,43 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             
             return cell!
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell")
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
             let obj = Commerce(parseObject: self.commerces[indexPath.row])
             
-            cell?.textLabel?.text = "\(obj.nom) - \(obj.partages) partages"
+            cell.partageIcon.tintColor = UIColor.red
+            
+            if self.isPro {
+                cell.descriptionLabel.isHidden = false
+            } else {
+                cell.descriptionLabel.isHidden = true
+            }
+            
+            cell.titre.text = "\(obj.nom)"
+            cell.nbrPartage.text = "\(obj.partages)"
+            
+            if let imageThumbnailFile = obj.thumbnail {
+                cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
+            } else {
+                cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
+            }
             
             if (obj.brouillon) {
-                cell?.detailTextLabel?.text = "Brouillon - Sauvegarder pour publier"
+                cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier"
+                cell.descriptionLabel.textColor = .lightText
             } else {
-                cell?.detailTextLabel?.text = "\(obj.statut.description)"
+                cell.descriptionLabel.text = "\(obj.statut.description)"
+                switch obj.statut {
+                case .canceled, .error, .unknown, .pending:
+                    cell.descriptionLabel.textColor = UIColor.red
+                    break
+                case .paid:
+                    cell.descriptionLabel.textColor = UIColor.init(hexFromString: "#00d06b")
+                    break
+                }
             }
             
 //            if isPro {
-//                let obj = Commerce(parseObject: self.commerces[indexPath.row])
-//
-//                cell?.textLabel?.text = "\(obj.nom) - \(obj.partages) partages"
-//
-//                if (obj.brouillon) {
-//                    cell?.detailTextLabel?.text = "Brouillon - Sauvegarder pour publier"
-//                } else {
-//                    cell?.detailTextLabel?.text = "\(obj.statut.description)"
-//                }
+
 //            } else {
 //                let obj = self.commerces[indexPath.row]
 //                let commerce = Commerce(parseObject: obj["commercePartage"] as! PFObject )
@@ -236,7 +255,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 //                }
 //            }
             
-            return cell!
+            return cell
         }
     }
     
@@ -288,6 +307,15 @@ extension MonCompteVC {
 //                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
 //                }
 //            }
+        }
+    }
+}
+
+extension MonCompteVC {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailProfil" {
+            let vc = segue.destination as! ChangeInfosVC
+            vc.isPro = self.isPro
         }
     }
 }
@@ -377,7 +405,6 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
         
         graphRequest?.start(completionHandler: { (request, result, error) in
-            //            let err = error! as NSError
             if (error == nil) {
                 // handle successful response
                 if let data = result as? [String:Any] {
@@ -389,11 +416,11 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
                     user.saveInBackground()
                 }
             }
-                //            else if (err.userInfo["error"]["type"] == "OAuthException") {
-                //                // Since the request failed, we can check if it was due to an invalid session
-                //                print("The facebook session was invalidated")
-                //                PFFacebookUtils.unlinkUser(inBackground: PFUser.current()!)
-                //            }
+//            else if let err = error as NSError?, err.userInfo["error"]!["type"] == "OAuthException" {
+//                // Since the request failed, we can check if it was due to an invalid session
+//                print("The facebook session was invalidated")
+//                PFFacebookUtils.unlinkUser(inBackground: PFUser.current()!)
+//            }
             else {
                 print("Some other error: \(String(describing: error?.localizedDescription))")
             }
