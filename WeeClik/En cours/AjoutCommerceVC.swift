@@ -6,6 +6,8 @@
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
+// TODO: Ajouter reachability + demander si ils veulent uploader lles images et videos en mode cellular
+
 import UIKit
 import CoreLocation
 import Parse
@@ -43,7 +45,7 @@ class AjoutCommerceVC: UITableViewController {
     var photos = [PFObject]()                               // Photos to be processed for saving
     var videos = [PFObject]()                               // Videos to pe processed for saving
     
-    lazy var geocoder = CLGeocoder()
+    lazy var geocoder = CLGeocoder()                        // TODO: remplacer par une lib de geocoding ?
     
     // Payment Status View Outlets
     @IBOutlet weak var statusDescription: UILabel!
@@ -52,15 +54,15 @@ class AjoutCommerceVC: UITableViewController {
     
     // Valeur des champs entrées
     // TextField
-    var nomCommerce         = "Halo"
-    var telCommerce         = "07"
-    var mailCommerce        = "@.fr"
-    var adresseCommerce     = "adresse"
-    var siteWebCommerce     = "http://"
-    var categorieCommerce   = "Restauration"
+    var nomCommerce         = ""
+    var telCommerce         = ""
+    var mailCommerce        = ""
+    var adresseCommerce     = ""
+    var siteWebCommerce     = ""
+    var categorieCommerce   = ""
     // TextViews
-    var descriptionCommerce = "Description"
-    var promotionsCommerce  = "promotions"
+    var descriptionCommerce = ""
+    var promotionsCommerce  = ""
     
     // IndexPath pour les photos & videos
     var selectedRow      : Int  = 0
@@ -113,7 +115,7 @@ class AjoutCommerceVC: UITableViewController {
             // Modification commerce existant
             if let savedCommerce = savedCommerce {
                 // Est en mode brouillon
-                // FIXME: Disparait dans une navigation pop
+                // TODO: Disparait dans une navigation pop FIX URGENT
                 if (savedCommerce.pfObject["brouillon"] as! Bool) {
                     self.tableView.tableHeaderView?.frame.size.height = 0
                 } else {

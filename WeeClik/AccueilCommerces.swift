@@ -175,9 +175,8 @@ extension AccueilCommerces {
         print("Ftech with show hud \(showHud)")
 //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         self.refreshControl.beginRefreshing()
-        // TODO: ADD NETWORK IS UNAVAILABLE
+        
         NetworkManager.isReachable { (networkInstance) in
-            
             if showHud {
                 SVProgressHUD.setDefaultMaskType(.clear)
                 SVProgressHUD.setDefaultStyle(.dark)
@@ -233,6 +232,12 @@ extension AccueilCommerces {
                 self.collectionView.reloadData()
             }
         }
+        
+        NetworkManager.isUnreachable { (networkInstance) in
+            // TODO: ajouter un message / illustration si pas de connection
+            print("No connection")
+        }
+        
         self.refreshControl.endRefreshing()
     }
 }
