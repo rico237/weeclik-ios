@@ -13,8 +13,9 @@ def projectPods
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
-    pod 'Parse', '~> 1.17.2'
-    pod 'Parse/UI'
+    pod 'Parse', :git => 'https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git'
+    pod 'Parse/UI', :git => 'https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git'
+    pod 'Parse/FacebookUtils', :git => 'https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git'
     
     # Firebase + Performance
     pod 'Firebase/Core'
@@ -24,17 +25,8 @@ def projectPods
     pod 'Crashlytics', '~> 3.13'
     
     # Facebook integration
-    pod 'FacebookSDK'
     pod 'FacebookCore'
     pod 'FacebookLogin'
-    pod 'FacebookShare'
-    
-    pod 'FBSDKCoreKit'
-    pod 'FBSDKLoginKit'
-    pod 'FBSDKShareKit'
-    pod 'FBSDKPlacesKit'
-    
-    pod 'Parse/FacebookUtils'
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'
@@ -76,7 +68,7 @@ def projectPods
     # Tableview quand il n'ya pas de donnés
     pod 'DZNEmptyDataSet'
     # Selection Multiple de contacts
-    pod 'SwiftMultiSelect', :git => 'https://github.com/rico237/SwiftMultiSelect.git'
+    pod 'SwiftMultiSelect', :git => 'https://github.com/weeclik/SwiftMultiSelect.git'
     # Pour la page recherche
     #pod 'Compose', '~> 1.2'
     # Pour de bonnes grille en fonction de l'écran
