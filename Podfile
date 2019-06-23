@@ -13,8 +13,10 @@ def projectPods
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
-    pod 'Parse', '~> 1.17.2'
-    pod 'Parse/UI'
+    # TODO: Faire un repo clean depuis le vrai git, puis tester pour toutes les platforms, puis faire un PR pour les autres
+    pod 'Parse', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
+    pod 'Parse/UI', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
+    pod 'Parse/FacebookUtils', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
     
     # Firebase + Performance
     pod 'Firebase/Core'
@@ -24,23 +26,13 @@ def projectPods
     pod 'Crashlytics', '~> 3.13'
     
     # Facebook integration
-    pod 'FacebookSDK'
-    pod 'FacebookCore'
-    pod 'FacebookLogin'
-    pod 'FacebookShare'
-    
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
-    pod 'FBSDKShareKit'
-    pod 'FBSDKPlacesKit'
-    
-    pod 'Parse/FacebookUtils'
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'
     # UIAlert with progress utilities
     pod 'SVProgressHUD', '~> 2.1'
-    pod 'IHProgressHUD', '~> 0.1.4' # Maybe change for this one <----
     
     # Add promises like in javascript
     pod 'PromiseKit', '~> 6.8'
@@ -76,13 +68,11 @@ def projectPods
     # Tableview quand il n'ya pas de donnés
     pod 'DZNEmptyDataSet'
     # Selection Multiple de contacts
-    pod 'SwiftMultiSelect', :git => 'https://github.com/rico237/SwiftMultiSelect.git'
+    pod 'SwiftMultiSelect', :git => 'https://github.com/weeclik/SwiftMultiSelect.git'
     # Pour la page recherche
     #pod 'Compose', '~> 1.2'
     # Pour de bonnes grille en fonction de l'écran
     pod 'KRLCollectionViewGridLayout', '~> 1.0'
-    # Routing management
-    pod 'Compass'
     # Permet de remonter le header au scroll  (Accueil)
     pod 'KJNavigationViewAnimation', :git => 'https://github.com/weeclik/KJNavigationViewAnimation.git'
     # Savoir si il y a internet
@@ -115,6 +105,21 @@ def projectPods
     pod 'LMGeocoderSwift', '~> 1.0.1'
     # debuging Tools
     pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
+    
+    
+    ################################
+    ################################
+    #                              #
+    #     OBSELETE / A Chnager     #
+    #                              #
+    ################################
+    ################################
+    
+    # Routing management
+    pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
+    
+    
+    
     
     
     ################################
