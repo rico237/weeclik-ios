@@ -103,7 +103,6 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
   - Hue (5.0.0)
-  - IHProgressHUD (0.1.4)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
   - LGButton (1.1.6)
@@ -129,6 +128,7 @@ PODS:
     - Bolts/Tasks (~> 1.9)
   - Parse/FacebookUtils (1.17.2):
     - Bolts (~> 1.9)
+    - FBSDKLoginKit (~> 5.1.1)
     - Parse/Core
   - Parse/UI (1.17.2):
     - Parse/Core
@@ -166,7 +166,7 @@ DEPENDENCIES:
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
   - Bolts (~> 1.9)
   - BulletinBoard (~> 3.0.0)
-  - Compass
+  - Compass (from `https://github.com/weeclik/Compass.git`)
   - Crashlytics (~> 3.13)
   - CRNotifications
   - DBDebugToolkit (~> 0.5.0)
@@ -179,7 +179,6 @@ DEPENDENCIES:
   - Floaty (~> 4.2.0)
   - Gallery
   - Hue (~> 5.0)
-  - IHProgressHUD (~> 0.1.4)
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
   - LGButton (~> 1.0)
@@ -188,9 +187,9 @@ DEPENDENCIES:
   - Material (~> 2.16)
   - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
   - NSFWDetector
-  - Parse (from `https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git`)
-  - Parse/FacebookUtils (from `https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git`)
-  - Parse/UI (from `https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git`)
+  - Parse (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
+  - Parse/FacebookUtils (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
+  - Parse/UI (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
   - PromiseKit (~> 6.8)
   - ReachabilitySwift
   - SDWebImage (~> 4.4.7)
@@ -212,7 +211,6 @@ SPEC REPOS:
     - Alamofire
     - Bolts
     - BulletinBoard
-    - Compass
     - Crashlytics
     - CRNotifications
     - DBDebugToolkit
@@ -234,7 +232,6 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - Hue
-    - IHProgressHUD
     - KRLCollectionViewGridLayout
     - LGButton
     - LMGeocoderSwift
@@ -260,12 +257,14 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   AppImageViewer:
     :git: https://github.com/weeclik/AppImageViewer.git
+  Compass:
+    :git: https://github.com/weeclik/Compass.git
   KJNavigationViewAnimation:
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
   MobilePlayer:
     :git: https://github.com/weeclik/mobileplayer-ios.git
   Parse:
-    :git: https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git
+    :git: https://github.com/weeclik/Parse-SDK-iOS-OSX.git
   SwiftMultiSelect:
     :git: https://github.com/weeclik/SwiftMultiSelect.git
   TPKeyboardAvoiding:
@@ -277,6 +276,9 @@ CHECKOUT OPTIONS:
   AppImageViewer:
     :commit: 99c65f169d566f757f64764b3b5f4f59113d65b7
     :git: https://github.com/weeclik/AppImageViewer.git
+  Compass:
+    :commit: a86eda0d1163ce4c8028be61a61f0ded6cd3e132
+    :git: https://github.com/weeclik/Compass.git
   KJNavigationViewAnimation:
     :commit: d73526855a411e4ec7abdd1b68b6c44f56a9cb78
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
@@ -284,10 +286,10 @@ CHECKOUT OPTIONS:
     :commit: f9ec03e54544251e1de712a1536bbfb6d4789193
     :git: https://github.com/weeclik/mobileplayer-ios.git
   Parse:
-    :commit: e16592a74aa80391a1201b2557d46a66f97156d8
-    :git: https://github.com/tamir-maoz/Parse-SDK-iOS-OSX.git
+    :commit: 60fae9d02ca7d6139e37e155dbb8c46b87eb3a42
+    :git: https://github.com/weeclik/Parse-SDK-iOS-OSX.git
   SwiftMultiSelect:
-    :commit: 4bd88a1e184ed598fa262130cb71101f576dd07f
+    :commit: a0311cd36c48b11e199964a396303fdce0df0016
     :git: https://github.com/weeclik/SwiftMultiSelect.git
   TPKeyboardAvoiding:
     :commit: 03b524df905b913b33e854b2829cb1656703e027
@@ -301,7 +303,7 @@ SPEC CHECKSUMS:
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
-  Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
+  Compass: 1322433089112d8400ca0c337ff5c1707cac6d68
   Crashlytics: 611738c7847f8291a1a51084e35987b86ba6b3ee
   CRNotifications: 563cdf6d3d3110a4c7d82ed33fd92c05f1ea1f27
   DBDebugToolkit: c04bb6f618051d3de447a4b4323f37826116cfed
@@ -323,7 +325,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 996e0db07153674fd1b54b220fda3a3dc3547cba
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
-  IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
@@ -334,7 +335,7 @@ SPEC CHECKSUMS:
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   NSFWDetector: aefec2254932bdc933cccc9385abfe07ae36a7a1
-  Parse: 9f0b73ca2edbcc1ffff52c17d0d370e0f2ecad38
+  Parse: 8937c83bd9c0e27e9ee4a051449dea238e7cb0a6
   PromiseKit: 97397236f9e9c443d5b70a941d49cad25160af7a
   Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
@@ -352,6 +353,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 77c096efdf3553a7dd3da4a9080e6edd2120f474
+PODFILE CHECKSUM: ca7947c69803923a496c2b787eb6c106d0d14faa
 
 COCOAPODS: 1.7.2
