@@ -25,8 +25,8 @@ def projectPods
     pod 'Crashlytics', '~> 3.13'
     
     # Facebook integration
-    pod 'FacebookCore'
-    pod 'FacebookLogin'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'

@@ -63,10 +63,7 @@ public class SPPermissionDialogController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        let closeIconBackgroundColor = (self.colorSource?.closeIconBackgroundColor ?? SPPermissionStyle.DefaultColors.white) ?? SPPermissionStyle.DefaultColors.white
-        let closeIconColor = (self.colorSource?.closeIconColor ?? SPPermissionStyle.DefaultColors.blue) ?? SPPermissionStyle.DefaultColors.blue
-        
+
         self.colorScheme = ColorScheme(
             white: self.colorSource?.whiteColor ?? SPPermissionStyle.DefaultColors.white,
             black: self.colorSource?.blackColor ?? SPPermissionStyle.DefaultColors.black,
@@ -77,8 +74,8 @@ public class SPPermissionDialogController: UIViewController {
             iconLight: self.colorSource?.iconLightColor ?? SPPermissionStyle.DefaultColors.lightIcon,
             iconMedium: self.colorSource?.iconMediumColor ?? SPPermissionStyle.DefaultColors.mediumIcon,
             iconDark: self.colorSource?.iconDarkColor ?? SPPermissionStyle.DefaultColors.darkIcon,
-            closeIconBackgroundColor: closeIconBackgroundColor,
-            closeIconColor: closeIconColor
+            closeIconBackgroundColor: self.colorSource?.closeIconBackgroundColor ?? SPPermissionStyle.DefaultColors.white,
+            closeIconColor: self.colorSource?.closeIconColor ?? SPPermissionStyle.DefaultColors.blue
         )
         
         self.backgroundView.setGradeAlpha(0, blurRaius: 0)
@@ -135,10 +132,13 @@ public class SPPermissionDialogController: UIViewController {
         self.setupPanGesture()
         self.animator = UIDynamicAnimator(referenceView: self.view)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
         self.updateLayout(with: self.view.frame.size)
     }
     
     @objc func request(with button: UIButton) {
+        
         var permission: SPPermissionType?
         var permissionView: SPPermissionDialogLineView?
         
@@ -152,6 +152,18 @@ public class SPPermissionDialogController: UIViewController {
         
         if let permission = permission {
             SPPermission.request(permission, with: {
+                
+                // Update `.locationWhenInUse` if allowed `.locationAlwaysAndWhenInUse`
+                if permission == .locationAlwaysAndWhenInUse {
+                    if self.permissions.contains(.locationWhenInUse) {
+                        for view in self.areaView.views {
+                            if view.permission == .locationWhenInUse {
+                                view.updateStyle()
+                            }
+                        }
+                    }
+                }
+                
                 if SPPermission.isAllowed(permission) {
                     self.delegate?.didAllow?(permission: permission)
                     permissionView?.updateStyle()
@@ -190,6 +202,12 @@ public class SPPermissionDialogController: UIViewController {
         }
     }
     
+    @objc func applicationDidBecomeActive() {
+        for view in self.areaView.views {
+            view.updateStyle()
+        }
+    }
+    
     func present(on viewController: UIViewController) {
         self.animator.removeAllBehaviors()
         self.areaView.alpha = 0
@@ -203,7 +221,7 @@ public class SPPermissionDialogController: UIViewController {
             self.isHiddenStatusBar = true
             self.areaView.center = CGPoint.init(
                 x: self.view.center.x,
-                y: self.view.center.y * 1.2
+                y: self.view.center.y + (self.dataSource?.startTransitionYoffset ?? self.view.center.y * 0.2)
             )
             SPPermissionStyle.Animation.base(0.8, animations: {
                 self.backgroundView.setGradeAlpha(0.07, blurRaius: 4)
@@ -333,13 +351,13 @@ public class SPPermissionDialogController: UIViewController {
         return CGPoint(x: self.view.center.x, y: self.view.center.y)
     }
     
-    //MARK: - animator
+    //MARK: - Animator
     var animator = UIDynamicAnimator()
     var attachmentBehavior : UIAttachmentBehavior!
     var gravityBehaviour : UIGravityBehavior!
     var snapBehavior : UISnapBehavior!
     
-    //MARK: - handle gesture
+    //MARK: - Handle Gesture
     @objc func handleGesture(sender: AnyObject) {
         let myView = self.areaView
         let location = sender.location(in: view)
@@ -374,9 +392,13 @@ public class SPPermissionDialogController: UIViewController {
         self.hide(withDialog: true)
     }
     
-    //MARK: - other
+    //MARK: - Other
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 }
 
@@ -399,13 +421,13 @@ extension SPPermissionDialogController {
         case .reminders:
             return "Application can create new task"
         case .speech:
-            return "Allow check you voice"
+            return "Allow to check your voice"
         case .locationWhenInUse, .locationAlwaysAndWhenInUse:
-            return "App will can check your location"
+            return "Allow to access your location"
         case .motion:
-            return "Allow reports motion and environment-related data"
+            return "Allow to report motion and environment-related data"
         case .mediaLibrary:
-            return "Allow check your media"
+            return "Allow to check your media"
         }
     }
 }

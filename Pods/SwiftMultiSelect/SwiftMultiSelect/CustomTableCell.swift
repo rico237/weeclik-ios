@@ -86,7 +86,7 @@ class CustomTableCell: UITableViewCell
     /// - Parameters:
     ///   - style: style for cell
     ///   - reuseIdentifier: string for reuse
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String!)
     {
         //First Call Super
         super.init(style: style, reuseIdentifier: reuseIdentifier)

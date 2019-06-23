@@ -43,7 +43,6 @@ class MultiSelecetionViewController: UIViewController,UIGestureRecognizerDelegat
         layout.scrollDirection          = UICollectionView.ScrollDirection.horizontal
         layout.minimumInteritemSpacing  = 0
         layout.minimumLineSpacing       = 0
-        layout.itemSize                 = CGSize(width: CGFloat(Config.selectorStyle.selectionHeight),height: CGFloat(Config.selectorStyle.selectionHeight));
         
         //Build collectin view
         let selected                    = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -156,13 +155,19 @@ class MultiSelecetionViewController: UIViewController,UIGestureRecognizerDelegat
         )
         //constraint for stackview
         let stackView_V = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|-[stackView]-0-|",
+            withVisualFormat: "V:|-\(navBarHeight)-[stackView]-0-|",
             options: NSLayoutConstraint.FormatOptions(rawValue:0),
             metrics: nil,
             views: viewsDictionary
         )
         
-        searchBar.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0).isActive        = true
+        // Test if has notch
+        if (UIApplication.isDeviceWithSafeArea) {
+            searchBar.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 25).isActive        = true
+        } else {
+            searchBar.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 0).isActive         = true
+        }
+        
         searchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive                 = true
         searchBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive               = true
         searchBar.heightAnchor.constraint(equalToConstant: CGFloat(40)).isActive = true

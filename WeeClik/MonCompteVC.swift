@@ -402,9 +402,9 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     func getFacebookInformations(user : PFUser) {
         
         let params = ["fields" : "email, name"]
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
+        let graphRequest = GraphRequest(graphPath: "me", parameters: params)
         
-        graphRequest?.start(completionHandler: { (request, result, error) in
+        graphRequest.start(completionHandler: { (request, result, error) in
             if (error == nil) {
                 // handle successful response
                 if let data = result as? [String:Any] {
