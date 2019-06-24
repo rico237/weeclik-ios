@@ -15,6 +15,7 @@ class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
     var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
     var commerces : [PFObject]! = []    // La liste des commerces dans le BAAS
+    var partages_dates = [Date]()       // Date des partages
     var currentUser = PFUser.current()  // Utilisateur connecté
 
     @IBOutlet weak var nouveauCommerceButton: UIButton!
@@ -211,49 +212,54 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             
             cell.partageIcon.tintColor = UIColor.red
             
-            if self.isPro {
-                cell.descriptionLabel.isHidden = false
-            } else {
-                cell.descriptionLabel.isHidden = true
-            }
+            if isPro {
             
-            cell.titre.text = "\(obj.nom)"
-            cell.nbrPartage.text = "\(obj.partages)"
-            
-            if let imageThumbnailFile = obj.thumbnail {
-                cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-            } else {
-                cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
-            }
-            
-            if (obj.brouillon) {
-                cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier"
-                cell.descriptionLabel.textColor = .lightText
-            } else {
-                cell.descriptionLabel.text = "\(obj.statut.description)"
-                switch obj.statut {
-                case .canceled, .error, .unknown, .pending:
-                    cell.descriptionLabel.textColor = UIColor.red
-                    break
-                case .paid:
-                    cell.descriptionLabel.textColor = UIColor.init(hexFromString: "#00d06b")
-                    break
+                if self.isPro {
+                    cell.descriptionLabel.isHidden = false
+                } else {
+                    cell.descriptionLabel.isHidden = true
+                }
+                
+                cell.titre.text = "\(obj.nom)"
+                cell.nbrPartage.text = "\(obj.partages)"
+                
+                if let imageThumbnailFile = obj.thumbnail {
+                    cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
+                } else {
+                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
+                }
+                
+                if (obj.brouillon) {
+                    cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier"
+                    cell.descriptionLabel.textColor = .lightText
+                } else {
+                    cell.descriptionLabel.text = "\(obj.statut.description)"
+                    switch obj.statut {
+                    case .canceled, .error, .unknown, .pending:
+                        cell.descriptionLabel.textColor = UIColor.red
+                        break
+                    case .paid:
+                        cell.descriptionLabel.textColor = UIColor.init(hexFromString: "#00d06b")
+                        break
+                    }
                 }
             }
-            
-//            if isPro {
-
-//            } else {
-//                let obj = self.commerces[indexPath.row]
-//                let commerce = Commerce(parseObject: obj["commercePartage"] as! PFObject )
-//                cell?.textLabel?.text = "\(commerce.nom) - Partagé \(obj["nbrPartage"] ?? "0") fois"
-//                let arrayDate = obj["mes_partages_dates"] as! Array<String>
-//                let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
-//                let lastPartage = Date(arrayDate.first ?? "")
-//                if let lastPartage = lastPartage {
-//                    cell?.detailTextLabel?.text = "Dernier partage : \(lastPartage.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))"
-//                }
-//            }
+            else {
+                
+                cell.descriptionLabel.isHidden = false
+                
+                cell.titre.text = "\(obj.nom)"
+                cell.nbrPartage.text = "\(obj.partages)"
+                
+                if let imageThumbnailFile = obj.thumbnail {
+                    cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
+                } else {
+                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
+                }
+                let lastPartage = self.partages_dates[indexPath.row]
+                let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
+                cell.descriptionLabel.text = "Dernier partage : \(lastPartage.convertTo(region: paris).toFormat("dd MMM yyyy"))"
+            }
             
             return cell
         }
@@ -295,18 +301,41 @@ extension MonCompteVC {
             })
         } else {
             // Prend les commerces favoris de l'utilisateur
-            
-//            let queryCommerce = PFQuery(className: "StatsPartage")
-//            queryCommerce.whereKey("utilisateurPartageur", equalTo: currentUser!)
-//            queryCommerce.includeKeys(["utilisateurPartageur", "commercePartage"])
-//            queryCommerce.findObjectsInBackground { (objects, error) in
-//                if let partages = objects {
-//                    self.commerces = partages
-//                    self.updateUIBasedOnUser()
-//                } else if let error = error {
-//                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
-//                }
-//            }
+            if let currentUser = currentUser {
+                let partages = currentUser["mes_partages"] as? [String]
+                let partages_dats = currentUser["mes_partages_dates"] as! [Date]
+                if let partages = partages {
+                    
+                    // TODO: Ameliorer cette auery
+                    let partagesQuery = PFQuery(className: "Commerce")
+                    partagesQuery.whereKey("objectId", containedIn: partages)
+                    partagesQuery.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+                    partagesQuery.findObjectsInBackground { (objects, error) in
+                        if let objects = objects {
+                            // Parcour tous les ids
+                            self.partages_dates.removeAll()
+                            self.commerces.removeAll()
+                            for i in 0...partages.count - 1 {
+                                let obId = partages[i]
+                                // synchronisation du commerce et des dates de partage
+                                for (index, obj) in objects.enumerated() {
+                                    if obj.objectId == obId {
+                                        self.commerces.append(obj)
+                                        self.partages_dates.append(partages_dats[index])
+                                    }
+                                }
+                            }
+                            self.updateUIBasedOnUser()
+                        } else if let error = error {
+                            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                        }
+                    }
+                    
+                }
+            }
+            else {
+                HelperAndKeys.showNotification(type: "E", title: "Problème de connexion", message: "Problème lors de la récupération de vos partages", delay: 3)
+            }
         }
     }
 }

@@ -102,7 +102,7 @@ class AccueilCommerces: UIViewController {
         if #available(iOS 11.0, *) {self.collectionView.contentInsetAdjustmentBehavior = .always}
         
         // Init of retracting header (header image)
-        viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
+        viewKJNavigation.topbarMinimumSpace = .custom(height: 200)
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
         // Choisir le filtrage par defaut (Position ou partage)

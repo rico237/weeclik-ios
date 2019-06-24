@@ -154,7 +154,8 @@ class DetailCommerceViewController: UIViewController {
             
             
             
-            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
+//            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
+            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [])
             if #available(iOS 11.0, *) {
                 activit.excludedActivityTypes = [
                     .markupAsPDF, .postToVimeo, .postToWeibo, .postToFlickr, .postToTencentWeibo,

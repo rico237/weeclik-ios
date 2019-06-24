@@ -169,11 +169,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeeClik/MonCompteVC.swift"
-            timestampString = "583003034.5420949"
+            timestampString = "583085184.426695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "MonCompteVC"
             landmarkType = "21">
          </BreakpointContent>
@@ -185,11 +185,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeeClik/MonCompteVC.swift"
-            timestampString = "583003034.542155"
+            timestampString = "583085184.427212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "updateUIBasedOnUser()"
             landmarkType = "7">
          </BreakpointContent>

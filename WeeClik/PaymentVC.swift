@@ -240,16 +240,7 @@ class PaymentVC: UIViewController {
                 newCommerce["endSubscription"] = Date() + 1.years
             }
             
-            let acl = PFACL()
-            acl.setReadAccess(true, forRoleWithName: "Public")
-            acl.setReadAccess(true, forRoleWithName: "admin")
-            acl.setReadAccess(true, for: currentUser)
-            
-            acl.setWriteAccess(false, forRoleWithName: "Public")
-            acl.setWriteAccess(true, forRoleWithName: "admin")
-            acl.setWriteAccess(true, for: currentUser)
-            
-            newCommerce.acl = acl
+            newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
             
             newCommerce.saveInBackground { (success, error) in
                 if let error = error {

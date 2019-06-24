@@ -47,6 +47,11 @@ class HelperAndKeys {
     
     static func getServerURL() -> String{
         return "https://weeclik-server.herokuapp.com/parse"
+        #if DEBUG
+        return "https://weeclik-server-dev.herokuapp.com/parse"
+        #endif
+        
+        
     }
     
     static func getServerAppId() -> String{

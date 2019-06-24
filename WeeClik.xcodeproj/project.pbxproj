@@ -27,6 +27,7 @@
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
 		1F3C5B1F22A2FBC700904317 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C5B1E22A2FBC700904317 /* MailHelper.swift */; };
+		1F3DEAF222C039F8008F92A5 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */; };
 		1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */; };
 		1F4AF13C2286D0A3005FD179 /* ParseErrorCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */; };
@@ -155,6 +156,7 @@
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
 		1F3C5B1E22A2FBC700904317 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
+		1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonCompteVC.swift; sourceTree = "<group>"; };
 		1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseErrorCodeHandler.swift; sourceTree = "<group>"; };
 		1F4D430F202AC4D40089FB15 /* ImageScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScroller.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 		1F0857081F2D676900932929 /* Helper & Secrets */ = {
 			isa = PBXGroup;
 			children = (
+				1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */,
 				1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */,
 				1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */,
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
@@ -811,7 +814,6 @@
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/NSFWDetector/NSFWDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -825,6 +827,7 @@
 				"${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/WXImageCompress/WXImageCompress.framework",
+				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -857,7 +860,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSFWDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -871,6 +873,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLPhotoPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WXImageCompress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
@@ -929,6 +932,7 @@
 				1F4D4312202AC4E10089FB15 /* ShadowView.swift in Sources */,
 				1F744EB21F9023EE00B892FD /* UserAccount.swift in Sources */,
 				1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */,
+				1F3DEAF222C039F8008F92A5 /* ParseHelper.swift in Sources */,
 				1F5E931B204724E4009AACA1 /* GridFlowLayout.swift in Sources */,
 				1F04777A214407C400B20CA5 /* PaymentCell.swift in Sources */,
 				1F5DE54C1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift in Sources */,

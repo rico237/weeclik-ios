@@ -17,6 +17,7 @@ import AVKit
 import SVProgressHUD
 import WXImageCompress
 import SwiftDate
+import ZAlertView
 
 enum UploadingStatus {
     case success
@@ -28,10 +29,10 @@ class AjoutCommerceVC: UITableViewController {
     
     var photoArray : [UIImage]!     = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]          // Tableau de photos
     var loadedPhotos                = [PFObject]()          // Toutes les images conservés en BDD par le commerce
+    var loadedVideos                = [PFObject]()          // Toutes les vidéos conservés en BDD par le commerce
     var videoArray                  = [TLPHAsset]()         // Tableau de videos
     var thumbnailArray : [UIImage]  = [UIImage()]           // Tableau de preview des vidéos
     var selectedVideoData           = Data()                // Data de vidéos
-    var didUseFinalSave             = false                 // Utilisé le bouton de sauvegarde
     var savedCommerce : Commerce?   = nil                   // Objet Commerce si on a pas utilisé le bouton sauvegarde
     var isSaving = false                                    // Sauvegarde du commerce en cours
     
@@ -193,6 +194,33 @@ class AjoutCommerceVC: UITableViewController {
                 
                     self.refreshUI()
                 }
+                
+                // Charger les vidéos
+                let queryVideos = PFQuery(className: "Commerce_Videos")
+                queryVideos.whereKey("leCommerce", equalTo: comm.pfObject!)
+                queryVideos.addDescendingOrder("createdAt")
+                queryVideos.findObjectsInBackground { (objects, error) in
+                    if let error = error {
+                        self.refreshUI(status: .error, error: error, feedBack: true)
+                    } else {
+                        // Success getting videos
+                        if let videoBDD = objects {
+                            for (index, obj) in videoBDD.enumerated() {
+                                self.loadedVideos.append(obj)
+                                // 3 première images
+                                if index < 1 {
+                                    let fileImage       = obj["thumbnail"] as! PFFileObject
+                                    if let imageData    = try? fileImage.getData(){
+                                        self.thumbnailArray.removeAll()
+                                        self.thumbnailArray.append(UIImage(data: imageData) ?? UIImage())
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    self.refreshUI()
+                }
             }
             
         }
@@ -217,18 +245,6 @@ class AjoutCommerceVC: UITableViewController {
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.tableView.setNeedsLayout()
-            self.tableView.layoutIfNeeded()
-        }
-    }
-    
-    
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // Sauvegarder les infos pour editions plus tard
-        if !didUseFinalSave{
-            localSave()
         }
     }
     
@@ -246,25 +262,7 @@ class AjoutCommerceVC: UITableViewController {
         }
     }
     
-    func localSave(){
-        // Sauvegarde des infos dans le tel
-//        print("Local save")
-//        let localCommerce = getCommerceFromInfos()
-//        print(localCommerce.description)
-        
-        //        let userDefaults = UserDefaults.standard
-        //        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: localCommerce), forKey: "lastCommerce")
-        //        userDefaults.synchronize()
-        
-        // TO GET
-        //        if let data = userDefaults.object(forKey: "lastCommerce") as? NSData {
-        //            let comm = NSKeyedUnarchiver.unarchiveObject(with: data as Data)
-        //        }
-    }
-    
     func finalSave() {
-        
-        didUseFinalSave = true
         isSaving = true
         
         // [1] Sauvegarde du commerce
@@ -279,13 +277,6 @@ class AjoutCommerceVC: UITableViewController {
                 self.savePhotosWithCommerce(commerceId: self.objectIdCommerce)
             }
         }
-
-        // [3] Sauvegarde des videos
-//        self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
-//        videos = self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
-        
-//        // [4] Mise a jour du commerce avec les photos & videos uploadés
-//        self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
     }
     
     func updateGeoLocation(commerce: Commerce){
@@ -336,9 +327,9 @@ class AjoutCommerceVC: UITableViewController {
                     
                     video.exportVideoFile(options: options, progressBlock: { (progress) in
                         print("Progress \(progress)")
-                    }) { (url, unknown) in
+                    }) { (url, mimeType) in
                         
-                        print("Video export \(url) & \(unknown)")
+                        print("Video export \(url) & \(mimeType)")
                         
                         print("try")
                         var videoData: Data?
@@ -352,16 +343,17 @@ class AjoutCommerceVC: UITableViewController {
                         
                         print("Done getting video data\n Now tries to save pffile object")
                         
-                        let pffile          = PFFileObject(data: videoData!, contentType: "video/mp4")  // video/mov ??
+                        let pffile          = PFFileObject(data: videoData!, contentType: mimeType)
                         let obj             = PFObject(className: "Commerce_Videos")
-                        let thumbnail       = PFFileObject(name: "thumbnail.jpg", data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!)
+                        let thumbnail       = PFFileObject(data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!, contentType: "image/jpeg")
                         
                         obj["thumbnail"]    = thumbnail
                         obj["leCommerce"]   = commerceToSave
                         obj["time"]         = asset.duration.stringFormatted()
-                        obj["nameVideo"]    = self.nomCommerce + "__video-presentation-\(i)"
+                        obj["nameVideo"]    = self.nomCommerce + " - Vidéo de présentation"
                         obj["video"]        = pffile
                         
+                        obj.acl = ParseHelper.getUserACL(forUser: PFUser.current())
                         
                         pffile.saveInBackground({ (success, error) in
                             if let error = error {
@@ -371,67 +363,27 @@ class AjoutCommerceVC: UITableViewController {
                                 if success {
                                     // OK
                                     print("Upload réussi")
-//                                    obj.saveInBackground()
+                                    obj.saveInBackground()
                                 } else {
                                     print("Upload failed")
                                 }
                             }
+                            
+                            // [4] Mise a jour du commerce avec les photos & videos uploadés
+                            self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
                         }, progressBlock: { (progress32) in
                             print("Progress : \(progress32)%")
                         })
                             
                         
                     }
-                    
-//                    DispatchQueue.main.async {
-//                        PHImageManager().requestAVAsset(forVideo: asset, options: options, resultHandler: { (asset, mix, nil) in
-//
-//
-//                            let myAsset = asset as? AVURLAsset
-//                            print("try")
-//
-//                            do {
-//                                let videoData = try Data(contentsOf: (myAsset?.url)!)
-//                                let pffile = PFFileObject(data: videoData, contentType: "video/mp4")
-//
-//                                let obj = PFObject(className: "Commerce_Videos")
-//                                let thumbnail = PFFileObject(name: "thumbnail.jpg", data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!)
-//
-//                                obj["thumbnail"]  = thumbnail
-//                                obj["leCommerce"] = commerceToSave
-//                                obj["nameVideo"]  = self.nomCommerce + "__video-presentation-\(i)"
-//                                obj["video"] = pffile
-//
-//
-//                                pffile.saveInBackground({ (success, error) in
-//                                    if let error = error {
-//                                        print("Erreur while uploading \(error.localizedDescription)")
-//                                    } else {
-//                                        // Pas d'erreur
-//                                        if success {
-//                                            // OK
-//                                            print("Upload réussi")
-////                                            obj.saveInBackground()
-//                                        } else {
-//                                            print("Upload failed")
-//                                        }
-//                                    }
-//                                }, progressBlock: { (progress32) in
-//                                    print("Progress : \(progress32)%")
-//                                })
-//
-//                            } catch  {
-//                                print("exception catch at block - while uploading video")
-//                            }
-//
-//                        })
-//                    }
-                    
-                    
                 }
             }
+        } else {
+            // Aucune video ajouté on passe direct au refresh du commerce
+            // [4] Mise a jour du commerce avec les photos & videos uploadés
+            self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
         }
-        
     }
     
     func savePhotosWithCommerce(commerceId : String) {
@@ -471,9 +423,8 @@ class AjoutCommerceVC: UITableViewController {
                                 self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)
                             } else {
                                 self.photos = photos
-                                
-                                // [4] Mise a jour du commerce avec les photos & videos uploadés
-                                self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
+                                // [3]. Upload de la video
+                                self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
                             }
                         })
                     }
@@ -484,7 +435,7 @@ class AjoutCommerceVC: UITableViewController {
     
     func refreshCommerceMedia(commerceId:String){
         
-        SVProgressHUD.show(withStatus: "Mise à jour du commerce avec les photos")
+        SVProgressHUD.show(withStatus: "Mise à jour du commerce")
         
         if photos.count != 0 {
             let query = PFQuery(className: "Commerce")
@@ -545,6 +496,20 @@ class AjoutCommerceVC: UITableViewController {
 // Status View Functions
 extension AjoutCommerceVC {
     @IBAction func seeMoreDetailAboutStatus(_ sender: Any) {
+        if savedCommerce!.statut == .error || savedCommerce!.statut == .unknown || savedCommerce!.statut == .pending {
+            let horsLigneMessage = "Votre commerce est toujours sur Weeclik mais invisible de tout le monde car il y a surement eu une erreur dans le paiement ou que lʼabonnement nʼest plus valable"
+            let dialog =  ZAlertView(title: "", message: horsLigneMessage, closeButtonText: "OK", closeButtonHandler:  { (alert) in
+                alert.dismissAlertView()
+            })
+            ZAlertView.positiveColor = UIColor.color("#017aff")
+            dialog.show()
+        }else if savedCommerce!.statut == .paid {
+            let dialog =  ZAlertView(title: "", message: "Votre commerce est en ligne et visible de tous, prêt à être partagé", closeButtonText: "OK", closeButtonHandler:  { (alert) in
+                alert.dismissAlertView()
+            })
+            ZAlertView.positiveColor = UIColor.color("#017aff")
+            dialog.show()
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -715,7 +680,7 @@ extension AjoutCommerceVC {
         case 1: // Case photos
             return (tableView.bounds.width - (3 - 1) * 7) / 3
         case 2: // Case vidéo
-            return 0 // 150
+            return 150 // 150
         case 3: // Case selection de la catégorie
             return 150
         case 4: // Case informations supplémentaires
@@ -726,7 +691,7 @@ extension AjoutCommerceVC {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 2 { return 0 } // Video
+//        if section == 2 { return 0 } // Video
         return 30
     }
     

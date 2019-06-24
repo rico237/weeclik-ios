@@ -34,10 +34,6 @@ def projectPods
     # UIAlert with progress utilities
     pod 'SVProgressHUD', '~> 2.1'
     
-    # Add promises like in javascript
-    pod 'PromiseKit', '~> 6.8'
-    
-    
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 5.0.0-beta.6'
     
@@ -46,7 +42,8 @@ def projectPods
     # Selection des photos et videos pour la création de commerce
     pod 'Gallery'
     # Demande de permissions
-    pod 'SPPermission'
+    pod 'SPPermission/Location'
+    pod 'SPPermission/Contacts'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # Notification pour le partage de nouveau activé
@@ -106,6 +103,7 @@ def projectPods
     # debuging Tools
     pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
     
+    pod 'ZAlertView'
     
     ################################
     ################################
@@ -129,6 +127,9 @@ def projectPods
     #                              #
     ################################
     ################################
+    
+    # ROUTING for many apps # + https://github.com/freshOS/Router
+    #pod 'Appz'
     
     # Faire un tuto d'utilisation weeclik
     #pod "Elissa" #en association avec pod 'EasyClosure'
