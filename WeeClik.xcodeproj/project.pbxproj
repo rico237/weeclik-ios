@@ -92,7 +92,6 @@
 		1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE0161209F20C20040F988 /* GoogleService-Info.plist */; };
 		1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3921FABA78700392060 /* ChangeInfosVC.swift */; };
 		1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3941FABA9A200392060 /* MotDePasseVC.swift */; };
-		1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */; };
 		1FD6F56D20729A5100EC9DF3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56C20729A5100EC9DF3 /* Extensions.swift */; };
 		1FD9BED621136D44008AA1FC /* BackendDetailCommerceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD9BED521136D44008AA1FC /* BackendDetailCommerceVC.swift */; };
 		1FDDB8972118B40A00B7EC33 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */; };
@@ -229,7 +228,6 @@
 		1FCE0161209F20C20040F988 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FCED3921FABA78700392060 /* ChangeInfosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfosVC.swift; sourceTree = "<group>"; };
 		1FCED3941FABA9A200392060 /* MotDePasseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotDePasseVC.swift; sourceTree = "<group>"; };
-		1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoHelper.swift; sourceTree = "<group>"; };
 		1FD6F56C20729A5100EC9DF3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1FD9BED521136D44008AA1FC /* BackendDetailCommerceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendDetailCommerceVC.swift; sourceTree = "<group>"; };
 		1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
@@ -313,7 +311,6 @@
 				1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */,
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
 				1FC5C59C22B8568000178929 /* FontHelper.swift */,
-				1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */,
 				1FD6F56C20729A5100EC9DF3 /* Extensions.swift */,
 				1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */,
 				1F3C5B1E22A2FBC700904317 /* MailHelper.swift */,
@@ -941,7 +938,6 @@
 				1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */,
 				1F830EB6227B3411003E8F1F /* AdminMonProfilSettingsVC.swift in Sources */,
 				1F4AF13C2286D0A3005FD179 /* ParseErrorCodeHandler.swift in Sources */,
-				1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */,
 				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,
 				1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */,
 				1F8F0884223F12C3008177C4 /* AfterPaymentVC.swift in Sources */,
