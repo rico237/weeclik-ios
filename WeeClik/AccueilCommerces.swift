@@ -172,6 +172,7 @@ extension AccueilCommerces {
     }
     
     func queryObjectsFromDB(typeCategorie : String, withHUD showHud: Bool = true){
+        // TODO: URGENT -> AMELIORER LA QUERY COMMERCES (mise à jour de la poisition est faite après le fetch des commerce, ce qui veut dire qu'il faut refresh deux fois pour avoir les bons commerces
         print("Ftech with show hud \(showHud)")
 //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         self.refreshControl.beginRefreshing()
@@ -190,7 +191,10 @@ extension AccueilCommerces {
             query.whereKey("statutCommerce", equalTo: 1)
             query.whereKey("brouillon", equalTo: false)
             
+            
             if self.prefFiltreLocation {
+                self.locationManager.startUpdatingLocation()
+                print("Query objects")
                 let userPosition = PFGeoPoint(location: self.latestLocationForQuery)
                 query.whereKey("position", nearGeoPoint: userPosition)
                 query.order(byAscending: "position")
@@ -204,6 +208,8 @@ extension AccueilCommerces {
                         PFUser.logOut()
                         self.chooseCategorie(itemChoose: self.titleChoose)
                     }
+                    
+                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false)
                     
                     if showHud {
                         SVProgressHUD.showError(withStatus: ParseErrorCodeHandler.handleParseError(error: error))
@@ -228,7 +234,7 @@ extension AccueilCommerces {
                     }
                     
                 }
-                print("Did finish loading commerces")
+//                print("Did finish loading commerces")
                 self.collectionView.reloadData()
             }
         }
@@ -372,6 +378,7 @@ extension AccueilCommerces : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
+        print("Did update position : \(locations.last)")
     }
     
     func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
@@ -390,10 +397,8 @@ extension AccueilCommerces : CLLocationManagerDelegate {
 }
 // Functions for requesting localisation permission
 extension AccueilCommerces : SPPermissionDialogDelegate {
-    func didHide() {}
-    
     func didAllow(permission: SPPermissionType) {
-        if case .locationWhenInUse = permission {
+        if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
             self.locationManager.startUpdatingLocation()
             self.locationGranted = true
             self.prefFiltreLocation = true
@@ -404,7 +409,7 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
     }
     
     func didDenied(permission: SPPermissionType) {
-        if case .locationWhenInUse = permission {
+        if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
             self.locationGranted = false
             self.prefFiltreLocation = false
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: false)
@@ -418,11 +423,11 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
         if CLLocationManager.locationServicesEnabled() {
             if CLLocationManager.authorizationStatus() == .denied {
                 // Location Services are denied
-                HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.", presentFrom: self)
+                HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.\n\nVous pouvez autoriser la géolocalisation dans l'application \"Réglages\" de votre téléphone.", presentFrom: self)
                 self.locationGranted = false
             } else {
                 if CLLocationManager.authorizationStatus() == .notDetermined {
-                    SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: PermissionDataSource())
+                    SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: self)
                 } else {
                     // The user has already allowed your app to use location services. Start updating location
                     self.locationManager.startUpdatingLocation()
@@ -431,7 +436,7 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
             }
         } else {
             // Location Services are disabled
-            HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
+            HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
             self.locationGranted = false
         }
         
@@ -440,16 +445,29 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
     }
 }
 // Custom UI for asking permission (alert controller)
-class PermissionDataSource : SPPermissionDialogDataSource {
+extension AccueilCommerces : SPPermissionDialogDataSource {
+    var dialogTitle: String     { return "Demande de position" }
+    var dialogSubtitle: String  { return "Position nécessaire pour ce filtre" }
+    var dialogComment: String   { return "Cette fonctionnalité vous permet de voir les commerces autour de vous." }
+    var cancelTitle: String     { return "Annuler" }
+    var settingsTitle: String   { return "Réglages" }
     
-    // TODO: Maybe customize more
+    var allowTitle: String      { return "Autoriser" }
+    var allowedTitle: String    { return "Autorisé" }
     
-    var dialogTitle: String = "Demande d'autorisation"
-    var dialogSubtitle: String = "Weeclik a besoin de votre autorisation pour fonctionner"
-    var cancelTitle: String = "Annuler"
-    var settingsTitle: String = "Réglages"
-    
-    func deniedSubtitle(for permission: SPPermissionType) -> String? {
+    func name(for permission: SPPermissionType) -> String? {
+        if permission == .locationWhenInUse || permission == .locationAlwaysAndWhenInUse { return "Position" }
+        return nil
+    }
+    func description(for permission: SPPermissionType)      -> String? {
+        if permission == .locationWhenInUse || permission == .locationAlwaysAndWhenInUse {
+            return "Permet de vous géolocaliser" }
+        return nil
+    }
+    func deniedTitle(for permission: SPPermissionType)      -> String? { return "Refusé" }
+    func deniedSubtitle(for permission: SPPermissionType)   -> String? {
         return "Autorisation refusé. Merci de les changer dans les réglages."
     }
+    
+    var showCloseButton: Bool { return false }
 }
