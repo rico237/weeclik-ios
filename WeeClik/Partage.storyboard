@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6Jj-sK-xkZ">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="4U6-cR-HeB">
+            <objects>
+                <viewController id="6Jj-sK-xkZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aor-Jc-r1n">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Koc-0O-cKG">
+                                <rect key="frame" x="0.0" y="44" width="414" height="70"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y8k-ag-afp">
+                                        <rect key="frame" x="12" y="12" width="46" height="46"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group_icon" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHc-WE-9UH">
+                                                <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="uHc-WE-9UH" secondAttribute="height" multiplier="1:1" id="WGd-re-MKu"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.87771211139896377" green="0.87771211139896377" blue="0.87771211139896377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="uHc-WE-9UH" firstAttribute="top" secondItem="y8k-ag-afp" secondAttribute="top" constant="8" id="Gj5-gj-Ope"/>
+                                            <constraint firstAttribute="trailing" secondItem="uHc-WE-9UH" secondAttribute="trailing" constant="8" id="NEb-Xi-Tfg"/>
+                                            <constraint firstItem="uHc-WE-9UH" firstAttribute="leading" secondItem="y8k-ag-afp" secondAttribute="leading" constant="8" id="Xw6-nP-SGs"/>
+                                            <constraint firstAttribute="bottom" secondItem="uHc-WE-9UH" secondAttribute="bottom" constant="8" id="ary-oR-L3E"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="23"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nouveau groupe de partage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ph3-ph-Jrc">
+                                        <rect key="frame" x="70" y="24.5" width="215" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3gc-Vc-Qoc">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="0rf-IV-Xpe"/>
+                                    <constraint firstItem="ph3-ph-Jrc" firstAttribute="leading" secondItem="y8k-ag-afp" secondAttribute="trailing" constant="12" id="1c0-d7-NoL"/>
+                                    <constraint firstItem="3gc-Vc-Qoc" firstAttribute="leading" secondItem="Koc-0O-cKG" secondAttribute="leading" id="7rM-2e-gth"/>
+                                    <constraint firstItem="y8k-ag-afp" firstAttribute="top" secondItem="Koc-0O-cKG" secondAttribute="top" constant="12" id="j1C-CJ-GPx"/>
+                                    <constraint firstItem="3gc-Vc-Qoc" firstAttribute="top" secondItem="Koc-0O-cKG" secondAttribute="top" id="jbX-ke-XcL"/>
+                                    <constraint firstItem="ph3-ph-Jrc" firstAttribute="centerY" secondItem="Koc-0O-cKG" secondAttribute="centerY" id="k01-2I-uzf"/>
+                                    <constraint firstItem="y8k-ag-afp" firstAttribute="leading" secondItem="Koc-0O-cKG" secondAttribute="leading" constant="12" id="mEz-YV-N50"/>
+                                    <constraint firstAttribute="bottom" secondItem="y8k-ag-afp" secondAttribute="bottom" constant="12" id="mHT-MI-GQp"/>
+                                    <constraint firstAttribute="trailing" secondItem="3gc-Vc-Qoc" secondAttribute="trailing" id="qUb-ZF-OJg"/>
+                                    <constraint firstAttribute="bottom" secondItem="3gc-Vc-Qoc" secondAttribute="bottom" id="y1H-hI-PIt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Koc-0O-cKG" firstAttribute="trailing" secondItem="gt5-Gx-swU" secondAttribute="trailing" id="1rV-AZ-Qzb"/>
+                            <constraint firstItem="Koc-0O-cKG" firstAttribute="leading" secondItem="gt5-Gx-swU" secondAttribute="leading" id="HIA-wc-MiS"/>
+                            <constraint firstItem="Koc-0O-cKG" firstAttribute="top" secondItem="gt5-Gx-swU" secondAttribute="top" id="OMG-Yf-84H"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gt5-Gx-swU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hLL-Qz-gzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-614.49275362318849" y="-266.51785714285711"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Group_icon" width="60" height="60"/>
+    </resources>
+</document>
