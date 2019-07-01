@@ -46,12 +46,12 @@ class HelperAndKeys {
     }
     
     static func getServerURL() -> String{
+//        return "http://172.20.10.4:1337/parse" // Localhost partage de connexion iphone 7+
+//        return "http://192.168.1.30:1337/parse" // Localhost wifi maison
         return "https://weeclik-server.herokuapp.com/parse"
         #if DEBUG
         return "https://weeclik-server-dev.herokuapp.com/parse"
         #endif
-        
-        
     }
     
     static func getServerAppId() -> String{
