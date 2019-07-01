@@ -7,22 +7,22 @@ import Lottie
 
 class AfterPaymentVC: UIViewController {
     
-    @IBOutlet weak var lot: LOTAnimatedControl!
+    @IBOutlet weak var animationView: AnimationView!
     var successPurchase = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let animationView = lot.animationView
-        animationView.setAnimation(named: "loader-success-failed")
+        let animation = Animation.named("loader-success-failed")
+        animationView.animation = animation
         
         if successPurchase {
             animationView.play(fromFrame: 0, toFrame: 380) { (finished) in
-                animationView.pause()
+                self.animationView.pause()
             }
         } else {
             animationView.play(fromFrame: 400, toFrame: 800) { (finished) in
-                animationView.pause()
+                self.animationView.pause()
             }
         }
     }

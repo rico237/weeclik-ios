@@ -90,7 +90,7 @@ class AccueilCommerces: UIViewController {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
         // Init collectionview for commerces (object cells)
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Chargement des commerces")
+        self.refreshControl.attributedTitle = NSAttributedString(string: "")
         if #available(iOS 10.0, *) {
             self.collectionView.refreshControl = refreshControl
         } else {
@@ -102,7 +102,7 @@ class AccueilCommerces: UIViewController {
         if #available(iOS 11.0, *) {self.collectionView.contentInsetAdjustmentBehavior = .always}
         
         // Init of retracting header (header image)
-        viewKJNavigation.topbarMinimumSpace = .custom(height: 150)
+        viewKJNavigation.topbarMinimumSpace = .custom(height: 200)
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
         // Choisir le filtrage par defaut (Position ou partage)
@@ -123,10 +123,10 @@ class AccueilCommerces: UIViewController {
         }
         
         // Update user position if filtre location is enabled
-        if self.prefFiltreLocation {
+        if self.prefFiltreLocation || self.locationGranted {
             self.locationManager.startUpdatingLocation()
         }
-
+        print("First load")
         // Load first object based on location or number of sharing
         self.chooseCategorie(itemChoose: self.titleChoose)
     }
@@ -134,6 +134,9 @@ class AccueilCommerces: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        if self.commerces.count != 0 {
+            self.discretReload()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -143,8 +146,14 @@ class AccueilCommerces: UIViewController {
         HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
     }
     
+    func discretReload(){
+        print("Discret reload")
+        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
+    }
+    
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
+        print("refresh reload")
         self.queryObjectsFromDB(typeCategorie: self.titleChoose)
     }
 }
@@ -162,16 +171,18 @@ extension AccueilCommerces {
         self.queryObjectsFromDB(typeCategorie: titleChoose)
     }
     
-    func queryObjectsFromDB(typeCategorie : String){
-        
+    func queryObjectsFromDB(typeCategorie : String, withHUD showHud: Bool = true){
+        // TODO: URGENT -> AMELIORER LA QUERY COMMERCES (mise à jour de la poisition est faite après le fetch des commerce, ce qui veut dire qu'il faut refresh deux fois pour avoir les bons commerces
+        print("Ftech with show hud \(showHud)")
 //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         self.refreshControl.beginRefreshing()
         
         NetworkManager.isReachable { (networkInstance) in
-            
-            SVProgressHUD.setDefaultMaskType(.clear)
-            SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.show(withStatus: "Chargement en cours")
+            if showHud {
+                SVProgressHUD.setDefaultMaskType(.clear)
+                SVProgressHUD.setDefaultStyle(.dark)
+                SVProgressHUD.show(withStatus: "Chargement en cours")
+            }
             
             self.commerces = []
             let query = PFQuery(className: "Commerce")
@@ -180,7 +191,10 @@ extension AccueilCommerces {
             query.whereKey("statutCommerce", equalTo: 1)
             query.whereKey("brouillon", equalTo: false)
             
+            
             if self.prefFiltreLocation {
+                self.locationManager.startUpdatingLocation()
+                print("Query objects")
                 let userPosition = PFGeoPoint(location: self.latestLocationForQuery)
                 query.whereKey("position", nearGeoPoint: userPosition)
                 query.order(byAscending: "position")
@@ -188,42 +202,49 @@ extension AccueilCommerces {
                 query.order(byDescending: "nombrePartages")
             }
             query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
-                if error == nil {
-                    if let arr = objects{
-                        for obj in arr {
-                            let commerce = Commerce(parseObject: obj)
-                            self.commerces.append(commerce)
-                        }
-                        
-                        // tri du tableau par position
-                        if self.prefFiltreLocation {
-                            let sorteCommerce = self.commerces.sorted(by: {
-                                PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
-                            })
-                            self.commerces = sorteCommerce
-                        }
-                        
-                        self.collectionView.reloadData()
-                        SVProgressHUD.dismiss(withDelay: 1)
+                
+                if let error = error {
+                    if error.code == PFErrorCode.errorInvalidSessionToken.rawValue {
+                        PFUser.logOut()
+                        self.chooseCategorie(itemChoose: self.titleChoose)
                     }
-                } else {
-                    if let err = error{
-                        let nsError = err as NSError
-                        if nsError.code == PFErrorCode.errorInvalidSessionToken.rawValue {
-                            PFUser.logOut()
-                            self.chooseCategorie(itemChoose: self.titleChoose)
-                        }
-                        
-                        SVProgressHUD.showError(withStatus: HelperAndKeys.handleParseError(error: (err as NSError)))
+                    
+                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false)
+                    
+                    if showHud {
+                        SVProgressHUD.showError(withStatus: ParseErrorCodeHandler.handleParseError(error: error))
                         SVProgressHUD.dismiss(withDelay: 2)
                     }
+                } else if let objects = objects {
+                    for obj in objects {
+                        let commerce = Commerce(parseObject: obj)
+                        self.commerces.append(commerce)
+                    }
+                    
+                    // tri du tableau par position
+                    if self.prefFiltreLocation {
+                        let sorteCommerce = self.commerces.sorted(by: {
+                            PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
+                        })
+                        self.commerces = sorteCommerce
+                    }
+                    
+                    if showHud {
+                        SVProgressHUD.dismiss(withDelay: 1)
+                    }
+                    
                 }
+//                print("Did finish loading commerces")
                 self.collectionView.reloadData()
             }
         }
         
-        self.refreshControl.endRefreshing()
+        NetworkManager.isUnreachable { (networkInstance) in
+            // TODO: ajouter un message / illustration si pas de connection
+            print("No connection")
+        }
         
+        self.refreshControl.endRefreshing()
     }
 }
 // Routing & Navigation Bar functions
@@ -309,13 +330,9 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             
             cell.imageDistance.tintColor = textColor
             
-            if self.prefFiltreLocation && self.locationGranted {
-                // Filtré par positions
-                if (comm.distanceFromUser == "") {
-                    cell.distanceLabel.text = "--"
-                } else {
-                    cell.distanceLabel.text = comm.distanceFromUser
-                }
+            if self.locationGranted {
+                // Autorisation de position
+                cell.distanceLabel.text = comm.distanceFromUser == "" ? "--" : comm.distanceFromUser
             } else {
                 cell.distanceLabel.text = "--"
             }
@@ -361,6 +378,7 @@ extension AccueilCommerces : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
+        print("Did update position : \(locations.last)")
     }
     
     func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
@@ -379,10 +397,8 @@ extension AccueilCommerces : CLLocationManagerDelegate {
 }
 // Functions for requesting localisation permission
 extension AccueilCommerces : SPPermissionDialogDelegate {
-    func didHide() {}
-    
     func didAllow(permission: SPPermissionType) {
-        if case .locationWhenInUse = permission {
+        if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
             self.locationManager.startUpdatingLocation()
             self.locationGranted = true
             self.prefFiltreLocation = true
@@ -393,7 +409,7 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
     }
     
     func didDenied(permission: SPPermissionType) {
-        if case .locationWhenInUse = permission {
+        if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
             self.locationGranted = false
             self.prefFiltreLocation = false
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: false)
@@ -407,11 +423,11 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
         if CLLocationManager.locationServicesEnabled() {
             if CLLocationManager.authorizationStatus() == .denied {
                 // Location Services are denied
-                HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.", presentFrom: self)
+                HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.\n\nVous pouvez autoriser la géolocalisation dans l'application \"Réglages\" de votre téléphone.", presentFrom: self)
                 self.locationGranted = false
             } else {
                 if CLLocationManager.authorizationStatus() == .notDetermined {
-                    SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: PermissionDataSource())
+                    SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: self)
                 } else {
                     // The user has already allowed your app to use location services. Start updating location
                     self.locationManager.startUpdatingLocation()
@@ -420,7 +436,7 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
             }
         } else {
             // Location Services are disabled
-            HelperAndKeys.showSettingsAlert(withTitle: "Localisation désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
+            HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
             self.locationGranted = false
         }
         
@@ -429,16 +445,29 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
     }
 }
 // Custom UI for asking permission (alert controller)
-class PermissionDataSource : SPPermissionDialogDataSource {
+extension AccueilCommerces : SPPermissionDialogDataSource {
+    var dialogTitle: String     { return "Demande de position" }
+    var dialogSubtitle: String  { return "Position nécessaire pour ce filtre" }
+    var dialogComment: String   { return "Cette fonctionnalité vous permet de voir les commerces autour de vous." }
+    var cancelTitle: String     { return "Annuler" }
+    var settingsTitle: String   { return "Réglages" }
     
-    // TODO: Maybe customize more
+    var allowTitle: String      { return "Autoriser" }
+    var allowedTitle: String    { return "Autorisé" }
     
-    var dialogTitle: String = "Demande d'autorisation"
-    var dialogSubtitle: String = "Weeclik a besoin de votre autorisation pour fonctionner"
-    var cancelTitle: String = "Annuler"
-    var settingsTitle: String = "Réglages"
-    
-    func deniedSubtitle(for permission: SPPermissionType) -> String? {
+    func name(for permission: SPPermissionType) -> String? {
+        if permission == .locationWhenInUse || permission == .locationAlwaysAndWhenInUse { return "Position" }
+        return nil
+    }
+    func description(for permission: SPPermissionType)      -> String? {
+        if permission == .locationWhenInUse || permission == .locationAlwaysAndWhenInUse {
+            return "Permet de vous géolocaliser" }
+        return nil
+    }
+    func deniedTitle(for permission: SPPermissionType)      -> String? { return "Refusé" }
+    func deniedSubtitle(for permission: SPPermissionType)   -> String? {
         return "Autorisation refusé. Merci de les changer dans les réglages."
     }
+    
+    var showCloseButton: Bool { return false }
 }

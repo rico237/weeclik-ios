@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Test Area View Controller-->
+        <scene sceneID="jaW-Rf-KA5">
+            <objects>
+                <viewController id="tUu-rq-2b3" customClass="TestAreaViewController" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IqF-mY-bNE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wop-ur-jGW">
+                                <rect key="frame" x="146.5" y="109" width="121" height="30"/>
+                                <state key="normal" title="Test upload video"/>
+                                <connections>
+                                    <action selector="button_1:" destination="tUu-rq-2b3" eventType="touchUpInside" id="1aG-R6-Rau"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UZ-bi-ZNY">
+                                <rect key="frame" x="145" y="155" width="124" height="30"/>
+                                <state key="normal" title="Test upload photo"/>
+                                <connections>
+                                    <action selector="button_2:" destination="tUu-rq-2b3" eventType="touchUpInside" id="e2U-O0-C8y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1UZ-bi-ZNY" firstAttribute="top" secondItem="wop-ur-jGW" secondAttribute="bottom" constant="16" id="B8f-aJ-R4q"/>
+                            <constraint firstItem="1UZ-bi-ZNY" firstAttribute="centerX" secondItem="IqF-mY-bNE" secondAttribute="centerX" id="Rq8-e9-aXX"/>
+                            <constraint firstItem="wop-ur-jGW" firstAttribute="top" secondItem="DOD-f8-Ttg" secondAttribute="top" constant="65" id="arS-VO-Xhs"/>
+                            <constraint firstItem="wop-ur-jGW" firstAttribute="centerX" secondItem="IqF-mY-bNE" secondAttribute="centerX" id="icf-q0-Pjw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DOD-f8-Ttg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jna-7M-i6t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3" y="149"/>
+        </scene>
+    </scenes>
+</document>

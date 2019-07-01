@@ -1,35 +1,50 @@
 # SPPermission
 
-Request permissions **with native dialog** UI and interactive animations. Also you can request permissions without dialog. Check state any permission. You can start using this project with just two lines of code and easy customisation. You can watch how I design UI for this pod [on YouTube](https://youtu.be/1mDdX7fQRv4). If you like the project, do not forget to **put star ★**
+<img align="left" src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Preview.gif" width="470"/>
 
-### Preview
+### About
+Request permissions with dialog. You can request many permissions at once. I do UI of dialog in **Apple style**. If you need additional permission, please, create new issue.
 
-<img src="https://github.com/IvanVorobei/SPPermission/blob/master/Resources/Preview.gif" width="500">
+Watch timelaps how I design UI for this pod [on YouTube](https://youtu.be/1mDdX7fQRv4).
+
+If you like the project, do not forget to `put star ★` or help visit my store for iOS developers:
+
+[![xcode-shop.com](https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Xcode%20Shop%20Button.svg)](https://xcode-shop.com)
+
+See project's backers in [Sponsors](https://github.com/ivanvorobei/SPPermission#sponsors) section.
 
 ## Navigate
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+    - [CocoaPods](#cocoapods)
+    - [Carthage](#carthage)
+    - [Manually](#manually)
 - [Usage](#usage)
 - [Permissions](#permissions)
-- [DataSource & Customisation](#datasource--customisation)
-    - [Content](#datasource--customisation)
+- [Customisation](#customisation)
+    - [Protocol](#protocol)
+    - [Texts](#texts)
+    - [Close Button](#close-button)
+    - [Drag](#drag)
     - [Colors](#colors)
+    - [Start position](#start-position)
 - [Delegate](#delegate)
-- [Purpose String in Info.plist](#purpose-string-in-infoplist)
-- [Screen record with design](#screen-record-with-design)
-- [Other Projects (+gif)](#my-projects)
+- [String in Info.plist](#string-in-infoplist)
+- [How I do UI](#how-i-do-UI)
+- [Sponsors](#sponsors)
+- [Other Projects +gif](#my-projects)
     - [SPStorkController](#spstorkcontroller)
     - [SPAlert](#spalert)
     - [SPLarkController](#splarkcontroller)
-    - [Xcode Shop](#xcode-shop)
+    - [Awesome iOS UI](https://github.com/ivanvorobei/awesome-ios-ui)
 - [License](#license)
 - [Contact or Order Develop](#contact)
 
 
 ## Requirements
 
-Swift 4.2 & **5.0**. Ready for use on iOS 10+
+Swift `4.2` & `5.0`. Ready for use on iOS 10+
 
 ## Installation
 
@@ -38,20 +53,77 @@ Swift 4.2 & **5.0**. Ready for use on iOS 10+
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate `SPPermission` into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'SPPermission'
+pod 'SPPermission/Notification'
 ```
+
+Due to Apple's new policy regarding permission access you need to specifically define what kind of permissions you want to access using subspecs. For example if you want to access `Camera`, `Location` & `Microphone` you define the following:
+
+```ruby
+pod 'SPPermission/Camera'
+pod 'SPPermission/Location'
+pod 'SPPermission/Microphone'
+```
+
+<details><summary>Available subspecs</summary>
+<p>
+
+```ruby
+pod 'SPPermission/Camera'
+```
+```ruby
+pod 'SPPermission/Contacts'
+```
+```ruby
+pod 'SPPermission/Calendar'
+```
+```ruby
+pod 'SPPermission/PhotoLibrary'
+```
+```ruby
+pod 'SPPermission/Notification'
+```
+```ruby
+pod 'SPPermission/Microphone'
+```
+```ruby
+pod 'SPPermission/Reminders'
+```
+```ruby
+pod 'SPPermission/SpeechRecognizer'
+```
+```ruby
+pod 'SPPermission/Location'
+```
+```ruby
+pod 'SPPermission/Motion'
+```
+```ruby
+pod 'SPPermission/MediaLibrary'
+```
+
+</p>
+</details>
 
 ### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate `SPPermission` into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "IvanVorobei/SPPermission"
+github "ivanvorobei/SPPermission"
+```
+
+By default available all permissions. You can provide custom build flags _before_ building the dynamic framework to only compile
+with permissions you request. Open file [Configuration.xcconfig](https://github.com/ivanvorobei/SPPermission/blob/master/Source/Supporting%20Files/Configuration.xcconfig) in `Source/Supporting Files`, comment unusable permissions and rebuild:
+
+```ruby
+carthage build
 ```
 
 ### Manually
 
-If you prefer not to use any of the aforementioned dependency managers, you can integrate `SPPermission` into your project manually. Put `Source/SPPermission` folder in your Xcode project. Make sure to enable `Copy items if needed` and `Create groups`.
+If you prefer not to use any of dependency managers, you can integrate `SPPermission` into your project manually. Put `Source/SPPermission` folder in your Xcode project. Make sure to enable `Copy items if needed` and `Create groups`.
+
+After it need implement configuration file. See example [configuration file](https://github.com/ivanvorobei/SPPermission/blob/master/ExampleConfiguration.xcconfig) or example project.
 
 ## Usage
 
@@ -74,19 +146,26 @@ If you want to know if permission is allowed, you need to call the function:
 
 ```swift
 let isAllowedCamera = SPPermission.isAllowed(.camera)
-```
-
-If you want to know if permission is denied, you need to call the function:
-
-```swift
 let isDeniedMicrophone = SPPermission.isDenied(.microphone)
 ```
 
-To learn how to customize titles and images you can read section [DataSource & Customisation](#datasource--customisation)
+To learn how to customize titles and images you can read section [Customisation](#customisation)
 
 ## Permissions
 
-<img src="https://github.com/IvanVorobei/SPPermission/blob/master/Resources/Permissions%20List.jpg"/>
+<p float="left">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Camera.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Photo.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Notification.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Location.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Microphone.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Calendar.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Contacts.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Reminder.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Motion.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Media.svg" width="130">
+    <img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Permissions/Speech.svg" width="130">
+</p>
 
 If you want to request notification (or other permissions) without dialog, use the function:
 
@@ -96,30 +175,20 @@ SPPermission.request(.notification, with: {
 })
 ```
 
-If you want new permission added, create new issue [here](https://github.com/IvanVorobei/SPPermission/issues).
+If you want add new permission, create [issue](https://github.com/ivanvorobei/SPPermission/issues).
 
-## DataSource & Customisation
+## Customisation
+
+### Protocol
 
 If you want to change the text, you need to implement `SPPermissionDialogDataSource` protocol. Override needed parameters to see the changes:
 
 ```swift
-@objc public protocol SPPermissionDialogDataSource: class {
+extension Controller: SPPermissionDialogDataSource {
 
-    @objc optional var dialogTitle: String { get }
-    @objc optional var dialogSubtitle: String { get }
-    @objc optional var dialogComment: String { get }
-    @objc optional var allowTitle: String { get }
-    @objc optional var allowedTitle: String { get }
-    @objc optional var bottomComment: String { get }
-    @objc optional var showCloseButton: Bool { get }
-    @objc optional var dragEnabled: Bool { get }
-    @objc optional func name(for permission: SPPermissionType) -> String?
-    @objc optional func description(for permission: SPPermissionType) -> String?
-    @objc optional func image(for permission: SPPermissionType) -> UIImage?
-    @objc optional func deniedTitle(for permission: SPPermissionType) -> String?
-    @objc optional func deniedSubtitle(for permission: SPPermissionType) -> String?
-    @objc optional var cancelTitle: String { get }
-    @objc optional var settingsTitle: String { get }
+    var showCloseButton: Bool { 
+        return true
+    }
 }
 ```
 
@@ -134,11 +203,57 @@ SPPermission.Dialog.request(
 )
 ```
 
-If you want to inhibite drag gesture to discard the dialog view you need to override `dragEnabled` parameter, and if you want to add or remove the close button (without the button you’ll have to swipe the dialog to close it), you need to override parameter `showCloseButton`. To see what it looks like, see the picture below:
+### Texts
 
-<img src="https://github.com/IvanVorobei/SPPermission/blob/master/Resources/Close%20Button.png"/>
+All properties and functions optional. Func can return `nil`. If do it - will be used defualt value.
 
-In the project you can find an example of usage of `SPPermissionDialogDataSource`
+```swift
+extension Controller: SPPermissionDialogDataSource {
+    
+    var dialogTitle: String { return "Need Permissions" }
+    var dialogSubtitle: String { return "Permissions Request" }
+    var dialogComment: String { return "Push are not required permissions" }
+    var allowTitle: String { return "Allow" }
+    var allowedTitle: String { return "Allowed" }
+    var bottomComment: String { return "" }
+    
+    func name(for permission: SPPermissionType) -> String? { return nil }
+    func description(for permission: SPPermissionType) -> String? { return nil }
+    func deniedTitle(for permission: SPPermissionType) -> String? { return nil }
+    func deniedSubtitle(for permission: SPPermissionType) -> String? { return nil }
+
+    var cancelTitle: String { return "Cancel" }
+    var settingsTitle: String { return "Settings" }
+}
+```
+
+### Close Button
+
+For add or remove close button, you need to override parameter `showCloseButton`. Without button you’ll have to swipe the dialog to close it. 
+
+```swift
+var showCloseButton: Bool {
+    return true
+}
+```
+
+To see what it looks like, see the picture below:
+
+<img src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Close%20Button.png"/>
+
+### Drag
+
+For disable drag ovveride `dragEnabled`. If need allow drag, but disable swipe for hide, ovveride `dragToDismiss`:
+
+```swift
+var dragEnabled: Bool {
+    return true
+}
+    
+var dragToDismiss: Bool {
+    return true
+}
+```
 
 ### Colors
 
@@ -158,12 +273,22 @@ If you want to change the color scheme, you need to implement the protocol `SPPe
     @objc optional var iconMediumColor: UIColor { get }
     @objc optional var iconDarkColor: UIColor { get }
 
-    @objc optional var closeIconBackgroundColor: UIColor? { get }
-    @objc optional var closeIconColor: UIColor? { get }
+    @objc optional var closeIconBackgroundColor: UIColor { get }
+    @objc optional var closeIconColor: UIColor { get }
 }
 ```
 
 Will auto check `SPPermissionDialogDataSource` also implement `SPPermissionDialogColorSource`. You need pass for `dataSource` object, which implements two protocols.
+
+### Start position
+
+Property `startTransitionYoffset` customise position before start. Set to 0 if need disable wobble animation. By default used `center.y * 1.2`.
+
+```swift
+var startTransitionYoffset: CGFloat {
+    return 0
+}
+```
 
 ## Delegate
 
@@ -188,61 +313,68 @@ SPPermission.Dialog.request(
 )
 ```
 
-## Purpose String in Info.plist
+## String in Info.plist
 
-SPPermission uses many permissions in one library; you need to add some strings to the `Info.plist` file with description. List of keys:
+You need to add some strings to the `Info.plist` file with description. List of keys:
 
+- NSCameraUsageDescription
 - NSContactsUsageDescription
 - NSCalendarsUsageDescription
 - NSMicrophoneUsageDescription
 - NSAppleMusicUsageDescription
 - NSSpeechRecognitionUsageDescription
 - NSMotionUsageDescription
-- NSLocationAlwaysUsageDescription
 - NSLocationWhenInUseUsageDescription
+- NSLocationAlwaysAndWhenInUseUsageDescription
+- NSLocationAlwaysUsageDescription (iOS 10 and earlier)
 
-Do not use the description as the name of the key - this causes errors in the latest version of the new Xcode. Specify `For SPPermission` in the description.
-If I forgot to mention some, please let me know and create [issue](https://github.com/IvanVorobei/SPPermission/issues) or [pull request](https://github.com/IvanVorobei/SPPermission/pulls).
+Do not use the description as the name of the key - this causes errors in the latest version of the new Xcode.
 
-## Screen record with design
+## How I do UI
 
-I have [YouTube channel](http://youtube.com/ivanvorobei) where I publish videos about Xcode and Design. You can see how I develop native design for `SPPermission` dialog view:
+I develop `SPPermission` in Apple-way. For this, I check 30 apps to get UI-elements for it project. I am take screenshoot and draw it in Sketch. For example, `Allow` button is similar to `Get` button in the AppStore. Check [timelapse](https://youtu.be/1mDdX7fQRv4) to see how I am design `SPPermission`:
 
-[![Timelaps on YouTube](https://github.com/IvanVorobei/SPPermission/blob/master/Resources/YouTube.jpg)](https://youtu.be/1mDdX7fQRv4)
+[![Timelaps on YouTube](https://github.com/ivanvorobei/SPPermission/blob/master/Resources/YouTube.jpg)](https://youtu.be/1mDdX7fQRv4)
+
+## Sponsors
+
+Support me with a monthly donation and help me continue activities. After payment I add you to list of sponsor **in my all projects** with link to your profile. [Become a sponsors](https://www.patreon.com/ivanvorobei)
+
+<a href="https://github.com/zubara21/" target="_blank"><img src="https://github.api.ivanvorobei.by/sponsors/zubara21.jpg" width="100"></a>
+<a href="https://github.com/sparrowganz/" target="_blank"><img src="https://github.api.ivanvorobei.by/sponsors/sparrowganz.jpg" width="100"></a>
+<a href="https://github.com/shatk0vskiy/" target="_blank"><img src="https://github.api.ivanvorobei.by/sponsors/shatk0vskiy.jpg" width="100"></a>
+<a href="https://www.patreon.com/ivanvorobei" target="_blank"><img src="https://github.api.ivanvorobei.by/sponsors/add.jpg" width="100"></a>
 
 ## My projects
 
+<img align="left" src="https://github.com/ivanvorobei/SPStorkController/blob/master/Resources/Preview.gif" width="220"/>
+
 ### SPStorkController
 
-[SPStorkController](https://github.com/IvanVorobei/SPStorkController) is very similar to the modal **controller displayed in Apple Music, Podcasts and Mail** apps. Customizable height of view. Check scroll's bounce for more interactive. Simple adding close button and centering arrow indicator. You can download example [Debts - Spending tracker](https://itunes.apple.com/app/id1446635818) app from AppStore.
+[SPStorkController](https://github.com/ivanvorobei/SPStorkController) is сontroller **as in Apple Music, Podcasts and Mail** apps. Simple adding close button and centering arrow indicator. Customizable height. Using custom TransitionDelegate. Check scroll's bounce for more interactive. Simple adding close button and centering arrow indicator. You can download example [Debts - Spending tracker](https://itunes.apple.com/app/id1446635818) app from AppStore.
 
-<img src="https://github.com/IvanVorobei/SPStorkController/blob/master/Resources/Preview.gif" width="440">
+Alert you can find in [SPAlert](https://github.com/ivanvorobei/SPAlert) project. If you want to **buy source code** of app in preview, please, go to [xcode-shop.com](https://xcode-shop.com)
 
-If you want to **buy source code** of this apps, please, go to [xcode-shop.com](https://xcode-shop.com).
+---
+
+<img align="left" src="https://github.com/ivanvorobei/SPAlert/blob/master/Resources/Preview-Done.gif" width="220"/>
 
 ### SPAlert
 
-Native popup [SPAlert](https://github.com/IvanVorobei/SPAlert) is **similar to Apple Music or Feedback in AppStore** app. Support animations. I tried to repeat Apple alert as much as possible. 
+[SPAlert](https://github.com/ivanvorobei/SPAlert) is **popup from Apple Music & Feedback in AppStore**. Contains `Done` & `Heart` presets. `Done` present with draw path animation. I clone Apple's alerts as much as possible.  
+You can find this alerts in AppStore after feedback, after added song to library in Apple Music. I am also add alert without icon, as simple message.
 
-<p float="left">
-    <img src="https://github.com/IvanVorobei/SPAlert/blob/master/Resources/Preview-Done.gif" width="250">
-    <img src="https://github.com/IvanVorobei/SPAlert/blob/master/Resources/Preview-Heart.gif" width="250">
-    <img src="https://github.com/IvanVorobei/SPAlert/blob/master/Resources/Preview-Message.gif" width="250">
-</p>
+You can download example [Debts - Spending tracker](https://itunes.apple.com/app/id1446635818) app from AppStore. If you want to **buy source code** of app in preview, please, go to [xcode-shop.com](https://xcode-shop.com).
 
-You can download example app [Debts - Spending tracker](https://itunes.apple.com/app/id1446635818) from AppStore. If you want to **buy source code** of example apps, please, go to [xcode-shop.com](https://xcode-shop.com).
+---
+
+<img align="left" src="https://github.com/ivanvorobei/SPLarkController/blob/master/Resources/Preview.gif" width="220"/>
 
 ### SPLarkController
 
-[SPLarkController](https://github.com/IvanVorobei/SPLarkController) make **settings screen** for your application. You can add **buttons and switches**. The amount cells is not limited. You can start using project with just two lines of code and easy customisation.
+[SPLarkController](https://github.com/ivanvorobei/SPLarkController) transition between controllers. Translate to top. Make **settings screen** for application. You can add **buttons and switches**. The amount cells is not limited. You can start using project with just two lines of code and easy customisation. For implement settings as in preiew, see section [Settings Controller](https://github.com/ivanvorobei/SPLarkController#settings-controller).
 
-<img src="https://github.com/IvanVorobei/SPLarkController/blob/master/Resources/Preview.gif" width="440">
-
-You can download [Code - Learn Swift & Design](https://itunes.apple.com/app/id1453325619) app, which uses `SPLarkController`. Also you can **buy source code** of this app on [xcode-shop.com](https://xcode-shop.com).
-
-### Xcode Shop
-
-If you want **buy apps with source code**, you can visit my [xcode-shop.com](https://xcode-shop.com). Here I am sale apps, modules, 3D elements and other. In applications you can find many cool UI that will be useful for your projects. Also by buying, **you support me** and my free GitHub development.
+You can download example app [Code - Learn Swift & Design](https://itunes.apple.com/app/id1453325619) from AppStore. If you want to **buy source code** of app this app, please, go to [xcode-shop.com](https://xcode-shop.com).
 
 ## License
 `SPPermission` is released under the MIT license. Check `LICENSE.md` for details.

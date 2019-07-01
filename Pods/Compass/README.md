@@ -1,3 +1,5 @@
+⚠️ DEPRECATED, NO LONGER MAINTAINED
+
 ![Compass logo](https://raw.githubusercontent.com/hyperoslo/Compass/master/Images/logo_v1.png)
 
 [![Version](https://img.shields.io/cocoapods/v/Compass.svg?style=flat)](http://cocoadocs.org/docsets/Compass)
@@ -15,6 +17,12 @@ stupid. The user experience stays the same but the logic and separation of
 concerns become clearer. The outcome is that your application will become
 more modular by default. Anything could potentially be presented from
 anywhere, but remember, with great power comes great responsibility.
+
+## Getting Started
+
+Below are tutorials on how to use Compass
+
+- [URL Routing in iOS apps: Compass Beginner Guide](https://medium.com/flawless-app-stories/url-routing-with-compass-d59c0061e7e2): basic introduction to Compass, how to use Router and multiple use cases for deep linking, push notifications
 
 ## Setup
 

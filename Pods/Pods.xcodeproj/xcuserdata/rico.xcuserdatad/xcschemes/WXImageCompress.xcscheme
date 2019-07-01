@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED44847442BF6219DD3FE9167FCF50FC"
+               BlueprintIdentifier = "AC7440031BBF27449B55BD56428BEE2D"
                BuildableName = "WXImageCompress.framework"
                BlueprintName = "WXImageCompress"
                ReferencedContainer = "container:Pods.xcodeproj">

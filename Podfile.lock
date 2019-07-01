@@ -2,9 +2,6 @@ PODS:
   - Alamofire (5.0.0-beta.6)
   - AppImageViewer (1.0.10):
     - SDWebImage (~> 4.0)
-  - AsyncSwift (2.0.4)
-  - AwaitKit (5.1.0):
-    - PromiseKit (~> 6)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -13,101 +10,104 @@ PODS:
   - Bolts/Tasks (1.9.0)
   - BulletinBoard (3.0.0)
   - Compass (6.0.0)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
+  - Crashlytics (3.13.2):
+    - Fabric (~> 1.10.2)
   - CRNotifications (1.2.0)
+  - DBDebugToolkit (0.5.0)
   - DZNEmptyDataSet (1.8.1)
-  - Fabric (1.9.0)
-  - FBSDKCoreKit (4.33.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.33.0):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.33.0):
-    - FBSDKCoreKit (~> 4.33.0)
-  - Firebase/Core (5.20.2):
+  - Fabric (1.10.2)
+  - FBSDKCoreKit (5.1.1):
+    - FBSDKCoreKit/Basics (= 5.1.1)
+    - FBSDKCoreKit/Core (= 5.1.1)
+  - FBSDKCoreKit/Basics (5.1.1)
+  - FBSDKCoreKit/Core (5.1.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.1.1):
+    - FBSDKCoreKit (~> 5.0)
+  - Firebase/Core (6.3.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.8.1)
-  - Firebase/CoreOnly (5.20.2):
-    - FirebaseCore (= 5.4.1)
-  - Firebase/Performance (5.20.2):
-    - Firebase/Core
-    - FirebasePerformance (= 2.2.4)
-  - FirebaseABTesting (2.0.0):
-    - FirebaseCore (~> 5.0)
+    - FirebaseAnalytics (= 6.0.2)
+  - Firebase/CoreOnly (6.3.0):
+    - FirebaseCore (= 6.0.3)
+  - Firebase/Performance (6.3.0):
+    - Firebase/CoreOnly
+    - FirebasePerformance (~> 3.1.0)
+  - FirebaseABTesting (3.0.0):
+    - FirebaseCore (~> 6.0)
     - Protobuf (~> 3.5)
-  - FirebaseAnalytics (5.8.1):
-    - FirebaseCore (~> 5.4)
-    - FirebaseInstanceID (~> 3.8)
-    - GoogleAppMeasurement (= 5.8.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
-    - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+  - FirebaseAnalytics (6.0.2):
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.0.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
-  - FirebaseCore (5.4.1):
-    - GoogleUtilities/Environment (~> 5.2)
-    - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseInstanceID (3.8.1):
-    - FirebaseCore (~> 5.2)
-    - GoogleUtilities/Environment (~> 5.2)
-    - GoogleUtilities/UserDefaults (~> 5.2)
-  - FirebasePerformance (2.2.4):
-    - FirebaseAnalytics (~> 5.8)
-    - FirebaseInstanceID (~> 3.8)
-    - FirebaseRemoteConfig (~> 3.1)
+  - FirebaseCore (6.0.3):
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseInstanceID (4.2.0):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebasePerformance (3.1.0):
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.2)
+    - FirebaseRemoteConfig (~> 4.1)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - GoogleUtilities/ISASwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/ISASwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GTMSessionFetcher/Core (~> 1.1)
     - Protobuf (~> 3.5)
-  - FirebaseRemoteConfig (3.1.0):
-    - FirebaseABTesting (~> 2.0)
-    - FirebaseAnalytics (~> 5.3)
-    - FirebaseCore (~> 5.1)
-    - FirebaseInstanceID (~> 3.3)
-    - GoogleUtilities/Environment (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+  - FirebaseRemoteConfig (4.1.0):
+    - FirebaseABTesting (~> 3.0)
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleUtilities/Environment (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - Protobuf (~> 3.5)
   - Floaty (4.2.0)
   - Gallery (2.2.0)
-  - GoogleAppMeasurement (5.8.1):
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
-    - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+  - GoogleAppMeasurement (6.0.2):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (~> 0.3)
-  - GoogleToolboxForMac/Defines (2.2.0)
-  - GoogleToolboxForMac/Logger (2.2.0):
-    - GoogleToolboxForMac/Defines (= 2.2.0)
-  - "GoogleToolboxForMac/NSData+zlib (2.2.0)":
-    - GoogleToolboxForMac/Defines (= 2.2.0)
-  - GoogleUtilities/AppDelegateSwizzler (5.8.0):
+  - GoogleToolboxForMac/Defines (2.2.1)
+  - GoogleToolboxForMac/Logger (2.2.1):
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - "GoogleToolboxForMac/NSData+zlib (2.2.1)":
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - GoogleUtilities/AppDelegateSwizzler (6.2.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.8.0)
-  - GoogleUtilities/ISASwizzler (5.8.0)
-  - GoogleUtilities/Logger (5.8.0):
+  - GoogleUtilities/Environment (6.2.0)
+  - GoogleUtilities/ISASwizzler (6.2.0)
+  - GoogleUtilities/Logger (6.2.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.8.0):
+  - GoogleUtilities/MethodSwizzler (6.2.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.8.0):
+  - GoogleUtilities/Network (6.2.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.8.0)"
-  - GoogleUtilities/Reachability (5.8.0):
+  - "GoogleUtilities/NSData+zlib (6.2.0)"
+  - GoogleUtilities/Reachability (6.2.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.8.0):
+  - GoogleUtilities/UserDefaults (6.2.0):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.2.1)
-  - Hue (3.0.1)
-  - IHProgressHUD (0.1.4)
+  - GTMSessionFetcher/Core (1.2.2)
+  - Hue (5.0.0)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
   - LGButton (1.1.6)
-  - lottie-ios (2.5.3)
+  - LMGeocoderSwift (1.0.1)
+  - lottie-ios (3.1.0)
   - Material (2.16.4):
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
@@ -121,104 +121,98 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - NSFWDetector (1.1.0)
   - Parse (1.17.2):
     - Parse/Core (= 1.17.2)
   - Parse/Core (1.17.2):
     - Bolts/Tasks (~> 1.9)
   - Parse/FacebookUtils (1.17.2):
     - Bolts (~> 1.9)
-    - FBSDKLoginKit (~> 4.33)
+    - FBSDKLoginKit (~> 5.1.1)
     - Parse/Core
   - Parse/UI (1.17.2):
     - Parse/Core
-  - PromiseKit (6.8.4):
-    - PromiseKit/CorePromise (= 6.8.4)
-    - PromiseKit/Foundation (= 6.8.4)
-    - PromiseKit/UIKit (= 6.8.4)
-  - PromiseKit/CorePromise (6.8.4)
-  - PromiseKit/Foundation (6.8.4):
-    - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.8.4):
-    - PromiseKit/CorePromise
-  - Protobuf (3.7.0)
+  - Protobuf (3.8.0)
   - ReachabilitySwift (4.3.1)
-  - SDWebImage (4.4.6):
-    - SDWebImage/Core (= 4.4.6)
-  - SDWebImage/Core (4.4.6)
-  - SecureDefaults (1.0.3)
-  - SPLarkController (1.0.6)
-  - SPPermission (3.0.6)
+  - SDWebImage (4.4.7):
+    - SDWebImage/Core (= 4.4.7)
+  - SDWebImage/Core (4.4.7)
+  - SecureDefaults (1.0.4)
+  - SPLarkController (1.0.9)
+  - SPPermission/Contacts (4.0.5):
+    - SPPermission/Core
+  - SPPermission/Core (4.0.5)
+  - SPPermission/Location (4.0.5):
+    - SPPermission/Core
   - SVProgressHUD (2.2.5)
-  - SwiftDate (5.1.0)
+  - SwiftDate (6.0.3)
   - SwiftMultiSelect (0.2.4)
-  - SwiftyStoreKit (0.14.2)
-  - TLPhotoPicker (1.8.8)
+  - SwiftyStoreKit (0.15.0)
+  - TLPhotoPicker (1.8.9)
   - TPKeyboardAvoiding (1.3.2)
   - WXImageCompress (0.1.2)
+  - ZAlertView (1.0.4)
   - Zingle (1.3.0)
   - ZKCarousel (0.2.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.0.0-beta.5)
+  - Alamofire (~> 5.0.0-beta.6)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
-  - AsyncSwift
-  - AwaitKit (~> 5.1.0)
   - Bolts (~> 1.9)
   - BulletinBoard (~> 3.0.0)
-  - Compass
-  - Crashlytics (~> 3.12.0)
+  - Compass (from `https://github.com/weeclik/Compass.git`)
+  - Crashlytics (~> 3.13)
   - CRNotifications
+  - DBDebugToolkit (~> 0.5.0)
   - DZNEmptyDataSet
-  - Fabric (~> 1.9.0)
-  - FBSDKCoreKit (= 4.33.0)
-  - FBSDKLoginKit (= 4.33.0)
-  - FBSDKShareKit (= 4.33.0)
+  - Fabric (~> 1.10)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
   - Firebase/Core
   - Firebase/Performance
   - Floaty (~> 4.2.0)
   - Gallery
-  - Hue (~> 3.0)
-  - IHProgressHUD (~> 0.1.4)
+  - Hue (~> 5.0)
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
   - LGButton (~> 1.0)
-  - lottie-ios (~> 2.5.3)
-  - Material (~> 2.0)
+  - LMGeocoderSwift (~> 1.0.1)
+  - lottie-ios (~> 3.1)
+  - Material (~> 2.16)
   - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
-  - Parse (~> 1.17.2)
-  - Parse/FacebookUtils
-  - Parse/UI
-  - PromiseKit (~> 6.0)
+  - NSFWDetector
+  - Parse (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
+  - Parse/FacebookUtils (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
+  - Parse/UI (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
   - ReachabilitySwift
-  - SDWebImage (~> 4.0)
-  - SecureDefaults (= 1.0.3)
-  - SPLarkController (= 1.0.6)
-  - SPPermission
+  - SDWebImage (~> 4.4.7)
+  - SecureDefaults (~> 1.0)
+  - SPLarkController (~> 1.0.9)
+  - SPPermission/Contacts
+  - SPPermission/Location
   - SVProgressHUD (~> 2.1)
-  - SwiftDate (~> 5.0)
-  - SwiftMultiSelect (from `https://github.com/rico237/SwiftMultiSelect.git`)
-  - SwiftyStoreKit (~> 0.14.2)
+  - SwiftDate (~> 6.0.3)
+  - SwiftMultiSelect (from `https://github.com/weeclik/SwiftMultiSelect.git`)
+  - SwiftyStoreKit (~> 0.15.0)
   - TLPhotoPicker (~> 1.8.8)
   - TPKeyboardAvoiding (from `https://github.com/michaeltyson/TPKeyboardAvoiding.git`)
   - WXImageCompress (~> 0.1.2)
+  - ZAlertView
   - Zingle (from `https://github.com/hemangshah/Zingle.git`)
   - ZKCarousel (~> 0.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - AsyncSwift
-    - AwaitKit
     - Bolts
     - BulletinBoard
-    - Compass
     - Crashlytics
     - CRNotifications
+    - DBDebugToolkit
     - DZNEmptyDataSet
     - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
-    - FBSDKShareKit
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -233,15 +227,14 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - Hue
-    - IHProgressHUD
     - KRLCollectionViewGridLayout
     - LGButton
+    - LMGeocoderSwift
     - lottie-ios
     - Material
     - Motion
     - nanopb
-    - Parse
-    - PromiseKit
+    - NSFWDetector
     - Protobuf
     - ReachabilitySwift
     - SDWebImage
@@ -253,17 +246,22 @@ SPEC REPOS:
     - SwiftyStoreKit
     - TLPhotoPicker
     - WXImageCompress
+    - ZAlertView
     - ZKCarousel
 
 EXTERNAL SOURCES:
   AppImageViewer:
     :git: https://github.com/weeclik/AppImageViewer.git
+  Compass:
+    :git: https://github.com/weeclik/Compass.git
   KJNavigationViewAnimation:
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
   MobilePlayer:
     :git: https://github.com/weeclik/mobileplayer-ios.git
+  Parse:
+    :git: https://github.com/weeclik/Parse-SDK-iOS-OSX.git
   SwiftMultiSelect:
-    :git: https://github.com/rico237/SwiftMultiSelect.git
+    :git: https://github.com/weeclik/SwiftMultiSelect.git
   TPKeyboardAvoiding:
     :git: https://github.com/michaeltyson/TPKeyboardAvoiding.git
   Zingle:
@@ -273,15 +271,21 @@ CHECKOUT OPTIONS:
   AppImageViewer:
     :commit: 99c65f169d566f757f64764b3b5f4f59113d65b7
     :git: https://github.com/weeclik/AppImageViewer.git
+  Compass:
+    :commit: a86eda0d1163ce4c8028be61a61f0ded6cd3e132
+    :git: https://github.com/weeclik/Compass.git
   KJNavigationViewAnimation:
     :commit: d73526855a411e4ec7abdd1b68b6c44f56a9cb78
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
   MobilePlayer:
-    :commit: 73fddf1846739c1e11861abbb6b849abc6777b33
+    :commit: f9ec03e54544251e1de712a1536bbfb6d4789193
     :git: https://github.com/weeclik/mobileplayer-ios.git
+  Parse:
+    :commit: 60fae9d02ca7d6139e37e155dbb8c46b87eb3a42
+    :git: https://github.com/weeclik/Parse-SDK-iOS-OSX.git
   SwiftMultiSelect:
-    :commit: a0eea8ebef5a7bb2e277eda91d938289fc763e23
-    :git: https://github.com/rico237/SwiftMultiSelect.git
+    :commit: a0311cd36c48b11e199964a396303fdce0df0016
+    :git: https://github.com/weeclik/SwiftMultiSelect.git
   TPKeyboardAvoiding:
     :commit: 03b524df905b913b33e854b2829cb1656703e027
     :git: https://github.com/michaeltyson/TPKeyboardAvoiding.git
@@ -292,59 +296,58 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
-  AsyncSwift: 65775a7b32e740609b24969ece3de58723b9dc3e
-  AwaitKit: a8a3d8982097ee09ac75f5c5d3952fbcc2f26f1c
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
-  Compass: ff30e2056c549ea5cb5b8a307d28ef628e4209ff
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Compass: 1322433089112d8400ca0c337ff5c1707cac6d68
+  Crashlytics: 611738c7847f8291a1a51084e35987b86ba6b3ee
   CRNotifications: 563cdf6d3d3110a4c7d82ed33fd92c05f1ea1f27
+  DBDebugToolkit: c04bb6f618051d3de447a4b4323f37826116cfed
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
-  FBSDKLoginKit: 88cb456349cfb3b554427ce4f8b43729d85dfb40
-  FBSDKShareKit: 1869cb24db2cea90666a50cb9d568deb38e2d16e
-  Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
-  FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
-  FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
-  FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
-  FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
-  FirebasePerformance: 25ecee2a260bcf398d7f32d6f4804438df953100
-  FirebaseRemoteConfig: 7e11c65f0769c09bff6947997c209515058c5318
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  FBSDKCoreKit: c29b6b65f6a171ca0a317960a622cff62c9ee269
+  FBSDKLoginKit: fdaf402766755e1175ed5c0382f25e2e7dab3c2a
+  Firebase: 8432d732974498afd5987e9001a05f90f1a3d625
+  FirebaseABTesting: a32c488eb75089a61eb3d86db061dfb909d765db
+  FirebaseAnalytics: 470ddab7253b21ad5a40bebd4a9903d7ae19386a
+  FirebaseCore: 68f8a7f50cdae542715d4e86afa37c4067217dcb
+  FirebaseInstanceID: f20243a1d828e0e9a3798b995174dedc16f1b32a
+  FirebasePerformance: 1cf814c294cb0f6e0d36cde0760d09835b13c9ce
+  FirebaseRemoteConfig: 7c64ecec5ca63d7c6b304509c3a6f9a036d403d4
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
   Gallery: 3f4c780c4b22906d6b0a5e55d12167cdc4b4fc5b
-  GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
-  GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
-  GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
-  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
-  Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
-  IHProgressHUD: a01846bfbb581c761c79747c67b08387c3bdfae3
+  GoogleAppMeasurement: a35a645835bae31b6bdc0576396bc23908f12a22
+  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
+  GoogleUtilities: 996e0db07153674fd1b54b220fda3a3dc3547cba
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
-  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  LMGeocoderSwift: eeeaee3ca88975a88df1092d94f656216f6767ee
+  lottie-ios: 9467723922dfff46f6d4e3019c32594a62440b7c
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   MobilePlayer: e50e2160830f3db51d6e08067318aec6a9d39408
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
-  PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
-  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
+  NSFWDetector: aefec2254932bdc933cccc9385abfe07ae36a7a1
+  Parse: 8937c83bd9c0e27e9ee4a051449dea238e7cb0a6
+  Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
-  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
-  SecureDefaults: 0c4ceefd81f5ea452d465f43499ae94108deeaca
-  SPLarkController: e2fd924047b0245da5797488773e5ea4c87c6571
-  SPPermission: 7403d2e53b002bfea6e93e63cd33ac840e5cc98d
+  SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
+  SecureDefaults: 1eda918884e49355855faa6fde382745d50184c6
+  SPLarkController: af253e70e5e07f6d55a7960f8da37f363c276455
+  SPPermission: ef54994522bdf471ce1fe6aea267bf471a9de701
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
+  SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f
-  SwiftyStoreKit: cc399645796b094022fb650c148a0aed25995873
-  TLPhotoPicker: f90e8567aa33fff6b1b9cad4adbd57090b200acc
+  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
+  TLPhotoPicker: 9bf255c116129bc5d709b4cc8b42b3542e89e841
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   WXImageCompress: 80e0ae96ff3af7d00917a380eba0e592bacaaada
+  ZAlertView: 59fffdb4e37a01df461835566d5101052b8af953
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 1461f6c542acc3277070fff0dd13e6b2e4e1d8ef
+PODFILE CHECKSUM: 42e1662c6d5c709491966dce161e20de2e699dbb
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.2

@@ -81,3 +81,5 @@ iOSInjectionProject/
 WeeClik.xcworkspace/xcuserdata/rico.xcuserdatad/UserInterfaceState.xcuserstate
 WeeClik.xcworkspace/xcuserdata/rico.xcuserdatad/*.xcuserstate
 *.xcuserstate
+
+*.generated.swift

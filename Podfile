@@ -13,46 +13,37 @@ def projectPods
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
-    pod 'Parse', '~> 1.17.2'
-    pod 'Parse/UI'
+    # TODO: Faire un repo clean depuis le vrai git, puis tester pour toutes les platforms, puis faire un PR pour les autres
+    pod 'Parse', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
+    pod 'Parse/UI', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
+    pod 'Parse/FacebookUtils', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
     
     # Firebase + Performance
     pod 'Firebase/Core'
     pod 'Firebase/Performance'
     # Firebase Crashlytics
-    pod 'Fabric', '~> 1.9.0'
-    pod 'Crashlytics', '~> 3.12.0'
+    pod 'Fabric', '~> 1.10'
+    pod 'Crashlytics', '~> 3.13'
     
     # Facebook integration
-    pod 'FBSDKCoreKit', '4.33.0'
-    pod 'FBSDKShareKit', '4.33.0'
-    pod 'FBSDKLoginKit', '4.33.0'
-    
-    pod 'Parse/FacebookUtils'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
     
     # Chergement des images depuis internet
-    pod 'SDWebImage', '~> 4.0'
+    pod 'SDWebImage', '~> 4.4.7'
     # UIAlert with progress utilities
     pod 'SVProgressHUD', '~> 2.1'
-    pod 'IHProgressHUD', '~> 0.1.4' # Maybe change for this one <----
-    
-    # Add promises like in javascript
-    pod 'PromiseKit', '~> 6.0'
-    # async functions
-    pod 'AsyncSwift'                # Surement à supprimer & utiliser AwaitKit -v
-    pod 'AwaitKit', '~> 5.1.0'
-    
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
-    pod 'Alamofire', '~> 5.0.0-beta.5'
+    pod 'Alamofire', '~> 5.0.0-beta.6'
     
     # Animation RBnB Lottie
-    pod 'lottie-ios', '~> 2.5.3'
+    pod 'lottie-ios', '~> 3.1'
     # Selection des photos et videos pour la création de commerce
     pod 'Gallery'
     # Demande de permissions
-    #pod 'Sparrow/Modules/RequestPermission', :git => 'https://github.com/IvanVorobei/Sparrow.git' # Changé de git
-    pod 'SPPermission'
+    pod 'SPPermission/Location'
+    pod 'SPPermission/Contacts'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # Notification pour le partage de nouveau activé
@@ -62,11 +53,11 @@ def projectPods
     # Scroll automatique pour faciliter l'utilisation du clavier
     pod 'TPKeyboardAvoiding', :git => 'https://github.com/michaeltyson/TPKeyboardAvoiding.git'
     # Choisir une photo dans la bibliothèque du téléphone
-    pod 'TLPhotoPicker', '~> 1.8.8' #, '1.3.9'
+    pod 'TLPhotoPicker', '~> 1.8.8'
     # Acid buttons
     pod 'LGButton', '~> 1.0'
     # Palette de couleures
-    pod 'Hue', '~> 3.0'
+    pod 'Hue', '~> 5.0'
     # Boutton flottant
     pod 'Floaty', '~> 4.2.0'
     # Message sous la barre de navigation
@@ -74,13 +65,11 @@ def projectPods
     # Tableview quand il n'ya pas de donnés
     pod 'DZNEmptyDataSet'
     # Selection Multiple de contacts
-    pod 'SwiftMultiSelect', :git => 'https://github.com/rico237/SwiftMultiSelect.git'
+    pod 'SwiftMultiSelect', :git => 'https://github.com/weeclik/SwiftMultiSelect.git'
     # Pour la page recherche
     #pod 'Compose', '~> 1.2'
     # Pour de bonnes grille en fonction de l'écran
     pod 'KRLCollectionViewGridLayout', '~> 1.0'
-    # Routing management
-    pod 'Compass'
     # Permet de remonter le header au scroll  (Accueil)
     pod 'KJNavigationViewAnimation', :git => 'https://github.com/weeclik/KJNavigationViewAnimation.git'
     # Savoir si il y a internet
@@ -88,23 +77,48 @@ def projectPods
     # Détail & zoom des images
     pod 'AppImageViewer', :git => 'https://github.com/weeclik/AppImageViewer.git'
     # Many Usefull UI/UX Elements
-    pod 'Material', '~> 2.0'
+    pod 'Material', '~> 2.16'
     # Video Player
     pod 'MobilePlayer', :git => 'https://github.com/weeclik/mobileplayer-ios.git'
     
     # In App Purchase (IAP) Libs
-    pod 'SwiftyStoreKit', '~> 0.14.2'
+    pod 'SwiftyStoreKit', '~> 0.15.0'
     #Manipulation de dates
-    pod 'SwiftDate', '~> 5.0'
+    pod 'SwiftDate', '~> 6.0.3'
     
     # Settings panel
-    pod 'SPLarkController', '1.0.6'
+    pod 'SPLarkController', '~> 1.0.9'
     
     # UserDefaults with AES-256 encryption
-    pod 'SecureDefaults', '1.0.3' # Swift 5.0
+    pod 'SecureDefaults', '~> 1.0' # Swift 5.0
     
     # COmpression d'images
     pod 'WXImageCompress', '~> 0.1.2'
+    
+    # verification d'images a caractere porno
+    pod 'NSFWDetector' # https://github.com/lovoo/NSFWDetector
+    
+    # geocoding and reverse geocoding (Google or apple)
+    pod 'LMGeocoderSwift', '~> 1.0.1'
+    # debuging Tools
+    pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
+    
+    pod 'ZAlertView'
+    
+    ################################
+    ################################
+    #                              #
+    #     OBSELETE / A Chnager     #
+    #                              #
+    ################################
+    ################################
+    
+    # Routing management
+    pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
+    
+    
+    
+    
     
     ################################
     ################################
@@ -113,6 +127,15 @@ def projectPods
     #                              #
     ################################
     ################################
+    
+    # ROUTING for many apps # + https://github.com/freshOS/Router
+    #pod 'Appz'
+    
+    # Faire un tuto d'utilisation weeclik
+    #pod "Elissa" #en association avec pod 'EasyClosure'
+    
+    # Enchaine des actions des qu'une action a été faite
+    #pod 'EasyClosure'
     
     ###------------A RANGER---------------##
     
@@ -129,6 +152,9 @@ def projectPods
     
     
     ###------------GENERALE---------------##
+    
+    # check fields with your custom regular expressions or use default ones ordered by types (email, username, password, url, price...)
+    #pod 'AnimatedField'
     
     # BEST ALERTS & MESSAGES UIs
     #pod 'SwiftMessages'

@@ -26,6 +26,8 @@
 		1F2C05112132F564002B86AB /* PaymentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */; };
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
+		1F3C5B1F22A2FBC700904317 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C5B1E22A2FBC700904317 /* MailHelper.swift */; };
+		1F3DEAF222C039F8008F92A5 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */; };
 		1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */; };
 		1F4AF13C2286D0A3005FD179 /* ParseErrorCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */; };
@@ -79,14 +81,17 @@
 		1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDE1F269CB2004D5F4C /* OpenSans-Semibold.ttf */; };
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
 		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		1FB2D89722BCCFD800C0FDC6 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */; };
+		1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */; };
 		1FB9B2B2226E785E009C3E65 /* WeeClikUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B2B1226E785E009C3E65 /* WeeClikUITests.swift */; };
 		1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBB63A4211F16BD00BCB480 /* StoreKit.framework */; };
 		1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */; };
+		1FC5C59B22B8434B00178929 /* MonCompteCommerceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */; };
+		1FC5C59D22B8568000178929 /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5C59C22B8568000178929 /* FontHelper.swift */; };
 		1FCDF66E2117592B00B605BC /* ParseUploadPhotosAndVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDF66D2117592B00B605BC /* ParseUploadPhotosAndVideos.swift */; };
 		1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE0161209F20C20040F988 /* GoogleService-Info.plist */; };
 		1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3921FABA78700392060 /* ChangeInfosVC.swift */; };
 		1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3941FABA9A200392060 /* MotDePasseVC.swift */; };
-		1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */; };
 		1FD6F56D20729A5100EC9DF3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56C20729A5100EC9DF3 /* Extensions.swift */; };
 		1FD9BED621136D44008AA1FC /* BackendDetailCommerceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD9BED521136D44008AA1FC /* BackendDetailCommerceVC.swift */; };
 		1FDDB8972118B40A00B7EC33 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */; };
@@ -149,6 +154,8 @@
 		1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
+		1F3C5B1E22A2FBC700904317 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
+		1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonCompteVC.swift; sourceTree = "<group>"; };
 		1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseErrorCodeHandler.swift; sourceTree = "<group>"; };
 		1F4D430F202AC4D40089FB15 /* ImageScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScroller.swift; sourceTree = "<group>"; };
@@ -207,17 +214,20 @@
 		1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
+		1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAreaViewController.swift; sourceTree = "<group>"; };
 		1FB9B2A9226E76B7009C3E65 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1FB9B2AF226E785E009C3E65 /* WeeClikUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeClikUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FB9B2B1226E785E009C3E65 /* WeeClikUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeClikUITests.swift; sourceTree = "<group>"; };
 		1FB9B2B3226E785E009C3E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FBB63A4211F16BD00BCB480 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
+		1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonCompteCommerceCell.swift; sourceTree = "<group>"; };
+		1FC5C59C22B8568000178929 /* FontHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontHelper.swift; sourceTree = "<group>"; };
 		1FCDF66D2117592B00B605BC /* ParseUploadPhotosAndVideos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseUploadPhotosAndVideos.swift; sourceTree = "<group>"; };
 		1FCE0161209F20C20040F988 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1FCED3921FABA78700392060 /* ChangeInfosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfosVC.swift; sourceTree = "<group>"; };
 		1FCED3941FABA9A200392060 /* MotDePasseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotDePasseVC.swift; sourceTree = "<group>"; };
-		1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoHelper.swift; sourceTree = "<group>"; };
 		1FD6F56C20729A5100EC9DF3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1FD9BED521136D44008AA1FC /* BackendDetailCommerceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendDetailCommerceVC.swift; sourceTree = "<group>"; };
 		1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
@@ -296,12 +306,14 @@
 		1F0857081F2D676900932929 /* Helper & Secrets */ = {
 			isa = PBXGroup;
 			children = (
+				1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */,
 				1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */,
 				1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */,
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
-				1FD6F56A20728F0300EC9DF3 /* GeoHelper.swift */,
+				1FC5C59C22B8568000178929 /* FontHelper.swift */,
 				1FD6F56C20729A5100EC9DF3 /* Extensions.swift */,
 				1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */,
+				1F3C5B1E22A2FBC700904317 /* MailHelper.swift */,
 			);
 			name = "Helper & Secrets";
 			sourceTree = "<group>";
@@ -309,10 +321,12 @@
 		1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */ = {
 			isa = PBXGroup;
 			children = (
+				1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */,
 				1FCED3921FABA78700392060 /* ChangeInfosVC.swift */,
 				1FCED3941FABA9A200392060 /* MotDePasseVC.swift */,
 			);
 			name = "Profil utilisateur";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		1F0B834F224E9AE900F09FF5 /* Inconnu */ = {
@@ -385,9 +399,11 @@
 		1F27628D2114BBB700779342 /* En cours */ = {
 			isa = PBXGroup;
 			children = (
+				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
+				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
 				1FC42C48223ECD7100AB0C39 /* Paiement */,
 				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
-				1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */,
+				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
 				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
 				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
 			);
@@ -403,6 +419,7 @@
 				1F9EE55421D142420086EF72 /* Experiences.storyboard */,
 				1FA473311F1EE7E400D2A306 /* Main.storyboard */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
+				1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -469,7 +486,6 @@
 				1F2762912116EE0100779342 /* Routing */,
 				1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */,
 				1F0B834F224E9AE900F09FF5 /* Inconnu */,
-				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
 				1F0B8353224E9F9600F09FF5 /* Assets & Config Files */,
 				1FEE37421F91187C00E1D1A7 /* BulletinItems */,
 				1F5681E91F2B4FA300B1BAC8 /* Libraries */,
@@ -664,6 +680,7 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				English,
 				Base,
 				fr,
@@ -714,6 +731,7 @@
 				1F0B9DF921D54083008120F4 /* Login.storyboard in Resources */,
 				1FEBF4641F254F3D00146525 /* BebasNeue Light.ttf in Resources */,
 				1F9EE56321D2DB830086EF72 /* SearchCell.xib in Resources */,
+				1FB2D89722BCCFD800C0FDC6 /* Test.storyboard in Resources */,
 				1FA9BFE61F269CB2004D5F4C /* OpenSans-LightItalic.ttf in Resources */,
 				1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */,
 			);
@@ -770,31 +788,29 @@
 				"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
-				"${BUILT_PRODUCTS_DIR}/AsyncSwift/Async.framework",
-				"${BUILT_PRODUCTS_DIR}/AwaitKit/AwaitKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
 				"${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework",
 				"${BUILT_PRODUCTS_DIR}/Compass/Compass.framework",
+				"${BUILT_PRODUCTS_DIR}/DBDebugToolkit/DBDebugToolkit.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
-				"${BUILT_PRODUCTS_DIR}/IHProgressHUD/IHProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
+				"${BUILT_PRODUCTS_DIR}/LMGeocoderSwift/LMGeocoderSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/MobilePlayer/MobilePlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
+				"${BUILT_PRODUCTS_DIR}/NSFWDetector/NSFWDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -808,6 +824,7 @@
 				"${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/WXImageCompress/WXImageCompress.framework",
+				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -817,31 +834,29 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Async.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AwaitKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CRNotifications.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Compass.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DBDebugToolkit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IHProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LMGeocoderSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MobilePlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSFWDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -855,6 +870,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLPhotoPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WXImageCompress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
@@ -905,6 +921,7 @@
 				1F9EE56221D2DB830086EF72 /* SearchCell.swift in Sources */,
 				1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */,
 				1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */,
+				1F3C5B1F22A2FBC700904317 /* MailHelper.swift in Sources */,
 				1F04777D214407DE00B20CA5 /* XibView.swift in Sources */,
 				1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */,
 				1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */,
@@ -912,17 +929,19 @@
 				1F4D4312202AC4E10089FB15 /* ShadowView.swift in Sources */,
 				1F744EB21F9023EE00B892FD /* UserAccount.swift in Sources */,
 				1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */,
+				1F3DEAF222C039F8008F92A5 /* ParseHelper.swift in Sources */,
 				1F5E931B204724E4009AACA1 /* GridFlowLayout.swift in Sources */,
 				1F04777A214407C400B20CA5 /* PaymentCell.swift in Sources */,
 				1F5DE54C1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift in Sources */,
 				1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */,
+				1FC5C59B22B8434B00178929 /* MonCompteCommerceCell.swift in Sources */,
 				1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */,
 				1F830EB6227B3411003E8F1F /* AdminMonProfilSettingsVC.swift in Sources */,
 				1F4AF13C2286D0A3005FD179 /* ParseErrorCodeHandler.swift in Sources */,
-				1FD6F56B20728F0300EC9DF3 /* GeoHelper.swift in Sources */,
 				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,
 				1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */,
 				1F8F0884223F12C3008177C4 /* AfterPaymentVC.swift in Sources */,
+				1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */,
 				1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */,
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */,
@@ -942,6 +961,7 @@
 				1F9EE55D21D1573B0086EF72 /* SignUpViewController.swift in Sources */,
 				1F9EE55F21D297D50086EF72 /* SearchViewController.swift in Sources */,
 				1FF5C6262236ED2E00D936B4 /* SharingToGroupsVC.swift in Sources */,
+				1FC5C59D22B8568000178929 /* FontHelper.swift in Sources */,
 				1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */,
 				1F5AD2F61FAF898C0048FFE2 /* NouveauCommerceCell.swift in Sources */,
 				1F0477772141BA7300B20CA5 /* ChoixTarifsVC.swift in Sources */,
@@ -1044,6 +1064,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1097,6 +1121,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(OTHER_LDFLAGS)",
+					"-ObjC",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
