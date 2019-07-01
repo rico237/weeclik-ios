@@ -12,7 +12,7 @@ import Material
 import DZNEmptyDataSet
 import SVProgressHUD
 import AppImageViewer
-import MobilePlayer
+import AVKit
 
 class DetailGalleryVC: UIViewController {
 
@@ -196,13 +196,16 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
             // Videos
             let parseObject = self.videos[indexPath.row]
             let videoFile = parseObject["video"] as! PFFileObject
+            // TODO : Optimize for NS/InputStream object reading
+            // let v = videoFile.getDataStreamInBackground()
+            
             if let url = URL(string: videoFile.url!) {
-                let playerVC = MobilePlayerViewController(contentURL: url)
-                playerVC.title = parseObject["nameVideo"] as? String
-                playerVC.activityItems = [url]
-                present(playerVC, animated: true, completion: nil)
+                let player = AVPlayer(url: ParseHelper.rewriteParseURLForVideos(forURL: url))
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                present(playerViewController, animated: true) {player.play()}
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Problème de chargement de la vidéo", title: "Erreur", viewController: self)
+                HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo", title: "Erreur de chargement", viewController: self)
             }
         }
     }
