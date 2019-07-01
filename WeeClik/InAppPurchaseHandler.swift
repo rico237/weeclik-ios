@@ -72,7 +72,7 @@ class InAppPurchaseHandler: NSObject {
         if iapProducts.count == 0 { return }
         
         if self.canMakePurchases() {
-            if let index = productIds.index(of: identifier) {
+            if let index = productIds.firstIndex(of: identifier) {
                 let product = iapProducts[index]
                 let payment = SKPayment(product: product)
                 SKPaymentQueue.default().add(self)

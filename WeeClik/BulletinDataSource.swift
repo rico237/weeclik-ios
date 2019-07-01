@@ -22,11 +22,9 @@ enum BulletinDataSource {
         page.image = #imageLiteral(resourceName: "icon")
         page.imageAccessibilityLabel = "⚠️"
         
-//        print(isLocation)
-        
         page.descriptionText = "Vous avez choisit pour le moment d'afficher les commerces en fonction de votre position"
         page.actionButtonTitle = "Trier par position"
-        page.alternativeButtonTitle = "Nombre de partage"
+        page.alternativeButtonTitle = "Trier par nombre de partage"
         page.requiresCloseButton = false
         page.isDismissable = true
         
@@ -35,7 +33,6 @@ enum BulletinDataSource {
     
     static func makeFilterNextPage() -> BLTNPageItem {
         let page = BLTNPageItem(title: "Filtre enregistré")
-//        page.image = #imageLiteral(resourceName: "Certificate_valid_icon")
         page.imageAccessibilityLabel = "⚠️"
         
         page.descriptionText = "Filtre enregistré avec succès, la liste des commerces va maintenant être rechargé"

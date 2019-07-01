@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1CAFCCD4DF1C688ACDDE114EC6D2E375"
+               BlueprintIdentifier = "792484DC0C68A04BB8FEC66910EB64E8"
                BuildableName = "KRLCollectionViewGridLayout.framework"
                BlueprintName = "KRLCollectionViewGridLayout"
                ReferencedContainer = "container:Pods.xcodeproj">

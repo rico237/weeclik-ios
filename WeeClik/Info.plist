@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>fr_FR</string>
+	<key>CFBundleDisplayName</key>
+	<string>Weeclik</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.0</string>
+	<string>3.0.2</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -68,8 +70,6 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
-	<key>NSLocationAlwaysUsageDescription - INACTIVE</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>

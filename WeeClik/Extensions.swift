@@ -13,6 +13,19 @@ class Extensions: NSObject {}
 extension Error {
     var code: Int { return (self as NSError).code }
     var domain: String { return (self as NSError).domain }
+    var desc: String { return (self as NSError).description }
+}
+
+extension TimeInterval {
+    // builds string in app's labels format 00:00.0
+    func stringFormatted() -> String {
+        print("Not tested extension Time interval")
+        let interval = Int(self)
+        let seconds = interval % 60
+        let minutes = (interval / 60) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
 }
 
 extension UIColor {
@@ -150,5 +163,25 @@ public extension UIWindow {
                 return vc
             }
         }
+    }
+}
+
+extension UIButton {
+    func setInsets(
+        forContentPadding contentPadding: UIEdgeInsets,
+        imageTitlePadding: CGFloat
+        ) {
+        self.contentEdgeInsets = UIEdgeInsets(
+            top: contentPadding.top,
+            left: contentPadding.left,
+            bottom: contentPadding.bottom,
+            right: contentPadding.right + imageTitlePadding
+        )
+        self.titleEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: imageTitlePadding,
+            bottom: 0,
+            right: -imageTitlePadding
+        )
     }
 }

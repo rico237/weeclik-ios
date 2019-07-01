@@ -10,10 +10,9 @@ import UIKit
 import Parse
 import Material
 import DZNEmptyDataSet
-import Async
 import SVProgressHUD
 import AppImageViewer
-import MobilePlayer
+import AVKit
 
 class DetailGalleryVC: UIViewController {
 
@@ -37,6 +36,8 @@ class DetailGalleryVC: UIViewController {
         
         self.title = "Gallerie"
         
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setDefaultStyle(.dark)
         
         // CollectionView Init
         collectionView.register(UINib(nibName:"PhotosVideosCollectionCell", bundle: nil) , forCellWithReuseIdentifier: "Photos/Videos-Cell")
@@ -49,62 +50,59 @@ class DetailGalleryVC: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         queryMedias()
     }
     
     func queryMedias(){
-        SVProgressHUD.setDefaultMaskType(.clear)
-        SVProgressHUD.setDefaultStyle(.dark)
-        SVProgressHUD.show(withStatus: "Chargement en cours")
-        
-        let group = AsyncGroup()
-        group.userInitiated {
-            self.fetchPhotos()
-        }
-        group.userInitiated {
-            self.fetchVideos()
-        }
-        group.wait()
-        
-        SVProgressHUD.dismiss(withDelay: 1)
-        
-        self.refreshCollection()
+        SVProgressHUD.show(withStatus: "Chargement des images et vidéos du commerce")
+        self.fetchPhotos()
     }
     
     func fetchPhotos(){
+        guard let parseCommerce = self.commerce.pfObject else {return}
+        
         let queryPhotos = PFQuery(className: "Commerce_Photos")
-        queryPhotos.whereKey("commerce", equalTo: self.commerce.pfObject)
+        queryPhotos.whereKey("commerce", equalTo: parseCommerce)
         queryPhotos.addDescendingOrder("updatedAt")
         
-        do {
-            self.photos = try queryPhotos.findObjects()
-        } catch {
-            let error = error as NSError
-            print("Chargement Photos\n\tErreur \(error.code) : \(error.localizedDescription)")
-        }
-        
-        for obj in self.photos {
-            let file = obj["photo"] as! PFFileObject
-            if let data = try? file.getData() {
-                if let image = UIImage(data: data){
-                    self.fetchedPhotos.append(image)
+        queryPhotos.findObjectsInBackground(block: { (objects, error) in
+            if let error = error {
+                print("Erreur Chargement Photos DetailGalleryVC")
+                ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+            } else {
+                // Success
+                self.photos = objects!
+                for obj in self.photos {
+                    let file = obj["photo"] as! PFFileObject
+                    if let data = try? file.getData() {
+                        if let image = UIImage(data: data){
+                            self.fetchedPhotos.append(image)
+                        }
+                    }
                 }
             }
-        }
+            self.fetchVideos()
+        })
     }
     
     func fetchVideos(){
+        guard let parseCommerce = self.commerce.pfObject else {return}
+        
         let queryVideos = PFQuery(className: "Commerce_Videos")
-        queryVideos.whereKey("leCommerce", equalTo: self.commerce.pfObject)
+        queryVideos.whereKey("leCommerce", equalTo: parseCommerce)
         queryVideos.addDescendingOrder("updatedAt")
         
-        do {
-            self.videos = try queryVideos.findObjects()
-        } catch {
-            let error = error as NSError
-            print("Chargement Videos\n\tErreur \(error.code) : \(error.localizedDescription)")
+        queryVideos.findObjectsInBackground { (objects, error) in
+            if let error = error {
+                print("Erreur Chargement Videos DetailGalleryVC")
+                ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+            } else {
+                self.videos = objects ?? []
+            }
+            SVProgressHUD.dismiss(withDelay: 1)
+            self.refreshCollection()
         }
     }
     
@@ -146,22 +144,28 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath) as! PhotosVideosCollectionCell
         
         var obj : PFObject!
-        var file : PFFileObject
+        var file : PFFileObject?
         
         if !shdShowVideos {
             // Photos
             obj = photos[indexPath.row]
-            file = obj["photo"] as! PFFileObject
+            file = obj["photo"] as? PFFileObject
             cell.minuteViewContainer.isHidden = true
         } else {
             obj = videos[indexPath.row]
             cell.timeLabel.text = obj["time"] as? String
-            file = obj["thumbnail"] as! PFFileObject
+            if let thumb = obj["thumbnail"] as? PFFileObject {
+                file = thumb
+            }
             cell.minuteViewContainer.isHidden = false
         }
         
-        if let urlStr = file.url {
-            cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Placeholder_carre") , options: .highPriority , completed: nil)
+        if let file = file {
+            if let urlStr = file.url {
+                cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Placeholder_carre") , options: .highPriority , completed: nil)
+            } else {
+                cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
+            }
         } else {
             cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
         }
@@ -192,13 +196,16 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
             // Videos
             let parseObject = self.videos[indexPath.row]
             let videoFile = parseObject["video"] as! PFFileObject
+            // TODO : Optimize for NS/InputStream object reading
+            // let v = videoFile.getDataStreamInBackground()
+            
             if let url = URL(string: videoFile.url!) {
-                let playerVC = MobilePlayerViewController(contentURL: url)
-                playerVC.title = parseObject["nameVideo"] as? String
-                playerVC.activityItems = [url]
-                present(playerVC, animated: true, completion: nil)
+                let player = AVPlayer(url: ParseHelper.rewriteParseURLForVideos(forURL: url))
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                present(playerViewController, animated: true) {player.play()}
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Problème de chargement de la vidéo", title: "Erreur", viewController: self)
+                HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo", title: "Erreur de chargement", viewController: self)
             }
         }
     }
@@ -234,6 +241,9 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
     }
+    
+    // TODO: envoyer mail au commercant pour qu'il ajoute du contenu
+    //
 //    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
 //        return NSAttributedString(string: "Envoyer")
 //    }
@@ -273,7 +283,7 @@ extension DetailGalleryVC : TabBarDelegate {
     }
     
     @objc func tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
-        self.refreshViewWithSelectedInput(selectedInput: self.titles.index(of: tabItem.title!)!)
+        self.refreshViewWithSelectedInput(selectedInput: self.titles.firstIndex(of: tabItem.title!)!)
     }
     
 //    @objc func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {}

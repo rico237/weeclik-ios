@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Parse
 
-enum StatutType: Int {
+public enum StatutType: Int {
     case pending = 0,
     paid = 1,
     canceled = 2,

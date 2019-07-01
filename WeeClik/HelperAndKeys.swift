@@ -18,7 +18,9 @@ class HelperAndKeys {
     
     static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController){
         let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in}
+        let defaultAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) -> Void in
+            alertViewController.dismiss(animated: true, completion: nil)
+        }
         alertViewController.addAction(defaultAction)
         viewController.present(alertViewController, animated: true, completion: nil)
     }
@@ -45,6 +47,11 @@ class HelperAndKeys {
     
     static func getServerURL() -> String{
         return "https://weeclik-server.herokuapp.com/parse"
+        #if DEBUG
+        return "https://weeclik-server-dev.herokuapp.com/parse"
+        #endif
+        
+        
     }
     
     static func getServerAppId() -> String{
@@ -241,17 +248,11 @@ class HelperAndKeys {
         mapItem.openInMaps(launchOptions: options)
     }
     
-    static func setSharingTime(forCommerceId : String, commerceName : String){
+    static func setSharingTime(forCommerceId : String){
         let date = Date()
         let stringCat = forCommerceId+"_date"
         UserDefaults.standard.set(date, forKey: stringCat)
         UserDefaults.standard.synchronize()
-        sharingNotificationEnable(commerce: commerceName)
-    }
-    
-    static func sharingNotificationEnable(commerce : String){
-        
-        print("Afficher Ici la fonction de notification après X temps")
     }
     
     static func getSharingTimer(forCommerceId : String) -> Date? {
@@ -267,7 +268,8 @@ class HelperAndKeys {
     
     static func canShareAgain(objectId : String) -> Bool{
         if let date = self.getSharingTimer(forCommerceId: objectId) {
-            let isAfterIntervalle = date.isAfterDate(date + 5.minutes, granularity: .minute)
+            let isAfterIntervalle = Date().isAfterDate(date + 1.days, granularity: .second)
+            print("isAfterIntervalle : \(isAfterIntervalle)")
             // TODO: Mettre le veritable intervalle
             if isAfterIntervalle {
                 self.removeCommerce(forCommerceId: objectId)
@@ -287,7 +289,7 @@ class HelperAndKeys {
     }
     
     static func getListOfCategories() -> [String]{
-        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme"]
+        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme", "Autre"]
     }
     
     /// Has safe area
@@ -305,18 +307,6 @@ class HelperAndKeys {
     
     static var isPhoneX: Bool {
         return UIDevice.isIphoneX
-    }
-    
-    static func handleParseError(error: NSError) -> String{
-        switch error.code {
-        case PFErrorCode.errorConnectionFailed.rawValue :
-            return "Il y a eu un problème de connexion veuillez réessayer plus tard."
-        case PFErrorCode.errorInvalidSessionToken.rawValue :
-            PFUser.logOut()
-            return "Il y a eu un problème de connexion veuillez réessayer."
-        default:
-            return error.localizedDescription + " code : \(error.code)"
-        }
     }
     
     static func getCurrentDate(da : Date?) -> String{
@@ -341,33 +331,45 @@ class HelperAndKeys {
         if let utilisateur = user {
             let query = PFQuery(className:"StatsPartage")
             query.whereKey("commercePartage", equalTo: commerce)
+            query.whereKey("utilisateurPartageur", equalTo: utilisateur)
             query.includeKey("commercePartage")
-            query.findObjectsInBackground { (array , error) in
-                
-                if array!.count > 0 {
-                    let sharingObject = array![0]
+            query.getFirstObjectInBackground { (object , error) in
+                if let error = error {
+                    print(error.desc)
+                    if error.localizedDescription == "No results matched the query." {
+                        // Aucun objet trouvé on en crée un
+                        let parseObj = PFObject(className: "StatsPartage")
+                        parseObj["commercePartage"] = commerce
+                        parseObj["utilisateurPartageur"] = utilisateur
+                        parseObj["nbrPartage"] = 1
+                        parseObj["mes_partages_dates"] = [Date()]
+                        parseObj.saveInBackground()
+                    } else {
+                        print("Error in save stat partage func - HelperAndKeys - saveStatsInDb")
+                        ParseErrorCodeHandler.handleUnknownError(error: error)
+                    }
+                    
+                } else if let object = object {
+                    let sharingObject = object
                     sharingObject.incrementKey("nbrPartage")
+                    sharingObject.add(Date(), forKey: "mes_partages_dates")
                     let theCommerce = sharingObject["commercePartage"] as! PFObject
                     theCommerce.incrementKey("nombrePartages")
                     PFObject.saveAll(inBackground: [sharingObject, theCommerce])
-                } else {
-                    let parseObj = PFObject(className: "StatsPartage")
-                    parseObj["commercePartage"] = commerce
-                    parseObj["utilisateurPartageur"] = utilisateur
-                    parseObj["nbrPartage"] = 1
-                    parseObj.saveInBackground()
+                }
+            }
+        } else {
+            // On met a jour les stats du commerce sans utilisateur
+            let commerceQuery = PFQuery(className: "Commerce")
+            commerceQuery.getObjectInBackground(withId: commerce.objectId!.description) { (comm, error) in
+                if let error = error{
+                    ParseErrorCodeHandler.handleUnknownError(error: error)
+                } else if let comm = comm {
+                    comm.incrementKey("nombrePartages")
+                    comm.saveInBackground()
                 }
             }
         }
-        
-        // On met a jour les stats du commerce
-        let commerceQuery = PFQuery(className: "Commerce")
-        commerceQuery.whereKey("objectId", equalTo: commerce.objectId?.description as Any)
-        commerceQuery.findObjectsInBackground(block: { (commercesA, err) in
-            let comm = commercesA![0]
-            comm.incrementKey("nombrePartages")
-            comm.saveInBackground()
-        })
     }
     
     /// Validate email string
@@ -384,39 +386,4 @@ class HelperAndKeys {
         let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
-   
-    
-    /*
-     
-     LOST FUNCTIONS
-     
-     */
-    
-    
-    //    static func isAppFirstLoadFinished() -> Bool{
-    //        let use = UserDefaults.standard
-    //        return use.bool(forKey: "isAppFirstLoad")
-    //    }
-    //
-    //    static func setAppFirstLoadFinished(){
-    //        let use = UserDefaults.standard
-    //        use.set(true, forKey: "isAppFirstLoad")
-    //        use.synchronize()
-    //    }
-    
-    //    static func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool){
-    //
-    //        let messageAdded : String
-    //
-    //        if !isFeedBackMsg{
-    //            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nTéléchargez-la ici : http://www.google.fr/"
-    //        }else{
-    //            messageAdded = "\n\nEnvoyé depuis l'application iOS Weeclik.\n\nNuméro de version de l'app : "
-    //        }
-    //
-    //        let allowedCharacters = NSCharacterSet.urlFragmentAllowed
-    //        let finalMessage = messageToSend.appending(messageAdded)
-    //        let finalMessEncoded = finalMessage.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
-    //        print(finalMessEncoded!)
-    //    }
 }
