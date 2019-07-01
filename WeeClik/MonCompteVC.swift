@@ -387,9 +387,9 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     }
     
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
-        if let parseError = error{
-            let nserror = parseError as NSError
-            print("Erreur de login : \nCode (\(nserror.code))\n     -> \(nserror.localizedDescription)")
+        if let error = error{
+            print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+            HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide" , title:"Erreur lors de la connexion" , viewController: logInController)
         }
     }
     
@@ -397,13 +397,13 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
         user.email = user.username
         user.saveInBackground()
-        self.dismiss(animated: true, completion: nil)
+        signUpController.dismiss(animated: true, completion: nil)
     }
     
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
-        if let parseError = error{
-            let nserror = parseError as NSError
-            print("Erreur de signup : \nCode (\(nserror.code))\n     -> \(nserror.localizedDescription)")
+        if let error = error{
+            print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+            HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide" , title: "Erreur lors de la connexion", viewController: signUpController)
         }
     }
     
@@ -434,7 +434,11 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         let graphRequest = GraphRequest(graphPath: "me", parameters: params)
         
         graphRequest.start(completionHandler: { (request, result, error) in
-            if (error == nil) {
+            if let error = error {
+                print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard", title: "Connexion Facebook échoué", viewController: self)
+            }
+            else {
                 // handle successful response
                 if let data = result as? [String:Any] {
                     user["name"] = data["name"] as! String
@@ -444,14 +448,6 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
                     user["profilePictureURL"] = "https://graph.facebook.com/" + facebookId + "/picture?type=large&return_ssl_resources=1"
                     user.saveInBackground()
                 }
-            }
-//            else if let err = error as NSError?, err.userInfo["error"]!["type"] == "OAuthException" {
-//                // Since the request failed, we can check if it was due to an invalid session
-//                print("The facebook session was invalidated")
-//                PFFacebookUtils.unlinkUser(inBackground: PFUser.current()!)
-//            }
-            else {
-                print("Some other error: \(String(describing: error?.localizedDescription))")
             }
         })
     }
