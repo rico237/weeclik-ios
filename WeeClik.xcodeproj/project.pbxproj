@@ -107,6 +107,7 @@
 		1FEE37491F911A5B00E1D1A7 /* BulletinDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE37451F9118AF00E1D1A7 /* BulletinDataSource.swift */; };
 		1FF5C6262236ED2E00D936B4 /* SharingToGroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF5C6252236ED2E00D936B4 /* SharingToGroupsVC.swift */; };
 		1FF5C6282236EE1800D936B4 /* CreationGroupes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */; };
+		1FF7A04E22C929D90038C8E3 /* Partage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF7A04D22C929D90038C8E3 /* Partage.storyboard */; };
 		788E3A22531FFFF44C80E285 /* Pods_WeeClik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */; };
 /* End PBXBuildFile section */
 
@@ -244,6 +245,7 @@
 		1FEE37461F9118AF00E1D1A7 /* BackgroundStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundStyles.swift; sourceTree = "<group>"; };
 		1FF5C6252236ED2E00D936B4 /* SharingToGroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingToGroupsVC.swift; sourceTree = "<group>"; };
 		1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreationGroupes.storyboard; sourceTree = "<group>"; };
+		1FF7A04D22C929D90038C8E3 /* Partage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Partage.storyboard; sourceTree = "<group>"; };
 		3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.debug.xcconfig"; sourceTree = "<group>"; };
 		39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.release.xcconfig"; sourceTree = "<group>"; };
 		C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -420,6 +422,7 @@
 				1FA473311F1EE7E400D2A306 /* Main.storyboard */,
 				1FA473361F1EE7E400D2A306 /* LaunchScreen.storyboard */,
 				1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */,
+				1FF7A04D22C929D90038C8E3 /* Partage.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				1FA9BFE11F269CB2004D5F4C /* OpenSans-BoldItalic.ttf in Resources */,
 				1FEBF4651F254F3D00146525 /* BebasNeue Regular.ttf in Resources */,
 				1F9EE55521D142420086EF72 /* Experiences.storyboard in Resources */,
+				1FF7A04E22C929D90038C8E3 /* Partage.storyboard in Resources */,
 				1F04777B214407C400B20CA5 /* PaymentCell.xib in Resources */,
 				1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */,
 				1FA9BFE31F269CB2004D5F4C /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -807,7 +811,6 @@
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
 				"${BUILT_PRODUCTS_DIR}/LMGeocoderSwift/LMGeocoderSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
-				"${BUILT_PRODUCTS_DIR}/MobilePlayer/MobilePlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/NSFWDetector/NSFWDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
@@ -853,7 +856,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LMGeocoderSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MobilePlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSFWDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",

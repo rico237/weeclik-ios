@@ -112,7 +112,6 @@ PODS:
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
     - Motion (~> 1.4.3)
-  - MobilePlayer (1.3.0)
   - Motion (1.4.3):
     - Motion/Core (= 1.4.3)
   - Motion/Core (1.4.3)
@@ -179,7 +178,6 @@ DEPENDENCIES:
   - LMGeocoderSwift (~> 1.0.1)
   - lottie-ios (~> 3.1)
   - Material (~> 2.16)
-  - MobilePlayer (from `https://github.com/weeclik/mobileplayer-ios.git`)
   - NSFWDetector
   - Parse (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
   - Parse/FacebookUtils (from `https://github.com/weeclik/Parse-SDK-iOS-OSX.git`)
@@ -256,8 +254,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/weeclik/Compass.git
   KJNavigationViewAnimation:
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
-  MobilePlayer:
-    :git: https://github.com/weeclik/mobileplayer-ios.git
   Parse:
     :git: https://github.com/weeclik/Parse-SDK-iOS-OSX.git
   SwiftMultiSelect:
@@ -277,9 +273,6 @@ CHECKOUT OPTIONS:
   KJNavigationViewAnimation:
     :commit: d73526855a411e4ec7abdd1b68b6c44f56a9cb78
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
-  MobilePlayer:
-    :commit: f9ec03e54544251e1de712a1536bbfb6d4789193
-    :git: https://github.com/weeclik/mobileplayer-ios.git
   Parse:
     :commit: 60fae9d02ca7d6139e37e155dbb8c46b87eb3a42
     :git: https://github.com/weeclik/Parse-SDK-iOS-OSX.git
@@ -326,7 +319,6 @@ SPEC CHECKSUMS:
   LMGeocoderSwift: eeeaee3ca88975a88df1092d94f656216f6767ee
   lottie-ios: 9467723922dfff46f6d4e3019c32594a62440b7c
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
-  MobilePlayer: e50e2160830f3db51d6e08067318aec6a9d39408
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   NSFWDetector: aefec2254932bdc933cccc9385abfe07ae36a7a1
@@ -348,6 +340,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 42e1662c6d5c709491966dce161e20de2e699dbb
+PODFILE CHECKSUM: 111081272da053377621ba830dd572ca29c02863
 
 COCOAPODS: 1.7.2

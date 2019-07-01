@@ -78,8 +78,6 @@ def projectPods
     pod 'AppImageViewer', :git => 'https://github.com/weeclik/AppImageViewer.git'
     # Many Usefull UI/UX Elements
     pod 'Material', '~> 2.16'
-    # Video Player
-    pod 'MobilePlayer', :git => 'https://github.com/weeclik/mobileplayer-ios.git'
     
     # In App Purchase (IAP) Libs
     pod 'SwiftyStoreKit', '~> 0.15.0'
@@ -117,6 +115,13 @@ def projectPods
     pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
     
     
+    ################################
+    ################################
+    #                              #
+    #         A supprimer          #
+    #                              #
+    ################################
+    ################################
     
     
     
@@ -127,6 +132,11 @@ def projectPods
     #                              #
     ################################
     ################################
+    
+    # Keyboard avoiding in swift #https://github.com/a2/KeyboardAvoiding    
+    
+    # Quand 0 objets sont retournés par le serveur #https://github.com/alberdev/EmptyStateKit
+    #pod 'EmptyStateKit'
     
     # ROUTING for many apps # + https://github.com/freshOS/Router
     #pod 'Appz'
