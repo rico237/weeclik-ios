@@ -146,6 +146,8 @@ class HelperAndKeys {
             return UIImage(named:"Distribution")!
         case "Hôtellerie":
             return UIImage(named:"Hotellerie")!
+        case "Humanitaire":
+            return UIImage(named: "Humanitaire")!
         case "Immobilier":
             return UIImage(named:"Immobilier")!
         case "Informatique":
@@ -289,7 +291,7 @@ class HelperAndKeys {
     }
     
     static func getListOfCategories() -> [String]{
-        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme", "Autre"]
+        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie", "Humanitaire","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme", "Autre"]
     }
     
     /// Has safe area
