@@ -211,3 +211,7 @@ target 'WeeClik' do
     use_frameworks!
     projectPods
 end
+
+target 'WeeClikUnitTests' do
+  inherit! :complete
+end

@@ -70,6 +70,8 @@
 		1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BBD1F34F78B00DEDEA1 /* InformationGeneralCell.swift */; };
 		1FA53BC01F34F7AB00DEDEA1 /* PromotionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BBF1F34F7AB00DEDEA1 /* PromotionsCell.swift */; };
 		1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BC11F34F7BC00DEDEA1 /* DescriptionCell.swift */; };
+		1FA8EFF822D0E12500DCD52E /* WeeClikUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8EFF722D0E12500DCD52E /* WeeClikUnitTests.swift */; };
+		1FA8F00122D0E29C00DCD52E /* Commerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F071A3420DEFEB5007AE1ED /* Commerce.swift */; };
 		1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFD61F269CB2004D5F4C /* OpenSans-Bold.ttf */; };
 		1FA9BFE11F269CB2004D5F4C /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFD71F269CB2004D5F4C /* OpenSans-BoldItalic.ttf */; };
 		1FA9BFE21F269CB2004D5F4C /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFD81F269CB2004D5F4C /* OpenSans-ExtraBold.ttf */; };
@@ -109,9 +111,17 @@
 		1FF5C6282236EE1800D936B4 /* CreationGroupes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */; };
 		1FF7A04E22C929D90038C8E3 /* Partage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF7A04D22C929D90038C8E3 /* Partage.storyboard */; };
 		788E3A22531FFFF44C80E285 /* Pods_WeeClik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */; };
+		DDC54652B7D4B91B6E86D4EB /* libPods-WeeClikUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D1FADE1014A3AF048545868 /* libPods-WeeClikUnitTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1FA8EFFA22D0E12500DCD52E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA473221F1EE7E400D2A306 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FA473291F1EE7E400D2A306;
+			remoteInfo = WeeClik;
+		};
 		1FB9B2B4226E785E009C3E65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1FA473221F1EE7E400D2A306 /* Project object */;
@@ -202,6 +212,9 @@
 		1FA53BBD1F34F78B00DEDEA1 /* InformationGeneralCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationGeneralCell.swift; sourceTree = "<group>"; };
 		1FA53BBF1F34F7AB00DEDEA1 /* PromotionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionsCell.swift; sourceTree = "<group>"; };
 		1FA53BC11F34F7BC00DEDEA1 /* DescriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
+		1FA8EFF522D0E12400DCD52E /* WeeClikUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeClikUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA8EFF722D0E12500DCD52E /* WeeClikUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeClikUnitTests.swift; sourceTree = "<group>"; };
+		1FA8EFF922D0E12500DCD52E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FA947FB2279F48500F84983 /* Test_petite_functions.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Test_petite_functions.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1FA9BFD61F269CB2004D5F4C /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		1FA9BFD71F269CB2004D5F4C /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -246,9 +259,12 @@
 		1FF5C6252236ED2E00D936B4 /* SharingToGroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingToGroupsVC.swift; sourceTree = "<group>"; };
 		1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreationGroupes.storyboard; sourceTree = "<group>"; };
 		1FF7A04D22C929D90038C8E3 /* Partage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Partage.storyboard; sourceTree = "<group>"; };
+		2D1FADE1014A3AF048545868 /* libPods-WeeClikUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeeClikUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.debug.xcconfig"; sourceTree = "<group>"; };
 		39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.release.xcconfig"; sourceTree = "<group>"; };
+		8ABAA9F5DD1BA9972BC5186C /* Pods-WeeClikUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClikUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClikUnitTests/Pods-WeeClikUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCDE59C012E435CB253E4A34 /* Pods-WeeClikUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClikUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClikUnitTests/Pods-WeeClikUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +277,14 @@
 				1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */,
 				788E3A22531FFFF44C80E285 /* Pods_WeeClik.framework in Frameworks */,
 				1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FA8EFF222D0E12400DCD52E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC54652B7D4B91B6E86D4EB /* libPods-WeeClikUnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +484,7 @@
 			children = (
 				1FA4732C1F1EE7E400D2A306 /* WeeClik */,
 				1FB9B2B0226E785E009C3E65 /* WeeClikUITests */,
+				1FA8EFF622D0E12500DCD52E /* WeeClikUnitTests */,
 				1FA4732B1F1EE7E400D2A306 /* Products */,
 				D4B13352A12466DB4B89E4CC /* Pods */,
 				A78D9E77AE6519274A12D367 /* Frameworks */,
@@ -471,6 +496,7 @@
 			children = (
 				1FA4732A1F1EE7E400D2A306 /* WeeClik.app */,
 				1FB9B2AF226E785E009C3E65 /* WeeClikUITests.xctest */,
+				1FA8EFF522D0E12400DCD52E /* WeeClikUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,6 +525,15 @@
 				1F0857081F2D676900932929 /* Helper & Secrets */,
 			);
 			path = WeeClik;
+			sourceTree = "<group>";
+		};
+		1FA8EFF622D0E12500DCD52E /* WeeClikUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				1FA8EFF722D0E12500DCD52E /* WeeClikUnitTests.swift */,
+				1FA8EFF922D0E12500DCD52E /* Info.plist */,
+			);
+			path = WeeClikUnitTests;
 			sourceTree = "<group>";
 		};
 		1FA947FD2279F4DA00F84983 /* Playgrounds */ = {
@@ -589,6 +624,7 @@
 				1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */,
 				1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */,
 				C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */,
+				2D1FADE1014A3AF048545868 /* libPods-WeeClikUnitTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -598,6 +634,8 @@
 			children = (
 				3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */,
 				39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */,
+				DCDE59C012E435CB253E4A34 /* Pods-WeeClikUnitTests.debug.xcconfig */,
+				8ABAA9F5DD1BA9972BC5186C /* Pods-WeeClikUnitTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -626,6 +664,25 @@
 			productName = WeeClik;
 			productReference = 1FA4732A1F1EE7E400D2A306 /* WeeClik.app */;
 			productType = "com.apple.product-type.application";
+		};
+		1FA8EFF422D0E12400DCD52E /* WeeClikUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FA8EFFE22D0E12500DCD52E /* Build configuration list for PBXNativeTarget "WeeClikUnitTests" */;
+			buildPhases = (
+				39CB5706C58FFDCE2EA41551 /* [CP] Check Pods Manifest.lock */,
+				1FA8EFF122D0E12400DCD52E /* Sources */,
+				1FA8EFF222D0E12400DCD52E /* Frameworks */,
+				1FA8EFF322D0E12400DCD52E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FA8EFFB22D0E12500DCD52E /* PBXTargetDependency */,
+			);
+			name = WeeClikUnitTests;
+			productName = WeeClikUnitTests;
+			productReference = 1FA8EFF522D0E12400DCD52E /* WeeClikUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		1FB9B2AE226E785E009C3E65 /* WeeClikUITests */ = {
 			isa = PBXNativeTarget;
@@ -670,6 +727,12 @@
 							};
 						};
 					};
+					1FA8EFF422D0E12400DCD52E = {
+						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = X776XA45RM;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1FA473291F1EE7E400D2A306;
+					};
 					1FB9B2AE226E785E009C3E65 = {
 						CreatedOnToolsVersion = 10.2.1;
 						DevelopmentTeam = X776XA45RM;
@@ -695,6 +758,7 @@
 			targets = (
 				1FA473291F1EE7E400D2A306 /* WeeClik */,
 				1FB9B2AE226E785E009C3E65 /* WeeClikUITests */,
+				1FA8EFF422D0E12400DCD52E /* WeeClikUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -741,6 +805,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1FA8EFF322D0E12400DCD52E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1FB9B2AD226E785E009C3E65 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -782,6 +853,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+		};
+		39CB5706C58FFDCE2EA41551 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WeeClikUnitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -973,6 +1066,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1FA8EFF122D0E12400DCD52E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FA8F00122D0E29C00DCD52E /* Commerce.swift in Sources */,
+				1FA8EFF822D0E12500DCD52E /* WeeClikUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1FB9B2AB226E785E009C3E65 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -984,6 +1086,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1FA8EFFB22D0E12500DCD52E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FA473291F1EE7E400D2A306 /* WeeClik */;
+			targetProxy = 1FA8EFFA22D0E12500DCD52E /* PBXContainerItemProxy */;
+		};
 		1FB9B2B5226E785E009C3E65 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1FA473291F1EE7E400D2A306 /* WeeClik */;
@@ -1173,6 +1280,56 @@
 			};
 			name = Release;
 		};
+		1FA8EFFC22D0E12500DCD52E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCDE59C012E435CB253E4A34 /* Pods-WeeClikUnitTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = X776XA45RM;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WeeClikUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.herrick-wolber.WeeClikUnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeeClik.app/WeeClik";
+			};
+			name = Debug;
+		};
+		1FA8EFFD22D0E12500DCD52E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8ABAA9F5DD1BA9972BC5186C /* Pods-WeeClikUnitTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = X776XA45RM;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WeeClikUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.herrick-wolber.WeeClikUnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeeClik.app/WeeClik";
+			};
+			name = Release;
+		};
 		1FB9B2B7226E785E009C3E65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1236,6 +1393,15 @@
 			buildConfigurations = (
 				1FA4733D1F1EE7E400D2A306 /* Debug */,
 				1FA4733E1F1EE7E400D2A306 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FA8EFFE22D0E12500DCD52E /* Build configuration list for PBXNativeTarget "WeeClikUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FA8EFFC22D0E12500DCD52E /* Debug */,
+				1FA8EFFD22D0E12500DCD52E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
