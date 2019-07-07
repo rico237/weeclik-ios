@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import AVKit
 
 class ParseHelper {
     static func getUserACL(forUser user: PFUser?) -> PFACL {
@@ -33,5 +34,19 @@ class ParseHelper {
             return URL(string: originalString) ?? url
         }
         return url
+    }
+    
+    static func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false, inViewController vc: UIViewController) {
+        let player: AVPlayer!
+        
+        if isLocal {
+            player = AVPlayer(url: url)
+        } else {
+            player = AVPlayer(url: self.rewriteParseURLForVideos(forURL: url))
+        }
+        
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        vc.present(playerViewController, animated: true) {player.play()}
     }
 }
