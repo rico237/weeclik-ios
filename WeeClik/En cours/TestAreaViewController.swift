@@ -17,19 +17,19 @@ class TestAreaViewController: UIViewController {
     }
 
     @IBAction func button_1(_ sender: Any) {
-        testOfUploadingVideo()
+        test1()
     }
     
     @IBAction func button_2(_ sender: Any) {
-        testOfPhotosUpload()
+        test2()
     }
     
     
-    func testOfUploadingVideo(){
-    
+    func test1(){
+        
     }
     
-    func testOfPhotosUpload(){
+    func test2(){
         
     }
 }

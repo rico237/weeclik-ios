@@ -6,12 +6,12 @@
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
-// TODO: Ajouter reachability + demander si ils veulent uploader lles images et videos en mode cellular
+// TODO: Ajouter reachability + demander si ils veulent uploader les images et videos en mode cellular
 
 import UIKit
 import CoreLocation
 import Parse
-import TLPhotoPicker  // TODO: Regarder sur le github de la lib si je peux récup facilement le fichier video pour l'upload
+import TLPhotoPicker
 import Photos
 import AVKit
 import SVProgressHUD
@@ -31,7 +31,7 @@ class AjoutCommerceVC: UITableViewController {
     var loadedPhotos                = [PFObject]()          // Toutes les images conservés en BDD par le commerce
     var loadedVideos                = [PFObject]()          // Toutes les vidéos conservés en BDD par le commerce
     var videoArray                  = [TLPHAsset]()         // Tableau de videos
-    var thumbnailArray : [UIImage]  = [UIImage()]           // Tableau de preview des vidéos
+    var thumbnailArray : [UIImage]  = [UIImage]()           // Tableau de preview des vidéos
     var selectedVideoData           = Data()                // Data de vidéos
     var savedCommerce : Commerce?   = nil                   // Objet Commerce si on a pas utilisé le bouton sauvegarde
     var isSaving = false                                    // Sauvegarde du commerce en cours
@@ -42,6 +42,7 @@ class AjoutCommerceVC: UITableViewController {
     var objectIdCommerce    = ""
     var editingMode         = false                         // Mode edit d'un commerce
     var loadedFromBAAS      = false                         // Commerce venant de la BDD cloud
+    var videoIsLocal        = false                         // Video loaded from local or BaaS
     
     var photos = [PFObject]()                               // Photos to be processed for saving
     var videos = [PFObject]()                               // Videos to pe processed for saving
@@ -216,6 +217,7 @@ class AjoutCommerceVC: UITableViewController {
                                     }
                                 }
                             }
+                            self.videoIsLocal = false
                         }
                     }
                     
@@ -522,6 +524,31 @@ extension AjoutCommerceVC {
 }
 
 extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
+    
+    func getURL(ofPhotoWith mPhasset: PHAsset, completionHandler : @escaping ((_ responseURL : URL?) -> Void)) {
+        
+        if mPhasset.mediaType == .image {
+            let options: PHContentEditingInputRequestOptions = PHContentEditingInputRequestOptions()
+            options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData) -> Bool in
+                return true
+            }
+            mPhasset.requestContentEditingInput(with: options, completionHandler: { (contentEditingInput, info) in
+                completionHandler(contentEditingInput!.fullSizeImageURL)
+            })
+        } else if mPhasset.mediaType == .video {
+            let options: PHVideoRequestOptions = PHVideoRequestOptions()
+            options.version = .original
+            PHImageManager.default().requestAVAsset(forVideo: mPhasset, options: options, resultHandler: { (asset, audioMix, info) in
+                if let urlAsset = asset as? AVURLAsset {
+                    let localVideoUrl = urlAsset.url
+                    completionHandler(localVideoUrl)
+                } else {
+                    completionHandler(nil)
+                }
+            })
+        }
+        
+    }
     func showSelection(forPhoto : Bool) {
         let viewController = TLPhotosPickerViewController()
         viewController.delegate = self
@@ -578,6 +605,7 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
                 }
                 // Store assets so we can load data later to upload on servers
                 self.videoArray = withTLPHAssets
+                self.videoIsLocal = true
             }
         } else {
             print("Aucun objet retourné")
@@ -595,7 +623,9 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
     
     func refreshCollectionWithDataForVideo(thumbnail : UIImage){
         DispatchQueue.main.async {
-            self.thumbnailArray.remove(at: self.videoSelectedRow)
+            if self.thumbnailArray.count != 0 {
+                self.thumbnailArray.remove(at: self.videoSelectedRow)
+            }
             self.thumbnailArray.insert(thumbnail, at: self.videoSelectedRow)
             self.refreshUI()
         }
@@ -724,7 +754,43 @@ extension AjoutCommerceVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             self.videoSelectedRow = indexPath.row
-            self.showSelection(forPhoto: false)
+            if self.thumbnailArray.count == 0 {
+                self.showSelection(forPhoto: false)
+            } else {
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                
+                let seeAction = UIAlertAction(title: "Voir la vidéo", style: .default) { (action) in
+                    if self.videoIsLocal {
+                        if let asset = self.videoArray[self.videoSelectedRow].phAsset {
+                            self.getURL(ofPhotoWith: asset, completionHandler: { (url) in
+                                if let url = url {
+                                    ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
+                                } else {
+                                    HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video", title: "Erreur de chargement", viewController: self)
+                                }
+                            })
+                        } else {
+                            HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video", title: "Erreur de chargement", viewController: self)
+                        }
+                    } else {
+                        let video = self.loadedVideos[self.videoSelectedRow]["video"] as! PFFileObject
+                        if let url = URL(string: video.url!) {
+                            ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
+                        } else {
+                            HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video", title: "Erreur de chargement", viewController: self)
+                        }
+                    }
+                    
+                }
+                let modifyAction = UIAlertAction(title: "Changer de vidéo", style: .default) { (action) in self.showSelection(forPhoto: false)}
+                let cancelAction = UIAlertAction(title: "Annuler", style: .cancel) { (action) in alert.dismiss(animated: true)}
+                
+                alert.addAction(seeAction)
+                alert.addAction(modifyAction)
+                alert.addAction(cancelAction)
+                
+                self.present(alert, animated: true)
+            }
         }
     }
     
@@ -740,7 +806,11 @@ extension AjoutCommerceVC {
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "videoCell", for: indexPath) as! VideoCell
-            cell.videoPreview.image = self.thumbnailArray[self.videoSelectedRow]
+            if self.thumbnailArray.count == 0 {
+                cell.videoPreview.image = UIImage()
+            } else {
+                cell.videoPreview.image = self.thumbnailArray[self.videoSelectedRow]
+            }
             return cell
         } else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categorieCell", for: indexPath) as! SelectionCategorieTVCell

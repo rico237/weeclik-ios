@@ -38,6 +38,16 @@
                ReferencedContainer = "container:WeeClik.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1FA8EFF422D0E12400DCD52E"
+               BuildableName = "WeeClikUnitTests.xctest"
+               BlueprintName = "WeeClikUnitTests"
+               ReferencedContainer = "container:WeeClik.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

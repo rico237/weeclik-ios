@@ -46,12 +46,12 @@ class HelperAndKeys {
     }
     
     static func getServerURL() -> String{
+//        return "http://172.20.10.4:1337/parse" // Localhost partage de connexion iphone 7+
+//        return "http://192.168.1.30:1337/parse" // Localhost wifi maison
         return "https://weeclik-server.herokuapp.com/parse"
         #if DEBUG
         return "https://weeclik-server-dev.herokuapp.com/parse"
         #endif
-        
-        
     }
     
     static func getServerAppId() -> String{
@@ -146,6 +146,8 @@ class HelperAndKeys {
             return UIImage(named:"Distribution")!
         case "Hôtellerie":
             return UIImage(named:"Hotellerie")!
+        case "Humanitaire":
+            return UIImage(named: "Humanitaire")!
         case "Immobilier":
             return UIImage(named:"Immobilier")!
         case "Informatique":
@@ -289,7 +291,7 @@ class HelperAndKeys {
     }
     
     static func getListOfCategories() -> [String]{
-        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme", "Autre"]
+        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie", "Humanitaire","Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme", "Autre"]
     }
     
     /// Has safe area

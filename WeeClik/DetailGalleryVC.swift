@@ -200,10 +200,7 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
             // let v = videoFile.getDataStreamInBackground()
             
             if let url = URL(string: videoFile.url!) {
-                let player = AVPlayer(url: ParseHelper.rewriteParseURLForVideos(forURL: url))
-                let playerViewController = AVPlayerViewController()
-                playerViewController.player = player
-                present(playerViewController, animated: true) {player.play()}
+                ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
             } else {
                 HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo", title: "Erreur de chargement", viewController: self)
             }
