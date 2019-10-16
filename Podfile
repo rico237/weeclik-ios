@@ -31,8 +31,6 @@ def projectPods
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'
-    # UIAlert with progress utilities
-    pod 'SVProgressHUD', '~> 2.1'
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 5.0.0-beta.6'
@@ -110,7 +108,7 @@ def projectPods
     ################################
     ################################
     #                              #
-    #     OBSELETE / A Chnager     #
+    #     OBSELETE / A Changer     #
     #                              #
     ################################
     ################################
@@ -118,15 +116,8 @@ def projectPods
     # Routing management
     pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
     
-    
-    ################################
-    ################################
-    #                              #
-    #         A supprimer          #
-    #                              #
-    ################################
-    ################################
-    
+    # UIAlert with progress utilities
+    pod 'SVProgressHUD', '~> 2.1' #Replace with IHProgressHUD (https://github.com/Swiftify-Corp/IHProgressHUD)
     
     
     ################################
@@ -137,12 +128,15 @@ def projectPods
     ################################
     ################################
     
+    # Better forms (création de nouveau commerce)
+    # pod 'Eureka'
+    
     # Keyboard avoiding in swift #https://github.com/a2/KeyboardAvoiding    
     
     # Quand 0 objets sont retournés par le serveur #https://github.com/alberdev/EmptyStateKit
     #pod 'EmptyStateKit'
     
-    # ROUTING for many apps # + https://github.com/freshOS/Router
+    # ROUTING for many apps # https://github.com/freshOS/Router
     #pod 'Appz'
     
     # Faire un tuto d'utilisation weeclik
@@ -202,13 +196,7 @@ def projectPods
     #pod 'RAReorderableLayout', '~> 0.6'
     # Bouttons de chargement (avec progres)
     #pod 'CRNetworkButton', '~> 1.0'
-    
-    
-    
-    ###-----------?????????----------------##
-    
-    # Gradient
-    #pod 'RMGradientView', :git => 'https://github.com/sleepwalkerfx/RMGradientView.git'
+
 end
 
 target 'WeeClik' do
