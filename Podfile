@@ -110,7 +110,7 @@ def projectPods
     ################################
     ################################
     #                              #
-    #     OBSELETE / A Chnager     #
+    #     OBSELETE / A Changer     #
     #                              #
     ################################
     ################################
@@ -122,27 +122,20 @@ def projectPods
     ################################
     ################################
     #                              #
-    #         A supprimer          #
-    #                              #
-    ################################
-    ################################
-    
-    
-    
-    ################################
-    ################################
-    #                              #
     #  UNUSED OR IN NEXT FEATURE   #
     #                              #
     ################################
     ################################
+    
+    # Better forms (création de nouveau commerce)
+    # pod 'Eureka'
     
     # Keyboard avoiding in swift #https://github.com/a2/KeyboardAvoiding    
     
     # Quand 0 objets sont retournés par le serveur #https://github.com/alberdev/EmptyStateKit
     #pod 'EmptyStateKit'
     
-    # ROUTING for many apps # + https://github.com/freshOS/Router
+    # ROUTING for many apps # https://github.com/freshOS/Router
     #pod 'Appz'
     
     # Faire un tuto d'utilisation weeclik
@@ -202,13 +195,7 @@ def projectPods
     #pod 'RAReorderableLayout', '~> 0.6'
     # Bouttons de chargement (avec progres)
     #pod 'CRNetworkButton', '~> 1.0'
-    
-    
-    
-    ###-----------?????????----------------##
-    
-    # Gradient
-    #pod 'RMGradientView', :git => 'https://github.com/sleepwalkerfx/RMGradientView.git'
+
 end
 
 target 'WeeClik' do
