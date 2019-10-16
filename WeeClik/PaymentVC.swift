@@ -270,25 +270,27 @@ class PaymentVC: UIViewController {
     
     func saveStatForPurchase(forUser user: PFUser, andCommerce commerce: PFObject){
         
-        // TODO: rendre asynchrone (findObjects in background)
-        
         let stat            = PFObject(className: "StatsPurchase")
         stat["user"]        = user
         stat["commerce"]    = commerce
         
         if let queryProduct = PFProduct.query() {
             queryProduct.whereKey("productIdentifier", equalTo: self.purchasedProductID)
-            
-            if let product = try? queryProduct.findObjects().last as? PFProduct {
-                stat["typeAbonnement"]  = product
-                product.incrementKey("purchased")
-                product.saveInBackground { (success, error) in
-                    if let error = error {
-                        print("Error function retrieve PFProduct - func saveStatForPurchase")
-                        ParseErrorCodeHandler.handleUnknownError(error: error)
+            queryProduct.getFirstObjectInBackground(block: { (purchaseProduct, error) in
+                if let purchaseProduct = purchaseProduct {
+                    stat["typeAbonnement"]  = purchaseProduct
+                    purchaseProduct.incrementKey("purchased")
+                    purchaseProduct.saveInBackground { (success, error) in
+                        if let error = error {
+                            print("Error function retrieve PFProduct - func saveStatForPurchase")
+                            ParseErrorCodeHandler.handleUnknownError(error: error)
+                        }
                     }
+                } else if let error = error {
+                    print("Error function retrieve PFProduct - func saveStatForPurchase")
+                    ParseErrorCodeHandler.handleUnknownError(error: error)
                 }
-            }
+            })
         }
         
         stat.saveInBackground { (success, error) in

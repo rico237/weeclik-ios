@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Crashlytics
 
 class ParseErrorCodeHandler {
     
@@ -20,6 +21,8 @@ class ParseErrorCodeHandler {
         if feedBack {
             HelperAndKeys.showNotification(type: "E" , title: "Erreur", message: error.localizedDescription, delay: 3)
         }
+        
+        Crashlytics.sharedInstance().recordError(error)
         
         print("Erreur Inconnu :\n\tCode : \(error.code)\n\tDomain : \(error.domain)\n\tLocalizedDescription : \(error.localizedDescription)")
         print("Envoi d'un mail aux admins a tester")

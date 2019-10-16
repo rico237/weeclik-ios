@@ -18,54 +18,47 @@ class ChangeInfosVC: UIViewController {
     var isPro = false
     var currentUser = PFUser.current()
     var selectedData = Data()
-    var fromCloud = false
+    var fromCloud = false               // ???
     var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
+    var didSelectNewPhoto = false       // Indicateur de séléction d'une nouvelle photo
     
+    @IBOutlet weak var imageProfilContainerView: UIView!
+    @IBOutlet var profilPictureImageView: UIImageView!
     @IBOutlet weak var nomPrenomTF: FormTextField!
     @IBOutlet weak var mailTF: FormTextField!
-    @IBOutlet weak var profilPicture: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.profilPicture.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+        SVProgressHUD.setHapticsEnabled(true)
+        SVProgressHUD.setDefaultMaskType(.black)
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.setMinimumDismissTimeInterval(1.5)
+        
+        self.profilPictureImageView.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveProfilInformations))
         mailTF.isEnabled = false
         mailTF.isUserInteractionEnabled = false
     }
     
     func updateProfilPic(forUser user: PFUser){
+        guard profilPictureImageView != nil else {return}
         // Regarde si une image de profil a été chargé
         // sinon si une image est lié via facebook
         // Sinon on affiche l'image de base weeclik
-        if let profilFile = user["profilPicFile"] as? PFFileObject {
-            if let url = profilFile.url {
-                if url != "" {
-                    self.userProfilePicURL = url
-                }
-            }
-        } else if let profilPicURL = user["profilePictureURL"] as? String {
-            if profilPicURL != "" {
+        
+        if !didSelectNewPhoto {
+            // Load photo from cloud
+            if let profilFile = user["profilPicFile"] as? PFFileObject, let url = profilFile.url, url != "" {
+                self.userProfilePicURL = url
+            } else if let profilPicURL = user["profilePictureURL"] as? String, profilPicURL != "" {
                 self.userProfilePicURL = profilPicURL
             }
-        }
-        
-        if self.profilPicture != nil {
-            
-            self.profilPicture.layer.borderColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00).cgColor
-            self.profilPicture.clipsToBounds = true
-            
             if self.userProfilePicURL != "" {
                 let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-                self.profilPicture.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload , completed: nil)
-                self.profilPicture.layer.cornerRadius = self.profilPicture.frame.size.width / 2
-                self.profilPicture.layer.borderWidth = 3
-                self.profilPicture.layer.masksToBounds = true
+                self.profilPictureImageView.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload , completed: nil)
             } else {
-                self.profilPicture.layer.cornerRadius = 0
-                self.profilPicture.layer.borderWidth = 0
-                self.profilPicture.layer.masksToBounds = false
-                self.profilPicture.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+                self.profilPictureImageView.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
             }
         }
     }
@@ -75,38 +68,51 @@ class ChangeInfosVC: UIViewController {
         currentUser = PFUser.current()
         nomPrenomTF.text = currentUser?["name"] as? String
         mailTF.text = currentUser?.email!
-        self.updateProfilPic(forUser: currentUser!)
+        updateViewFrame()
+        updateProfilPic(forUser: currentUser!)
     }
     
-    @objc func saveProfilInformations(){
+    func updateViewFrame() {
+        guard profilPictureImageView != nil else {return}
+        imageProfilContainerView.layer.borderColor = isPro ? UIColor(red:0.86, green:0.33, blue:0.34, alpha:1.00).cgColor : UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00).cgColor 
+        imageProfilContainerView.clipsToBounds = true
+        imageProfilContainerView.layer.cornerRadius = self.imageProfilContainerView.frame.size.width / 2
+        imageProfilContainerView.layer.masksToBounds = true
+        imageProfilContainerView.layer.borderWidth = userProfilePicURL != "" ? 3 : 3
+    }
+    
+    @objc func saveProfilInformations() {
         currentUser!["name"] = nomPrenomTF.text
         //        TODO: Pouvoir véritablement changer l'adresse email de l'utilisateur
         //        currentUser?.email = mailTF.text
         
         if fromCloud == false {
-            selectedData = self.profilPicture.image!.jpegData(compressionQuality: 0.7)!
+            selectedData = profilPictureImageView.image!.jpegData(compressionQuality: 0.7)!
         }
         
         let profilPic = PFFileObject(name: "image_de_profil-"+(currentUser?.objectId)!, data: selectedData)
         currentUser!["profilPicFile"] = profilPic
-        currentUser?.saveInBackground()
-        
-        let alert = UIAlertController(title: "Modification enregistré", message: "Vos informations ont été changé avec succès", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
-            self.navigationController?.popViewController(animated: true)
+        profilPic?.saveInBackground({ (success, error) in
+            if let error = error {
+                ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false)
+                SVProgressHUD.showError(withStatus: "Erreur dans la modification de votre profil")
+            } else if success {
+                self.currentUser?.saveInBackground()
+                SVProgressHUD.showSuccess(withStatus: "Informations changés avec succès")
+                //self.navigationController?.popViewController(animated: true)
+            }
+        }, progressBlock: { (progress) in
+            SVProgressHUD.showProgress(Float(progress)/100, status:"Envoi de votre photo")
         })
-        alert.addAction(action)
-        self.present(alert, animated: true)
     }
     
-    @IBAction func changeProfilPic(_ sender: Any) {
-        self.showSelection()
-    }
+    @IBAction func changeProfilPic(_ sender: Any) {showSelection()}
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mdpChange" {
             let vc = segue.destination as! MotDePasseVC
             vc.isPro = self.isPro
+            didSelectNewPhoto = false
         }
     }
 }
@@ -132,16 +138,19 @@ extension ChangeInfosVC : TLPhotosPickerViewControllerDelegate {
     
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
         if withTLPHAssets.count != 0 {
+            didSelectNewPhoto = true
             let asset = withTLPHAssets[0]
             if asset.type == .photo || asset.type == .livePhoto {
                 if asset.fullResolutionImage == nil {
                     fromCloud = true
-                    self.getImage(phasset: asset.phAsset)
+                    getImage(phasset: asset.phAsset)
                 } else {
                     fromCloud = false
-                    self.profilPicture.image = asset.fullResolutionImage
+                    profilPictureImageView.image = asset.fullResolutionImage
                 }
             }
+        } else {
+            didSelectNewPhoto = false
         }
     }
     
@@ -159,7 +168,7 @@ extension ChangeInfosVC : TLPhotosPickerViewControllerDelegate {
             _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
                 if let data = imageData,let _ = info {
                     self.selectedData = data
-                    self.profilPicture.image = UIImage(data: data)
+                    self.profilPictureImageView.image = UIImage(data: data)
                 }
             }
         }

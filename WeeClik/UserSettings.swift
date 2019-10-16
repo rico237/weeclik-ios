@@ -29,9 +29,7 @@ class UserSettings {
   
   // MARK: - Properties
   static let shared = UserSettings()
-  
-  init() {
-  }
+  private init() {}
   
   public var expirationDate: Date? {
     set {

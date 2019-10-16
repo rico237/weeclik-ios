@@ -10,35 +10,8 @@ import Foundation
 import UIKit
 import Parse
 
-public enum StatutType: Int {
-    case pending = 0,
-    paid = 1,
-    canceled = 2,
-    error = 3,
-    unknown = 4
-    
-    func label() -> String {
-        switch self {
-        case .paid :
-            return "En ligne"
-        case .pending :
-            return "Hors ligne - en attente de paiement"
-        case .canceled :
-            return "Hors ligne - paiement annulé"
-        case .error :
-            return "Erreur lors du paiement ou du renouvellement"
-        case .unknown :
-            return "Statut inconnu"
-        }
-    }
-    
-    var description: String {
-        get { return label() }
-    }
-}
-
 @objc(Commerce)
-public class Commerce: NSObject , NSCoding {
+public class Commerce: NSObject, NSCoding {
     
     static let PurchaseNotification = "WeeclikProductsPurchaseNotification"
     
@@ -138,6 +111,14 @@ public class Commerce: NSObject , NSCoding {
         
         if fromBaas {
             let quer = PFQuery(className: "Commerce")
+//            quer.getFirstObjectInBackground { (objectP, error) in
+//                if let error = error {
+//                    print("func getPFObject(objectId: String, fromBaas: Bool) -> PFObject \n\tErreur lors de la création d'object Commerce : \(error.localizedDescription)")
+//                } else if let objectP = objectP {
+//                    object = objectP
+//                    // TODO: PAS BON !!!!!!!!!! Le thread background fait que l'objet retourné sera toujours nul
+//                }
+//            }
             quer.whereKey("objectId", equalTo: objectId)
             do {
                 object = try quer.getFirstObject()
@@ -160,10 +141,6 @@ public class Commerce: NSObject , NSCoding {
             object["owner"] = owner
             return object
         }
-    }
-    
-    func saveAll(){
-        
     }
     
     func saveLocation(lat: Double, long: Double){
@@ -300,5 +277,32 @@ public class Commerce: NSObject , NSCoding {
         if let created = aDecoder.decodeObject(forKey: "createdAtComm"){self.createdAt = created as? Date}
         if let updated = aDecoder.decodeObject(forKey: "updatedAtComm"){self.updatedAt = updated as? Date}
         if let ownerP = aDecoder.decodeObject(forKey: "owner"){self.owner = ownerP as? PFUser}
+    }
+}
+
+public enum StatutType: Int {
+    case pending = 0,
+    paid = 1,
+    canceled = 2,
+    error = 3,
+    unknown = 4
+    
+    func label() -> String {
+        switch self {
+        case .paid :
+            return "En ligne"
+        case .pending :
+            return "Hors ligne - en attente de paiement"
+        case .canceled :
+            return "Hors ligne - paiement annulé"
+        case .error :
+            return "Erreur lors du paiement ou du renouvellement"
+        case .unknown :
+            return "Statut inconnu"
+        }
+    }
+    
+    var description: String {
+        get { return label() }
     }
 }

@@ -564,9 +564,9 @@ import UIKit
     // MARK: - Handle keyboard
     
     func registerKeyboardEvents() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(ZAlertView.keyboardDidShow(_:)), name:NSNotification.Name.UIResponder.keyboardDidShowNotification, object: nil)
-//        
-//        NotificationCenter.default.addObserver(self, selector: #selector(ZAlertView.keyboardDidHide(_:)), name:NSNotification.Name.UIResponder.keyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ZAlertView.keyboardDidShow(_:)), name:UIResponder.keyboardDidShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ZAlertView.keyboardDidHide(_:)), name:UIResponder.keyboardDidHideNotification, object: nil)
     }
     
     @objc func keyboardDidShow(_ notification: Notification) {

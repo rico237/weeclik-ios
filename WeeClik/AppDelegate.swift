@@ -10,40 +10,29 @@ import UIKit
 import Parse
 import FBSDKCoreKit
 import Compass
-import Contacts
-import ContactsUI
-import SwiftMultiSelect
 import Firebase
 import SwiftyStoreKit
-
-#if DEBUG
-import DBDebugToolkit
-#endif
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var postLoginRouter = Router()
-    
-    //Contacts store
-    public static var contactStore  = CNContactStore()
 
+    // MARK: Lifecycle functions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        #if DEBUG
-        DBDebugToolkit.setup()
-        #endif
-        
+        // Server conf (bdd + storage + auth)
         parseConfiguration()
+        // Navigation bar & UI conf
         globalUiConfiguration()
+        // Firebase conf = Analytics + Performance
         firebaseConfiguration()
+        // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
-        
+        // Facebook conf
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
-        
+        // External URL Routing to commerce detail
         setupRouting()
 
         return true
@@ -58,11 +47,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
-    func firebaseConfiguration(){
+    func applicationWillResignActive(_ application: UIApplication) {
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        AppEvents.activateApp()
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+}
+
+// MARK: Libs/Plugins init/config.
+extension AppDelegate {
+    func firebaseConfiguration() {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
     }
-    
+        
     func parseConfiguration(){
         let configuration = ParseClientConfiguration {
             $0.applicationId = HelperAndKeys.getServerAppId()
@@ -101,6 +116,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
+}
+
+// MARK: UI Tests Confs
+extension AppDelegate {
+    func testUIConfiguration(){
+        var arguments = ProcessInfo.processInfo.arguments
+        arguments.removeFirst()
+        print("App launching with the following arguments: \(arguments)")
+        
+        // Always clear the defaults first
+        if arguments.contains("ResetDefaults") {
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            UserDefaults.standard.synchronize()
+        }
+        
+        for argument in arguments {
+            switch argument {
+            case "NoAnimations":
+                UIView.setAnimationsEnabled(false)
+            case "UserHasRegistered":
+                PFUser.logInWithUsername(inBackground: "toto@toto.com", password: "toto") { (user, error) in
+                    if let user = user {print( "User \(user) is logged" )}
+                }
+            default:
+                break
+            }
+        }
+    }
+}
+
+// MARK: Customization functions
+extension AppDelegate {
+    class func getAppDelegate() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
     
     func globalUiConfiguration(){
         UINavigationBar.appearance().barTintColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
@@ -117,157 +167,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.font : UIFont(name: "BebasNeue", size: 21.0) as Any
         ]
     }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        AppEvents.activateApp()
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-
 }
 
-extension AppDelegate {
-    // Contacts functions
-    
-    class func getAppDelegate() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-    
-    /// Function to request access for PhoneBook
-    ///
-    /// - Parameter completionHandler: completionHandler description
-    class func requestForAccess(_ completionHandler: @escaping (_ accessGranted: Bool) -> Void) {
-        
-        let authorizationStatus = CNContactStore.authorizationStatus(for: CNEntityType.contacts)
-        
-        switch authorizationStatus {
-        case .authorized:
-            completionHandler(true)
-            
-        case .denied, .notDetermined:
-            self.contactStore.requestAccess(for: CNEntityType.contacts, completionHandler: { (access, accessError) -> Void in
-                if access {
-                    completionHandler(access)
-                }
-                else {
-                    if authorizationStatus == CNAuthorizationStatus.denied {
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            print("\(accessError!.localizedDescription)\n\nPlease allow the app to access your contacts through the Settings.")
-                        })
-                    }
-                }
-            })
-            
-        default:
-            completionHandler(false)
-        }
-    }
-    
-    
-    /// Function to get contacts from device
-    ///
-    /// - Parameters:
-    ///   - keys: array of keys to get
-    ///   - completionHandler: callback function, contains contacts array as parameter
-    public class func getContacts(_ keys:[CNKeyDescriptor] = [CNContactGivenNameKey as CNKeyDescriptor, CNContactFamilyNameKey as CNKeyDescriptor, CNContactEmailAddressesKey as CNKeyDescriptor, CNContactOrganizationNameKey as CNKeyDescriptor, CNContactPhoneNumbersKey as CNKeyDescriptor, CNContactViewController.descriptorForRequiredKeys()],completionHandler: @escaping (_ success:Bool, _ contacts: [SwiftMultiSelectItem]?) -> Void){
-        
-        self.requestForAccess { (accessGranted) -> Void in
-            if accessGranted {
-                
-                var contactsArray = [SwiftMultiSelectItem]()
-                
-                let contactFetchRequest = CNContactFetchRequest(keysToFetch: self.allowedContactKeys())
-                
-                do {
-                    var row = 0
-                    try self.contactStore.enumerateContacts(with: contactFetchRequest, usingBlock: { (contact, stop) -> Void in
-                        
-                        var username    = "\(contact.givenName) \(contact.familyName)"
-                        var companyName = contact.organizationName
-                        
-                        if username.trimmingCharacters(in: .whitespacesAndNewlines) == "" && companyName != ""{
-                            username        = companyName
-                            companyName     = ""
-                        }
-                        
-                        let item_contact = SwiftMultiSelectItem(row: row, title: username, description: companyName, image: nil, imageURL: nil, color: nil, userInfo: contact)
-                        contactsArray.append(item_contact)
-                        
-                        row += 1
-                        
-                    })
-                    completionHandler(true, contactsArray)
-                }
-                    
-                    //Catching exception as enumerateContactsWithFetchRequest can throw errors
-                catch let error as NSError {
-                    
-                    print(error.localizedDescription)
-                    
-                }
-                
-            }else{
-                completionHandler(false, nil)
-            }
-        }
-        
-    }
-    /// Get allowed keys
-    ///
-    /// - Returns: array
-    class func allowedContactKeys() -> [CNKeyDescriptor]{
-        
-        return [
-            CNContactNamePrefixKey as CNKeyDescriptor,
-            CNContactGivenNameKey as CNKeyDescriptor,
-            CNContactMiddleNameKey as CNKeyDescriptor,
-            CNContactFamilyNameKey as CNKeyDescriptor,
-            CNContactNameSuffixKey as CNKeyDescriptor,
-            //CNContactNicknameKey,
-            //CNContactPhoneticGivenNameKey,
-            //CNContactPhoneticMiddleNameKey,
-            //CNContactPhoneticFamilyNameKey,
-            CNContactOrganizationNameKey as CNKeyDescriptor,
-            //CNContactDepartmentNameKey,
-            //CNContactJobTitleKey,
-            //CNContactBirthdayKey,
-            //CNContactNonGregorianBirthdayKey,
-            //CNContactNoteKey,
-            CNContactImageDataKey as CNKeyDescriptor,
-            CNContactThumbnailImageDataKey as CNKeyDescriptor,
-            CNContactImageDataAvailableKey as CNKeyDescriptor,
-            //CNContactTypeKey,
-            CNContactPhoneNumbersKey as CNKeyDescriptor,
-            CNContactEmailAddressesKey as CNKeyDescriptor,
-            //CNContactPostalAddressesKey,
-            CNContactDatesKey as CNKeyDescriptor,
-            //CNContactUrlAddressesKey,
-            //CNContactRelationsKey,
-            //CNContactSocialProfilesKey,
-            //CNContactInstantMessageAddressesKey
-        ]
-        
-    }
-}
-
+// MARK: Routing functions
 extension AppDelegate {
     func setupRouting() {
         // [1] Register scheme
@@ -284,10 +186,7 @@ extension AppDelegate {
         
         // [4] Do the handling
         Navigator.handle = { [weak self] location in
-            
-            guard let selectedController = self?.window?.visibleViewController else {
-                return
-            }
+            guard let selectedController = self?.window?.visibleViewController else {return}
             
             // [5] Choose the current visible controller
             let currentController = (selectedController as? UINavigationController)?.topViewController
@@ -296,5 +195,32 @@ extension AppDelegate {
             // [6] Navigate
             self?.postLoginRouter.navigate(to: location, from: currentController)
         }
+    }
+}
+
+// MARK: Allow rotation on certain viewControllers
+// https://medium.com/@sunnyleeyun/swift-100-days-project-24-portrait-landscape-how-to-allow-rotate-in-one-vc-d717678301c1
+extension AppDelegate {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let rootViewController = self.topViewControllerWithRootViewController(rootViewController: window?.rootViewController) {
+            if (rootViewController.responds(to: Selector(("canRotate")))) {
+                // Unlock landscape view orientations for this view controller
+                return .allButUpsideDown;
+            }
+        }
+        // Only allow portrait (standard behaviour)
+        return .portrait;
+    }
+    
+    private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
+        guard rootViewController != nil else {return  nil}
+        if (rootViewController.isKind(of: UITabBarController.self)) {
+            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UITabBarController).selectedViewController)
+        } else if (rootViewController.isKind(of: UINavigationController.self)) {
+            return topViewControllerWithRootViewController(rootViewController: (rootViewController as! UINavigationController).visibleViewController)
+        } else if (rootViewController.presentedViewController != nil) {
+            return topViewControllerWithRootViewController(rootViewController: rootViewController.presentedViewController)
+        }
+        return rootViewController
     }
 }

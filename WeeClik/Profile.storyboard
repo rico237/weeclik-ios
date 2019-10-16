@@ -29,7 +29,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_commerce" translatesAutoresizingMaskIntoConstraints="NO" id="PLG-aX-LTL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_commerce" translatesAutoresizingMaskIntoConstraints="NO" id="PLG-aX-LTL">
                                 <rect key="frame" x="142" y="96" width="130" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Mdb-Sr-bN8"/>
@@ -252,7 +252,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circleCorner" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
+                                        <integer key="value" value="0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -638,7 +638,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Nouveau Commerce" id="9hd-rL-jwb">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="r8d-e8-fGC">
+                        <barButtonItem key="leftBarButtonItem" title="Retour" id="r8d-e8-fGC">
                             <connections>
                                 <action selector="cancelAction:" destination="8kB-un-vxW" id="0Q0-FQ-6u3"/>
                             </connections>
@@ -672,22 +672,57 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXf-vp-vsO" customClass="TPKeyboardAvoidingCollectionView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6G9-bM-czy">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5d-AY-K7f">
                                         <rect key="frame" x="142" y="20" width="130" height="130"/>
-                                        <connections>
-                                            <action selector="changeProfilPic:" destination="gWF-Kz-s9f" eventType="touchUpInside" id="7Ba-Fu-Sbc"/>
-                                        </connections>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_utilisateur" translatesAutoresizingMaskIntoConstraints="NO" id="Fgr-UX-6ln">
-                                        <rect key="frame" x="142" y="20" width="130" height="130"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_utilisateur" translatesAutoresizingMaskIntoConstraints="NO" id="Fgr-UX-6ln">
+                                                <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="focusOnFaces" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S6B-g2-nv3">
+                                                <rect key="frame" x="0.0" y="92.5" width="130" height="37.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modifier" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pw6-6E-klM">
+                                                        <rect key="frame" x="0.0" y="4" width="130" height="19.5"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="pw6-6E-klM" firstAttribute="top" secondItem="S6B-g2-nv3" secondAttribute="top" constant="4" id="LQp-Bp-SqU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pw6-6E-klM" secondAttribute="trailing" id="wDr-8x-sfj"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pw6-6E-klM" secondAttribute="bottom" constant="14" id="wLX-2h-Vah"/>
+                                                    <constraint firstItem="pw6-6E-klM" firstAttribute="leading" secondItem="S6B-g2-nv3" secondAttribute="leading" id="zGL-tD-LtJ"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6G9-bM-czy">
+                                                <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                                <connections>
+                                                    <action selector="changeProfilPic:" destination="gWF-Kz-s9f" eventType="touchUpInside" id="7Ba-Fu-Sbc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="130" id="AOF-ft-0zQ"/>
-                                            <constraint firstAttribute="width" secondItem="Fgr-UX-6ln" secondAttribute="height" multiplier="1:1" id="nyj-lS-2Rc"/>
+                                            <constraint firstAttribute="width" constant="130" id="5WF-NI-6pu"/>
+                                            <constraint firstAttribute="trailing" secondItem="Fgr-UX-6ln" secondAttribute="trailing" id="BC7-Lt-czH"/>
+                                            <constraint firstItem="6G9-bM-czy" firstAttribute="leading" secondItem="H5d-AY-K7f" secondAttribute="leading" id="EY8-6f-4w8"/>
+                                            <constraint firstAttribute="bottom" secondItem="6G9-bM-czy" secondAttribute="bottom" id="HCh-F5-veK"/>
+                                            <constraint firstAttribute="height" constant="130" id="Icf-sa-KAn"/>
+                                            <constraint firstAttribute="trailing" secondItem="S6B-g2-nv3" secondAttribute="trailing" id="PDi-LK-Amo"/>
+                                            <constraint firstItem="Fgr-UX-6ln" firstAttribute="top" secondItem="H5d-AY-K7f" secondAttribute="top" id="Zbg-zM-Xhy"/>
+                                            <constraint firstItem="Fgr-UX-6ln" firstAttribute="leading" secondItem="H5d-AY-K7f" secondAttribute="leading" id="aSE-Xw-Iyl"/>
+                                            <constraint firstItem="6G9-bM-czy" firstAttribute="top" secondItem="H5d-AY-K7f" secondAttribute="top" id="bkX-II-CxY"/>
+                                            <constraint firstAttribute="trailing" secondItem="6G9-bM-czy" secondAttribute="trailing" id="cN0-BK-ezP"/>
+                                            <constraint firstAttribute="bottom" secondItem="Fgr-UX-6ln" secondAttribute="bottom" id="ckG-Ck-zIt"/>
+                                            <constraint firstItem="S6B-g2-nv3" firstAttribute="leading" secondItem="H5d-AY-K7f" secondAttribute="leading" id="sGv-58-gSX"/>
+                                            <constraint firstAttribute="bottom" secondItem="S6B-g2-nv3" secondAttribute="bottom" id="xFd-Hj-O5p"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="focusOnFaces" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u49-yt-Rri">
                                         <rect key="frame" x="0.0" y="174" width="414" height="128"/>
                                         <subviews>
@@ -746,18 +781,14 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                 <constraints>
                                     <constraint firstItem="IW8-0T-3pV" firstAttribute="top" secondItem="u49-yt-Rri" secondAttribute="bottom" constant="30" id="0qX-Bm-jeV"/>
                                     <constraint firstItem="IW8-0T-3pV" firstAttribute="leading" secondItem="nXf-vp-vsO" secondAttribute="leading" id="2XF-e9-tMl"/>
-                                    <constraint firstItem="6G9-bM-czy" firstAttribute="leading" secondItem="Fgr-UX-6ln" secondAttribute="leading" id="4AE-oe-r41"/>
-                                    <constraint firstItem="6G9-bM-czy" firstAttribute="bottom" secondItem="Fgr-UX-6ln" secondAttribute="bottom" id="Ebp-2H-I9x"/>
-                                    <constraint firstItem="Fgr-UX-6ln" firstAttribute="centerX" secondItem="nXf-vp-vsO" secondAttribute="centerX" id="Jg6-W3-sRk"/>
                                     <constraint firstItem="u49-yt-Rri" firstAttribute="centerX" secondItem="nXf-vp-vsO" secondAttribute="centerX" id="RF6-FN-xOy"/>
-                                    <constraint firstItem="Fgr-UX-6ln" firstAttribute="top" secondItem="nXf-vp-vsO" secondAttribute="top" constant="20" id="TRf-a1-iNQ"/>
-                                    <constraint firstItem="6G9-bM-czy" firstAttribute="trailing" secondItem="Fgr-UX-6ln" secondAttribute="trailing" id="Y8F-L4-ZSW"/>
-                                    <constraint firstItem="u49-yt-Rri" firstAttribute="top" secondItem="Fgr-UX-6ln" secondAttribute="bottom" constant="24" id="Z64-7T-Xvh"/>
+                                    <constraint firstItem="H5d-AY-K7f" firstAttribute="centerX" secondItem="nXf-vp-vsO" secondAttribute="centerX" id="VQR-KL-svK"/>
+                                    <constraint firstItem="H5d-AY-K7f" firstAttribute="top" secondItem="nXf-vp-vsO" secondAttribute="top" constant="20" id="W92-dx-DLc"/>
+                                    <constraint firstItem="u49-yt-Rri" firstAttribute="top" secondItem="H5d-AY-K7f" secondAttribute="bottom" constant="24" id="lVW-FO-dgq"/>
                                     <constraint firstItem="u49-yt-Rri" firstAttribute="leading" secondItem="nXf-vp-vsO" secondAttribute="leading" id="muX-Ez-z71"/>
                                     <constraint firstAttribute="trailing" secondItem="u49-yt-Rri" secondAttribute="trailing" id="oZe-m3-r0R"/>
                                     <constraint firstAttribute="trailing" secondItem="IW8-0T-3pV" secondAttribute="trailing" id="sGh-BA-mD3"/>
                                     <constraint firstAttribute="bottom" secondItem="IW8-0T-3pV" secondAttribute="bottom" constant="302" id="u3I-q2-Dcq"/>
-                                    <constraint firstItem="6G9-bM-czy" firstAttribute="top" secondItem="Fgr-UX-6ln" secondAttribute="top" id="xjD-c7-eg6"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -771,9 +802,10 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         <viewLayoutGuide key="safeArea" id="SfJ-SZ-3Zq"/>
                     </view>
                     <connections>
+                        <outlet property="imageProfilContainerView" destination="H5d-AY-K7f" id="zxT-AT-JyK"/>
                         <outlet property="mailTF" destination="2Gd-UY-9Fl" id="U9i-5W-1TH"/>
                         <outlet property="nomPrenomTF" destination="lEe-Tk-Gwn" id="0Eb-ZP-uba"/>
-                        <outlet property="profilPicture" destination="Fgr-UX-6ln" id="JOr-Zj-qQj"/>
+                        <outlet property="profilPictureImageView" destination="Fgr-UX-6ln" id="Hdl-G2-AeQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lOU-C0-798" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -791,18 +823,8 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11L-Nc-Az7" customClass="TPKeyboardAvoidingCollectionView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo_utilisateur" translatesAutoresizingMaskIntoConstraints="NO" id="4Pl-s1-T96">
-                                        <rect key="frame" x="142" y="20" width="130" height="130"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="130" id="1PV-9p-6jV"/>
-                                            <constraint firstAttribute="width" secondItem="4Pl-s1-T96" secondAttribute="height" multiplier="1:1" id="oel-bD-PIQ"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="focusOnFaces" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKe-kA-Zp9">
-                                        <rect key="frame" x="0.0" y="174" width="414" height="170"/>
+                                        <rect key="frame" x="0.0" y="100" width="414" height="170"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changer mon mot de passe" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xH-7H-EjH">
                                                 <rect key="frame" x="8" y="0.0" width="398" height="23.5"/>
@@ -846,12 +868,12 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Rn-FU-bFJ">
-                                        <rect key="frame" x="0.0" y="374" width="414" height="48"/>
+                                        <rect key="frame" x="0.0" y="300" width="414" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Px9-eR-Grf"/>
                                         </constraints>
-                                        <state key="normal" title="Réinitialiser mon mot de passe">
+                                        <state key="normal" title="Mot de passe oublié ?">
                                             <color key="titleColor" red="1" green="0.15059609879999999" blue="0.25012321720000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -863,11 +885,9 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                 <constraints>
                                     <constraint firstItem="GKe-kA-Zp9" firstAttribute="centerX" secondItem="11L-Nc-Az7" secondAttribute="centerX" id="30n-ID-5PZ"/>
                                     <constraint firstAttribute="bottom" secondItem="1Rn-FU-bFJ" secondAttribute="bottom" constant="302" id="36n-hz-CTy"/>
-                                    <constraint firstItem="4Pl-s1-T96" firstAttribute="top" secondItem="11L-Nc-Az7" secondAttribute="top" constant="20" id="c0U-sZ-NFP"/>
+                                    <constraint firstItem="GKe-kA-Zp9" firstAttribute="top" secondItem="11L-Nc-Az7" secondAttribute="top" constant="100" id="b5L-jh-JYa"/>
                                     <constraint firstAttribute="trailing" secondItem="1Rn-FU-bFJ" secondAttribute="trailing" id="qqR-6e-kiS"/>
-                                    <constraint firstItem="GKe-kA-Zp9" firstAttribute="top" secondItem="4Pl-s1-T96" secondAttribute="bottom" constant="24" id="qxt-CZ-Zx8"/>
                                     <constraint firstItem="1Rn-FU-bFJ" firstAttribute="leading" secondItem="11L-Nc-Az7" secondAttribute="leading" id="sUi-LM-Ky2"/>
-                                    <constraint firstItem="4Pl-s1-T96" firstAttribute="centerX" secondItem="11L-Nc-Az7" secondAttribute="centerX" id="ugk-Q6-pKK"/>
                                     <constraint firstItem="GKe-kA-Zp9" firstAttribute="leading" secondItem="11L-Nc-Az7" secondAttribute="leading" id="vaV-Zf-LPn"/>
                                     <constraint firstItem="1Rn-FU-bFJ" firstAttribute="top" secondItem="GKe-kA-Zp9" secondAttribute="bottom" constant="30" id="yZ3-SF-vjd"/>
                                     <constraint firstAttribute="trailing" secondItem="GKe-kA-Zp9" secondAttribute="trailing" id="yzc-dM-MCY"/>
@@ -887,7 +907,6 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         <outlet property="actualPasswordTF" destination="oOd-u4-xWZ" id="Liy-vg-NjB"/>
                         <outlet property="confirmPasswordTF" destination="dG2-ms-o07" id="0QF-Ey-yxS"/>
                         <outlet property="newPasswordTF" destination="OWZ-Rz-PDZ" id="zbc-qI-nWt"/>
-                        <outlet property="profilPicture" destination="4Pl-s1-T96" id="ukg-Ci-sPe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sca-4I-rRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1112,7 +1131,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1X-90-KLS">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4vE-Wq-627">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
@@ -1286,7 +1305,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
         <image name="Placeholder_carre" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vHo-LJ-Qj1"/>
+        <segue reference="UVY-Ff-im1"/>
         <segue reference="AJE-VH-nVt"/>
     </inferredMetricsTieBreakers>
 </document>

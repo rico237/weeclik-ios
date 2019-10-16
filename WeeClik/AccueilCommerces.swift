@@ -15,7 +15,7 @@
 
 import UIKit
 import Parse
-import SVProgressHUD
+import SVProgressHUD // FIXME: Replace with this pod : IHProgressHUD + remove from pull to refresh
 import KJNavigationViewAnimation
 import KRLCollectionViewGridLayout
 import SDWebImage
@@ -42,6 +42,7 @@ class AccueilCommerces: UIViewController {
     let defaults                = UserDefaults.standard
     var prefFiltreLocation      = false                 // Savoir si les commerces sont filtrés par location ou partages
     var locationGranted : Bool! = false                 // On a obtenu la position de l'utilisateur
+    var isLoadingCommerces : Bool = false               // si la fonction de chargement des commerces est en cours
     var titleChoose : String!   = "Restauration"        // First category to be loaded
     
     @IBOutlet weak var labelHeaderCategorie: UILabel!
@@ -102,7 +103,7 @@ class AccueilCommerces: UIViewController {
         if #available(iOS 11.0, *) {self.collectionView.contentInsetAdjustmentBehavior = .always}
         
         // Init of retracting header (header image)
-        viewKJNavigation.topbarMinimumSpace = .custom(height: 200)
+        viewKJNavigation.topbarMinimumSpace = .custom(height: 250)
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
         
         // Choisir le filtrage par defaut (Position ou partage)
@@ -154,7 +155,11 @@ class AccueilCommerces: UIViewController {
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
         print("refresh reload")
-        self.queryObjectsFromDB(typeCategorie: self.titleChoose)
+        self.refreshControl.beginRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+            self.refreshControl.endRefreshing()
+        })
+//        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
     }
 }
 
@@ -172,78 +177,52 @@ extension AccueilCommerces {
     }
     
     func queryObjectsFromDB(typeCategorie : String, withHUD showHud: Bool = true){
-        // TODO: URGENT -> AMELIORER LA QUERY COMMERCES (mise à jour de la poisition est faite après le fetch des commerce, ce qui veut dire qu'il faut refresh deux fois pour avoir les bons commerces
-        print("Ftech with show hud \(showHud)")
-//        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
+        // Chargement des commerces
+        print("Fetch category : \(typeCategorie) with show hud \(showHud)")
+        //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         self.refreshControl.beginRefreshing()
-        
-        NetworkManager.isReachable { (networkInstance) in
-            if showHud {
-                SVProgressHUD.setDefaultMaskType(.clear)
-                SVProgressHUD.setDefaultStyle(.dark)
-                SVProgressHUD.show(withStatus: "Chargement en cours")
+        self.commerces = [Commerce]()
+        if showHud {
+            SVProgressHUD.setDefaultMaskType(.clear)
+            SVProgressHUD.setDefaultStyle(.dark)
+            SVProgressHUD.show(withStatus: "Chargement en cours")
+        }
+        // FIXME: Can't reload data for now, query.findObjectsInBackground completion never gets fired second time
+        // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
+        if self.prefFiltreLocation {
+            self.locationManager.startUpdatingLocation()
+            ParseService.shared.locationPrefsCommerces(withType: typeCategorie, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
+                self.globalObjects(commerces: commerces, error: error, withHud: showHud)
             }
-            
-            self.commerces = []
-            let query = PFQuery(className: "Commerce")
-            query.whereKey("typeCommerce", equalTo: typeCategorie)
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-            query.whereKey("statutCommerce", equalTo: 1)
-            query.whereKey("brouillon", equalTo: false)
-            
-            
-            if self.prefFiltreLocation {
-                self.locationManager.startUpdatingLocation()
-                print("Query objects")
-                let userPosition = PFGeoPoint(location: self.latestLocationForQuery)
-                query.whereKey("position", nearGeoPoint: userPosition)
-                query.order(byAscending: "position")
-            } else {
-                query.order(byDescending: "nombrePartages")
-            }
-            query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
-                
-                if let error = error {
-                    if error.code == PFErrorCode.errorInvalidSessionToken.rawValue {
-                        PFUser.logOut()
-                        self.chooseCategorie(itemChoose: self.titleChoose)
-                    }
-                    
-                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false)
-                    
-                    if showHud {
-                        SVProgressHUD.showError(withStatus: ParseErrorCodeHandler.handleParseError(error: error))
-                        SVProgressHUD.dismiss(withDelay: 2)
-                    }
-                } else if let objects = objects {
-                    for obj in objects {
-                        let commerce = Commerce(parseObject: obj)
-                        self.commerces.append(commerce)
-                    }
-                    
-                    // tri du tableau par position
-                    if self.prefFiltreLocation {
-                        let sorteCommerce = self.commerces.sorted(by: {
-                            PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $0.location) < PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: $1.location)
-                        })
-                        self.commerces = sorteCommerce
-                    }
-                    
-                    if showHud {
-                        SVProgressHUD.dismiss(withDelay: 1)
-                    }
-                    
-                }
-//                print("Did finish loading commerces")
-                self.collectionView.reloadData()
+        } else {
+            ParseService.shared.sharingPrefsCommerces(withType: typeCategorie) { (commerces, error) in
+                print("begin completion")
+                self.globalObjects(commerces: commerces, error: error, withHud: showHud)
+                print("end completion")
             }
         }
-        
-        NetworkManager.isUnreachable { (networkInstance) in
-            // TODO: ajouter un message / illustration si pas de connection
-            print("No connection")
+    }
+    
+    func globalObjects(commerces : [Commerce]?, error: Error?, withHud hud:Bool) {
+        print("5.a")
+        if let commerces = commerces {
+            print("5.b")
+            self.commerces = commerces
+            print("5.c")
+        } else if let error = error {
+            print("5.b error")
+            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+            print("5.c error")
         }
-        
+        print("5.d")
+        DispatchQueue.global(qos: .default).async(execute: {
+            // time-consuming task
+            print("5.e")
+            if hud {SVProgressHUD.dismiss(withDelay: 1)}
+            print("5.f")
+        })
+        self.collectionView.reloadData()
+        self.isLoadingCommerces = false
         self.refreshControl.endRefreshing()
     }
 }
@@ -265,7 +244,6 @@ extension AccueilCommerces {
         }
     }
     @IBAction func showProfilPage(_ sender: Any){
-        // routeConnecte
         self.performSegue(withIdentifier: "routeConnecte", sender: self)
     }
     
@@ -317,38 +295,46 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         }
         // Commerce cells
         else {
-            collectionView.register(UINib(nibName: "CommerceCVC", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! CommerceCVC
-            let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
-            let comm = self.commerces[indexPath.row]
             
-            // Ajout du contenu (valeures)
-            cell.nomCommerce.text = comm.nom
-            cell.nombrePartageLabel.text = String(comm.partages)
-            let distanceFromUser = self.calculDistanceEntreDeuxPoints(commerce: comm)
-            comm.distanceFromUser = distanceFromUser
-            
-            cell.imageDistance.tintColor = textColor
-            
-            if self.locationGranted {
-                // Autorisation de position
-                cell.distanceLabel.text = comm.distanceFromUser == "" ? "--" : comm.distanceFromUser
+            if ((self.commerces[safe: indexPath.row]) != nil) {
+                // Dans l'index
+                
+                collectionView.register(UINib(nibName: "CommerceCVC", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! CommerceCVC
+                let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
+                
+                let comm = self.commerces[indexPath.row]
+                // Ajout du contenu (valeures)
+                cell.nomCommerce.text = comm.nom
+                cell.nombrePartageLabel.text = String(comm.partages)
+                let distanceFromUser = self.calculDistanceEntreDeuxPoints(commerce: comm)
+                comm.distanceFromUser = distanceFromUser
+                
+                cell.imageDistance.tintColor = textColor
+                
+                if self.locationGranted {
+                    // Autorisation de position
+                    cell.distanceLabel.text = comm.distanceFromUser == "" ? "--" : comm.distanceFromUser
+                } else {
+                    cell.distanceLabel.text = "--"
+                }
+                
+                // Ajout de couleur
+                cell.nomCommerce.textColor = textColor
+                cell.nombrePartageLabel.textColor = textColor
+                cell.distanceLabel.textColor = textColor
+                
+                if let imageThumbnailFile = comm.thumbnail {
+                    cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
+                } else {
+                    cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
+                }
+                
+                return cell
             } else {
-                cell.distanceLabel.text = "--"
+                // En dehors de l'index
+                return UICollectionViewCell()
             }
-            
-            // Ajout de couleur
-            cell.nomCommerce.textColor = textColor
-            cell.nombrePartageLabel.textColor = textColor
-            cell.distanceLabel.textColor = textColor
-            
-            if let imageThumbnailFile = comm.thumbnail {
-                cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-            } else {
-                cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
-            }
-            
-            return cell
         }
     }
 }
@@ -378,7 +364,7 @@ extension AccueilCommerces : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
-        print("Did update position : \(locations.last)")
+        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
     }
     
     func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
