@@ -31,8 +31,6 @@ def projectPods
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'
-    # UIAlert with progress utilities
-    pod 'SVProgressHUD', '~> 2.1'
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 5.0.0-beta.6'
@@ -117,6 +115,9 @@ def projectPods
     
     # Routing management
     pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
+    
+    # UIAlert with progress utilities
+    pod 'SVProgressHUD', '~> 2.1' #Replace with IHProgressHUD (https://github.com/Swiftify-Corp/IHProgressHUD)
     
     
     ################################
