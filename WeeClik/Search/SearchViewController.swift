@@ -35,9 +35,10 @@ class SearchViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
         }
     }
     

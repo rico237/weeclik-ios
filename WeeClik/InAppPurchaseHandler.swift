@@ -121,25 +121,23 @@ class InAppPurchaseHandler: NSObject {
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
-    
     // MARK: - FETCH AVAILABLE IAP PRODUCTS
     func fetchAvailableProducts(){
         let set = NSMutableSet()
-        
         let query = PFProduct.query()
-        do {
-            let objectsParse = try query?.findObjects()
-            if let objectsParse = objectsParse {
-                for obj in objectsParse {
+        
+        query?.findObjectsInBackground(block: { (products, error) in
+            if let error = error {
+                ParseErrorCodeHandler.handleUnknownError(error: error)
+            } else if let products = products {
+                for obj in products {
                     let product = obj as! PFProduct
-                    parseProducts.append( product )
+                    self.parseProducts.append( product )
                     set.add(product.productIdentifier!)
                 }
-                delegate?.didFinishFetchAllProductFromParse(products: parseProducts)
+                self.delegate?.didFinishFetchAllProductFromParse(products: self.parseProducts)
             }
-        } catch {
-            print(error)
-        }
+        })
         
         productsRequest = SKProductsRequest(productIdentifiers: set as! Set<String>)
         productsRequest.delegate = self

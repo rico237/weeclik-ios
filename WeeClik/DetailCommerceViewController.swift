@@ -6,8 +6,8 @@
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
-// UP : ouvrir le lien dans l'app et non le navigateur du tel (forcer l'user a rester dans l'application)
-// UP : mettre la description a 500 caractère max
+// TODO: ouvrir le lien dans l'app et non le navigateur du tel (forcer l'user a rester dans l'application)
+// TODO: mettre la description a 500 caractère max
 // TODO: vv fonction de timer pour l'attente de partage qui appele a la fin cette fonction vv
 
 import UIKit
@@ -18,7 +18,6 @@ import MessageUI
 import MapKit
 import LGButton
 import SDWebImage
-import SwiftMultiSelect
 import SwiftDate
 
 class DetailCommerceViewController: UIViewController {
@@ -78,18 +77,15 @@ class DetailCommerceViewController: UIViewController {
             query.whereKey("objectId", equalTo: routeId)
             query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
             
-            do {
-                let objects = try query.findObjects()
-                let comm = objects[0]
-                
-                commerceObject = Commerce(parseObject: comm)
-                
-            } catch {
-                print(error)
+            query.getFirstObjectInBackground { (object, error) in
+                if let obj = object {
+                    self.commerceObject = Commerce(parseObject: obj)
+                    self.tableView.reloadData()
+                } else if let error  = error {
+                    ParseErrorCodeHandler.handleUnknownError(error: error)
+                }
             }
         }
-        
-        self.tableView.reloadData()
     }
     
     func saveCommerceIdInUserDefaults(){
@@ -141,21 +137,13 @@ class DetailCommerceViewController: UIViewController {
             
             let customItem = ShareToGroupsActivity(title: "Partager à un groupe d'amis") { sharedItems in
                 guard let shar = sharedItems as? [String] else {return}
-                
                 self.shrdString = shar
-                
-                SwiftMultiSelect.delegate = self
-                
-                Config.doneString = "Valider"
-                Config.viewTitle  = "Création d'un groupe"
-                
-                SwiftMultiSelect.Show(to: self)
             }
             
             
             
-//            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
-            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [])
+            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [customItem])
+//            let activit = UIActivityViewController(activityItems: [str], applicationActivities: [])
             if #available(iOS 11.0, *) {
                 activit.excludedActivityTypes = [
                     .markupAsPDF, .postToVimeo, .postToWeibo, .postToFlickr, .postToTencentWeibo,
@@ -183,8 +171,9 @@ class DetailCommerceViewController: UIViewController {
                 let autorized : [String] = [
                     UIActivity.ActivityType.mail.rawValue, UIActivity.ActivityType.message.rawValue,
                     UIActivity.ActivityType.postToTwitter.rawValue, UIActivity.ActivityType.postToFacebook.rawValue,
-                    "net.whatsapp.WhatsApp.ShareExtension", "com.google.Gmail.ShareExtension"
+                    "net.whatsapp.WhatsApp.ShareExtension", "com.google.Gmail.ShareExtension", "com.ringosoftware.weeclik.activity"
                 ]
+                print(activityType!.rawValue)
                 
                 if refused.contains(activityType!.rawValue) {
                     self.showAlertWithMessageWithMail(
@@ -195,17 +184,19 @@ class DetailCommerceViewController: UIViewController {
                     return
                 }
                 else if autorized.contains(activityType!.rawValue) {
-                    self.saveCommerceIdInUserDefaults()
+//                    self.saveCommerceIdInUserDefaults()
+                    let vc = UIStoryboard(name: "Partage", bundle: nil).instantiateViewController(withIdentifier: "ListeDesFavorisVCNav") as! UINavigationController
+                    if let listeVC = vc.children.first as? ListeDesFavorisVC {
+                        listeVC.commerce = self.commerceObject
+                        listeVC.strPartage = str
+                    }
+                    self.present(vc, animated: true, completion: nil)
                 }
                 else {
                     // [1] On envoi un mail pour l'intégration de l'app à Weeclik
                     MailHelper.sendErrorMail(content: "Une application inconnue a été utilisée pour la fonction de partage. \nL'identifiant de l'app : \(activityType.debugDescription)")
                     // [2] On affiche un message d'erreur à l'utilisateur pour une future intégration
                     HelperAndKeys.showAlertWithMessage(theMessage: "Nous ne prenons pas encore cette application pour le partage. Nous ferons au plus vite pour l'ajouter au réseau Weeclik", title: "Application non prise en charge", viewController: self)
-                    
-                    #if DEBUG
-                    print("activity type is: \(String(describing: activityType?.rawValue))")
-                    #endif
                     return
                 }
             }
@@ -325,6 +316,7 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
     }
 }
 
+// MARK: Lifecycle + init function
 extension DetailCommerceViewController{
     
     override func viewDidLoad() {
@@ -410,31 +402,72 @@ extension DetailCommerceViewController{
         // Refresh UI
         self.tableView.reloadData()
         
+        if self.commerceObject.mail == "" || !self.commerceObject.mail.isValidEmail() {
+            mailButton.isEnabled = false
+        } else {
+            mailButton.isEnabled = true
+        }
+        
+        if self.commerceObject.siteWeb == "" || !self.commerceObject.siteWeb.isValidURL() {
+            websiteButton.isEnabled = false
+        } else {
+            websiteButton.isEnabled = true
+        }
+        
+        if self.commerceObject.tel == "" || !self.commerceObject.tel.isValidPhone() {
+            callButton.isEnabled = false
+        } else {
+            callButton.isEnabled = true
+        }
+        
         mailButton.layoutIfNeeded()
         callButton.layoutIfNeeded()
         websiteButton.layoutIfNeeded()
     }
 }
 
-// Actions
+// MARK: Action buttons
 extension DetailCommerceViewController{
     @IBAction func mapAction(_ sender: Any) {
-        if let location = self.commerceObject.location{
+        if let location = self.commerceObject.location {
             HelperAndKeys.openMapForPlace(placeName: self.commerceObject.nom, latitude: location.latitude, longitude: location.longitude)
         } else {
-            HelperAndKeys.openMapForPlace(placeName: self.commerceObject.nom, latitude: 23, longitude: 3)
+            HelperAndKeys.showAlertWithMessage(theMessage: "Erreur de chargement de la position du commerce", title: "Erreur de position", viewController: self)
         }
     }
-    @IBAction func mailAction(_ sender: Any) {sendFeedBackOrMessageViaMail(messageToSend: "", isFeedBackMsg: false, commerceMail: self.commerceObject.mail)}
+    @IBAction func mailAction(_ sender: Any) {
+        if self.commerceObject.mail != "" && self.commerceObject.mail.isValidEmail() {
+            sendFeedBackOrMessageViaMail(messageToSend: "", isFeedBackMsg: false, commerceMail: self.commerceObject.mail)
+        } else {
+            HelperAndKeys.showAlertWithMessage(theMessage: "Erreur de chargement de l'adresse mail du commerce", title: "Mail non valide", viewController: self)
+        }
+    }
     
-    @IBAction func callAction(_ sender: Any) {HelperAndKeys.callNumer(phone: self.commerceObject.tel)}
+    @IBAction func callAction(_ sender: Any) {
+        if self.commerceObject.tel != "" {
+            if self.commerceObject.tel.isValidPhone() {
+                HelperAndKeys.callNumer(phone: self.commerceObject.tel)
+            } else {
+                HelperAndKeys.showAlertWithMessage(theMessage: "Le téléphone du commerçant renseigné ne permet pas de passer d'appel", title: "Téléphone invalide", viewController: self)
+            }
+        } else {
+            HelperAndKeys.showAlertWithMessage(theMessage: "Erreur de chargement du numéro de téléphone du commerce", title: "Téléphone non valide", viewController: self)
+        }
+    }
     
-    @IBAction func webAction(_ sender: Any) {HelperAndKeys.visitWebsite(site: self.commerceObject.siteWeb, controller: self)}
+    @IBAction func webAction(_ sender: Any) {
+        if self.commerceObject.siteWeb != "" && self.commerceObject.siteWeb.isValidURL() {
+            HelperAndKeys.visitWebsite(site: self.commerceObject.siteWeb, controller: self)
+        } else {
+            HelperAndKeys.showAlertWithMessage(theMessage: "Erreur de chargement de la page web du commerce", title: "Site web non valide", viewController: self)
+        }
+    }
     
     @IBAction func shareActionCell(_ sender: Any) {self.shareCommerce()}
 }
 
-extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
+// MARK: Mail & SMS functions
+extension DetailCommerceViewController : MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
     
     func showAlertWithMessageWithMail(theMessage:String, title:String, preComposedBody:String = ""){
         let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
@@ -521,11 +554,7 @@ extension DetailCommerceViewController : MFMailComposeViewControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-}
-
-extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{
-    func messageComposeViewController(_ controller: MFMessageComposeViewController,
-                                      didFinishWith result: MessageComposeResult) {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         switch result {
         case .cancelled:
             print("Ecriture de message annulé")
@@ -542,72 +571,5 @@ extension DetailCommerceViewController : MFMessageComposeViewControllerDelegate{
             print("Unknown result from switch case in Message Compose Delegates")
         }
         controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension DetailCommerceViewController : SwiftMultiSelectDelegate {
-    
-    //MARK: - SwiftMultiSelectDelegate
-    
-    //User write something in searchbar
-    func userDidSearch(searchString: String) {
-//        print("User is looking for: \(searchString)")
-    }
-    
-    //User did unselect an item
-    func swiftMultiSelect(didUnselectItem item: SwiftMultiSelectItem) {
-//        print("row: \(item.title) has been deselected!")
-    }
-    
-    //User did select an item
-    func swiftMultiSelect(didSelectItem item: SwiftMultiSelectItem) {
-//        print("item: \(item.title) has been selected!")
-    }
-    
-    //User did close controller with no selection
-    func didCloseSwiftMultiSelect() {
-//        print("no items selected")
-    }
-    
-    //User completed selection
-    func swiftMultiSelect(didSelectItems items: [SwiftMultiSelectItem]) {
-        var phoneNumbers  = [String]()
-        var emailAdresses = [String]()
-        
-        for item in items{
-            
-            if let userInfo = item.userInfo as? CNContact {
-                
-                for email in userInfo.emailAddresses {
-                    print(email.value)
-                    emailAdresses.append(email.value as String)
-                    break
-                }
-                
-                print("All numbers: \(userInfo.phoneNumbers.count)")
-                
-                for ContctNumVar: CNLabeledValue in userInfo.phoneNumbers
-                {
-//  let label = ContctNumVar.label  // Label : CNLabelPhoneNumberiPhone, CNLabelPhoneNumberMobile, CNLabelPhoneNumberMain
-                    let FulMobNumVar    = ContctNumVar.value
-                    let MccNamVar       = FulMobNumVar.value(forKey: "countryCode") as? String
-                    let MobNumVar       = FulMobNumVar.value(forKey: "digits") as? String
-                    
-                    if let country = MccNamVar {
-                        if country == "fr" {
-                            if let phoneNum = MobNumVar {
-                                print("Append phone number : \(phoneNum)")
-                                phoneNumbers.append(phoneNum)
-                                break
-                            }
-                        }
-                    }
-                    
-                }
-
-            }
-            
-        }
-        
     }
 }

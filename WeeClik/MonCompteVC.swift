@@ -35,19 +35,7 @@ class MonCompteVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: remove (test purpose)
-//        isPro = true
-        
-        isProUpdateUI() // Update liste of commerce for pro users
-    }
-    
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.getBackToHome(_:)))]
-        
         PFUser.current()?.fetchInBackground(block: { (user, error) in
             if let error = error {
                 print("Error catching user infos")
@@ -56,6 +44,12 @@ class MonCompteVC: UIViewController {
                 self.currentUser = user
             }
         })
+    }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         if let current = PFUser.current() {
             self.currentUser = current
@@ -89,36 +83,18 @@ class MonCompteVC: UIViewController {
         // Regarde si une image de profil a été chargé
         // sinon si une image est lié via facebook
         // Sinon on affiche l'image de base weeclik
-        if let profilFile = user["profilPicFile"] as? PFFileObject {
-            if let url = profilFile.url {
-                if url != "" {
-                    self.userProfilePicURL = url
-                }
-            }
-        }
-        else if let profilPicURL = user["profilePictureURL"] as? String {
-            if profilPicURL != "" {
-                self.userProfilePicURL = profilPicURL
-            }
-        }
+        if let profilFile = user["profilPicFile"] as? PFFileObject, let url = profilFile.url, url != "" { userProfilePicURL = url }
+        else if let profilPicURL = user["profilePictureURL"] as? String, profilPicURL != "" { userProfilePicURL = profilPicURL }
         
         if self.imageProfil != nil {
-            
-            self.imageProfil.layer.borderColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00).cgColor
+            self.imageProfil.layer.borderColor = UIColor(red:0.86, green:0.33, blue:0.34, alpha:1.00).cgColor
             self.imageProfil.clipsToBounds = true
-            
-            if self.userProfilePicURL != "" {
-                let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-                self.imageProfil.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload , completed: nil)
-                self.imageProfil.layer.cornerRadius = self.imageProfil.frame.size.width / 2
-                self.imageProfil.layer.borderWidth = 3
-                self.imageProfil.layer.masksToBounds = true
-            } else {
-                self.imageProfil.layer.cornerRadius = 0
-                self.imageProfil.layer.borderWidth = 0
-                self.imageProfil.layer.masksToBounds = false
-                self.imageProfil.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-            }
+            let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+            let updateUI = userProfilePicURL != ""
+            self.imageProfil.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload , completed: nil)
+            self.imageProfil.layer.cornerRadius = updateUI ? self.imageProfil.frame.size.width / 2 : 0
+            self.imageProfil.layer.borderWidth = updateUI ? 3 : 0
+            self.imageProfil.layer.masksToBounds = updateUI ? true : false
         }
     }
     
@@ -306,7 +282,7 @@ extension MonCompteVC {
                 let partages_dats = currentUser["mes_partages_dates"] as! [Date]
                 if let partages = partages {
                     
-                    // TODO: Ameliorer cette auery
+                    // FIXME: Ameliorer cette query
                     let partagesQuery = PFQuery(className: "Commerce")
                     partagesQuery.whereKey("objectId", containedIn: partages)
                     partagesQuery.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 def projectPods
     
@@ -14,9 +14,9 @@ def projectPods
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
     # TODO: Faire un repo clean depuis le vrai git, puis tester pour toutes les platforms, puis faire un PR pour les autres
-    pod 'Parse', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
-    pod 'Parse/UI', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
-    pod 'Parse/FacebookUtils', :git => 'https://github.com/weeclik/Parse-SDK-iOS-OSX.git'
+    pod 'Parse/FacebookUtils'
+    pod 'Parse/TwitterUtils'
+    pod 'Parse/UI'
     
     # Firebase + Performance
     pod 'Firebase/Core'
@@ -99,9 +99,13 @@ def projectPods
     # geocoding and reverse geocoding (Google or apple)
     pod 'LMGeocoderSwift', '~> 1.0.1'
     # debuging Tools
-    pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
+    #pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
     
-    pod 'ZAlertView'
+    pod 'ZAlertView', :git => 'https://github.com/weeclik/ZAlertView.git'
+    # Translation of app
+    pod 'Localize-Swift', '~> 3.0'
+    # Toast for presenting message #needs ios 11 +
+    pod 'Loaf'
     
     ################################
     ################################

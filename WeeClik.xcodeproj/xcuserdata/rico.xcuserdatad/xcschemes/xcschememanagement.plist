@@ -14,7 +14,7 @@
 			<key>orderHint</key>
 			<integer>53</integer>
 		</dict>
-		<key>WeeClik.xcscheme</key>
+		<key>WeeClik.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -23,6 +23,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>53</integer>
+		</dict>
+		<key>WeeClikUITests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>60</integer>
 		</dict>
 		<key>ZE.xcscheme</key>
 		<dict>
@@ -33,6 +38,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>1FA473291F1EE7E400D2A306</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1FB9B2AE226E785E009C3E65</key>
 		<dict>
 			<key>primary</key>
 			<true/>

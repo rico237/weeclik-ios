@@ -39,11 +39,11 @@ class ShareToGroupsActivity: UIActivity {
     }
     
     override var activityImage: UIImage? {
-        return UIImage(named: "icon")
+        return UIImage(named: "Group_icon")
     }
     
     override var activityType: UIActivity.ActivityType? {
-        return UIActivity.ActivityType(rawValue: "fr.herrick-wolber.Weeclik.activity")
+        return UIActivity.ActivityType(rawValue: "com.ringosoftware.weeclik.activity")
     }
     
     override class var activityCategory: UIActivity.Category {
