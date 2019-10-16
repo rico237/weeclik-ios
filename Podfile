@@ -104,6 +104,8 @@ def projectPods
     pod 'Localize-Swift', '~> 3.0'
     # Toast for presenting message #needs ios 11 +
     pod 'Loaf'
+    # Show input errors
+    pod 'DTTextField'
     
     ################################
     ################################

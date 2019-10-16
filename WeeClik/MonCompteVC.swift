@@ -252,6 +252,8 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
                 let detailViewController = story.instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
+                detailViewController.commerceObject = Commerce(parseObject: self.commerces[indexPath.row])
+                detailViewController.commerceID = self.commerces[indexPath.row].objectId!
                 detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }

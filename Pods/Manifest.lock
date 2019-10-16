@@ -13,6 +13,7 @@ PODS:
   - Crashlytics (3.13.2):
     - Fabric (~> 1.10.2)
   - CRNotifications (1.2.0)
+  - DTTextField (0.3.0)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.10.2)
   - FBSDKCoreKit (5.1.1):
@@ -179,6 +180,7 @@ DEPENDENCIES:
   - Compass (from `https://github.com/weeclik/Compass.git`)
   - Crashlytics (~> 3.13)
   - CRNotifications
+  - DTTextField
   - DZNEmptyDataSet
   - Fabric (~> 1.10)
   - FBSDKCoreKit
@@ -224,6 +226,7 @@ SPEC REPOS:
     - BulletinBoard
     - Crashlytics
     - CRNotifications
+    - DTTextField
     - DZNEmptyDataSet
     - Fabric
     - FBSDKCoreKit
@@ -318,6 +321,7 @@ SPEC CHECKSUMS:
   Compass: 1322433089112d8400ca0c337ff5c1707cac6d68
   Crashlytics: 611738c7847f8291a1a51084e35987b86ba6b3ee
   CRNotifications: 563cdf6d3d3110a4c7d82ed33fd92c05f1ea1f27
+  DTTextField: c26deead1a51c92156e2a638ac7d2c702c2f345e
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FBSDKCoreKit: c29b6b65f6a171ca0a317960a622cff62c9ee269
@@ -370,6 +374,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 7c3d103c9a1dfbe9e8c49759bef59af384b4bc55
+PODFILE CHECKSUM: 105f5d4496c8e59618475c14b96d7f4ef1faa3b5
 
 COCOAPODS: 1.8.3

@@ -31,6 +31,7 @@ import WXImageCompress
 import SwiftDate
 import ZAlertView
 import AppImageViewer
+import DTTextField
 
 enum UploadingStatus {
     case success
@@ -68,6 +69,8 @@ class AjoutCommerceVC: UITableViewController {
     @IBOutlet weak var statusDescription: UILabel!
     @IBOutlet weak var seeMoreButton: UIButton!
     @IBOutlet weak var paymentButton: UIButton!
+    
+    var nameTextField: DTTextField!
     
     // Valeur des champs entrées
     // TextField
@@ -758,6 +761,7 @@ extension AjoutCommerceVC {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let tableViewCell = cell as? AjoutPhotoTVC else { return }
         tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.section)
+        initFormInputs()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -809,6 +813,7 @@ extension AjoutCommerceVC {
             cell.setTextFieldViewDataDelegate(delegate: self, tag: 100, placeHolder: "Nom de votre établissement")
             cell.contentTF.addTarget(self, action: #selector(AjoutCommerceVC.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
             cell.contentTF.text = self.nomCommerce
+            nameTextField = cell.contentTF as? DTTextField
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "photoCollectionView", for: indexPath) as! AjoutPhotoTVC
@@ -962,6 +967,7 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
 //        print("Textview with text : \(String(describing: textView.text)) and tag : \(textView.tag)")
     }
     @objc func textFieldDidChange(_ textField: UITextField) {
+        checkFormValidity(textField)
         /*
          tags : textfield
          100 = nom du commerce
@@ -990,5 +996,47 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
             break
         }
         //        print("Textfield tag : \(textField.tag) and his text \(textField.text ?? "Aucun text")")
+    }
+    
+    func checkFormValidity(_ textField: UITextField) {
+        /*
+         tags : textfield
+         100 = nom du commerce
+         200 = numero du commerce
+         300 = mail de contact du commerce
+         400 = adresse du commerce
+         500 = site internet
+         */
+        switch textField.tag {
+        case 100:
+            if nameTextField.text?.count ?? 0 <= 0 {
+                nameTextField.showError()
+            } else {
+                nameTextField.hideError()
+            }
+            break
+        case 200:
+            telCommerce     = textField.text ?? ""
+            break
+        case 300:
+            mailCommerce    = textField.text ?? ""
+            break
+        case 400:
+            adresseCommerce = textField.text ?? ""
+            break
+        case 500:
+            siteWebCommerce = textField.text ?? ""
+            break
+        default:
+            break
+        }
+        
+    }
+    
+    func initFormInputs() {
+        // Nom du commerce
+        nameTextField.floatingDisplayStatus = .never
+        nameTextField.canShowBorder = false
+        nameTextField.errorMessage = "Champs requis"
     }
 }

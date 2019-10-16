@@ -72,18 +72,21 @@ class DetailCommerceViewController: UIViewController {
     }
     
     func updateCommerce(){
+        var objId = commerceID
         if let routeId = routeCommerceId {
-            let query = PFQuery(className: "Commerce")
-            query.whereKey("objectId", equalTo: routeId)
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-            
-            query.getFirstObjectInBackground { (object, error) in
-                if let obj = object {
-                    self.commerceObject = Commerce(parseObject: obj)
-                    self.tableView.reloadData()
-                } else if let error  = error {
-                    ParseErrorCodeHandler.handleUnknownError(error: error)
-                }
+            objId = routeId
+        }
+        
+        let query = PFQuery(className: "Commerce")
+        query.whereKey("objectId", equalTo: objId!)
+        query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+        
+        query.getFirstObjectInBackground { (object, error) in
+            if let obj = object {
+                self.commerceObject = Commerce(parseObject: obj)
+                self.tableView.reloadData()
+            } else if let error  = error {
+                ParseErrorCodeHandler.handleUnknownError(error: error)
             }
         }
     }
@@ -398,6 +401,13 @@ extension DetailCommerceViewController{
     // Customize l'interface utilisateur
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        guard let commerce = self.commerceObject else {
+//            print("CommerceID = \(self.commerceID)")
+//            return
+//        }
+        if self.commerceObject == nil {
+            updateCommerce()
+        }
         
         // Refresh UI
         self.tableView.reloadData()
