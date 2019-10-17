@@ -155,11 +155,11 @@ class AccueilCommerces: UIViewController {
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
         print("refresh reload")
-        self.refreshControl.beginRefreshing()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-            self.refreshControl.endRefreshing()
-        })
-//        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
+//        self.refreshControl.beginRefreshing()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+//            self.refreshControl.endRefreshing()
+//        })
+        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
     }
 }
 

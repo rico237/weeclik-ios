@@ -149,6 +149,12 @@ PODS:
     - Parse/Core
   - Parse/UI (1.17.3):
     - Parse/Core
+  - PhoneNumberKit (3.0.0):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.0.0)
+    - PhoneNumberKit/UIKit (= 3.0.0)
+  - PhoneNumberKit/PhoneNumberKitCore (3.0.0)
+  - PhoneNumberKit/UIKit (3.0.0):
+    - PhoneNumberKit/PhoneNumberKitCore
   - Protobuf (3.10.0)
   - ReachabilitySwift (4.3.1)
   - SDWebImage (4.4.7):
@@ -167,6 +173,7 @@ PODS:
   - SwiftyStoreKit (0.15.0)
   - TLPhotoPicker (1.8.9)
   - TPKeyboardAvoiding (1.3.2)
+  - Validator (3.2.1)
   - WXImageCompress (0.1.2)
   - ZAlertView (1.0.4)
   - Zingle (1.3.0)
@@ -202,6 +209,7 @@ DEPENDENCIES:
   - Parse/FacebookUtils
   - Parse/TwitterUtils
   - Parse/UI
+  - PhoneNumberKit (~> 3.0)
   - ReachabilitySwift
   - SDWebImage (~> 4.4.7)
   - SecureDefaults (~> 1.0)
@@ -214,6 +222,7 @@ DEPENDENCIES:
   - SwiftyStoreKit (~> 0.15.0)
   - TLPhotoPicker (~> 1.8.8)
   - TPKeyboardAvoiding (from `https://github.com/michaeltyson/TPKeyboardAvoiding.git`)
+  - Validator (~> 3.2.1)
   - WXImageCompress (~> 0.1.2)
   - ZAlertView (from `https://github.com/weeclik/ZAlertView.git`)
   - Zingle (from `https://github.com/hemangshah/Zingle.git`)
@@ -261,6 +270,7 @@ SPEC REPOS:
     - nanopb
     - NSFWDetector
     - Parse
+    - PhoneNumberKit
     - Protobuf
     - ReachabilitySwift
     - SDWebImage
@@ -271,6 +281,7 @@ SPEC REPOS:
     - SwiftDate
     - SwiftyStoreKit
     - TLPhotoPicker
+    - Validator
     - WXImageCompress
     - ZKCarousel
 
@@ -357,6 +368,7 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   NSFWDetector: aefec2254932bdc933cccc9385abfe07ae36a7a1
   Parse: c1ad2a04d2cab2b54b6fb7da05f741abf2cf57d1
+  PhoneNumberKit: 86019c972ef6904bcad11b46a6b8a91184d51117
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
@@ -369,11 +381,12 @@ SPEC CHECKSUMS:
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   TLPhotoPicker: 9bf255c116129bc5d709b4cc8b42b3542e89e841
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
+  Validator: 80a6f567220c962dfd2d9928ae98a8c1d164f6f4
   WXImageCompress: 80e0ae96ff3af7d00917a380eba0e592bacaaada
   ZAlertView: 3264c18c3fb54f5bc5bc00a97369b29e4813f8af
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 105f5d4496c8e59618475c14b96d7f4ef1faa3b5
+PODFILE CHECKSUM: f62690d3a587ef538d62d0a1189cb2591c8adef1
 
 COCOAPODS: 1.8.3

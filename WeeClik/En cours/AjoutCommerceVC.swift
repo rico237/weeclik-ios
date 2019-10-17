@@ -6,6 +6,9 @@
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
+// !!!: convertir les viewcontroller en automatique
+// ERROR: Après connexion par mail le profil n'est pas chargé + pas de connexion facebook (faire un test sur le tel)
+
 // TODO: Ajouter reachability + demander si ils veulent uploader les images et videos en mode cellular
 
 
@@ -32,6 +35,7 @@ import SwiftDate
 import ZAlertView
 import AppImageViewer
 import DTTextField
+import Validator
 
 enum UploadingStatus {
     case success
@@ -70,7 +74,12 @@ class AjoutCommerceVC: UITableViewController {
     @IBOutlet weak var seeMoreButton: UIButton!
     @IBOutlet weak var paymentButton: UIButton!
     
-    var nameTextField: DTTextField!
+    // TextFields with input errors
+    var nameTextField: DTTextField!;    let nameRule = ValidationRuleLength(min: 3, error: NomCommerceFormValidationError())
+    var telTextField: DTTextField!;     let telRule  = IsPhoneNumberValidationRule()
+    var mailTextField: DTTextField!
+    var adresseTextField: DTTextField!
+    var sitewebTextField: DTTextField!
     
     // Valeur des champs entrées
     // TextField
@@ -740,7 +749,7 @@ extension AjoutCommerceVC {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Nom du commerce"
+            return "Nom du commerce (Requis)"
         case 1:
             return "Photos du commerce"
         case 2:
@@ -1009,17 +1018,17 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
          */
         switch textField.tag {
         case 100:
-            if nameTextField.text?.count ?? 0 <= 0 {
-                nameTextField.showError()
-            } else {
-                nameTextField.hideError()
-            }
+            
+            if nameTextField.text?.count ?? 0 <= 0 { nameTextField.showError() }
+            else { nameTextField.hideError() }
             break
         case 200:
-            telCommerce     = textField.text ?? ""
+            if let _ = telTextField.text?.isValidPhone() { telTextField.showError() }
+            else { telTextField.hideError() }
             break
         case 300:
-            mailCommerce    = textField.text ?? ""
+            if let _ = mailTextField.text { mailTextField.showError() }
+            else { mailTextField.hideError() }
             break
         case 400:
             adresseCommerce = textField.text ?? ""
@@ -1038,5 +1047,7 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
         nameTextField.floatingDisplayStatus = .never
         nameTextField.canShowBorder = false
         nameTextField.errorMessage = "Champs requis"
+        
+        
     }
 }
