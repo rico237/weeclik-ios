@@ -74,6 +74,10 @@ class ImageScroller: UIView {
         }
     }
     
+    func resetScrollImage() {
+        self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
     func startTimer(){
         if isTimerRunning == false {
             timer = Timer.scheduledTimer(timeInterval: scrollTimeInterval, target: self, selector: #selector(autoscroll), userInfo: nil, repeats: true)

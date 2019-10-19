@@ -3,15 +3,15 @@
 <img align="left" src="https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Preview.gif" width="470"/>
 
 ### About
-Request permissions with dialog. You can request many permissions at once. I do UI of dialog in **Apple style**. If you need additional permission, please, create new issue.
+Request permissions with dialog. I do UI of dialog in **Apple style**. Watch timelaps how I design UI for this pod [on YouTube](https://youtu.be/1mDdX7fQRv4).
 
-Watch timelaps how I design UI for this pod [on YouTube](https://youtu.be/1mDdX7fQRv4).
+Visit my store for iOS developers:
 
-If you like the project, do not forget to `put star ★` or help visit my store for iOS developers:
+[![xcode-shop.com](https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Buttons/Xcode%20Shop%20Button%20-%201.svg)](https://xcode-shop.com)
 
-[![xcode-shop.com](https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Xcode%20Shop%20Button.svg)](https://xcode-shop.com)
+If you like the project, do not forget to `put star ★` and follow me on GitHub:
 
-See project's backers in [Sponsors](https://github.com/ivanvorobei/SPPermission#sponsors) section.
+[![https://github.com/ivanvorobei](https://github.com/ivanvorobei/SPPermission/blob/master/Resources/Buttons/Follow%20me%20-%2016.svg)](https://github.com/ivanvorobei)
 
 ## Navigate
 
@@ -30,7 +30,7 @@ See project's backers in [Sponsors](https://github.com/ivanvorobei/SPPermission#
     - [Colors](#colors)
     - [Start position](#start-position)
 - [Delegate](#delegate)
-- [String in Info.plist](#string-in-infoplist)
+- [Keys in Info.plist](#key-in-infoplist)
 - [How I do UI](#how-i-do-UI)
 - [Sponsors](#sponsors)
 - [Other Projects +gif](#my-projects)
@@ -39,8 +39,6 @@ See project's backers in [Sponsors](https://github.com/ivanvorobei/SPPermission#
     - [SPLarkController](#splarkcontroller)
     - [Awesome iOS UI](https://github.com/ivanvorobei/awesome-ios-ui)
 - [License](#license)
-- [Contact or Order Develop](#contact)
-
 
 ## Requirements
 
@@ -140,6 +138,11 @@ class ViewController: UIViewController {
         SPPermission.Dialog.request(with: [.camera, .microphone, .notification], on: self)
     }
 }
+```
+
+If you want to request permission only when permission is needed, you can use `requestIfNeeded()` 
+```swift
+SPPermission.Dialog.requestIfNeeded(with: [.camera, .microphone, .notification], on:self)
 ```
 
 If you want to know if permission is allowed, you need to call the function:
@@ -313,9 +316,9 @@ SPPermission.Dialog.request(
 )
 ```
 
-## String in Info.plist
+## Keys in Info.plist
 
-You need to add some strings to the `Info.plist` file with description. List of keys:
+You need to add some keys to the `Info.plist` file with description. List of keys:
 
 - NSCameraUsageDescription
 - NSContactsUsageDescription
@@ -377,7 +380,5 @@ You can download example [Debts - Spending tracker](https://itunes.apple.com/app
 You can download example app [Code - Learn Swift & Design](https://itunes.apple.com/app/id1453325619) from AppStore. If you want to **buy source code** of app this app, please, go to [xcode-shop.com](https://xcode-shop.com).
 
 ## License
-`SPPermission` is released under the MIT license. Check `LICENSE.md` for details.
 
-## Contact
-If you need any application or UI to be developed, message me at hello@ivanvorobei.by or via [telegram](https://t.me/ivanvorobei). I develop iOS apps and designs. I use `swift` for development. To request more functionality, you should create a new issue. You can see my [apps in AppStore](https://itunes.apple.com/developer/id1446635817).
+`SPPermission` is released under the MIT license. Check `LICENSE.md` for details.

@@ -32,10 +32,10 @@ class ParseErrorCodeHandler {
     static func handleParseError(error: Error) -> String{
         switch error.code {
         case PFErrorCode.errorConnectionFailed.rawValue :
-            return "Il y a eu un problème de connexion veuillez réessayer plus tard."
+            return "Il y a eu un problème de connexion veuillez réessayer plus tard.".localized()
         case PFErrorCode.errorInvalidSessionToken.rawValue :
             PFUser.logOut()
-            return "Il y a eu un problème de connexion veuillez réessayer."
+            return "Il y a eu un problème de connexion veuillez réessayer.".localized()
         default:
             return error.localizedDescription + " code : \(error.code)"
         }

@@ -38,7 +38,7 @@ class SaisieDeDonneesVC: UIViewController {
         
         logoUser.image = isPro ? UIImage(named: "Logo_commerce") : UIImage(named: "Logo_utilisateur")
         saveButton.backgroundColor = isPro ? UIColor(red:0.87, green:0.32, blue:0.32, alpha:1.00) : UIColor(red:0.32, green:0.71, blue:0.90, alpha:1.00)
-        creationCompteLabel.text = isPro ? "Création d'un compte professionnel" : "Création d'un compte utilisateur"
+        creationCompteLabel.text = isPro ? "Création d'un compte professionnel".localized() : "Création d'un compte utilisateur".localized()
         saveButton.layer.cornerRadius = 5
         mailTF.isEnabled = false
         mailTF.isUserInteractionEnabled = false
@@ -66,7 +66,7 @@ class SaisieDeDonneesVC: UIViewController {
             
             SVProgressHUD.setDefaultMaskType(.clear)
             SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.show(withStatus: "Sauvegarde des informations")
+            SVProgressHUD.show(withStatus: "Sauvegarde des informations".localized())
             
             //TODO: utiliser la valeure success pour afficher un message d'erreur
             user.saveInBackground { (success, err) in

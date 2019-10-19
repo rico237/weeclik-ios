@@ -34,7 +34,7 @@ class DetailGalleryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Gallerie"
+        self.title = "Gallerie".localized()
         
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
@@ -56,7 +56,7 @@ class DetailGalleryVC: UIViewController {
     }
     
     func queryMedias(){
-        SVProgressHUD.show(withStatus: "Chargement des images et vidéos du commerce")
+        SVProgressHUD.show(withStatus: "Chargement des images et vidéos du commerce".localized())
         self.fetchPhotos()
     }
     
@@ -202,7 +202,7 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
             if let url = URL(string: videoFile.url!) {
                 ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo", title: "Erreur de chargement", viewController: self)
+                HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo".localized(), title: "Erreur de chargement".localized(), viewController: self)
             }
         }
     }
@@ -223,7 +223,7 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
             attributedStr.append("photo")
         }
         attributedStr.append(" trouvé pour ce commercant")
-        return NSAttributedString(string: attributedStr)
+        return NSAttributedString(string: attributedStr.localized())
     }
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         var attributedStr = "Ce commercant n'a pas encore ajouté de "
@@ -233,7 +233,7 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
             attributedStr.append("photo")
         }
         attributedStr.append(" de son commerce")
-        return NSAttributedString(string: attributedStr)
+        return NSAttributedString(string: attributedStr.localized())
     }
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
         return UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)

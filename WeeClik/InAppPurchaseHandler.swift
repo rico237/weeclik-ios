@@ -18,10 +18,10 @@ enum IAPHandlerAlertType{
     
     func message() -> String{
         switch self {
-            case .disabled: return "Les achats sont désactivés sur votre appareil"
-            case .restored: return "Votre abonnement à bien été restauré !"
-            case .purchased: return "Vous avez bien soucrit à l'abonnement annuel !"
-            case .failed: return "Un problème est arrivé durant l'achat! Merci de réessayer plus tard."
+            case .disabled: return "Les achats sont désactivés sur votre appareil".localized()
+            case .restored: return "Votre abonnement à bien été restauré !".localized()
+            case .purchased: return "Vous avez bien soucrit à l'abonnement annuel !".localized()
+            case .failed: return "Un problème est arrivé durant l'achat! Merci de réessayer plus tard.".localized()
         }
     }
 }

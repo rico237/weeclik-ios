@@ -18,7 +18,7 @@ class HelperAndKeys {
     
     static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController){
         let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) -> Void in
+        let defaultAction = UIAlertAction.init(title: "OK".localized(), style: .cancel) { (action) -> Void in
             alertViewController.dismiss(animated: true, completion: nil)
         }
         alertViewController.addAction(defaultAction)
@@ -27,11 +27,11 @@ class HelperAndKeys {
     
     static func showSettingsAlert(withTitle title:String, withMessage message:String, presentFrom viewController:UIViewController){
         let alertController = UIAlertController (title: title, message: message, preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: "Réglages", style: .default) { (_) -> Void in
+        let settingsAction = UIAlertAction(title: "Réglages".localized(), style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
             if UIApplication.shared.canOpenURL(settingsUrl) {UIApplication.shared.open(settingsUrl, completionHandler: nil)}
         }
-        let cancelAction = UIAlertAction(title: "Annuler", style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Annuler".localized(), style: .default, handler: nil)
         alertController.addAction(cancelAction)
         alertController.addAction(settingsAction)
         viewController.present(alertController, animated: true, completion: nil)
@@ -134,43 +134,43 @@ class HelperAndKeys {
     
     static func getImageForTypeCommerce(typeCommerce: String) -> UIImage {
         switch typeCommerce {
-        case "Alimentaire":
+        case "Alimentaire".localized():
             return UIImage(named:"Alimentaire")!
-        case "Artisanat":
+        case "Artisanat".localized():
             return UIImage(named:"Artisanat")!
-        case "Bien-être":
+        case "Bien-être".localized():
             return UIImage(named:"Bien-etre")!
-        case "Décoration":
+        case "Décoration".localized():
             return UIImage(named:"Decoration")!
-        case "E-commerce":
+        case "E-commerce".localized():
             return UIImage(named:"E-commerce")!
-        case "Distribution":
+        case "Distribution".localized():
             return UIImage(named:"Distribution")!
-        case "Hôtellerie":
+        case "Hôtellerie".localized():
             return UIImage(named:"Hotellerie")!
-        case "Immobilier":
+        case "Immobilier".localized():
             return UIImage(named:"Immobilier")!
-        case "Informatique":
+        case "Informatique".localized():
             return UIImage(named:"Informatique")!
-        case "Métallurgie":
+        case "Métallurgie".localized():
             return UIImage(named:"Metallurgie")!
-        case "Médical":
+        case "Médical".localized():
             return UIImage(named:"Medical")!
-        case "Nautisme":
+        case "Nautisme".localized():
             return UIImage(named:"Nautisme")!
-        case "Paramédical":
+        case "Paramédical".localized():
             return UIImage(named:"Paramedical")!
-        case "Restauration":
+        case "Restauration".localized():
             return UIImage(named:"Restauration")!
-        case "Sécurité":
+        case "Sécurité".localized():
             return UIImage(named:"Securite")!
-        case "Textile":
+        case "Textile".localized():
             return UIImage(named:"Textile")!
-        case "Tourisme":
+        case "Tourisme".localized():
             return UIImage(named:"Tourisme")!
-        case "Transport":
+        case "Transport".localized():
             return UIImage(named:"Transport")!
-        case "Urbanisme":
+        case "Urbanisme".localized():
             return UIImage(named:"Urbanisme")!
         default:
             return UIImage(named: "Comm")!
@@ -179,27 +179,19 @@ class HelperAndKeys {
     
     static func callNumer(phone: String){
         if let url = URL(string: "telprompt://\(phone)"), UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
+            UIApplication.shared.open(url)
         }
     }
     
     static func visitWebsite(site: String, controller: UIViewController){
         
-        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?", message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?", preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in
+        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?".localized(), message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?".localized(), preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK".localized(), style: UIAlertAction.Style.default) { (action) -> Void in
             if let url = URL(string: site), UIApplication.shared.canOpenURL(url) {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
+                UIApplication.shared.open(url)
             }
         }
-        let cancelAction = UIAlertAction.init(title: "Annuler", style: UIAlertAction.Style.destructive) {(action) -> Void in}
+        let cancelAction = UIAlertAction.init(title: "Annuler".localized(), style: UIAlertAction.Style.destructive) {(action) -> Void in}
         alertViewController.addAction(cancelAction)
         alertViewController.addAction(defaultAction)
         controller.present(alertViewController, animated: true, completion: nil)
@@ -210,9 +202,9 @@ class HelperAndKeys {
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         
         if !isFeedBackMsg{
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : http://www.google.fr/"
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : http://www.google.fr/".localized()
         }else{
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)"
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)".localized()
         }
 //                let allowedCharacters = NSCharacterSet.urlFragmentAllowed
         let finalMessage = messageToSend.appending(messageAdded)
@@ -221,7 +213,7 @@ class HelperAndKeys {
             let composeVC = MFMailComposeViewController()
             
             // Configure the fields of the interface.
-            composeVC.setSubject("Demande de contact via WeeClik")
+            composeVC.setSubject("Demande de contact via Weeclik".localized())
             composeVC.setToRecipients([commerceMail])
             composeVC.setMessageBody(finalMessage, isHTML: true)
             
@@ -230,7 +222,7 @@ class HelperAndKeys {
             // Present the view controller modally.
             controller.present(composeVC, animated: true, completion: nil)
         }else{
-            self.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.", title: "Erreur", viewController: controller)
+            self.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), viewController: controller)
         }
         
     }
@@ -291,7 +283,7 @@ class HelperAndKeys {
     }
     
     static func getListOfCategories() -> [String]{
-        return ["Alimentaire","Artisanat","Bien-être","Décoration","E-commerce","Distribution","Hôtellerie", "Immobilier","Informatique","Métallurgie","Médical","Nautisme","Paramédical","Restauration","Sécurité","Textile","Tourisme","Transport","Urbanisme", "Autre"]
+        return ["Alimentaire".localized(),"Artisanat".localized(),"Bien-être".localized(),"Décoration".localized(),"E-commerce".localized(),"Distribution".localized(),"Hôtellerie".localized(), "Immobilier".localized(),"Informatique".localized(),"Métallurgie".localized(),"Médical".localized(),"Nautisme".localized(),"Paramédical".localized(),"Restauration".localized(),"Sécurité".localized(),"Textile".localized(),"Tourisme".localized(),"Transport".localized(),"Urbanisme".localized(), "Autre".localized()]
     }
     
     /// Has safe area
@@ -301,7 +293,7 @@ class HelperAndKeys {
     /// without notch: 20.0 on iPhone 8 on iOS 12+.
     ///
     static var hasSafeArea: Bool {
-        guard #available(iOS 11.0, *), let topPadding = UIApplication.shared.keyWindow?.safeAreaInsets.top, topPadding > 24 else {
+        guard let topPadding = UIApplication.shared.keyWindow?.safeAreaInsets.top, topPadding > 24 else {
             return false
         }
         return true
@@ -372,20 +364,5 @@ class HelperAndKeys {
                 }
             }
         }
-    }
-    
-    /// Validate email string
-    ///
-    /// - parameter email: A String that rappresent an email address
-    ///
-    /// - returns: A Boolean value indicating whether an email is valid.
-    static func isValidEMail(_ email: String) -> Bool {
-        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
-        "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" + "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5" +
-        "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
-        "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES[c] %@", emailRegEx)
-        return emailTest.evaluate(with: email)
     }
 }

@@ -41,8 +41,8 @@ class ListeDesFavorisVC: UIViewController {
         listeGroupesFavoris.dataSource = self
 //        listeGroupesFavoris.register(GroupePartageTVCell.self, forCellReuseIdentifier: "GroupePartageTVCell") // In case of cell direct configuration
         
-        Config.doneString = "Créer"
-        Config.viewTitle = "Créer un groupe"
+        Config.doneString = "Créer".localized()
+        Config.viewTitle  = "Créer un groupe".localized()
         Config.maxSelectItems = 20
     }
     
@@ -60,11 +60,11 @@ class ListeDesFavorisVC: UIViewController {
     @IBAction func action_create_group(_ sender: Any) {
         // Création d'un groupe de favoris
         SwiftMultiSelect.delegate = self
-        showInputDialog(title: "Ajout d'un groupe", subtitle: "Créer un groupe pour facilement et rapidement partager ce commerce avec vos proches", actionTitle: "Créer", cancelTitle: "Annuler", inputPlaceholder: "Famille, Amis, Collègues de travail, etc.", inputKeyboardType: .default, cancelHandler: nil) { (input: String?) in
+        showInputDialog(title: "Ajout d'un groupe".localized(), subtitle: "Créer un groupe pour facilement et rapidement partager ce commerce avec vos proches".localized(), actionTitle: "Créer".localized(), cancelTitle: "Annuler".localized(), inputPlaceholder: "Famille, Amis, Collègues de travail, etc.".localized(), inputKeyboardType: .default, cancelHandler: nil) { (input: String?) in
             if input != "" {
-                self.groupName = input ?? "Groupe"
+                self.groupName = input ?? "Groupe".localized()
             } else {
-                self.groupName = "Groupe"
+                self.groupName = "Groupe".localized()
             }
             SwiftMultiSelect.Show(to: self)
         }
@@ -104,7 +104,7 @@ class ListeDesFavorisVC: UIViewController {
             controller.messageComposeDelegate = self
             self.present(controller, animated: true, completion: nil)
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Aucune application d'envoi d'SMS n'est configuré sur votre téléphone.", title: "Erreur d'envoi du message", viewController: self)
+            HelperAndKeys.showAlertWithMessage(theMessage: "Aucune application d'envoi d'SMS n'est configuré sur votre téléphone.".localized(), title: "Erreur d'envoi du message".localized(), viewController: self)
         }
     }
     
@@ -143,7 +143,7 @@ extension ListeDesFavorisVC: SwiftMultiSelectDelegate {
     func numberMaximumOfItemsReached(items: [SwiftMultiSelectItem]) {
 //        print("Maximum number (\(Config.maxSelectItems)) of items reached with items : \n\t\(items)")
         print("Maximum number (\(Config.maxSelectItems)) of items reached")
-        HelperAndKeys.showAlertWithMessage(theMessage: "Vous avez atteint le nombre maximum de membre d'un groupe (\(Config.maxSelectItems)). Essayez de créer un second groupe de diffusion par SMS.", title: "Nombre maximum atteint", viewController: self)
+        HelperAndKeys.showAlertWithMessage(theMessage: "Vous avez atteint le nombre maximum de membre d'un groupe (\(Config.maxSelectItems)). Essayez de créer un second groupe de diffusion par SMS.".localized(), title: "Nombre maximum atteint".localized(), viewController: self)
     }
     // User write something in searchbar
     func userDidSearch(searchString: String) {}

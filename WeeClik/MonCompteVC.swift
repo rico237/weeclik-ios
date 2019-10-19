@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import SVProgressHUD
 import SwiftDate
+import Localize_Swift
 
 class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
@@ -36,47 +37,47 @@ class MonCompteVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.getBackToHome(_:)))]
-        PFUser.current()?.fetchInBackground(block: { (user, error) in
-            if let error = error {
-                print("Error catching user infos")
-                ParseErrorCodeHandler.handleUnknownError(error: error)
-            } else if let user = user as? PFUser {
-                self.currentUser = user
-            }
-        })
+        
+        if let user = currentUser {
+            user.fetchInBackground(block: { (user, error) in
+                if let error = error {
+                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                } else if let user = user as? PFUser {
+                    self.currentUser = user
+                }
+            })
+        }
     }
     
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard let current = PFUser.current() else {return}
         
-        if let current = PFUser.current() {
-            self.currentUser = current
-            
-            self.updateProfilPic(forUser: current)
-            
-            // Recup si l'utilisateur est un pro (commercant)
-            if let proUser = current["isPro"] as? Bool {
-                // isPro is set
-                isPro = proUser
-                isProUpdateUI()
-            } else {
-                // Nil found
-                // Redirect -> Choosing controller from pro statement
-                let choosingNav = storyboard?.instantiateViewController(withIdentifier: "choose_type_compte") as! UINavigationController
-                let choosingVC = choosingNav.topViewController as! ProcessInscriptionVC
-                choosingVC.newUser = current
-                self.present(choosingNav, animated: true, completion: nil)
-            }
-            
-            if let vue = vueConnexion{
-                vue.removeFromSuperview()
-            }
-            
-            // Récupère ces commerces (favoris si utilisateur normal)
-            self.queryCommercesArrayBasedOnUser()
+        self.currentUser = current
+        self.updateProfilPic(forUser: current)
+        
+        // Recup si l'utilisateur est un pro (commercant)
+        if let proUser = current["isPro"] as? Bool {
+            // isPro is set
+            isPro = proUser
+            isProUpdateUI()
+        } else {
+            // Nil found
+            // Redirect -> Choosing controller from pro statement
+            let choosingNav = storyboard?.instantiateViewController(withIdentifier: "choose_type_compte") as! UINavigationController
+            let choosingVC = choosingNav.topViewController as! ProcessInscriptionVC
+            choosingVC.newUser = current
+            self.present(choosingNav, animated: true, completion: nil)
         }
+        
+        if let vue = vueConnexion{
+            vue.removeFromSuperview()
+        }
+        
+        // Récupère ces commerces (favoris si utilisateur normal)
+        self.queryCommercesArrayBasedOnUser()
     }
     
     func updateProfilPic(forUser user: PFUser){
@@ -115,7 +116,7 @@ class MonCompteVC: UIViewController {
         }
 
         if self.noCommercesLabel != nil {
-            self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment" : "Vous n'avez pour le moment partagé aucun commerce"
+            self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment".localized() : "Vous n'avez pour le moment partagé aucun commerce".localized()
         }
         
     }
@@ -140,12 +141,12 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == self.changeProfilInfoTVC{
-            return "Mon profil"
+            return "Mon profil".localized()
         } else {
             if isPro {
-                return "Mes commerces"
+                return "Mes commerces".localized()
             }
-            return "Mes Partages"
+            return "Mes Partages".localized()
         }
     }
     
@@ -177,8 +178,8 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 cell?.textLabel?.text = (user["name"] != nil) ? user["name"] as? String : ""
                 cell?.detailTextLabel?.text = user.email
             } else {
-                cell?.textLabel?.text = "Nom Prénom"
-                cell?.detailTextLabel?.text = "email"
+                cell?.textLabel?.text = "Nom Prénom".localized()
+                cell?.detailTextLabel?.text = "email".localized()
             }
             
             return cell!
@@ -206,7 +207,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 if (obj.brouillon) {
-                    cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier"
+                    cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier".localized()
                     cell.descriptionLabel.textColor = .lightText
                 } else {
                     cell.descriptionLabel.text = "\(obj.statut.description)"
@@ -234,7 +235,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 }
                 let lastPartage = self.partages_dates[indexPath.row]
                 let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
-                cell.descriptionLabel.text = "Dernier partage : \(lastPartage.convertTo(region: paris).toFormat("dd MMM yyyy"))"
+                cell.descriptionLabel.text = "Dernier partage : \(lastPartage.convertTo(region: paris).toFormat("dd MMM yyyy"))".localized()
             }
             
             return cell
@@ -252,6 +253,8 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
                 let detailViewController = story.instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
+                detailViewController.commerceObject = Commerce(parseObject: self.commerces[indexPath.row])
+                detailViewController.commerceID = self.commerces[indexPath.row].objectId!
                 detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
@@ -310,7 +313,7 @@ extension MonCompteVC {
                 }
             }
             else {
-                HelperAndKeys.showNotification(type: "E", title: "Problème de connexion", message: "Problème lors de la récupération de vos partages", delay: 3)
+                HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: "Problème lors de la récupération de vos partages".localized(), delay: 3)
             }
         }
     }
@@ -349,8 +352,8 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         logInController.signUpController?.signUpView?.additionalField?.isSecureTextEntry = true
         logInController.signUpController?.signUpView?.additionalField?.keyboardType = .alphabet
 //        logInController.signUpController?.signUpView?.additionalField?.textContentType = .password
-        logInController.signUpController?.signUpView?.usernameField?.placeholder = "Email"
-        logInController.signUpController?.signUpView?.additionalField?.placeholder = "Confirmation du mot de passe"
+        logInController.signUpController?.signUpView?.usernameField?.placeholder = "Email".localized()
+        logInController.signUpController?.signUpView?.additionalField?.placeholder = "Confirmation du mot de passe".localized()
         
         self.present(logInController, animated: true, completion: nil)
     }
@@ -365,7 +368,7 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
         if let error = error{
             print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide" , title:"Erreur lors de la connexion" , viewController: logInController)
+            HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide".localized() , title:"Erreur lors de la connexion".localized() , viewController: logInController)
         }
     }
     
@@ -379,7 +382,7 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
         if let error = error{
             print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide" , title: "Erreur lors de la connexion", viewController: signUpController)
+            HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide".localized() , title: "Erreur lors de la connexion".localized(), viewController: signUpController)
         }
     }
     
@@ -388,18 +391,18 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         print("Aucune conditions particulières pour le mot de passe")
         // ["username": "jilji@gmail.com", "password": "es", "additional": "es"]
         
-        if HelperAndKeys.isValidEMail(info["username"] ?? "") {
+        if (info["username"]!).isValidEmail() {
             // Email + MDP OK
             if info["password"] == info["additional"] {
                 return true
             } else {
                 // MDP différents
-                HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe et sa confirmation sont différents", title: "Erreur de mot de passe", viewController: signUpController)
+                HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe et sa confirmation sont différents".localized(), title: "Erreur de mot de passe".localized(), viewController: signUpController)
                 return false
             }
         } else {
             // Email invalide
-            HelperAndKeys.showAlertWithMessage(theMessage: "L'adresse email saisie est incorrecte", title: "Email invalide", viewController: signUpController)
+            HelperAndKeys.showAlertWithMessage(theMessage: "L'adresse email saisie est incorrecte".localized(), title: "Email invalide".localized(), viewController: signUpController)
             return false
         }
     }
@@ -412,7 +415,7 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
         graphRequest.start(completionHandler: { (request, result, error) in
             if let error = error {
                 print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard", title: "Connexion Facebook échoué", viewController: self)
+                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(), title: "Connexion Facebook échoué".localized(), viewController: self)
             }
             else {
                 // handle successful response
