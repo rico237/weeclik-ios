@@ -94,8 +94,11 @@ public class Commerce: NSObject, NSCoding {
         let query = PFQuery(className: "Commerce")
         query.whereKey("objectId", equalTo: objectId)
         query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-        do {self.init(parseObject: try query.getFirstObject())} catch {
-            print(error)
+        let obj = query.getFirstObjectInBackground()
+        obj.waitUntilFinished()
+        if let comm = obj.result {
+            self.init(parseObject: comm)
+        } else {
             return nil
         }
     }
@@ -162,9 +165,9 @@ public class Commerce: NSObject, NSCoding {
         if remaining > 0, let expiryDate = UserSettings.shared.expirationDate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
-            return "Subscribed! \nExpires: \(dateFormatter.string(from: expiryDate)) (\(remaining) Days)"
+            return "Subscribed! \nExpires: \(dateFormatter.string(from: expiryDate)) (\(remaining) Days)".localized()
         }
-        return "Not Subscribed"
+        return "Not Subscribed".localized()
     }
     
     public static func syncExpiration(local: Date?, completion: @escaping (_ object: PFObject?) -> ()) {
@@ -290,19 +293,33 @@ public enum StatutType: Int {
     func label() -> String {
         switch self {
         case .paid :
-            return "En ligne"
+            return "En ligne".localized()
         case .pending :
-            return "Hors ligne - en attente de paiement"
+            return "Hors ligne - en attente de paiement".localized()
         case .canceled :
-            return "Hors ligne - paiement annulé"
+            return "Hors ligne - paiement annulé".localized()
         case .error :
-            return "Erreur lors du paiement ou du renouvellement"
+            return "Erreur lors du paiement ou du renouvellement".localized()
         case .unknown :
-            return "Statut inconnu"
+            return "Statut inconnu".localized()
         }
     }
     
     var description: String {
         get { return label() }
+    }
+}
+
+extension Commerce {
+    func calculDistanceEntreDeuxPoints(location : CLLocation?) -> String {
+        guard let location = location else {return "--"}
+        let distance = PFGeoPoint(location: location).distanceInKilometers(to: self.location)
+        
+        if distance < 1 {
+            self.distanceFromUser = "\(Int(distance * 1000)) m"
+        } else {
+            self.distanceFromUser = "\(Int(distance)) Km"
+        }
+        return self.distanceFromUser
     }
 }

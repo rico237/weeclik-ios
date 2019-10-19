@@ -11,6 +11,6 @@ import Validator
 class AddressFormValidationError: ValidationError {
     let message: String
     
-    public init() {self.message = "Vous devez définir un nom pour votre commerce"}
+    public init() {self.message = "Vous devez définir un nom pour votre commerce".localized()}
     public init(_ message: String) { self.message = message }
 }

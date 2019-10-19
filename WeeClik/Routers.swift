@@ -12,6 +12,7 @@ import Compass
 
 struct CommerceRoute : Routable {
     func navigate(to location: Location, from currentController: CurrentController) throws {
+        print("Routing location log : \(location)")
         guard let commerceId = location.arguments["commerceId"] else {
             return
         }

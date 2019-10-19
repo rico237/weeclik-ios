@@ -43,7 +43,7 @@ class AccueilCommerces: UIViewController {
     var prefFiltreLocation      = false                 // Savoir si les commerces sont filtrés par location ou partages
     var locationGranted : Bool! = false                 // On a obtenu la position de l'utilisateur
     var isLoadingCommerces : Bool = false               // si la fonction de chargement des commerces est en cours
-    var titleChoose : String!   = "Restauration"        // First category to be loaded
+    var titleChoose : String!   = "Restauration".localized()        // First category to be loaded
     
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
@@ -74,7 +74,7 @@ class AccueilCommerces: UIViewController {
             if self.prefFiltreLocation {
                 self.checkLocationServicePermission()
             } else {
-                self.chooseCategorie(itemChoose: self.titleChoose)
+                self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
             }
             
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
@@ -90,17 +90,13 @@ class AccueilCommerces: UIViewController {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
-        // Init collectionview for commerces (object cells)
+        
         self.refreshControl.attributedTitle = NSAttributedString(string: "")
-        if #available(iOS 10.0, *) {
-            self.collectionView.refreshControl = refreshControl
-        } else {
-            self.collectionView.addSubview(refreshControl)
-        }
+        self.collectionView.refreshControl = refreshControl
         self.refreshControl.addTarget(self, action: #selector(refreshCollectionData(_:)), for: .valueChanged)
         self.collectionView.backgroundColor  = HelperAndKeys.getBackgroundColor()
         self.collectionView.collectionViewLayout = columnLayout
-        if #available(iOS 11.0, *) {self.collectionView.contentInsetAdjustmentBehavior = .always}
+        self.collectionView.contentInsetAdjustmentBehavior = .always
         
         // Init of retracting header (header image)
         viewKJNavigation.topbarMinimumSpace = .custom(height: 250)
@@ -123,20 +119,24 @@ class AccueilCommerces: UIViewController {
             self.locationGranted = HelperAndKeys.getLocationGranted()
         }
         
-        // Update user position if filtre location is enabled
-        if self.prefFiltreLocation || self.locationGranted {
-            self.locationManager.startUpdatingLocation()
+        // Demande de filtre par position sans authorisation de prendre la geoposition
+        if self.prefFiltreLocation && CLLocationManager.authorizationStatus() == .notDetermined {
+            self.checkLocationServicePermission()
+        } else {
+            // Load first object based on number of sharing
+            self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
         }
-        print("First load")
-        // Load first object based on location or number of sharing
-        self.chooseCategorie(itemChoose: self.titleChoose)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        if self.commerces.count != 0 {
-            self.discretReload()
+        if self.prefFiltreLocation && self.locationGranted {
+            self.locationManager.startUpdatingLocation()
+        } else {
+            if self.commerces.count != 0 {
+                self.discretReload()
+            }
         }
     }
     
@@ -148,32 +148,31 @@ class AccueilCommerces: UIViewController {
     }
     
     func discretReload(){
-        print("Discret reload")
         self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
     }
     
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
         print("refresh reload")
-//        self.refreshControl.beginRefreshing()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-//            self.refreshControl.endRefreshing()
-//        })
-        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
+        self.refreshControl.beginRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+            self.refreshControl.endRefreshing()
+        })
+//        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
     }
 }
 
 
 // Parse functions (model in MVC)
 extension AccueilCommerces {
-    func chooseCategorie(itemChoose: String) {
+    func chooseCategorie(itemChoose: String, withHud showHud:Bool) {
         // Update UI
         self.titleChoose = itemChoose
         self.labelHeaderCategorie.text = itemChoose
         self.headerTypeCommerceImage.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
         
         // Update Data
-        self.queryObjectsFromDB(typeCategorie: titleChoose)
+        self.queryObjectsFromDB(typeCategorie: titleChoose, withHUD: showHud)
     }
     
     func queryObjectsFromDB(typeCategorie : String, withHUD showHud: Bool = true){
@@ -185,15 +184,12 @@ extension AccueilCommerces {
         if showHud {
             SVProgressHUD.setDefaultMaskType(.clear)
             SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.show(withStatus: "Chargement en cours")
+            SVProgressHUD.show(withStatus: "Chargement en cours".localized())
         }
         // FIXME: Can't reload data for now, query.findObjectsInBackground completion never gets fired second time
         // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
         if self.prefFiltreLocation {
             self.locationManager.startUpdatingLocation()
-            ParseService.shared.locationPrefsCommerces(withType: typeCategorie, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
-                self.globalObjects(commerces: commerces, error: error, withHud: showHud)
-            }
         } else {
             ParseService.shared.sharingPrefsCommerces(withType: typeCategorie) { (commerces, error) in
                 print("begin completion")
@@ -204,23 +200,9 @@ extension AccueilCommerces {
     }
     
     func globalObjects(commerces : [Commerce]?, error: Error?, withHud hud:Bool) {
-        print("5.a")
-        if let commerces = commerces {
-            print("5.b")
-            self.commerces = commerces
-            print("5.c")
-        } else if let error = error {
-            print("5.b error")
-            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
-            print("5.c error")
-        }
-        print("5.d")
-        DispatchQueue.global(qos: .default).async(execute: {
-            // time-consuming task
-            print("5.e")
-            if hud {SVProgressHUD.dismiss(withDelay: 1)}
-            print("5.f")
-        })
+        if let commerces = commerces {self.commerces = commerces}
+        else if let error = error {ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)}
+        DispatchQueue.global(qos: .default).async(execute: {if hud {SVProgressHUD.dismiss(withDelay: 1)}})
         self.collectionView.reloadData()
         self.isLoadingCommerces = false
         self.refreshControl.endRefreshing()
@@ -235,6 +217,8 @@ extension AccueilCommerces {
             if let cell = sender as? UICollectionViewCell {
                 let indexPath = self.collectionView.indexPath(for: cell)!
                 let detailViewController = segue.destination as! DetailCommerceViewController
+                detailViewController.commerceID = self.commerces[indexPath.row].objectId!
+                detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
                 detailViewController.commerceObject = self.commerces[indexPath.row]
             }
         } else if segue.identifier == "searchSegue" {
@@ -249,7 +233,7 @@ extension AccueilCommerces {
     
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
-        HelperAndKeys.showAlertWithMessage(theMessage: "Vous êtes bien déconnecté", title: "Deconnexion", viewController: self)
+        self.showBasicToastMessage(withMessage: "Vous êtes bien déconnecté".localized())
     }
     
     // Selection between location and max number of share
@@ -274,7 +258,7 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             // Menu
             // Hack for text to be visible when selected
             collectionView.deselectItem(at: indexPath, animated: false)
-            self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row])
+            self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row], withHud: true)
             collectionView.reloadData()
         } else {
             // Objects
@@ -298,7 +282,6 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
             
             if ((self.commerces[safe: indexPath.row]) != nil) {
                 // Dans l'index
-                
                 collectionView.register(UINib(nibName: "CommerceCVC", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! CommerceCVC
                 let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
@@ -307,9 +290,9 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
                 // Ajout du contenu (valeures)
                 cell.nomCommerce.text = comm.nom
                 cell.nombrePartageLabel.text = String(comm.partages)
-                let distanceFromUser = self.calculDistanceEntreDeuxPoints(commerce: comm)
-                comm.distanceFromUser = distanceFromUser
                 
+                let distanceFromUser = comm.calculDistanceEntreDeuxPoints(location: self.latestLocationForQuery)
+                comm.distanceFromUser = distanceFromUser
                 cell.imageDistance.tintColor = textColor
                 
                 if self.locationGranted {
@@ -338,6 +321,24 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
         }
     }
 }
+
+extension AccueilCommerces: CLLocationManagerDelegate {
+    /// CLLocationManagerDelegate DidFailWithError Methods
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error. The Location couldn't be found. \(error)")
+    }
+    
+    /// CLLocationManagerDelegate didUpdateLocations Methods
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationManager.stopUpdatingLocation()
+        self.latestLocationForQuery = locations.last
+        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
+        ParseService.shared.locationPrefsCommerces(withType: titleChoose, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
+            self.globalObjects(commerces: commerces, error: error, withHud: false)
+        }
+    }
+}
+
 // Header Window above objects
 extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -353,44 +354,15 @@ extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
         viewKJNavigation.scrollviewMethod?.scrollViewDidEndDecelerating(scrollView)
     }
 }
-// Functions for location and distance
-extension AccueilCommerces : CLLocationManagerDelegate {
-    /// CLLocationManagerDelegate DidFailWithError Methods
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error. The Location couldn't be found. \(error)")
-    }
-    
-    /// CLLocationManagerDelegate didUpdateLocations Methods
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locationManager.stopUpdatingLocation()
-        self.latestLocationForQuery = locations.last
-        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
-    }
-    
-    func calculDistanceEntreDeuxPoints(commerce : Commerce) -> String {
-        guard (self.latestLocationForQuery != nil) else {
-            return "--"
-        }
-        let distance = PFGeoPoint(location: self.latestLocationForQuery).distanceInKilometers(to: commerce.location)
-        
-        if distance < 1 {
-            commerce.distanceFromUser = "\(Int(distance * 1000)) m"
-        } else {
-            commerce.distanceFromUser = "\(Int(distance)) Km"
-        }
-        return commerce.distanceFromUser
-    }
-}
 // Functions for requesting localisation permission
 extension AccueilCommerces : SPPermissionDialogDelegate {
     func didAllow(permission: SPPermissionType) {
         if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
-            self.locationManager.startUpdatingLocation()
             self.locationGranted = true
             self.prefFiltreLocation = true
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: true)
             HelperAndKeys.setLocationGranted(locationGranted: true)
-            self.chooseCategorie(itemChoose: self.titleChoose)
+            self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
         }
     }
     
@@ -400,7 +372,7 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
             self.prefFiltreLocation = false
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: false)
             HelperAndKeys.setLocationGranted(locationGranted: false)
-            self.chooseCategorie(itemChoose: self.titleChoose)
+            self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -409,7 +381,7 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
         if CLLocationManager.locationServicesEnabled() {
             if CLLocationManager.authorizationStatus() == .denied {
                 // Location Services are denied
-                HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé", withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.\n\nVous pouvez autoriser la géolocalisation dans l'application \"Réglages\" de votre téléphone.", presentFrom: self)
+                HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.\n\nVous pouvez autoriser la géolocalisation dans l'application \"Réglages\" de votre téléphone.".localized(), presentFrom: self)
                 self.locationGranted = false
             } else {
                 if CLLocationManager.authorizationStatus() == .notDetermined {
@@ -422,37 +394,37 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
             }
         } else {
             // Location Services are disabled
-            HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé", withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.", presentFrom: self)
+            HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.".localized(), presentFrom: self)
             self.locationGranted = false
         }
         
         HelperAndKeys.setLocationGranted(locationGranted: self.locationGranted)
-        self.chooseCategorie(itemChoose: self.titleChoose)
+        self.chooseCategorie(itemChoose: self.titleChoose, withHud: false)
     }
 }
 // Custom UI for asking permission (alert controller)
 extension AccueilCommerces : SPPermissionDialogDataSource {
-    var dialogTitle: String     { return "Demande de position" }
-    var dialogSubtitle: String  { return "Position nécessaire pour ce filtre" }
-    var dialogComment: String   { return "Cette fonctionnalité vous permet de voir les commerces autour de vous." }
-    var cancelTitle: String     { return "Annuler" }
-    var settingsTitle: String   { return "Réglages" }
+    var dialogTitle: String     { return "Demande de position".localized() }
+    var dialogSubtitle: String  { return "Position nécessaire pour ce filtre".localized() }
+    var dialogComment: String   { return "Cette fonctionnalité vous permet de voir les commerces autour de vous.".localized() }
+    var cancelTitle: String     { return "Annuler".localized() }
+    var settingsTitle: String   { return "Réglages".localized() }
     
-    var allowTitle: String      { return "Autoriser" }
-    var allowedTitle: String    { return "Autorisé" }
+    var allowTitle: String      { return "Autoriser".localized() }
+    var allowedTitle: String    { return "Autorisé".localized() }
     
     func name(for permission: SPPermissionType) -> String? {
-        if permission == .locationWhenInUse || permission == .locationAlwaysAndWhenInUse { return "Position" }
+        if permission == .locationWhenInUse || permission == .locationAlwaysAndWhenInUse { return "Position".localized() }
         return nil
     }
     func description(for permission: SPPermissionType)      -> String? {
         if permission == .locationWhenInUse || permission == .locationAlwaysAndWhenInUse {
-            return "Permet de vous géolocaliser" }
+            return "Permet de vous géolocaliser".localized() }
         return nil
     }
-    func deniedTitle(for permission: SPPermissionType)      -> String? { return "Refusé" }
+    func deniedTitle(for permission: SPPermissionType)      -> String? { return "Refusé".localized() }
     func deniedSubtitle(for permission: SPPermissionType)   -> String? {
-        return "Autorisation refusé. Merci de les changer dans les réglages."
+        return "Autorisation refusé. Merci de les changer dans les réglages.".localized()
     }
     
     var showCloseButton: Bool { return false }

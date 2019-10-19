@@ -27,7 +27,7 @@ class SearchViewController: UITableViewController {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.barTintColor = UIColor(white: 0.9, alpha: 0.9)
-        searchController.searchBar.placeholder = "Trouver un commerce"
+        searchController.searchBar.placeholder = "Trouver un commerce".localized()
         searchController.hidesNavigationBarDuringPresentation = false
         
         tableView.tableHeaderView = searchController.searchBar
@@ -35,11 +35,7 @@ class SearchViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
+        tableView.contentInsetAdjustmentBehavior = .never
     }
     
     func filterRowsForSearchedText(_ searchText: String) {
@@ -111,8 +107,12 @@ extension SearchViewController{
         let detail = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
         if isFiltering() {
             detail.commerceObject = self.filteredComm[(tableView.indexPathForSelectedRow?.row)!]
+            detail.commerceID = self.filteredComm[(tableView.indexPathForSelectedRow?.row)!].objectId!
+            detail.routeCommerceId = self.filteredComm[(tableView.indexPathForSelectedRow?.row)!].objectId!
         } else {
             detail.commerceObject = self.commerces[(tableView.indexPathForSelectedRow?.row)!]
+            detail.commerceID = self.commerces[(tableView.indexPathForSelectedRow?.row)!].objectId!
+            detail.routeCommerceId = self.commerces[(tableView.indexPathForSelectedRow?.row)!].objectId!
         }
         self.navigationController?.pushViewController(detail, animated: true)
     }

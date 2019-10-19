@@ -60,7 +60,7 @@ class AdminMonProfilSettingsVC: UIViewController {
                 
                 if i == 1 {
                     // Option 2
-                    button.setTitle("Schedule :  30sec", for: .normal)
+                    button.setTitle("Schedule :  30sec".localized(), for: .normal)
                 }
                 
             } else {
@@ -68,7 +68,7 @@ class AdminMonProfilSettingsVC: UIViewController {
                 
                 if i == 1 {
                     // Option 2
-                    button.setTitle("Schedule :  1an", for: .normal)
+                    button.setTitle("Schedule :  1an".localized(), for: .normal)
                 }
             }
         }

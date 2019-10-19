@@ -22,7 +22,10 @@ class ParseService: NSObject {
     private var latestLocationForQuery : CLLocation!
     private var isLoadingCommerces = false
     
-    private override init(){}
+    private override init(){
+        super.init()
+        locationManager.delegate = self
+    }
     
     // create one commerce
     
@@ -339,5 +342,19 @@ extension ParseService {
                 self.isLoadingCommerces = false
             }
         }
+    }
+}
+
+extension ParseService: CLLocationManagerDelegate {
+    /// CLLocationManagerDelegate DidFailWithError Methods
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error. The Location couldn't be found. \(error)")
+    }
+    
+    /// CLLocationManagerDelegate didUpdateLocations Methods
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationManager.stopUpdatingLocation()
+        self.latestLocationForQuery = locations.last
+        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
     }
 }

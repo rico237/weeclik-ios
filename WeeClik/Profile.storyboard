@@ -22,7 +22,7 @@
         <!--Mon Profil-->
         <scene sceneID="9pK-uA-vSm">
             <objects>
-                <viewController id="UIg-dk-7Ch" customClass="MonCompteVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="UIg-dk-7Ch" customClass="MonCompteVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0GF-N2-ghy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -307,7 +307,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vNJ-WM-cPq">
             <objects>
-                <navigationController storyboardIdentifier="profil_commerce" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FI0-Pl-R44" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="profil_commerce" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FI0-Pl-R44" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nEZ-I5-Wx0">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -325,7 +325,7 @@
         <!--Nouveau Commerce-->
         <scene sceneID="7L0-WQ-x4p">
             <objects>
-                <tableViewController storyboardIdentifier="ajoutCommerce" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8kB-un-vxW" customClass="AjoutCommerceVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ajoutCommerce" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8kB-un-vxW" customClass="AjoutCommerceVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="40" id="Hcl-Tq-3jl" customClass="TPKeyboardAvoidingTableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -660,7 +660,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <!--MON PROFIL-->
         <scene sceneID="NbB-lR-Jhj">
             <objects>
-                <viewController title="MON PROFIL" id="gWF-Kz-s9f" customClass="ChangeInfosVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="MON PROFIL" modalPresentationStyle="fullScreen" id="gWF-Kz-s9f" customClass="ChangeInfosVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yOt-FF-VPS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -723,22 +723,22 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                                         <rect key="frame" x="0.0" y="174" width="414" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mes informations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZ6-9h-XZD">
-                                                <rect key="frame" x="8" y="0.0" width="398" height="20"/>
+                                                <rect key="frame" x="8" y="0.0" width="398" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mfq-TN-Ph8">
-                                                <rect key="frame" x="0.0" y="28" width="414" height="100"/>
+                                                <rect key="frame" x="0.0" y="31.5" width="414" height="96.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nom Prénom" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lEe-Tk-Gwn" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="49.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes" keyboardType="namePhonePad" textContentType="name"/>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Adresse Mail" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Gd-UY-9Fl" customClass="FormTextField" customModule="WeeClik" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="50.5" width="414" height="49.5"/>
+                                                        <rect key="frame" x="0.0" y="49" width="414" height="47.5"/>
                                                         <color key="backgroundColor" red="0.96757203709999995" green="0.97118873670000005" blue="0.98203883550000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
@@ -810,7 +810,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <!--MON PROFIL-->
         <scene sceneID="46O-Lm-si7">
             <objects>
-                <viewController title="MON PROFIL" id="Z70-B6-HlE" customClass="MotDePasseVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="MON PROFIL" modalPresentationStyle="fullScreen" id="Z70-B6-HlE" customClass="MotDePasseVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VZr-Z0-D9J">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -911,7 +911,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <!--Process InscriptionVC-->
         <scene sceneID="IMS-FU-szZ">
             <objects>
-                <viewController storyboardIdentifier="ProcessInscriptionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zDG-1i-CAK" customClass="ProcessInscriptionVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProcessInscriptionVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zDG-1i-CAK" customClass="ProcessInscriptionVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xA6-2A-hHQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -956,7 +956,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <!--MON PROFIL-->
         <scene sceneID="8o8-gA-zR7">
             <objects>
-                <viewController storyboardIdentifier="SaisieDeDonneesVC" title="MON PROFIL" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9ui-k8-8zm" customClass="SaisieDeDonneesVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaisieDeDonneesVC" title="MON PROFIL" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9ui-k8-8zm" customClass="SaisieDeDonneesVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6um-lr-gP9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1077,7 +1077,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <!--Navigation Controller-->
         <scene sceneID="VhU-tD-pfn">
             <objects>
-                <navigationController storyboardIdentifier="choose_type_compte" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vhd-M7-Bdk" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="choose_type_compte" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vhd-M7-Bdk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hr5-QF-adh">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1103,7 +1103,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <!--Navigation Controller-->
         <scene sceneID="e8f-wY-gQp">
             <objects>
-                <navigationController id="dPQ-GF-S7O" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" id="dPQ-GF-S7O" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4dJ-lp-Whf">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1119,13 +1119,13 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
         <!--PaymentVC-->
         <scene sceneID="cCi-hk-vA8">
             <objects>
-                <viewController id="ImN-HC-CpM" customClass="PaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="ImN-HC-CpM" customClass="PaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RhM-gz-AVD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1X-90-KLS">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4vE-Wq-627">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
@@ -1258,7 +1258,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
         <!--After PaymentVC-->
         <scene sceneID="yQL-EW-fuD">
             <objects>
-                <viewController id="WWR-1x-vp5" customClass="AfterPaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="WWR-1x-vp5" customClass="AfterPaymentVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w1F-SB-NqV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1299,7 +1299,7 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
         <image name="Placeholder_carre" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UVY-Ff-im1"/>
+        <segue reference="vHo-LJ-Qj1"/>
         <segue reference="AJE-VH-nVt"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -6,7 +6,13 @@
 //  Copyright © 2018 Herrick Wolber. All rights reserved.
 //
 
+/**
+ String + Array + Collection + Error + TimeInterval + UIColor + UIDevice + UIImage + UIView + Double +
+ UserDefaults + CALayer + UIWindow + UIViewController + UIFont
+ */
+
 import UIKit
+import Loaf
 
 extension String {
     
@@ -55,9 +61,15 @@ extension String {
         return phoneTest.evaluate(with: self)
     }
     
-    // Valid Email
+    /// Validate email
+    ///
+    /// - returns: A Boolean value indicating whether an email is valid.
     func isValidEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
+        "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" + "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5" +
+        "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
+        "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+        
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
@@ -175,7 +187,7 @@ extension UIView {
         var topInset = CGFloat(0)
         var bottomInset = CGFloat(0)
         
-        if #available(iOS 11, *), enableInsets {
+        if enableInsets {
             let insets = self.safeAreaInsets
             topInset = insets.top
             bottomInset = insets.bottom
@@ -208,7 +220,6 @@ extension UIView {
     }
     
 }
-
 
 extension Double {
     func round(to places: Int) -> Double {
@@ -251,7 +262,7 @@ extension CALayer {
     }
 }
 
-public extension UIWindow {
+extension UIWindow {
     var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
@@ -314,12 +325,20 @@ extension UIViewController {
             actionHandler?(textField.text)
         }))
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler))
-        
         self.present(alert, animated: true, completion: nil)
     }
     
-    func showToastMessage(withMessage message: String) {
-        
+    func presentFullScreen(viewController: UIViewController, animated: Bool = true, completion:(() -> Void)?) {
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: animated, completion: completion)
+    }
+    
+    func showToastMessage(withMessage message: String, state:Loaf.State = .info, location: Loaf.Location = .bottom, presentationDir: Loaf.Direction, dismissDir: Loaf.Direction) {
+        Loaf(message, state: state, location: location, presentingDirection: presentationDir, dismissingDirection: dismissDir, sender: self).show()
+    }
+    
+    func showBasicToastMessage(withMessage message: String, state:Loaf.State = .info) {
+        Loaf(message, state: state, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
     }
 }
 

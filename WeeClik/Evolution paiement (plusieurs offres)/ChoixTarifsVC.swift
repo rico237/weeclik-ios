@@ -13,9 +13,7 @@ import Parse
 import LGButton
 
 class ChoixTarifsVC: UIViewController, IAPHandlerDelegate {
-    func didFinishFetchAllProductFromParse(products: [PFProduct]) {
-        self.parseProducts = products
-    }
+    func didFinishFetchAllProductFromParse(products: [PFProduct]) {self.parseProducts = products}
     @IBOutlet weak var back: UIView!
     
     let darkBlue  = UIColor(red:0.04, green:0.18, blue:1.00, alpha:1.00)
@@ -43,7 +41,7 @@ class ChoixTarifsVC: UIViewController, IAPHandlerDelegate {
             guard let strongSelf = self else{ return }
             if type == .purchased {
                 let alertView = UIAlertController(title: "", message: type.message(), preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default, handler: { (alert) in
+                let action = UIAlertAction(title: "OK".localized(), style: .default, handler: { (alert) in
                     
                 })
                 alertView.addAction(action)

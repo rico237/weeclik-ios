@@ -30,7 +30,7 @@ class ChoixAbonnmentsVC: UIViewController, IAPHandlerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "PAIEMENT"
+        self.title = "PAIEMENT".localized()
         
         InAppPurchaseHandler.shared.delegate = self
         InAppPurchaseHandler.shared.fetchAvailableProducts()
@@ -38,7 +38,7 @@ class ChoixAbonnmentsVC: UIViewController, IAPHandlerDelegate {
             guard let strongSelf = self else{ return }
             if type == .purchased {
                 let alertView = UIAlertController(title: "", message: type.message(), preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default, handler: { (alert) in
+                let action = UIAlertAction(title: "OK".localized(), style: .default, handler: { (alert) in
                     
                 })
                 alertView.addAction(action)
@@ -67,7 +67,7 @@ extension ChoixAbonnmentsVC : UICollectionViewDelegate, UICollectionViewDataSour
         cell.backgroundImageView.layer.cornerRadius = 15
         cell.backgroundImageView.layer.masksToBounds = true
         
-        cell.priceViewLGButton.titleString = "\(product.price)€"
+        cell.priceViewLGButton.titleString = "\(product.price)€".localized()
         
         return cell
     }

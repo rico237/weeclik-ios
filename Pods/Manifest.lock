@@ -162,10 +162,10 @@ PODS:
   - SDWebImage/Core (4.4.7)
   - SecureDefaults (1.0.4)
   - SPLarkController (1.0.9)
-  - SPPermission/Contacts (4.0.5):
+  - SPPermission/Contacts (4.0.6):
     - SPPermission/Core
-  - SPPermission/Core (4.0.5)
-  - SPPermission/Location (4.0.5):
+  - SPPermission/Core (4.0.6)
+  - SPPermission/Location (4.0.6):
     - SPPermission/Core
   - SVProgressHUD (2.2.5)
   - SwiftDate (6.0.3)
@@ -374,7 +374,7 @@ SPEC CHECKSUMS:
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SecureDefaults: 1eda918884e49355855faa6fde382745d50184c6
   SPLarkController: af253e70e5e07f6d55a7960f8da37f363c276455
-  SPPermission: ef54994522bdf471ce1fe6aea267bf471a9de701
+  SPPermission: 1807bce0f1d8cf4bb0185a46d3acfaf5a6cff2d8
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f

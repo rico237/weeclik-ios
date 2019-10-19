@@ -12,7 +12,7 @@ import Alamofire
 
 class MailHelper: NSObject {
     
-    static func sendErrorMail(content: String = "Default : No description was given") {
+    static func sendErrorMail(content: String = "Default : No description was given".localized()) {
         /**
          Error Mail
          post https://api.eu.mailgun.net/v3/email.herrick-wolber.fr/messages
@@ -23,7 +23,7 @@ class MailHelper: NSObject {
             "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
         ]
         
-        let parameters: Parameters = ["content": content]
+        let parameters: Parameters = ["content": content.localized()]
         AF.request("https://api.eu.mailgun.net/v3/email.herrick-wolber.fr/messages", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: HTTPHeaders.init(headers), interceptor: nil).responseJSON { (response) in
                 print(response.debugDescription)
         }

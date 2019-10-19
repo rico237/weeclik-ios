@@ -71,7 +71,7 @@ class PaymentVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "PAIEMENT"
+        self.title = "PAIEMENT".localized()
         
         SVProgressHUD.setHapticsEnabled(true)
         SVProgressHUD.setDefaultMaskType(.black)
@@ -157,28 +157,28 @@ class PaymentVC: UIViewController {
                 
                 commerce.saveInBackground { (success, error) in
                     if success {
-                        SVProgressHUD.showSuccess(withStatus: "Votre commerce a été renouvelé pour un an")
+                        SVProgressHUD.showSuccess(withStatus: "Votre commerce a été renouvelé pour un an".localized())
                         // Commerce crée on sauvegarde les stats
                         self.saveStatForPurchase(forUser: self.currentUser!, andCommerce: commerce)
                         self.getBackToHome(self)
                     } else if let error = error {
                         print("Erreur dans le renouvellement de l'abonnement du commerce")
                         ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
-                        SVProgressHUD.showError(withStatus: "Erreur dans le renouvellement de l'abonnement du commerce")
+                        SVProgressHUD.showError(withStatus: "Erreur dans le renouvellement de l'abonnement du commerce".localized())
                     }
                 }
             } else {
-                SVProgressHUD.showError(withStatus: "Une erreur inconnue est arrivée durant le renouvellement")
+                SVProgressHUD.showError(withStatus: "Une erreur inconnue est arrivée durant le renouvellement".localized())
             }
         }
     }
     
     @IBAction func restorePurchase(_ sender: Any) {
-        SVProgressHUD.show(withStatus: "Chargement de vos achats")
+        SVProgressHUD.show(withStatus: "Chargement de vos achats".localized())
         SwiftyStoreKit.restorePurchases(atomically: false) { results in
             if results.restoreFailedPurchases.count > 0 {
                 print("Restore Failed: \(results.restoreFailedPurchases)")
-                SVProgressHUD.showError(withStatus: "Erreur lors du chargement de vos achats")
+                SVProgressHUD.showError(withStatus: "Erreur lors du chargement de vos achats".localized())
             }
             else if results.restoredPurchases.count > 0 {
                 for purchase in results.restoredPurchases {
@@ -188,11 +188,11 @@ class PaymentVC: UIViewController {
                     }
                 }
                 print("Restore Success")
-                SVProgressHUD.showSuccess(withStatus: "Vos achats ont été restaurés avec succès")
+                SVProgressHUD.showSuccess(withStatus: "Vos achats ont été restaurés avec succès".localized())
             }
             else {
                 print("Nothing to Restore")
-                SVProgressHUD.showInfo(withStatus: "Aucun achat à restaurer")
+                SVProgressHUD.showInfo(withStatus: "Aucun achat à restaurer".localized())
             }
         }
     }
@@ -210,7 +210,7 @@ class PaymentVC: UIViewController {
     }
     
     func createNewCommerce() {
-        SVProgressHUD.setStatus("Création de votre commerce")
+        SVProgressHUD.setStatus("Création de votre commerce".localized())
         // TODO: faire de vrai tests pour le paiement
         // [1] Effectuer la demande de paiement
         // [2] Verifier le retour
@@ -244,12 +244,12 @@ class PaymentVC: UIViewController {
             
             newCommerce.saveInBackground { (success, error) in
                 if let error = error {
-                    HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce", viewController: self)
+                    HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce".localized(), viewController: self)
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                     SVProgressHUD.dismiss()
                 } else {
                     if success {
-                        SVProgressHUD.showSuccess(withStatus: "Commerce crée avec succes")
+                        SVProgressHUD.showSuccess(withStatus: "Commerce crée avec succes".localized())
                         // Commerce crée on sauvegarde les stats
                         self.saveStatForPurchase(forUser: currentUser, andCommerce: newCommerce)
                         // [4] Une fois la création faite -> afficher page de création de commerce
@@ -257,13 +257,13 @@ class PaymentVC: UIViewController {
                             self.getBackToHome(self)
                         }
                     } else {
-                        HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.", title: "Erreur création de commerce", viewController: self)
+                        HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), viewController: self)
                         SVProgressHUD.dismiss()
                     }
                 }
             }
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.", title: "Problème de connexion", viewController: self)
+            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), viewController: self)
             SVProgressHUD.dismiss()
         }
     }
@@ -304,7 +304,7 @@ class PaymentVC: UIViewController {
     
     func buyProduct(){
         
-        SVProgressHUD.show(withStatus: "Chargement du paiement")
+        SVProgressHUD.show(withStatus: "Chargement du paiement".localized())
         
         SwiftyStoreKit.retrieveProductsInfo([self.purchasedProductID]) { result in
             SVProgressHUD.dismiss(withDelay: 1.5)
@@ -331,15 +331,15 @@ class PaymentVC: UIViewController {
                         break
                     case .error(let error):
                         switch error.code {
-                        case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support")
-                        case .clientInvalid: SVProgressHUD.showError(withStatus: "Not allowed to make the payment")
+                        case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())
+                        case .clientInvalid: SVProgressHUD.showError(withStatus: "Not allowed to make the payment".localized())
                         case .paymentCancelled: break
-                        case .paymentInvalid: SVProgressHUD.showError(withStatus: "The purchase identifier was invalid")
-                        case .paymentNotAllowed: SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment")
-                        case .storeProductNotAvailable: SVProgressHUD.showError(withStatus: "The product is not available in the current storefront")
-                        case .cloudServicePermissionDenied: SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed")
-                        case .cloudServiceNetworkConnectionFailed: SVProgressHUD.showError(withStatus: "Could not connect to the network")
-                        case .cloudServiceRevoked: SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service")
+                        case .paymentInvalid: SVProgressHUD.showError(withStatus: "The purchase identifier was invalid".localized())
+                        case .paymentNotAllowed: SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment".localized())
+                        case .storeProductNotAvailable: SVProgressHUD.showError(withStatus: "The product is not available in the current storefront".localized())
+                        case .cloudServicePermissionDenied: SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed".localized())
+                        case .cloudServiceNetworkConnectionFailed: SVProgressHUD.showError(withStatus: "Could not connect to the network".localized())
+                        case .cloudServiceRevoked: SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service".localized())
                         default: SVProgressHUD.showError(withStatus: (error as NSError).localizedDescription)
                         }
                         ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false) // TODO: change it is not a parse error
@@ -347,11 +347,11 @@ class PaymentVC: UIViewController {
                 }
             } else if let invalidProductId = result.invalidProductIDs.first {
                 print("Invalid product identifier: \(invalidProductId)")
-                // TODO: Send mail - CRITIC ERROR
+                ParseErrorCodeHandler.handleUnknownError(error: NSError(domain: "PaymentVC", code: 404, userInfo: ["invalid_product_identifier" : "Product identifier is invalid : \(invalidProductId)"]))
             }
             else {
                 print("Error: \(String(describing: result.error))")
-                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false) // TODO: change it is not a parse error
+                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false)
             }
         }
         
