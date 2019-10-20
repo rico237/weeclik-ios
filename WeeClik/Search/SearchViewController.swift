@@ -14,30 +14,30 @@ class SearchViewController: UITableViewController {
     var commerces = [Commerce]()
     var filteredComm = [Commerce]()
     let searchController = UISearchController(searchResultsController: nil)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
         setupSearchController()
         tableView.reloadData()
     }
-    
-    func setupSearchController(){
+
+    func setupSearchController() {
         definesPresentationContext = true
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.barTintColor = UIColor(white: 0.9, alpha: 0.9)
         searchController.searchBar.placeholder = "Trouver un commerce".localized()
         searchController.hidesNavigationBarDuringPresentation = false
-        
+
         tableView.tableHeaderView = searchController.searchBar
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.contentInsetAdjustmentBehavior = .never
     }
-    
+
     func filterRowsForSearchedText(_ searchText: String) {
         filteredComm = commerces.filter({ (commerce : Commerce) -> Bool in
             return commerce.nom.lowercased().contains(searchText.lowercased()) || commerce.descriptionO.lowercased().contains(searchText.lowercased()) || commerce.type.lowercased().contains(searchText.lowercased()) ||
@@ -45,11 +45,11 @@ class SearchViewController: UITableViewController {
         })
         tableView.reloadData()
     }
-    
-    @IBAction func closeView(){
+
+    @IBAction func closeView() {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -65,36 +65,36 @@ extension SearchViewController: UISearchResultsUpdating {
     }
 }
 
-extension SearchViewController{
-    
+extension SearchViewController {
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 240
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {
             return filteredComm.count
         }
         return commerces.count
     }
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "SearchCell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
         let comm : Commerce
-        
+
         if isFiltering() {
             comm = filteredComm[indexPath.row]
         } else {
             comm = commerces[indexPath.row]
         }
-        
+
         cell.nomCommerce.text = comm.nom
-        
+
         if let imageThumbnailFile = comm.thumbnail {
             cell.coverImage.sd_setImage(with: URL(string: imageThumbnailFile.url!))
         } else {
@@ -102,7 +102,7 @@ extension SearchViewController{
         }
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detail = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
         if isFiltering() {

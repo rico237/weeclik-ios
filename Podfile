@@ -110,6 +110,8 @@ def projectPods
     pod 'PhoneNumberKit', '~> 3.0'
     # Validator of data entries helper
     pod 'Validator', '~> 3.2.1'
+    # Bug reporting
+    pod 'Instabug'
     
     ################################
     ################################

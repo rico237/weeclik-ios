@@ -10,7 +10,7 @@ import Validator
 
 class NomCommerceFormValidationError: ValidationError {
     let message: String
-    
+
     public init() {self.message = "Vous devez définir un nom pour votre commerce".localized()}
     public init(_ message: String) { self.message = message }
 }

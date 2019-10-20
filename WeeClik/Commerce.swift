@@ -12,44 +12,44 @@ import Parse
 
 @objc(Commerce)
 public class Commerce: NSObject, NSCoding {
-    
+
     static let PurchaseNotification = "WeeclikProductsPurchaseNotification"
-    
+
     var nom         : String = ""
-    var owner       : PFUser? = nil
+    var owner       : PFUser?
     var statut      : StatutType = .unknown
 //    var type : CategoryType = .autres
     var type        : String = ""
     var partages    : Int = 0
     var mail        : String = ""
     var adresse     : String = ""
-    var location    : PFGeoPoint? = nil
+    var location    : PFGeoPoint?
     var tel         : String = ""
     var siteWeb     : String = ""
     var promotions  : String = ""
     var descriptionO: String = ""
     var brouillon   : Bool   = true
-    
-    var thumbnail   : PFFileObject? = nil
-    
+
+    var thumbnail   : PFFileObject?
+
     var objectId    : String! = "-1"
     var createdAt   : Date?
     var updatedAt   : Date?
-    
+
     var distanceFromUser : String = ""
-    
+
     var pfObject : PFObject!
-    
+
     required override public init() {
         super.init()
     }
-    
-    init(withName nom: String, tel: String, mail:String, adresse:String, siteWeb:String, categorie:String, description:String, promotions:String, owner: PFUser){
+
+    init(withName nom: String, tel: String, mail:String, adresse:String, siteWeb:String, categorie:String, description:String, promotions:String, owner: PFUser) {
         self.pfObject = PFObject(className: "Commerce")
         self.objectId = pfObject.objectId
         self.createdAt = pfObject.createdAt
         self.updatedAt = pfObject.updatedAt
-        
+
         self.nom = nom
         self.tel = tel
         self.mail = mail
@@ -60,11 +60,11 @@ public class Commerce: NSObject, NSCoding {
         self.promotions = promotions
         self.owner = owner
     }
-    
+
     @objc
     init(parseObject: PFObject) {
         self.pfObject = parseObject
-        
+
         if let nom = parseObject["nomCommerce"] as? String {self.nom = nom}
         //        self.type = CategoryType(rawValue: parseObject["typeCommerce"] as! String)!
         if let type = parseObject["typeCommerce"] as? String {self.type = type}
@@ -76,20 +76,20 @@ public class Commerce: NSObject, NSCoding {
         if let descriptionO = parseObject["description"] as? String {self.descriptionO = descriptionO}
         if let brouillon = parseObject["brouillon"] as? Bool {self.brouillon = brouillon}
         if let promotions = parseObject["promotions"] as? String {self.promotions = promotions}
-        
+
         if let statutP  = parseObject["statutCommerce"] {self.statut = StatutType(rawValue: statutP as! Int)!}
         if let position = parseObject["position"] as? PFGeoPoint {self.location = position}
         if let owner    = parseObject["owner"] as? PFUser {self.owner = owner}
-        
+
         if let thumbnailObj    = parseObject["thumbnailPrincipal"] as? PFObject {
             if let thumbnail   = thumbnailObj["photo"] as? PFFileObject {self.thumbnail = thumbnail}
         }
-        
+
         self.objectId   = parseObject.objectId
         self.createdAt  = parseObject.createdAt
         self.updatedAt  = parseObject.updatedAt
     }
-    
+
     convenience init? (objectId: String) {
         let query = PFQuery(className: "Commerce")
         query.whereKey("objectId", equalTo: objectId)
@@ -102,16 +102,16 @@ public class Commerce: NSObject, NSCoding {
             return nil
         }
     }
-    
+
     override public var description: String {
         get {
-            return "Commerce {\n\t Nom : \(self.nom)\n\t Type : \(self.type)\n\t Partages : \(self.partages)\n\t Id : \(String(describing: self.objectId))\n}";
+            return "Commerce {\n\t Nom : \(self.nom)\n\t Type : \(self.type)\n\t Partages : \(self.partages)\n\t Id : \(String(describing: self.objectId))\n}"
         }
     }
-    
+
     func getPFObject(objectId: String, fromBaas: Bool) -> PFObject {
         var object = self.pfObject ?? PFObject(className: "Commerce")
-        
+
         if fromBaas {
             let quer = PFQuery(className: "Commerce")
 //            quer.getFirstObjectInBackground { (objectP, error) in
@@ -145,21 +145,21 @@ public class Commerce: NSObject, NSCoding {
             return object
         }
     }
-    
-    func saveLocation(lat: Double, long: Double){
+
+    func saveLocation(lat: Double, long: Double) {
         if let object = self.pfObject {
             object["position"] = PFGeoPoint(latitude: lat, longitude: long)
             object.saveInBackground()
         }
     }
-    
+
     public static func daysRemainingOnSubscription() -> Int {
         if let expiryDate = UserSettings.shared.expirationDate {
             return Calendar.current.dateComponents([.day], from: Date(), to: expiryDate).day!
         }
         return 0
     }
-    
+
     public static func getExpiryDateString() -> String {
         let remaining = daysRemainingOnSubscription()
         if remaining > 0, let expiryDate = UserSettings.shared.expirationDate {
@@ -169,23 +169,22 @@ public class Commerce: NSObject, NSCoding {
         }
         return "Not Subscribed".localized()
     }
-    
-    public static func syncExpiration(local: Date?, completion: @escaping (_ object: PFObject?) -> ()) {
+
+    public static func syncExpiration(local: Date?, completion: @escaping (_ object: PFObject?) -> Void) {
         // Query Parse for expiration date.
-        
+
         guard let user = PFUser.current(),
             let userID = user.objectId,
             user.isAuthenticated else {
                 return
         }
-        
-        
+
         let query = PFUser.query()
         query!.getObjectInBackground(withId: userID) {
-            object, error in
-            
+            object, _ in
+
             let parseExpiration = object?[expirationDateKey] as? Date
-            
+
             // Get to latest date between Parse and local.
             var latestDate: Date?
             if parseExpiration == nil {
@@ -197,37 +196,37 @@ public class Commerce: NSObject, NSCoding {
             } else {
                 latestDate = local
             }
-            
+
             if let latestDate = latestDate {
                 // Update local
                 UserSettings.shared.expirationDate = latestDate
-                
+
                 // See if subscription valid
                 if latestDate.compare(Date()) == .orderedDescending {
                     //TODO: do someting
                 }
             }
-            
+
             completion(object)
         }
     }
     private static func handleMonthlySubscription(months: Int) {
         // Update local and Parse with new subscription.
-        
+
         syncExpiration(local: UserSettings.shared.expirationDate) {
             object in
-            
+
             // Increase local
             UserSettings.shared.increaseRandomExpirationDate(by: months)
-            
+
             // Update Parse with extended purchase
             object?[expirationDateKey] = UserSettings.shared.expirationDate
             object?.saveInBackground()
-            
+
         }
-        
+
     }
-    
+
     public static func paidUp() -> Bool {
         var paidUp = false
         if self.daysRemainingOnSubscription() > 0 {
@@ -235,7 +234,7 @@ public class Commerce: NSObject, NSCoding {
         }
         return paidUp
     }
-    
+
     // Encoding Functions
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(nom, forKey: "nameComm")
@@ -253,33 +252,33 @@ public class Commerce: NSObject, NSCoding {
 
         // Optionnels
         if let loc = location {aCoder.encode(loc, forKey: "locationComm")}
-        if let thumb = self.thumbnail  {aCoder.encode(thumb, forKey: "thumbnailComm")}
+        if let thumb = self.thumbnail {aCoder.encode(thumb, forKey: "thumbnailComm")}
 
         if let created = createdAt {aCoder.encode(created, forKey: "createdAtComm")}
         if let updated = updatedAt {aCoder.encode(updated, forKey: "updatedAtComm")}
         if let owner = self.owner {aCoder.encode(owner, forKey: "owner")}
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
-        nom = aDecoder.decodeObject (forKey: "nameComm") as! String
-        statut = StatutType(rawValue: aDecoder.decodeObject (forKey: "statutComm") as! Int)!
-        type = aDecoder.decodeObject (forKey: "statutComm") as! String
+        nom = aDecoder.decodeObject(forKey: "nameComm") as! String
+        statut = StatutType(rawValue: aDecoder.decodeObject(forKey: "statutComm") as! Int)!
+        type = aDecoder.decodeObject(forKey: "statutComm") as! String
         partages = aDecoder.decodeInteger(forKey: "partagesComm")
-        mail = aDecoder.decodeObject (forKey: "mailComm") as! String
-        adresse = aDecoder.decodeObject (forKey: "statutComm") as! String
-        tel = aDecoder.decodeObject (forKey: "telComm") as! String
-        siteWeb = aDecoder.decodeObject (forKey: "sitewebComm") as! String
-        promotions = aDecoder.decodeObject (forKey: "promotionsComm") as! String
-        descriptionO = aDecoder.decodeObject (forKey: "descriptionComm") as! String
+        mail = aDecoder.decodeObject(forKey: "mailComm") as! String
+        adresse = aDecoder.decodeObject(forKey: "statutComm") as! String
+        tel = aDecoder.decodeObject(forKey: "telComm") as! String
+        siteWeb = aDecoder.decodeObject(forKey: "sitewebComm") as! String
+        promotions = aDecoder.decodeObject(forKey: "promotionsComm") as! String
+        descriptionO = aDecoder.decodeObject(forKey: "descriptionComm") as! String
         brouillon = aDecoder.decodeBool(forKey: "brouillon")
-        objectId = (aDecoder.decodeObject (forKey: "objectIdComm") as! String)
+        objectId = (aDecoder.decodeObject(forKey: "objectIdComm") as! String)
 
         // Optionnels
         if let loc = aDecoder.decodeObject(forKey: "locationComm") {self.location = loc as? PFGeoPoint}
-        if let thumb = aDecoder.decodeObject(forKey: "thumbnailComm"){self.thumbnail = thumb as? PFFileObject}
-        if let created = aDecoder.decodeObject(forKey: "createdAtComm"){self.createdAt = created as? Date}
-        if let updated = aDecoder.decodeObject(forKey: "updatedAtComm"){self.updatedAt = updated as? Date}
-        if let ownerP = aDecoder.decodeObject(forKey: "owner"){self.owner = ownerP as? PFUser}
+        if let thumb = aDecoder.decodeObject(forKey: "thumbnailComm") {self.thumbnail = thumb as? PFFileObject}
+        if let created = aDecoder.decodeObject(forKey: "createdAtComm") {self.createdAt = created as? Date}
+        if let updated = aDecoder.decodeObject(forKey: "updatedAtComm") {self.updatedAt = updated as? Date}
+        if let ownerP = aDecoder.decodeObject(forKey: "owner") {self.owner = ownerP as? PFUser}
     }
 }
 
@@ -289,7 +288,7 @@ public enum StatutType: Int {
     canceled = 2,
     error = 3,
     unknown = 4
-    
+
     func label() -> String {
         switch self {
         case .paid :
@@ -304,7 +303,7 @@ public enum StatutType: Int {
             return "Statut inconnu".localized()
         }
     }
-    
+
     var description: String {
         get { return label() }
     }
@@ -314,7 +313,7 @@ extension Commerce {
     func calculDistanceEntreDeuxPoints(location : CLLocation?) -> String {
         guard let location = location else {return "--"}
         let distance = PFGeoPoint(location: location).distanceInKilometers(to: self.location)
-        
+
         if distance < 1 {
             self.distanceFromUser = "\(Int(distance * 1000)) m"
         } else {

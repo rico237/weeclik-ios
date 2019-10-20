@@ -25,19 +25,19 @@ class MonCompteVC: UIViewController {
     @IBOutlet weak var gridView: UIView!
     @IBOutlet weak var changeProfilInfoTVC: UITableView!
     @IBOutlet weak var commercesTableView: UITableView!
-    
+
     @IBOutlet weak var noCommerceView: UIView!
     @IBOutlet weak var noCommercesLabel: UILabel!
-    
+
     // Contraintes du bouton de création d'un commerce
     @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     @IBOutlet weak var rightButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftButtonConstraint: NSLayoutConstraint!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.getBackToHome(_:)))]
-        
+
         if let user = currentUser {
             user.fetchInBackground(block: { (user, error) in
                 if let error = error {
@@ -48,16 +48,14 @@ class MonCompteVC: UIViewController {
             })
         }
     }
-    
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let current = PFUser.current() else {return}
-        
+
         self.currentUser = current
         self.updateProfilPic(forUser: current)
-        
+
         // Recup si l'utilisateur est un pro (commercant)
         if let proUser = current["isPro"] as? Bool {
             // isPro is set
@@ -71,22 +69,21 @@ class MonCompteVC: UIViewController {
             choosingVC.newUser = current
             self.present(choosingNav, animated: true, completion: nil)
         }
-        
-        if let vue = vueConnexion{
+
+        if let vue = vueConnexion {
             vue.removeFromSuperview()
         }
-        
+
         // Récupère ces commerces (favoris si utilisateur normal)
         self.queryCommercesArrayBasedOnUser()
     }
-    
-    func updateProfilPic(forUser user: PFUser){
+
+    func updateProfilPic(forUser user: PFUser) {
         // Regarde si une image de profil a été chargé
         // sinon si une image est lié via facebook
         // Sinon on affiche l'image de base weeclik
-        if let profilFile = user["profilPicFile"] as? PFFileObject, let url = profilFile.url, url != "" { userProfilePicURL = url }
-        else if let profilPicURL = user["profilePictureURL"] as? String, profilPicURL != "" { userProfilePicURL = profilPicURL }
-        
+        if let profilFile = user["profilPicFile"] as? PFFileObject, let url = profilFile.url, url != "" { userProfilePicURL = url } else if let profilPicURL = user["profilePictureURL"] as? String, profilPicURL != "" { userProfilePicURL = profilPicURL }
+
         if self.imageProfil != nil {
             self.imageProfil.layer.borderColor = UIColor(red:0.86, green:0.33, blue:0.34, alpha:1.00).cgColor
             self.imageProfil.clipsToBounds = true
@@ -98,19 +95,19 @@ class MonCompteVC: UIViewController {
             self.imageProfil.layer.masksToBounds = updateUI ? true : false
         }
     }
-    
-    func isProUpdateUI(){
+
+    func isProUpdateUI() {
 //        print("Bouton height \(isPro)")
 //        print("Is iPhone X : \(HelperAndKeys.isPhoneX)")
 
         if self.leftButtonConstraint != nil {
             self.leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 16 : 0
         }
-        
+
         if self.rightButtonConstraint != nil {
             self.rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 16 : 0
         }
-        
+
         if self.buttonHeight != nil {
             self.buttonHeight.constant = isPro ? 50 : 0
         }
@@ -118,19 +115,19 @@ class MonCompteVC: UIViewController {
         if self.noCommercesLabel != nil {
             self.noCommercesLabel.text = isPro ? "Vous ne possedez aucun commerce pour le moment".localized() : "Vous n'avez pour le moment partagé aucun commerce".localized()
         }
-        
+
     }
 
     @IBAction func getBackToHome(_ sender: Any) {
         self.dismiss(animated: true)
     }
-    
+
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
         self.getBackToHome(self)
     }
-    
-    func updateUIBasedOnUser(){
+
+    func updateUIBasedOnUser() {
         isProUpdateUI()
         self.changeProfilInfoTVC.reloadData()
         self.commercesTableView.reloadData()
@@ -138,9 +135,9 @@ class MonCompteVC: UIViewController {
 }
 
 extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if tableView == self.changeProfilInfoTVC{
+        if tableView == self.changeProfilInfoTVC {
             return "Mon profil".localized()
         } else {
             if isPro {
@@ -149,7 +146,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             return "Mes Partages".localized()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.changeProfilInfoTVC {
             return 1
@@ -165,15 +162,15 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
             } else {
                 return 0
             }
-            
+
             return commerces.count
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.changeProfilInfoTVC {
             let cell = tableView.dequeueReusableCell(withIdentifier: "emailChangeCell")
-            
+
             if let user = PFUser.current() {
                 cell?.textLabel?.text = (user["name"] != nil) ? user["name"] as? String : ""
                 cell?.detailTextLabel?.text = user.email
@@ -181,31 +178,31 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 cell?.textLabel?.text = "Nom Prénom".localized()
                 cell?.detailTextLabel?.text = "email".localized()
             }
-            
+
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
             let obj = Commerce(parseObject: self.commerces[indexPath.row])
-            
+
             cell.partageIcon.tintColor = UIColor.red
-            
+
             if isPro {
-            
+
                 if self.isPro {
                     cell.descriptionLabel.isHidden = false
                 } else {
                     cell.descriptionLabel.isHidden = true
                 }
-                
+
                 cell.titre.text = "\(obj.nom)"
                 cell.nbrPartage.text = "\(obj.partages)"
-                
+
                 if let imageThumbnailFile = obj.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
                     cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
                 }
-                
+
                 if (obj.brouillon) {
                     cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier".localized()
                     cell.descriptionLabel.textColor = .lightText
@@ -220,14 +217,13 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                         break
                     }
                 }
-            }
-            else {
-                
+            } else {
+
                 cell.descriptionLabel.isHidden = false
-                
+
                 cell.titre.text = "\(obj.nom)"
                 cell.nbrPartage.text = "\(obj.partages)"
-                
+
                 if let imageThumbnailFile = obj.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
@@ -237,11 +233,11 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
                 let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
                 cell.descriptionLabel.text = "Dernier partage : \(lastPartage.convertTo(region: paris).toFormat("dd MMM yyyy"))".localized()
             }
-            
+
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView ==  self.commercesTableView {
             // Afficher le détail d'un commerce
@@ -264,7 +260,7 @@ extension MonCompteVC : UITableViewDelegate, UITableViewDataSource {
 
 // Data related
 extension MonCompteVC {
-    func queryCommercesArrayBasedOnUser(){
+    func queryCommercesArrayBasedOnUser() {
         if isPro {
             // Prend les commerces du compte pro
             let queryCommerce = PFQuery(className: "Commerce")
@@ -284,7 +280,7 @@ extension MonCompteVC {
                 let partages = currentUser["mes_partages"] as? [String]
                 let partages_dats = currentUser["mes_partages_dates"] as! [Date]
                 if let partages = partages {
-                    
+
                     // FIXME: Ameliorer cette query
                     let partagesQuery = PFQuery(className: "Commerce")
                     partagesQuery.whereKey("objectId", containedIn: partages)
@@ -309,10 +305,9 @@ extension MonCompteVC {
                             ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
                         }
                     }
-                    
+
                 }
-            }
-            else {
+            } else {
                 HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: "Problème lors de la récupération de vos partages".localized(), delay: 3)
             }
         }
@@ -328,69 +323,49 @@ extension MonCompteVC {
     }
 }
 
-extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate{
-    
-    @IBAction func showParseUI(){
+extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate {
+
+    @IBAction func showParseUI() {
         // Login Part
-        let logInController = LoginViewController()
+        let logInController = ParseLoginSignupHelper.parseLoginViewController()
         logInController.delegate = self
-        logInController.fields = [PFLogInFields.usernameAndPassword,
-                                  PFLogInFields.logInButton,
-                                  PFLogInFields.signUpButton,
-                                  PFLogInFields.passwordForgotten,
-                                  PFLogInFields.dismissButton,
-                                  PFLogInFields.facebook]
-        logInController.emailAsUsername = true
-        logInController.facebookPermissions = ["email", "public_profile"]
-        
-        // SignUp Part
-        logInController.signUpController = SignUpViewController()
-        logInController.signUpController?.delegate = self
-//        logInController.signUpController?.emailAsUsername = true
-        logInController.signUpController?.fields = [.usernameAndPassword, .signUpButton, .additional, .dismissButton]
-        logInController.signUpController?.signUpView?.usernameField?.keyboardType = .emailAddress
-        logInController.signUpController?.signUpView?.additionalField?.isSecureTextEntry = true
-        logInController.signUpController?.signUpView?.additionalField?.keyboardType = .alphabet
-//        logInController.signUpController?.signUpView?.additionalField?.textContentType = .password
-        logInController.signUpController?.signUpView?.usernameField?.placeholder = "Email".localized()
-        logInController.signUpController?.signUpView?.additionalField?.placeholder = "Confirmation du mot de passe".localized()
-        
-        self.present(logInController, animated: true, completion: nil)
+        logInController.signUpController!.delegate = self
+        self.presentFullScreen(viewController: logInController, completion: nil)
     }
-    
+
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
         if PFFacebookUtils.isLinked(with: user) {
             self.getFacebookInformations(user: user)
         }
         logInController.dismiss(animated: true)
     }
-    
+
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
-        if let error = error{
+        if let error = error {
             print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
             HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide".localized() , title:"Erreur lors de la connexion".localized() , viewController: logInController)
         }
     }
-    
+
     // Inscription classique (par mail)
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
         user.email = user.username
         user.saveInBackground()
         signUpController.dismiss(animated: true, completion: nil)
     }
-    
+
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
-        if let error = error{
+        if let error = error {
             print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
             HelperAndKeys.showAlertWithMessage(theMessage:"Le mot de passe / email n'est pas valide".localized() , title: "Erreur lors de la connexion".localized(), viewController: signUpController)
         }
     }
-    
+
     // Fonction pour definir des mots de passe trop faibles
     func signUpViewController(_ signUpController: PFSignUpViewController, shouldBeginSignUp info: [String : String]) -> Bool {
         print("Aucune conditions particulières pour le mot de passe")
         // ["username": "jilji@gmail.com", "password": "es", "additional": "es"]
-        
+
         if (info["username"]!).isValidEmail() {
             // Email + MDP OK
             if info["password"] == info["additional"] {
@@ -406,18 +381,17 @@ extension MonCompteVC : PFLogInViewControllerDelegate, PFSignUpViewControllerDel
             return false
         }
     }
-    
+
     func getFacebookInformations(user : PFUser) {
-        
+
         let params = ["fields" : "email, name"]
         let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-        
-        graphRequest.start(completionHandler: { (request, result, error) in
+
+        graphRequest.start(completionHandler: { (_, result, error) in
             if let error = error {
                 print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
                 HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(), title: "Connexion Facebook échoué".localized(), viewController: self)
-            }
-            else {
+            } else {
                 // handle successful response
                 if let data = result as? [String:Any] {
                     user["name"] = data["name"] as! String

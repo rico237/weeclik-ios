@@ -19,17 +19,16 @@ class TestAreaViewController: UIViewController {
     @IBAction func button_1(_ sender: Any) {
         test1()
     }
-    
+
     @IBAction func button_2(_ sender: Any) {
         test2()
     }
-    
-    
-    func test1(){
-        
+
+    func test1() {
+
     }
-    
-    func test2(){
-        
+
+    func test2() {
+
     }
 }

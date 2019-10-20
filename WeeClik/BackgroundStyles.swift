@@ -12,7 +12,7 @@ func BackgroundStyles() -> [(name: String, style: BulletinBackgroundViewStyle)] 
         ("Light", .blurredLight),
         ("Dark", .blurredDark)
     ]
-    
+
     styles.append(("Extra Dark", .blurred(style: UIBlurEffectStyle(rawValue: 3)!)))
     styles.append(("Prominent", .blurred(style: .prominent)))
     styles.append(("Regular", .blurred(style: .regular)))

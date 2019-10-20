@@ -17,7 +17,7 @@ class SharingToGroupsVC: UIViewController {
 
 extension SharingToGroupsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return contacts.count}
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
     }

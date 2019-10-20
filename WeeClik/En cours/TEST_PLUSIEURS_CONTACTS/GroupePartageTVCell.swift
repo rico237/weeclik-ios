@@ -9,12 +9,12 @@
 import UIKit
 
 class GroupePartageTVCell: UITableViewCell {
-    
+
     @IBOutlet weak var imageGroupe: UIImageView!
     @IBOutlet weak var nomGroupeLabel: UILabel!
     @IBOutlet weak var descriptionGroupeLabel: UILabel!
     @IBOutlet weak var nombreMembresLabel: UILabel!
-    
+
 //    var groupe: GroupePartage? {
 //        didSet {
 //            nomDuGroupe.text = groupe?.nomGroupe

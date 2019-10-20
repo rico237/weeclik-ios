@@ -12,10 +12,10 @@ class PhotosVideosCollectionCell: UICollectionViewCell {
     @IBOutlet weak var imagePlaceholder: UIImageView!
     @IBOutlet weak var minuteViewContainer: UIView!
     @IBOutlet weak var timeLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(x: 0, y: 0, width: self.minuteViewContainer.frame.size.width, height: 25)
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor(red:0.00, green:0.00, blue:0.00, alpha:0.3).cgColor]

@@ -119,6 +119,7 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
   - Hue (5.0.0)
+  - Instabug (8.7.2)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
   - LGButton (1.1.6)
@@ -197,6 +198,7 @@ DEPENDENCIES:
   - Floaty (~> 4.2.0)
   - Gallery
   - Hue (~> 5.0)
+  - Instabug
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
   - LGButton (~> 1.0)
@@ -259,6 +261,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - Hue
+    - Instabug
     - KRLCollectionViewGridLayout
     - LGButton
     - LMGeocoderSwift
@@ -356,6 +359,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
+  Instabug: 5c4aaa2e0e5a26ea64b2b97f8694794f9a9dfd2a
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
@@ -387,6 +391,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: f62690d3a587ef538d62d0a1189cb2591c8adef1
+PODFILE CHECKSUM: 522933080de01e1296981c8e218e47f55b580faf
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

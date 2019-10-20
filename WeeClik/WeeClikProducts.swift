@@ -18,13 +18,13 @@ class WeeClikProducts: NSObject {
     var isMonthly : Bool = false
     var productIdentifier : String = ""
     var icon : PFFileObject?
-    
-    var parseProduct : PFProduct? = nil
-    
+
+    var parseProduct : PFProduct?
+
     required override init() {
         super.init()
     }
-    
+
     init(withPFProduct product: PFProduct) {
         self.order = product.order as! Int
         self.downloadName = product.downloadName!
@@ -33,12 +33,12 @@ class WeeClikProducts: NSObject {
         self.price = product["price"] as! Double
         self.isMonthly = product["isMonthly"] as! Bool
         self.productIdentifier = product.productIdentifier!
-        if let icon = product.icon{
+        if let icon = product.icon {
             self.icon = icon
         }
         self.parseProduct = product
     }
-    
+
     override public var description: String {
         get {
             return "------------------------------------------------------\nProduit :\n\tAppStore Id -> \(self.productIdentifier)\n\tDescription -> \(self.downloadName)\n\tPrix -> \(self.price)€\n\tMonthly subscription ? -> \(self.isMonthly)\n------------------------------------------------------"

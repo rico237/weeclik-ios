@@ -22,15 +22,14 @@
 
 import Foundation
 
-
 let expirationDateKey = "ExpirationDate"
 
 class UserSettings {
-  
+
   // MARK: - Properties
   static let shared = UserSettings()
   private init() {}
-  
+
   public var expirationDate: Date? {
     set {
       UserDefaults.standard.set(newValue, forKey: expirationDateKey)
@@ -39,7 +38,7 @@ class UserSettings {
       return UserDefaults.standard.object(forKey: expirationDateKey) as? Date
     }
   }
-  
+
   public var randomRemaining: Int {
     set {
       UserDefaults.standard.set(newValue, forKey: "remaining")
@@ -48,7 +47,7 @@ class UserSettings {
       return UserDefaults.standard.integer(forKey: "remaining")
     }
   }
-  
+
   public var lastRandomIndex: Int {
     set {
       UserDefaults.standard.set(newValue, forKey: "lastRandomIndex")
@@ -57,13 +56,13 @@ class UserSettings {
       return UserDefaults.standard.integer(forKey: "lastRandomIndex")
     }
   }
-  
+
   public func increaseRandomExpirationDate(by months: Int) {
     let lastDate = expirationDate ?? Date()
     let newDate = Calendar.current.date(byAdding: .month, value: months, to: lastDate)
     expirationDate = newDate
   }
-  
+
   public func increaseRandomRemaining(by times: Int) {
     let lastTimes = (randomRemaining < 0) ? 0 : randomRemaining
     randomRemaining = lastTimes + times
