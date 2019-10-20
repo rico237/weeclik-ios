@@ -10,13 +10,13 @@ import UIKit
 import StoreKit
 import Parse
 
-enum IAPHandlerAlertType{
+enum IAPHandlerAlertType {
     case disabled
     case restored
     case purchased
     case failed
-    
-    func message() -> String{
+
+    func message() -> String {
         switch self {
             case .disabled: return "Les achats sont désactivés sur votre appareil".localized()
             case .restored: return "Votre abonnement à bien été restauré !".localized()
@@ -32,52 +32,52 @@ protocol IAPHandlerDelegate: class {
 
 class InAppPurchaseHandler: NSObject {
     static let shared = InAppPurchaseHandler()
-    
+
     weak var delegate : IAPHandlerDelegate?
-    
+
     var productIds = [String]()
     var parseProducts = [PFProduct]()
     var productBeingPurchased : PFProduct!
-    
+
     fileprivate var productID = ""
     fileprivate var productsRequest = SKProductsRequest()
     fileprivate var iapProducts = [SKProduct]()
-    
+
     var purchaseStatusBlock: ((IAPHandlerAlertType) -> Void)?
-    
+
     // MARK: - MAKE PURCHASE OF A PRODUCT
     func canMakePurchases() -> Bool {  return SKPaymentQueue.canMakePayments()  }
-    
+
     func getProductArray() -> [SKProduct] { return iapProducts }
-    
+
     func getParseProductsArray() -> [PFProduct] {return parseProducts}
 
-    func purchaseMyProduct(index: Int){
+    func purchaseMyProduct(index: Int) {
         if iapProducts.count == 0 { return }
-        
+
         if self.canMakePurchases() {
             let product = iapProducts[index]
             let payment = SKPayment(product: product)
             SKPaymentQueue.default().add(self)
             SKPaymentQueue.default().add(payment)
-            
+
             print("PRODUCT TO PURCHASE: \(product.productIdentifier)")
             productID = product.productIdentifier
         } else {
             purchaseStatusBlock?(.disabled)
         }
     }
-    
-    func purchaseMyProductById(identifier: String){
+
+    func purchaseMyProductById(identifier: String) {
         if iapProducts.count == 0 { return }
-        
+
         if self.canMakePurchases() {
             if let index = productIds.firstIndex(of: identifier) {
                 let product = iapProducts[index]
                 let payment = SKPayment(product: product)
                 SKPaymentQueue.default().add(self)
                 SKPaymentQueue.default().add(payment)
-                
+
                 print("PRODUCT TO PURCHASE: \(product.productIdentifier)")
                 productID = product.productIdentifier
             }
@@ -85,15 +85,15 @@ class InAppPurchaseHandler: NSObject {
             purchaseStatusBlock?(.disabled)
         }
     }
-    
+
     // Changed to use index of string and search for the matching SKProduct
-    func purchaseMyProduct(indexString: String){
+    func purchaseMyProduct(indexString: String) {
         if iapProducts.count == 0 { return }
-        
+
         if self.canMakePurchases() {
             var product = iapProducts[0]
             var continue_action = false
-            
+
             for products in iapProducts {
                 if (products.productIdentifier == indexString) {
                     product = products
@@ -101,12 +101,12 @@ class InAppPurchaseHandler: NSObject {
                     break
                 }
             }
-            
+
             if (continue_action) {
                 let payment = SKPayment(product: product)
                 SKPaymentQueue.default().add(self)
                 SKPaymentQueue.default().add(payment)
-                
+
                 print("PRODUCT TO PURCHASE: \(product.productIdentifier)")
                 productID = product.productIdentifier
             }
@@ -114,18 +114,18 @@ class InAppPurchaseHandler: NSObject {
             purchaseStatusBlock?(.disabled)
         }
     }
-    
+
     // MARK: - RESTORE PURCHASE
-    func restorePurchase(){
+    func restorePurchase() {
         SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
-    
+
     // MARK: - FETCH AVAILABLE IAP PRODUCTS
-    func fetchAvailableProducts(){
+    func fetchAvailableProducts() {
         let set = NSMutableSet()
         let query = PFProduct.query()
-        
+
         query?.findObjectsInBackground(block: { (products, error) in
             if let error = error {
                 ParseErrorCodeHandler.handleUnknownError(error: error)
@@ -138,12 +138,12 @@ class InAppPurchaseHandler: NSObject {
                 self.delegate?.didFinishFetchAllProductFromParse(products: self.parseProducts)
             }
         })
-        
+
         productsRequest = SKProductsRequest(productIdentifiers: set as! Set<String>)
         productsRequest.delegate = self
         productsRequest.start()
     }
-    
+
     func updatePurchaseParseObject() {
         let query = PFProduct.query()
         query?.findObjectsInBackground(block: { (products, error) in
@@ -161,13 +161,13 @@ class InAppPurchaseHandler: NSObject {
     }
 }
 
-extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionObserver{
+extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionObserver {
     // MARK: - REQUEST IAP PRODUCTS
     func productsRequest (_ request:SKProductsRequest, didReceive response:SKProductsResponse) {
-        
+
         if (response.products.count > 0) {
             iapProducts = response.products
-            for product in iapProducts{
+            for product in iapProducts {
                 print("\n------------------------------------------------------")
                 productIds.append(product.productIdentifier)
                 let numberFormatter = NumberFormatter()
@@ -180,12 +180,12 @@ extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionO
             }
         }
     }
-    
+
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         purchaseStatusBlock?(.restored)
     }
-    
-    // MARK:- IAP PAYMENT QUEUE
+
+    // MARK: - IAP PAYMENT QUEUE
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction:AnyObject in transactions {
             if let trans = transaction as? SKPaymentTransaction {
@@ -196,7 +196,7 @@ extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionO
 //                    updatePurchaseParseObject(object: productBeingPurchased)
                     purchaseStatusBlock?(.purchased)
                     break
-                    
+
                 case .failed:
                     print("failed")
                     SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
@@ -207,7 +207,7 @@ extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionO
                     SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
 //                    purchaseStatusBlock?(.restored)
                     break
-                    
+
                 default: break
                 }
             }

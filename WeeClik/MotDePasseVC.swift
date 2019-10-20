@@ -15,7 +15,7 @@ class MotDePasseVC: UIViewController {
     @IBOutlet weak var actualPasswordTF: FormTextField!
     @IBOutlet weak var newPasswordTF: FormTextField!
     @IBOutlet weak var confirmPasswordTF: FormTextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePassword))
@@ -29,8 +29,8 @@ class MotDePasseVC: UIViewController {
 //        newPasswordTF.tag = 200
 //        confirmPasswordTF.tag = 300
     }
-    
-    @objc func savePassword(){
+
+    @objc func savePassword() {
         guard let user = currentUser else {
             self.showBasicToastMessage(withMessage: "Nous n'arrivons à trouver le compte associé à votre profil".localized(), state: .error)
             return
@@ -41,13 +41,13 @@ class MotDePasseVC: UIViewController {
             user.saveInBackground()
             // Affiche un message de confirmation
             let alert = UIAlertController(title: "Modification enregistré".localized(), message: "Votre nouveau mot de passe à bien été modifié".localized(), preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok".localized(), style: .default, handler: { (alert) in
+            let action = UIAlertAction(title: "Ok".localized(), style: .default, handler: { (_) in
                 self.navigationController?.popToRootViewController(animated: true)
             })
-            
+
             alert.addAction(action)
             self.present(alert, animated: true)
-            
+
         } else if newPasswordTF.text != confirmPasswordTF.text {
             // Les nouveaux mot de passe ne sont pas identiques
             self.showBasicToastMessage(withMessage: "Votre nouveau mot de passe n'est pas identique avec la confirmation".localized(), state: .error)
@@ -67,7 +67,7 @@ class MotDePasseVC: UIViewController {
         PFUser.requestPasswordResetForEmail(inBackground: mail)
         HelperAndKeys.showAlertWithMessage(theMessage: "Un lien pour réinitialiser votre mot de passe vous à été envoyé sur la boite mail associé à votre compte".localized(), title: "Demande envoyé".localized(), viewController: self)
     }
-    
+
 //    @objc func textFieldDidChange(_ textField: UITextField) {
 //        guard let text = textField.text else {
 //            return

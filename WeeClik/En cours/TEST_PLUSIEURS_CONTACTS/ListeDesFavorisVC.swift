@@ -15,7 +15,7 @@ import MessageUI
 import Parse
 
 class ListeDesFavorisVC: UIViewController {
-    
+
     var listeGroupes    = [GroupePartage]()       // Tableau de tous les groupes crées & stocké en cache
     var groupName       = ""
     let userDef         = UserDefaults.standard
@@ -23,35 +23,35 @@ class ListeDesFavorisVC: UIViewController {
     var strPartage      = ""
     var newGroupe       : GroupePartage!
     var commerce        : Commerce!
-    
+
     @IBOutlet weak var listeGroupesFavoris: UITableView!
     @IBOutlet weak var button_partage: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Get data from local storage
-        
+
         if let favoris = userDef.array(forKey: HelperAndKeys.getPartageGroupKey()) as? [GroupePartage] {
             listeGroupes = favoris
         }
-        
+
         // Init du tableView
         listeGroupesFavoris.delegate = self
         listeGroupesFavoris.dataSource = self
 //        listeGroupesFavoris.register(GroupePartageTVCell.self, forCellReuseIdentifier: "GroupePartageTVCell") // In case of cell direct configuration
-        
+
         Config.doneString = "Créer".localized()
         Config.viewTitle  = "Créer un groupe".localized()
         Config.maxSelectItems = 20
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         listeGroupes = UserDefaultsManager.shared.getGroupesPartage()
         listeGroupesFavoris.reloadData()
     }
-    
+
     // Fermer le ViewController
     @IBAction func closeView(_ sender: Any) {self.dismiss(animated: true, completion: nil)}
     // Partage SMS TODO: utiliser créer un provider
@@ -69,8 +69,8 @@ class ListeDesFavorisVC: UIViewController {
             SwiftMultiSelect.Show(to: self)
         }
     }
-    
-    func saveCommerceIdInUserDefaults(){
+
+    func saveCommerceIdInUserDefaults() {
         // Met dans le UserDefaults + ajoute une notification au moment écoulé
         HelperAndKeys.setSharingTime(forCommerceId: self.commerce.objectId)
         // Met à jour les données dans la BDD distante
@@ -79,8 +79,8 @@ class ListeDesFavorisVC: UIViewController {
         }
         self.updateCommerce()
     }
-    
-    func updateCommerce(){
+
+    func updateCommerce() {
         if let routeId = commerce.objectId {
             let query = PFQuery(className: "Commerce")
             query.whereKey("objectId", equalTo: routeId)
@@ -93,10 +93,10 @@ class ListeDesFavorisVC: UIViewController {
                 }
             }
         }
-        
+
     }
-    
-    func sendSMSForItems(groupe: GroupePartage){
+
+    func sendSMSForItems(groupe: GroupePartage) {
         if (MFMessageComposeViewController.canSendText()) {
             let controller = MFMessageComposeViewController()
             controller.body = self.strPartage
@@ -107,7 +107,7 @@ class ListeDesFavorisVC: UIViewController {
             HelperAndKeys.showAlertWithMessage(theMessage: "Aucune application d'envoi d'SMS n'est configuré sur votre téléphone.".localized(), title: "Erreur d'envoi du message".localized(), viewController: self)
         }
     }
-    
+
 }
 
 extension ListeDesFavorisVC: UITableViewDelegate, UITableViewDataSource {
@@ -123,10 +123,10 @@ extension ListeDesFavorisVC: UITableViewDelegate, UITableViewDataSource {
         cell.nomGroupeLabel.text       = groupe.nomGroupe
         cell.descriptionGroupeLabel.text = groupe.descriptionGroupe
         cell.imageGroupe.layer.cornerRadius = cell.imageGroupe.frame.size.width / 2
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.sendSMSForItems(groupe: listeGroupes[indexPath.row])
     }
@@ -156,7 +156,7 @@ extension ListeDesFavorisVC: SwiftMultiSelectDelegate {
 }
 extension ListeDesFavorisVC: MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        
+
         switch result {
         case .cancelled, .failed:
             print(result)
@@ -167,7 +167,7 @@ extension ListeDesFavorisVC: MFMessageComposeViewControllerDelegate {
         @unknown default:
             print("New unknown value for MFMessage result")
         }
-        
+
         self.dismiss(animated: true, completion: nil)
     }
 }

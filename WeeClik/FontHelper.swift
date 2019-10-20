@@ -17,9 +17,9 @@ class FontHelper: NSObject {
     /// - Returns: The scaled UIFont version with the given textStyle
     @available(iOS 11.0, *)
     static func getScaledFont(forFont name: String, textStyle: UIFont.TextStyle) -> UIFont {
-        
+
         /// Uncomment the code below to check all the available fonts and have them printed in the console to double check the font name with existing fonts 😉
-        
+
         /*for family: String in UIFont.familyNames
          {
          print("\(family)")
@@ -28,7 +28,7 @@ class FontHelper: NSObject {
          print("== \(names)")
          }
          }*/
-        
+
         let userFont =  UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
         let pointSize = userFont.pointSize
         guard let customFont = UIFont(name: name, size: pointSize) else {

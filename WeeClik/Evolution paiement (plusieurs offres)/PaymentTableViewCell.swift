@@ -9,7 +9,7 @@
 import UIKit
 
 class PaymentTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var messageDescription: UILabel!
     @IBOutlet weak var paymentButton: UIButton!
     @IBOutlet weak var showMoreButton: UIButton!

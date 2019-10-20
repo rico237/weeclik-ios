@@ -10,11 +10,11 @@
 
 class CommerceService {
     static let shared = CommerceService()
-    
+
     private init() {}
-    
+
     // CREATE
-    
+
     // READ
     // UPDATE
     // DELETE

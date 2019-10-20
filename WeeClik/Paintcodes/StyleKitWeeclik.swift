@@ -9,11 +9,9 @@
 //  http://www.paintcodeapp.com
 //
 
-
-
 import UIKit
 
-public class StyleKitWeeclik : NSObject {
+public class StyleKitWeeclik: NSObject {
 
     //// Drawing Methods
 

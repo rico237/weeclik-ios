@@ -21,10 +21,10 @@ class ParseHelper {
             acl.setReadAccess(true, for: user)
             acl.setWriteAccess(true, for: user)
         }
-        
+
         return acl
     }
-    
+
     static func rewriteParseURLForVideos(forURL url: URL) -> URL {
         // Depart   : https://weeclik-server.herokuapp.com/parse/files/JVQZMCuNYvnecPWvWFDTZa8A/326491c13ec62d56fd31ca41caf7401d_file.mp4
         // Objectif : https://storage.googleapis.com/weeclik-1517332083996.appspot.com/baas_files/326491c13ec62d56fd31ca41caf7401d_file.mp4
@@ -35,16 +35,16 @@ class ParseHelper {
         }
         return url
     }
-    
+
     static func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false, inViewController vc: UIViewController) {
         let player: AVPlayer!
-        
+
         if isLocal {
             player = AVPlayer(url: url)
         } else {
             player = AVPlayer(url: self.rewriteParseURLForVideos(forURL: url))
         }
-        
+
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         vc.present(playerViewController, animated: true) {player.play()}

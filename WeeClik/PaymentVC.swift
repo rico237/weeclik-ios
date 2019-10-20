@@ -20,12 +20,12 @@ class PaymentVC: UIViewController {
     var scheduleVal = false
     var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
     let purchasedProductID = "abo.sans.renouvellement"      // TODO: replace (abo.sans.renouvellement.un.an)
-    
+
     let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
-    
+
     @IBOutlet weak var legalTextView: UITextView!           // CGU, CGV, etc
-    
-    @objc func showSettingsPanel(){
+
+    @objc func showSettingsPanel() {
         let transitionDelegate = SPLarkTransitioningDelegate()
         transitionDelegate.customHeight = 185
         panelController.transitioningDelegate = transitionDelegate
@@ -33,8 +33,8 @@ class PaymentVC: UIViewController {
         panelController.modalPresentationCapturesStatusBarAppearance = true
         self.present(panelController, animated: true, completion: nil)
     }
-    
-    func updateAdminUI(){
+
+    func updateAdminUI() {
         guard let current = self.currentUser else {
             self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
             return
@@ -60,7 +60,7 @@ class PaymentVC: UIViewController {
             }
         })
     }
-    
+
     @IBAction func getBackToHome(_ sender: Any) {
         if commerceAlreadyExists {
             self.navigationController?.popViewController(animated: true)
@@ -72,7 +72,7 @@ class PaymentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "PAIEMENT".localized()
-        
+
         SVProgressHUD.setHapticsEnabled(true)
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setDefaultStyle(.dark)
@@ -81,40 +81,39 @@ class PaymentVC: UIViewController {
         updateCGUText()
         updateAdminUI() // Update UINavigationBar
     }
-    
-    func updateCGUText(){
+
+    func updateCGUText() {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
-        
-        
+
         let attributedString = NSMutableAttributedString(string: legalTextView.text)
         let urlCGU = URL(string: "https://google.fr/")!
         let urlPolitique = URL(string: "https://facebook.com/")!
-        
-        attributedString.setAttributes([.link: urlCGU], range: NSMakeRange(607, 20))
-        attributedString.setAttributes([.link: urlPolitique], range: NSMakeRange(631, 28))
-        
+
+        attributedString.setAttributes([.link: urlCGU], range: NSRange(location: 607, length: 20))
+        attributedString.setAttributes([.link: urlPolitique], range: NSRange(location: 631, length: 28))
+
         legalTextView.isUserInteractionEnabled = true
         legalTextView.isEditable = false
-        let fullRange = NSMakeRange(0, attributedString.length)
-        
+        let fullRange = NSRange(location: 0, length: attributedString.length)
+
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: fullRange)
         attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 14), range: fullRange)
-        
+
         legalTextView.linkTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.blue,
             NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
             ] as [NSAttributedString.Key : Any]
-        
+
         legalTextView.attributedText = attributedString
     }
-    
+
     @IBAction func processPurchase(_ sender: Any) {
         paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
         scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getScheduleKey(), withExpectedType: "bool") as? Bool ?? false
-        
+
         print("PaymentDeactivated \(paymentDeactivated)")
-        
+
         if !paymentDeactivated {
             // Permet de verifier si l'user a payer avant la création d'un commerce
             self.buyProduct()
@@ -124,11 +123,11 @@ class PaymentVC: UIViewController {
             } else {
                 self.createNewCommerce()
             }
-            
+
         }
     }
-    
-    func renewCommerceEndDate(){
+
+    func renewCommerceEndDate() {
         let query = PFQuery(className: "Commerce")
         query.getObjectInBackground(withId: self.renewingCommerceId) { (commerce, error) in
             if let error = error {
@@ -136,7 +135,7 @@ class PaymentVC: UIViewController {
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else if let commerce = commerce {
                 let lastEndDate = commerce["endSubscription"] as! Date
-                
+
                 if lastEndDate.isBeforeDate(Date(), granularity: .minute) {
                     // isBefore today
                     if self.scheduleVal {
@@ -152,9 +151,9 @@ class PaymentVC: UIViewController {
                         commerce["endSubscription"] = lastEndDate + 1.years
                     }
                 }
-                
+
                 commerce["statutCommerce"] = 1
-                
+
                 commerce.saveInBackground { (success, error) in
                     if success {
                         SVProgressHUD.showSuccess(withStatus: "Votre commerce a été renouvelé pour un an".localized())
@@ -172,15 +171,14 @@ class PaymentVC: UIViewController {
             }
         }
     }
-    
+
     @IBAction func restorePurchase(_ sender: Any) {
         SVProgressHUD.show(withStatus: "Chargement de vos achats".localized())
         SwiftyStoreKit.restorePurchases(atomically: false) { results in
             if results.restoreFailedPurchases.count > 0 {
                 print("Restore Failed: \(results.restoreFailedPurchases)")
                 SVProgressHUD.showError(withStatus: "Erreur lors du chargement de vos achats".localized())
-            }
-            else if results.restoredPurchases.count > 0 {
+            } else if results.restoredPurchases.count > 0 {
                 for purchase in results.restoredPurchases {
                     // fetch content from your server, then:
                     if purchase.needsFinishTransaction {
@@ -189,14 +187,13 @@ class PaymentVC: UIViewController {
                 }
                 print("Restore Success")
                 SVProgressHUD.showSuccess(withStatus: "Vos achats ont été restaurés avec succès".localized())
-            }
-            else {
+            } else {
                 print("Nothing to Restore")
                 SVProgressHUD.showInfo(withStatus: "Aucun achat à restaurer".localized())
             }
         }
     }
-    
+
     @IBAction func cancelPurchase(_ sender: Any) {
 //        if let navigationCntrl = self.navigationController {
 //            // return to product or profil
@@ -208,7 +205,7 @@ class PaymentVC: UIViewController {
 //        }
         self.getBackToHome(self)
     }
-    
+
     func createNewCommerce() {
         SVProgressHUD.setStatus("Création de votre commerce".localized())
         // TODO: faire de vrai tests pour le paiement
@@ -233,15 +230,15 @@ class PaymentVC: UIViewController {
             newCommerce["tags"] = []
             newCommerce["position"] = PFGeoPoint(latitude: 0, longitude: 0)
             newCommerce["owner"] = currentUser
-            
+
             if scheduleVal {
                 newCommerce["endSubscription"] = Date() + 30.seconds
             } else {
                 newCommerce["endSubscription"] = Date() + 1.years
             }
-            
+
             newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
-            
+
             newCommerce.saveInBackground { (success, error) in
                 if let error = error {
                     HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce".localized(), viewController: self)
@@ -267,20 +264,20 @@ class PaymentVC: UIViewController {
             SVProgressHUD.dismiss()
         }
     }
-    
-    func saveStatForPurchase(forUser user: PFUser, andCommerce commerce: PFObject){
-        
+
+    func saveStatForPurchase(forUser user: PFUser, andCommerce commerce: PFObject) {
+
         let stat            = PFObject(className: "StatsPurchase")
         stat["user"]        = user
         stat["commerce"]    = commerce
-        
+
         if let queryProduct = PFProduct.query() {
             queryProduct.whereKey("productIdentifier", equalTo: self.purchasedProductID)
             queryProduct.getFirstObjectInBackground(block: { (purchaseProduct, error) in
                 if let purchaseProduct = purchaseProduct {
                     stat["typeAbonnement"]  = purchaseProduct
                     purchaseProduct.incrementKey("purchased")
-                    purchaseProduct.saveInBackground { (success, error) in
+                    purchaseProduct.saveInBackground { (_, error) in
                         if let error = error {
                             print("Error function retrieve PFProduct - func saveStatForPurchase")
                             ParseErrorCodeHandler.handleUnknownError(error: error)
@@ -292,8 +289,8 @@ class PaymentVC: UIViewController {
                 }
             })
         }
-        
-        stat.saveInBackground { (success, error) in
+
+        stat.saveInBackground { (_, error) in
             if let error = error {
                 print("Error function save stat - func saveStatForPurchase")
                 ParseErrorCodeHandler.handleUnknownError(error: error)
@@ -301,19 +298,19 @@ class PaymentVC: UIViewController {
             }
         }
     }
-    
-    func buyProduct(){
-        
+
+    func buyProduct() {
+
         SVProgressHUD.show(withStatus: "Chargement du paiement".localized())
-        
+
         SwiftyStoreKit.retrieveProductsInfo([self.purchasedProductID]) { result in
             SVProgressHUD.dismiss(withDelay: 1.5)
-            
+
             if let product = result.retrievedProducts.first {
                 let priceString = product.localizedPrice!
                 print("Product: \(product.localizedDescription), price: \(priceString)")
                 SwiftyStoreKit.purchaseProduct(product, quantity: 1, atomically: true) { result in
-                    
+
                     switch result {
                     case .success(let product):
                         // fetch content from your server, then:
@@ -323,7 +320,6 @@ class PaymentVC: UIViewController {
                             self.createNewCommerce()
                         }
 
-                        
                         if product.needsFinishTransaction {
                             SwiftyStoreKit.finishTransaction(product.transaction)
                         }
@@ -348,16 +344,14 @@ class PaymentVC: UIViewController {
             } else if let invalidProductId = result.invalidProductIDs.first {
                 print("Invalid product identifier: \(invalidProductId)")
                 ParseErrorCodeHandler.handleUnknownError(error: NSError(domain: "PaymentVC", code: 404, userInfo: ["invalid_product_identifier" : "Product identifier is invalid : \(invalidProductId)"]))
-            }
-            else {
+            } else {
                 print("Error: \(String(describing: result.error))")
                 ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false)
             }
         }
-        
-        
+
     }
-    
+
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "ajoutCommerce" {
 //            let ajoutCommerceVC = segue.destination as! AjoutCommerceVC
@@ -366,7 +360,7 @@ class PaymentVC: UIViewController {
 //            ajoutCommerceVC.objectIdCommerce = self.newCommerceID
 //        }
 //    }
-    
+
 //    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
 //        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
 //        print("Identifier \(identifier) & paymentDeactivated \(paymentDeactivated)")
