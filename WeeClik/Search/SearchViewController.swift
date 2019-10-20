@@ -39,7 +39,7 @@ class SearchViewController: UITableViewController {
     }
 
     func filterRowsForSearchedText(_ searchText: String) {
-        filteredComm = commerces.filter({ (commerce : Commerce) -> Bool in
+        filteredComm = commerces.filter({ (commerce: Commerce) -> Bool in
             return commerce.nom.lowercased().contains(searchText.lowercased()) || commerce.descriptionO.lowercased().contains(searchText.lowercased()) || commerce.type.lowercased().contains(searchText.lowercased()) ||
                 commerce.promotions.lowercased().contains(searchText.lowercased())
         })
@@ -85,7 +85,7 @@ extension SearchViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "SearchCell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
-        let comm : Commerce
+        let comm: Commerce
 
         if isFiltering() {
             comm = filteredComm[indexPath.row]

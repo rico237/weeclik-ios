@@ -10,16 +10,16 @@ import UIKit
 import Parse
 
 class WeeClikProducts: NSObject {
-    var order : Int = 0
-    var downloadName : String = ""
-    var subtitle : String = ""
-    var title : String = ""
-    var price : Double = 0.0
-    var isMonthly : Bool = false
-    var productIdentifier : String = ""
-    var icon : PFFileObject?
+    var order: Int = 0
+    var downloadName: String = ""
+    var subtitle: String = ""
+    var title: String = ""
+    var price: Double = 0.0
+    var isMonthly: Bool = false
+    var productIdentifier: String = ""
+    var icon: PFFileObject?
 
-    var parseProduct : PFProduct?
+    var parseProduct: PFProduct?
 
     required override init() {
         super.init()

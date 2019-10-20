@@ -6,10 +6,6 @@
 //  Copyright © 2017 Herrick Wolber. All rights reserved.
 //
 
-// !!!: convertir les viewcontroller en automatique
-// !!!: Pour le moment faire une validation simple avec des boolean, après utiliser des validators
-// ERROR: Après connexion par mail le profil n'est pas chargé + pas de connexion facebook (faire un test sur le tel)
-
 // TODO: Ajouter reachability + demander si ils veulent uploader les images et videos en mode cellular
 // TODO: Ajouter de véritable vérification sur le champs
 
@@ -308,26 +304,33 @@ extension AjoutCommerceVC {
 
         // [1] Sauvegarde du commerce
         let fetchComm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce, owner:PFUser.current()!) // Comerce Object
-        let commerceToSave = fetchComm.getPFObject(objectId: self.objectIdCommerce, fromBaas: self.loadedFromBAAS) // PFObject
-        fetchComm.objectId = self.objectIdCommerce
-        commerceToSave.saveInBackground { (success, error) in
-            if let error = error {
-                self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
-            } else {
-                // Update général des informations du commerce
-                ParseService.shared.updateGeoLocation(forCommerce: fetchComm, completion: nil)
-                ParseService.shared.updateExistingParseCommerce(fromCommerce: fetchComm) { (success, error) in
-                    if success {
-                        // [2] Sauvegarde des photos
-                        if self.photosHaveChanged {
-                            self.savePhotosWithCommerce(commerceId: self.objectIdCommerce)
-                        } else if self.videosHaveChanged {
-                            self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
-                        } else {
-                            self.saveOfCommerceEnded(status: .success)
+        fetchComm.objectId = objectIdCommerce
+        
+        fetchComm.getPFObject(objectId: objectIdCommerce, fromBaas: loadedFromBAAS) { (commerceObject, error) in
+            guard let commerceToSave = commerceObject else {
+                if let error = error {self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)}
+                return
+            }
+            // Retrieved object
+            commerceToSave.saveInBackground { (success, error) in
+                if let error = error {
+                    self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
+                } else {
+                    // Update général des informations du commerce
+                    ParseService.shared.updateGeoLocation(forCommerce: fetchComm)
+                    ParseService.shared.updateExistingParseCommerce(fromCommerce: fetchComm) { (success, error) in
+                        if success {
+                            // [2] Sauvegarde des photos
+                            if self.photosHaveChanged {
+                                self.savePhotosWithCommerce(commerceId: self.objectIdCommerce)
+                            } else if self.videosHaveChanged {
+                                self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
+                            } else {
+                                self.saveOfCommerceEnded(status: .success)
+                            }
+                        } else if let error = error {
+                            self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                         }
-                    } else if let error = error {
-                        self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                     }
                 }
             }

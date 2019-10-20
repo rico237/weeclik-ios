@@ -19,7 +19,7 @@ class ParseErrorCodeHandler {
     static func handleUnknownError(error: Error, withFeedBack feedBack: Bool = false) {
 
         if feedBack {
-            HelperAndKeys.showNotification(type: "E" , title: "Erreur", message: error.localizedDescription, delay: 3)
+            HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.localizedDescription, delay: 3)
         }
 
         Crashlytics.sharedInstance().recordError(error)

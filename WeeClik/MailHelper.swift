@@ -20,7 +20,7 @@ class MailHelper: NSObject {
 
         // Add Headers
         let headers = [
-            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
+            "Content-Type": "multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
         ]
 
         let parameters: Parameters = ["content": content.localized()]

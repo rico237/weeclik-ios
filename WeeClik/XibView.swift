@@ -11,8 +11,8 @@ import UIKit
 @IBDesignable
 class XibView: UIView {
 
-    var contentView:UIView?
-    @IBInspectable var nibName:String?
+    var contentView: UIView?
+    @IBInspectable var nibName: String?
 
     override func awakeFromNib() {
         super.awakeFromNib()

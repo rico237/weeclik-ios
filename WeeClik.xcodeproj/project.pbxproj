@@ -449,21 +449,6 @@
 			name = "(Accueil) Liste des commercants & detail";
 			sourceTree = "<group>";
 		};
-		1F27628D2114BBB700779342 /* En cours */ = {
-			isa = PBXGroup;
-			children = (
-				1F61FA2A233416970001392C /* TEST_PLUSIEURS_CONTACTS */,
-				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
-				1FC42C48223ECD7100AB0C39 /* Paiement */,
-				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
-				1F6AF47D2358E9BE00F057C7 /* Form Validators */,
-				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
-				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
-				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
-			);
-			path = "En cours";
-			sourceTree = "<group>";
-		};
 		1F2762902116EDDF00779342 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -575,7 +560,7 @@
 				1FC228FB22356A850024ED5B /* Creation groupes */,
 				1FE910E221D2E89D00CEA0F3 /* Search */,
 				1F2762902116EDDF00779342 /* Storyboards */,
-				1F27628D2114BBB700779342 /* En cours */,
+				1FDB7006235BF5D300EB3742 /* En_cours */,
 				1F2762912116EE0100779342 /* Routing */,
 				1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */,
 				1F0B8353224E9F9600F09FF5 /* Assets & Config Files */,
@@ -634,6 +619,21 @@
 			);
 			name = Paiement;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		1FDB7006235BF5D300EB3742 /* En_cours */ = {
+			isa = PBXGroup;
+			children = (
+				1F61FA2A233416970001392C /* TEST_PLUSIEURS_CONTACTS */,
+				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
+				1FC42C48223ECD7100AB0C39 /* Paiement */,
+				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
+				1F6AF47D2358E9BE00F057C7 /* Form Validators */,
+				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
+				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
+				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
+			);
+			path = En_cours;
 			sourceTree = "<group>";
 		};
 		1FE910E221D2E89D00CEA0F3 /* Search */ = {

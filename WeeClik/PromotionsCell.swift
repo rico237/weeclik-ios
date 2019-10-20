@@ -10,5 +10,5 @@ import UIKit
 
 class PromotionsCell: UITableViewCell {
     @IBOutlet weak var promotionTextView: UITextView!
-    @IBOutlet weak var alreadyShared : UIImageView!
+    @IBOutlet weak var alreadyShared: UIImageView!
 }

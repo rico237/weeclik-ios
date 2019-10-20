@@ -10,7 +10,7 @@ import UIKit
 import LGButton
 
 class PaymentCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var shadowView : UIView!
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var priceViewLGButton: LGButton!
     @IBOutlet weak var backgroundImageView: UIImageView!
 }

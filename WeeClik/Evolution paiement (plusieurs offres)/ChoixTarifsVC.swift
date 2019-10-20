@@ -16,8 +16,8 @@ class ChoixTarifsVC: UIViewController, IAPHandlerDelegate {
     func didFinishFetchAllProductFromParse(products: [PFProduct]) {self.parseProducts = products}
     @IBOutlet weak var back: UIView!
 
-    let darkBlue  = UIColor(red:0.04, green:0.18, blue:1.00, alpha:1.00)
-    let lightBlue = UIColor(red:0.00, green:0.57, blue:1.00, alpha:1.00)
+    let darkBlue  = UIColor(red: 0.04, green: 0.18, blue: 1.00, alpha: 1.00)
+    let lightBlue = UIColor(red: 0.00, green: 0.57, blue: 1.00, alpha: 1.00)
     var parseProducts = [PFProduct]()
 
     @IBOutlet weak var choixTypeTarif: UISegmentedControl!
@@ -56,13 +56,13 @@ class ChoixTarifsVC: UIViewController, IAPHandlerDelegate {
     }
 
     // Value change
-    @objc func changeBackgroundColorOnValueChange(control : UISegmentedControl) {
+    @objc func changeBackgroundColorOnValueChange(control: UISegmentedControl) {
         print("Changed with selected index : \(control.selectedSegmentIndex)")
         UIView.animate(withDuration: 1, animations: {
             if control.selectedSegmentIndex == 0 {
-                self.back.backgroundColor = UIColor(red:0.04, green:0.18, blue:1.00, alpha:1.00)
+                self.back.backgroundColor = UIColor(red: 0.04, green: 0.18, blue: 1.00, alpha: 1.00)
             } else {
-                self.back.backgroundColor = UIColor(red:0.94, green:0.20, blue:0.17, alpha:1.00)
+                self.back.backgroundColor = UIColor(red: 0.94, green: 0.20, blue: 0.17, alpha: 1.00)
             }
         }, completion: nil)
 

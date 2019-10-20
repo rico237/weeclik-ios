@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         try? Navigator.navigate(url: url)
         return true
     }
@@ -153,7 +153,7 @@ extension AppDelegate {
     }
 
     func globalUiConfiguration() {
-        UINavigationBar.appearance().barTintColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.white
 
@@ -162,9 +162,9 @@ extension AppDelegate {
         shadow.shadowOffset = CGSize(width: 0, height: 1)
 
         UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor : UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
-            NSAttributedString.Key.shadow : shadow,
-            NSAttributedString.Key.font : UIFont(name: "BebasNeue", size: 21.0) as Any
+            NSAttributedString.Key.foregroundColor: UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
+            NSAttributedString.Key.shadow: shadow,
+            NSAttributedString.Key.font: UIFont(name: "BebasNeue", size: 21.0) as Any
         ]
     }
 }
@@ -177,7 +177,7 @@ extension AppDelegate {
 
         // [2] Configure routes for Router
         postLoginRouter.routes = [
-            "commerce:{commerceId}" : CommerceRoute() // ,
+            "commerce:{commerceId}": CommerceRoute() // ,
             //"user:{userId}": UserRoute(),
         ]
 
