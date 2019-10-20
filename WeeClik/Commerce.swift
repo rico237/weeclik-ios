@@ -26,6 +26,8 @@ public class Commerce: NSObject, NSCoding {
     var brouillon: Bool         = true
     var owner: PFUser?
     var location: PFGeoPoint?
+    
+    var distanceFromUser: String = ""
 //    var type : CategoryType = .autres
     
     // More complex data
@@ -221,15 +223,6 @@ public enum StatutType: Int {
 }
 
 extension Commerce {
-    var distanceFromUser: String {
-        get {
-            self.distanceFromUser
-        }
-        set (newValue) {
-            self.distanceFromUser = newValue
-        }
-    }
-    
     func calculDistanceEntreDeuxPoints(location: CLLocation?) -> String {
         guard let location = location else {return "--"}
         let distance = PFGeoPoint(location: location).distanceInKilometers(to: self.location)
