@@ -19,7 +19,7 @@ class ShaddowView: UIView {
         }
         get {
             if let color = layer.shadowColor {
-                return UIColor(cgColor:color)
+                return UIColor(cgColor: color)
             } else {
                 return nil
             }
@@ -43,7 +43,7 @@ class ShaddowView: UIView {
             layer.shadowOffset = CGSize(width: newValue.x, height: newValue.y)
         }
         get {
-            return CGPoint(x: layer.shadowOffset.width, y:layer.shadowOffset.height)
+            return CGPoint(x: layer.shadowOffset.width, y: layer.shadowOffset.height)
         }
     }
 

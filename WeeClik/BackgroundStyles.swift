@@ -5,7 +5,7 @@ import BulletinBoard
  * Returns a list of all the background styles.
  */
 
-func BackgroundStyles() -> [(name: String, style: BulletinBackgroundViewStyle)] {
+func backgroundStyles() -> [(name: String, style: BulletinBackgroundViewStyle)] {
     var styles: [(name: String, style: BulletinBackgroundViewStyle)] = [
         ("Dimmed", .dimmed),
         ("Extra Light", .blurredExtraLight),

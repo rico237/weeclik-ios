@@ -56,7 +56,7 @@ class ChangeInfosVC: UIViewController {
             }
             if self.userProfilePicURL != "" {
                 let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-                self.profilPictureImageView.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload , completed: nil)
+                self.profilPictureImageView.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
             } else {
                 self.profilPictureImageView.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
             }
@@ -75,7 +75,7 @@ class ChangeInfosVC: UIViewController {
 
     func updateViewFrame() {
         guard profilPictureImageView != nil else { return }
-        imageProfilContainerView.layer.borderColor = isPro ? UIColor(red:0.86, green:0.33, blue:0.34, alpha:1.00).cgColor : UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00).cgColor
+        imageProfilContainerView.layer.borderColor = isPro ? UIColor(red: 0.86, green: 0.33, blue: 0.34, alpha: 1.00).cgColor : UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00).cgColor
         imageProfilContainerView.clipsToBounds = true
         imageProfilContainerView.layer.cornerRadius = self.imageProfilContainerView.frame.size.width / 2
         imageProfilContainerView.layer.masksToBounds = true
@@ -102,7 +102,7 @@ class ChangeInfosVC: UIViewController {
                 //self.navigationController?.popViewController(animated: true)
             }
         }, progressBlock: { (progress) in
-            SVProgressHUD.showProgress(Float(progress)/100, status:"Envoi de votre photo".localized())
+            SVProgressHUD.showProgress(Float(progress)/100, status: "Envoi de votre photo".localized())
         })
     }
 
@@ -110,14 +110,15 @@ class ChangeInfosVC: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mdpChange" {
-            let vc = segue.destination as! MotDePasseVC
-            vc.isPro = self.isPro
-            didSelectNewPhoto = false
+            if let passwordViewController = segue.destination as? MotDePasseVC {
+                passwordViewController.isPro = self.isPro
+                didSelectNewPhoto = false
+            }
         }
     }
 }
 
-extension ChangeInfosVC : TLPhotosPickerViewControllerDelegate {
+extension ChangeInfosVC: TLPhotosPickerViewControllerDelegate {
     func showSelection() {
         let viewController = TLPhotosPickerViewController()
         viewController.delegate = self
@@ -137,7 +138,7 @@ extension ChangeInfosVC : TLPhotosPickerViewControllerDelegate {
     }
 
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
-        guard withTLPHAssets.count != 0 else { didSelectNewPhoto = false; return; }
+        guard !withTLPHAssets.isEmpty else { didSelectNewPhoto = false; return; }
 
         didSelectNewPhoto = true
         let asset = withTLPHAssets[0]
@@ -160,11 +161,11 @@ extension ChangeInfosVC : TLPhotosPickerViewControllerDelegate {
         options.deliveryMode = .opportunistic
         options.version = .current
         options.resizeMode = .exact
-        options.progressHandler = { (progress,error,stop,info) in
-            SVProgressHUD.showProgress(Float(progress), status:"Chargement".localized())
+        options.progressHandler = { (progress, error, stop, info) in
+            SVProgressHUD.showProgress(Float(progress), status: "Chargement".localized())
         }
         _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, _, _, info) in
-            if let data = imageData,let _ = info {
+            if let data = imageData, let _ = info {
                 self.selectedData = data
                 self.profilPictureImageView.image = UIImage(data: data)
             }

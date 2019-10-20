@@ -9,9 +9,9 @@
 import UIKit
 
 class NouveauCommerceCell: UITableViewCell {
-    @IBOutlet weak var contentTF:UITextField!
+    @IBOutlet weak var contentTF: UITextField!
 
-    func setTextFieldViewDataDelegate <D: UITextFieldDelegate> (delegate: D, tag: Int, placeHolder : String) {
+    func setTextFieldViewDataDelegate <D: UITextFieldDelegate> (delegate: D, tag: Int, placeHolder: String) {
         contentTF.delegate = delegate
         contentTF.tag = tag
         contentTF.placeholder = placeHolder
