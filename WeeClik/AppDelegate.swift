@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import Compass
 import Firebase
 import SwiftyStoreKit
+import Instabug
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         // External URL Routing to commerce detail
         setupRouting()
+        
+        Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
 
         return true
     }
