@@ -10,7 +10,7 @@ import UIKit
 
 class SelectionCategorieTVCell: UITableViewCell {
     @IBOutlet weak var categoriePickerView: UIPickerView!
-    
+
     func setPickerViewDataSourceDelegate <D: UIPickerViewDataSource & UIPickerViewDelegate> (dataSourceDelegate: D) {
         categoriePickerView.delegate = dataSourceDelegate
         categoriePickerView.dataSource = dataSourceDelegate

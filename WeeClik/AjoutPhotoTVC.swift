@@ -9,9 +9,9 @@
 import UIKit
 
 class AjoutPhotoTVC: UITableViewCell {
-    
-    @IBOutlet private weak var photoCollectionView : UICollectionView!
-    
+
+    @IBOutlet private weak var photoCollectionView: UICollectionView!
+
     func setCollectionViewDataSourceDelegate <D: UICollectionViewDataSource & UICollectionViewDelegate> (dataSourceDelegate: D, forRow row: Int) {
         photoCollectionView.delegate = dataSourceDelegate
         photoCollectionView.dataSource = dataSourceDelegate

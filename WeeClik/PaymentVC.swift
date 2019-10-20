@@ -20,23 +20,23 @@ class PaymentVC: UIViewController {
     var scheduleVal = false
     var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
     let purchasedProductID = "abo.sans.renouvellement"      // TODO: replace (abo.sans.renouvellement.un.an)
-    
+
     let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
-    
+
     @IBOutlet weak var legalTextView: UITextView!           // CGU, CGV, etc
-    
-    @objc func showSettingsPanel(){
+
+    @objc func showSettingsPanel() {
         let transitionDelegate = SPLarkTransitioningDelegate()
         transitionDelegate.customHeight = 185
         panelController.transitioningDelegate = transitionDelegate
         panelController.modalPresentationStyle = .custom
         panelController.modalPresentationCapturesStatusBarAppearance = true
-        self.present(panelController, animated: true, completion: nil)
+        present(panelController, animated: true, completion: nil)
     }
-    
-    func updateAdminUI(){
-        guard let current = self.currentUser else {
-            self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
+
+    func updateAdminUI() {
+        guard let current = currentUser else {
+            navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
             return
         }
         // Recup le role de l'utilisateur (ex: admin)
@@ -46,33 +46,30 @@ class PaymentVC: UIViewController {
             if let error = error {
                 ParseErrorCodeHandler.handleUnknownError(error: error)
             } else {
-                if let results = results {
-                    let roles = results as! [PFRole]
-                    for role  in roles {
-                        if role.name == "admin" {
-                            self.navigationItem.leftBarButtonItems = [
-                                UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.getBackToHome(_:))),
-                                UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(self.showSettingsPanel))
-                            ]
-                        }
+                if let results = results, let roles = results as? [PFRole] {
+                    for role in roles where role.name == "admin" {
+                        self.navigationItem.leftBarButtonItems = [
+                            UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.getBackToHome(_:))),
+                            UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(self.showSettingsPanel))
+                        ]
                     }
                 }
             }
         })
     }
-    
+
     @IBAction func getBackToHome(_ sender: Any) {
         if commerceAlreadyExists {
-            self.navigationController?.popViewController(animated: true)
+            navigationController?.popViewController(animated: true)
         } else {
-            self.dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "PAIEMENT"
-        
+        title = "PAIEMENT".localized()
+
         SVProgressHUD.setHapticsEnabled(true)
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setDefaultStyle(.dark)
@@ -81,136 +78,122 @@ class PaymentVC: UIViewController {
         updateCGUText()
         updateAdminUI() // Update UINavigationBar
     }
-    
-    func updateCGUText(){
+
+    func updateCGUText() {
         let style = NSMutableParagraphStyle()
         style.alignment = .justified
-        
-        
+
         let attributedString = NSMutableAttributedString(string: legalTextView.text)
         let urlCGU = URL(string: "https://google.fr/")!
         let urlPolitique = URL(string: "https://facebook.com/")!
-        
-        attributedString.setAttributes([.link: urlCGU], range: NSMakeRange(607, 20))
-        attributedString.setAttributes([.link: urlPolitique], range: NSMakeRange(631, 28))
-        
+
+        attributedString.setAttributes([.link: urlCGU], range: NSRange(location: 607, length: 20))
+        attributedString.setAttributes([.link: urlPolitique], range: NSRange(location: 631, length: 28))
+
         legalTextView.isUserInteractionEnabled = true
         legalTextView.isEditable = false
-        let fullRange = NSMakeRange(0, attributedString.length)
-        
+        let fullRange = NSRange(location: 0, length: attributedString.length)
+
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: fullRange)
         attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 14), range: fullRange)
-        
+
         legalTextView.linkTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.blue,
             NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
-            ] as [NSAttributedString.Key : Any]
-        
+            ] as [NSAttributedString.Key: Any]
+
         legalTextView.attributedText = attributedString
     }
-    
+
     @IBAction func processPurchase(_ sender: Any) {
         paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
         scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getScheduleKey(), withExpectedType: "bool") as? Bool ?? false
-        
+
         print("PaymentDeactivated \(paymentDeactivated)")
-        
+
         if !paymentDeactivated {
             // Permet de verifier si l'user a payer avant la création d'un commerce
-            self.buyProduct()
+            buyProduct()
         } else {
             if commerceAlreadyExists {
-                self.renewCommerceEndDate()
+                renewCommerceEndDate()
             } else {
-                self.createNewCommerce()
+                newCommerce()
             }
-            
+
         }
     }
-    
-    func renewCommerceEndDate(){
+
+    func renewCommerceEndDate() {
         let query = PFQuery(className: "Commerce")
-        query.getObjectInBackground(withId: self.renewingCommerceId) { (commerce, error) in
+        query.getObjectInBackground(withId: renewingCommerceId) { (commerce, error) in
             if let error = error {
                 print("Erreur retrieving commerce info - func renewCommerceEndDate")
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else if let commerce = commerce {
                 let lastEndDate = commerce["endSubscription"] as! Date
-                
+
                 if lastEndDate.isBeforeDate(Date(), granularity: .minute) {
                     // isBefore today
-                    if self.scheduleVal {
-                        commerce["endSubscription"] = Date() + 30.seconds
-                    } else {
-                        commerce["endSubscription"] = Date() + 1.years
-                    }
+                    commerce["endSubscription"] = self.scheduleVal ? Date() + 30.seconds : Date() + 1.years
                 } else {
                     // isAfter today
-                    if self.scheduleVal {
-                        commerce["endSubscription"] = lastEndDate + 30.seconds
-                    } else {
-                        commerce["endSubscription"] = lastEndDate + 1.years
-                    }
+                    commerce["endSubscription"] = self.scheduleVal ? lastEndDate + 30.seconds : lastEndDate + 1.years
                 }
-                
+
                 commerce["statutCommerce"] = 1
-                
                 commerce.saveInBackground { (success, error) in
                     if success {
-                        SVProgressHUD.showSuccess(withStatus: "Votre commerce a été renouvelé pour un an")
+                        SVProgressHUD.showSuccess(withStatus: "Votre commerce a été renouvelé pour un an".localized())
                         // Commerce crée on sauvegarde les stats
                         self.saveStatForPurchase(forUser: self.currentUser!, andCommerce: commerce)
                         self.getBackToHome(self)
                     } else if let error = error {
                         print("Erreur dans le renouvellement de l'abonnement du commerce")
                         ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
-                        SVProgressHUD.showError(withStatus: "Erreur dans le renouvellement de l'abonnement du commerce")
+                        SVProgressHUD.showError(withStatus: "Erreur dans le renouvellement de l'abonnement du commerce".localized())
                     }
                 }
             } else {
-                SVProgressHUD.showError(withStatus: "Une erreur inconnue est arrivée durant le renouvellement")
+                SVProgressHUD.showError(withStatus: "Une erreur inconnue est arrivée durant le renouvellement".localized())
             }
         }
     }
-    
+
     @IBAction func restorePurchase(_ sender: Any) {
-        SVProgressHUD.show(withStatus: "Chargement de vos achats")
+        SVProgressHUD.show(withStatus: "Chargement de vos achats".localized())
         SwiftyStoreKit.restorePurchases(atomically: false) { results in
-            if results.restoreFailedPurchases.count > 0 {
+            if !results.restoreFailedPurchases.isEmpty {
                 print("Restore Failed: \(results.restoreFailedPurchases)")
-                SVProgressHUD.showError(withStatus: "Erreur lors du chargement de vos achats")
-            }
-            else if results.restoredPurchases.count > 0 {
-                for purchase in results.restoredPurchases {
+                SVProgressHUD.showError(withStatus: "Erreur lors du chargement de vos achats".localized())
+            } else if !results.restoredPurchases.isEmpty {
+                for purchase in results.restoredPurchases where purchase.needsFinishTransaction {
                     // fetch content from your server, then:
-                    if purchase.needsFinishTransaction {
-                        SwiftyStoreKit.finishTransaction(purchase.transaction)
-                    }
+                    SwiftyStoreKit.finishTransaction(purchase.transaction)
                 }
                 print("Restore Success")
-                SVProgressHUD.showSuccess(withStatus: "Vos achats ont été restaurés avec succès")
-            }
-            else {
+                SVProgressHUD.showSuccess(withStatus: "Vos achats ont été restaurés avec succès".localized())
+            } else {
                 print("Nothing to Restore")
-                SVProgressHUD.showInfo(withStatus: "Aucun achat à restaurer")
+                SVProgressHUD.showInfo(withStatus: "Aucun achat à restaurer".localized())
             }
         }
     }
-    
+
     @IBAction func cancelPurchase(_ sender: Any) {
-//        if let navigationCntrl = self.navigationController {
+//        if let navigationCntrl = navigationController {
 //            // return to product or profil
 ////            navigationCntrl.popToViewController(UIViewController, animated: true)
 ////            navigationCntrl.popToRootViewController(animated: true)
 //            navigationCntrl.popViewController(animated: true)
 //        } else {
-//            self.dismiss(animated: true, completion: nil)
+//            dismiss(animated: true, completion: nil)
 //        }
-        self.getBackToHome(self)
+        getBackToHome(self)
     }
-    
-    func createNewCommerce() {
-        SVProgressHUD.setStatus("Création de votre commerce")
+
+    func newCommerce() {
+        SVProgressHUD.setStatus("Création de votre commerce".localized())
         // TODO: faire de vrai tests pour le paiement
         // [1] Effectuer la demande de paiement
         // [2] Verifier le retour
@@ -233,23 +216,23 @@ class PaymentVC: UIViewController {
             newCommerce["tags"] = []
             newCommerce["position"] = PFGeoPoint(latitude: 0, longitude: 0)
             newCommerce["owner"] = currentUser
-            
+
             if scheduleVal {
                 newCommerce["endSubscription"] = Date() + 30.seconds
             } else {
                 newCommerce["endSubscription"] = Date() + 1.years
             }
-            
+
             newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
-            
+
             newCommerce.saveInBackground { (success, error) in
                 if let error = error {
-                    HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce", viewController: self)
+                    HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce".localized(), viewController: self)
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                     SVProgressHUD.dismiss()
                 } else {
                     if success {
-                        SVProgressHUD.showSuccess(withStatus: "Commerce crée avec succes")
+                        SVProgressHUD.showSuccess(withStatus: "Commerce crée avec succes".localized())
                         // Commerce crée on sauvegarde les stats
                         self.saveStatForPurchase(forUser: currentUser, andCommerce: newCommerce)
                         // [4] Une fois la création faite -> afficher page de création de commerce
@@ -257,30 +240,30 @@ class PaymentVC: UIViewController {
                             self.getBackToHome(self)
                         }
                     } else {
-                        HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.", title: "Erreur création de commerce", viewController: self)
+                        HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), viewController: self)
                         SVProgressHUD.dismiss()
                     }
                 }
             }
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.", title: "Problème de connexion", viewController: self)
+            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), viewController: self)
             SVProgressHUD.dismiss()
         }
     }
-    
-    func saveStatForPurchase(forUser user: PFUser, andCommerce commerce: PFObject){
-        
+
+    func saveStatForPurchase(forUser user: PFUser, andCommerce commerce: PFObject) {
+
         let stat            = PFObject(className: "StatsPurchase")
         stat["user"]        = user
         stat["commerce"]    = commerce
-        
+
         if let queryProduct = PFProduct.query() {
-            queryProduct.whereKey("productIdentifier", equalTo: self.purchasedProductID)
+            queryProduct.whereKey("productIdentifier", equalTo: purchasedProductID)
             queryProduct.getFirstObjectInBackground(block: { (purchaseProduct, error) in
                 if let purchaseProduct = purchaseProduct {
                     stat["typeAbonnement"]  = purchaseProduct
                     purchaseProduct.incrementKey("purchased")
-                    purchaseProduct.saveInBackground { (success, error) in
+                    purchaseProduct.saveInBackground { (_, error) in
                         if let error = error {
                             print("Error function retrieve PFProduct - func saveStatForPurchase")
                             ParseErrorCodeHandler.handleUnknownError(error: error)
@@ -292,8 +275,8 @@ class PaymentVC: UIViewController {
                 }
             })
         }
-        
-        stat.saveInBackground { (success, error) in
+
+        stat.saveInBackground { (_, error) in
             if let error = error {
                 print("Error function save stat - func saveStatForPurchase")
                 ParseErrorCodeHandler.handleUnknownError(error: error)
@@ -301,29 +284,27 @@ class PaymentVC: UIViewController {
             }
         }
     }
-    
-    func buyProduct(){
-        
-        SVProgressHUD.show(withStatus: "Chargement du paiement")
-        
-        SwiftyStoreKit.retrieveProductsInfo([self.purchasedProductID]) { result in
+
+    func buyProduct() {
+
+        SVProgressHUD.show(withStatus: "Chargement du paiement".localized())
+        SwiftyStoreKit.retrieveProductsInfo([purchasedProductID]) { result in
             SVProgressHUD.dismiss(withDelay: 1.5)
-            
+
             if let product = result.retrievedProducts.first {
                 let priceString = product.localizedPrice!
                 print("Product: \(product.localizedDescription), price: \(priceString)")
                 SwiftyStoreKit.purchaseProduct(product, quantity: 1, atomically: true) { result in
-                    
+
                     switch result {
                     case .success(let product):
                         // fetch content from your server, then:
                         if self.commerceAlreadyExists {
                             self.renewCommerceEndDate()
                         } else {
-                            self.createNewCommerce()
+                            self.newCommerce()
                         }
 
-                        
                         if product.needsFinishTransaction {
                             SwiftyStoreKit.finishTransaction(product.transaction)
                         }
@@ -331,15 +312,15 @@ class PaymentVC: UIViewController {
                         break
                     case .error(let error):
                         switch error.code {
-                        case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support")
-                        case .clientInvalid: SVProgressHUD.showError(withStatus: "Not allowed to make the payment")
+                        case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())
+                        case .clientInvalid: SVProgressHUD.showError(withStatus: "Not allowed to make the payment".localized())
                         case .paymentCancelled: break
-                        case .paymentInvalid: SVProgressHUD.showError(withStatus: "The purchase identifier was invalid")
-                        case .paymentNotAllowed: SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment")
-                        case .storeProductNotAvailable: SVProgressHUD.showError(withStatus: "The product is not available in the current storefront")
-                        case .cloudServicePermissionDenied: SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed")
-                        case .cloudServiceNetworkConnectionFailed: SVProgressHUD.showError(withStatus: "Could not connect to the network")
-                        case .cloudServiceRevoked: SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service")
+                        case .paymentInvalid: SVProgressHUD.showError(withStatus: "The purchase identifier was invalid".localized())
+                        case .paymentNotAllowed: SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment".localized())
+                        case .storeProductNotAvailable: SVProgressHUD.showError(withStatus: "The product is not available in the current storefront".localized())
+                        case .cloudServicePermissionDenied: SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed".localized())
+                        case .cloudServiceNetworkConnectionFailed: SVProgressHUD.showError(withStatus: "Could not connect to the network".localized())
+                        case .cloudServiceRevoked: SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service".localized())
                         default: SVProgressHUD.showError(withStatus: (error as NSError).localizedDescription)
                         }
                         ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false) // TODO: change it is not a parse error
@@ -347,26 +328,24 @@ class PaymentVC: UIViewController {
                 }
             } else if let invalidProductId = result.invalidProductIDs.first {
                 print("Invalid product identifier: \(invalidProductId)")
-                // TODO: Send mail - CRITIC ERROR
-            }
-            else {
+                ParseErrorCodeHandler.handleUnknownError(error: NSError(domain: "PaymentVC", code: 404, userInfo: ["invalid_product_identifier": "Product identifier is invalid : \(invalidProductId)"]))
+            } else {
                 print("Error: \(String(describing: result.error))")
-                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false) // TODO: change it is not a parse error
+                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false)
             }
         }
-        
-        
+
     }
-    
+
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "ajoutCommerce" {
 //            let ajoutCommerceVC = segue.destination as! AjoutCommerceVC
 //            ajoutCommerceVC.editingMode = true
 //            ajoutCommerceVC.loadedFromBAAS = false
-//            ajoutCommerceVC.objectIdCommerce = self.newCommerceID
+//            ajoutCommerceVC.objectIdCommerce = newCommerceID
 //        }
 //    }
-    
+
 //    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
 //        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
 //        print("Identifier \(identifier) & paymentDeactivated \(paymentDeactivated)")

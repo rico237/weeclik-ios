@@ -15,31 +15,31 @@ import BLTNBoard
 enum BulletinDataSource {
 
     // MARK: - Pages
-    
+
     static func makeFilterPage() -> BLTNPageItem {
-        
-        let page = BLTNPageItem(title: "Préférence de filtrage")
+
+        let page = BLTNPageItem(title: "Préférence de filtrage".localized())
         page.image = #imageLiteral(resourceName: "icon")
         page.imageAccessibilityLabel = "⚠️"
-        
-        page.descriptionText = "Vous avez choisit pour le moment d'afficher les commerces en fonction de votre position"
-        page.actionButtonTitle = "Trier par position"
-        page.alternativeButtonTitle = "Trier par nombre de partage"
+
+        page.descriptionText = "Vous avez choisit pour le moment d'afficher les commerces en fonction de votre position".localized()
+        page.actionButtonTitle = "Trier par position".localized()
+        page.alternativeButtonTitle = "Trier par nombre de partage".localized()
         page.requiresCloseButton = false
         page.isDismissable = true
-        
+
         return page
     }
-    
+
     static func makeFilterNextPage() -> BLTNPageItem {
-        let page = BLTNPageItem(title: "Filtre enregistré")
+        let page = BLTNPageItem(title: "Filtre enregistré".localized())
         page.imageAccessibilityLabel = "⚠️"
-        
-        page.descriptionText = "Filtre enregistré avec succès, la liste des commerces va maintenant être rechargé"
-        page.actionButtonTitle = "OK"
+
+        page.descriptionText = "Filtre enregistré avec succès, la liste des commerces va maintenant être rechargé".localized()
+        page.actionButtonTitle = "OK".localized()
         page.requiresCloseButton = false
         page.isDismissable = true
-        
+
         return page
     }
 
@@ -98,7 +98,7 @@ enum BulletinDataSource {
         page.actionHandler = { item in
             item.manager?.displayNextItem()
         }
-        
+
         page.alternativeHandler = { item in
             item.manager?.displayNextItem()
         }

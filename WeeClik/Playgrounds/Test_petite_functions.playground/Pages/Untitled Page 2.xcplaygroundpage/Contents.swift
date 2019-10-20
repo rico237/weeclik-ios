@@ -5,7 +5,7 @@ import SwiftyStoreKit
 
 let sharedSecret = "702ebb787a9248aaa4a340d2e92d68c9"
 
-func verifyPurchases(with id: String, sharedSecret: String){
+func verifyPurchases(with id: String, sharedSecret: String) {
     let appleValidator = AppleReceiptValidator(service: .sandbox, sharedSecret: sharedSecret)
     SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
         switch result {
@@ -15,7 +15,7 @@ func verifyPurchases(with id: String, sharedSecret: String){
             let purchaseResult = SwiftyStoreKit.verifyPurchase(
                 productId: productId,
                 inReceipt: receipt)
-            
+
             switch purchaseResult {
             case .purchased(let receiptItem):
                 print("\(productId) is purchased: \(receiptItem)")
@@ -40,7 +40,7 @@ func verifySubscription(withId id: String, sharedSecret: String) {
                 ofType: .nonRenewing(validDuration: 30) // 30 sec
                 productId: productId,
                 inReceipt: receipt)
-            
+
             switch purchaseResult {
             case .purchased(let expiryDate, let items):
                 print("\(productId) is valid until \(expiryDate)\n\(items)\n")
@@ -49,7 +49,7 @@ func verifySubscription(withId id: String, sharedSecret: String) {
             case .notPurchased:
                 print("The user has never purchased \(productId)")
             }
-            
+
         case .error(let error):
             print("Receipt verification failed: \(error)")
         }

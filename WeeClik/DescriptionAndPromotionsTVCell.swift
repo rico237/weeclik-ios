@@ -10,7 +10,7 @@ import UIKit
 
 class DescriptionAndPromotionsTVCell: UITableViewCell {
     @IBOutlet weak var textViewDescAndPromotions: UITextView!
-    
+
     func setTextViewDataSourceDelegate <D: UITextViewDelegate> (dataSourceDelegate: D, withTag: Int) {
         textViewDescAndPromotions.delegate = dataSourceDelegate
         textViewDescAndPromotions.tag = withTag

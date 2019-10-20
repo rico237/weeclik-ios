@@ -14,24 +14,28 @@ import Parse
 import CoreLocation
 import TLPhotoPicker
 import Photos
+import SPPermission
 
 class ParseService: NSObject {
     public static let shared = ParseService()
     private lazy var geocoder = CLGeocoder()                        // TODO: remplacer par une lib de geocoding ?
     private let locationManager = CLLocationManager()
-    private var latestLocationForQuery : CLLocation!
+    private var latestLocationForQuery: CLLocation!
     private var isLoadingCommerces = false
-    
-    private override init(){}
-    
+
+    private override init() {
+        super.init()
+        locationManager.delegate = self
+    }
+
     // create one commerce
-    
+
     // update one commerce
-    func updateExistingParseCommerce(fromCommerce commerce: Commerce, completion: ((_ success: Bool, _ error: Error?) -> ())? = nil) {
-        
+    func updateExistingParseCommerce(fromCommerce commerce: Commerce, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+
         let query = PFQuery(className: "Commerce")
         query.getObjectInBackground(withId: commerce.objectId) { (parseObject, error) in
-            
+
             if let error = error {
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
                 completion?(false, error)
@@ -45,7 +49,7 @@ class ParseService: NSObject {
                 parseObject["adresse"]          = commerce.adresse
                 parseObject["description"]      = commerce.descriptionO
                 parseObject["promotions"]       = commerce.promotions
-                
+
                 parseObject.saveInBackground { (success, error) in
                     if success {
                         completion?(true, nil)
@@ -63,9 +67,9 @@ class ParseService: NSObject {
         }
     }
     // Update geolocation of a commerce based on its addresse
-    func updateGeoLocation(forCommerce commerce: Commerce, completion: ((_ success: Bool, _ error: Error?) -> ())? = nil){
+    func updateGeoLocation(forCommerce commerce: Commerce, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
         // Update location from adresse
-        
+
         let query = PFQuery(className: "Commerce")
         query.getObjectInBackground(withId: commerce.objectId) { (parseObject, error) in
             if let parseObject = parseObject {
@@ -74,7 +78,7 @@ class ParseService: NSObject {
                         ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
                         completion?(false, error)
                     } else {
-                        if let placemarks = placemarks, placemarks.count > 0 {
+                        if let placemarks = placemarks, !placemarks.isEmpty {
                             if let location = placemarks.first?.location {
                                 let commerceToSave = parseObject
                                 commerceToSave["position"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -89,31 +93,31 @@ class ParseService: NSObject {
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             }
         }
-        
-        //                        print("location : \(location.debugDescription)")
-        //                        if self.loadedFromBAAS {
-        //                            let commerceToSave = commerce.pfObject
-        //                            commerceToSave!["position"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        //                            commerceToSave!.saveInBackground()
-        //                        } else {
-        //                            let comm = Commerce(withName: self.nomCommerce, tel: self.telCommerce, mail: self.mailCommerce, adresse: self.adresseCommerce, siteWeb: self.siteWebCommerce, categorie: self.categorieCommerce, description: self.descriptionCommerce, promotions: self.promotionsCommerce, owner:PFUser.current()!)
-        //                            comm.location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        //                        }
+
+//                        print("location : \(location.debugDescription)")
+//                        if self.loadedFromBAAS {
+//                            let commerceToSave = commerce.pfObject
+//                            commerceToSave!["position"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//                            commerceToSave!.saveInBackground()
+//                        } else {
+//                            let comm = Commerce(withName: self.nomCommerce, tel: self.telCommerce, mail: self.mailCommerce, adresse: self.adresseCommerce, siteWeb: self.siteWebCommerce, categorie: self.categorieCommerce, description: self.descriptionCommerce, promotions: self.promotionsCommerce, owner:PFUser.current()!)
+//                            comm.location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//                        }
     }
-    
+
     // Save photos to commerce
-    func savePhotosWithCommerce(commerce: Commerce?, photoArray: [UIImage], loadedPhotos:[PFObject], completion:((_ success: Bool,_ photos:[PFObject]?, _ error: Error?) -> ())? = nil) {
+    func savePhotosWithCommerce(commerce: Commerce?, photoArray: [UIImage], loadedPhotos: [PFObject], completion:((_ success: Bool, _ photos: [PFObject]?, _ error: Error?) -> Void)? = nil) {
         guard let commerce = commerce else {
             completion?(false, nil, nil)
             return
         }
-        
+
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerce.objectId)
         var photos = [PFObject]()
-        
+
         for image in photoArray {
             if image != #imageLiteral(resourceName: "Plus_icon") {
-                let obj = PFObject(className: "Commerce_Photos")
+                let photo = PFObject(className: "Commerce_Photos")
                 let compressedImage = image.wxCompress()
                 let file: PFFileObject!
                 do {
@@ -122,20 +126,20 @@ class ParseService: NSObject {
                     print("Error while setting content type jpeg")
                     file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 0.6)!)
                 }
-                
-                obj["photo"] = file
-                obj["commerce"] = commerceToSave
-                photos.append(obj)
+
+                photo["photo"] = file
+                photo["commerce"] = commerceToSave
+                photos.append(photo)
             }
         }
-        
-        // TODO: Eviter de supprimer toutes les photos et faire une par une
-        PFObject.deleteAll(inBackground: loadedPhotos) { (success, error) in
+
+        // FIXME: Eviter de supprimer toutes les photos et faire une par une
+        PFObject.deleteAll(inBackground: loadedPhotos) { (_, error) in
             if let error = error {
                 completion?(false, nil, error)
             } else {
-                if photos.count != 0 {
-                    PFObject.saveAll(inBackground: photos, block: { (success, error) in
+                if !photos.isEmpty {
+                    PFObject.saveAll(inBackground: photos, block: { (_, error) in
                         if let error = error {
                             completion?(false, nil, error)
                         } else {
@@ -145,22 +149,21 @@ class ParseService: NSObject {
                 }
             }
         }
-        
+
     }
-    
+
     // Update thumbnail picture
-    func updateCommerceThumbnailPicture(fromCommerce commerce: Commerce?, andImages photos: [PFObject], completion: @escaping (_ success:Bool, _ error:Error?) -> ()) {
+    func updateCommerceThumbnailPicture(fromCommerce commerce: Commerce?, andImages photos: [PFObject], completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard let commerce = commerce else {
             print("Commerce is nil")
             completion(false, nil)
             return
         }
-        
-        if photos.count != 0 {
+
+        if !photos.isEmpty {
             let query = PFQuery(className: "Commerce")
             query.whereKey("objectId", equalTo: commerce.objectId!)
             query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-            
             query.getFirstObjectInBackground { (commerceToUpdate, error) in
                 if let commerceToUpdate = commerceToUpdate {
                     commerceToUpdate["photoSlider"] = photos
@@ -178,38 +181,37 @@ class ParseService: NSObject {
             }
         }
     }
-    
-    
-    func saveVideoForCommerce(commerce: Commerce?, videoArray: [TLPHAsset], thumbnailArray:[UIImage], completion:((_ success: Bool, _ error: Error?) -> ())? = nil) {
+
+    func saveVideoForCommerce(commerce: Commerce?, videoArray: [TLPHAsset], thumbnailArray: [UIImage], completion:((_ success: Bool, _ error: Error?) -> Void)? = nil) {
         guard let commerce = commerce else {
             completion?(false, nil)
             return
         }
-        
+
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerce.objectId)
-        
+
         // Une video a été ajouté par l'utilisateur
-        if videoArray.count != 0 {
+        if !videoArray.isEmpty {
             // Parcours de toutes les vidéos ajoutés
             for i in 0..<videoArray.count {
-                
+
                 let video = videoArray[i]
-                
+
                 // Si on réussit a prendre les data de la vidéo
                 // Dans ce cas on sauvegarde
                 if let asset = video.phAsset {
-                    
+
                     let options = PHVideoRequestOptions()
                     options.version = .original
                     options.deliveryMode = .automatic
                     options.isNetworkAccessAllowed = true
-                    
+
                     video.exportVideoFile(options: options, progressBlock: { (progress) in
                         print("Progress \(progress)")
                     }) { (url, mimeType) in
-                        
+
                         print("Video export \(url) & \(mimeType)")
-                        
+
                         print("try")
                         var videoData: Data?
                         do {
@@ -219,21 +221,21 @@ class ParseService: NSObject {
                             videoData = nil
                             return
                         }
-                        
+
                         print("Done getting video data\n Now tries to save pffile object")
-                        
+
                         let pffile          = PFFileObject(data: videoData!, contentType: mimeType)
-                        let obj             = PFObject(className: "Commerce_Videos")
+                        let video           = PFObject(className: "Commerce_Videos")
                         let thumbnail       = PFFileObject(data: thumbnailArray[i].jpegData(compressionQuality: 0.5)!, contentType: "image/jpeg")
-                        
-                        obj["thumbnail"]    = thumbnail
-                        obj["leCommerce"]   = commerceToSave
-                        obj["time"]         = asset.duration.stringFormatted()
-                        obj["nameVideo"]    = commerce.nom + " - Vidéo de présentation"
-                        obj["video"]        = pffile
-                        
-                        obj.acl = ParseHelper.getUserACL(forUser: PFUser.current())
-                        
+
+                        video["thumbnail"]    = thumbnail
+                        video["leCommerce"]   = commerceToSave
+                        video["time"]         = asset.duration.stringFormatted()
+                        video["nameVideo"]    = commerce.nom + " - Vidéo de présentation"
+                        video["video"]        = pffile
+
+                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+
                         pffile.saveInBackground({ (success, error) in
                             if let error = error {
                                 print("Erreur while uploading \(error.localizedDescription)")
@@ -243,7 +245,7 @@ class ParseService: NSObject {
                                 if success {
                                     // OK
                                     print("Upload réussi")
-                                    obj.saveInBackground(block: { (success, error) in
+                                    video.saveInBackground(block: { (success, error) in
                                         completion?(success, error)
                                     })
                                 } else {
@@ -251,7 +253,7 @@ class ParseService: NSObject {
                                     completion?(false, nil)
                                 }
                             }
-                            
+
                             completion?(true, nil)
                         }, progressBlock: { (progress32) in
                             print("Progress : \(progress32)%")
@@ -263,14 +265,14 @@ class ParseService: NSObject {
             completion?(true, nil)
         }
     }
-    
+
     // remove photo for commerce
     // remove all photos for commerce
-    
+
     // retrieve one commerce
     // retrieve mutiliple commerces (sharing preference)
     // retrieve mutiliple commerces (location preference)
-    
+
     // Add picture to existing commerce (IAP), must add checks for IAP receipt
     // Add multiple pictures to existiong commerce (IAP), must add checks for IAP receipt
 }
@@ -278,19 +280,19 @@ class ParseService: NSObject {
 // MARK: - Fetch
 extension ParseService {
     // retrieve mutiliple commerces (sharing preference)
-    func sharingPrefsCommerces(withType typeCategorie: String, completion:((_ commerces: [Commerce]?, _ error: Error?) -> ())? = nil){
+    func sharingPrefsCommerces(withType typeCategorie: String, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
         print("BEGIN")
         self.queryObjectsFromDB(typeCategorie: typeCategorie, prefFiltreLocation: false, completion: completion)
         print("END")
     }
     // retrieve mutiliple commerces (location preference)
-    func locationPrefsCommerces(withType typeCategorie: String, latestKnownPosition: CLLocation, completion:((_ commerces: [Commerce]?, _ error: Error?) -> ())? = nil){
+    func locationPrefsCommerces(withType typeCategorie: String, latestKnownPosition: CLLocation, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
         self.latestLocationForQuery = latestKnownPosition
         self.queryObjectsFromDB(typeCategorie: typeCategorie, prefFiltreLocation: true, completion: completion)
     }
-    
+
     // Common Func
-    private func queryObjectsFromDB(typeCategorie : String, prefFiltreLocation: Bool, completion:((_ commerces: [Commerce]?, _ error: Error?) -> ())? = nil){
+    private func queryObjectsFromDB(typeCategorie: String, prefFiltreLocation: Bool, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
         if (!isLoadingCommerces) {
             // FIXME: URGENT -> AMELIORER LA QUERY COMMERCES (mise à jour de la poisition est faite après le fetch des commerce, ce qui veut dire qu'il faut refresh deux fois pour avoir les bons commerces
             isLoadingCommerces = true
@@ -300,9 +302,10 @@ extension ParseService {
             query.whereKey("statutCommerce", equalTo: 1)
             query.whereKey("brouillon", equalTo: false)
             
-            if prefFiltreLocation { // FIXME: MUST CHECK IF PERMISSION GRANTED
+            
+            if prefFiltreLocation && ( SPPermission.isAllowed(.locationWhenInUse) || SPPermission.isAllowed(.locationAlwaysAndWhenInUse) ) {
                 locationManager.startUpdatingLocation()
-                print("Query objects")
+                print("Query objects with location")
                 let userPosition = PFGeoPoint(location: latestLocationForQuery)
                 query.whereKey("position", nearGeoPoint: userPosition)
                 query.order(byAscending: "position")
@@ -310,8 +313,7 @@ extension ParseService {
                 query.order(byDescending: "nombrePartages")
             }
             query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
-            
-            query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
+            query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
                 print("8")
                 if let error = error {
                     if error.code == PFErrorCode.errorInvalidSessionToken.rawValue {
@@ -319,13 +321,13 @@ extension ParseService {
                     }
                     ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false)
                     completion?(nil, error)
-                    
+
                 } else if let objects = objects {
-                    for obj in objects {
-                        let commerce = Commerce(parseObject: obj)
+                    for parseObject in objects {
+                        let commerce = Commerce(parseObject: parseObject)
                         commerces.append(commerce)
                     }
-                    
+
                     // tri du tableau par position
                     if prefFiltreLocation {
                         let sorteCommerce = commerces.sorted(by: {
@@ -335,9 +337,28 @@ extension ParseService {
                     }
                     completion?(commerces, nil)
                 }
-                
+
                 self.isLoadingCommerces = false
             }
         }
+    }
+}
+
+extension ParseService: CLLocationManagerDelegate {
+    /// CLLocationManagerDelegate DidFailWithError Methods
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error. The Location couldn't be found. \(error)")
+    }
+
+    /// CLLocationManagerDelegate didUpdateLocations Methods
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationManager.stopUpdatingLocation()
+        self.latestLocationForQuery = locations.last
+        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
+    }
+    /// Fetch commerces collection based on user location
+    /// params: UserLocation = Latest user location
+    func fetchCommercesFromUserPosition(userLocation: CLLocation) {
+        
     }
 }

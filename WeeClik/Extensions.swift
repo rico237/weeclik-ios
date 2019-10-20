@@ -6,59 +6,81 @@
 //  Copyright © 2018 Herrick Wolber. All rights reserved.
 //
 
+/**
+ String + Array + Collection + Error + TimeInterval + UIColor + UIDevice + UIImage + UIView + Double +
+ UserDefaults + CALayer + UIWindow + UIViewController + UIFont
+ */
+
 import UIKit
+import Loaf
 
 extension String {
-    
+
     // To check text field or String is blank or not
     func isBlank() -> Bool {
         let trimmed = trimmingCharacters(in: CharacterSet.whitespaces)
         return trimmed.isEmpty
     }
-    
+
     // If only number
     func isAlphanumeric() -> Bool {
         return !isEmpty && range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil
     }
-    
-    func isValidURL() -> Bool {
-        guard let url = NSURL(string: self) else {return false}
-        if !UIApplication.shared.canOpenURL(url as URL) {return false}
-        let regEx = "((https|http)://)((\\w|-)+)(([.]|[/])((\\w|-)+))+"
-        let predicate = NSPredicate(format:"SELF MATCHES %@", argumentArray:[regEx])
-        return predicate.evaluate(with: self)
+
+    private func matches(pattern: String) -> Bool {
+        let regex = try! NSRegularExpression(
+            pattern: pattern,
+            options: [.caseInsensitive])
+        return regex.firstMatch(
+            in: self,
+            options: [],
+            range: NSRange(location: 0, length: utf16.count)) != nil
     }
-    
+
+    func isValidURL() -> Bool {
+        guard let url = URL(string: self) else { return false }
+        if !UIApplication.shared.canOpenURL(url) { return false }
+
+        let urlPattern = "^(http|https|ftp)\\://([a-zA-Z0-9\\.\\-]+(\\:[a-zA-Z0-9\\.&amp;%\\$\\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\\:[0-9]+)*(/($|[a-zA-Z0-9\\.\\,\\?\\'\\\\\\+&amp;%\\$#\\=~_\\-]+))*$"
+        return self.matches(pattern: urlPattern)
+    }
+
     // validate Password
     func isValidPassword() -> Bool {
         do {
             let regex = try NSRegularExpression(pattern: "^[a-zA-Z_0-9\\-_,;.:#+*?=!§$%&/()@]+$", options: .caseInsensitive)
-            if(regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count)) != nil){
-                
-                if(self.count>=6 && self.count<=20){
+            if(regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSRange(location: 0, length: self.count)) != nil) {
+
+                if(self.count>=6 && self.count<=20) {
                     return true
-                }else{
+                } else {
                     return false
                 }
-            }else{
+            } else {
                 return false
             }
         } catch {
             return false
         }
     }
-    
+
     // Valid phone
     func isValidPhone() -> Bool {
         let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: self)
     }
-    
-    // Valid Email
+
+    /// Validate email
+    ///
+    /// - returns: A Boolean value indicating whether an email is valid.
     func isValidEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let emailRegEx = "(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" +
+        "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-" + "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5" +
+        "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
+        "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
 }
@@ -93,22 +115,22 @@ extension TimeInterval {
         let minutes = (interval / 60) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
-    
+
 }
 
 extension UIColor {
-    convenience init(hexFromString:String, alpha:CGFloat = 1.0) {
-        var cString:String = hexFromString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        var rgbValue:UInt32 = 10066329 //color #999999 if string has wrong format
-        
+    convenience init(hexFromString: String, alpha: CGFloat = 1.0) {
+        var cString: String = hexFromString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        var rgbValue: UInt32 = 10066329 //color #999999 if string has wrong format
+
         if (cString.hasPrefix("#")) {
             cString.remove(at: cString.startIndex)
         }
-        
+
         if ((cString.count) == 6) {
             Scanner(string: cString).scanHexInt32(&rgbValue)
         }
-        
+
         self.init(
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
@@ -130,10 +152,9 @@ extension UIDevice {
             sysctlbyname("hw.machine", &machine, &size, nil, 0)
             modelIdentifier = String(cString: machine)
         }
-        
         return modelIdentifier == "iPhone10,3" || modelIdentifier == "iPhone10,6"
     }
-    
+
     static var isSimulator: Bool {
         return TARGET_OS_SIMULATOR != 0
     }
@@ -145,11 +166,11 @@ extension UIImage {
         let data2: Data = image.jpegData(compressionQuality: 1)!
         return data1 == data2
     }
-    
+
     func isEqualToData(data: Data) -> Bool {
         return self.jpegData(compressionQuality: 1) == data
     }
-    
+
     public func rounded(radius: CGFloat) -> UIImage {
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -160,9 +181,9 @@ extension UIImage {
 }
 
 extension UIView {
-    func setCardView(view : UIView){
+    func setCardView(view: UIView) {
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 3;
+        view.layer.cornerRadius = 3
     }
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
@@ -170,22 +191,22 @@ extension UIView {
         mask.path = path.cgPath
         self.layer.mask = mask
     }
-   
-    func anchor (top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?,  paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat, enableInsets: Bool) {
+
+    func anchor (top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat, enableInsets: Bool) {
         var topInset = CGFloat(0)
         var bottomInset = CGFloat(0)
-        
-        if #available(iOS 11, *), enableInsets {
+
+        if enableInsets {
             let insets = self.safeAreaInsets
             topInset = insets.top
             bottomInset = insets.bottom
-            
+
             print("Top: \(topInset)")
             print("bottom: \(bottomInset)")
         }
-        
+
         translatesAutoresizingMaskIntoConstraints = false
-        
+
         if let top = top {
             self.topAnchor.constraint(equalTo: top, constant: paddingTop+topInset).isActive = true
         }
@@ -204,11 +225,10 @@ extension UIView {
         if width != 0 {
             widthAnchor.constraint(equalToConstant: width).isActive = true
         }
-        
-    }
-    
-}
 
+    }
+
+}
 
 extension Double {
     func round(to places: Int) -> Double {
@@ -225,47 +245,41 @@ extension UserDefaults {
 
 extension CALayer {
     func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-        
         let border = CALayer()
-        
+
         switch edge {
         case UIRectEdge.top:
             border.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: thickness)
-            break
         case UIRectEdge.bottom:
             border.frame = CGRect.init(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
-            break
         case UIRectEdge.left:
             border.frame = CGRect.init(x: 0, y: 0, width: thickness, height: frame.height)
-            break
         case UIRectEdge.right:
             border.frame = CGRect.init(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
-            break
         default:
             break
         }
-        
-        border.backgroundColor = color.cgColor;
-        
+
+        border.backgroundColor = color.cgColor
         self.addSublayer(border)
     }
 }
 
-public extension UIWindow {
+extension UIWindow {
     var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
-    
-    static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
-        if let nc = vc as? UINavigationController {
-            return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
-        } else if let tc = vc as? UITabBarController {
-            return UIWindow.getVisibleViewControllerFrom(tc.selectedViewController)
+
+    static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
+        if let viewController = viewController as? UINavigationController {
+            return UIWindow.getVisibleViewControllerFrom(viewController.visibleViewController)
+        } else if let viewController = viewController as? UITabBarController {
+            return UIWindow.getVisibleViewControllerFrom(viewController.selectedViewController)
         } else {
-            if let pvc = vc?.presentedViewController {
-                return UIWindow.getVisibleViewControllerFrom(pvc)
+            if let viewController = viewController?.presentedViewController {
+                return UIWindow.getVisibleViewControllerFrom(viewController)
             } else {
-                return vc
+                return viewController
             }
         }
     }
@@ -292,21 +306,21 @@ extension UIButton {
 }
 
 extension UIViewController {
-    func showInputDialog(title:String? = nil,
-                         subtitle:String? = nil,
-                         actionTitle:String? = "OK",
-                         cancelTitle:String? = "Annuler",
-                         inputPlaceholder:String? = nil,
-                         inputKeyboardType:UIKeyboardType = UIKeyboardType.default,
+    func showInputDialog(title: String? = nil,
+                         subtitle: String? = nil,
+                         actionTitle: String? = "OK",
+                         cancelTitle: String? = "Annuler",
+                         inputPlaceholder: String? = nil,
+                         inputKeyboardType: UIKeyboardType = UIKeyboardType.default,
                          cancelHandler: ((UIAlertAction) -> Swift.Void)? = nil,
                          actionHandler: ((_ text: String?) -> Void)? = nil) {
-        
+
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-        alert.addTextField { (textField:UITextField) in
+        alert.addTextField { (textField: UITextField) in
             textField.placeholder = inputPlaceholder
             textField.keyboardType = inputKeyboardType
         }
-        alert.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: { (action:UIAlertAction) in
+        alert.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: { (_:UIAlertAction) in
             guard let textField =  alert.textFields?.first else {
                 actionHandler?(nil)
                 return
@@ -314,17 +328,25 @@ extension UIViewController {
             actionHandler?(textField.text)
         }))
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler))
-        
         self.present(alert, animated: true, completion: nil)
     }
-    
-    func showToastMessage(withMessage message: String) {
-        
+
+    func presentFullScreen(viewController: UIViewController, animated: Bool = true, completion:(() -> Void)?) {
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: animated, completion: completion)
+    }
+
+    func showToastMessage(withMessage message: String, state: Loaf.State = .info, location: Loaf.Location = .bottom, presentationDir: Loaf.Direction, dismissDir: Loaf.Direction) {
+        Loaf(message, state: state, location: location, presentingDirection: presentationDir, dismissingDirection: dismissDir, sender: self).show()
+    }
+
+    func showBasicToastMessage(withMessage message: String, state: Loaf.State = .info) {
+        Loaf(message, state: state, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
     }
 }
 
 extension UIFont {
-    
+
     public enum OpenSansType: String {
         case extraboldItalic = "-ExtraboldItalic"
         case semiboldItalic = "-SemiboldItalic"
@@ -337,17 +359,30 @@ extension UIFont {
         case boldItalic = "-BoldItalic"
         case bold = "-Bold"
     }
-    
-    static func OpenSans(_ type: OpenSansType = .regular, size: CGFloat = UIFont.systemFontSize) -> UIFont {
+
+    static func openSans(_ type: OpenSansType = .regular, size: CGFloat = UIFont.systemFontSize) -> UIFont {
         return UIFont(name: "OpenSans\(type.rawValue)", size: size)!
     }
-    
+
     var isBold: Bool {
         return fontDescriptor.symbolicTraits.contains(.traitBold)
     }
-    
+
     var isItalic: Bool {
         return fontDescriptor.symbolicTraits.contains(.traitItalic)
     }
-    
+
+}
+
+extension UITextView {
+    // this will be reached if the text is nil (unlikely)
+    // or if the text only contains white spaces
+    // or no text at all
+    func validate() -> Bool {
+        guard let text = self.text,
+            !text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty else {
+            return false
+        }
+        return true
+    }
 }

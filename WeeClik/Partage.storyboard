@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RjO-0i-6vj">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RjO-0i-6vj">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +19,7 @@
         <!--View Controller-->
         <scene sceneID="4U6-cR-HeB">
             <objects>
-                <viewController id="6Jj-sK-xkZ" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="6Jj-sK-xkZ" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aor-Jc-r1n">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,7 +92,7 @@
         <!--Mes groupes-->
         <scene sceneID="9gO-eY-ztk">
             <objects>
-                <viewController id="HVf-gt-7Fh" customClass="ListeDesFavorisVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="HVf-gt-7Fh" customClass="ListeDesFavorisVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JVn-t7-3Ml">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -234,7 +232,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Nxw-al-xod">
             <objects>
-                <navigationController storyboardIdentifier="ListeDesFavorisVCNav" automaticallyAdjustsScrollViewInsets="NO" id="RjO-0i-6vj" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ListeDesFavorisVCNav" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="pageSheet" id="RjO-0i-6vj" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qyU-eX-rHT">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

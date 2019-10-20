@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import Compass
 import Firebase
 import SwiftyStoreKit
+import Instabug
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,19 +35,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         // External URL Routing to commerce detail
         setupRouting()
+        
+        Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
 
         return true
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         try? Navigator.navigate(url: url)
         return true
     }
-    
+
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
-    
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -77,16 +80,16 @@ extension AppDelegate {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
     }
-        
-    func parseConfiguration(){
+
+    func parseConfiguration() {
         let configuration = ParseClientConfiguration {
             $0.applicationId = HelperAndKeys.getServerAppId()
             $0.server = HelperAndKeys.getServerURL()
         }
         Parse.initialize(with: configuration)
     }
-    
-    func purchaseObserver(){
+
+    func purchaseObserver() {
         // see notes below for the meaning of Atomic / Non-Atomic
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
             print("Purchase complete transactions")
@@ -106,7 +109,7 @@ extension AppDelegate {
                 }
             }
         }
-        
+
         SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
 //            TEST = itms-services://?action=purchaseIntent&bundleId=com.example.app&productIdentifier=product_name
 //            if PFUser.current() != nil {
@@ -120,23 +123,23 @@ extension AppDelegate {
 
 // MARK: UI Tests Confs
 extension AppDelegate {
-    func testUIConfiguration(){
+    func testUIConfiguration() {
         var arguments = ProcessInfo.processInfo.arguments
         arguments.removeFirst()
         print("App launching with the following arguments: \(arguments)")
-        
+
         // Always clear the defaults first
         if arguments.contains("ResetDefaults") {
             UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             UserDefaults.standard.synchronize()
         }
-        
+
         for argument in arguments {
             switch argument {
             case "NoAnimations":
                 UIView.setAnimationsEnabled(false)
             case "UserHasRegistered":
-                PFUser.logInWithUsername(inBackground: "toto@toto.com", password: "toto") { (user, error) in
+                PFUser.logInWithUsername(inBackground: "toto@toto.com", password: "toto") { (user, _) in
                     if let user = user {print( "User \(user) is logged" )}
                 }
             default:
@@ -151,20 +154,20 @@ extension AppDelegate {
     class func getAppDelegate() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
-    
-    func globalUiConfiguration(){
-        UINavigationBar.appearance().barTintColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
+
+    func globalUiConfiguration() {
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().tintColor = UIColor.white
-        
+
         let shadow = NSShadow()
         shadow.shadowColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         shadow.shadowOffset = CGSize(width: 0, height: 1)
 
         UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor : UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
-            NSAttributedString.Key.shadow : shadow,
-            NSAttributedString.Key.font : UIFont(name: "BebasNeue", size: 21.0) as Any
+            NSAttributedString.Key.foregroundColor: UIColor(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0),
+            NSAttributedString.Key.shadow: shadow,
+            NSAttributedString.Key.font: UIFont(name: "BebasNeue", size: 21.0) as Any
         ]
     }
 }
@@ -174,24 +177,24 @@ extension AppDelegate {
     func setupRouting() {
         // [1] Register scheme
         Navigator.scheme = "weeclik"
-        
+
         // [2] Configure routes for Router
         postLoginRouter.routes = [
-            "commerce:{commerceId}" : CommerceRoute() // ,
+            "commerce:{commerceId}": CommerceRoute() // ,
             //"user:{userId}": UserRoute(),
         ]
-        
+
         // [3] Register routes you 'd like to support
         Navigator.routes = Array(postLoginRouter.routes.keys)
-        
+
         // [4] Do the handling
         Navigator.handle = { [weak self] location in
             guard let selectedController = self?.window?.visibleViewController else {return}
-            
+
             // [5] Choose the current visible controller
             let currentController = (selectedController as? UINavigationController)?.topViewController
                 ?? selectedController
-            
+
             // [6] Navigate
             self?.postLoginRouter.navigate(to: location, from: currentController)
         }
@@ -205,13 +208,13 @@ extension AppDelegate {
         if let rootViewController = self.topViewControllerWithRootViewController(rootViewController: window?.rootViewController) {
             if (rootViewController.responds(to: Selector(("canRotate")))) {
                 // Unlock landscape view orientations for this view controller
-                return .allButUpsideDown;
+                return .allButUpsideDown
             }
         }
         // Only allow portrait (standard behaviour)
-        return .portrait;
+        return .portrait
     }
-    
+
     private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
         guard rootViewController != nil else {return  nil}
         if (rootViewController.isKind(of: UITabBarController.self)) {
