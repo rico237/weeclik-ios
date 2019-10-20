@@ -25,15 +25,15 @@ class DetailCommerceViewController: UIViewController {
     @IBOutlet weak var shareButton: LGButton!
 
     var shrdString = [String]()
-    var commerceObject : Commerce!
-    var commerceID : String!
+    var commerceObject: Commerce!
+    var commerceID: String!
 
     var prefFiltreLocation: Bool!
     var hasGrantedLocation: Bool!
 
-    var routeCommerceId : String!
+    var routeCommerceId: String!
 
-    let userDefaults : UserDefaults = UserDefaults.standard
+    let userDefaults: UserDefaults = UserDefaults.standard
 
     let composeVC = MFMailComposeViewController()
 
@@ -58,8 +58,8 @@ class DetailCommerceViewController: UIViewController {
 
     var sampleImagesUrls = [String]()
 
-    var promotionsH  : CGFloat = 0.0
-    var descriptionH : CGFloat = 0.0
+    var promotionsH: CGFloat = 0.0
+    var descriptionH: CGFloat = 0.0
 
     @objc func updateAllViews() {
         // Mise a jour de notre variable globale pour l'ensemble de nos fonctions
@@ -148,17 +148,17 @@ class DetailCommerceViewController: UIViewController {
                 .copyToPasteboard, .openInIBooks, .assignToContact, .addToReadingList,
                 .saveToCameraRoll, .print
             ]
-            activit.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems:[Any]?, error: Error?) in
+            activit.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
                 // Return if cancelled
                 if (!completed) {return}
 
                 // Extensions refusé comme partage valide
-                let refused : [String] = [
+                let refused: [String] = [
                     "com.apple.mobilenotes.SharingExtension",
                     UIActivity.ActivityType.copyToPasteboard.rawValue
                 ]
                 // Extensions autorisées comme partage valide
-                let autorized : [String] = [
+                let autorized: [String] = [
                     UIActivity.ActivityType.mail.rawValue, UIActivity.ActivityType.message.rawValue,
                     UIActivity.ActivityType.postToTwitter.rawValue, UIActivity.ActivityType.postToFacebook.rawValue,
                     "net.whatsapp.WhatsApp.ShareExtension", "com.google.Gmail.ShareExtension", "com.ringosoftware.weeclik.activity"
@@ -213,13 +213,13 @@ class DetailCommerceViewController: UIViewController {
 
 extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSource {
 
-    var sections : Int {get {return 3}}
-    var heightForHeaderAndFooter : CGFloat {get {return 25/4}}
+    var sections: Int {get {return 3}}
+    var heightForHeaderAndFooter: CGFloat {get {return 25/4}}
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var identifier = "ShareButtonCell"
 
-        var cell : UITableViewCell
+        var cell: UITableViewCell
         if indexPath.section == 1 {
             identifier = "PromotionsCell"
             cell = (tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? PromotionsCell)!
@@ -460,9 +460,9 @@ extension DetailCommerceViewController {
 }
 
 // MARK: Mail & SMS functions
-extension DetailCommerceViewController : MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
+extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
 
-    func showAlertWithMessageWithMail(theMessage:String, title:String, preComposedBody:String = "") {
+    func showAlertWithMessageWithMail(theMessage: String, title: String, preComposedBody: String = "") {
         let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
         let defaultAction = UIAlertAction.init(title: "OK".localized(), style: .cancel) { (_) -> Void in
             alertViewController.dismiss(animated: true, completion: nil)
@@ -494,8 +494,8 @@ extension DetailCommerceViewController : MFMailComposeViewControllerDelegate, MF
         self.present(alertViewController, animated: true, completion: nil)
     }
 
-    func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool, commerceMail : String) {
-        let messageAdded : String
+    func sendFeedBackOrMessageViaMail(messageToSend: String, isFeedBackMsg: Bool, commerceMail: String) {
+        let messageAdded: String
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
         if !isFeedBackMsg {

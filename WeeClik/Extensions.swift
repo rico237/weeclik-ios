@@ -80,7 +80,7 @@ extension String {
         "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" +
         "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
 
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
 }
@@ -119,9 +119,9 @@ extension TimeInterval {
 }
 
 extension UIColor {
-    convenience init(hexFromString:String, alpha:CGFloat = 1.0) {
-        var cString:String = hexFromString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        var rgbValue:UInt32 = 10066329 //color #999999 if string has wrong format
+    convenience init(hexFromString: String, alpha: CGFloat = 1.0) {
+        var cString: String = hexFromString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        var rgbValue: UInt32 = 10066329 //color #999999 if string has wrong format
 
         if (cString.hasPrefix("#")) {
             cString.remove(at: cString.startIndex)
@@ -182,7 +182,7 @@ extension UIImage {
 }
 
 extension UIView {
-    func setCardView(view : UIView) {
+    func setCardView(view: UIView) {
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 3
     }
@@ -193,7 +193,7 @@ extension UIView {
         self.layer.mask = mask
     }
 
-    func anchor (top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?,  paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat, enableInsets: Bool) {
+    func anchor (top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat, enableInsets: Bool) {
         var topInset = CGFloat(0)
         var bottomInset = CGFloat(0)
 
@@ -313,17 +313,17 @@ extension UIButton {
 }
 
 extension UIViewController {
-    func showInputDialog(title:String? = nil,
-                         subtitle:String? = nil,
-                         actionTitle:String? = "OK",
-                         cancelTitle:String? = "Annuler",
-                         inputPlaceholder:String? = nil,
-                         inputKeyboardType:UIKeyboardType = UIKeyboardType.default,
+    func showInputDialog(title: String? = nil,
+                         subtitle: String? = nil,
+                         actionTitle: String? = "OK",
+                         cancelTitle: String? = "Annuler",
+                         inputPlaceholder: String? = nil,
+                         inputKeyboardType: UIKeyboardType = UIKeyboardType.default,
                          cancelHandler: ((UIAlertAction) -> Swift.Void)? = nil,
                          actionHandler: ((_ text: String?) -> Void)? = nil) {
 
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-        alert.addTextField { (textField:UITextField) in
+        alert.addTextField { (textField: UITextField) in
             textField.placeholder = inputPlaceholder
             textField.keyboardType = inputKeyboardType
         }
@@ -343,11 +343,11 @@ extension UIViewController {
         self.present(viewController, animated: animated, completion: completion)
     }
 
-    func showToastMessage(withMessage message: String, state:Loaf.State = .info, location: Loaf.Location = .bottom, presentationDir: Loaf.Direction, dismissDir: Loaf.Direction) {
+    func showToastMessage(withMessage message: String, state: Loaf.State = .info, location: Loaf.Location = .bottom, presentationDir: Loaf.Direction, dismissDir: Loaf.Direction) {
         Loaf(message, state: state, location: location, presentingDirection: presentationDir, dismissingDirection: dismissDir, sender: self).show()
     }
 
-    func showBasicToastMessage(withMessage message: String, state:Loaf.State = .info) {
+    func showBasicToastMessage(withMessage message: String, state: Loaf.State = .info) {
         Loaf(message, state: state, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
     }
 }

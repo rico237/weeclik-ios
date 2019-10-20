@@ -15,36 +15,36 @@ public class Commerce: NSObject, NSCoding {
 
     static let PurchaseNotification = "WeeclikProductsPurchaseNotification"
 
-    var nom         : String = ""
-    var owner       : PFUser?
-    var statut      : StatutType = .unknown
+    var nom: String = ""
+    var owner: PFUser?
+    var statut: StatutType = .unknown
 //    var type : CategoryType = .autres
-    var type        : String = ""
-    var partages    : Int = 0
-    var mail        : String = ""
-    var adresse     : String = ""
-    var location    : PFGeoPoint?
-    var tel         : String = ""
-    var siteWeb     : String = ""
-    var promotions  : String = ""
+    var type: String = ""
+    var partages: Int = 0
+    var mail: String = ""
+    var adresse: String = ""
+    var location: PFGeoPoint?
+    var tel: String = ""
+    var siteWeb: String = ""
+    var promotions: String = ""
     var descriptionO: String = ""
-    var brouillon   : Bool   = true
+    var brouillon: Bool   = true
 
-    var thumbnail   : PFFileObject?
+    var thumbnail: PFFileObject?
 
-    var objectId    : String! = "-1"
-    var createdAt   : Date?
-    var updatedAt   : Date?
+    var objectId: String! = "-1"
+    var createdAt: Date?
+    var updatedAt: Date?
 
-    var distanceFromUser : String = ""
+    var distanceFromUser: String = ""
 
-    var pfObject : PFObject!
+    var pfObject: PFObject!
 
     required override public init() {
         super.init()
     }
 
-    init(withName nom: String, tel: String, mail:String, adresse:String, siteWeb:String, categorie:String, description:String, promotions:String, owner: PFUser) {
+    init(withName nom: String, tel: String, mail: String, adresse: String, siteWeb: String, categorie: String, description: String, promotions: String, owner: PFUser) {
         self.pfObject = PFObject(className: "Commerce")
         self.objectId = pfObject.objectId
         self.createdAt = pfObject.createdAt
@@ -310,7 +310,7 @@ public enum StatutType: Int {
 }
 
 extension Commerce {
-    func calculDistanceEntreDeuxPoints(location : CLLocation?) -> String {
+    func calculDistanceEntreDeuxPoints(location: CLLocation?) -> String {
         guard let location = location else {return "--"}
         let distance = PFGeoPoint(location: location).distanceInKilometers(to: self.location)
 

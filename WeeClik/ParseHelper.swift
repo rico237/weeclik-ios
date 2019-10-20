@@ -36,7 +36,7 @@ class ParseHelper {
         return url
     }
 
-    static func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false, inViewController vc: UIViewController) {
+    static func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false, inViewController viewController: UIViewController) {
         let player: AVPlayer!
 
         if isLocal {
@@ -47,6 +47,6 @@ class ParseHelper {
 
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
-        vc.present(playerViewController, animated: true) {player.play()}
+        viewController.present(playerViewController, animated: true) {player.play()}
     }
 }

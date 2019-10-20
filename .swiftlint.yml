@@ -1,7 +1,6 @@
 disabled_rules: # rule identifiers to exclude from running
-  - colon
-  - comma
   - control_statement
+  - todo
 opt_in_rules: # some rules are only opt-in
   - empty_count
   # Find all the available rules by running:
@@ -12,6 +11,7 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage
   - Pods
   - WeeClik/Paintcodes/StyleKitWeeclik.swift
+  - WeeClik/En_cours/AjoutCommerceVC.swift
   # - Source/ExcludedFolder
   # - Source/ExcludedFile.swift
   # - Source/*/ExcludedFile.swift # Exclude files with a wildcard
@@ -35,8 +35,8 @@ file_length:
 type_name:
   min_length: 4 # only warning
   max_length: # warning and error
-    warning: 40
-    error: 50
+    warning: 70
+    error: 80
   excluded: iPhone # excluded via string
 identifier_name:
   min_length: # only min_length
@@ -48,4 +48,7 @@ identifier_name:
     - j
     - id
     - URL
+    - url
+    - acl
+    - tag
 reporter: "xcode" # reporter type

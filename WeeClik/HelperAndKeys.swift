@@ -16,7 +16,7 @@ import SwiftDate
 
 class HelperAndKeys {
 
-    static func showAlertWithMessage(theMessage:String, title:String, viewController:UIViewController) {
+    static func showAlertWithMessage(theMessage: String, title: String, viewController: UIViewController) {
         let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
         let defaultAction = UIAlertAction.init(title: "OK".localized(), style: .cancel) { (_) -> Void in
             alertViewController.dismiss(animated: true, completion: nil)
@@ -25,7 +25,7 @@ class HelperAndKeys {
         viewController.present(alertViewController, animated: true, completion: nil)
     }
 
-    static func showSettingsAlert(withTitle title:String, withMessage message:String, presentFrom viewController:UIViewController) {
+    static func showSettingsAlert(withTitle title: String, withMessage message: String, presentFrom viewController: UIViewController) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: "Réglages".localized(), style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
@@ -38,11 +38,11 @@ class HelperAndKeys {
     }
 
     static func getNavigationBarColor() -> UIColor {
-        return UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
+        return UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
     }
 
     static func getBackgroundColor() -> UIColor {
-        return UIColor(red:0.93, green:0.93, blue:0.93, alpha:1.00)
+        return UIColor(red: 0.93, green: 0.93, blue: 0.93, alpha: 1.00)
     }
 
     static func getServerURL() -> String {
@@ -76,7 +76,7 @@ class HelperAndKeys {
         return "partage_group_key"
     }
 
-    static func setUserDefaultsValue(value: Any, forKey key:String) {
+    static func setUserDefaultsValue(value: Any, forKey key: String) {
         let use = UserDefaults.standard
         use.set(value, forKey: key)
         use.synchronize()
@@ -116,8 +116,8 @@ class HelperAndKeys {
         use.synchronize()
     }
 
-    static func showNotification(type : String , title: String, message: String, delay: TimeInterval) {
-        var crType : CRNotificationType
+    static func showNotification(type: String, title: String, message: String, delay: TimeInterval) {
+        var crType: CRNotificationType
         switch type {
         case "S":
             crType = CRNotifications.success
@@ -135,43 +135,43 @@ class HelperAndKeys {
     static func getImageForTypeCommerce(typeCommerce: String) -> UIImage {
         switch typeCommerce {
         case "Alimentaire".localized():
-            return UIImage(named:"Alimentaire")!
+            return UIImage(named: "Alimentaire")!
         case "Artisanat".localized():
-            return UIImage(named:"Artisanat")!
+            return UIImage(named: "Artisanat")!
         case "Bien-être".localized():
-            return UIImage(named:"Bien-etre")!
+            return UIImage(named: "Bien-etre")!
         case "Décoration".localized():
-            return UIImage(named:"Decoration")!
+            return UIImage(named: "Decoration")!
         case "E-commerce".localized():
-            return UIImage(named:"E-commerce")!
+            return UIImage(named: "E-commerce")!
         case "Distribution".localized():
-            return UIImage(named:"Distribution")!
+            return UIImage(named: "Distribution")!
         case "Hôtellerie".localized():
-            return UIImage(named:"Hotellerie")!
+            return UIImage(named: "Hotellerie")!
         case "Immobilier".localized():
-            return UIImage(named:"Immobilier")!
+            return UIImage(named: "Immobilier")!
         case "Informatique".localized():
-            return UIImage(named:"Informatique")!
+            return UIImage(named: "Informatique")!
         case "Métallurgie".localized():
-            return UIImage(named:"Metallurgie")!
+            return UIImage(named: "Metallurgie")!
         case "Médical".localized():
-            return UIImage(named:"Medical")!
+            return UIImage(named: "Medical")!
         case "Nautisme".localized():
-            return UIImage(named:"Nautisme")!
+            return UIImage(named: "Nautisme")!
         case "Paramédical".localized():
-            return UIImage(named:"Paramedical")!
+            return UIImage(named: "Paramedical")!
         case "Restauration".localized():
-            return UIImage(named:"Restauration")!
+            return UIImage(named: "Restauration")!
         case "Sécurité".localized():
-            return UIImage(named:"Securite")!
+            return UIImage(named: "Securite")!
         case "Textile".localized():
-            return UIImage(named:"Textile")!
+            return UIImage(named: "Textile")!
         case "Tourisme".localized():
-            return UIImage(named:"Tourisme")!
+            return UIImage(named: "Tourisme")!
         case "Transport".localized():
-            return UIImage(named:"Transport")!
+            return UIImage(named: "Transport")!
         case "Urbanisme".localized():
-            return UIImage(named:"Urbanisme")!
+            return UIImage(named: "Urbanisme")!
         default:
             return UIImage(named: "Comm")!
         }
@@ -197,8 +197,8 @@ class HelperAndKeys {
         controller.present(alertViewController, animated: true, completion: nil)
     }
 
-    static func sendFeedBackOrMessageViaMail(messageToSend : String, isFeedBackMsg : Bool, commerceMail : String, controller : UIViewController) {
-        let messageAdded : String
+    static func sendFeedBackOrMessageViaMail(messageToSend: String, isFeedBackMsg: Bool, commerceMail: String, controller: UIViewController) {
+        let messageAdded: String
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
         if !isFeedBackMsg {
@@ -227,9 +227,9 @@ class HelperAndKeys {
 
     }
 
-    static func openMapForPlace(placeName : String, latitude: CLLocationDegrees, longitude:CLLocationDegrees) {
+    static func openMapForPlace(placeName: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
 
-        let regionDistance:CLLocationDistance = 10000
+        let regionDistance: CLLocationDistance = 10000
         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
         let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
         let options = [
@@ -242,25 +242,25 @@ class HelperAndKeys {
         mapItem.openInMaps(launchOptions: options)
     }
 
-    static func setSharingTime(forCommerceId : String) {
+    static func setSharingTime(forCommerceId: String) {
         let date = Date()
         let stringCat = forCommerceId+"_date"
         UserDefaults.standard.set(date, forKey: stringCat)
         UserDefaults.standard.synchronize()
     }
 
-    static func getSharingTimer(forCommerceId : String) -> Date? {
+    static func getSharingTimer(forCommerceId: String) -> Date? {
         let stringCat = forCommerceId+"_date"
         let date = UserDefaults.standard.object(forKey: stringCat) as? Date
         return date
     }
 
-    static func getSharingStringDate(objectId : String) -> String {
+    static func getSharingStringDate(objectId: String) -> String {
         let date = self.getSharingTimer(forCommerceId: objectId)
         return self.getCurrentDate(da: date)
     }
 
-    static func canShareAgain(objectId : String) -> Bool {
+    static func canShareAgain(objectId: String) -> Bool {
         if let date = self.getSharingTimer(forCommerceId: objectId) {
             let isAfterIntervalle = Date().isAfterDate(date + 1.days, granularity: .second)
             print("isAfterIntervalle : \(isAfterIntervalle)")
@@ -276,14 +276,14 @@ class HelperAndKeys {
         }
     }
 
-    static func removeCommerce(forCommerceId : String) {
+    static func removeCommerce(forCommerceId: String) {
         let stringCat = forCommerceId+"_date"
         UserDefaults.standard.removeObject(forKey: stringCat)
         UserDefaults.standard.synchronize()
     }
 
     static func getListOfCategories() -> [String] {
-        return ["Alimentaire".localized(),"Artisanat".localized(),"Bien-être".localized(),"Décoration".localized(),"E-commerce".localized(),"Distribution".localized(),"Hôtellerie".localized(), "Immobilier".localized(),"Informatique".localized(),"Métallurgie".localized(),"Médical".localized(),"Nautisme".localized(),"Paramédical".localized(),"Restauration".localized(),"Sécurité".localized(),"Textile".localized(),"Tourisme".localized(),"Transport".localized(),"Urbanisme".localized(), "Autre".localized()]
+        return ["Alimentaire".localized(), "Artisanat".localized(), "Bien-être".localized(), "Décoration".localized(), "E-commerce".localized(), "Distribution".localized(), "Hôtellerie".localized(), "Immobilier".localized(), "Informatique".localized(), "Métallurgie".localized(), "Médical".localized(), "Nautisme".localized(), "Paramédical".localized(), "Restauration".localized(), "Sécurité".localized(), "Textile".localized(), "Tourisme".localized(), "Transport".localized(), "Urbanisme".localized(), "Autre".localized()]
     }
 
     /// Has safe area
@@ -303,7 +303,7 @@ class HelperAndKeys {
         return UIDevice.isIphoneX
     }
 
-    static func getCurrentDate(da : Date?) -> String {
+    static func getCurrentDate(da: Date?) -> String {
         var secondsFromGMT: Int { return TimeZone.current.secondsFromGMT() }
         // Si les tableaux est vide on l'ajoute au defaults
         let date = da == nil ? Date() : da!
@@ -320,14 +320,14 @@ class HelperAndKeys {
     }
 
     // TODO: Construire une veritable requette de stats (perfection)
-    static func saveStatsInDb(commerce : PFObject, user : PFUser? = nil) {
+    static func saveStatsInDb(commerce: PFObject, user: PFUser? = nil) {
         // Il y a un compte utilisateur, on met donc a jour ses stats
         if let utilisateur = user {
-            let query = PFQuery(className:"StatsPartage")
+            let query = PFQuery(className: "StatsPartage")
             query.whereKey("commercePartage", equalTo: commerce)
             query.whereKey("utilisateurPartageur", equalTo: utilisateur)
             query.includeKey("commercePartage")
-            query.getFirstObjectInBackground { (object , error) in
+            query.getFirstObjectInBackground { (object, error) in
                 if let error = error {
                     print(error.desc)
                     if error.localizedDescription == "No results matched the query." {

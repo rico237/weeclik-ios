@@ -12,7 +12,7 @@ class AdminMonProfilSettingsVC: UIViewController {
 
     var enabled1 = Bool(false), enabled2 = Bool(false), enabled3 = Bool(false), enabled4 = Bool(false)
 
-    let enabledButtonColor : UIColor = UIColor.init(hexFromString: "#2561fe")
+    let enabledButtonColor: UIColor = UIColor.init(hexFromString: "#2561fe")
     let disabledButtonColor: UIColor = UIColor.init(hexFromString: "#aaaaaa")
 
     @IBOutlet weak var option1: UIButton!   // Option : Paiement pour création de nouveau commerce

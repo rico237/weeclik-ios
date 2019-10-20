@@ -13,13 +13,13 @@ import Contacts
 @objc(GroupePartage)
 class GroupePartage: NSObject, NSCoding {
 
-    var nomGroupe           : String = ""
-    var descriptionGroupe   : String = ""
+    var nomGroupe: String = ""
+    var descriptionGroupe: String = ""
     var imageGroupe         = UIImage(named: "Placeholder_carre") ?? UIImage()
-    var nombreMembre        : Int = 0
-    var numerosDesMembres   : [String]
+    var nombreMembre: Int = 0
+    var numerosDesMembres: [String]
 
-    init(FromSwiftMultiSelectItems nomGroupe: String, imageGr: UIImage? = nil, items :[SwiftMultiSelectItem]) {
+    init(FromSwiftMultiSelectItems nomGroupe: String, imageGr: UIImage? = nil, items: [SwiftMultiSelectItem]) {
 
         self.nomGroupe = nomGroupe
         if let image = imageGr {self.imageGroupe = image}

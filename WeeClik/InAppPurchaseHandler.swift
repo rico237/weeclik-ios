@@ -33,11 +33,11 @@ protocol IAPHandlerDelegate: class {
 class InAppPurchaseHandler: NSObject {
     static let shared = InAppPurchaseHandler()
 
-    weak var delegate : IAPHandlerDelegate?
+    weak var delegate: IAPHandlerDelegate?
 
     var productIds = [String]()
     var parseProducts = [PFProduct]()
-    var productBeingPurchased : PFProduct!
+    var productBeingPurchased: PFProduct!
 
     fileprivate var productID = ""
     fileprivate var productsRequest = SKProductsRequest()
@@ -163,7 +163,7 @@ class InAppPurchaseHandler: NSObject {
 
 extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionObserver {
     // MARK: - REQUEST IAP PRODUCTS
-    func productsRequest (_ request:SKProductsRequest, didReceive response:SKProductsResponse) {
+    func productsRequest (_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
 
         if (response.products.count > 0) {
             iapProducts = response.products
@@ -187,7 +187,7 @@ extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionO
 
     // MARK: - IAP PAYMENT QUEUE
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction:AnyObject in transactions {
+        for transaction: AnyObject in transactions {
             if let trans = transaction as? SKPaymentTransaction {
                 switch trans.transactionState {
                 case .purchased:

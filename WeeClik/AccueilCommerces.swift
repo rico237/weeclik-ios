@@ -32,18 +32,18 @@ class AccueilCommerces: UIViewController {
     private let refreshControl = UIRefreshControl()
 
     let network: NetworkManager = NetworkManager.sharedInstance
-    var toutesCat       : Array<String>!    = HelperAndKeys.getListOfCategories()
-    var commerces       : [Commerce]   = []
-    var currentPage     : Int! = 0                      // The last page that was loaded
-    var lastLoadCount   : Int! = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
-    let itemsPerPages   : Int! = 25                     // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
+    var toutesCat: Array<String>!    = HelperAndKeys.getListOfCategories()
+    var commerces: [Commerce]   = []
+    var currentPage: Int! = 0                      // The last page that was loaded
+    var lastLoadCount: Int! = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
+    let itemsPerPages: Int! = 25                     // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
     let locationManager         = CLLocationManager()
-    var latestLocationForQuery : CLLocation!
+    var latestLocationForQuery: CLLocation!
     let defaults                = UserDefaults.standard
     var prefFiltreLocation      = false                 // Savoir si les commerces sont filtrés par location ou partages
-    var locationGranted : Bool! = false                 // On a obtenu la position de l'utilisateur
-    var isLoadingCommerces : Bool = false               // si la fonction de chargement des commerces est en cours
-    var titleChoose : String!   = "Restauration".localized()        // First category to be loaded
+    var locationGranted: Bool! = false                 // On a obtenu la position de l'utilisateur
+    var isLoadingCommerces: Bool = false               // si la fonction de chargement des commerces est en cours
+    var titleChoose: String!   = "Restauration".localized()        // First category to be loaded
 
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
@@ -55,21 +55,21 @@ class AccueilCommerces: UIViewController {
 
     var introBulletin = BulletinDataSource.makeFilterNextPage()
 
-    lazy var filterBulletinManager : BLTNItemManager = {
+    lazy var filterBulletinManager: BLTNItemManager = {
         let bulletinPageIntro = BulletinDataSource.makeFilterPage()
         bulletinPageIntro.actionHandler = { item in
             // By location
             self.prefFiltreLocation = true
             item.manager?.displayNextItem()
         }
-        bulletinPageIntro.alternativeHandler = { (item : BLTNItem) in
+        bulletinPageIntro.alternativeHandler = { (item: BLTNItem) in
             // By number
             self.prefFiltreLocation = false
             item.manager?.displayNextItem()
         }
-        introBulletin.actionHandler = { (item : BLTNItem) in
+        introBulletin.actionHandler = { (item: BLTNItem) in
             // Last action
-            item.manager?.dismissBulletin(animated:true)
+            item.manager?.dismissBulletin(animated: true)
 
             if self.prefFiltreLocation {
                 self.checkLocationServicePermission()
@@ -81,7 +81,7 @@ class AccueilCommerces: UIViewController {
         }
         bulletinPageIntro.next = introBulletin
         bulletinPageIntro.requiresCloseButton = false
-        return BLTNItemManager(rootItem : bulletinPageIntro)
+        return BLTNItemManager(rootItem: bulletinPageIntro)
     }()
 
     override func viewDidLoad() {
@@ -164,7 +164,7 @@ class AccueilCommerces: UIViewController {
 
 // Parse functions (model in MVC)
 extension AccueilCommerces {
-    func chooseCategorie(itemChoose: String, withHud showHud:Bool) {
+    func chooseCategorie(itemChoose: String, withHud showHud: Bool) {
         // Update UI
         self.titleChoose = itemChoose
         self.labelHeaderCategorie.text = itemChoose
@@ -174,7 +174,7 @@ extension AccueilCommerces {
         self.queryObjectsFromDB(typeCategorie: titleChoose, withHUD: showHud)
     }
 
-    func queryObjectsFromDB(typeCategorie : String, withHUD showHud: Bool = true) {
+    func queryObjectsFromDB(typeCategorie: String, withHUD showHud: Bool = true) {
         // Chargement des commerces
         print("Fetch category : \(typeCategorie) with show hud \(showHud)")
         //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
@@ -192,13 +192,13 @@ extension AccueilCommerces {
         } else {
             ParseService.shared.sharingPrefsCommerces(withType: typeCategorie) { (commerces, error) in
                 print("begin completion")
-                self.globalObjects(commerces: commerces, error: error, withHud: showHud)
+                self.globalObjects(commerces: commerces, error: error, hudView: showHud)
                 print("end completion")
             }
         }
     }
 
-    func globalObjects(commerces : [Commerce]?, error: Error?, hudView: Bool) {
+    func globalObjects(commerces: [Commerce]?, error: Error?, hudView: Bool) {
         if let commerces = commerces {self.commerces = commerces} else if let error = error {ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)}
         DispatchQueue.global(qos: .default).async(execute: {if hudView {SVProgressHUD.dismiss(withDelay: 1)}})
         self.collectionView.reloadData()
@@ -240,7 +240,7 @@ extension AccueilCommerces {
     }
 }
 // Functions for collections (Data & Delegate)
-extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSource {
+extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
             // Menu
@@ -282,7 +282,7 @@ extension AccueilCommerces : UICollectionViewDelegate, UICollectionViewDataSourc
                 // Dans l'index
                 collectionView.register(UINib(nibName: "CommerceCVC", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! CommerceCVC
-                let textColor = UIColor(red:0.11, green:0.69, blue:0.96, alpha:1.00)
+                let textColor = UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
 
                 let comm = self.commerces[indexPath.row]
                 // Ajout du contenu (valeures)
@@ -332,13 +332,13 @@ extension AccueilCommerces: CLLocationManagerDelegate {
         self.latestLocationForQuery = locations.last
         print("Did update position : \(locations.last?.description ?? "No Location Provided")")
         ParseService.shared.locationPrefsCommerces(withType: titleChoose, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
-            self.globalObjects(commerces: commerces, error: error, withHud: true)
+            self.globalObjects(commerces: commerces, error: error, hudView: true)
         }
     }
 }
 
 // Header Window above objects
-extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
+extension AccueilCommerces: KJNavigaitonViewScrollviewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         viewKJNavigation.scrollviewMethod?.scrollViewDidScroll(scrollView)
     }
@@ -353,7 +353,7 @@ extension AccueilCommerces : KJNavigaitonViewScrollviewDelegate {
     }
 }
 // Functions for requesting localisation permission
-extension AccueilCommerces : SPPermissionDialogDelegate {
+extension AccueilCommerces: SPPermissionDialogDelegate {
     func didAllow(permission: SPPermissionType) {
         if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
             self.locationGranted = true
@@ -401,7 +401,7 @@ extension AccueilCommerces : SPPermissionDialogDelegate {
     }
 }
 // Custom UI for asking permission (alert controller)
-extension AccueilCommerces : SPPermissionDialogDataSource {
+extension AccueilCommerces: SPPermissionDialogDataSource {
     var dialogTitle: String { return "Demande de position".localized() }
     var dialogSubtitle: String { return "Position nécessaire pour ce filtre".localized() }
     var dialogComment: String { return "Cette fonctionnalité vous permet de voir les commerces autour de vous.".localized() }

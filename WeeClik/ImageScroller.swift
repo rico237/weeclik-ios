@@ -10,25 +10,25 @@ import UIKit
 import SDWebImage
 
 protocol ImageScrollerDelegate {
-    func pageChanged(index : Int)
+    func pageChanged(index: Int)
 }
 
 class ImageScroller: UIView {
 
-    var scrollView : UIScrollView = UIScrollView()
-    var delegate : ImageScrollerDelegate?
+    var scrollView: UIScrollView = UIScrollView()
+    var delegate: ImageScrollerDelegate?
     var isAutoScrollEnabled = false
     var scrollTimeInterval = 3.0
     var isAutoLoadingEnabled = false
     var timer = Timer()
     var isTimerRunning = false
 
-    func setupScrollerWithImages(images : [String]) {
+    func setupScrollerWithImages(images: [String]) {
         scrollView.frame = self.frame
         scrollView.delegate = self
-        var x : CGFloat = 0.0
-        let y : CGFloat = 0.0
-        var index : CGFloat = 0
+        var x: CGFloat = 0.0
+        let y: CGFloat = 0.0
+        var index: CGFloat = 0
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.isPagingEnabled = true
         self.scrollView.contentSize = CGSize(width: CGFloat(images.count) * self.frame.size.width, height: self.frame.height)
@@ -39,14 +39,14 @@ class ImageScroller: UIView {
                 // Load from URL
 //                print("Image URL : \(image)")
                 let url = URL(string: image)
-                imageView.sd_setImage(with: url, placeholderImage: nil, options: .highPriority, progress: { (_, _, url) in
+                imageView.sd_setImage(with: url, placeholderImage: nil, options: .highPriority, progress: { (_, _, _) in
 //                    print("Data receive from : \n    \(url?.absoluteString ?? "Null")\nPourcentage reçu : \(recieved*100/totalSize)")
                 }, completed: { (_, _, _, _) in
 //                    print("Image chargé")
                 })
             } else {
                 // Load from local storage
-                imageView.image = UIImage(named:image)
+                imageView.image = UIImage(named: image)
             }
 
             self.scrollView.addSubview(imageView)
@@ -91,7 +91,7 @@ class ImageScroller: UIView {
     }
 }
 
-extension ImageScroller : UIScrollViewDelegate {
+extension ImageScroller: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageNum = (Int)(self.scrollView.contentOffset.x / self.scrollView
             .frame.size.width)

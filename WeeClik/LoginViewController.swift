@@ -17,6 +17,6 @@ class LoginViewController: PFLogInViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.logInView?.logo?.frame = CGRect(x: (self.logInView?.logo?.frame.origin.x)!, y: (self.logInView?.logo?.frame.origin.y)! - 83, width: 167, height:167)
+        self.logInView?.logo?.frame = CGRect(x: (self.logInView?.logo?.frame.origin.x)!, y: (self.logInView?.logo?.frame.origin.y)! - 83, width: 167, height: 167)
     }
 }

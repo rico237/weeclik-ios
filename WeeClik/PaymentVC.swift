@@ -103,7 +103,7 @@ class PaymentVC: UIViewController {
         legalTextView.linkTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.blue,
             NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
-            ] as [NSAttributedString.Key : Any]
+            ] as [NSAttributedString.Key: Any]
 
         legalTextView.attributedText = attributedString
     }
@@ -343,7 +343,7 @@ class PaymentVC: UIViewController {
                 }
             } else if let invalidProductId = result.invalidProductIDs.first {
                 print("Invalid product identifier: \(invalidProductId)")
-                ParseErrorCodeHandler.handleUnknownError(error: NSError(domain: "PaymentVC", code: 404, userInfo: ["invalid_product_identifier" : "Product identifier is invalid : \(invalidProductId)"]))
+                ParseErrorCodeHandler.handleUnknownError(error: NSError(domain: "PaymentVC", code: 404, userInfo: ["invalid_product_identifier": "Product identifier is invalid : \(invalidProductId)"]))
             } else {
                 print("Error: \(String(describing: result.error))")
                 ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false)

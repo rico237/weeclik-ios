@@ -21,7 +21,7 @@ class DetailGalleryVC: UIViewController {
 
     var fetchedPhotos = [UIImage?]()
 
-    var commerce : Commerce!
+    var commerce: Commerce!
     var photos = [PFObject]()
     var videos = [PFObject]()
 
@@ -40,7 +40,7 @@ class DetailGalleryVC: UIViewController {
         SVProgressHUD.setDefaultStyle(.dark)
 
         // CollectionView Init
-        collectionView.register(UINib(nibName:"PhotosVideosCollectionCell", bundle: nil) , forCellWithReuseIdentifier: "Photos/Videos-Cell")
+        collectionView.register(UINib(nibName: "PhotosVideosCollectionCell", bundle: nil), forCellWithReuseIdentifier: "Photos/Videos-Cell")
         collectionView.emptyDataSetSource = self
         collectionView.emptyDataSetDelegate = self
 
@@ -74,12 +74,11 @@ class DetailGalleryVC: UIViewController {
             } else {
                 // Success
                 self.photos = objects!
-                for obj in self.photos {
-                    let file = obj["photo"] as! PFFileObject
-                    if let data = try? file.getData() {
-                        if let image = UIImage(data: data) {
-                            self.fetchedPhotos.append(image)
-                        }
+                for photo in self.photos {
+                    if let file = photo["photo"] as? PFFileObject,
+                        let data = try? file.getData(),
+                        let image = UIImage(data: data) {
+                        self.fetchedPhotos.append(image)
                     }
                 }
             }
@@ -106,7 +105,7 @@ class DetailGalleryVC: UIViewController {
         }
     }
 
-    func refreshViewWithSelectedInput(selectedInput : Int) {
+    func refreshViewWithSelectedInput(selectedInput: Int) {
         // Photos = 0 & Videos = 1
         if selectedInput == 0 {shdShowVideos = false} else if selectedInput == 1 {shdShowVideos = true}
         refreshCollection()
@@ -119,7 +118,7 @@ class DetailGalleryVC: UIViewController {
     }
 }
 
-extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension DetailGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellsPerRow = 3
@@ -139,33 +138,31 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath) as! PhotosVideosCollectionCell
+        let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photos/Videos-Cell", for: indexPath)
+        guard let cell = dequeuedCell as? PhotosVideosCollectionCell else { return UICollectionViewCell() }
 
-        var obj : PFObject!
-        var file : PFFileObject?
+        var object: PFObject!
+        var file: PFFileObject?
 
         if !shdShowVideos {
             // Photos
-            obj = photos[indexPath.row]
-            file = obj["photo"] as? PFFileObject
+            object = photos[indexPath.row]
+            file = object["photo"] as? PFFileObject
             cell.minuteViewContainer.isHidden = true
         } else {
-            obj = videos[indexPath.row]
-            cell.timeLabel.text = obj["time"] as? String
-            if let thumb = obj["thumbnail"] as? PFFileObject {
+            object = videos[indexPath.row]
+            cell.timeLabel.text = object["time"] as? String
+            if let thumb = object["thumbnail"] as? PFFileObject {
                 file = thumb
             }
             cell.minuteViewContainer.isHidden = false
         }
 
-        if let file = file {
-            if let urlStr = file.url {
-                cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr) , placeholderImage: UIImage(named:"Placeholder_carre") , options: .highPriority , completed: nil)
-            } else {
-                cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
-            }
+        let placeholderImage = UIImage(named: "Placeholder_carre")
+        if let file = file, let urlStr = file.url {
+            cell.imagePlaceholder.sd_setImage(with: URL(string: urlStr), placeholderImage: placeholderImage, options: .highPriority, completed: nil)
         } else {
-            cell.imagePlaceholder.image = UIImage(named:"Placeholder_carre")
+            cell.imagePlaceholder.image = placeholderImage
         }
 
         return cell
@@ -206,7 +203,7 @@ extension DetailGalleryVC : UICollectionViewDelegate, UICollectionViewDataSource
     }
 }
 
-extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+extension DetailGalleryVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     // DataSource
 
     // Image
@@ -234,7 +231,7 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         return NSAttributedString(string: attributedStr.localized())
     }
     func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
-        return UIColor(red:0.94, green:0.95, blue:0.96, alpha:1.0)
+        return UIColor(red: 0.94, green: 0.95, blue: 0.96, alpha: 1.0)
     }
 
     // TODO: envoyer mail au commercant pour qu'il ajoute du contenu
@@ -250,7 +247,7 @@ extension DetailGalleryVC : DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
 }
 
-extension DetailGalleryVC : TabBarDelegate {
+extension DetailGalleryVC: TabBarDelegate {
 
     fileprivate func prepareButtons() {
         for titleStr in titles {
@@ -267,7 +264,7 @@ extension DetailGalleryVC : TabBarDelegate {
         tabBar.dividerColor = Color.grey.lighten2
         tabBar.dividerAlignment = .top
 
-        tabBar.lineColor = UIColor(red:0.17, green:0.69, blue:0.95, alpha:1.0)
+        tabBar.lineColor = UIColor(red: 0.17, green: 0.69, blue: 0.95, alpha: 1.0)
         tabBar.lineAlignment = .bottom
 
         tabBar.backgroundColor = Color.grey.lighten5

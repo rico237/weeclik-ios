@@ -19,7 +19,7 @@ class ParseService: NSObject {
     public static let shared = ParseService()
     private lazy var geocoder = CLGeocoder()                        // TODO: remplacer par une lib de geocoding ?
     private let locationManager = CLLocationManager()
-    private var latestLocationForQuery : CLLocation!
+    private var latestLocationForQuery: CLLocation!
     private var isLoadingCommerces = false
 
     private override init() {
@@ -105,7 +105,7 @@ class ParseService: NSObject {
     }
 
     // Save photos to commerce
-    func savePhotosWithCommerce(commerce: Commerce?, photoArray: [UIImage], loadedPhotos:[PFObject], completion:((_ success: Bool,_ photos:[PFObject]?, _ error: Error?) -> Void)? = nil) {
+    func savePhotosWithCommerce(commerce: Commerce?, photoArray: [UIImage], loadedPhotos: [PFObject], completion:((_ success: Bool, _ photos: [PFObject]?, _ error: Error?) -> Void)? = nil) {
         guard let commerce = commerce else {
             completion?(false, nil, nil)
             return
@@ -133,7 +133,7 @@ class ParseService: NSObject {
         }
 
         // TODO: Eviter de supprimer toutes les photos et faire une par une
-        PFObject.deleteAll(inBackground: loadedPhotos) { (success, error) in
+        PFObject.deleteAll(inBackground: loadedPhotos) { (_, error) in
             if let error = error {
                 completion?(false, nil, error)
             } else {
@@ -152,7 +152,7 @@ class ParseService: NSObject {
     }
 
     // Update thumbnail picture
-    func updateCommerceThumbnailPicture(fromCommerce commerce: Commerce?, andImages photos: [PFObject], completion: @escaping (_ success:Bool, _ error:Error?) -> Void) {
+    func updateCommerceThumbnailPicture(fromCommerce commerce: Commerce?, andImages photos: [PFObject], completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard let commerce = commerce else {
             print("Commerce is nil")
             completion(false, nil)
@@ -182,7 +182,7 @@ class ParseService: NSObject {
         }
     }
 
-    func saveVideoForCommerce(commerce: Commerce?, videoArray: [TLPHAsset], thumbnailArray:[UIImage], completion:((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+    func saveVideoForCommerce(commerce: Commerce?, videoArray: [TLPHAsset], thumbnailArray: [UIImage], completion:((_ success: Bool, _ error: Error?) -> Void)? = nil) {
         guard let commerce = commerce else {
             completion?(false, nil)
             return
@@ -292,7 +292,7 @@ extension ParseService {
     }
 
     // Common Func
-    private func queryObjectsFromDB(typeCategorie : String, prefFiltreLocation: Bool, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
+    private func queryObjectsFromDB(typeCategorie: String, prefFiltreLocation: Bool, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
         if (!isLoadingCommerces) {
             // FIXME: URGENT -> AMELIORER LA QUERY COMMERCES (mise à jour de la poisition est faite après le fetch des commerce, ce qui veut dire qu'il faut refresh deux fois pour avoir les bons commerces
             isLoadingCommerces = true
@@ -313,7 +313,7 @@ extension ParseService {
             }
             query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
 
-            query.findObjectsInBackground { (objects : [PFObject]?, error : Error?) in
+            query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
                 print("8")
                 if let error = error {
                     if error.code == PFErrorCode.errorInvalidSessionToken.rawValue {

@@ -21,8 +21,8 @@ class ListeDesFavorisVC: UIViewController {
     let userDef         = UserDefaults.standard
     var imageG          = UIImage(named: "Placeholder_carre")
     var strPartage      = ""
-    var newGroupe       : GroupePartage!
-    var commerce        : Commerce!
+    var newGroupe: GroupePartage!
+    var commerce: Commerce!
 
     @IBOutlet weak var listeGroupesFavoris: UITableView!
     @IBOutlet weak var button_partage: UIButton!
