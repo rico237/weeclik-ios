@@ -373,3 +373,16 @@ extension UIFont {
     }
 
 }
+
+extension UITextView {
+    // this will be reached if the text is nil (unlikely)
+    // or if the text only contains white spaces
+    // or no text at all
+    func validate() -> Bool {
+        guard let text = self.text,
+            !text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty else {
+            return false
+        }
+        return true
+    }
+}
