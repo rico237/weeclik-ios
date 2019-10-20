@@ -9,14 +9,14 @@
 import UIKit
 import SDWebImage
 
-protocol ImageScrollerDelegate {
+protocol ImageScrollerDelegate: AnyObject {
     func pageChanged(index: Int)
 }
 
 class ImageScroller: UIView {
 
     var scrollView: UIScrollView = UIScrollView()
-    var delegate: ImageScrollerDelegate?
+    weak var delegate: ImageScrollerDelegate?
     var isAutoScrollEnabled = false
     var scrollTimeInterval = 3.0
     var isAutoLoadingEnabled = false
@@ -29,35 +29,29 @@ class ImageScroller: UIView {
         var x: CGFloat = 0.0
         let y: CGFloat = 0.0
         var index: CGFloat = 0
-        self.scrollView.showsHorizontalScrollIndicator = false
-        self.scrollView.isPagingEnabled = true
-        self.scrollView.contentSize = CGSize(width: CGFloat(images.count) * self.frame.size.width, height: self.frame.height)
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isPagingEnabled = true
+        scrollView.contentSize = CGSize(width: CGFloat(images.count) * self.frame.size.width, height: self.frame.height)
         for image in images {
             let imageView = UIImageView(frame: CGRect(x: x, y: y, width: self.frame.width, height: self.frame.height))
             imageView.contentMode = .scaleAspectFill
             if isAutoLoadingEnabled {
                 // Load from URL
-//                print("Image URL : \(image)")
                 let url = URL(string: image)
-                imageView.sd_setImage(with: url, placeholderImage: nil, options: .highPriority, progress: { (_, _, _) in
-//                    print("Data receive from : \n    \(url?.absoluteString ?? "Null")\nPourcentage reçu : \(recieved*100/totalSize)")
-                }, completed: { (_, _, _, _) in
-//                    print("Image chargé")
-                })
+                imageView.sd_setImage(with: url, placeholderImage: nil, options: .highPriority, completed: nil)
             } else {
                 // Load from local storage
                 imageView.image = UIImage(named: image)
             }
 
-            self.scrollView.addSubview(imageView)
-            index = index + 1
-            x = self.scrollView.frame.width * index
+            scrollView.addSubview(imageView)
+            index += 1
+            x = scrollView.frame.width * index
         }
         self.addSubview(scrollView)
 
         if isAutoScrollEnabled {
-            // TODO : si un scroll est fait on supprime le timer puis on le remet
-            self.startTimer()
+            startTimer()
         }
 
     }

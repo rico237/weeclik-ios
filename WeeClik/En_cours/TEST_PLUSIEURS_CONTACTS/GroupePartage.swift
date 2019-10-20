@@ -6,28 +6,26 @@
 //  Copyright © 2019 Herrick Wolber. All rights reserved.
 //
 
-import UIKit
 import SwiftMultiSelect
 import Contacts
 
 @objc(GroupePartage)
 class GroupePartage: NSObject, NSCoding {
 
-    var nomGroupe: String = ""
-    var descriptionGroupe: String = ""
+    var nomGroupe           = ""
+    var descriptionGroupe   = ""
     var imageGroupe         = UIImage(named: "Placeholder_carre") ?? UIImage()
-    var nombreMembre: Int = 0
-    var numerosDesMembres: [String]
+    var nombreMembre: Int   = 0
+    var numerosDesMembres: [String] = []
 
     init(FromSwiftMultiSelectItems nomGroupe: String, imageGr: UIImage? = nil, items: [SwiftMultiSelectItem]) {
-
         self.nomGroupe = nomGroupe
-        if let image = imageGr {self.imageGroupe = image}
-        self.nombreMembre = items.count
+        if let image = imageGr {imageGroupe = image}
+        nombreMembre = items.count
 
-        var membresPhones = [String]()
-        var membresName   = [String]()
-//        var emailAdresses = [String]()
+        var membresPhones:  [String] = []
+        var membresName:    [String] = []
+//        var emailAdresses:  [String] = []
 
         for item: SwiftMultiSelectItem in items {
             // Nom Prénom du caontact
@@ -49,20 +47,16 @@ class GroupePartage: NSObject, NSCoding {
 
                 print("All \(item.title) numbers : \(userInfo.phoneNumbers.count)")
 
-                for ContctNumVar: CNLabeledValue in userInfo.phoneNumbers {
+                for contctNumVar: CNLabeledValue in userInfo.phoneNumbers {
                     //  let label = ContctNumVar.label  // Label : CNLabelPhoneNumberiPhone, CNLabelPhoneNumberMobile, CNLabelPhoneNumberMain
-                    let FulMobNumVar    = ContctNumVar.value
-                    let MccNamVar       = FulMobNumVar.value(forKey: "countryCode") as? String
-                    let MobNumVar       = FulMobNumVar.value(forKey: "digits") as? String
+                    let fulMobNumVar    = contctNumVar.value
+                    let mccNamVar       = fulMobNumVar.value(forKey: "countryCode") as? String
+                    let mobNumVar       = fulMobNumVar.value(forKey: "digits") as? String
 
-                    if let country = MccNamVar {
-                        if country == "fr" {
-                            if let phoneNum = MobNumVar {
-                                print("Append phone number : \(phoneNum)")
-                                membresPhones.append(phoneNum)
-                                break
-                            }
-                        }
+                    if let country = mccNamVar, country == "fr", let phoneNum = mobNumVar {
+                        print("Append phone number : \(phoneNum)")
+                        membresPhones.append(phoneNum)
+                        break
                     }
 
                 }
@@ -70,25 +64,8 @@ class GroupePartage: NSObject, NSCoding {
             }
 
         }
-        self.numerosDesMembres = membresPhones
-        self.descriptionGroupe = membresName.joined(separator: ", ")
-    }
-
-    // Encode
-    public func encode(with aCoder: NSCoder) {
-        aCoder.encode(nomGroupe, forKey: "nomGroupeKey")
-        aCoder.encode(descriptionGroupe, forKey: "descriptionGroupeKey")
-        aCoder.encode(imageGroupe, forKey: "imageGroupeKey")
-        aCoder.encode(nombreMembre, forKey: "nombreGroupeKey")
-        aCoder.encode(numerosDesMembres, forKey: "membresGroupeKey")
-    }
-    // Decode
-    required public init?(coder aDecoder: NSCoder) {
-        nomGroupe = aDecoder.decodeObject(forKey: "nomGroupeKey") as! String
-        descriptionGroupe = aDecoder.decodeObject(forKey: "descriptionGroupeKey") as! String
-        imageGroupe = aDecoder.decodeObject(forKey: "imageGroupeKey") as! UIImage
-        nombreMembre = aDecoder.decodeInteger(forKey: "nombreGroupeKey")
-        numerosDesMembres = aDecoder.decodeObject(forKey: "membresGroupeKey") as! [String]
+        numerosDesMembres = membresPhones
+        descriptionGroupe = membresName.joined(separator: ", ")
     }
 
     func getCapacityDescription() -> String {
@@ -116,6 +93,31 @@ class GroupePartage: NSObject, NSCoding {
     }
 
     override var description: String {
-        return "\nGroupe partage : \n\tNom du groupe : \(self.nomGroupe)\n\tDescription du groupe : \(self.descriptionGroupe)\n\tNombre de membres : \(nombreMembre)\n\tNuméros du groupe : \n\t\t\(self.numerosDesMembres)"
+        return """
+                Groupe partage : \
+                    Nom du groupe : \(self.nomGroupe) \
+                    Description du groupe : \(self.descriptionGroupe) \
+                    Nombre de membres : \(nombreMembre) \
+                    Numéros du groupe : \
+                        \(self.numerosDesMembres)
+                """
+    }
+    
+    // MARK: NSCoding functions
+    /// Encode
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(nomGroupe, forKey: "nomGroupeKey")
+        aCoder.encode(descriptionGroupe, forKey: "descriptionGroupeKey")
+        aCoder.encode(imageGroupe, forKey: "imageGroupeKey")
+        aCoder.encode(nombreMembre, forKey: "nombreGroupeKey")
+        aCoder.encode(numerosDesMembres, forKey: "membresGroupeKey")
+    }
+    /// Decode
+    required public init?(coder aDecoder: NSCoder) {
+        nomGroupe = aDecoder.decodeObject(forKey: "nomGroupeKey") as! String
+        descriptionGroupe = aDecoder.decodeObject(forKey: "descriptionGroupeKey") as! String
+        imageGroupe = aDecoder.decodeObject(forKey: "imageGroupeKey") as! UIImage
+        nombreMembre = aDecoder.decodeInteger(forKey: "nombreGroupeKey")
+        numerosDesMembres = aDecoder.decodeObject(forKey: "membresGroupeKey") as! [String]
     }
 }

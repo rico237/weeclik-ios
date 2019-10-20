@@ -25,7 +25,6 @@ class ListeDesFavorisVC: UIViewController {
     var commerce: Commerce!
 
     @IBOutlet weak var listeGroupesFavoris: UITableView!
-    @IBOutlet weak var button_partage: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,9 +84,9 @@ class ListeDesFavorisVC: UIViewController {
             let query = PFQuery(className: "Commerce")
             query.whereKey("objectId", equalTo: routeId)
             query.getFirstObjectInBackground { (object, error) in
-                if let obj = object {
-                    obj.incrementKey("nombrePartages")
-                    obj.saveInBackground()
+                if let commerce = object {
+                    commerce.incrementKey("nombrePartages")
+                    commerce.saveInBackground()
                 } else if let error = error {
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                 }
@@ -141,7 +140,6 @@ extension ListeDesFavorisVC: SwiftMultiSelectDelegate {
     }
     // Number maximum of contact selected
     func numberMaximumOfItemsReached(items: [SwiftMultiSelectItem]) {
-//        print("Maximum number (\(Config.maxSelectItems)) of items reached with items : \n\t\(items)")
         print("Maximum number (\(Config.maxSelectItems)) of items reached")
         HelperAndKeys.showAlertWithMessage(theMessage: "Vous avez atteint le nombre maximum de membre d'un groupe (\(Config.maxSelectItems)). Essayez de créer un second groupe de diffusion par SMS.".localized(), title: "Nombre maximum atteint".localized(), viewController: self)
     }
@@ -156,18 +154,14 @@ extension ListeDesFavorisVC: SwiftMultiSelectDelegate {
 }
 extension ListeDesFavorisVC: MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-
         switch result {
         case .cancelled, .failed:
             print(result)
-            break
         case .sent:
             saveCommerceIdInUserDefaults()
-            break
         @unknown default:
             print("New unknown value for MFMessage result")
         }
-
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -110,9 +110,10 @@ class ChangeInfosVC: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mdpChange" {
-            let vc = segue.destination as! MotDePasseVC
-            vc.isPro = self.isPro
-            didSelectNewPhoto = false
+            if let passwordViewController = segue.destination as? MotDePasseVC {
+                passwordViewController.isPro = self.isPro
+                didSelectNewPhoto = false
+            }
         }
     }
 }
@@ -137,7 +138,7 @@ extension ChangeInfosVC: TLPhotosPickerViewControllerDelegate {
     }
 
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
-        guard withTLPHAssets.count != 0 else { didSelectNewPhoto = false; return; }
+        guard !withTLPHAssets.isEmpty else { didSelectNewPhoto = false; return; }
 
         didSelectNewPhoto = true
         let asset = withTLPHAssets[0]

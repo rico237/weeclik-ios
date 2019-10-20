@@ -251,9 +251,9 @@ extension DetailGalleryVC: TabBarDelegate {
 
     fileprivate func prepareButtons() {
         for titleStr in titles {
-            let btn = TabItem(title: titleStr, titleColor: Color.blueGrey.base)
-            btn.pulseAnimation = .none
-            buttons.append(btn)
+            let sectionBouton = TabItem(title: titleStr, titleColor: Color.blueGrey.base)
+            sectionBouton.pulseAnimation = .none
+            buttons.append(sectionBouton)
         }
     }
 

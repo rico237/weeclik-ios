@@ -40,8 +40,6 @@ class AdminMonProfilSettingsVC: UIViewController {
         enabled1 = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
         enabled2 = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getScheduleKey(), withExpectedType: "bool") as? Bool ?? false
 
-        // TODO: Ajouter des options, si necessaire
-
         enables[0] = !enabled1
         enables[1] = enabled2
         enables[2] = enabled3
@@ -50,15 +48,13 @@ class AdminMonProfilSettingsVC: UIViewController {
     }
 
     func updateButtonUIs() {
+        for (index, button) in buttons.enumerated() {
+            let enabled = enables[index]
 
-        for i in 0...buttons.count - 1 {
-            let button = buttons[i]
-            let ena = enables[i]
-
-            if !button.isHidden && ena {
+            if !button.isHidden && enabled {
                 button.backgroundColor = enabledButtonColor
 
-                if i == 1 {
+                if index == 1 {
                     // Option 2
                     button.setTitle("Schedule :  30sec".localized(), for: .normal)
                 }
@@ -66,7 +62,7 @@ class AdminMonProfilSettingsVC: UIViewController {
             } else {
                 button.backgroundColor = disabledButtonColor
 
-                if i == 1 {
+                if index == 1 {
                     // Option 2
                     button.setTitle("Schedule :  1an".localized(), for: .normal)
                 }
@@ -75,9 +71,7 @@ class AdminMonProfilSettingsVC: UIViewController {
     }
 
     func uiInit() {
-
-        self.view.backgroundColor = UIColor.init(hexFromString: "#040404")
-
+        view.backgroundColor = UIColor.init(hexFromString: "#040404")
         for button in buttons {
             button.setTitleColor(disabledButtonColor, for: .normal)
             button.setTitleColor(UIColor.white, for: .normal)
@@ -94,6 +88,6 @@ class AdminMonProfilSettingsVC: UIViewController {
         getUserDefaultsOptions()
     }
     @IBAction func closeView(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

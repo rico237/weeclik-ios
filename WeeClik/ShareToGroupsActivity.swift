@@ -10,8 +10,8 @@ import UIKit
 
 class ShareToGroupsActivity: UIActivity {
 
-    var _activityTitle: String
-    var activityItems = [Any]()
+    var activityTitl: String
+    var activityItems: [Any] = []
     var action: ([Any]) -> Void
 
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
@@ -29,13 +29,13 @@ class ShareToGroupsActivity: UIActivity {
     }
 
     init(title: String, performAction: @escaping ([Any]) -> Void) {
-        _activityTitle = title
+        activityTitl = title
         action = performAction
         super.init()
     }
 
     override var activityTitle: String? {
-        return _activityTitle
+        return activityTitl
     }
 
     override var activityImage: UIImage? {

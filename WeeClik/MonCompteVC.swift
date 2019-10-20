@@ -181,53 +181,44 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
             return cell!
         } else {
+            let commerce = Commerce(parseObject: self.commerces[indexPath.row])
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
-            let obj = Commerce(parseObject: self.commerces[indexPath.row])
-
             cell.partageIcon.tintColor = UIColor.red
+            cell.descriptionLabel.isHidden = isPro ? false : true
 
             if isPro {
+                // Utilisateur pro
+                cell.titre.text = "\(commerce.nom)"
+                cell.nbrPartage.text = "\(commerce.partages)"
 
-                if self.isPro {
-                    cell.descriptionLabel.isHidden = false
-                } else {
-                    cell.descriptionLabel.isHidden = true
-                }
-
-                cell.titre.text = "\(obj.nom)"
-                cell.nbrPartage.text = "\(obj.partages)"
-
-                if let imageThumbnailFile = obj.thumbnail {
+                if let imageThumbnailFile = commerce.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
+                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: commerce.type)
                 }
 
-                if (obj.brouillon) {
+                if (commerce.brouillon) {
                     cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier".localized()
                     cell.descriptionLabel.textColor = .lightText
                 } else {
-                    cell.descriptionLabel.text = "\(obj.statut.description)"
-                    switch obj.statut {
+                    cell.descriptionLabel.text = "\(commerce.statut.description)"
+                    switch commerce.statut {
                     case .canceled, .error, .unknown, .pending:
-                        cell.descriptionLabel.textColor = UIColor.red
-                        break
+                        cell.descriptionLabel.textColor = .red
                     case .paid:
-                        cell.descriptionLabel.textColor = UIColor.init(hexFromString: "#00d06b")
-                        break
+                        cell.descriptionLabel.textColor = .init(hexFromString: "#00d06b")
                     }
                 }
             } else {
+                // Utilisateur
 
-                cell.descriptionLabel.isHidden = false
+                cell.titre.text = "\(commerce.nom)"
+                cell.nbrPartage.text = "\(commerce.partages)"
 
-                cell.titre.text = "\(obj.nom)"
-                cell.nbrPartage.text = "\(obj.partages)"
-
-                if let imageThumbnailFile = obj.thumbnail {
+                if let imageThumbnailFile = commerce.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: obj.type)
+                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: commerce.type)
                 }
                 let lastPartage = partagesDates[indexPath.row]
                 let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
@@ -279,7 +270,7 @@ extension MonCompteVC {
             // Prend les commerces favoris de l'utilisateur
             if let currentUser = currentUser,
                 let partages = currentUser["mes_partages"] as? [String],
-                let partages_dats = currentUser["mes_partages_dates"] as? [Date] {
+                let partagesDats = currentUser["mes_partages_dates"] as? [Date] {
                 //                if let partages = partages {
                 // FIXME: Ameliorer cette query
                 let partagesQuery = PFQuery(className: "Commerce")
@@ -298,13 +289,14 @@ extension MonCompteVC {
                         // synchronisation du commerce et des dates de partage
                         for (index, commerce) in objects.enumerated() where commerce.objectId == obId {
                             self.commerces.append(commerce)
-                            self.partagesDates.append(partages_dats[index])
+                            self.partagesDates.append(partagesDats[index])
                         }
                     }
                     self.updateUIBasedOnUser()
                 }
             } else {
-                HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: "Problème lors de la récupération de vos partages".localized(), delay: 3)
+                let message =  "Problème lors de la récupération de vos partages".localized()
+                HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: message, delay: 3)
             }
         }
     }

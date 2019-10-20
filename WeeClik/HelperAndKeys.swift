@@ -77,43 +77,44 @@ class HelperAndKeys {
     }
 
     static func setUserDefaultsValue(value: Any, forKey key: String) {
-        let use = UserDefaults.standard
-        use.set(value, forKey: key)
-        use.synchronize()
+        let standardUserDefaults = UserDefaults.standard
+        standardUserDefaults.set(value, forKey: key)
+        standardUserDefaults.synchronize()
     }
 
     static func getUserDefaultsValue(forKey key: String, withExpectedType expectedType: String) -> Any? {
-        let use = UserDefaults.standard; let type = expectedType.lowercased()
+        let standardUserDefaults = UserDefaults.standard
+        let type = expectedType.lowercased()
 
         if type == "bool" {
-            return use.bool(forKey: key)
+            return standardUserDefaults.bool(forKey: key)
         } else if type == "string" {
-            return use.string(forKey: key)
+            return standardUserDefaults.string(forKey: key)
         }
 
         return nil
     }
 
     static func getPrefFiltreLocation() -> Bool {
-        let use = UserDefaults.standard
-        return use.bool(forKey: "filterPreference")
+        let standardUserDefaults = UserDefaults.standard
+        return standardUserDefaults.bool(forKey: "filterPreference")
     }
 
     static func setPrefFiltreLocation(filtreLocation: Bool) {
-        let use = UserDefaults.standard
-        use.set(filtreLocation, forKey: "filterPreference")
-        use.synchronize()
+        let standardUserDefaults = UserDefaults.standard
+        standardUserDefaults.set(filtreLocation, forKey: "filterPreference")
+        standardUserDefaults.synchronize()
     }
 
     static func getLocationGranted() -> Bool {
-        let use = UserDefaults.standard
-        return use.bool(forKey: "locationPreference")
+        let standardUserDefaults = UserDefaults.standard
+        return standardUserDefaults.bool(forKey: "locationPreference")
     }
 
     static func setLocationGranted(locationGranted: Bool) {
-        let use = UserDefaults.standard
-        use.set(locationGranted, forKey: "locationPreference")
-        use.synchronize()
+        let standardUserDefaults = UserDefaults.standard
+        standardUserDefaults.set(locationGranted, forKey: "locationPreference")
+        standardUserDefaults.synchronize()
     }
 
     static func showNotification(type: String, title: String, message: String, delay: TimeInterval) {
@@ -121,13 +122,10 @@ class HelperAndKeys {
         switch type {
         case "S":
             crType = CRNotifications.success
-            break
         case "E":
             crType = CRNotifications.error
-            break
         default:
             crType = CRNotifications.info
-            break
         }
         CRNotifications.showNotification(type: crType, title: title, message: message, dismissDelay: delay)
     }
@@ -222,7 +220,7 @@ class HelperAndKeys {
             // Present the view controller modally.
             controller.present(composeVC, animated: true, completion: nil)
         } else {
-            self.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), viewController: controller)
+            showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), viewController: controller)
         }
 
     }
@@ -256,23 +254,21 @@ class HelperAndKeys {
     }
 
     static func getSharingStringDate(objectId: String) -> String {
-        let date = self.getSharingTimer(forCommerceId: objectId)
-        return self.getCurrentDate(da: date)
+        let date = getSharingTimer(forCommerceId: objectId)
+        return getCurrentDate(date: date)
     }
 
     static func canShareAgain(objectId: String) -> Bool {
-        if let date = self.getSharingTimer(forCommerceId: objectId) {
-            let isAfterIntervalle = Date().isAfterDate(date + 1.days, granularity: .second)
-            print("isAfterIntervalle : \(isAfterIntervalle)")
-            // TODO: Mettre le veritable intervalle
-            if isAfterIntervalle {
-                self.removeCommerce(forCommerceId: objectId)
-                return true
-            } else {
-                return false
-            }
-        } else {
+        guard let date = getSharingTimer(forCommerceId: objectId) else {
             return true
+        }
+        let isAfterIntervalle = Date().isAfterDate(date + 1.days, granularity: .second)
+        print("isAfterIntervalle : \(isAfterIntervalle)")
+        if isAfterIntervalle {
+            removeCommerce(forCommerceId: objectId)
+            return true
+        } else {
+            return false
         }
     }
 
@@ -303,15 +299,17 @@ class HelperAndKeys {
         return UIDevice.isIphoneX
     }
 
-    static func getCurrentDate(da: Date?) -> String {
-        var secondsFromGMT: Int { return TimeZone.current.secondsFromGMT() }
-        // Si les tableaux est vide on l'ajoute au defaults
-        let date = da == nil ? Date() : da!
+    static func getCurrentDate(date: Date?) -> String {
+        guard let date = date else { return "\(Date())"}
+        return getDateFormat().string(from: date)
+    }
+    
+    private static func getDateFormat() -> DateFormatter {
         let format = DateFormatter()
         format.dateFormat = "dd/MM/yy HH:mm:ss"
         format.locale = Locale.current
-        format.timeZone = TimeZone(secondsFromGMT: secondsFromGMT)
-        return format.string(from: date)
+        format.timeZone = TimeZone(secondsFromGMT: TimeZone.current.secondsFromGMT())
+        return format
     }
 
     static func sendBugReport(message: String) {

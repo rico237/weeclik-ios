@@ -152,7 +152,6 @@ extension UIDevice {
             sysctlbyname("hw.machine", &machine, &size, nil, 0)
             modelIdentifier = String(cString: machine)
         }
-
         return modelIdentifier == "iPhone10,3" || modelIdentifier == "iPhone10,6"
     }
 
@@ -246,28 +245,22 @@ extension UserDefaults {
 
 extension CALayer {
     func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-
         let border = CALayer()
 
         switch edge {
         case UIRectEdge.top:
             border.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: thickness)
-            break
         case UIRectEdge.bottom:
             border.frame = CGRect.init(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
-            break
         case UIRectEdge.left:
             border.frame = CGRect.init(x: 0, y: 0, width: thickness, height: frame.height)
-            break
         case UIRectEdge.right:
             border.frame = CGRect.init(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
-            break
         default:
             break
         }
 
         border.backgroundColor = color.cgColor
-
         self.addSublayer(border)
     }
 }
@@ -277,16 +270,16 @@ extension UIWindow {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
 
-    static func getVisibleViewControllerFrom(_ vc: UIViewController?) -> UIViewController? {
-        if let nc = vc as? UINavigationController {
-            return UIWindow.getVisibleViewControllerFrom(nc.visibleViewController)
-        } else if let tc = vc as? UITabBarController {
-            return UIWindow.getVisibleViewControllerFrom(tc.selectedViewController)
+    static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
+        if let viewController = viewController as? UINavigationController {
+            return UIWindow.getVisibleViewControllerFrom(viewController.visibleViewController)
+        } else if let viewController = viewController as? UITabBarController {
+            return UIWindow.getVisibleViewControllerFrom(viewController.selectedViewController)
         } else {
-            if let pvc = vc?.presentedViewController {
-                return UIWindow.getVisibleViewControllerFrom(pvc)
+            if let viewController = viewController?.presentedViewController {
+                return UIWindow.getVisibleViewControllerFrom(viewController)
             } else {
-                return vc
+                return viewController
             }
         }
     }
@@ -367,7 +360,7 @@ extension UIFont {
         case bold = "-Bold"
     }
 
-    static func OpenSans(_ type: OpenSansType = .regular, size: CGFloat = UIFont.systemFontSize) -> UIFont {
+    static func openSans(_ type: OpenSansType = .regular, size: CGFloat = UIFont.systemFontSize) -> UIFont {
         return UIFont(name: "OpenSans\(type.rawValue)", size: size)!
     }
 

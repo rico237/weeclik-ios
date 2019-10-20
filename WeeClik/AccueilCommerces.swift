@@ -187,7 +187,7 @@ extension AccueilCommerces {
         }
         // FIXME: Can't reload data for now, query.findObjectsInBackground completion never gets fired second time
         // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
-        if self.prefFiltreLocation {
+        if self.prefFiltreLocation && ( SPPermission.isAllowed(.locationWhenInUse) || SPPermission.isAllowed(.locationAlwaysAndWhenInUse) ) {
             self.locationManager.startUpdatingLocation()
         } else {
             ParseService.shared.sharingPrefsCommerces(withType: typeCategorie) { (commerces, error) in
