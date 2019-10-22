@@ -16,13 +16,15 @@ PODS:
   - DTTextField (0.3.0)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.10.2)
-  - FBSDKCoreKit (5.1.1):
-    - FBSDKCoreKit/Basics (= 5.1.1)
-    - FBSDKCoreKit/Core (= 5.1.1)
-  - FBSDKCoreKit/Basics (5.1.1)
-  - FBSDKCoreKit/Core (5.1.1):
+  - FBSDKCoreKit (5.8.0):
+    - FBSDKCoreKit/Basics (= 5.8.0)
+    - FBSDKCoreKit/Core (= 5.8.0)
+  - FBSDKCoreKit/Basics (5.8.0)
+  - FBSDKCoreKit/Core (5.8.0):
     - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (5.1.1):
+  - FBSDKLoginKit (5.8.0):
+    - FBSDKLoginKit/Login (= 5.8.0)
+  - FBSDKLoginKit/Login (5.8.0):
     - FBSDKCoreKit (~> 5.0)
   - Firebase/Core (6.10.0):
     - Firebase/CoreOnly
@@ -140,13 +142,13 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - NSFWDetector (1.1.0)
+  - Parse (1.17.3):
+    - Parse/Core (= 1.17.3)
   - Parse/Core (1.17.3):
     - Bolts/Tasks (~> 1.9)
   - Parse/FacebookUtils (1.17.3):
     - Bolts (~> 1.9)
     - FBSDKLoginKit (~> 5.x)
-    - Parse/Core
-  - Parse/TwitterUtils (1.17.3):
     - Parse/Core
   - Parse/UI (1.17.3):
     - Parse/Core
@@ -208,8 +210,8 @@ DEPENDENCIES:
   - lottie-ios (~> 3.1)
   - Material (~> 2.16)
   - NSFWDetector
+  - Parse
   - Parse/FacebookUtils
-  - Parse/TwitterUtils
   - Parse/UI
   - PhoneNumberKit (~> 3.0)
   - ReachabilitySwift
@@ -338,8 +340,8 @@ SPEC CHECKSUMS:
   DTTextField: c26deead1a51c92156e2a638ac7d2c702c2f345e
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
-  FBSDKCoreKit: c29b6b65f6a171ca0a317960a622cff62c9ee269
-  FBSDKLoginKit: fdaf402766755e1175ed5c0382f25e2e7dab3c2a
+  FBSDKCoreKit: e7dcac0aabcfb09d0166998edd95fe3b05a0ce5d
+  FBSDKLoginKit: 1b0cf04df0370b37404213157b060d6666ede814
   Firebase: 5e6b7b12bf9adb90986688edc06b156c37e109cd
   FirebaseABTesting: 0d10f3cdc3fa00f3f175b5b56c1003c8e888299f
   FirebaseAnalytics: 0e3ecff2c5d86070f7d4325e21f1edabfbd558dc
@@ -391,6 +393,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 522933080de01e1296981c8e218e47f55b580faf
+PODFILE CHECKSUM: cf85b35b13090077bb0bfb733ab71ad5c41e7a2c
 
 COCOAPODS: 1.8.4
