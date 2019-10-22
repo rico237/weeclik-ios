@@ -8,6 +8,10 @@
 
 import UIKit
 
+public protocol CRNotificationDelegate {
+    func onNotificationTap()
+}
+
 public class CRNotifications {
     
     // MARK: - Static notification types
@@ -24,15 +28,21 @@ public class CRNotifications {
     
     // MARK: - Helpers
     
-    /** Shows a CRNotification **/
-    public static func showNotification(textColor: UIColor, backgroundColor: UIColor, image: UIImage?, title: String, message: String, dismissDelay: TimeInterval, completion: @escaping () -> () = {}) {
+    /** Shows a CRNotification.
+        Returns the CRNotification that is displayed. Returns nil if the keyWindow is not present.
+     **/
+    @discardableResult
+    public static func showNotification(textColor: UIColor, backgroundColor: UIColor, image: UIImage?, title: String, message: String, dismissDelay: TimeInterval, delegate: CRNotificationDelegate? = nil, completion: @escaping () -> () = {}) -> CRNotification? {
         let notificationDefinition = CRNotificationTypeDefinition(textColor: textColor, backgroundColor: backgroundColor, image: image)
-        showNotification(type: notificationDefinition, title: title, message: message, dismissDelay: dismissDelay, completion: completion)
+        return showNotification(type: notificationDefinition, title: title, message: message, dismissDelay: dismissDelay, delegate: delegate, completion: completion)
     }
     
-    /** Shows a CRNotification from a CRNotificationType **/
-    public static func showNotification(type: CRNotificationType, title: String, message: String, dismissDelay: TimeInterval, completion: @escaping () -> () = {}) {
-        let view = CRNotification()
+    /** Shows a CRNotification from a CRNotificationType.
+        Returns the CRNotification that is displayed. Returns nil if the keyWindow is not present.
+     **/
+    @discardableResult
+    public static func showNotification(type: CRNotificationType, title: String, message: String, dismissDelay: TimeInterval, delegate: CRNotificationDelegate? = nil, completion: @escaping () -> () = {}) -> CRNotification? {
+        let view = CRNotificationView()
         
         view.setBackgroundColor(color: type.backgroundColor)
         view.setTextColor(color: type.textColor)
@@ -41,14 +51,17 @@ public class CRNotifications {
         view.setMessage(message: message)
         view.setDismisTimer(delay: dismissDelay)
 		view.setCompletionBlock(completion)
+        view.onClickDelegate = delegate
         
         guard let window = UIApplication.shared.keyWindow else {
             print("Failed to show CRNotification. No keywindow available.")
-            return
+            return nil
         }
         
         window.addSubview(view)
         view.showNotification()
+        
+        return view
     }
 }
 
