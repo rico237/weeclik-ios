@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         // External URL Routing to commerce detail
         setupRouting()
-        
+        // Bug reporting (shd be only in dev/staging targets)
         Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
 
         return true

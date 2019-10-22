@@ -54,8 +54,6 @@
 #import "PFUser.h"
 #import "PFUserAuthenticationDelegate.h"
 #import "PFFacebookUtils.h"
-#import "PFTwitterUtils.h"
-#import "PF_Twitter.h"
 #import "PFLogInView.h"
 #import "PFLogInViewController.h"
 #import "PFLogInView_Private.h"
