@@ -19,7 +19,7 @@ class NetworkManager: NSObject {
         super.init()
 
         // Initialise reachability
-        reachability = Reachability()!
+        reachability = try! Reachability()
 
         // Register an observer for the network status
         NotificationCenter.default.addObserver(
