@@ -14,9 +14,8 @@ def projectPods
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
-    # TODO: Faire un repo clean depuis le vrai git, puis tester pour toutes les platforms, puis faire un PR pour les autres
+    pod 'Parse'
     pod 'Parse/FacebookUtils'
-    pod 'Parse/TwitterUtils'
     pod 'Parse/UI'
     
     # Firebase + Performance
