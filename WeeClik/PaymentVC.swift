@@ -106,8 +106,8 @@ class PaymentVC: UIViewController {
     }
 
     @IBAction func processPurchase(_ sender: Any) {
-        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
-        scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getScheduleKey(), withExpectedType: "bool") as? Bool ?? false
+        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.paymentKey, withExpectedType: "bool") as? Bool ?? false
+        scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.scheduleKey, withExpectedType: "bool") as? Bool ?? false
 
         print("PaymentDeactivated \(paymentDeactivated)")
 
@@ -309,7 +309,6 @@ class PaymentVC: UIViewController {
                             SwiftyStoreKit.finishTransaction(product.transaction)
                         }
                         print("Purchase Success: \(product)")
-                        break
                     case .error(let error):
                         switch error.code {
                         case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())

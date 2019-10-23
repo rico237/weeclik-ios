@@ -31,7 +31,7 @@ class ListeDesFavorisVC: UIViewController {
 
         // Get data from local storage
 
-        if let favoris = userDef.array(forKey: HelperAndKeys.getPartageGroupKey()) as? [GroupePartage] {
+        if let favoris = userDef.array(forKey: Constants.UserDefaultsKeys.partageGroupKey) as? [GroupePartage] {
             listeGroupes = favoris
         }
 

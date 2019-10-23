@@ -36,44 +36,49 @@ class HelperAndKeys {
         alertController.addAction(settingsAction)
         viewController.present(alertController, animated: true, completion: nil)
     }
+    
+    static func visitWebsite(site: String, controller: UIViewController) {
 
-    static func getNavigationBarColor() -> UIColor {
-        return UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
+        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?".localized(), message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?".localized(), preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction.init(title: "OK".localized(), style: UIAlertAction.Style.default) { (_) -> Void in
+            if let url = URL(string: site), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+        let cancelAction = UIAlertAction.init(title: "Annuler".localized(), style: UIAlertAction.Style.destructive) {(_) -> Void in}
+        alertViewController.addAction(cancelAction)
+        alertViewController.addAction(defaultAction)
+        controller.present(alertViewController, animated: true, completion: nil)
     }
 
-    static func getBackgroundColor() -> UIColor {
-        return UIColor(red: 0.93, green: 0.93, blue: 0.93, alpha: 1.00)
-    }
+    static func sendFeedBackOrMessageViaMail(messageToSend: String, isFeedBackMsg: Bool, commerceMail: String, controller: UIViewController) {
+        let messageAdded: String
+        let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
-    static func getServerURL() -> String {
-//        return "http://172.20.10.4:1337/parse" // Localhost partage de connexion iphone 7+
-//        return "http://192.168.1.30:1337/parse" // Localhost wifi maison
-        return "https://weeclik-server.herokuapp.com/parse"
-//        return "https://weeclik-server-dev.herokuapp.com/parse"
-    }
+        if !isFeedBackMsg {
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : http://www.google.fr/".localized()
+        } else {
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)".localized()
+        }
+//                let allowedCharacters = NSCharacterSet.urlFragmentAllowed
+        let finalMessage = messageToSend.appending(messageAdded)
 
-    static func getServerAppId() -> String {
-        return "JVQZMCuNYvnecPWvWFDTZa8A"
-    }
+        if MFMailComposeViewController.canSendMail() {
+            let composeVC = MFMailComposeViewController()
 
-    static func getLocationPreferenceKey() -> String {
-        return "locationPreference"
-    }
+            // Configure the fields of the interface.
+            composeVC.setSubject("Demande de contact via Weeclik".localized())
+            composeVC.setToRecipients([commerceMail])
+            composeVC.setMessageBody(finalMessage, isHTML: true)
 
-    static func getPrefFilterLocationKey() -> String {
-        return "filterPreference"
-    }
+            composeVC.navigationBar.barTintColor = UIColor.white
 
-    static func getPaymentKey() -> String {
-        return "payment_enabled"
-    }
+            // Present the view controller modally.
+            controller.present(composeVC, animated: true, completion: nil)
+        } else {
+            showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), viewController: controller)
+        }
 
-    static func getScheduleKey() -> String {
-        return "shedule_key"
-    }
-
-    static func getPartageGroupKey() -> String {
-        return "partage_group_key"
     }
 
     static func setUserDefaultsValue(value: Any, forKey key: String) {
@@ -85,35 +90,33 @@ class HelperAndKeys {
     static func getUserDefaultsValue(forKey key: String, withExpectedType expectedType: String) -> Any? {
         let standardUserDefaults = UserDefaults.standard
         let type = expectedType.lowercased()
-
         if type == "bool" {
             return standardUserDefaults.bool(forKey: key)
         } else if type == "string" {
             return standardUserDefaults.string(forKey: key)
         }
-
         return nil
     }
 
     static func getPrefFiltreLocation() -> Bool {
         let standardUserDefaults = UserDefaults.standard
-        return standardUserDefaults.bool(forKey: "filterPreference")
+        return standardUserDefaults.bool(forKey: Constants.UserDefaultsKeys.prefFilterLocationKey)
     }
 
     static func setPrefFiltreLocation(filtreLocation: Bool) {
         let standardUserDefaults = UserDefaults.standard
-        standardUserDefaults.set(filtreLocation, forKey: "filterPreference")
+        standardUserDefaults.set(filtreLocation, forKey: Constants.UserDefaultsKeys.prefFilterLocationKey)
         standardUserDefaults.synchronize()
     }
 
     static func getLocationGranted() -> Bool {
         let standardUserDefaults = UserDefaults.standard
-        return standardUserDefaults.bool(forKey: "locationPreference")
+        return standardUserDefaults.bool(forKey: Constants.UserDefaultsKeys.locationPreferenceKey)
     }
 
     static func setLocationGranted(locationGranted: Bool) {
         let standardUserDefaults = UserDefaults.standard
-        standardUserDefaults.set(locationGranted, forKey: "locationPreference")
+        standardUserDefaults.set(locationGranted, forKey: Constants.UserDefaultsKeys.locationPreferenceKey)
         standardUserDefaults.synchronize()
     }
 
@@ -179,50 +182,6 @@ class HelperAndKeys {
         if let url = URL(string: "telprompt://\(phone)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
-    }
-
-    static func visitWebsite(site: String, controller: UIViewController) {
-
-        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?".localized(), message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?".localized(), preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK".localized(), style: UIAlertAction.Style.default) { (_) -> Void in
-            if let url = URL(string: site), UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-            }
-        }
-        let cancelAction = UIAlertAction.init(title: "Annuler".localized(), style: UIAlertAction.Style.destructive) {(_) -> Void in}
-        alertViewController.addAction(cancelAction)
-        alertViewController.addAction(defaultAction)
-        controller.present(alertViewController, animated: true, completion: nil)
-    }
-
-    static func sendFeedBackOrMessageViaMail(messageToSend: String, isFeedBackMsg: Bool, commerceMail: String, controller: UIViewController) {
-        let messageAdded: String
-        let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-
-        if !isFeedBackMsg {
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : http://www.google.fr/".localized()
-        } else {
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)".localized()
-        }
-//                let allowedCharacters = NSCharacterSet.urlFragmentAllowed
-        let finalMessage = messageToSend.appending(messageAdded)
-
-        if MFMailComposeViewController.canSendMail() {
-            let composeVC = MFMailComposeViewController()
-
-            // Configure the fields of the interface.
-            composeVC.setSubject("Demande de contact via Weeclik".localized())
-            composeVC.setToRecipients([commerceMail])
-            composeVC.setMessageBody(finalMessage, isHTML: true)
-
-            composeVC.navigationBar.barTintColor = UIColor.white
-
-            // Present the view controller modally.
-            controller.present(composeVC, animated: true, completion: nil)
-        } else {
-            showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), viewController: controller)
-        }
-
     }
 
     static func openMapForPlace(placeName: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
