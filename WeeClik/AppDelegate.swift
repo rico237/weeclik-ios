@@ -22,6 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Lifecycle functions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        #if DEVELOPMENT
+        print("\n\nDEV Environment\n\n")
+        #else
+        print("\n\nPROD Environment\n\n")
+        #endif
         // Server conf (bdd + storage + auth)
         parseConfiguration()
         // Navigation bar & UI conf
@@ -83,8 +88,8 @@ extension AppDelegate {
 
     func parseConfiguration() {
         let configuration = ParseClientConfiguration {
-            $0.applicationId = HelperAndKeys.getServerAppId()
-            $0.server = HelperAndKeys.getServerURL()
+            $0.applicationId = Constants.Server.serverAppId
+            $0.server = Constants.Server.serverURL()
         }
         Parse.initialize(with: configuration)
     }
@@ -103,7 +108,6 @@ extension AppDelegate {
                 // Unlock content
                 case .failed, .purchasing, .deferred:
                     print("Nothing with status : \(purchase.transaction.transactionState)")
-                    break // do nothing
                 @unknown default:
                     fatalError("Unknow value passed for purchaseObserver - Payment function - AppDelegate")
                 }

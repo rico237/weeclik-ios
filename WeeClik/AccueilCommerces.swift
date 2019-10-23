@@ -94,7 +94,7 @@ class AccueilCommerces: UIViewController {
         self.refreshControl.attributedTitle = NSAttributedString(string: "")
         self.collectionView.refreshControl = refreshControl
         self.refreshControl.addTarget(self, action: #selector(refreshCollectionData(_:)), for: .valueChanged)
-        self.collectionView.backgroundColor  = HelperAndKeys.getBackgroundColor()
+        self.collectionView.backgroundColor  = Colors.backgroundColor
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
 
@@ -103,7 +103,7 @@ class AccueilCommerces: UIViewController {
         viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
 
         // Choisir le filtrage par defaut (Position ou partage)
-        if defaults.contains(key: HelperAndKeys.getPrefFilterLocationKey()) {
+        if defaults.contains(key: Constants.UserDefaultsKeys.prefFilterLocationKey) {
             // la clé existe donc on peut recuperer la valeure
             self.prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
         } else {
@@ -114,7 +114,7 @@ class AccueilCommerces: UIViewController {
 
         // Check for location permission
         // If doesn't exist permission will be asked when user want to
-        if defaults.contains(key: HelperAndKeys.getLocationPreferenceKey()) {
+        if defaults.contains(key: Constants.UserDefaultsKeys.prefFilterLocationKey) {
             // Key exist so we fetch the value
             self.locationGranted = HelperAndKeys.getLocationGranted()
         }
