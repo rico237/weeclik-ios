@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>52</integer>
 		</dict>
+		<key>WeeClik-DEV.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>72</integer>
+		</dict>
 		<key>WeeClik-Playground.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -37,7 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1F03AB892360C18B0027D6EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1FA473291F1EE7E400D2A306</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1FA8EFF422D0E12400DCD52E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

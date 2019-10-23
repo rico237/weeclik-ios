@@ -1,4 +1,3 @@
-# Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 inhibit_all_warnings!
 
@@ -208,6 +207,11 @@ def projectPods
 end
 
 target 'WeeClik' do
+    use_frameworks!
+    projectPods
+end
+
+target 'WeeClik-DEV' do
     use_frameworks!
     projectPods
 end

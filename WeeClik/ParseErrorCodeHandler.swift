@@ -6,11 +6,10 @@
 //  Copyright © 2019 Herrick Wolber. All rights reserved.
 //
 
-import UIKit
 import Parse
 import Crashlytics
 
-class ParseErrorCodeHandler {
+struct ParseErrorCodeHandler {
 
     // FIXME: AJOUTER la bonne manière pour chaque erreur
     // ERREUR (CREATION / LOGIN) / COMMERCE (PFObject) / PURCHASE / etc.

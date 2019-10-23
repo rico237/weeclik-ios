@@ -200,7 +200,8 @@ extension InAppPurchaseHandler: SKProductsRequestDelegate, SKPaymentTransactionO
                     print("restored")
                     SKPaymentQueue.default().finishTransaction(transaction)
 //                    purchaseStatusBlock?(.restored)
-                default: break
+                default:
+                    break
                 }
             }
         }

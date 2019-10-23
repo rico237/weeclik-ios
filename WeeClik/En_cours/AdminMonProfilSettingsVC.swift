@@ -37,8 +37,8 @@ class AdminMonProfilSettingsVC: UIViewController {
     }
 
     func getUserDefaultsOptions() {
-        enabled1 = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
-        enabled2 = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getScheduleKey(), withExpectedType: "bool") as? Bool ?? false
+        enabled1 = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.paymentKey, withExpectedType: "bool") as? Bool ?? false
+        enabled2 = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.scheduleKey, withExpectedType: "bool") as? Bool ?? false
 
         enables[0] = !enabled1
         enables[1] = enabled2
@@ -79,12 +79,12 @@ class AdminMonProfilSettingsVC: UIViewController {
     }
 
     @IBAction func payment_option_action(_ sender: Any) {
-        HelperAndKeys.setUserDefaultsValue(value: !enabled1, forKey: HelperAndKeys.getPaymentKey())
+        HelperAndKeys.setUserDefaultsValue(value: !enabled1, forKey: Constants.UserDefaultsKeys.paymentKey)
         getUserDefaultsOptions()
     }
 
     @IBAction func schedule_option_action(_ sender: Any) {
-        HelperAndKeys.setUserDefaultsValue(value: !enabled2, forKey: HelperAndKeys.getScheduleKey())
+        HelperAndKeys.setUserDefaultsValue(value: !enabled2, forKey: Constants.UserDefaultsKeys.scheduleKey)
         getUserDefaultsOptions()
     }
     @IBAction func closeView(_ sender: Any) {
