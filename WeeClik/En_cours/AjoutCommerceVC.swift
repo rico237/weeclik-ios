@@ -854,21 +854,17 @@ extension AjoutCommerceVC {
                 place = "Numéro de téléphone".localized()
                 cell.contentTF.keyboardType = .phonePad
                 cell.contentTF.text = self.telCommerce
-                break
             case 1:
                 place = "Mail de contact".localized()
                 cell.contentTF.keyboardType = .emailAddress
                 cell.contentTF.text = self.mailCommerce
-                break
             case 2:
                 place = "Adresse du commerce (Requis)".localized()
                 cell.contentTF.text = self.adresseCommerce
-                break
             case 3:
                 place = "Site internet".localized()
                 cell.contentTF.keyboardType = .URL
                 cell.contentTF.text = self.siteWebCommerce
-                break
             default:
                 break
             }
@@ -943,7 +939,7 @@ extension AjoutCommerceVC: UICollectionViewDelegate, UICollectionViewDataSource 
             alert.addAction(deleteAction)
             alert.addAction(cancelAction)
 
-            self.present(alert, animated: true)
+            present(alert, animated: true)
         }
     }
 }
@@ -965,7 +961,6 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
         switch textView.tag {
         case 100:
             descriptionCommerce = textView.text
-            break
         case 200:
             promotionsCommerce  = textView.text
         default:
@@ -985,19 +980,14 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
         switch textField.tag {
         case 100:
             nomCommerce     = textField.text ?? ""
-            break
         case 200:
             telCommerce     = textField.text ?? ""
-            break
         case 300:
             mailCommerce    = textField.text ?? ""
-            break
         case 400:
             adresseCommerce = textField.text ?? ""
-            break
         case 500:
             siteWebCommerce = textField.text ?? ""
-            break
         default:
             break
         }

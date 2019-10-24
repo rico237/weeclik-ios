@@ -6,12 +6,14 @@
 //  Copyright © 2019 Herrick Wolber. All rights reserved.
 //
 
-import UIKit
-import Parse
 import Alamofire
 
-class MailHelper: NSObject {
-
+final class MailHelper {
+    /**
+     Method called to send amil to admins when an error occurs in app.
+     
+     Not Functioning for now
+     */
     static func sendErrorMail(content: String = "Default : No description was given".localized()) {
         /**
          Error Mail
@@ -24,6 +26,7 @@ class MailHelper: NSObject {
         ]
 
         let parameters: Parameters = ["content": content.localized()]
+        // FIXME: Needs to be tested and corrected ASAP
         AF.request("https://api.eu.mailgun.net/v3/email.herrick-wolber.fr/messages", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: HTTPHeaders.init(headers), interceptor: nil).responseJSON { (response) in
                 print(response.debugDescription)
         }
