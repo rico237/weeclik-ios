@@ -50,12 +50,6 @@ struct Constants {
 
     // MARK: Plists files
     struct Plist: Codable {
-        /// Enum representing Type of .plist we want to fetch (.firebase || .weeclik)
-        enum PlistType {
-            case firebase
-            case weeclik
-        }
-
         /**
          Get object T stored in .plist files.
 
@@ -84,9 +78,8 @@ struct Constants {
 
             if let plist = Constants.Plist.getPlistDictionary(forName: resource) {
                 return plist[key] as? T
-            } else {
-                return nil
             }
+            return nil
         }
 
         /**
@@ -102,5 +95,13 @@ struct Constants {
             }
             return nil
         }
+    }
+}
+
+extension Constants.Plist {
+    /// Enum representing Type of .plist we want to fetch (.firebase || .weeclik)
+    enum PlistType {
+        case firebase
+        case weeclik
     }
 }
