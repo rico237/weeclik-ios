@@ -19,8 +19,11 @@ class PaymentVC: UIViewController {
     var paymentDeactivated = false                          // TEST VAR (permet de switcher la demande de paiement)
     var scheduleVal = false
     var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
-    let purchasedProductID = "abo.sans.renouvellement"      // TODO: replace (abo.sans.renouvellement.un.an)
-
+    #if DEVELOPMENT
+    let purchasedProductID = "abo.sans.renouvellement"      // Apple ID of one month subscription for dev purpose (waiting time shorter)
+    #else
+    let purchasedProductID = "abo.sans.renouvellement.un.an" // Apple ID of one year subscription (not automatically renewed)
+    #endif
     let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
 
     @IBOutlet weak var legalTextView: UITextView!           // CGU, CGV, etc
@@ -84,8 +87,8 @@ class PaymentVC: UIViewController {
         style.alignment = .justified
 
         let attributedString = NSMutableAttributedString(string: legalTextView.text)
-        let urlCGU = URL(string: "https://google.fr/")!
-        let urlPolitique = URL(string: "https://facebook.com/")!
+        let urlCGU = URL(string: "https://weeclik-server.herokuapp.com/cgu")!
+        let urlPolitique = URL(string: "https://weeclik-server.herokuapp.com/politique-confidentialite")!
 
         attributedString.setAttributes([.link: urlCGU], range: NSRange(location: 607, length: 20))
         attributedString.setAttributes([.link: urlPolitique], range: NSRange(location: 631, length: 28))

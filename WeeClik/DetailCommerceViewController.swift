@@ -484,7 +484,7 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
         let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
         if !isFeedBackMsg {
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : http://www.google.fr/".localized()
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : https://www.weeclik.com/".localized()
         } else {
             messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)".localized()
         }
