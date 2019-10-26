@@ -170,7 +170,7 @@ PODS:
   - SPPermission/Core (4.0.6)
   - SPPermission/Location (4.0.6):
     - SPPermission/Core
-  - SVProgressHUD (2.2.5)
+  - SVProgressHUD (2.2.6)
   - SwiftDate (6.0.3)
   - SwiftMultiSelect (0.2.4)
   - SwiftyStoreKit (0.15.0)
@@ -220,7 +220,7 @@ DEPENDENCIES:
   - SPLarkController (~> 1.0.9)
   - SPPermission/Contacts
   - SPPermission/Location
-  - SVProgressHUD (~> 2.1)
+  - SVProgressHUD (from `https://github.com/weeclik/SVProgressHUD.git`)
   - SwiftDate (~> 6.0.3)
   - SwiftMultiSelect (from `https://github.com/weeclik/SwiftMultiSelect.git`)
   - SwiftyStoreKit (~> 0.15.0)
@@ -282,7 +282,6 @@ SPEC REPOS:
     - SecureDefaults
     - SPLarkController
     - SPPermission
-    - SVProgressHUD
     - SwiftDate
     - SwiftyStoreKit
     - TLPhotoPicker
@@ -297,6 +296,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/weeclik/Compass.git
   KJNavigationViewAnimation:
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
+  SVProgressHUD:
+    :git: https://github.com/weeclik/SVProgressHUD.git
   SwiftMultiSelect:
     :git: https://github.com/weeclik/SwiftMultiSelect.git
   TPKeyboardAvoiding:
@@ -316,6 +317,9 @@ CHECKOUT OPTIONS:
   KJNavigationViewAnimation:
     :commit: d73526855a411e4ec7abdd1b68b6c44f56a9cb78
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
+  SVProgressHUD:
+    :commit: 4fdf3fdc8703fd9915dae33fc1363c604a06b24e
+    :git: https://github.com/weeclik/SVProgressHUD.git
   SwiftMultiSelect:
     :commit: 46aa7c1e87d18b4af3e8457867deb91e36bc00d0
     :git: https://github.com/weeclik/SwiftMultiSelect.git
@@ -381,7 +385,7 @@ SPEC CHECKSUMS:
   SecureDefaults: 1d84f828e6c525b9197e2a164f8c465b4af86cd9
   SPLarkController: af253e70e5e07f6d55a7960f8da37f363c276455
   SPPermission: 1807bce0f1d8cf4bb0185a46d3acfaf5a6cff2d8
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SVProgressHUD: 6ed134667e9ebb2f33679e8273cd48fd3fa349e5
   SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
@@ -393,6 +397,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: bf7b0e0a54cec9ae5107ec0a366f7c396f4e3259
+PODFILE CHECKSUM: ee31553c8da407c560d72da01a0bae5675e206c3
 
 COCOAPODS: 1.8.4
