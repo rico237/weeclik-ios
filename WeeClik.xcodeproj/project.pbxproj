@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C63943DAAC5D3A69E7FE9A2 /* Pods_WeeClik_DEV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D6436DCAF73D5532292C77 /* Pods_WeeClik_DEV.framework */; };
 		1F03AB8C2360C18B0027D6EF /* PhotosVideosCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7331D92052BA4300582A7B /* PhotosVideosCollectionCell.swift */; };
 		1F03AB8D2360C18B0027D6EF /* BulletinDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE37451F9118AF00E1D1A7 /* BulletinDataSource.swift */; };
 		1F03AB8E2360C18B0027D6EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F7C8523494F210087A444 /* UserDefaultsManager.swift */; };
@@ -84,7 +85,6 @@
 		1F03ABD72360C18B0027D6EF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F5581AB2187C9CF00044C0A /* CoreLocation.framework */; };
 		1F03ABD82360C18B0027D6EF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1F03ABD92360C18B0027D6EF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		1F03ABDA2360C18B0027D6EF /* Pods_WeeClik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */; };
 		1F03ABDB2360C18B0027D6EF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBB63A4211F16BD00BCB480 /* StoreKit.framework */; };
 		1F03ABDD2360C18B0027D6EF /* BebasNeue Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF45E1F254F3D00146525 /* BebasNeue Book.ttf */; };
 		1F03ABDE2360C18B0027D6EF /* UserLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570D1F2D977600932929 /* UserLocation.gpx */; };
@@ -137,6 +137,7 @@
 		1F28C6CC2346D49B009831C7 /* ParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F28C6CB2346D49B009831C7 /* ParseService.swift */; };
 		1F2933D8226E538500AE9C25 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2933D7226E538500AE9C25 /* UserSettings.swift */; };
 		1F2C05112132F564002B86AB /* PaymentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */; };
+		1F2CDCC62363A4C400753E9B /* WeeclikUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CDCC52363A4C400753E9B /* WeeclikUnitTests.swift */; };
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
 		1F3BE2BA235B321B00E185D2 /* ParseLoginSignupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */; };
@@ -243,9 +244,17 @@
 		1FF5C6282236EE1800D936B4 /* CreationGroupes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */; };
 		1FF7A04E22C929D90038C8E3 /* Partage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF7A04D22C929D90038C8E3 /* Partage.storyboard */; };
 		788E3A22531FFFF44C80E285 /* Pods_WeeClik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */; };
+		E9A635C10BD943597D62645D /* libPods-WeeclikUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0454BA2B7483F882580B65C6 /* libPods-WeeclikUnitTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F2CDCC82363A4C400753E9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA473221F1EE7E400D2A306 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FA473291F1EE7E400D2A306;
+			remoteInfo = WeeClik;
+		};
 		1FB9B2B4226E785E009C3E65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1FA473221F1EE7E400D2A306 /* Project object */;
@@ -279,6 +288,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0454BA2B7483F882580B65C6 /* libPods-WeeclikUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeeclikUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03AC072360C18B0027D6EF /* Weeclik DEV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weeclik DEV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03AC082360C18D0027D6EF /* Info-DEV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-DEV.plist"; path = "/Users/rico/lab/github_repos/weeclik-ios/Info-DEV.plist"; sourceTree = "<absolute>"; };
 		1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixTarifsVC.swift; sourceTree = "<group>"; };
@@ -301,6 +311,9 @@
 		1F28C6CB2346D49B009831C7 /* ParseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseService.swift; sourceTree = "<group>"; };
 		1F2933D7226E538500AE9C25 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCollectionViewCell.swift; sourceTree = "<group>"; };
+		1F2CDCC32363A4C400753E9B /* WeeclikUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeclikUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F2CDCC52363A4C400753E9B /* WeeclikUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeclikUnitTests.swift; sourceTree = "<group>"; };
+		1F2CDCC72363A4C400753E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
 		1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseLoginSignupHelper.swift; sourceTree = "<group>"; };
@@ -408,11 +421,15 @@
 		1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreationGroupes.storyboard; sourceTree = "<group>"; };
 		1FF7A04D22C929D90038C8E3 /* Partage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Partage.storyboard; sourceTree = "<group>"; };
 		2D1FADE1014A3AF048545868 /* libPods-WeeClikUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeeClikUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31D6436DCAF73D5532292C77 /* Pods_WeeClik_DEV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik_DEV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.debug.xcconfig"; sourceTree = "<group>"; };
 		39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik/Pods-WeeClik.release.xcconfig"; sourceTree = "<group>"; };
+		79BAA06A320D66747373BC0F /* Pods-WeeClik-DEV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik-DEV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik-DEV/Pods-WeeClik-DEV.debug.xcconfig"; sourceTree = "<group>"; };
 		8ABAA9F5DD1BA9972BC5186C /* Pods-WeeClikUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClikUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClikUnitTests/Pods-WeeClikUnitTests.release.xcconfig"; sourceTree = "<group>"; };
-		C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B239E4212689A181802AD7 /* Pods-WeeclikUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeclikUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeclikUnitTests/Pods-WeeclikUnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		BF07267715EDBD0BF042E5B3 /* Pods-WeeclikUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeclikUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeclikUnitTests/Pods-WeeclikUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCDE59C012E435CB253E4A34 /* Pods-WeeClikUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClikUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClikUnitTests/Pods-WeeClikUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F2D9C34B08F4F9620E1BBB4C /* Pods-WeeClik-DEV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik-DEV.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik-DEV/Pods-WeeClik-DEV.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,8 +440,16 @@
 				1F03ABD72360C18B0027D6EF /* CoreLocation.framework in Frameworks */,
 				1F03ABD82360C18B0027D6EF /* MobileCoreServices.framework in Frameworks */,
 				1F03ABD92360C18B0027D6EF /* SystemConfiguration.framework in Frameworks */,
-				1F03ABDA2360C18B0027D6EF /* Pods_WeeClik.framework in Frameworks */,
 				1F03ABDB2360C18B0027D6EF /* StoreKit.framework in Frameworks */,
+				0C63943DAAC5D3A69E7FE9A2 /* Pods_WeeClik_DEV.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F2CDCC02363A4C400753E9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9A635C10BD943597D62645D /* libPods-WeeclikUnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +613,15 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		1F2CDCC42363A4C400753E9B /* WeeclikUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				1F2CDCC52363A4C400753E9B /* WeeclikUnitTests.swift */,
+				1F2CDCC72363A4C400753E9B /* Info.plist */,
+			);
+			path = WeeclikUnitTests;
+			sourceTree = "<group>";
+		};
 		1F5681E91F2B4FA300B1BAC8 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,6 +705,7 @@
 			children = (
 				1FA4732C1F1EE7E400D2A306 /* WeeClik */,
 				1FB9B2B0226E785E009C3E65 /* WeeClikUITests */,
+				1F2CDCC42363A4C400753E9B /* WeeclikUnitTests */,
 				1FA4732B1F1EE7E400D2A306 /* Products */,
 				D4B13352A12466DB4B89E4CC /* Pods */,
 				A78D9E77AE6519274A12D367 /* Frameworks */,
@@ -683,6 +718,7 @@
 				1FA4732A1F1EE7E400D2A306 /* WeeClik.app */,
 				1FB9B2AF226E785E009C3E65 /* WeeClikUITests.xctest */,
 				1F03AC072360C18B0027D6EF /* Weeclik DEV.app */,
+				1F2CDCC32363A4C400753E9B /* WeeclikUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -815,8 +851,9 @@
 				1FBB63A4211F16BD00BCB480 /* StoreKit.framework */,
 				1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */,
 				1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */,
-				C3DFC488946196A9030F0213 /* Pods_WeeClik.framework */,
 				2D1FADE1014A3AF048545868 /* libPods-WeeClikUnitTests.a */,
+				31D6436DCAF73D5532292C77 /* Pods_WeeClik_DEV.framework */,
+				0454BA2B7483F882580B65C6 /* libPods-WeeclikUnitTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -828,6 +865,10 @@
 				39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */,
 				DCDE59C012E435CB253E4A34 /* Pods-WeeClikUnitTests.debug.xcconfig */,
 				8ABAA9F5DD1BA9972BC5186C /* Pods-WeeClikUnitTests.release.xcconfig */,
+				79BAA06A320D66747373BC0F /* Pods-WeeClik-DEV.debug.xcconfig */,
+				F2D9C34B08F4F9620E1BBB4C /* Pods-WeeClik-DEV.release.xcconfig */,
+				BF07267715EDBD0BF042E5B3 /* Pods-WeeclikUnitTests.debug.xcconfig */,
+				95B239E4212689A181802AD7 /* Pods-WeeclikUnitTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -857,6 +898,25 @@
 			productName = WeeClik;
 			productReference = 1F03AC072360C18B0027D6EF /* Weeclik DEV.app */;
 			productType = "com.apple.product-type.application";
+		};
+		1F2CDCC22363A4C400753E9B /* WeeclikUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F2CDCCC2363A4C400753E9B /* Build configuration list for PBXNativeTarget "WeeclikUnitTests" */;
+			buildPhases = (
+				EE35D619580283FA070207BD /* [CP] Check Pods Manifest.lock */,
+				1F2CDCBF2363A4C400753E9B /* Sources */,
+				1F2CDCC02363A4C400753E9B /* Frameworks */,
+				1F2CDCC12363A4C400753E9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1F2CDCC92363A4C400753E9B /* PBXTargetDependency */,
+			);
+			name = WeeclikUnitTests;
+			productName = WeeclikUnitTests;
+			productReference = 1F2CDCC32363A4C400753E9B /* WeeclikUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		1FA473291F1EE7E400D2A306 /* WeeClik */ = {
 			isa = PBXNativeTarget;
@@ -906,12 +966,17 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Original;
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Herrick Wolber";
 				TargetAttributes = {
 					1F03AB892360C18B0027D6EF = {
 						DevelopmentTeam = 483576MP8J;
+					};
+					1F2CDCC22363A4C400753E9B = {
+						CreatedOnToolsVersion = 11.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1FA473291F1EE7E400D2A306;
 					};
 					1FA473291F1EE7E400D2A306 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -952,6 +1017,7 @@
 				1FA473291F1EE7E400D2A306 /* WeeClik */,
 				1FB9B2AE226E785E009C3E65 /* WeeClikUITests */,
 				1F03AB892360C18B0027D6EF /* WeeClik-DEV */,
+				1F2CDCC22363A4C400753E9B /* WeeclikUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -996,6 +1062,13 @@
 				1F03ABFC2360C18B0027D6EF /* Test.storyboard in Resources */,
 				1F03ABFD2360C18B0027D6EF /* OpenSans-LightItalic.ttf in Resources */,
 				1F03ABFE2360C18B0027D6EF /* OpenSans-Semibold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F2CDCC12363A4C400753E9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1062,7 +1135,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WeeClik-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-WeeClik-DEV-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1075,7 +1148,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WeeClik-DEV/Pods-WeeClik-DEV-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -1178,7 +1251,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeeClik-DEV/Pods-WeeClik-DEV-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1F03AC012360C18B0027D6EF /* Show TODOS & ERRORS */ = {
@@ -1413,6 +1486,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EE35D619580283FA070207BD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WeeclikUnitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1496,6 +1591,14 @@
 				1F03ABD32360C18B0027D6EF /* PhotoCell.swift in Sources */,
 				1F03ABD42360C18B0027D6EF /* CardView.swift in Sources */,
 				1F03ABD52360C18B0027D6EF /* GroupePartage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F2CDCBF2363A4C400753E9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F2CDCC62363A4C400753E9B /* WeeclikUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1596,6 +1699,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1F2CDCC92363A4C400753E9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FA473291F1EE7E400D2A306 /* WeeClik */;
+			targetProxy = 1F2CDCC82363A4C400753E9B /* PBXContainerItemProxy */;
+		};
 		1FB9B2B5226E785E009C3E65 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1FA473291F1EE7E400D2A306 /* WeeClik */;
@@ -1606,7 +1714,7 @@
 /* Begin XCBuildConfiguration section */
 		1F03AC052360C18B0027D6EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3705CA064060D18F8C9870D3 /* Pods-WeeClik.debug.xcconfig */;
+			baseConfigurationReference = 79BAA06A320D66747373BC0F /* Pods-WeeClik-DEV.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-DEV";
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
@@ -1632,7 +1740,7 @@
 		};
 		1F03AC062360C18B0027D6EF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39DF47B9FC73D7DAA225BB87 /* Pods-WeeClik.release.xcconfig */;
+			baseConfigurationReference = F2D9C34B08F4F9620E1BBB4C /* Pods-WeeClik-DEV.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-DEV";
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
@@ -1650,6 +1758,62 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		1F2CDCCA2363A4C400753E9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF07267715EDBD0BF042E5B3 /* Pods-WeeclikUnitTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WeeclikUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fr.herrick-wolber.WeeclikUnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeeClik.app/WeeClik";
+			};
+			name = Debug;
+		};
+		1F2CDCCB2363A4C400753E9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95B239E4212689A181802AD7 /* Pods-WeeclikUnitTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = WeeclikUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fr.herrick-wolber.WeeclikUnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeeClik.app/WeeClik";
 			};
 			name = Release;
 		};
@@ -1873,6 +2037,15 @@
 			buildConfigurations = (
 				1F03AC052360C18B0027D6EF /* Debug */,
 				1F03AC062360C18B0027D6EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F2CDCCC2363A4C400753E9B /* Build configuration list for PBXNativeTarget "WeeclikUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F2CDCCA2363A4C400753E9B /* Debug */,
+				1F2CDCCB2363A4C400753E9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
