@@ -121,7 +121,7 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.3.0)
   - Hue (5.0.0)
-  - Instabug (8.7.2)
+  - Instabug (8.7.3)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
   - LGButton (1.1.6)
@@ -136,11 +136,11 @@ PODS:
   - Motion (1.4.3):
     - Motion/Core (= 1.4.3)
   - Motion/Core (1.4.3)
-  - nanopb (0.3.901):
-    - nanopb/decode (= 0.3.901)
-    - nanopb/encode (= 0.3.901)
-  - nanopb/decode (0.3.901)
-  - nanopb/encode (0.3.901)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
   - NSFWDetector (1.1.0)
   - Parse (1.17.3):
     - Parse/Core (= 1.17.3)
@@ -308,7 +308,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AppImageViewer:
-    :commit: 99c65f169d566f757f64764b3b5f4f59113d65b7
+    :commit: e0e0ff10edbb6b8ac10aa9712ccbe88e85117797
     :git: https://github.com/weeclik/AppImageViewer.git
   Compass:
     :commit: a86eda0d1163ce4c8028be61a61f0ded6cd3e132
@@ -361,7 +361,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
-  Instabug: 5c4aaa2e0e5a26ea64b2b97f8694794f9a9dfd2a
+  Instabug: b07a37789443c1fd49e0232ed6ddd0a6899e97ff
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
@@ -371,7 +371,7 @@ SPEC CHECKSUMS:
   lottie-ios: 496ac5cea1bbf1a7bd1f1f472f3232eb1b8d744b
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
-  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NSFWDetector: aefec2254932bdc933cccc9385abfe07ae36a7a1
   Parse: c1ad2a04d2cab2b54b6fb7da05f741abf2cf57d1
   PhoneNumberKit: 86019c972ef6904bcad11b46a6b8a91184d51117
@@ -393,6 +393,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: cf85b35b13090077bb0bfb733ab71ad5c41e7a2c
+PODFILE CHECKSUM: bf7b0e0a54cec9ae5107ec0a366f7c396f4e3259
 
 COCOAPODS: 1.8.4
