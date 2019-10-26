@@ -46,13 +46,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>1773255456018247</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<false/>
 	<key>FacebookDisplayName</key>
 	<string>WeeClik</string>
-    <key>FacebookAutoLogAppEventsEnabled</key>
-    <false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fb-messenger-api</string>
@@ -79,9 +79,13 @@
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Nous en avons besoin de cet l'accès afin de créer un groupe.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Nous avons besoin de l'accès à vos photos/vidéos pour alimenter votre commerce</string>
-	<key>UIAppFonts</key>
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
+    <key>UIAppFonts</key>
 	<array>
 		<string>Pacifico</string>
 		<string>OpenSans</string>

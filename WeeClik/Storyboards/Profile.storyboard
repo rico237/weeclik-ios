@@ -279,13 +279,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YSU-Qh-xTa"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Mon Profil" id="06j-Ty-amf">
-                        <barButtonItem key="rightBarButtonItem" image="Logout_icon" id="amM-np-4eS">
-                            <connections>
-                                <action selector="logOut:" destination="UIg-dk-7Ch" id="j14-vk-lGB"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Mon Profil" id="06j-Ty-amf"/>
                     <connections>
                         <outlet property="buttonHeight" destination="0PH-x0-pWR" id="Qgo-tP-SCD"/>
                         <outlet property="changeProfilInfoTVC" destination="qaV-zl-Gda" id="Kaj-cY-m4J"/>
@@ -1294,7 +1288,6 @@ Votre paiement sera débité de votre compte iTunes et votre abonnement sera aut
         <image name="Bouton_utilisateur" width="177" height="224"/>
         <image name="Logo_commerce" width="138" height="141"/>
         <image name="Logo_utilisateur" width="138" height="159"/>
-        <image name="Logout_icon" width="20" height="20"/>
         <image name="PartagesIcon_White" width="20" height="20"/>
         <image name="Placeholder_carre" width="128" height="128"/>
     </resources>

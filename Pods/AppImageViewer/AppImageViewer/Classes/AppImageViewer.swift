@@ -87,8 +87,17 @@ open class AppImageViewer: UIViewController {
         self.init(photos: photos, initialPageIndex: 0)
     }
     
-    ////// needed 
-    @available(*, deprecated: 5.0.0)
+    @objc func canRotate() -> Void {}
+    
+    override open func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.isMovingFromParent) {
+          UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
+    }
+    
+    // needed
     public convenience init(originImage: UIImage, photos: [ViewerImageProtocol], animatedFromView: UIView) {
         self.init(nibName: nil, bundle: nil)
         self.photos = photos
@@ -97,7 +106,7 @@ open class AppImageViewer: UIViewController {
         animator.senderViewForAnimation = animatedFromView
     }
     
-    /// for collection view
+    // for collection view
     public convenience init(photos: [ViewerImageProtocol], initialPageIndex: Int) {
         self.init(nibName: nil, bundle: nil)
         self.photos = photos

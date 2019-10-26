@@ -36,7 +36,7 @@ class MonCompteVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.getBackToHome(_:)))]
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
 
         guard let user = currentUser else { return }
         user.fetchInBackground(block: { (user, error) in
@@ -50,10 +50,15 @@ class MonCompteVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let current = PFUser.current() else {return}
+        guard let current = PFUser.current() else {
+            navigationItem.rightBarButtonItems = []
+            return
+        }
 
-        self.currentUser = current
-        self.updateProfilPic(forUser: current)
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+
+        currentUser = current
+        updateProfilPic(forUser: current)
 
         // Recup si l'utilisateur est un pro (commercant)
         if let proUser = current["isPro"] as? Bool {
@@ -95,8 +100,8 @@ class MonCompteVC: UIViewController {
         imageProfil.clipsToBounds = true
         let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         let updateUI = userProfilePicURL != ""
-        imageProfil.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
-        imageProfil.layer.cornerRadius = updateUI ? self.imageProfil.frame.size.width / 2 : 0
+        imageProfil.sd_setImage(with: URL(string: userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
+        imageProfil.layer.cornerRadius = updateUI ? imageProfil.frame.size.width / 2 : 0
         imageProfil.layer.borderWidth = updateUI ? 3 : 0
         imageProfil.layer.masksToBounds = updateUI ? true : false
     }
@@ -125,9 +130,9 @@ class MonCompteVC: UIViewController {
 
     }
 
-    @IBAction func getBackToHome(_ sender: Any) { self.dismiss(animated: true) }
+    @IBAction func getBackToHome(_ sender: Any) { dismiss(animated: true) }
 
-    @IBAction func logOut(_ sender: Any) {
+    @IBAction func logOut() {
         PFUser.logOutInBackground()
         getBackToHome(self)
     }
@@ -142,18 +147,16 @@ class MonCompteVC: UIViewController {
 extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if tableView == self.changeProfilInfoTVC {
+        if tableView == changeProfilInfoTVC {
             return "Mon profil".localized()
         } else {
-            if isPro {
-                return "Mes commerces".localized()
-            }
+            if isPro { return "Mes commerces".localized() }
             return "Mes Partages".localized()
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.changeProfilInfoTVC { return 1 } else {
+        if tableView == changeProfilInfoTVC { return 1 } else {
             guard let comm = commerces else { return 0 }
 
             if comm.isEmpty {
@@ -181,7 +184,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
             return cell!
         } else {
-            let commerce = Commerce(parseObject: self.commerces[indexPath.row])
+            let commerce = Commerce(parseObject: commerces[indexPath.row])
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
             cell.partageIcon.tintColor = UIColor.red
             cell.descriptionLabel.isHidden = isPro ? false : true
@@ -230,20 +233,20 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView ==  self.commercesTableView {
+        if tableView ==  commercesTableView {
             // Afficher le détail d'un commerce
             let story = UIStoryboard(name: "Main", bundle: nil)
             if isPro {
                 let ajoutCommerceVC = story.instantiateViewController(withIdentifier: "ajoutCommerce") as! AjoutCommerceVC
                 ajoutCommerceVC.editingMode = true
-                ajoutCommerceVC.objectIdCommerce = self.commerces[indexPath.row].objectId!
-                self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
+                ajoutCommerceVC.objectIdCommerce = commerces[indexPath.row].objectId!
+                navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
                 let detailViewController = story.instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
-                detailViewController.commerceObject = Commerce(parseObject: self.commerces[indexPath.row])
-                detailViewController.commerceID = self.commerces[indexPath.row].objectId!
-                detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
-                self.navigationController?.pushViewController(detailViewController, animated: true)
+                detailViewController.commerceObject = Commerce(parseObject: commerces[indexPath.row])
+                detailViewController.commerceID = commerces[indexPath.row].objectId!
+                detailViewController.routeCommerceId = commerces[indexPath.row].objectId!
+                navigationController?.pushViewController(detailViewController, animated: true)
             }
         }
     }
@@ -306,7 +309,7 @@ extension MonCompteVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailProfil" {
             guard let profilChangeViewController = segue.destination as? ChangeInfosVC else { return }
-            profilChangeViewController.isPro = self.isPro
+            profilChangeViewController.isPro = isPro
         }
     }
 }
@@ -317,12 +320,12 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
         let logInController = ParseLoginSignupHelper.parseLoginViewController()
         logInController.delegate = self
         logInController.signUpController!.delegate = self
-        self.presentFullScreen(viewController: logInController, completion: nil)
+        presentFullScreen(viewController: logInController, completion: nil)
     }
 
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
         if PFFacebookUtils.isLinked(with: user) {
-            self.getFacebookInformations(user: user)
+            getFacebookInformations(user: user)
         }
         logInController.dismiss(animated: true)
     }

@@ -95,8 +95,6 @@ def projectPods
     
     # geocoding and reverse geocoding (Google or apple)
     pod 'LMGeocoderSwift', '~> 1.0.1'
-    # debuging Tools
-    #pod 'DBDebugToolkit', '~>0.5.0' , :configurations => ['Debug']
     
     pod 'ZAlertView', :git => 'https://github.com/weeclik/ZAlertView.git'
     # Translation of app
@@ -109,8 +107,6 @@ def projectPods
     pod 'PhoneNumberKit', '~> 3.0'
     # Validator of data entries helper
     pod 'Validator', '~> 3.2.1'
-    # Bug reporting
-    pod 'Instabug'
     
     ################################
     ################################
@@ -214,8 +210,14 @@ end
 target 'WeeClik-DEV' do
     use_frameworks!
     projectPods
+    
+    # Bug reporting
+    pod 'Instabug'
 end
 
-target 'WeeClikUnitTests' do
+target 'WeeclikUnitTests' do
   inherit! :complete
+  
+  use_frameworks!
+  projectPods
 end
