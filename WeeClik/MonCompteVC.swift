@@ -50,7 +50,12 @@ class MonCompteVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let current = PFUser.current() else {return}
+        guard let current = PFUser.current() else {
+            navigationItem.rightBarButtonItems = []
+            return
+        }
+
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
 
         currentUser = current
         updateProfilPic(forUser: current)
@@ -127,7 +132,7 @@ class MonCompteVC: UIViewController {
 
     @IBAction func getBackToHome(_ sender: Any) { dismiss(animated: true) }
 
-    @IBAction func logOut(_ sender: Any) {
+    @IBAction func logOut() {
         PFUser.logOutInBackground()
         getBackToHome(self)
     }
