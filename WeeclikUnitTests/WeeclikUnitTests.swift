@@ -2,7 +2,7 @@
 //  WeeclikUnitTests.swift
 //  WeeclikUnitTests
 //
-//  Created by Herrick Wolber on 25/10/2019.
+//  Created by Herrick Wolber on 26/10/2019.
 //  Copyright © 2019 Herrick Wolber. All rights reserved.
 //
 
@@ -21,6 +21,7 @@ class WeeclikUnitTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssertEqual(true, "".isEmpty)
     }
 
     func testPerformanceExample() {
