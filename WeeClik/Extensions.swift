@@ -36,7 +36,7 @@ extension String {
             options: [],
             range: NSRange(location: 0, length: utf16.count)) != nil
     }
-
+    // FIXME: Don't accept url without http(s)
     func isValidURL() -> Bool {
         guard let url = URL(string: self) else { return false }
         if !UIApplication.shared.canOpenURL(url) { return false }
