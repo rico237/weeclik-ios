@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,6 +26,15 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="hr6-kC-joe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.2.2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahy-m7-f4M" userLabel="APP_VERSION">
+                                <rect key="frame" x="24" y="740" width="327" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4dm-43-AYe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                                <color key="textColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weeclik" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jg8-es-GhD">
                                 <rect key="frame" x="24" y="587" width="327" height="21"/>
                                 <constraints>
@@ -55,11 +61,14 @@
                             <constraint firstItem="hr6-kC-joe" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Ea0-Fr-Hrh"/>
                             <constraint firstItem="i5P-aU-ecd" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="G5U-KZ-GFm"/>
                             <constraint firstItem="i5P-aU-ecd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TGb-LH-dsN"/>
+                            <constraint firstItem="Ahy-m7-f4M" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="8" id="aSq-AG-zZL"/>
                             <constraint firstItem="jg8-es-GhD" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="8" id="brL-WL-Vg0"/>
                             <constraint firstItem="i5P-aU-ecd" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="hRc-3v-qqi"/>
                             <constraint firstAttribute="bottom" secondItem="hr6-kC-joe" secondAttribute="bottom" id="lSM-gY-i8A"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Ahy-m7-f4M" secondAttribute="bottom" constant="8" id="pKC-sD-Hvl"/>
                             <constraint firstItem="jg8-es-GhD" firstAttribute="top" secondItem="i5P-aU-ecd" secondAttribute="bottom" constant="16" id="qPF-c9-Wud"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jg8-es-GhD" secondAttribute="trailing" constant="8" id="t2P-Oa-3rL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ahy-m7-f4M" secondAttribute="trailing" constant="8" id="uXI-1m-ZsX"/>
                             <constraint firstAttribute="trailing" secondItem="hr6-kC-joe" secondAttribute="trailing" id="zPy-lb-UwT"/>
                         </constraints>
                     </view>
