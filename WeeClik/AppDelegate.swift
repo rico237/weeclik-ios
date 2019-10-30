@@ -12,7 +12,11 @@ import FBSDKCoreKit
 import Compass
 import Firebase
 import SwiftyStoreKit
+
+#if DEVELOPMENT
+// Import dev dependencies
 import Instabug
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,8 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         parseConfiguration()
         // Navigation bar & UI conf
         globalUiConfiguration()
+        
         // Firebase conf = Analytics + Performance
         firebaseConfiguration()
+        
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
         // Facebook conf

@@ -120,7 +120,7 @@ def projectPods
     pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
     
     # UIAlert with progress utilities
-    pod 'SVProgressHUD', '~> 2.1' #Replace with IHProgressHUD (https://github.com/Swiftify-Corp/IHProgressHUD)
+    pod 'SVProgressHUD', :git => 'https://github.com/weeclik/SVProgressHUD.git', :inhibit_warnings => false
     
     
     ################################

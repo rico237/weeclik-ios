@@ -83,9 +83,7 @@
 	<string>Nous en avons besoin de cet l'accès afin de créer un groupe.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Nous avons besoin de l'accès à vos photos/vidéos pour alimenter votre commerce</string>
-    <key>UIUserInterfaceStyle</key>
-    <string>Light</string>
-    <key>UIAppFonts</key>
+	<key>UIAppFonts</key>
 	<array>
 		<string>Pacifico</string>
 		<string>OpenSans</string>
@@ -116,6 +114,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
