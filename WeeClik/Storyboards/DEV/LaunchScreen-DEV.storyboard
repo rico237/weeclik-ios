@@ -53,23 +53,13 @@
                                         <color key="textColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: $(MARKETING_VERSION) Build: $(CURRENT_PROJECT_VERSION)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsz-nu-if2" userLabel="APP_VERSION">
-                                        <rect key="frame" x="0.0" y="0.0" width="367" height="30"/>
-                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
-                                        <color key="textColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="xsz-nu-if2" firstAttribute="leading" secondItem="u4U-lW-EM9" secondAttribute="leading" id="41d-GZ-Dqb"/>
                                     <constraint firstAttribute="height" constant="30" id="957-LW-ClU"/>
                                     <constraint firstAttribute="trailing" secondItem="BOT-ys-l1e" secondAttribute="trailing" id="BdK-pF-6a6"/>
                                     <constraint firstAttribute="bottom" secondItem="BOT-ys-l1e" secondAttribute="bottom" id="Ncz-ev-kyf"/>
-                                    <constraint firstAttribute="bottom" secondItem="xsz-nu-if2" secondAttribute="bottom" id="QWk-ui-WQP"/>
                                     <constraint firstItem="BOT-ys-l1e" firstAttribute="leading" secondItem="u4U-lW-EM9" secondAttribute="leading" id="RYA-sD-T1Y"/>
-                                    <constraint firstItem="xsz-nu-if2" firstAttribute="top" secondItem="u4U-lW-EM9" secondAttribute="top" id="d0E-xC-daQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="xsz-nu-if2" secondAttribute="trailing" constant="8" id="tuy-Um-g4C"/>
                                     <constraint firstItem="BOT-ys-l1e" firstAttribute="top" secondItem="u4U-lW-EM9" secondAttribute="top" id="y6r-7k-9a2"/>
                                 </constraints>
                             </view>

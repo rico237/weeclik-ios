@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         globalUiConfiguration()
         
         // Firebase conf = Analytics + Performance
-//        firebaseConfiguration()
+        firebaseConfiguration()
         
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
