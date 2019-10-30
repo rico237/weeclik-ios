@@ -192,6 +192,9 @@
 		1F9357422360CC900006A234 /* LaunchScreen-DEV.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F93573D2360CA460006A234 /* LaunchScreen-DEV.storyboard */; };
 		1F9357442360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
 		1F9357462360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
+		1F936F872364D6CC00AD69F3 /* DetailCommerceActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F936F862364D6CC00AD69F3 /* DetailCommerceActions.swift */; };
+		1F936F892364D96100AD69F3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56C20729A5100EC9DF3 /* Extensions.swift */; };
+		1F936F8A2364DFFE00AD69F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE0161209F20C20040F988 /* GoogleService-Info.plist */; };
 		1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
 		1F9EE55521D142420086EF72 /* Experiences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9EE55421D142420086EF72 /* Experiences.storyboard */; };
 		1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
@@ -244,6 +247,8 @@
 		1FF5C6282236EE1800D936B4 /* CreationGroupes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */; };
 		1FF7A04E22C929D90038C8E3 /* Partage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF7A04D22C929D90038C8E3 /* Partage.storyboard */; };
 		788E3A22531FFFF44C80E285 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		8C1514E088CAD2ED7F740F3B /* Pods_WeeClik.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF3D3FF83DB6D6D2CC300F57 /* Pods_WeeClik.framework */; };
+		9F745E4880C58F005B67D177 /* Pods_WeeclikUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8A801C2EEDFDB5FA514B0B /* Pods_WeeclikUnitTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,6 +293,7 @@
 
 /* Begin PBXFileReference section */
 		0454BA2B7483F882580B65C6 /* libPods-WeeclikUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeeclikUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A8A801C2EEDFDB5FA514B0B /* Pods_WeeclikUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeclikUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03AC072360C18B0027D6EF /* Weeclik DEV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weeclik DEV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03AC082360C18D0027D6EF /* Info-DEV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-DEV.plist"; path = "/Users/rico/lab/github_repos/weeclik-ios/Info-DEV.plist"; sourceTree = "<absolute>"; };
 		1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixTarifsVC.swift; sourceTree = "<group>"; };
@@ -358,6 +364,7 @@
 		1F93573D2360CA460006A234 /* LaunchScreen-DEV.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen-DEV.storyboard"; sourceTree = "<group>"; };
 		1F9357412360CC500006A234 /* LaunchScreen-STAGING.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen-STAGING.storyboard"; sourceTree = "<group>"; };
 		1F9357432360DDE80006A234 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1F936F862364D6CC00AD69F3 /* DetailCommerceActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCommerceActions.swift; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		1F9EE55421D142420086EF72 /* Experiences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Experiences.storyboard; sourceTree = "<group>"; };
 		1F9EE55621D146B00086EF72 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -426,6 +433,7 @@
 		79BAA06A320D66747373BC0F /* Pods-WeeClik-DEV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik-DEV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik-DEV/Pods-WeeClik-DEV.debug.xcconfig"; sourceTree = "<group>"; };
 		8ABAA9F5DD1BA9972BC5186C /* Pods-WeeClikUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClikUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClikUnitTests/Pods-WeeClikUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		95B239E4212689A181802AD7 /* Pods-WeeclikUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeclikUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeclikUnitTests/Pods-WeeclikUnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		AF3D3FF83DB6D6D2CC300F57 /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF07267715EDBD0BF042E5B3 /* Pods-WeeclikUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeclikUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeclikUnitTests/Pods-WeeclikUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCDE59C012E435CB253E4A34 /* Pods-WeeClikUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClikUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClikUnitTests/Pods-WeeClikUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F2D9C34B08F4F9620E1BBB4C /* Pods-WeeClik-DEV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeeClik-DEV.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeeClik-DEV/Pods-WeeClik-DEV.release.xcconfig"; sourceTree = "<group>"; };
@@ -453,6 +461,7 @@
 				1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */,
 				788E3A22531FFFF44C80E285 /* (null) in Frameworks */,
 				1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */,
+				8C1514E088CAD2ED7F740F3B /* Pods_WeeClik.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +469,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F745E4880C58F005B67D177 /* Pods_WeeclikUnitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +759,7 @@
 			isa = PBXGroup;
 			children = (
 				1FB81C612364864A00A41A98 /* WeeclikUnitTests.swift */,
+				1F936F862364D6CC00AD69F3 /* DetailCommerceActions.swift */,
 				1FB81C632364864A00A41A98 /* Info.plist */,
 			);
 			path = WeeclikUnitTests;
@@ -852,6 +863,8 @@
 				2D1FADE1014A3AF048545868 /* libPods-WeeClikUnitTests.a */,
 				31D6436DCAF73D5532292C77 /* Pods_WeeClik_DEV.framework */,
 				0454BA2B7483F882580B65C6 /* libPods-WeeclikUnitTests.a */,
+				AF3D3FF83DB6D6D2CC300F57 /* Pods_WeeClik.framework */,
+				0A8A801C2EEDFDB5FA514B0B /* Pods_WeeclikUnitTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -924,9 +937,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FB81C662364864A00A41A98 /* Build configuration list for PBXNativeTarget "WeeclikUnitTests" */;
 			buildPhases = (
+				6BBBC5E05CB961B7CC129ACB /* [CP] Check Pods Manifest.lock */,
 				1FB81C5B2364864A00A41A98 /* Sources */,
 				1FB81C5C2364864A00A41A98 /* Frameworks */,
 				1FB81C5D2364864A00A41A98 /* Resources */,
+				6CE5BBC1D8FC3F51CF6404BC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1108,6 +1123,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F936F8A2364DFFE00AD69F3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1163,8 +1179,6 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
-				"${PODS_ROOT}/Instabug/Instabug.framework",
-				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
@@ -1195,6 +1209,8 @@
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1214,8 +1230,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
@@ -1246,6 +1260,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1354,13 +1370,35 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint --config ${SRCROOT}/.swiftlint.yml\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */ = {
+		6BBBC5E05CB961B7CC129ACB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WeeclikUnitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6CE5BBC1D8FC3F51CF6404BC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-WeeclikUnitTests/Pods-WeeclikUnitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -1377,8 +1415,6 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
-				"${PODS_ROOT}/Instabug/Instabug.framework",
-				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
@@ -1428,8 +1464,114 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LMGeocoderSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Loaf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSFWDetector.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPLarkController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPPermission.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SecureDefaults.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMultiSelect.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLPhotoPicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Validator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WXImageCompress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeeclikUnitTests/Pods-WeeclikUnitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ABB2F46D4928E3EAC1AA08A9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
+				"${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework",
+				"${BUILT_PRODUCTS_DIR}/Compass/Compass.framework",
+				"${BUILT_PRODUCTS_DIR}/DTTextField/DTTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
+				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
+				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
+				"${BUILT_PRODUCTS_DIR}/LMGeocoderSwift/LMGeocoderSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Loaf/Loaf.framework",
+				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
+				"${BUILT_PRODUCTS_DIR}/NSFWDetector/NSFWDetector.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SPLarkController/SPLarkController.framework",
+				"${BUILT_PRODUCTS_DIR}/SPPermission/SPPermission.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SecureDefaults/SecureDefaults.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework",
+				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
+				"${BUILT_PRODUCTS_DIR}/Validator/Validator.framework",
+				"${BUILT_PRODUCTS_DIR}/WXImageCompress/WXImageCompress.framework",
+				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CRNotifications.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Compass.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DTTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
@@ -1658,6 +1800,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FB81C622364864A00A41A98 /* WeeclikUnitTests.swift in Sources */,
+				1F936F872364D6CC00AD69F3 /* DetailCommerceActions.swift in Sources */,
+				1F936F892364D96100AD69F3 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1695,13 +1839,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-DEV";
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.2.2;
+				MARKETING_VERSION = 3.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
@@ -1721,12 +1865,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-DEV";
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.2.2;
+				MARKETING_VERSION = 3.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
@@ -1865,13 +2009,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.2.2;
+				MARKETING_VERSION = 3.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -1888,12 +2032,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.2.2;
+				MARKETING_VERSION = 3.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -1905,11 +2049,13 @@
 		};
 		1FB81C672364864A00A41A98 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF07267715EDBD0BF042E5B3 /* Pods-WeeclikUnitTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 483576MP8J;
@@ -1929,11 +2075,13 @@
 		};
 		1FB81C682364864A00A41A98 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95B239E4212689A181802AD7 /* Pods-WeeclikUnitTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

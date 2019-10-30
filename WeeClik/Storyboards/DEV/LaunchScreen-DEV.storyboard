@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,13 +26,6 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="hr6-kC-joe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v3.2.3 b1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qVf-fr-lNi">
-                                <rect key="frame" x="16" y="82" width="343" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weeclik" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jg8-es-GhD">
                                 <rect key="frame" x="24" y="587" width="327" height="21"/>
                                 <constraints>
@@ -78,8 +70,6 @@
                             <constraint firstItem="hr6-kC-joe" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3kY-wF-9Ky"/>
                             <constraint firstItem="hr6-kC-joe" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Ea0-Fr-Hrh"/>
                             <constraint firstItem="i5P-aU-ecd" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="G5U-KZ-GFm"/>
-                            <constraint firstItem="qVf-fr-lNi" firstAttribute="top" secondItem="u4U-lW-EM9" secondAttribute="bottom" constant="8" id="PxC-7L-MZM"/>
-                            <constraint firstItem="jg8-es-GhD" firstAttribute="leading" secondItem="qVf-fr-lNi" secondAttribute="leading" priority="250" id="SUK-zU-YWV"/>
                             <constraint firstItem="i5P-aU-ecd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TGb-LH-dsN"/>
                             <constraint firstAttribute="trailing" secondItem="u4U-lW-EM9" secondAttribute="trailing" id="Uu1-1W-1IE"/>
                             <constraint firstItem="u4U-lW-EM9" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="bly-my-a20"/>
@@ -89,7 +79,6 @@
                             <constraint firstItem="u4U-lW-EM9" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="nxg-pT-KpU"/>
                             <constraint firstItem="jg8-es-GhD" firstAttribute="top" secondItem="i5P-aU-ecd" secondAttribute="bottom" constant="16" id="qPF-c9-Wud"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jg8-es-GhD" secondAttribute="trailing" constant="8" id="t2P-Oa-3rL"/>
-                            <constraint firstItem="jg8-es-GhD" firstAttribute="trailing" secondItem="qVf-fr-lNi" secondAttribute="trailing" priority="250" id="wls-V5-eAV"/>
                             <constraint firstAttribute="trailing" secondItem="hr6-kC-joe" secondAttribute="trailing" id="zPy-lb-UwT"/>
                         </constraints>
                     </view>

@@ -194,8 +194,9 @@ class DetailCommerceViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let destination = segue.destination as? DetailGalleryVC else { return }
-        destination.commerce = commerceObject
+        if let destination = segue.destination as? DetailGalleryVC {
+            destination.commerce = commerceObject
+        }
     }
 }
 
