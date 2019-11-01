@@ -33,11 +33,6 @@ def projectPods
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 5.0.0-beta.6'
-    
-    # Animation RBnB Lottie
-    pod 'lottie-ios', '~> 3.1'
-    # Selection des photos et videos pour la création de commerce
-    pod 'Gallery'
     # Demande de permissions
     pod 'SPPermission/Location'
     pod 'SPPermission/Contacts'
@@ -53,12 +48,15 @@ def projectPods
     pod 'TLPhotoPicker', '~> 1.8.8'
     # Acid buttons
     pod 'LGButton', '~> 1.0'
-    # Palette de couleures
-    pod 'Hue', '~> 5.0'
-    # Boutton flottant
-    pod 'Floaty', '~> 4.2.0'
+    
+    
+    
     # Message sous la barre de navigation
     pod 'Zingle', :git => 'https://github.com/hemangshah/Zingle.git'
+    
+    
+    
+    
     # Tableview quand il n'ya pas de donnés
     pod 'DZNEmptyDataSet'
     # Selection Multiple de contacts
@@ -85,13 +83,13 @@ def projectPods
     pod 'SPLarkController', '~> 1.0.9'
     
     # UserDefaults with AES-256 encryption
-    pod 'SecureDefaults', '~> 1.0' # Swift 5.0
+    #pod 'SecureDefaults', '~> 1.0' # Swift 5.0
     
-    # COmpression d'images
+    # Compression d'images
     pod 'WXImageCompress', '~> 0.1.2'
     
     # verification d'images a caractere porno
-    pod 'NSFWDetector' # https://github.com/lovoo/NSFWDetector
+    #pod 'NSFWDetector' # https://github.com/lovoo/NSFWDetector
     
     # geocoding and reverse geocoding (Google or apple)
     pod 'LMGeocoderSwift', '~> 1.0.1'
@@ -107,6 +105,8 @@ def projectPods
     pod 'PhoneNumberKit', '~> 3.0'
     # Validator of data entries helper
     pod 'Validator', '~> 3.2.1'
+    # Bug reporting
+    pod 'Instabug'
     
     ################################
     ################################
@@ -210,9 +210,6 @@ end
 target 'WeeClik-DEV' do
     use_frameworks!
     projectPods
-    
-    # Bug reporting
-    pod 'Instabug'
 end
 
 target 'WeeclikUnitTests' do
