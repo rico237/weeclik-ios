@@ -121,14 +121,14 @@ extension TimeInterval {
 extension UIColor {
     convenience init(hexFromString: String, alpha: CGFloat = 1.0) {
         var cString: String = hexFromString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        var rgbValue: UInt32 = 10066329 //color #999999 if string has wrong format
+        var rgbValue: UInt64 = 10066329 //color #999999 if string has wrong format
 
         if (cString.hasPrefix("#")) {
             cString.remove(at: cString.startIndex)
         }
 
         if ((cString.count) == 6) {
-            Scanner(string: cString).scanHexInt32(&rgbValue)
+            Scanner(string: cString).scanHexInt64(&rgbValue)
         }
 
         self.init(
@@ -141,7 +141,7 @@ extension UIColor {
 }
 
 extension UIDevice {
-    static var isIphoneX: Bool {
+    static var isIphoneXOLD: Bool {
         var modelIdentifier = ""
         if isSimulator {
             modelIdentifier = ProcessInfo.processInfo.environment["SIMULATOR_MODEL_IDENTIFIER"] ?? ""
@@ -152,11 +152,59 @@ extension UIDevice {
             sysctlbyname("hw.machine", &machine, &size, nil, 0)
             modelIdentifier = String(cString: machine)
         }
-        return modelIdentifier == "iPhone10,3" || modelIdentifier == "iPhone10,6"
+        print("Model identiier : \(modelIdentifier)")
+        return modelIdentifier == "iPhone10,3" || modelIdentifier == "iPhone10,6" || modelIdentifier.starts(with: "iPhone11,") || modelIdentifier.starts(with: "iPhone12,")
     }
-
+    
     static var isSimulator: Bool {
         return TARGET_OS_SIMULATOR != 0
+    }
+    
+    static var isIphoneX: Bool {
+        if #available(iOS 11.0, *), isIphone {
+            if isLandscape {
+                if let leftPadding = UIApplication.shared.windows.first?.safeAreaInsets.left, leftPadding > 0 {
+                    return true
+                }
+                if let rightPadding = UIApplication.shared.windows.first?.safeAreaInsets.right, rightPadding > 0 {
+                    return true
+                }
+            } else {
+                if let topPadding = UIApplication.shared.windows.first?.safeAreaInsets.top, topPadding > 0 {
+                    return true
+                }
+                if let bottomPadding = UIApplication.shared.windows.first?.safeAreaInsets.bottom, bottomPadding > 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    static var isIphone: Bool {
+        return self.current.userInterfaceIdiom == .phone
+    }
+    
+    static var isLandscape: Bool {
+        return self.current.orientation.isLandscape
+                || UIApplication.shared.windows.first?.windowScene?.interfaceOrientation.isLandscape ?? false
+    }
+
+    static var isPortrait: Bool {
+        return self.current.orientation.isPortrait
+                || UIApplication.shared.windows.first?.windowScene?.interfaceOrientation.isPortrait ?? false
+    }
+}
+
+extension UIApplication {
+    static var isDeviceWithSafeArea: Bool {
+        if #available(iOS 11.0, *) {
+            if let topPadding = shared.windows.first?.safeAreaInsets.bottom,
+                topPadding > 0 {
+                return true
+            }
+        }
+        return false
     }
 }
 

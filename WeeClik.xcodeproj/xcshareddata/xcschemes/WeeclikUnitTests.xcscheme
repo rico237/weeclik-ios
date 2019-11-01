@@ -16,7 +16,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FB81C50236485B500A41A98"
+               BlueprintIdentifier = "1FB81C5E2364864A00A41A98"
                BuildableName = "WeeclikUnitTests.xctest"
                BlueprintName = "WeeclikUnitTests"
                ReferencedContainer = "container:WeeClik.xcodeproj">
@@ -34,6 +34,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1F03AB892360C18B0027D6EF"
+            BuildableName = "Weeclik DEV.app"
+            BlueprintName = "WeeClik-DEV"
+            ReferencedContainer = "container:WeeClik.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

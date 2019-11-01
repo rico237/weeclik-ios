@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -281,7 +280,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Mon Profil" id="06j-Ty-amf"/>
                     <connections>
-                        <outlet property="buttonHeight" destination="0PH-x0-pWR" id="Qgo-tP-SCD"/>
+                        <outlet property="bottomButtonConstraint" destination="laH-jN-NrZ" id="jxh-z7-oEf"/>
                         <outlet property="changeProfilInfoTVC" destination="qaV-zl-Gda" id="Kaj-cY-m4J"/>
                         <outlet property="commercesTableView" destination="nkS-Wn-PlU" id="UnC-Zs-va3"/>
                         <outlet property="gridView" destination="tqY-IY-Ifl" id="Qwg-vJ-Atr"/>
@@ -651,10 +650,10 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
             </objects>
             <point key="canvasLocation" x="6580" y="581"/>
         </scene>
-        <!--MON PROFIL-->
+        <!--Mes informations-->
         <scene sceneID="NbB-lR-Jhj">
             <objects>
-                <viewController title="MON PROFIL" modalPresentationStyle="fullScreen" id="gWF-Kz-s9f" customClass="ChangeInfosVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Mes informations" modalPresentationStyle="fullScreen" id="gWF-Kz-s9f" customClass="ChangeInfosVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yOt-FF-VPS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -801,10 +800,10 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
             </objects>
             <point key="canvasLocation" x="7414" y="-525"/>
         </scene>
-        <!--MON PROFIL-->
+        <!--Mot de passe-->
         <scene sceneID="46O-Lm-si7">
             <objects>
-                <viewController title="MON PROFIL" modalPresentationStyle="fullScreen" id="Z70-B6-HlE" customClass="MotDePasseVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Mot de passe" modalPresentationStyle="fullScreen" id="Z70-B6-HlE" customClass="MotDePasseVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VZr-Z0-D9J">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -947,10 +946,10 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
             </objects>
             <point key="canvasLocation" x="6581" y="-1306"/>
         </scene>
-        <!--MON PROFIL-->
+        <!--Création-->
         <scene sceneID="8o8-gA-zR7">
             <objects>
-                <viewController storyboardIdentifier="SaisieDeDonneesVC" title="MON PROFIL" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9ui-k8-8zm" customClass="SaisieDeDonneesVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaisieDeDonneesVC" title="Création" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9ui-k8-8zm" customClass="SaisieDeDonneesVC" customModule="WeeClik" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6um-lr-gP9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -61,7 +61,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1F2CDCC22363A4C400753E9B"
+               BlueprintIdentifier = "1FB81C5E2364864A00A41A98"
                BuildableName = "WeeclikUnitTests.xctest"
                BlueprintName = "WeeclikUnitTests"
                ReferencedContainer = "container:WeeClik.xcodeproj">

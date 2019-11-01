@@ -14,6 +14,11 @@ import Firebase
 import SwiftyStoreKit
 import Instabug
 
+#if DEVELOPMENT
+// Import dev dependencies
+
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -31,8 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         parseConfiguration()
         // Navigation bar & UI conf
         globalUiConfiguration()
+        
         // Firebase conf = Analytics + Performance
         firebaseConfiguration()
+        
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
         // Facebook conf
@@ -41,10 +48,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // External URL Routing to commerce detail
         setupRouting()
         
+        // Bug reporting
         #if DEVELOPMENT
-        // Bug reporting (shd be only in dev/staging targets)
         Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
+        #else
+        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.shake, .screenshot])
         #endif
+        
+        
         return true
     }
 
@@ -73,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        SettingsBundleHelper.setVersionAndBuildNumber()
         AppEvents.activateApp()
     }
 

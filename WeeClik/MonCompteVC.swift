@@ -30,10 +30,10 @@ class MonCompteVC: UIViewController {
     @IBOutlet weak var noCommercesLabel: UILabel!
 
     // Contraintes du bouton de création d'un commerce
-    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     @IBOutlet weak var rightButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftButtonConstraint: NSLayoutConstraint!
-
+    @IBOutlet var bottomButtonConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
@@ -107,27 +107,26 @@ class MonCompteVC: UIViewController {
     }
 
     func isProUpdateUI() {
-//        print("Bouton height \(isPro)")
-//        print("Is iPhone X : \(HelperAndKeys.isPhoneX)")
-
-        if leftButtonConstraint != nil {
-            leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 16 : 0
+        if leftButtonConstraint != nil && rightButtonConstraint != nil {
+            leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 0 : 0
+            rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 0 : 0
         }
 
-        if rightButtonConstraint != nil {
-            rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 16 : 0
+        if bottomButtonConstraint != nil {
+            bottomButtonConstraint.constant = isPro ? 0 : -nouveauCommerceButton.frame.size.height
         }
-
-        if buttonHeight != nil {
-            buttonHeight.constant = isPro ? 50 : 0
-        }
+        
+//        if isPro {
+//            nouveauCommerceButton.roundCorners(.allCorners, radius: 5)
+//        } else {
+//            nouveauCommerceButton.roundCorners(.allCorners, radius: 0)
+//        }
 
         if noCommercesLabel != nil {
             let noCommercesOwned  = "Vous ne possedez aucun commerce pour le moment".localized()
             let noSharedCommerces = "Vous n'avez pour le moment partagé aucun commerce".localized()
             noCommercesLabel.text = isPro ? noCommercesOwned : noSharedCommerces
         }
-
     }
 
     @IBAction func getBackToHome(_ sender: Any) { dismiss(animated: true) }

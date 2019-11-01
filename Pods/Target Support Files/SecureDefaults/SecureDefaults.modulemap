@@ -1,6 +1,0 @@
-framework module SecureDefaults {
-  umbrella header "SecureDefaults-umbrella.h"
-
-  export *
-  module * { export * }
-}
