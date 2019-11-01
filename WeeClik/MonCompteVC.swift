@@ -113,7 +113,9 @@ class MonCompteVC: UIViewController {
         }
 
         if bottomButtonConstraint != nil {
-            bottomButtonConstraint.constant = isPro ? 0 : -nouveauCommerceButton.frame.size.height
+            let buttonHeight  = nouveauCommerceButton.frame.size.height
+            let bottomPadding = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
+            bottomButtonConstraint.constant = isPro ? 0 : -buttonHeight - bottomPadding
         }
         
 //        if isPro {
