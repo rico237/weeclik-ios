@@ -199,8 +199,8 @@ extension UIDevice {
 extension UIApplication {
     static var isDeviceWithSafeArea: Bool {
         if #available(iOS 11.0, *) {
-            if let topPadding = shared.windows.first?.safeAreaInsets.bottom,
-                topPadding > 0 {
+            if let bottomPadding = shared.windows.first?.safeAreaInsets.bottom,
+                bottomPadding > 0 {
                 return true
             }
         }
