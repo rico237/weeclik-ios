@@ -83,8 +83,6 @@ PODS:
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - Floaty (4.2.0)
-  - Gallery (2.2.2)
   - GoogleAppMeasurement (6.1.3):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -120,7 +118,6 @@ PODS:
   - GoogleUtilities/UserDefaults (6.3.1):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.3.0)
-  - Hue (5.0.0)
   - Instabug (8.7.3)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
@@ -128,7 +125,6 @@ PODS:
   - LMGeocoderSwift (1.0.1)
   - Loaf (0.5.0)
   - Localize-Swift (3.0.0)
-  - lottie-ios (3.1.3)
   - Material (2.16.4):
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
@@ -141,7 +137,6 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - NSFWDetector (1.1.0)
   - Parse (1.17.3):
     - Parse/Core (= 1.17.3)
   - Parse/Core (1.17.3):
@@ -163,7 +158,6 @@ PODS:
   - SDWebImage (4.4.7):
     - SDWebImage/Core (= 4.4.7)
   - SDWebImage/Core (4.4.7)
-  - SecureDefaults (1.0.5)
   - SPLarkController (1.0.9)
   - SPPermission/Contacts (4.0.6):
     - SPPermission/Core
@@ -197,9 +191,6 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - Firebase/Core
   - Firebase/Performance
-  - Floaty (~> 4.2.0)
-  - Gallery
-  - Hue (~> 5.0)
   - Instabug
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
@@ -207,16 +198,13 @@ DEPENDENCIES:
   - LMGeocoderSwift (~> 1.0.1)
   - Loaf
   - Localize-Swift (~> 3.0)
-  - lottie-ios (~> 3.1)
   - Material (~> 2.16)
-  - NSFWDetector
   - Parse
   - Parse/FacebookUtils
   - Parse/UI
   - PhoneNumberKit (~> 3.0)
   - ReachabilitySwift
   - SDWebImage (~> 4.4.7)
-  - SecureDefaults (~> 1.0)
   - SPLarkController (~> 1.0.9)
   - SPPermission/Contacts
   - SPPermission/Location
@@ -254,32 +242,26 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebasePerformance
     - FirebaseRemoteConfig
-    - Floaty
-    - Gallery
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
-    - Hue
     - Instabug
     - KRLCollectionViewGridLayout
     - LGButton
     - LMGeocoderSwift
     - Loaf
     - Localize-Swift
-    - lottie-ios
     - Material
     - Motion
     - nanopb
-    - NSFWDetector
     - Parse
     - PhoneNumberKit
     - Protobuf
     - ReachabilitySwift
     - SDWebImage
-    - SecureDefaults
     - SPLarkController
     - SPPermission
     - SwiftDate
@@ -356,15 +338,12 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: d0eafcd8bdbd3447cd694594734078c3e3e77d8b
   FirebasePerformance: f34a8250a9ff3c969e18bf89990486962354d9a2
   FirebaseRemoteConfig: 51df936d5dfba17f267b2344070c89e8daa3fcfb
-  Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
-  Gallery: 634ea7d58b93fcb8e787a846febac73ec354e7d9
   GoogleAppMeasurement: 434cc7be25e71dc04b8d0e3079125127b330e84a
   GoogleDataTransport: 166f9b9f82cbf60a204e8fe2daa9db3e3ec1fb15
   GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
-  Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
   Instabug: b07a37789443c1fd49e0232ed6ddd0a6899e97ff
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
@@ -372,17 +351,14 @@ SPEC CHECKSUMS:
   LMGeocoderSwift: eeeaee3ca88975a88df1092d94f656216f6767ee
   Loaf: 0800b444431366bc395d54267975d4ad4ad5c99c
   Localize-Swift: 1363ec008c6972dced79a80ac72c71d14e98db44
-  lottie-ios: 496ac5cea1bbf1a7bd1f1f472f3232eb1b8d744b
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  NSFWDetector: aefec2254932bdc933cccc9385abfe07ae36a7a1
   Parse: c1ad2a04d2cab2b54b6fb7da05f741abf2cf57d1
   PhoneNumberKit: 86019c972ef6904bcad11b46a6b8a91184d51117
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
-  SecureDefaults: 1d84f828e6c525b9197e2a164f8c465b4af86cd9
   SPLarkController: af253e70e5e07f6d55a7960f8da37f363c276455
   SPPermission: 1807bce0f1d8cf4bb0185a46d3acfaf5a6cff2d8
   SVProgressHUD: 6ed134667e9ebb2f33679e8273cd48fd3fa349e5
@@ -397,6 +373,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 90bcd67d12f3dc82e21afbec007ea5917f4b8b75
+PODFILE CHECKSUM: a20c606c089b2eb67539f93e74b6fd19c48e9822
 
 COCOAPODS: 1.8.4
