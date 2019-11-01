@@ -107,17 +107,20 @@ class MonCompteVC: UIViewController {
     }
 
     func isProUpdateUI() {
-        if leftButtonConstraint != nil {
-            leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 16 : 0
-        }
-
-        if rightButtonConstraint != nil {
-            rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 16 : 0
+        if leftButtonConstraint != nil && rightButtonConstraint != nil {
+            leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 0 : 0
+            rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 0 : 0
         }
 
         if bottomButtonConstraint != nil {
             bottomButtonConstraint.constant = isPro ? 0 : -nouveauCommerceButton.frame.size.height
         }
+        
+//        if isPro {
+//            nouveauCommerceButton.roundCorners(.allCorners, radius: 5)
+//        } else {
+//            nouveauCommerceButton.roundCorners(.allCorners, radius: 0)
+//        }
 
         if noCommercesLabel != nil {
             let noCommercesOwned  = "Vous ne possedez aucun commerce pour le moment".localized()
