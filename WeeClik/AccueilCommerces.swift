@@ -32,18 +32,18 @@ class AccueilCommerces: UIViewController {
     private let refreshControl = UIRefreshControl()
 
     let network: NetworkManager = NetworkManager.sharedInstance
-    var toutesCat: Array<String>!    = HelperAndKeys.getListOfCategories()
+    var toutesCat: [String]!    = HelperAndKeys.getListOfCategories()
     var commerces: [Commerce]   = []
-    var currentPage: Int! = 0                      // The last page that was loaded
-    var lastLoadCount: Int! = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
-    let itemsPerPages: Int! = 25                     // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
+    var currentPage: Int!       = 0                      // The last page that was loaded
+    var lastLoadCount: Int!     = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
+    let itemsPerPages: Int!     = 25                     // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
     let locationManager         = CLLocationManager()
     var latestLocationForQuery: CLLocation!
     let defaults                = UserDefaults.standard
     var prefFiltreLocation      = false                 // Savoir si les commerces sont filtrés par location ou partages
-    var locationGranted: Bool! = false                 // On a obtenu la position de l'utilisateur
-    var isLoadingCommerces: Bool = false               // si la fonction de chargement des commerces est en cours
-    var titleChoose: String!   = "Restauration".localized()        // First category to be loaded
+    var locationGranted         = false                 // On a obtenu la position de l'utilisateur
+    var isLoadingCommerces      = false               // si la fonction de chargement des commerces est en cours
+    var titleChoose: String     = "Restauration".localized()        // First category to be loaded
 
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
@@ -120,7 +120,7 @@ class AccueilCommerces: UIViewController {
         }
 
         // Demande de filtre par position sans authorisation de prendre la geoposition
-        if self.prefFiltreLocation && CLLocationManager.authorizationStatus() == .notDetermined {
+        if self.prefFiltreLocation {
             self.checkLocationServicePermission()
         } else {
             // Load first object based on number of sharing
@@ -147,9 +147,7 @@ class AccueilCommerces: UIViewController {
         HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
     }
 
-    func discretReload() {
-        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
-    }
+    func discretReload() {queryObjectsFromDB(typeCategorie: titleChoose, withHUD: false)}
 
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
@@ -187,7 +185,7 @@ extension AccueilCommerces {
         }
         // FIXME: Can't reload data for now, query.findObjectsInBackground completion never gets fired second time
         // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
-        if self.prefFiltreLocation && ( SPPermission.isAllowed(.locationWhenInUse) || SPPermission.isAllowed(.locationAlwaysAndWhenInUse) ) {
+        if self.prefFiltreLocation {
             self.locationManager.startUpdatingLocation()
         } else {
             ParseService.shared.sharingPrefsCommerces(withType: typeCategorie) { (commerces, error) in
@@ -199,7 +197,11 @@ extension AccueilCommerces {
     }
 
     func globalObjects(commerces: [Commerce]?, error: Error?, hudView: Bool) {
-        if let commerces = commerces {self.commerces = commerces} else if let error = error {ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)}
+        if let commerces = commerces {
+            self.commerces = commerces
+        } else if let error = error {
+            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+        }
         DispatchQueue.global(qos: .default).async(execute: {if hudView {SVProgressHUD.dismiss(withDelay: 1)}})
         self.collectionView.reloadData()
         self.isLoadingCommerces = false
@@ -328,8 +330,8 @@ extension AccueilCommerces: CLLocationManagerDelegate {
 
     /// CLLocationManagerDelegate didUpdateLocations Methods
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locationManager.stopUpdatingLocation()
-        self.latestLocationForQuery = locations.last
+        locationManager.stopUpdatingLocation()
+        latestLocationForQuery = locations.last
         print("Did update position : \(locations.last?.description ?? "No Location Provided")")
         ParseService.shared.locationPrefsCommerces(withType: titleChoose, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
             self.globalObjects(commerces: commerces, error: error, hudView: true)
@@ -356,48 +358,53 @@ extension AccueilCommerces: KJNavigaitonViewScrollviewDelegate {
 extension AccueilCommerces: SPPermissionDialogDelegate {
     func didAllow(permission: SPPermissionType) {
         if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
-            self.locationGranted = true
-            self.prefFiltreLocation = true
+            locationGranted = true
+            prefFiltreLocation = true
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: true)
             HelperAndKeys.setLocationGranted(locationGranted: true)
-            self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+            chooseCategorie(itemChoose: self.titleChoose, withHud: true)
         }
     }
 
     func didDenied(permission: SPPermissionType) {
         if permission == .locationAlwaysAndWhenInUse || permission == .locationAlwaysAndWhenInUse {
-            self.locationGranted = false
-            self.prefFiltreLocation = false
+            locationGranted = false
+            prefFiltreLocation = false
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: false)
             HelperAndKeys.setLocationGranted(locationGranted: false)
-            self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
-            self.dismiss(animated: true, completion: nil)
+            chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+            dismiss(animated: true, completion: nil)
         }
     }
 
     func checkLocationServicePermission() {
         if CLLocationManager.locationServicesEnabled() {
-            if CLLocationManager.authorizationStatus() == .denied {
+            switch CLLocationManager.authorizationStatus() {
+            case .denied:
                 // Location Services are denied
+                locationGranted = false
                 HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.\n\nVous pouvez autoriser la géolocalisation dans l'application \"Réglages\" de votre téléphone.".localized(), presentFrom: self)
-                self.locationGranted = false
-            } else {
-                if CLLocationManager.authorizationStatus() == .notDetermined {
-                    SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: self)
-                } else {
-                    // The user has already allowed your app to use location services. Start updating location
-                    self.locationManager.startUpdatingLocation()
-                    self.locationGranted = true
-                }
+                
+            case .authorizedAlways, .authorizedWhenInUse:
+                // The user has already allowed your app to use location services. Start updating location
+                locationGranted = true
+                locationManager.startUpdatingLocation()
+                
+            case .notDetermined:
+                SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: self)
+                
+            case .restricted:
+                // Location Services are disabled
+                locationGranted = false
+                HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.".localized(), presentFrom: self)
+                
+            default:
+                SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: self)
             }
-        } else {
-            // Location Services are disabled
-            HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.".localized(), presentFrom: self)
-            self.locationGranted = false
         }
 
-        HelperAndKeys.setLocationGranted(locationGranted: self.locationGranted)
-        self.chooseCategorie(itemChoose: self.titleChoose, withHud: false)
+        HelperAndKeys.setLocationGranted(locationGranted: locationGranted)
+        chooseCategorie(itemChoose: titleChoose, withHud: false)
     }
 }
 // Custom UI for asking permission (alert controller)

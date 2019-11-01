@@ -219,6 +219,12 @@
 		1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDE1F269CB2004D5F4C /* OpenSans-Semibold.ttf */; };
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
 		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		1FB0CE39236B9CC400041195 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FB0CE38236B9CC400041195 /* Settings.bundle */; };
+		1FB0CE3A236B9CC400041195 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FB0CE38236B9CC400041195 /* Settings.bundle */; };
+		1FB0CE3C236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0CE3B236BA0BB00041195 /* SettingsBundleHelper.swift */; };
+		1FB0CE3D236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0CE3B236BA0BB00041195 /* SettingsBundleHelper.swift */; };
+		1FB0CE3F236C6DF100041195 /* Extension+PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */; };
+		1FB0CE40236C6DF100041195 /* Extension+PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */; };
 		1FB2D89722BCCFD800C0FDC6 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */; };
 		1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */; };
 		1FB81C622364864A00A41A98 /* WeeclikUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB81C612364864A00A41A98 /* WeeclikUnitTests.swift */; };
@@ -393,6 +399,9 @@
 		1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1FB0CE38236B9CC400041195 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		1FB0CE3B236BA0BB00041195 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
+		1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+PHAsset.swift"; sourceTree = "<group>"; };
 		1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAreaViewController.swift; sourceTree = "<group>"; };
 		1FB81C5F2364864A00A41A98 /* WeeclikUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeclikUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -523,6 +532,7 @@
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
 				1FC5C59C22B8568000178929 /* FontHelper.swift */,
 				1FD6F56C20729A5100EC9DF3 /* Extensions.swift */,
+				1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */,
 				1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */,
 				1F3C5B1E22A2FBC700904317 /* MailHelper.swift */,
 				1F9357322360C2B20006A234 /* Constants.swift */,
@@ -578,6 +588,7 @@
 		1F0B8353224E9F9600F09FF5 /* Assets & Config Files */ = {
 			isa = PBXGroup;
 			children = (
+				1FB0CE38236B9CC400041195 /* Settings.bundle */,
 				1FEBF4671F254F4500146525 /* Fonts */,
 				1FA473341F1EE7E400D2A306 /* Assets.xcassets */,
 				1F8F0880223F120F008177C4 /* Lottie Assets */,
@@ -586,6 +597,7 @@
 				1F16BD22224CC66E0007F6F0 /* WeeClik.entitlements */,
 				1F08570D1F2D977600932929 /* UserLocation.gpx */,
 				1FCE0161209F20C20040F988 /* GoogleService-Info.plist */,
+				1FB0CE3B236BA0BB00041195 /* SettingsBundleHelper.swift */,
 			);
 			name = "Assets & Config Files";
 			sourceTree = "<group>";
@@ -736,13 +748,13 @@
 				1FDB7006235BF5D300EB3742 /* En_cours */,
 				1F2762912116EE0100779342 /* Routing */,
 				1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */,
-				1F0B8353224E9F9600F09FF5 /* Assets & Config Files */,
 				1FEE37421F91187C00E1D1A7 /* BulletinItems */,
 				1F5681E91F2B4FA300B1BAC8 /* Libraries */,
 				1F0857061F2D672B00932929 /* Models */,
 				1F0857071F2D675500932929 /* Cells */,
 				1FA947FD2279F4DA00F84983 /* Playgrounds */,
 				1F0857081F2D676900932929 /* Helper & Secrets */,
+				1F0B8353224E9F9600F09FF5 /* Assets & Config Files */,
 			);
 			path = WeeClik;
 			sourceTree = "<group>";
@@ -900,6 +912,7 @@
 				1F03AC012360C18B0027D6EF /* Show TODOS & ERRORS */,
 				1F03AC022360C18B0027D6EF /* Crashlytics - Fabric - Firebase */,
 				1F03AC032360C18B0027D6EF /* SwiftLint */,
+				1FB0CE37236A321A00041195 /* Instabug dsym upload */,
 			);
 			buildRules = (
 			);
@@ -923,6 +936,7 @@
 				1FAF388F21BDEE18007CF16B /* Show TODOS & ERRORS */,
 				1FD0BAF12260CF2C007E3CEE /* Crashlytics - Fabric - Firebase */,
 				1FDB7004235BCD3B00EB3742 /* SwiftLint */,
+				1FB0CE36236A2EAC00041195 /* Instabug dsym upload */,
 			);
 			buildRules = (
 			);
@@ -1056,6 +1070,7 @@
 				1F03ABE92360C18B0027D6EF /* OpenSans-BoldItalic.ttf in Resources */,
 				1F03ABEA2360C18B0027D6EF /* BebasNeue Regular.ttf in Resources */,
 				1F03ABEB2360C18B0027D6EF /* Experiences.storyboard in Resources */,
+				1FB0CE3A236B9CC400041195 /* Settings.bundle in Resources */,
 				1F03ABEC2360C18B0027D6EF /* Partage.storyboard in Resources */,
 				1F03ABED2360C18B0027D6EF /* PaymentCell.xib in Resources */,
 				1F03ABEE2360C18B0027D6EF /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1109,6 +1124,7 @@
 				1F830EB7227B3411003E8F1F /* AdminMonProfilSettingsVC.xib in Resources */,
 				1FA473351F1EE7E400D2A306 /* Assets.xcassets in Resources */,
 				1FCE0162209F20C20040F988 /* GoogleService-Info.plist in Resources */,
+				1FB0CE39236B9CC400041195 /* Settings.bundle in Resources */,
 				1FE76BCA21B9D0E000209F3C /* CategoriesCollectionViewCell.xib in Resources */,
 				1F0B9DF921D54083008120F4 /* Login.storyboard in Resources */,
 				1FEBF4641F254F3D00146525 /* BebasNeue Light.ttf in Resources */,
@@ -1173,12 +1189,11 @@
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
@@ -1187,7 +1202,6 @@
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
-				"${BUILT_PRODUCTS_DIR}/NSFWDetector/NSFWDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
@@ -1196,7 +1210,6 @@
 				"${BUILT_PRODUCTS_DIR}/SPLarkController/SPLarkController.framework",
 				"${BUILT_PRODUCTS_DIR}/SPPermission/SPPermission.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SecureDefaults/SecureDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
@@ -1207,10 +1220,7 @@
 				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${PODS_ROOT}/Instabug/Instabug.framework",
-				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1224,12 +1234,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
@@ -1238,7 +1247,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSFWDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
@@ -1247,7 +1255,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPLarkController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPPermission.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SecureDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMultiSelect.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
@@ -1258,10 +1265,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1332,6 +1336,42 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"STUB:|WARNING:|TODO:|FIXME:|DevTeam:|\\?\\?\\?:\"\nERRORTAG=\"ERROR:|XXX:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -not -path \"${SRCROOT}/Pods/*\" -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"\n";
+		};
+		1FB0CE36236A2EAC00041195 /* Instabug dsym upload */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Instabug dsym upload";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\n  SCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\n  if [ ! \"${SCRIPT_SRC}\" ]; then\n    echo \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\n    exit 1\n  fi\n  APP_TOKEN=\"29c0228d7e3479445169f972499e2a56\"\n  source \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
+		};
+		1FB0CE37236A321A00041195 /* Instabug dsym upload */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Instabug dsym upload";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\n  SCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\n  if [ ! \"${SCRIPT_SRC}\" ]; then\n    echo \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\n    exit 1\n  fi\n  APP_TOKEN=\"b65f5e6e7492b9761a3fe8f4ee77af09\"\n  source \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
 		};
 		1FD0BAF12260CF2C007E3CEE /* Crashlytics - Fabric - Firebase */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1409,12 +1449,11 @@
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
@@ -1423,7 +1462,6 @@
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
-				"${BUILT_PRODUCTS_DIR}/NSFWDetector/NSFWDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
@@ -1432,7 +1470,6 @@
 				"${BUILT_PRODUCTS_DIR}/SPLarkController/SPLarkController.framework",
 				"${BUILT_PRODUCTS_DIR}/SPPermission/SPPermission.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SecureDefaults/SecureDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
@@ -1443,7 +1480,6 @@
 				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1458,12 +1494,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
@@ -1472,7 +1507,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSFWDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
@@ -1481,7 +1515,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPLarkController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPPermission.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SecureDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMultiSelect.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
@@ -1492,7 +1525,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1517,12 +1549,11 @@
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/Gallery/Gallery.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework",
+				"${PODS_ROOT}/Instabug/Instabug.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/KJNavigationViewAnimation/KJNavigationViewAnimation.framework",
 				"${BUILT_PRODUCTS_DIR}/KRLCollectionViewGridLayout/KRLCollectionViewGridLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/LGButton/LGButton.framework",
@@ -1531,7 +1562,6 @@
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
-				"${BUILT_PRODUCTS_DIR}/NSFWDetector/NSFWDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
@@ -1540,7 +1570,6 @@
 				"${BUILT_PRODUCTS_DIR}/SPLarkController/SPLarkController.framework",
 				"${BUILT_PRODUCTS_DIR}/SPPermission/SPPermission.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SecureDefaults/SecureDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMultiSelect/SwiftMultiSelect.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
@@ -1551,7 +1580,6 @@
 				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/ZKCarousel/ZKCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/Zingle/Zingle.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1566,12 +1594,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gallery.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Instabug.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Instabug.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KJNavigationViewAnimation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRLCollectionViewGridLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGButton.framework",
@@ -1580,7 +1607,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSFWDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
@@ -1589,7 +1615,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPLarkController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SPPermission.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SecureDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMultiSelect.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
@@ -1600,7 +1625,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZKCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zingle.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1696,6 +1720,7 @@
 				1F03ABC72360C18B0027D6EF /* ShareToGroupsActivity.swift in Sources */,
 				1F03ABC82360C18B0027D6EF /* IsPhoneNumberValidationRule.swift in Sources */,
 				1F03ABC92360C18B0027D6EF /* SignUpViewController.swift in Sources */,
+				1FB0CE3D236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */,
 				1F03ABCA2360C18B0027D6EF /* SearchViewController.swift in Sources */,
 				1F03ABCB2360C18B0027D6EF /* SharingToGroupsVC.swift in Sources */,
 				1F03ABCC2360C18B0027D6EF /* FontHelper.swift in Sources */,
@@ -1708,6 +1733,7 @@
 				1F03ABD22360C18B0027D6EF /* ListeDesFavorisVC.swift in Sources */,
 				1F03ABD32360C18B0027D6EF /* PhotoCell.swift in Sources */,
 				1F03ABD42360C18B0027D6EF /* CardView.swift in Sources */,
+				1FB0CE40236C6DF100041195 /* Extension+PHAsset.swift in Sources */,
 				1F03ABD52360C18B0027D6EF /* GroupePartage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1779,6 +1805,7 @@
 				1F6912D522357DAC00E1755C /* ShareToGroupsActivity.swift in Sources */,
 				1F6AF48B2358EEA000F057C7 /* IsPhoneNumberValidationRule.swift in Sources */,
 				1F9EE55D21D1573B0086EF72 /* SignUpViewController.swift in Sources */,
+				1FB0CE3C236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */,
 				1F9EE55F21D297D50086EF72 /* SearchViewController.swift in Sources */,
 				1FF5C6262236ED2E00D936B4 /* SharingToGroupsVC.swift in Sources */,
 				1FC5C59D22B8568000178929 /* FontHelper.swift in Sources */,
@@ -1791,6 +1818,7 @@
 				1F61FA2C233418620001392C /* ListeDesFavorisVC.swift in Sources */,
 				1F5DE54E1FB10AE0000C4E57 /* PhotoCell.swift in Sources */,
 				1F5681E81F2B4F7900B1BAC8 /* CardView.swift in Sources */,
+				1FB0CE3F236C6DF100041195 /* Extension+PHAsset.swift in Sources */,
 				1F7E23DC2334F02900D6B1A4 /* GroupePartage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
