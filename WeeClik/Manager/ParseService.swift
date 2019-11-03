@@ -277,7 +277,7 @@ class ParseService: NSObject {
     // Add multiple pictures to existiong commerce (IAP), must add checks for IAP receipt
 }
 
-// MARK: - Fetch
+// MARK: Fetch
 extension ParseService {
     // retrieve mutiliple commerces (sharing preference)
     func sharingPrefsCommerces(withType typeCategorie: String, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
@@ -344,6 +344,27 @@ extension ParseService {
     }
 }
 
+// MARK: Video manipulation
+extension ParseService {
+    func deleteAllVideosForCommerce(commerce: PFObject, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+        let videoQuery = PFQuery(className: "Commerce_Videos")
+        videoQuery.whereKey("leCommerce", equalTo: commerce)
+        videoQuery.findObjectsInBackground { (videos, error) in
+            if let error = error {
+                completion?(false, error)
+            } else {
+                PFObject.deleteAll(inBackground: videos) { (_, error) in
+                    if let error = error {
+                        completion?(false, error)
+                    } else {
+                        completion?(true, nil)
+                    }
+                }
+            }
+        }
+    }
+}
+// MARK: Location required
 extension ParseService: CLLocationManagerDelegate {
     /// CLLocationManagerDelegate DidFailWithError Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

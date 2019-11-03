@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import AVKit
 
-class ParseHelper {
+struct ParseHelper {
     static func getUserACL(forUser user: PFUser?) -> PFACL {
         let acl = PFACL()
         acl.setReadAccess(true, forRoleWithName: "Public")
@@ -25,7 +25,7 @@ class ParseHelper {
         return acl
     }
 
-    static func rewriteParseURLForVideos(forURL url: URL) -> URL {
+    static func rewriteParseURLForVideos(forURL url: URL) -> URL { // !!!: pb de lecture de vidéos
         // Depart   : https://weeclik-server.herokuapp.com/parse/files/JVQZMCuNYvnecPWvWFDTZa8A/326491c13ec62d56fd31ca41caf7401d_file.mp4
         // Objectif : https://storage.googleapis.com/weeclik-1517332083996.appspot.com/baas_files/326491c13ec62d56fd31ca41caf7401d_file.mp4
         var originalString = url.absoluteString
@@ -39,18 +39,20 @@ class ParseHelper {
         }
         return url
     }
+}
 
-    static func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false, inViewController viewController: UIViewController) {
+extension UIViewController {
+    func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false) {
         let player: AVPlayer!
 
         if isLocal {
             player = AVPlayer(url: url)
         } else {
-            player = AVPlayer(url: self.rewriteParseURLForVideos(forURL: url))
+            player = AVPlayer(url: ParseHelper.rewriteParseURLForVideos(forURL: url))
         }
 
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
-        viewController.present(playerViewController, animated: true) {player.play()}
+        present(playerViewController, animated: true) {player.play()}
     }
 }
