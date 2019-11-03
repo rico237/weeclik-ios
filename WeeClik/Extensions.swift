@@ -107,9 +107,8 @@ extension Error {
 }
 
 extension TimeInterval {
-    // builds string in app's labels format 00:00.0
+    // builds string in app's labels format 00:00
     func stringFormatted() -> String {
-        print("Not tested extension Time interval")
         let interval = Int(self)
         let seconds = interval % 60
         let minutes = (interval / 60) % 60
