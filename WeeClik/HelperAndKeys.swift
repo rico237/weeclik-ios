@@ -221,7 +221,7 @@ class HelperAndKeys {
         guard let date = getSharingTimer(forCommerceId: objectId) else {
             return true
         }
-        let isAfterIntervalle = Date().isAfterDate(date + 1.days, granularity: .second)
+        let isAfterIntervalle = Date().isAfterDate(date + 7.days, granularity: .second)
         print("isAfterIntervalle : \(isAfterIntervalle)")
         if isAfterIntervalle {
             removeCommerce(forCommerceId: objectId)

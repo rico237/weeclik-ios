@@ -174,13 +174,10 @@ extension DetailGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource,
             // Photos
             var images = [ViewerImageProtocol]()
             var originImage = UIImage()
-            for i in 0...self.fetchedPhotos.count - 1 {
-                if let image = self.fetchedPhotos[i] {
-                    if i == indexPath.row {
-                        originImage = image
-                    }
-                    let appImage = ViewerImage.appImage(forImage: image)
-                    images.append(appImage)
+            for (index, photo) in fetchedPhotos.enumerated() {
+                if let image = photo {
+                    if index == indexPath.row { originImage = image }
+                    images.append(ViewerImage.appImage(forImage: image))
                 }
             }
 
@@ -191,11 +188,11 @@ extension DetailGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource,
             // Videos
             let parseObject = self.videos[indexPath.row]
             let videoFile = parseObject["video"] as! PFFileObject
-            // TODO : Optimize for NS/InputStream object reading
+            // TODO : Optimize for NS/InputStream object reading = charge video section by section = better loading
             // let v = videoFile.getDataStreamInBackground()
 
             if let url = URL(string: videoFile.url!) {
-                ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
+                self.showVideoPlayerWithVideoURL(withUrl: url)
             } else {
                 HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo".localized(), title: "Erreur de chargement".localized(), viewController: self)
             }

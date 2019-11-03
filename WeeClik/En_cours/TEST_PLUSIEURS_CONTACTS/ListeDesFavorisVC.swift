@@ -112,6 +112,8 @@ class ListeDesFavorisVC: UIViewController {
 extension ListeDesFavorisVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return listeGroupes.count }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 90 }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {self.sendSMSForItems(groupe: listeGroupes[indexPath.row])}
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {true}
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupePartageTVCell", for: indexPath) as! GroupePartageTVCell
         let groupe = listeGroupes[indexPath.row]
@@ -125,9 +127,16 @@ extension ListeDesFavorisVC: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.sendSMSForItems(groupe: listeGroupes[indexPath.row])
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Supprimer".localized()) { ( _, _, completion) in
+            UserDefaultsManager.shared.removeSharingGroup(atIndex: indexPath.row)
+            self.listeGroupes = UserDefaultsManager.shared.getGroupesPartage()
+            self.listeGroupesFavoris.deleteRows(at: [indexPath], with: .automatic)
+            completion(true)
+        }
+        let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])
+        return swipeConfig
     }
 }
 extension ListeDesFavorisVC: SwiftMultiSelectDelegate {
