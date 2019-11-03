@@ -98,6 +98,16 @@ struct Constants {
     }
 }
 
+extension Constants {
+    struct MessageString {
+        static func partageMessage(commerceObject: Commerce) -> String {
+            return "Salut, j'ai aimé « \(commerceObject.nom) », avec weeclik.com bénéficiez de remises".localized()
+//            return "Salut, j’ai aimé \(commerceObject.nom), je te partage donc ce commerce situé à l’adresse : \n\(commerceObject.adresse) http://maps.google.com/maps?f=q&q=(\(commerceObject.location?.latitude ?? 0),\(commerceObject.location?.longitude ?? 0))".localized()
+//            "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(commerceObject.nom)\nTéléphone : \(commerceObject.tel)\nAdresse : \(commerceObject.adresse) \nURL : weeclik://\(commerceObject.objectId.description)"
+        }
+    }
+}
+
 extension Constants.Plist {
     /// Enum representing Type of .plist we want to fetch (.firebase || .weeclik)
     enum PlistType {
