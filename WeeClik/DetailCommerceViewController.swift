@@ -124,9 +124,7 @@ class DetailCommerceViewController: UIViewController {
     @objc func shareCommerce() {
 
         if HelperAndKeys.canShareAgain(objectId: commerceID) {
-            let sharingMessage = "Salut, j’ai aimé \(commerceObject.nom), je te partage donc ce commerce situé à l’adresse : \n\(commerceObject.adresse) http://maps.google.com/maps?f=q&q=(\(commerceObject.location?.latitude ?? 0),\(commerceObject.location?.longitude ?? 0))".localized()
-
-//            let str = "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(commerceObject.nom)\nTéléphone : \(commerceObject.tel)\nAdresse : \(commerceObject.adresse) \nURL : weeclik://\(commerceObject.objectId.description)"
+            let sharingMessage = Constants.MessageString.partageMessage(commerceObject: commerceObject)
 
             let customItem = ShareToGroupsActivity(title: "Partager à un groupe d'amis".localized()) { sharedItems in
                 guard let customGroupSharing = sharedItems as? [String] else { return }
