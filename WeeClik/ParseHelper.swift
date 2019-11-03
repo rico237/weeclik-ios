@@ -25,16 +25,15 @@ struct ParseHelper {
         return acl
     }
 
-    static func rewriteParseURLForVideos(forURL url: URL) -> URL { // !!!: pb de lecture de vidéos
+    static func rewriteParseURLForVideos(forURL url: URL) -> URL {
+        // swiftlint:disable line_length
         // Depart   : https://weeclik-server.herokuapp.com/parse/files/JVQZMCuNYvnecPWvWFDTZa8A/326491c13ec62d56fd31ca41caf7401d_file.mp4
-        // Objectif : https://storage.googleapis.com/weeclik-1517332083996.appspot.com/baas_files/326491c13ec62d56fd31ca41caf7401d_file.mp4
+        // Objectif : https://firebasestorage.googleapis.com/v0/b/weeclik-1517332083996.appspot.com/o/baas_files%2F326491c13ec62d56fd31ca41caf7401d_file.mp4?alt=media
+        // swiftlint:enable line_length
         var originalString = url.absoluteString
         if let parseURLRange = originalString.range(of: "\(Constants.Server.serverURL())/files/\(Constants.Server.serverAppId)/") {
-            if let fireBaseServerURL: String = Constants.Plist.getDataForKey(key: "DATABASE_URL", type: .firebase) {
-                originalString.replaceSubrange(parseURLRange, with: "https://storage.googleapis.com/\(fireBaseServerURL)/baas_files/")
-            } else {
-                originalString.replaceSubrange(parseURLRange, with: "https://storage.googleapis.com/weeclik-1517332083996.appspot.com/baas_files/")
-            }
+            originalString.replaceSubrange(parseURLRange, with: "https://firebasestorage.googleapis.com/v0/b/weeclik-1517332083996.appspot.com/o/baas_files%2F")
+            originalString.append(contentsOf: "?alt=media")
             return URL(string: originalString) ?? url
         }
         return url
