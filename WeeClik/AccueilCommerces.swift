@@ -15,7 +15,7 @@
 
 import UIKit
 import Parse
-import SVProgressHUD // FIXME: Replace with this pod : IHProgressHUD + remove from pull to refresh
+//import SVProgressHUD // FIXME: Replace with this pod : IHProgressHUD + remove from pull to refresh
 import KJNavigationViewAnimation
 import KRLCollectionViewGridLayout
 import SDWebImage
@@ -92,8 +92,9 @@ class AccueilCommerces: UIViewController {
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
 
         self.refreshControl.attributedTitle = NSAttributedString(string: "")
-        self.collectionView.refreshControl = refreshControl
         self.refreshControl.addTarget(self, action: #selector(refreshCollectionData(_:)), for: .valueChanged)
+        
+        self.collectionView.refreshControl = refreshControl
         self.collectionView.backgroundColor  = Colors.backgroundColor
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
@@ -147,7 +148,7 @@ class AccueilCommerces: UIViewController {
         HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
     }
 
-    func discretReload() {queryObjectsFromDB(typeCategorie: titleChoose, withHUD: false)}
+    func discretReload() {chooseCategorie(itemChoose: titleChoose, withHud: false)}
 
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
@@ -164,12 +165,12 @@ class AccueilCommerces: UIViewController {
 extension AccueilCommerces {
     func chooseCategorie(itemChoose: String, withHud showHud: Bool) {
         // Update UI
-        self.titleChoose = itemChoose
-        self.labelHeaderCategorie.text = itemChoose
-        self.headerTypeCommerceImage.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
+        titleChoose = itemChoose
+        labelHeaderCategorie.text = itemChoose
+        headerTypeCommerceImage.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
 
         // Update Data
-        self.queryObjectsFromDB(typeCategorie: titleChoose, withHUD: showHud)
+        queryObjectsFromDB(typeCategorie: titleChoose, withHUD: showHud)
     }
 
     func queryObjectsFromDB(typeCategorie: String, withHUD showHud: Bool = true) {
@@ -179,9 +180,9 @@ extension AccueilCommerces {
         self.refreshControl.beginRefreshing()
         self.commerces = [Commerce]()
         if showHud {
-            SVProgressHUD.setDefaultMaskType(.clear)
-            SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.show(withStatus: "Chargement en cours".localized())
+//            SVProgressHUD.setDefaultMaskType(.clear)
+//            SVProgressHUD.setDefaultStyle(.dark)
+//            SVProgressHUD.show(withStatus: "Chargement en cours".localized())
         }
         // FIXME: Can't reload data for now, query.findObjectsInBackground completion never gets fired second time
         // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
@@ -202,7 +203,12 @@ extension AccueilCommerces {
         } else if let error = error {
             ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
         }
-        DispatchQueue.global(qos: .default).async(execute: {if hudView {SVProgressHUD.dismiss(withDelay: 1)}})
+        DispatchQueue.global(qos: .default).async(execute: {
+            if hudView {
+//                SVProgressHUD.dismiss(withDelay: 1)
+            }
+        })
+        
         self.collectionView.reloadData()
         self.isLoadingCommerces = false
         self.refreshControl.endRefreshing()
@@ -334,6 +340,7 @@ extension AccueilCommerces: CLLocationManagerDelegate {
         latestLocationForQuery = locations.last
         print("Did update position : \(locations.last?.description ?? "No Location Provided")")
         ParseService.shared.locationPrefsCommerces(withType: titleChoose, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
+            self.locationGranted = true
             self.globalObjects(commerces: commerces, error: error, hudView: true)
         }
     }

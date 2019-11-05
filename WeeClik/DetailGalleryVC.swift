@@ -231,8 +231,7 @@ extension DetailGalleryVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         return UIColor(red: 0.94, green: 0.95, blue: 0.96, alpha: 1.0)
     }
 
-    // TODO: envoyer mail au commercant pour qu'il ajoute du contenu
-    //
+// TODO: envoyer mail au commercant pour qu'il ajoute du contenu
 //    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
 //        return NSAttributedString(string: "Envoyer")
 //    }

@@ -90,8 +90,11 @@ class PaymentVC: UIViewController {
         let urlCGU = URL(string: "https://weeclik-server.herokuapp.com/cgu")!
         let urlPolitique = URL(string: "https://weeclik-server.herokuapp.com/politique-confidentialite")!
 
-        attributedString.setAttributes([.link: urlCGU], range: NSRange(location: 607, length: 20))
-        attributedString.setAttributes([.link: urlPolitique], range: NSRange(location: 631, length: 28))
+        let cguRange = attributedString.mutableString.range(of: "Conditions générales".localized(), options: .caseInsensitive)
+        attributedString.setAttributes([.link: urlCGU], range: cguRange)
+        
+        let politiqueRange = attributedString.mutableString.range(of: "Politique de Confidentialité".localized(), options: .caseInsensitive)
+        attributedString.setAttributes([.link: urlPolitique], range: politiqueRange)
 
         legalTextView.isUserInteractionEnabled = true
         legalTextView.isEditable = false

@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEVELOPMENT
         Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
         #else
-        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.shake, .screenshot])
+//        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.screenshot])
         #endif
         
         

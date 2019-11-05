@@ -37,66 +37,42 @@ class WeeClikUITests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
+    
+    func testSnapshot() {
+        snapshot("01Welcome", timeWaitingForIdle: 1)
         
-        let app = XCUIApplication()
-        snapshot("01Welcome", timeWaitingForIdle: 2)
-        let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .collectionView).element(boundBy: 1).children(matching: .cell).element(boundBy: 1).children(matching: .other).element
-        element.tap()
+        app/*@START_MENU_TOKEN@*/.collectionViews.containing(.other, identifier:"Barre de défilement verticale, 2 pages")/*[[".collectionViews.containing(.other, identifier:\"Barre de défilement horizontale, 1 page\")",".collectionViews.containing(.other, identifier:\"Barre de défilement verticale, 2 pages\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.children(matching: .cell).element(boundBy: 3).children(matching: .other).element.tap()
         
-        let okButton = app.alerts["Aucun compte Mail"].buttons["OK"]
-        okButton.tap()
-        snapshot("02Detail", timeWaitingForIdle: 2)
+        snapshot("02Detail", timeWaitingForIdle: 0)
+        
         app.buttons["Gallery icon"].tap()
-        app.collectionViews.children(matching: .cell).element(boundBy: 0).children(matching: .other).element.tap()
-        app.buttons["close white"].tap()
-        app.navigationBars["Gallerie"].buttons["Weeclik"]/*@START_MENU_TOKEN@*/.tap()/*[[".tap()",".press(forDuration: 2.0);"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/
         
-        let retourButton = app.navigationBars["Weeclik"].buttons["Retour"]
-        retourButton.tap()
-        app.buttons["Login icon"].tap()
-        snapshot("03Login")
-        app.navigationBars["Mon Profil"].buttons["Arrêt"].tap()
+        snapshot("06Photos")
+        
+        app/*@START_MENU_TOKEN@*/.buttons["Vidéos"]/*[[".scrollViews.buttons[\"Vidéos\"]",".buttons[\"Vidéos\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.navigationBars["Gallerie"].buttons["Weeclik"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .other).element.children(matching: .other).element(boundBy: 1).tap()
+        
+        app.navigationBars["Weeclik"].buttons["Retour"].tap()
         app.buttons["Filter icon"].tap()
-        app.buttons["Trier par position"].tap()
-        app.buttons["OK"].tap()
-        addUIInterruptionMonitor(withDescription: "System Dialog") {
-            (alert) -> Bool in
-            let button = alert.buttons.element(boundBy: 1)
-            if button.exists {
-                button.tap()
-            }
-            return true
-        }
-        addUIInterruptionMonitor(withDescription: "Allow “Weeclik” to access your location while you are using the app?") {
-            (alert) -> Bool in
-            let button = alert.buttons.element(boundBy: 1)
-            if button.exists {
-                button.tap()
-            }
-            return true
-        }
-        element.tap()
-        okButton.tap()
-        retourButton.tap()
         
-        app.buttons["SearchIcon"].tap()
+        snapshot("05NombrePartage")
+        
+        app.buttons["Trier par nombre de partage"].tap()
+        app.buttons["OK"].tap()
+        app.buttons["Login icon"].tap()
+        
+        snapshot("03Login")
+        
+        app.tables/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier:"Rose d'or")/*[[".cells.containing(.staticText, identifier:\"199\")",".cells.containing(.staticText, identifier:\"Rose d'or\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.staticTexts["En ligne"].tap()
+        app.navigationBars["MODIFIER COMMERCE"].buttons["Retour"].tap()
+        
+        app.buttons["Rechercher"].tap()
+        
         snapshot("04Recherche")
+        
         app.navigationBars["Recherche"].buttons["Arrêt"].tap()
         
-        let filterIconButton = app.buttons["Filter icon"]
-        filterIconButton.tap()
-        app.buttons["Trier par position"].tap()
-        
-        let okButtonA = app.buttons["OK"]
-        okButtonA.tap()
-        filterIconButton.tap()
-        app.buttons["Trier par nombre de partage"].tap()
-        okButtonA.tap()
-        snapshot("05NombrePartage")
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
 }

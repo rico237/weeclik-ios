@@ -49,13 +49,8 @@ def projectPods
     # Acid buttons
     pod 'LGButton', '~> 1.0'
     
-    
-    
     # Message sous la barre de navigation
     pod 'Zingle', :git => 'https://github.com/hemangshah/Zingle.git'
-    
-    
-    
     
     # Tableview quand il n'ya pas de donnés
     pod 'DZNEmptyDataSet'
@@ -213,6 +208,13 @@ target 'WeeClik-DEV' do
 end
 
 target 'WeeclikUnitTests' do
+  inherit! :complete
+  
+  use_frameworks!
+  projectPods
+end
+
+target 'WeeClikUITests' do
   inherit! :complete
   
   use_frameworks!
