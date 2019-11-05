@@ -15,7 +15,7 @@
 
 import UIKit
 import Parse
-import SVProgressHUD // FIXME: Replace with this pod : IHProgressHUD + remove from pull to refresh
+//import SVProgressHUD // FIXME: Replace with this pod : IHProgressHUD + remove from pull to refresh
 import KJNavigationViewAnimation
 import KRLCollectionViewGridLayout
 import SDWebImage
@@ -180,9 +180,9 @@ extension AccueilCommerces {
         self.refreshControl.beginRefreshing()
         self.commerces = [Commerce]()
         if showHud {
-            SVProgressHUD.setDefaultMaskType(.clear)
-            SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.show(withStatus: "Chargement en cours".localized())
+//            SVProgressHUD.setDefaultMaskType(.clear)
+//            SVProgressHUD.setDefaultStyle(.dark)
+//            SVProgressHUD.show(withStatus: "Chargement en cours".localized())
         }
         // FIXME: Can't reload data for now, query.findObjectsInBackground completion never gets fired second time
         // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
@@ -203,7 +203,12 @@ extension AccueilCommerces {
         } else if let error = error {
             ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
         }
-        DispatchQueue.global(qos: .default).async(execute: {if hudView {SVProgressHUD.dismiss(withDelay: 1)}})
+        DispatchQueue.global(qos: .default).async(execute: {
+            if hudView {
+//                SVProgressHUD.dismiss(withDelay: 1)
+            }
+        })
+        
         self.collectionView.reloadData()
         self.isLoadingCommerces = false
         self.refreshControl.endRefreshing()
