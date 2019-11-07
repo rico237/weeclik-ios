@@ -18,14 +18,14 @@ struct ParseErrorCodeHandler {
     static func handleUnknownError(error: Error, withFeedBack feedBack: Bool = false) {
 
         if feedBack {
-            HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.localizedDescription, delay: 3)
+//            HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.localizedDescription, delay: 3)
         }
 
         Crashlytics.sharedInstance().recordError(error)
 
         print("Erreur Inconnu :\n\tCode : \(error.code)\n\tDomain : \(error.domain)\n\tLocalizedDescription : \(error.localizedDescription)")
         print("Envoi d'un mail aux admins a tester")
-        MailHelper.sendErrorMail()
+//        MailHelper.sendErrorMail()
     }
 
     static func handleParseError(error: Error) -> String {

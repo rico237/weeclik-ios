@@ -18,6 +18,8 @@ class MonCompteVC: UIViewController {
     var commerces: [PFObject]! = []    // La liste des commerces dans le BAAS
     var partagesDates = [Date]()       // Date des partages
     var currentUser = PFUser.current()  // Utilisateur connecté
+    
+    var timer: Timer!
 
     @IBOutlet weak var nouveauCommerceButton: UIButton!
     @IBOutlet weak var imageProfil: UIImageView!
@@ -48,6 +50,12 @@ class MonCompteVC: UIViewController {
         })
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        timer.invalidate()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let current = PFUser.current() else {
@@ -140,6 +148,7 @@ class MonCompteVC: UIViewController {
 
     func updateUIBasedOnUser() {
         isProUpdateUI()
+        
         changeProfilInfoTVC.reloadData()
         commercesTableView.reloadData()
     }
@@ -187,7 +196,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             let commerce = Commerce(parseObject: commerces[indexPath.row])
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
-            cell.partageIcon.tintColor = UIColor.red
+            cell.partageIcon.tintColor = .systemRed
             cell.descriptionLabel.isHidden = isPro ? false : true
 
             if isPro {
@@ -208,9 +217,9 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
                     cell.descriptionLabel.text = "\(commerce.statut.description)"
                     switch commerce.statut {
                     case .canceled, .error, .unknown, .pending:
-                        cell.descriptionLabel.textColor = .red
+                        cell.descriptionLabel.textColor = .systemRed
                     case .paid:
-                        cell.descriptionLabel.textColor = .init(hexFromString: "#00d06b")
+                        cell.descriptionLabel.textColor = .systemGreen
                     }
                 }
             } else {
@@ -255,7 +264,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
 // Data related
 extension MonCompteVC {
-    func queryCommercesArrayBasedOnUser() {
+    @objc func queryCommercesArrayBasedOnUser() {
         if isPro {
             // Prend les commerces du compte pro
             guard let currentUser = currentUser else { return }
@@ -303,6 +312,9 @@ extension MonCompteVC {
                 HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: message, delay: 3)
             }
         }
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(queryCommercesArrayBasedOnUser), userInfo: nil, repeats: false)
+        timer.tolerance = 0.2
+        RunLoop.current.add(timer, forMode: .common)
     }
 }
 
