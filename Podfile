@@ -166,6 +166,8 @@ def projectPods
     #pod 'SwiftMessages'
     #pod 'SwiftEntryKit', '1.0.1'                     # Use this    <--------
     
+    # Use iOS system symbols
+    #pod 'SFSafeSymbols', '~> 1.0.1'
     
     # Mailgun Librairie (envoi de mails)
     #pod 'SwiftMailgun', '~> 1.0'
