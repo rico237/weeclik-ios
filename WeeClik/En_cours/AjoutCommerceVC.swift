@@ -66,12 +66,13 @@ class AjoutCommerceVC: UITableViewController {
     @IBOutlet weak var paymentButton: UIButton!
 
     var isValidForm = false
+    var isAdresseWriten = false
 
     // TextFields with input errors
     var nameTextField: DTTextField!
     var telTextField: DTTextField!
     var mailTextField: DTTextField!
-    var adresseTextField: DTTextField!; var isAdresseWriten = false
+    var adresseTextField: DTTextField!
 
     var textFields = [DTTextField]()
 
@@ -91,8 +92,8 @@ class AjoutCommerceVC: UITableViewController {
     var promotionsCommerce  = ""
 
     // IndexPath pour les photos & videos
-    var selectedRow      : Int  = 0
-    var videoSelectedRow : Int  = 0
+    var selectedRow: Int      = 0
+    var videoSelectedRow: Int = 0
 }
 
 extension AjoutCommerceVC {
@@ -283,7 +284,8 @@ extension AjoutCommerceVC {
     }
 
     @IBAction func cancelAction(_ sender: Any) {
-        if editingMode {self.navigationController?.popViewController(animated: true)} else {self.navigationController?.dismiss(animated: true)}
+        if editingMode { self.navigationController?.popViewController(animated: true) }
+        else { self.navigationController?.dismiss(animated: true) }
     }
 
     @IBAction func saveInformations(_ sender: Any) {

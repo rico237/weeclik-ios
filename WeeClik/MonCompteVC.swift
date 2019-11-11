@@ -52,18 +52,13 @@ class MonCompteVC: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        timer.invalidate()
+        stopTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let current = PFUser.current() else {
-            navigationItem.rightBarButtonItems = []
-            return
-        }
-
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+        updateNavigationBarBasedOnUser()
+        guard let current = PFUser.current() else { return }
 
         currentUser = current
         updateProfilPic(forUser: current)
@@ -137,6 +132,31 @@ class MonCompteVC: UIViewController {
             let noSharedCommerces = "Vous n'avez pour le moment partagé aucun commerce".localized()
             noCommercesLabel.text = isPro ? noCommercesOwned : noSharedCommerces
         }
+        
+        updateNavigationBarBasedOnUser()
+    }
+    
+    func updateNavigationBarBasedOnUser() {
+        guard PFUser.current() != nil else {
+            navigationItem.rightBarButtonItems = []
+            return
+        }
+        
+        if isPro {
+            for commercePFObject in commerces {
+                if Commerce(parseObject: commercePFObject).statut != .paid {
+                    navigationItem.rightBarButtonItems = [
+                        UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut)),
+                        self.editButtonItem
+                    ]
+                    break
+                } else {
+                    navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+                }
+            }
+        } else {
+            navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+        }
     }
 
     @IBAction func getBackToHome(_ sender: Any) { dismiss(animated: true) }
@@ -152,9 +172,62 @@ class MonCompteVC: UIViewController {
         changeProfilInfoTVC.reloadData()
         commercesTableView.reloadData()
     }
+    
+    func startTimer() {
+        if timer == nil {
+            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(queryCommercesArrayBasedOnUser), userInfo: nil, repeats: false)
+            timer.tolerance = 0.2
+            RunLoop.current.add(timer, forMode: .common)
+        }
+    }
+    
+    func stopTimer() {
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
+        }
+    }
 }
 
 extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(!editing, animated: animated)
+        
+        commercesTableView.setEditing(!commercesTableView.isEditing, animated: animated)
+        self.editButtonItem.title = commercesTableView.isEditing ? "Ok".localized() : "Modifier".localized()
+        
+        if commercesTableView.isEditing {
+            stopTimer()
+        } else {
+            startTimer()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard tableView == commercesTableView else {return}
+        
+        if editingStyle == .delete {
+            ParseService.shared.deleteCommerce(commerce: commerces[indexPath.row]) { (success, error) in
+                if success {
+                    self.commerces.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else if let error = error {
+                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                }
+                self.commercesTableView.setEditing(self.commercesTableView.isEditing, animated: true)
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView != changeProfilInfoTVC && isPro {
+            if Commerce(parseObject: commerces[indexPath.row]).statut != .paid {
+                return true
+            }
+        }
+        return false
+    }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == changeProfilInfoTVC {
@@ -265,6 +338,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 // Data related
 extension MonCompteVC {
     @objc func queryCommercesArrayBasedOnUser() {
+        print("Query commerces")
         if isPro {
             // Prend les commerces du compte pro
             guard let currentUser = currentUser else { return }
@@ -312,9 +386,7 @@ extension MonCompteVC {
                 HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: message, delay: 3)
             }
         }
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(queryCommercesArrayBasedOnUser), userInfo: nil, repeats: false)
-        timer.tolerance = 0.2
-        RunLoop.current.add(timer, forMode: .common)
+        startTimer()
     }
 }
 

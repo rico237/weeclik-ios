@@ -346,6 +346,22 @@ extension ParseService {
     }
 }
 
+extension ParseService {
+    func deleteCommerce(commerce: PFObject, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+        commerce.deleteInBackground { (success, error) in
+            if let error = error {
+                completion?(false, error)
+            } else {
+                if success {
+                    completion?(true, nil)
+                } else {
+                    completion?(false, nil)
+                }
+            }
+        }
+    }
+}
+
 // MARK: Video manipulation
 extension ParseService {
     func deleteAllVideosForCommerce(commerce: PFObject, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {

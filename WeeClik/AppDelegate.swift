@@ -54,8 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
 //        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.screenshot])
         #endif
-        
-        
+
         return true
     }
 
@@ -131,7 +130,7 @@ extension AppDelegate {
         SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
 //            TEST = itms-services://?action=purchaseIntent&bundleId=com.example.app&productIdentifier=product_name
 //            if PFUser.current() != nil {
-//                // TODO: Handle purchase made from store
+//                Handle purchase made from store
 //                return true
 //            }
             return false
