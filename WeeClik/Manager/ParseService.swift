@@ -49,7 +49,8 @@ class ParseService: NSObject {
                 parseObject["adresse"]          = commerce.adresse
                 parseObject["description"]      = commerce.descriptionO
                 parseObject["promotions"]       = commerce.promotions
-
+                parseObject["brouillon"]        = commerce.brouillon
+                
                 parseObject.saveInBackground { (success, error) in
                     if success {
                         completion?(true, nil)
@@ -91,6 +92,7 @@ class ParseService: NSObject {
                 }
             } else if let error = error {
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                completion?(false, error)
             }
         }
 
@@ -339,6 +341,22 @@ extension ParseService {
                 }
 
                 self.isLoadingCommerces = false
+            }
+        }
+    }
+}
+
+extension ParseService {
+    func deleteCommerce(commerce: PFObject, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+        commerce.deleteInBackground { (success, error) in
+            if let error = error {
+                completion?(false, error)
+            } else {
+                if success {
+                    completion?(true, nil)
+                } else {
+                    completion?(false, nil)
+                }
             }
         }
     }

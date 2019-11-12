@@ -300,7 +300,7 @@ CHECKOUT OPTIONS:
     :commit: d73526855a411e4ec7abdd1b68b6c44f56a9cb78
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
   SVProgressHUD:
-    :commit: 4fdf3fdc8703fd9915dae33fc1363c604a06b24e
+    :commit: b571b6905998539d575f99a6e2bcb7833fe01aa1
     :git: https://github.com/weeclik/SVProgressHUD.git
   SwiftMultiSelect:
     :commit: 46aa7c1e87d18b4af3e8457867deb91e36bc00d0
@@ -360,7 +360,7 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SPLarkController: af253e70e5e07f6d55a7960f8da37f363c276455
-  SPPermission: 1807bce0f1d8cf4bb0185a46d3acfaf5a6cff2d8
+  SPPermission: 485e8e989d41133281a84e4d2630e03cd18c3c65
   SVProgressHUD: 6ed134667e9ebb2f33679e8273cd48fd3fa349e5
   SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f

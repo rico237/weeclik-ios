@@ -126,7 +126,6 @@ class PaymentVC: UIViewController {
             } else {
                 newCommerce()
             }
-
         }
     }
 
@@ -341,28 +340,4 @@ class PaymentVC: UIViewController {
         }
 
     }
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ajoutCommerce" {
-//            let ajoutCommerceVC = segue.destination as! AjoutCommerceVC
-//            ajoutCommerceVC.editingMode = true
-//            ajoutCommerceVC.loadedFromBAAS = false
-//            ajoutCommerceVC.objectIdCommerce = newCommerceID
-//        }
-//    }
-
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
-//        print("Identifier \(identifier) & paymentDeactivated \(paymentDeactivated)")
-//
-//        if !paymentDeactivated {
-//            // Permet de verifier si l'user a payer avant la création d'un commerce
-//            if identifier == "ajoutCommerce" {
-//                buyProduct()
-//                return hasPaidForNewCommerce
-//            }
-//        }
-//
-//        return true
-//    }
 }

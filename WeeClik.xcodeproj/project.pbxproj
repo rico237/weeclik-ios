@@ -2003,8 +2003,8 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
+				MARKETING_VERSION = 3.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "Weeclik DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
 				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[sdk=*]" = "DEVELOPMENT DEBUG";
@@ -2028,8 +2028,8 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
+				MARKETING_VERSION = 3.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "Weeclik DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -2173,7 +2173,7 @@
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.0;
+				MARKETING_VERSION = 3.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -2195,7 +2195,7 @@
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.0;
+				MARKETING_VERSION = 3.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
