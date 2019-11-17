@@ -53,6 +53,8 @@
 	<false/>
 	<key>FacebookDisplayName</key>
 	<string>WeeClik</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fb-messenger-api</string>

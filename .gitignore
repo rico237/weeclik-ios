@@ -83,3 +83,6 @@ WeeClik.xcworkspace/xcuserdata/rico.xcuserdatad/*.xcuserstate
 *.xcuserstate
 
 *.generated.swift
+*.env
+*.env.default
+*.env.development
