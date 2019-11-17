@@ -324,7 +324,7 @@ extension AjoutCommerceVC {
                     ParseService.shared.updateGeoLocation(forCommerce: fetchComm) { (success, error) in
                         if let error = error {
 //                            self.saveOfCommerceEnded(status: .location, error: error, feedBack: true)
-                            self.saveOfCommerceEnded(status: .none, error: nil, feedBack: false)
+                            self.saveOfCommerceEnded(status: .none, error: error, feedBack: false)
 //                            if (self.photosHaveChanged || self.videosHaveChanged) {
 //                                self.loadCommerceInformations()
 //                            }
@@ -916,6 +916,7 @@ extension AjoutCommerceVC {
                 cell.contentTF.text = self.mailCommerce
             case 2:
                 place = "Adresse du commerce (Requis)".localized()
+                cell.contentTF.keyboardType = .default
                 cell.contentTF.text = self.adresseCommerce
             case 3:
                 place = "Site internet".localized()

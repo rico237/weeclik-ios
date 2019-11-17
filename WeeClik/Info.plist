@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>fr_FR</string>
 	<key>CFBundleDisplayName</key>
@@ -55,6 +53,8 @@
 	<false/>
 	<key>FacebookDisplayName</key>
 	<string>WeeClik</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fb-messenger-api</string>
@@ -72,9 +72,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Nous avons besoin de l&apos;accès à vote caméra afin d&apos;ajouter des photos/vidéos à votre commerce</string>
+	<string>Nous avons besoin de l'accès à vote caméra afin d'ajouter des photos/vidéos à votre commerce</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Nous avons besoin de l&apos;accès à vos contacts pour créer un groupe.</string>
+	<string>Nous avons besoin de l'accès à vos contacts pour créer un groupe.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -82,9 +82,9 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Nous avons besoin de votre position afin de vous afficher les commerces autour de vous</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Nous en avons besoin de cet l&apos;accès afin de créer un groupe.</string>
+	<string>Nous en avons besoin de cet l'accès afin de créer un groupe.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Nous avons besoin de l&apos;accès à vos photos/vidéos pour alimenter votre commerce</string>
+	<string>Nous avons besoin de l'accès à vos photos/vidéos pour alimenter votre commerce</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pacifico</string>

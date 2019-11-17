@@ -185,13 +185,21 @@ extension UIDevice {
     }
     
     static var isLandscape: Bool {
-        return self.current.orientation.isLandscape
+        if #available(iOS 13.0, *) {
+            return self.current.orientation.isLandscape
                 || UIApplication.shared.windows.first?.windowScene?.interfaceOrientation.isLandscape ?? false
+        } else {
+            return self.current.orientation.isLandscape
+        }
     }
 
     static var isPortrait: Bool {
-        return self.current.orientation.isPortrait
+        if #available(iOS 13.0, *) {
+            return self.current.orientation.isPortrait
                 || UIApplication.shared.windows.first?.windowScene?.interfaceOrientation.isPortrait ?? false
+        } else {
+            return self.current.orientation.isPortrait
+        }
     }
 }
 
