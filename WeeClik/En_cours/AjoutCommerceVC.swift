@@ -363,8 +363,8 @@ extension AjoutCommerceVC {
                         if let asset = videoAsset.phAsset {
 
                             let options = PHVideoRequestOptions()
-                            options.version = .original
-                            options.deliveryMode = .automatic
+                            options.version = .current
+                            options.deliveryMode = .fastFormat
                             options.isNetworkAccessAllowed = true
 
                             videoAsset.exportVideoFile(options: options, progressBlock: { (progress) in }) { (url, mimeType) in
@@ -649,7 +649,7 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
             configure.allowedVideo = true
             configure.allowedVideoRecording = false
             configure.mediaType = .video
-            configure.maxVideoDuration = TimeInterval(20) // 20 secondes
+            configure.maxVideoDuration = TimeInterval(60) // 60 secondes
             configure.maxSelectedAssets = 1
         }
 
