@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [3.3.2] - 2019-11-17
 ### Add
 - Add encryption key in Info.plist for production & development environment (ITSAppUsesNonExemptEncryption = NO).
+- Create a beta deployment lane for fastlane (usage: bundle exex fastlane beta).
 
 ### Changed
 - Video fetch options: .original => .current (use last modified version of video). 
