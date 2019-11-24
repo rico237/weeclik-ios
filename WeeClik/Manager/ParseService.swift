@@ -283,9 +283,7 @@ class ParseService: NSObject {
 extension ParseService {
     // retrieve mutiliple commerces (sharing preference)
     func sharingPrefsCommerces(withType typeCategorie: String, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
-        print("BEGIN")
         self.queryObjectsFromDB(typeCategorie: typeCategorie, prefFiltreLocation: false, completion: completion)
-        print("END")
     }
     // retrieve mutiliple commerces (location preference)
     func locationPrefsCommerces(withType typeCategorie: String, latestKnownPosition: CLLocation, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
@@ -303,20 +301,17 @@ extension ParseService {
             query.whereKey("typeCommerce", equalTo: typeCategorie)
             query.whereKey("statutCommerce", equalTo: 1)
             query.whereKey("brouillon", equalTo: false)
-            
-            
+            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+
             if prefFiltreLocation && ( SPPermission.isAllowed(.locationWhenInUse) || SPPermission.isAllowed(.locationAlwaysAndWhenInUse) ) {
                 locationManager.startUpdatingLocation()
-                print("Query objects with location")
                 let userPosition = PFGeoPoint(location: latestLocationForQuery)
                 query.whereKey("position", nearGeoPoint: userPosition)
                 query.order(byAscending: "position")
             } else {
                 query.order(byDescending: "nombrePartages")
             }
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
             query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-                print("8")
                 if let error = error {
                     if error.code == PFErrorCode.errorInvalidSessionToken.rawValue {
                         PFUser.logOut()
@@ -393,7 +388,7 @@ extension ParseService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
-        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
+//        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
     }
     /// Fetch commerces collection based on user location
     /// params: UserLocation = Latest user location

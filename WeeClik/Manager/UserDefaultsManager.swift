@@ -6,6 +6,7 @@
 //  Copyright © 2019 Herrick Wolber. All rights reserved.
 //
 
+// swiftlint:disable force_cast
 import UIKit
 
 /// <#Description#>

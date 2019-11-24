@@ -60,7 +60,7 @@ class DetailCommerceViewController: UIViewController {
 
     @objc func updateAllViews() {
         // Mise a jour de notre variable globale pour l'ensemble de nos fonctions
-        commerceID = commerceObject.objectId.description
+        commerceID = commerceObject.objectId!
 
         // Charger les photos dans le slider
         loadPhotosFromDB()
@@ -94,7 +94,7 @@ class DetailCommerceViewController: UIViewController {
     }
 
     func loadSliderFromFetchedPhotos() {
-        if sampleImagesUrls.count > 1 {
+        if !sampleImagesUrls.isEmpty {
             // N images chargé depuis la BDD
             headerImage.isHidden = true
             imageScroller.setupScrollerWithImages(images: sampleImagesUrls)
@@ -163,16 +163,16 @@ class DetailCommerceViewController: UIViewController {
                     return
                 } else if autorized.contains(activityType!.rawValue) {
                     if let sharingListNavigationController = UIStoryboard(name: "Partage", bundle: nil).instantiateViewController(withIdentifier: "ListeDesFavorisVCNav") as? UINavigationController,
-                        let listeVC = sharingListNavigationController.children.first as? ListeDesFavorisVC {
-                        listeVC.commerce = self.commerceObject
-                        listeVC.strPartage = sharingMessage
-                        self.present(sharingListNavigationController, animated: true, completion: nil)
+                        let listeFavorisVC = sharingListNavigationController.children.first as? ListeDesFavorisVC {
+                        listeFavorisVC.commerce = self.commerceObject
+                        listeFavorisVC.strPartage = sharingMessage
+                        self.presentFullScreen(viewController: sharingListNavigationController, completion: nil)
                     }
                 } else {
                     // [1] On envoi un mail pour l'intégration de l'app à Weeclik
                     MailHelper.sendErrorMail(content: "Une application inconnue a été utilisée pour la fonction de partage. \nL'identifiant de l'app : \(activityType.debugDescription)".localized())
                     // [2] On affiche un message d'erreur à l'utilisateur pour une future intégration
-                    HelperAndKeys.showAlertWithMessage(theMessage: "Nous ne prenons pas encore cette application pour le partage. Nous ferons au plus vite pour l'ajouter au réseau Weeclik".localized(), title: "Application non prise en charge".localized(), viewController: self)
+                    self.showAlertWithMessage(message: "Nous ne prenons pas encore cette application pour le partage. Nous ferons au plus vite pour l'ajouter au réseau Weeclik".localized(), title: "Application non prise en charge".localized(), completionAction: nil)
                     return
                 }
             }
@@ -182,11 +182,11 @@ class DetailCommerceViewController: UIViewController {
             // Attendre avant de partager
             let dateBeforeSharingAgain = HelperAndKeys.getSharingTimer(forCommerceId: commerceID)
             if let dateBeforeSharingAgain = dateBeforeSharingAgain {
-                let date = dateBeforeSharingAgain + 1.days
+                let date = dateBeforeSharingAgain + 7.days
                 let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
-                HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager à cette date :\n\(date.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))".localized(), title: "Merci pour votre confiance".localized(), viewController: self)
+                self.showAlertWithMessage(message: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager à cette date :\n\(date.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))".localized(), title: "Merci pour votre confiance".localized(), completionAction: nil)
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager demain.".localized(), title: "Merci pour votre confiance".localized(), viewController: self)
+                self.showAlertWithMessage(message: "Merci d'avoir partagé ce commercant avec vos proches. Vous pourrez de nouveau le partager dans une semaine.".localized(), title: "Merci pour votre confiance".localized(), completionAction: nil)
             }
         }
     }
@@ -225,10 +225,11 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
                 promotionsH = newSize.height
                 promotionCell.promotionTextView.frame = newFrame
 
-                promotionCell.alreadyShared.image = HelperAndKeys.canShareAgain(objectId: commerceObject.objectId.description) ? UIImage(named: "Certificate_icon") : UIImage(named: "Certificate_valid_icon")
+                promotionCell.alreadyShared.image = HelperAndKeys.canShareAgain(objectId: commerceObject.objectId!) ? UIImage(named: "Certificate_icon") : UIImage(named: "Certificate_valid_icon")
 
-                let back = cell.viewWithTag(88)
-                back?.setCardView(view: back!)
+                if let back = cell.viewWithTag(88) {
+                    back.setCardView(view: back)
+                }
             }
         } else if indexPath.section == 2 {
 
@@ -249,8 +250,9 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
                 descriptionH = newSize.height <= 40 ? 40 : newSize.height
                 descriptionCell.descriptionTextView.frame = newFrame
 
-                let back = cell.viewWithTag(99)
-                back?.setCardView(view: back!)
+                if let back = cell.viewWithTag(99) {
+                    back.setCardView(view: back)
+                }
             }
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
@@ -293,7 +295,8 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
 extension DetailCommerceViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidSendGroupeFavorisSMS(_:)), name: .didSendGroupeFavorisSMS, object: nil)
+        
         headerImage.isHidden = false
         view.backgroundColor = UIColor.white
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
@@ -301,7 +304,6 @@ extension DetailCommerceViewController {
 
         // Share actions
         shareButton.addTarget(self, action: #selector(shareCommerce), for: .touchUpInside)
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Share_icon") , style: .plain, target: self, action: #selector(shareCommerce))
         title = "Weeclik".localized()
 
         initScrollersAndGalleries()
@@ -333,22 +335,13 @@ extension DetailCommerceViewController {
             }
         } else {
             navigationController?.dismiss(animated: true, completion: nil)
-            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue durant le chargement du commerce. Veuillez réessayer ultérieurement".localized(), title: "Erreur de chargement".localized(), viewController: self)
-            print("Erreur de chargment : Commerce est null")
+            self.showAlertWithMessage(message: "Une erreur est survenue durant le chargement du commerce. Veuillez réessayer ultérieurement".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
         }
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        if commerceObject != nil {
-            updateAllViews()
-        } else {
-            print("Erreur de chargment : Commerce est null")
-        }
-
-        // Refresh UI
-        tableView.reloadData()
+    
+    @objc func onDidSendGroupeFavorisSMS(_ notification: Notification) {
+        print("Nombre partage : \(commerceObject.partages)")
+        headerPartagesLabel.text = String(commerceObject.partages + 1)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -367,17 +360,12 @@ extension DetailCommerceViewController {
     // Customize l'interface utilisateur
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        guard let commerce = commerceObject else {
-//            print("CommerceID = \(commerceID)")
-//            return
-//        }
-        if commerceObject == nil {
-            updateCommerce()
-        }
-
+        guard commerceObject != nil else { return }
         // Refresh UI
+        updateAllViews()
         tableView.reloadData()
-
+        print("website : \(commerceObject.siteWeb)")
+        
 //        if commerceObject.mail == "" || !commerceObject.mail.isValidEmail() {
 //            mailButton.isEnabled = false
 //        } else {
@@ -395,11 +383,6 @@ extension DetailCommerceViewController {
 //        } else {
 //            callButton.isEnabled = true
 //        }
-//        mailButton.layoutIfNeeded()
-//        callButton.layoutIfNeeded()
-//        websiteButton.layoutIfNeeded()
-
-        print("website : \(commerceObject.siteWeb)")
     }
 }
 
@@ -409,14 +392,14 @@ extension DetailCommerceViewController {
         if let location = commerceObject.location {
             HelperAndKeys.openMapForPlace(placeName: commerceObject.nom, latitude: location.latitude, longitude: location.longitude)
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Erreur de chargement de la position du commerce".localized(), title: "Erreur de position".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Erreur de chargement de la position du commerce".localized(), title: "Erreur de position".localized(), completionAction: nil)
         }
     }
     @IBAction func mailAction(_ sender: Any) {
         if commerceObject.mail != "" && commerceObject.mail.isValidEmail() {
             sendFeedBackOrMessageViaMail(messageToSend: "", isFeedBackMsg: false, commerceMail: commerceObject.mail)
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Erreur de chargement de l'adresse mail du commerce".localized(), title: "Mail non valide".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Erreur de chargement de l'adresse mail du commerce".localized(), title: "Mail non valide".localized(), completionAction: nil)
         }
     }
 
@@ -425,18 +408,18 @@ extension DetailCommerceViewController {
             if commerceObject.tel.isValidPhone() {
                 HelperAndKeys.callNumer(phone: commerceObject.tel)
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Le téléphone du commerçant renseigné ne permet pas de passer d'appel".localized(), title: "Téléphone invalide".localized(), viewController: self)
+                 self.showAlertWithMessage(message: "Le téléphone du commerçant renseigné ne permet pas de passer d'appel".localized(), title: "Téléphone invalide".localized(), completionAction: nil)
             }
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Erreur de chargement du numéro de téléphone du commerce".localized(), title: "Téléphone non valide".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Erreur de chargement du numéro de téléphone du commerce".localized(), title: "Téléphone non valide".localized(), completionAction: nil)
         }
     }
 
     @IBAction func webAction(_ sender: Any) {
         if commerceObject.siteWeb != "" && commerceObject.siteWeb.isValidURL() {
-            HelperAndKeys.visitWebsite(site: commerceObject.siteWeb, controller: self)
+            self.visitWebsite(urlString: commerceObject.siteWeb)
         } else {
-            showBasicToastMessage(withMessage: "Ce commercant ne possède pas de site web pour le moment".localized(), state: .error)
+            self.showBasicToastMessage(withMessage: "Ce commercant ne possède pas de site web pour le moment".localized(), state: .error)
         }
     }
 
@@ -459,7 +442,7 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
 
                 // Configure the fields of the interface.
                 composeVC.setSubject("Partage via une application non autorisé".localized())
-                composeVC.setToRecipients(["contact@herrick-wolber.fr"])
+                composeVC.setToRecipients(["contact@weeclik.com"])
 
                 if preComposedBody != "" {
                     composeVC.setMessageBody(preComposedBody, isHTML: false)
@@ -470,7 +453,7 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
                 // Present the view controller modally.
                 self.present(composeVC, animated: true, completion: nil)
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), viewController: self)
+                self.showAlertWithMessage(message: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), completionAction: nil)
             }
         }
         alertViewController.addAction(mailAction)
@@ -480,14 +463,12 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
 
     func sendFeedBackOrMessageViaMail(messageToSend: String, isFeedBackMsg: Bool, commerceMail: String) {
         let messageAdded: String
-        let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
         if !isFeedBackMsg {
             messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : https://www.weeclik.com/".localized()
         } else {
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)".localized()
+            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(UIApplication.shared.versionBuild())".localized()
         }
-        //                let allowedCharacters = NSCharacterSet.urlFragmentAllowed
         let finalMessage = messageToSend.appending(messageAdded)
 
         if MFMailComposeViewController.canSendMail() {
@@ -507,15 +488,15 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         if let error = error {
             // Erreur
-            HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur", viewController: self)
+            self.showAlertWithMessage(message: error.localizedDescription, title: "Erreur", completionAction: nil)
         } else {
             switch result {
             case .cancelled:
                 print("Annulé")
             case .failed:
-                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.".localized(), title: "Erreur".localized(), viewController: self)
+                self.showAlertWithMessage(message: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.".localized(), title: "Erreur".localized(), completionAction: nil)
             case .sent:
-                HelperAndKeys.showAlertWithMessage(theMessage: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.".localized(), title: "Merci pour votre confiance".localized(), viewController: self)
+                self.showAlertWithMessage(message: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.".localized(), title: "Merci pour votre confiance".localized(), completionAction: nil)
                 // On a bien partagé -> sauvegarde dans le UserDefaults
                 saveCommerceIdInUserDefaults()
             case .saved:
@@ -532,9 +513,9 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
         case .cancelled:
             print("Ecriture de message annulé")
         case .failed:
-            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.".localized(), title: "Erreur".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.".localized(), title: "Erreur".localized(), completionAction: nil)
         case .sent:
-            HelperAndKeys.showAlertWithMessage(theMessage: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.".localized(), title: "Merci pour votre confiance".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.".localized(), title: "Merci pour votre confiance".localized(), completionAction: nil)
             // On a bien partagé -> sauvegarde dans le UserDefaults
             saveCommerceIdInUserDefaults()
         @unknown default:

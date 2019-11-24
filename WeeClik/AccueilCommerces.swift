@@ -135,9 +135,7 @@ class AccueilCommerces: UIViewController {
         if self.prefFiltreLocation && self.locationGranted {
             self.locationManager.startUpdatingLocation()
         } else {
-            if self.commerces.isEmpty {
-                self.discretReload()
-            }
+            discretReload()
         }
     }
 
@@ -148,16 +146,13 @@ class AccueilCommerces: UIViewController {
         HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
     }
 
-    func discretReload() {chooseCategorie(itemChoose: titleChoose, withHud: false)}
+    func discretReload() {
+        chooseCategorie(itemChoose: titleChoose, withHud: false)
+    }
 
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
-        print("refresh reload")
-        self.refreshControl.beginRefreshing()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-            self.refreshControl.endRefreshing()
-        })
-//        self.queryObjectsFromDB(typeCategorie: self.titleChoose, withHUD: false)
+        self.discretReload()
     }
 }
 
@@ -175,8 +170,6 @@ extension AccueilCommerces {
 
     func queryObjectsFromDB(typeCategorie: String, withHUD showHud: Bool = true) {
         // Chargement des commerces
-        print("Fetch category : \(typeCategorie) with show hud \(showHud)")
-        //        print("Fetch new items with location pref : \(self.prefFiltreLocation) \nand location granted : \(self.locationGranted)")
         self.refreshControl.beginRefreshing()
         self.commerces = [Commerce]()
         if showHud {
@@ -184,15 +177,12 @@ extension AccueilCommerces {
             SVProgressHUD.setDefaultStyle(.dark)
             SVProgressHUD.show(withStatus: "Chargement en cours".localized())
         }
-        // FIXME: Can't reload data for now, query.findObjectsInBackground completion never gets fired second time
         // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
         if self.prefFiltreLocation {
             self.locationManager.startUpdatingLocation()
         } else {
             ParseService.shared.sharingPrefsCommerces(withType: typeCategorie) { (commerces, error) in
-                print("begin completion")
                 self.globalObjects(commerces: commerces, error: error, hudView: showHud)
-                print("end completion")
             }
         }
     }
@@ -208,38 +198,36 @@ extension AccueilCommerces {
                 SVProgressHUD.dismiss(withDelay: 1)
             }
         })
-        
-        self.collectionView.reloadData()
-        self.isLoadingCommerces = false
-        self.refreshControl.endRefreshing()
+        collectionView.reloadData()
+        isLoadingCommerces = false
+        refreshControl.endRefreshing()
     }
 }
-// Routing & Navigation Bar functions
+// MARK: Routing & Navigation Bar functions
 extension AccueilCommerces {
-    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "commerceDetailSegue" {
-            if let cell = sender as? UICollectionViewCell {
-                let indexPath = self.collectionView.indexPath(for: cell)!
-                let detailViewController = segue.destination as! DetailCommerceViewController
-                detailViewController.commerceID = self.commerces[indexPath.row].objectId!
-                detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
-                detailViewController.commerceObject = self.commerces[indexPath.row]
-            }
-        } else if segue.identifier == "searchSegue" {
-            if let navigationController = segue.destination as? UINavigationController {
-                let searchController = navigationController.topViewController as! SearchViewController
+        if  segue.identifier == "commerceDetailSegue",
+            let cell = sender as? UICollectionViewCell,
+            let detailViewController = segue.destination as? DetailCommerceViewController {
+            
+            let indexPath = self.collectionView.indexPath(for: cell)!
+            detailViewController.commerceID = self.commerces[indexPath.row].objectId!
+            detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
+            detailViewController.commerceObject = self.commerces[indexPath.row]
+            
+        } else if segue.identifier == "searchSegue",
+            let navigationController = segue.destination as? UINavigationController,
+            let searchController = navigationController.topViewController as? SearchViewController {
                 searchController.commerces = self.commerces
-            }
         }
     }
     @IBAction func showProfilPage(_ sender: Any) {
-        self.performSegue(withIdentifier: "routeConnecte", sender: self)
+        performSegue(withIdentifier: "routeConnecte", sender: self)
     }
 
     @IBAction func logOut(_ sender: Any) {
         PFUser.logOutInBackground()
-        self.showBasicToastMessage(withMessage: "Vous êtes bien déconnecté".localized())
+        showBasicToastMessage(withMessage: "Vous êtes bien déconnecté".localized())
     }
 
     // Selection between location and max number of share
@@ -338,7 +326,7 @@ extension AccueilCommerces: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationManager.stopUpdatingLocation()
         latestLocationForQuery = locations.last
-        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
+//        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
         ParseService.shared.locationPrefsCommerces(withType: titleChoose, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
             self.locationGranted = true
             self.globalObjects(commerces: commerces, error: error, hudView: true)
@@ -390,7 +378,7 @@ extension AccueilCommerces: SPPermissionDialogDelegate {
             case .denied:
                 // Location Services are denied
                 locationGranted = false
-                HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.\n\nVous pouvez autoriser la géolocalisation dans l'application \"Réglages\" de votre téléphone.".localized(), presentFrom: self)
+                showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "Nous n'arrivons a determiner votre position, afin de vous afficher les commerces près de vous.\n\nVous pouvez autoriser la géolocalisation dans l'application \"Réglages\" de votre téléphone.".localized())
                 
             case .authorizedAlways, .authorizedWhenInUse:
                 // The user has already allowed your app to use location services. Start updating location
@@ -403,7 +391,7 @@ extension AccueilCommerces: SPPermissionDialogDelegate {
             case .restricted:
                 // Location Services are disabled
                 locationGranted = false
-                HelperAndKeys.showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.".localized(), presentFrom: self)
+                showSettingsAlert(withTitle: "Position désactivé".localized(), withMessage: "La localisation est désactivé nous ne pouvons déterminer votre position. Veuillez l'activer afin de continuer.".localized())
                 
             default:
                 SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self, dataSource: self)

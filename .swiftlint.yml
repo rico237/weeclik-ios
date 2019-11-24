@@ -13,6 +13,7 @@ included: # paths to include during linting. `--path` is ignored if present.
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage
   - Pods
+  - WeeClik/Extensions
   - WeeClik/Paintcodes/StyleKitWeeclik.swift
   - WeeClik/En_cours/AjoutCommerceVC.swift
   # - Source/ExcludedFolder

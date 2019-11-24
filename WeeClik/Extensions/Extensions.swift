@@ -8,11 +8,10 @@
 
 /**
  String + Array + Collection + Error + TimeInterval + UIColor + UIDevice + UIImage + UIView + Double +
- UserDefaults + CALayer + UIWindow + UIViewController + UIFont
+ UserDefaults + CALayer + UIWindow + UIFont
  */
 
 import UIKit
-import Loaf
 
 extension String {
 
@@ -357,46 +356,6 @@ extension UIButton {
             bottom: 0,
             right: -imageTitlePadding
         )
-    }
-}
-
-extension UIViewController {
-    func showInputDialog(title: String? = nil,
-                         subtitle: String? = nil,
-                         actionTitle: String? = "OK",
-                         cancelTitle: String? = "Annuler",
-                         inputPlaceholder: String? = nil,
-                         inputKeyboardType: UIKeyboardType = UIKeyboardType.default,
-                         cancelHandler: ((UIAlertAction) -> Swift.Void)? = nil,
-                         actionHandler: ((_ text: String?) -> Void)? = nil) {
-
-        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
-        alert.addTextField { (textField: UITextField) in
-            textField.placeholder = inputPlaceholder
-            textField.keyboardType = inputKeyboardType
-        }
-        alert.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: { (_:UIAlertAction) in
-            guard let textField =  alert.textFields?.first else {
-                actionHandler?(nil)
-                return
-            }
-            actionHandler?(textField.text)
-        }))
-        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler))
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    func presentFullScreen(viewController: UIViewController, animated: Bool = true, completion:(() -> Void)?) {
-        viewController.modalPresentationStyle = .fullScreen
-        self.present(viewController, animated: animated, completion: completion)
-    }
-
-    func showToastMessage(withMessage message: String, state: Loaf.State = .info, location: Loaf.Location = .bottom, presentationDir: Loaf.Direction, dismissDir: Loaf.Direction) {
-        Loaf(message, state: state, location: location, presentingDirection: presentationDir, dismissingDirection: dismissDir, sender: self).show()
-    }
-
-    func showBasicToastMessage(withMessage message: String, state: Loaf.State = .info) {
-        Loaf(message, state: state, location: .bottom, presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show()
     }
 }
 

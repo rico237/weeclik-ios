@@ -769,7 +769,7 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
 // UITableVC Delegates & Datasource methods
 extension AjoutCommerceVC {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 4 {return 4}
+        if section == 4 {return 4} // Section 4 = informations du commerce
         return 1
     }
 
@@ -834,18 +834,18 @@ extension AjoutCommerceVC {
                                 if let url = url {
                                     self.showVideoPlayerWithVideoURL(withUrl: url)
                                 } else {
-                                    HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                                    self.showAlertWithMessage(message: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
                                 }
                             })
                         } else {
-                            HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                            self.showAlertWithMessage(message: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
                         }
                     } else {
                         let video = self.loadedVideos[self.videoSelectedRow]["video"] as! PFFileObject
                         if let url = URL(string: video.url!) {
                             self.showVideoPlayerWithVideoURL(withUrl: url)
                         } else {
-                            HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                            self.showAlertWithMessage(message: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
                         }
                     }
 
