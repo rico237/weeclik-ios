@@ -54,7 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
 //        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.screenshot])
         #endif
-
+        
+//        print("\n\nREMOVE BEFORE BUILDING FOR PROD\n\n")
+//        resetUserDefaults()
         return true
     }
 
@@ -147,8 +149,7 @@ extension AppDelegate {
 
         // Always clear the defaults first
         if arguments.contains("ResetDefaults") {
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            UserDefaults.standard.synchronize()
+            resetUserDefaults()
         }
 
         for argument in arguments {
@@ -242,5 +243,13 @@ extension AppDelegate {
             return topViewControllerWithRootViewController(rootViewController: rootViewController.presentedViewController)
         }
         return rootViewController
+    }
+}
+
+// MARK: Dev purpose
+extension AppDelegate {
+    func resetUserDefaults() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.synchronize()
     }
 }

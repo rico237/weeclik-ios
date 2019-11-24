@@ -19,6 +19,7 @@ default_platform(:ios)
 
 desc "Generate new localized screenshots"
 lane :screenshots do
+  precheck
   capture_screenshots(
     workspace: "WeeClik.xcworkspace", 
     scheme: "WeeClik"
@@ -33,6 +34,7 @@ end
 
 desc "Create Beta release"
 lane :beta do
+  precheck
   changelog = prompt(
     text: "Changelog: ",
     multi_line_end_keyword: "END"

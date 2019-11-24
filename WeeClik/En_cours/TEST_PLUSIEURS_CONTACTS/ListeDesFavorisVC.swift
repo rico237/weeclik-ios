@@ -73,37 +73,18 @@ class ListeDesFavorisVC: UIViewController {
         // Met dans le UserDefaults + ajoute une notification au moment écoulé
         HelperAndKeys.setSharingTime(forCommerceId: self.commerce.objectId)
         // Met à jour les données dans la BDD distante
-        if let user = PFUser.current() {
-            HelperAndKeys.saveStatsInDb(commerce: self.commerce.pfObject, user: user)
-        }
-        self.updateCommerce()
-    }
-
-    func updateCommerce() {
-        if let routeId = commerce.objectId {
-            let query = PFQuery(className: "Commerce")
-            query.whereKey("objectId", equalTo: routeId)
-            query.getFirstObjectInBackground { (object, error) in
-                if let commerce = object {
-                    commerce.incrementKey("nombrePartages")
-                    commerce.saveInBackground()
-                } else if let error = error {
-                    ParseErrorCodeHandler.handleUnknownError(error: error)
-                }
-            }
-        }
-
+        HelperAndKeys.saveStatsInDb(commerce: self.commerce.pfObject, user: PFUser.current())
     }
 
     func sendSMSForItems(groupe: GroupePartage) {
         if (MFMessageComposeViewController.canSendText()) {
             let controller = MFMessageComposeViewController()
-            controller.body = self.strPartage
+            controller.body = strPartage
             controller.recipients = groupe.numerosDesMembres
             controller.messageComposeDelegate = self
-            self.present(controller, animated: true, completion: nil)
+            present(controller, animated: true, completion: nil)
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Aucune application d'envoi d'SMS n'est configuré sur votre téléphone.".localized(), title: "Erreur d'envoi du message".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Aucune application d'envoi d'SMS n'est configuré sur votre téléphone.".localized(), title: "Erreur d'envoi du message".localized(), completionAction: nil)
         }
     }
 
@@ -150,7 +131,7 @@ extension ListeDesFavorisVC: SwiftMultiSelectDelegate {
     // Number maximum of contact selected
     func numberMaximumOfItemsReached(items: [SwiftMultiSelectItem]) {
         print("Maximum number (\(Config.maxSelectItems)) of items reached")
-        HelperAndKeys.showAlertWithMessage(theMessage: "Vous avez atteint le nombre maximum de membre d'un groupe (\(Config.maxSelectItems)). Essayez de créer un second groupe de diffusion par SMS.".localized(), title: "Nombre maximum atteint".localized(), viewController: self)
+        showAlertWithMessage(message: "Vous avez atteint le nombre maximum de membre d'un groupe (\(Config.maxSelectItems)). Essayez de créer un second groupe de diffusion par SMS.".localized(), title: "Nombre maximum atteint".localized(), completionAction: nil)
     }
     // User write something in searchbar
     func userDidSearch(searchString: String) {}
@@ -164,13 +145,24 @@ extension ListeDesFavorisVC: SwiftMultiSelectDelegate {
 extension ListeDesFavorisVC: MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         switch result {
-        case .cancelled, .failed:
-            print(result)
+        case .cancelled:
+            print("Ecriture de message annulé")
+            controller.dismiss(animated: true, completion: nil)
+        case .failed:
+            controller.dismiss(animated: true) {
+                self.showAlertWithMessage(message: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.".localized(), title: "Erreur".localized(), completionAction: nil)
+            }
         case .sent:
-            saveCommerceIdInUserDefaults()
+            controller.dismiss(animated: true) {
+                self.saveCommerceIdInUserDefaults()
+                self.showAlertWithMessage(message: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.".localized(), title: "Merci pour votre confiance".localized()) {
+                    self.dismiss(animated: true) {
+                        NotificationCenter.default.post(name: .didSendGroupeFavorisSMS, object: nil)
+                    }
+                }
+            }
         @unknown default:
             print("New unknown value for MFMessage result")
         }
-        dismiss(animated: true, completion: nil)
     }
 }

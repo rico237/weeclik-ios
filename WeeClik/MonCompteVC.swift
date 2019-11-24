@@ -418,7 +418,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
         if let error = error {
             print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), viewController: logInController)
+            logInController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), completionAction: nil)
         }
     }
 
@@ -432,7 +432,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
         if let error = error {
             print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), viewController: signUpController)
+            signUpController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), completionAction: nil)
         }
     }
 
@@ -447,12 +447,12 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
                 return true
             } else {
                 // MDP différents
-                HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe et sa confirmation sont différents".localized(), title: "Erreur de mot de passe".localized(), viewController: signUpController)
+                signUpController.showAlertWithMessage(message: "Le mot de passe et sa confirmation sont différents".localized(), title: "Erreur de mot de passe".localized(), completionAction: nil)
                 return false
             }
         } else {
             // Email invalide
-            HelperAndKeys.showAlertWithMessage(theMessage: "L'adresse email saisie est incorrecte".localized(), title: "Email invalide".localized(), viewController: signUpController)
+            signUpController.showAlertWithMessage(message: "L'adresse email saisie est incorrecte".localized(), title: "Email invalide".localized(), completionAction: nil)
             return false
         }
     }
@@ -464,7 +464,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
         graphRequest.start(completionHandler: { (_, result, error) in
             if let error = error {
                 print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(), title: "Connexion Facebook échoué".localized(), viewController: self)
+                self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(), title: "Connexion Facebook échoué".localized(), completionAction: nil)
             } else {
                 // handle successful response
                 if let data = result as? [String: Any] {

@@ -181,7 +181,7 @@ extension DetailGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource,
                 }
             }
 
-            let viewer = AppImageViewer(originImage: originImage, photos: images, animatedFromView: self.view)
+            let viewer = AppImageViewer(originImage: originImage, photos: images, animatedFromView: view)
             viewer.currentPageIndex = indexPath.row
             present(viewer, animated: true, completion: nil)
         } else {
@@ -192,17 +192,15 @@ extension DetailGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource,
             // let v = videoFile.getDataStreamInBackground()
 
             if let url = URL(string: videoFile.url!) {
-                self.showVideoPlayerWithVideoURL(withUrl: url)
+                showVideoPlayerWithVideoURL(withUrl: url)
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                showAlertWithMessage(message: "Un problème est arrivé lors du chargement de la vidéo".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
             }
         }
     }
 }
 
 extension DetailGalleryVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    // DataSource
-
     // Image
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return UIImage(named: "Empty_media_state")
@@ -219,7 +217,7 @@ extension DetailGalleryVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         var attributedStr = "Ce commercant n'a pas encore ajouté de "
-        if self.shdShowVideos {
+        if shdShowVideos {
             attributedStr.append("vidéo")
         } else {
             attributedStr.append("photo")
@@ -270,8 +268,6 @@ extension DetailGalleryVC: TabBarDelegate {
     }
 
     @objc func tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
-        self.refreshViewWithSelectedInput(selectedInput: self.titles.firstIndex(of: tabItem.title!)!)
+        refreshViewWithSelectedInput(selectedInput: titles.firstIndex(of: tabItem.title!)!)
     }
-
-//    @objc func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {}
 }

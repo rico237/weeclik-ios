@@ -186,14 +186,6 @@ class PaymentVC: UIViewController {
     }
 
     @IBAction func cancelPurchase(_ sender: Any) {
-//        if let navigationCntrl = navigationController {
-//            // return to product or profil
-////            navigationCntrl.popToViewController(UIViewController, animated: true)
-////            navigationCntrl.popToRootViewController(animated: true)
-//            navigationCntrl.popViewController(animated: true)
-//        } else {
-//            dismiss(animated: true, completion: nil)
-//        }
         getBackToHome(self)
     }
 
@@ -211,28 +203,27 @@ class PaymentVC: UIViewController {
             newCommerce["brouillon"] = true
             newCommerce["typeCommerce"] = "Alimentaire"
             newCommerce["adresse"] = ""
-            newCommerce["promotions"] = ""
+            newCommerce["promotions"] = "Pas de promotions"
             newCommerce["photoSlider"] = []
             newCommerce["siteWeb"] = ""
             newCommerce["mail"] = ""
             newCommerce["tel"] = ""
-            newCommerce["description"] = ""
+            newCommerce["description"] = "Pas de description"
             newCommerce["videos"] = []
             newCommerce["tags"] = []
             newCommerce["position"] = PFGeoPoint(latitude: 0, longitude: 0)
             newCommerce["owner"] = currentUser
-
+            newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
+            
             if scheduleVal {
                 newCommerce["endSubscription"] = Date() + 30.seconds
             } else {
                 newCommerce["endSubscription"] = Date() + 1.years
             }
 
-            newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
-
             newCommerce.saveInBackground { (success, error) in
                 if let error = error {
-                    HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce".localized(), viewController: self)
+                    self.showAlertWithMessage(message: error.localizedDescription, title: "Erreur création de commerce".localized(), completionAction: nil)
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                     SVProgressHUD.dismiss()
                 } else {
@@ -245,13 +236,13 @@ class PaymentVC: UIViewController {
                             self.getBackToHome(self)
                         }
                     } else {
-                        HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), viewController: self)
+                        self.showAlertWithMessage(message: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), completionAction: nil)
                         SVProgressHUD.dismiss()
                     }
                 }
             }
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), completionAction: nil)
             SVProgressHUD.dismiss()
         }
     }
