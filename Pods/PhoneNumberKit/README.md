@@ -71,11 +71,27 @@ phoneNumberKit.format(phoneNumber, toType: .international) // +61 2 3661 8300
 phoneNumberKit.format(phoneNumber, toType: .national) // (02) 3661 8300
 ```
 
+## PhoneNumberTextField
+
+![AsYouTypeFormatter](https://user-images.githubusercontent.com/7651280/67554038-e6512500-f751-11e9-93c9-9111e899a2ef.gif)
+
 To use the AsYouTypeFormatter, just replace your UITextField with a PhoneNumberTextField (if you are using Interface Builder make sure the module field is set to PhoneNumberKit).
 
-PhoneNumberTextField automatically formats phone numbers and gives the user full editing capabilities. If you want to customize you can use the PartialFormatter directly. The default region code is automatically computed but can be overridden if needed.  
+You can customize your TextField UI in the following ways
+- `withFlag` will display the country code for the `currentRegion`. The `flagButton` is displayed in the `leftView` of the text field with it's size set based off your text size.
+- `withExamplePlaceholder` uses `attributedPlaceholder` to show an example number for the `currentRegion`. In addition when `withPrefix` is set, the country code's prefix will automatically be inserted and removed when editing changes.
 
-![AsYouTypeFormatter](http://i.giphy.com/3o6gbgrudyCM8Ak6yc.gif)
+PhoneNumberTextField automatically formats phone numbers and gives the user full editing capabilities. If you want to customize you can use the PartialFormatter directly. The default region code is automatically computed but can be overridden if needed (see the example given below).
+```swift
+class MyGBTextField: PhoneNumberTextField {
+    override var defaultRegion: String {
+        get {
+            return "GB"
+        }
+        set {} // exists for backward compatibility
+    }
+}
+```
 
 ```swift
 let textField = PhoneNumberTextField()
@@ -87,6 +103,13 @@ You can also query countries for a dialing code or the dialing code for a given 
 ```swift
 phoneNumberKit.countries(withCode: 33)
 phoneNumberKit.countryCode(for: "FR")
+```
+
+## Need more customization?
+
+You can access the metadata powering PhoneNumberKit yourself, this enables you to program any behaviours as they may be implemented in PhoneNumberKit itself. It does mean you are exposed to the less polished interface of the underlying file format. If you program something you find useful please push it upstream!
+```swift
+phoneNumberKit.metadata(for: "AU")?.mobile?.exampleNumber // 412345678
 ```
 
 ### Setting up with Carthage
