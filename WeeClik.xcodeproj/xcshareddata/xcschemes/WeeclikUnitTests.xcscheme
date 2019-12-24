@@ -39,7 +39,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1F03AB892360C18B0027D6EF"
-            BuildableName = "Weeclik DEV.app"
+            BuildableName = "Weeclik-DEV.app"
             BlueprintName = "WeeClik-DEV"
             ReferencedContainer = "container:WeeClik.xcodeproj">
          </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1F03AB892360C18B0027D6EF"
-            BuildableName = "Weeclik DEV.app"
+            BuildableName = "Weeclik-DEV.app"
             BlueprintName = "WeeClik-DEV"
             ReferencedContainer = "container:WeeClik.xcodeproj">
          </BuildableReference>
