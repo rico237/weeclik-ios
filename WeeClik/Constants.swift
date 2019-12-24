@@ -25,9 +25,9 @@ struct Constants {
          */
         static func serverURL() -> String {
             #if DEVELOPMENT
-            /// Localhost partage de connexion iphone 7+
+            // Localhost partage de connexion iphone 7+
             // return "http://172.20.10.4:1337/parse"
-            /// Localhost wifi maison
+            // Localhost wifi maison
             // return "http://192.168.1.30:1337/parse"
             return "https://weeclik-server-dev.herokuapp.com/parse"
             #else
@@ -101,7 +101,11 @@ struct Constants {
 extension Constants {
     struct MessageString {
         static func partageMessage(commerceObject: Commerce) -> String {
-            return "Salut, j'ai aimé « \(commerceObject.nom) », avec weeclik.com bénéficiez de remises".localized()
+            return """
+                Salut, j'ai aimé « \(commerceObject.nom) », avec Weeclik bénéficiez de remises.
+                Voir le détail du commerce ici :
+                    https://www.weeclik.com/commerce/\(commerceObject.objectId!)
+                """.localized()
 //            return "Salut, j’ai aimé \(commerceObject.nom), je te partage donc ce commerce situé à l’adresse : \n\(commerceObject.adresse) http://maps.google.com/maps?f=q&q=(\(commerceObject.location?.latitude ?? 0),\(commerceObject.location?.longitude ?? 0))".localized()
 //            "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(commerceObject.nom)\nTéléphone : \(commerceObject.tel)\nAdresse : \(commerceObject.adresse) \nURL : weeclik://\(commerceObject.objectId.description)"
         }
