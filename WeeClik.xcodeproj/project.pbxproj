@@ -304,7 +304,7 @@
 		0454BA2B7483F882580B65C6 /* libPods-WeeclikUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeeclikUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A8A801C2EEDFDB5FA514B0B /* Pods_WeeclikUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeclikUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E0A630251CFD98E45D156D /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F03AC072360C18B0027D6EF /* Weeclik DEV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weeclik DEV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F03AC072360C18B0027D6EF /* Weeclik-DEV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weeclik-DEV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03AC082360C18D0027D6EF /* Info-DEV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-DEV.plist"; path = "/Users/rico/lab/github_repos/weeclik-ios/Info-DEV.plist"; sourceTree = "<absolute>"; };
 		1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixTarifsVC.swift; sourceTree = "<group>"; };
 		1F047778214407C400B20CA5 /* PaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
@@ -375,7 +375,6 @@
 		1F9357322360C2B20006A234 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1F9357382360CA1B0006A234 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F93573D2360CA460006A234 /* LaunchScreen-DEV.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen-DEV.storyboard"; sourceTree = "<group>"; };
-		1F9357412360CC500006A234 /* LaunchScreen-STAGING.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen-STAGING.storyboard"; sourceTree = "<group>"; };
 		1F9357432360DDE80006A234 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1F936F862364D6CC00AD69F3 /* DetailCommerceActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCommerceActions.swift; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
@@ -560,7 +559,6 @@
 				1FCED3941FABA9A200392060 /* MotDePasseVC.swift */,
 			);
 			name = "Profil utilisateur";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */ = {
@@ -578,6 +576,7 @@
 		1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */ = {
 			isa = PBXGroup;
 			children = (
+				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
 				1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */,
 				1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */,
 			);
@@ -668,15 +667,14 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
-		1F61FA2A233416970001392C /* TEST_PLUSIEURS_CONTACTS */ = {
+		1F61FA2A233416970001392C /* Liste de partage */ = {
 			isa = PBXGroup;
 			children = (
-				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
 				1F61FA2B233418620001392C /* ListeDesFavorisVC.swift */,
 				1F61FA2D23344C100001392C /* GroupePartageTVCell.swift */,
 				1F7E23DB2334F02800D6B1A4 /* GroupePartage.swift */,
 			);
-			path = TEST_PLUSIEURS_CONTACTS;
+			path = "Liste de partage";
 			sourceTree = "<group>";
 		};
 		1F6AF47D2358E9BE00F057C7 /* Form Validators */ = {
@@ -704,7 +702,6 @@
 			isa = PBXGroup;
 			children = (
 				1F93573F2360CC170006A234 /* DEV */,
-				1F9357402360CC3C0006A234 /* STAGING */,
 				1F565452217E64AC00C6B112 /* Profile.storyboard */,
 				1F9357432360DDE80006A234 /* Main.storyboard */,
 				1F9357382360CA1B0006A234 /* LaunchScreen.storyboard */,
@@ -725,14 +722,6 @@
 			path = DEV;
 			sourceTree = "<group>";
 		};
-		1F9357402360CC3C0006A234 /* STAGING */ = {
-			isa = PBXGroup;
-			children = (
-				1F9357412360CC500006A234 /* LaunchScreen-STAGING.storyboard */,
-			);
-			path = STAGING;
-			sourceTree = "<group>";
-		};
 		1FA473211F1EE7E400D2A306 = {
 			isa = PBXGroup;
 			children = (
@@ -750,7 +739,7 @@
 			children = (
 				1FA4732A1F1EE7E400D2A306 /* WeeClik.app */,
 				1FB9B2AF226E785E009C3E65 /* WeeClikUITests.xctest */,
-				1F03AC072360C18B0027D6EF /* Weeclik DEV.app */,
+				1F03AC072360C18B0027D6EF /* Weeclik-DEV.app */,
 				1FB81C5F2364864A00A41A98 /* WeeclikUnitTests.xctest */,
 			);
 			name = Products;
@@ -763,9 +752,15 @@
 				1F28C6C723467CA7009831C7 /* Manager */,
 				1F0B8352224E9F4300F09FF5 /* Login & Signup */,
 				1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */,
+				1F61FA2A233416970001392C /* Liste de partage */,
 				1F0B8354224EA04A00F09FF5 /* (Accueil) Liste des commercants & detail */,
 				1FC228FB22356A850024ED5B /* Creation groupes */,
 				1FE910E221D2E89D00CEA0F3 /* Search */,
+				1FC42C48223ECD7100AB0C39 /* Paiement */,
+				1F6AF47D2358E9BE00F057C7 /* Form Validators */,
+				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
+				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
+				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
 				1F9357372360C95A0006A234 /* Storyboards */,
 				1FDB7006235BF5D300EB3742 /* En_cours */,
 				1F2762912116EE0100779342 /* Routing */,
@@ -823,23 +818,16 @@
 			isa = PBXGroup;
 			children = (
 				1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */,
-				1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */,
 			);
 			name = Paiement;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		1FDB7006235BF5D300EB3742 /* En_cours */ = {
 			isa = PBXGroup;
 			children = (
-				1F61FA2A233416970001392C /* TEST_PLUSIEURS_CONTACTS */,
 				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
-				1FC42C48223ECD7100AB0C39 /* Paiement */,
-				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
-				1F6AF47D2358E9BE00F057C7 /* Form Validators */,
-				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
-				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
-				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
+				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
+				1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */,
 			);
 			path = En_cours;
 			sourceTree = "<group>";
@@ -947,7 +935,7 @@
 			);
 			name = "WeeClik-DEV";
 			productName = WeeClik;
-			productReference = 1F03AC072360C18B0027D6EF /* Weeclik DEV.app */;
+			productReference = 1F03AC072360C18B0027D6EF /* Weeclik-DEV.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1FA473291F1EE7E400D2A306 /* WeeClik */ = {
@@ -2027,9 +2015,9 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
-				PRODUCT_NAME = "Weeclik DEV";
+				MARKETING_VERSION = 3.3.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
+				PRODUCT_NAME = "Weeclik-DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
 				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[sdk=*]" = "DEVELOPMENT DEBUG";
 				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[sdk=iphoneos*]" = DEVELOPMENT;
@@ -2052,9 +2040,9 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
-				PRODUCT_NAME = "Weeclik DEV";
+				MARKETING_VERSION = 3.3.5;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
+				PRODUCT_NAME = "Weeclik-DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
@@ -2197,7 +2185,7 @@
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.4;
+				MARKETING_VERSION = 3.3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -2219,7 +2207,7 @@
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.4;
+				MARKETING_VERSION = 3.3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

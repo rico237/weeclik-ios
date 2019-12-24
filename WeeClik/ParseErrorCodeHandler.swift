@@ -8,6 +8,8 @@
 
 import Parse
 import Crashlytics
+import Loaf
+import Localize_Swift
 
 struct ParseErrorCodeHandler {
 
@@ -15,16 +17,20 @@ struct ParseErrorCodeHandler {
     // ERREUR (CREATION / LOGIN) / COMMERCE (PFObject) / PURCHASE / etc.
     // URGENT: Envoyer mail à chaque erreur
 
-    static func handleUnknownError(error: Error, withFeedBack feedBack: Bool = false) {
+    static func handleUnknownError(error: Error, withFeedBack feedBack: Bool = false, completion: (() -> ())? = nil) {
 
         if feedBack {
-//            HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.localizedDescription, delay: 3)
+            HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.desc.localized(), delay: 3)
         }
-
-        Crashlytics.sharedInstance().recordError(error)
 
         print("Erreur Inconnu :\n\tCode : \(error.code)\n\tDomain : \(error.domain)\n\tLocalizedDescription : \(error.localizedDescription)")
         print("Envoi d'un mail aux admins a tester")
+        if (error.code == PFErrorCode.errorInvalidSessionToken.rawValue || error.code == PFErrorCode.errorFacebookInvalidSession.rawValue) {
+            PFUser.logOut()
+            completion?()
+        } else {
+            Crashlytics.sharedInstance().recordError(error)
+        }
 //        MailHelper.sendErrorMail()
     }
 
