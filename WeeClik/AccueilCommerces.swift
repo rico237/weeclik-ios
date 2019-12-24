@@ -191,7 +191,9 @@ extension AccueilCommerces {
         if let commerces = commerces {
             self.commerces = commerces
         } else if let error = error {
-            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) {
+                self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+            }
         }
         DispatchQueue.global(qos: .default).async(execute: {
             if hudView {
