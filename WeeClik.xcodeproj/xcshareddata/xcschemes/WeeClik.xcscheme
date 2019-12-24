@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1110"
+   LastUpgradeVersion = "1120"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -57,6 +57,16 @@
                ReferencedContainer = "container:WeeClik.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1FB81C5E2364864A00A41A98"
+               BuildableName = "WeeclikUnitTests.xctest"
+               BlueprintName = "WeeclikUnitTests"
+               ReferencedContainer = "container:WeeClik.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -87,8 +97,8 @@
          </EnvironmentVariable>
       </EnvironmentVariables>
       <LocationScenarioReference
-         identifier = "London, England"
-         referenceType = "1">
+         identifier = "../WeeClik/UserLocation.gpx"
+         referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction

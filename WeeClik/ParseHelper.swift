@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import AVKit
 
-class ParseHelper {
+struct ParseHelper {
     static func getUserACL(forUser user: PFUser?) -> PFACL {
         let acl = PFACL()
         acl.setReadAccess(true, forRoleWithName: "Public")
@@ -26,27 +26,32 @@ class ParseHelper {
     }
 
     static func rewriteParseURLForVideos(forURL url: URL) -> URL {
+        // swiftlint:disable line_length
         // Depart   : https://weeclik-server.herokuapp.com/parse/files/JVQZMCuNYvnecPWvWFDTZa8A/326491c13ec62d56fd31ca41caf7401d_file.mp4
-        // Objectif : https://storage.googleapis.com/weeclik-1517332083996.appspot.com/baas_files/326491c13ec62d56fd31ca41caf7401d_file.mp4
+        // Objectif : https://firebasestorage.googleapis.com/v0/b/weeclik-1517332083996.appspot.com/o/baas_files%2F326491c13ec62d56fd31ca41caf7401d_file.mp4?alt=media
+        // swiftlint:enable line_length
         var originalString = url.absoluteString
-        if let parseURLRange = originalString.range(of: "https://weeclik-server.herokuapp.com/parse/files/\(HelperAndKeys.getServerAppId())/") {
-            originalString.replaceSubrange(parseURLRange, with: "https://storage.googleapis.com/weeclik-1517332083996.appspot.com/baas_files/")
+        if let parseURLRange = originalString.range(of: "\(Constants.Server.serverURL())/files/\(Constants.Server.serverAppId)/") {
+            originalString.replaceSubrange(parseURLRange, with: "https://firebasestorage.googleapis.com/v0/b/weeclik-1517332083996.appspot.com/o/baas_files%2F")
+            originalString.append(contentsOf: "?alt=media")
             return URL(string: originalString) ?? url
         }
         return url
     }
+}
 
-    static func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false, inViewController viewController: UIViewController) {
+extension UIViewController {
+    func showVideoPlayerWithVideoURL(withUrl url: URL, fromBAAS isLocal: Bool = false) {
         let player: AVPlayer!
 
         if isLocal {
             player = AVPlayer(url: url)
         } else {
-            player = AVPlayer(url: self.rewriteParseURLForVideos(forURL: url))
+            player = AVPlayer(url: ParseHelper.rewriteParseURLForVideos(forURL: url))
         }
 
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
-        viewController.present(playerViewController, animated: true) {player.play()}
+        present(playerViewController, animated: true) {player.play()}
     }
 }

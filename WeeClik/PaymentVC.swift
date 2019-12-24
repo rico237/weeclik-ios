@@ -19,8 +19,11 @@ class PaymentVC: UIViewController {
     var paymentDeactivated = false                          // TEST VAR (permet de switcher la demande de paiement)
     var scheduleVal = false
     var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
-    let purchasedProductID = "abo.sans.renouvellement"      // TODO: replace (abo.sans.renouvellement.un.an)
-
+    #if DEVELOPMENT
+    let purchasedProductID = "abo.sans.renouvellement"      // Apple ID of one month subscription for dev purpose (waiting time shorter)
+    #else
+    let purchasedProductID = "abo.sans.renouvellement.un.an" // Apple ID of one year subscription (not automatically renewed)
+    #endif
     let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
 
     @IBOutlet weak var legalTextView: UITextView!           // CGU, CGV, etc
@@ -84,11 +87,14 @@ class PaymentVC: UIViewController {
         style.alignment = .justified
 
         let attributedString = NSMutableAttributedString(string: legalTextView.text)
-        let urlCGU = URL(string: "https://google.fr/")!
-        let urlPolitique = URL(string: "https://facebook.com/")!
+        let urlCGU = URL(string: "https://weeclik-server.herokuapp.com/cgu")!
+        let urlPolitique = URL(string: "https://weeclik-server.herokuapp.com/politique-confidentialite")!
 
-        attributedString.setAttributes([.link: urlCGU], range: NSRange(location: 607, length: 20))
-        attributedString.setAttributes([.link: urlPolitique], range: NSRange(location: 631, length: 28))
+        let cguRange = attributedString.mutableString.range(of: "Conditions générales".localized(), options: .caseInsensitive)
+        attributedString.setAttributes([.link: urlCGU], range: cguRange)
+        
+        let politiqueRange = attributedString.mutableString.range(of: "Politique de Confidentialité".localized(), options: .caseInsensitive)
+        attributedString.setAttributes([.link: urlPolitique], range: politiqueRange)
 
         legalTextView.isUserInteractionEnabled = true
         legalTextView.isEditable = false
@@ -106,8 +112,8 @@ class PaymentVC: UIViewController {
     }
 
     @IBAction func processPurchase(_ sender: Any) {
-        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
-        scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getScheduleKey(), withExpectedType: "bool") as? Bool ?? false
+        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.paymentKey, withExpectedType: "bool") as? Bool ?? false
+        scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.scheduleKey, withExpectedType: "bool") as? Bool ?? false
 
         print("PaymentDeactivated \(paymentDeactivated)")
 
@@ -120,7 +126,6 @@ class PaymentVC: UIViewController {
             } else {
                 newCommerce()
             }
-
         }
     }
 
@@ -181,14 +186,6 @@ class PaymentVC: UIViewController {
     }
 
     @IBAction func cancelPurchase(_ sender: Any) {
-//        if let navigationCntrl = navigationController {
-//            // return to product or profil
-////            navigationCntrl.popToViewController(UIViewController, animated: true)
-////            navigationCntrl.popToRootViewController(animated: true)
-//            navigationCntrl.popViewController(animated: true)
-//        } else {
-//            dismiss(animated: true, completion: nil)
-//        }
         getBackToHome(self)
     }
 
@@ -206,28 +203,27 @@ class PaymentVC: UIViewController {
             newCommerce["brouillon"] = true
             newCommerce["typeCommerce"] = "Alimentaire"
             newCommerce["adresse"] = ""
-            newCommerce["promotions"] = ""
+            newCommerce["promotions"] = "Pas de promotions"
             newCommerce["photoSlider"] = []
             newCommerce["siteWeb"] = ""
             newCommerce["mail"] = ""
             newCommerce["tel"] = ""
-            newCommerce["description"] = ""
+            newCommerce["description"] = "Pas de description"
             newCommerce["videos"] = []
             newCommerce["tags"] = []
             newCommerce["position"] = PFGeoPoint(latitude: 0, longitude: 0)
             newCommerce["owner"] = currentUser
-
+            newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
+            
             if scheduleVal {
                 newCommerce["endSubscription"] = Date() + 30.seconds
             } else {
                 newCommerce["endSubscription"] = Date() + 1.years
             }
 
-            newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
-
             newCommerce.saveInBackground { (success, error) in
                 if let error = error {
-                    HelperAndKeys.showAlertWithMessage(theMessage: error.localizedDescription, title: "Erreur création de commerce".localized(), viewController: self)
+                    self.showAlertWithMessage(message: error.localizedDescription, title: "Erreur création de commerce".localized(), completionAction: nil)
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                     SVProgressHUD.dismiss()
                 } else {
@@ -240,13 +236,13 @@ class PaymentVC: UIViewController {
                             self.getBackToHome(self)
                         }
                     } else {
-                        HelperAndKeys.showAlertWithMessage(theMessage: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), viewController: self)
+                        self.showAlertWithMessage(message: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), completionAction: nil)
                         SVProgressHUD.dismiss()
                     }
                 }
             }
         } else {
-            HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), viewController: self)
+            self.showAlertWithMessage(message: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), completionAction: nil)
             SVProgressHUD.dismiss()
         }
     }
@@ -309,7 +305,6 @@ class PaymentVC: UIViewController {
                             SwiftyStoreKit.finishTransaction(product.transaction)
                         }
                         print("Purchase Success: \(product)")
-                        break
                     case .error(let error):
                         switch error.code {
                         case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())
@@ -336,28 +331,4 @@ class PaymentVC: UIViewController {
         }
 
     }
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ajoutCommerce" {
-//            let ajoutCommerceVC = segue.destination as! AjoutCommerceVC
-//            ajoutCommerceVC.editingMode = true
-//            ajoutCommerceVC.loadedFromBAAS = false
-//            ajoutCommerceVC.objectIdCommerce = newCommerceID
-//        }
-//    }
-
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//        paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: HelperAndKeys.getPaymentKey(), withExpectedType: "bool") as? Bool ?? false
-//        print("Identifier \(identifier) & paymentDeactivated \(paymentDeactivated)")
-//
-//        if !paymentDeactivated {
-//            // Permet de verifier si l'user a payer avant la création d'un commerce
-//            if identifier == "ajoutCommerce" {
-//                buyProduct()
-//                return hasPaidForNewCommerce
-//            }
-//        }
-//
-//        return true
-//    }
 }

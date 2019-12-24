@@ -49,7 +49,8 @@ class ParseService: NSObject {
                 parseObject["adresse"]          = commerce.adresse
                 parseObject["description"]      = commerce.descriptionO
                 parseObject["promotions"]       = commerce.promotions
-
+                parseObject["brouillon"]        = commerce.brouillon
+                
                 parseObject.saveInBackground { (success, error) in
                     if success {
                         completion?(true, nil)
@@ -91,6 +92,7 @@ class ParseService: NSObject {
                 }
             } else if let error = error {
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                completion?(false, error)
             }
         }
 
@@ -277,13 +279,11 @@ class ParseService: NSObject {
     // Add multiple pictures to existiong commerce (IAP), must add checks for IAP receipt
 }
 
-// MARK: - Fetch
+// MARK: Fetch
 extension ParseService {
     // retrieve mutiliple commerces (sharing preference)
     func sharingPrefsCommerces(withType typeCategorie: String, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
-        print("BEGIN")
         self.queryObjectsFromDB(typeCategorie: typeCategorie, prefFiltreLocation: false, completion: completion)
-        print("END")
     }
     // retrieve mutiliple commerces (location preference)
     func locationPrefsCommerces(withType typeCategorie: String, latestKnownPosition: CLLocation, completion:((_ commerces: [Commerce]?, _ error: Error?) -> Void)? = nil) {
@@ -301,20 +301,17 @@ extension ParseService {
             query.whereKey("typeCommerce", equalTo: typeCategorie)
             query.whereKey("statutCommerce", equalTo: 1)
             query.whereKey("brouillon", equalTo: false)
-            
-            
+            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+
             if prefFiltreLocation && ( SPPermission.isAllowed(.locationWhenInUse) || SPPermission.isAllowed(.locationAlwaysAndWhenInUse) ) {
                 locationManager.startUpdatingLocation()
-                print("Query objects with location")
                 let userPosition = PFGeoPoint(location: latestLocationForQuery)
                 query.whereKey("position", nearGeoPoint: userPosition)
                 query.order(byAscending: "position")
             } else {
                 query.order(byDescending: "nombrePartages")
             }
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
             query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-                print("8")
                 if let error = error {
                     if error.code == PFErrorCode.errorInvalidSessionToken.rawValue {
                         PFUser.logOut()
@@ -344,6 +341,43 @@ extension ParseService {
     }
 }
 
+extension ParseService {
+    func deleteCommerce(commerce: PFObject, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+        commerce.deleteInBackground { (success, error) in
+            if let error = error {
+                completion?(false, error)
+            } else {
+                if success {
+                    completion?(true, nil)
+                } else {
+                    completion?(false, nil)
+                }
+            }
+        }
+    }
+}
+
+// MARK: Video manipulation
+extension ParseService {
+    func deleteAllVideosForCommerce(commerce: PFObject, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+        let videoQuery = PFQuery(className: "Commerce_Videos")
+        videoQuery.whereKey("leCommerce", equalTo: commerce)
+        videoQuery.findObjectsInBackground { (videos, error) in
+            if let error = error {
+                completion?(false, error)
+            } else {
+                PFObject.deleteAll(inBackground: videos) { (_, error) in
+                    if let error = error {
+                        completion?(false, error)
+                    } else {
+                        completion?(true, nil)
+                    }
+                }
+            }
+        }
+    }
+}
+// MARK: Location required
 extension ParseService: CLLocationManagerDelegate {
     /// CLLocationManagerDelegate DidFailWithError Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -354,7 +388,7 @@ extension ParseService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.locationManager.stopUpdatingLocation()
         self.latestLocationForQuery = locations.last
-        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
+//        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
     }
     /// Fetch commerces collection based on user location
     /// params: UserLocation = Latest user location

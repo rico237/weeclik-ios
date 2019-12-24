@@ -18,6 +18,8 @@ class MonCompteVC: UIViewController {
     var commerces: [PFObject]! = []    // La liste des commerces dans le BAAS
     var partagesDates = [Date]()       // Date des partages
     var currentUser = PFUser.current()  // Utilisateur connecté
+    
+    var timer: Timer!
 
     @IBOutlet weak var nouveauCommerceButton: UIButton!
     @IBOutlet weak var imageProfil: UIImageView!
@@ -30,13 +32,13 @@ class MonCompteVC: UIViewController {
     @IBOutlet weak var noCommercesLabel: UILabel!
 
     // Contraintes du bouton de création d'un commerce
-    @IBOutlet weak var buttonHeight: NSLayoutConstraint!
     @IBOutlet weak var rightButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftButtonConstraint: NSLayoutConstraint!
-
+    @IBOutlet var bottomButtonConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.getBackToHome(_:)))]
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
 
         guard let user = currentUser else { return }
         user.fetchInBackground(block: { (user, error) in
@@ -48,12 +50,18 @@ class MonCompteVC: UIViewController {
         })
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopTimer()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let current = PFUser.current() else {return}
+        updateNavigationBarBasedOnUser()
+        guard let current = PFUser.current() else { return }
 
-        self.currentUser = current
-        self.updateProfilPic(forUser: current)
+        currentUser = current
+        updateProfilPic(forUser: current)
 
         // Recup si l'utilisateur est un pro (commercant)
         if let proUser = current["isPro"] as? Bool {
@@ -95,65 +103,143 @@ class MonCompteVC: UIViewController {
         imageProfil.clipsToBounds = true
         let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         let updateUI = userProfilePicURL != ""
-        imageProfil.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
-        imageProfil.layer.cornerRadius = updateUI ? self.imageProfil.frame.size.width / 2 : 0
+        imageProfil.sd_setImage(with: URL(string: userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
+        imageProfil.layer.cornerRadius = updateUI ? imageProfil.frame.size.width / 2 : 0
         imageProfil.layer.borderWidth = updateUI ? 3 : 0
         imageProfil.layer.masksToBounds = updateUI ? true : false
     }
 
     func isProUpdateUI() {
-//        print("Bouton height \(isPro)")
-//        print("Is iPhone X : \(HelperAndKeys.isPhoneX)")
-
-        if leftButtonConstraint != nil {
-            leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 16 : 0
+        if leftButtonConstraint != nil && rightButtonConstraint != nil {
+            leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 0 : 0
+            rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 0 : 0
         }
 
-        if rightButtonConstraint != nil {
-            rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 16 : 0
+        if bottomButtonConstraint != nil {
+            let buttonHeight  = nouveauCommerceButton.frame.size.height
+            let bottomPadding = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
+            bottomButtonConstraint.constant = isPro ? 0 : -buttonHeight - bottomPadding
         }
-
-        if buttonHeight != nil {
-            buttonHeight.constant = isPro ? 50 : 0
-        }
+        
+//        if isPro {
+//            nouveauCommerceButton.roundCorners(.allCorners, radius: 5)
+//        } else {
+//            nouveauCommerceButton.roundCorners(.allCorners, radius: 0)
+//        }
 
         if noCommercesLabel != nil {
             let noCommercesOwned  = "Vous ne possedez aucun commerce pour le moment".localized()
             let noSharedCommerces = "Vous n'avez pour le moment partagé aucun commerce".localized()
             noCommercesLabel.text = isPro ? noCommercesOwned : noSharedCommerces
         }
-
+        
+        updateNavigationBarBasedOnUser()
+    }
+    
+    func updateNavigationBarBasedOnUser() {
+        guard PFUser.current() != nil else {
+            navigationItem.rightBarButtonItems = []
+            return
+        }
+        
+        if isPro {
+            for commercePFObject in commerces {
+                if Commerce(parseObject: commercePFObject).statut != .paid {
+                    navigationItem.rightBarButtonItems = [
+                        UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut)),
+                        self.editButtonItem
+                    ]
+                    break
+                } else {
+                    navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+                }
+            }
+        } else {
+            navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+        }
     }
 
-    @IBAction func getBackToHome(_ sender: Any) { self.dismiss(animated: true) }
+    @IBAction func getBackToHome(_ sender: Any) { dismiss(animated: true) }
 
-    @IBAction func logOut(_ sender: Any) {
+    @IBAction func logOut() {
         PFUser.logOutInBackground()
         getBackToHome(self)
     }
 
     func updateUIBasedOnUser() {
         isProUpdateUI()
+        
         changeProfilInfoTVC.reloadData()
         commercesTableView.reloadData()
+    }
+    
+    func startTimer() {
+        if timer == nil {
+            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(queryCommercesArrayBasedOnUser), userInfo: nil, repeats: false)
+            timer.tolerance = 0.2
+            RunLoop.current.add(timer, forMode: .common)
+        }
+    }
+    
+    func stopTimer() {
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
+        }
     }
 }
 
 extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(!editing, animated: animated)
+        
+        commercesTableView.setEditing(!commercesTableView.isEditing, animated: animated)
+        self.editButtonItem.title = commercesTableView.isEditing ? "Ok".localized() : "Modifier".localized()
+        
+        if commercesTableView.isEditing {
+            stopTimer()
+        } else {
+            startTimer()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard tableView == commercesTableView else {return}
+        
+        if editingStyle == .delete {
+            ParseService.shared.deleteCommerce(commerce: commerces[indexPath.row]) { (success, error) in
+                if success {
+                    self.commerces.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else if let error = error {
+                    ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                }
+                self.commercesTableView.setEditing(self.commercesTableView.isEditing, animated: true)
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView != changeProfilInfoTVC && isPro {
+            if Commerce(parseObject: commerces[indexPath.row]).statut != .paid {
+                return true
+            }
+        }
+        return false
+    }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if tableView == self.changeProfilInfoTVC {
+        if tableView == changeProfilInfoTVC {
             return "Mon profil".localized()
         } else {
-            if isPro {
-                return "Mes commerces".localized()
-            }
+            if isPro { return "Mes commerces".localized() }
             return "Mes Partages".localized()
         }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.changeProfilInfoTVC { return 1 } else {
+        if tableView == changeProfilInfoTVC { return 1 } else {
             guard let comm = commerces else { return 0 }
 
             if comm.isEmpty {
@@ -181,9 +267,9 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
             return cell!
         } else {
-            let commerce = Commerce(parseObject: self.commerces[indexPath.row])
+            let commerce = Commerce(parseObject: commerces[indexPath.row])
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
-            cell.partageIcon.tintColor = UIColor.red
+            cell.partageIcon.tintColor = .systemRed
             cell.descriptionLabel.isHidden = isPro ? false : true
 
             if isPro {
@@ -204,9 +290,9 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
                     cell.descriptionLabel.text = "\(commerce.statut.description)"
                     switch commerce.statut {
                     case .canceled, .error, .unknown, .pending:
-                        cell.descriptionLabel.textColor = .red
+                        cell.descriptionLabel.textColor = .systemRed
                     case .paid:
-                        cell.descriptionLabel.textColor = .init(hexFromString: "#00d06b")
+                        cell.descriptionLabel.textColor = .systemGreen
                     }
                 }
             } else {
@@ -230,20 +316,20 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView ==  self.commercesTableView {
+        if tableView ==  commercesTableView {
             // Afficher le détail d'un commerce
             let story = UIStoryboard(name: "Main", bundle: nil)
             if isPro {
                 let ajoutCommerceVC = story.instantiateViewController(withIdentifier: "ajoutCommerce") as! AjoutCommerceVC
                 ajoutCommerceVC.editingMode = true
-                ajoutCommerceVC.objectIdCommerce = self.commerces[indexPath.row].objectId!
-                self.navigationController?.pushViewController(ajoutCommerceVC, animated: true)
+                ajoutCommerceVC.objectIdCommerce = commerces[indexPath.row].objectId!
+                navigationController?.pushViewController(ajoutCommerceVC, animated: true)
             } else {
                 let detailViewController = story.instantiateViewController(withIdentifier: "DetailCommerceViewController") as! DetailCommerceViewController
-                detailViewController.commerceObject = Commerce(parseObject: self.commerces[indexPath.row])
-                detailViewController.commerceID = self.commerces[indexPath.row].objectId!
-                detailViewController.routeCommerceId = self.commerces[indexPath.row].objectId!
-                self.navigationController?.pushViewController(detailViewController, animated: true)
+                detailViewController.commerceObject = Commerce(parseObject: commerces[indexPath.row])
+                detailViewController.commerceID = commerces[indexPath.row].objectId!
+                detailViewController.routeCommerceId = commerces[indexPath.row].objectId!
+                navigationController?.pushViewController(detailViewController, animated: true)
             }
         }
     }
@@ -251,7 +337,8 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
 // Data related
 extension MonCompteVC {
-    func queryCommercesArrayBasedOnUser() {
+    @objc func queryCommercesArrayBasedOnUser() {
+        print("Query commerces")
         if isPro {
             // Prend les commerces du compte pro
             guard let currentUser = currentUser else { return }
@@ -299,6 +386,7 @@ extension MonCompteVC {
                 HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: message, delay: 3)
             }
         }
+        startTimer()
     }
 }
 
@@ -306,7 +394,7 @@ extension MonCompteVC {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailProfil" {
             guard let profilChangeViewController = segue.destination as? ChangeInfosVC else { return }
-            profilChangeViewController.isPro = self.isPro
+            profilChangeViewController.isPro = isPro
         }
     }
 }
@@ -317,12 +405,12 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
         let logInController = ParseLoginSignupHelper.parseLoginViewController()
         logInController.delegate = self
         logInController.signUpController!.delegate = self
-        self.presentFullScreen(viewController: logInController, completion: nil)
+        presentFullScreen(viewController: logInController, completion: nil)
     }
 
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
         if PFFacebookUtils.isLinked(with: user) {
-            self.getFacebookInformations(user: user)
+            getFacebookInformations(user: user)
         }
         logInController.dismiss(animated: true)
     }
@@ -330,7 +418,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
         if let error = error {
             print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), viewController: logInController)
+            logInController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), completionAction: nil)
         }
     }
 
@@ -344,7 +432,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
         if let error = error {
             print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), viewController: signUpController)
+            signUpController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), completionAction: nil)
         }
     }
 
@@ -359,12 +447,12 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
                 return true
             } else {
                 // MDP différents
-                HelperAndKeys.showAlertWithMessage(theMessage: "Le mot de passe et sa confirmation sont différents".localized(), title: "Erreur de mot de passe".localized(), viewController: signUpController)
+                signUpController.showAlertWithMessage(message: "Le mot de passe et sa confirmation sont différents".localized(), title: "Erreur de mot de passe".localized(), completionAction: nil)
                 return false
             }
         } else {
             // Email invalide
-            HelperAndKeys.showAlertWithMessage(theMessage: "L'adresse email saisie est incorrecte".localized(), title: "Email invalide".localized(), viewController: signUpController)
+            signUpController.showAlertWithMessage(message: "L'adresse email saisie est incorrecte".localized(), title: "Email invalide".localized(), completionAction: nil)
             return false
         }
     }
@@ -376,7 +464,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
         graphRequest.start(completionHandler: { (_, result, error) in
             if let error = error {
                 print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-                HelperAndKeys.showAlertWithMessage(theMessage: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(), title: "Connexion Facebook échoué".localized(), viewController: self)
+                self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(), title: "Connexion Facebook échoué".localized(), completionAction: nil)
             } else {
                 // handle successful response
                 if let data = result as? [String: Any] {

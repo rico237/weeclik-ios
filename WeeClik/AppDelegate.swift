@@ -14,6 +14,11 @@ import Firebase
 import SwiftyStoreKit
 import Instabug
 
+#if DEVELOPMENT
+// Import dev dependencies
+
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -22,12 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Lifecycle functions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        #if DEVELOPMENT
+        print("\n\nDEV Environment\n\n")
+        #else
+        print("\n\nPROD Environment\n\n")
+        #endif
         // Server conf (bdd + storage + auth)
         parseConfiguration()
         // Navigation bar & UI conf
         globalUiConfiguration()
+        
         // Firebase conf = Analytics + Performance
         firebaseConfiguration()
+        
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
         // Facebook conf
@@ -35,9 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         // External URL Routing to commerce detail
         setupRouting()
-        // Bug reporting (shd be only in dev/staging targets)
+        
+        // Bug reporting
+        #if DEVELOPMENT
         Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
-
+        #else
+//        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.screenshot])
+        #endif
+        
+//        print("\n\nREMOVE BEFORE BUILDING FOR PROD\n\n")
+//        resetUserDefaults()
         return true
     }
 
@@ -66,6 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        SettingsBundleHelper.setVersionAndBuildNumber()
         AppEvents.activateApp()
     }
 
@@ -83,8 +103,8 @@ extension AppDelegate {
 
     func parseConfiguration() {
         let configuration = ParseClientConfiguration {
-            $0.applicationId = HelperAndKeys.getServerAppId()
-            $0.server = HelperAndKeys.getServerURL()
+            $0.applicationId = Constants.Server.serverAppId
+            $0.server = Constants.Server.serverURL()
         }
         Parse.initialize(with: configuration)
     }
@@ -103,7 +123,6 @@ extension AppDelegate {
                 // Unlock content
                 case .failed, .purchasing, .deferred:
                     print("Nothing with status : \(purchase.transaction.transactionState)")
-                    break // do nothing
                 @unknown default:
                     fatalError("Unknow value passed for purchaseObserver - Payment function - AppDelegate")
                 }
@@ -113,7 +132,7 @@ extension AppDelegate {
         SwiftyStoreKit.shouldAddStorePaymentHandler = { payment, product in
 //            TEST = itms-services://?action=purchaseIntent&bundleId=com.example.app&productIdentifier=product_name
 //            if PFUser.current() != nil {
-//                // TODO: Handle purchase made from store
+//                Handle purchase made from store
 //                return true
 //            }
             return false
@@ -130,8 +149,7 @@ extension AppDelegate {
 
         // Always clear the defaults first
         if arguments.contains("ResetDefaults") {
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            UserDefaults.standard.synchronize()
+            resetUserDefaults()
         }
 
         for argument in arguments {
@@ -225,5 +243,13 @@ extension AppDelegate {
             return topViewControllerWithRootViewController(rootViewController: rootViewController.presentedViewController)
         }
         return rootViewController
+    }
+}
+
+// MARK: Dev purpose
+extension AppDelegate {
+    func resetUserDefaults() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.synchronize()
     }
 }

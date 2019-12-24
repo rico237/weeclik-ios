@@ -174,38 +174,33 @@ extension DetailGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource,
             // Photos
             var images = [ViewerImageProtocol]()
             var originImage = UIImage()
-            for i in 0...self.fetchedPhotos.count - 1 {
-                if let image = self.fetchedPhotos[i] {
-                    if i == indexPath.row {
-                        originImage = image
-                    }
-                    let appImage = ViewerImage.appImage(forImage: image)
-                    images.append(appImage)
+            for (index, photo) in fetchedPhotos.enumerated() {
+                if let image = photo {
+                    if index == indexPath.row { originImage = image }
+                    images.append(ViewerImage.appImage(forImage: image))
                 }
             }
 
-            let viewer = AppImageViewer(originImage: originImage, photos: images, animatedFromView: self.view)
+            let viewer = AppImageViewer(originImage: originImage, photos: images, animatedFromView: view)
             viewer.currentPageIndex = indexPath.row
             present(viewer, animated: true, completion: nil)
         } else {
             // Videos
             let parseObject = self.videos[indexPath.row]
             let videoFile = parseObject["video"] as! PFFileObject
-            // TODO : Optimize for NS/InputStream object reading
+            // TODO : Optimize for NS/InputStream object reading = charge video section by section = better loading
             // let v = videoFile.getDataStreamInBackground()
 
             if let url = URL(string: videoFile.url!) {
-                ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
+                showVideoPlayerWithVideoURL(withUrl: url)
             } else {
-                HelperAndKeys.showAlertWithMessage(theMessage: "Un problème est arrivé lors du chargement de la vidéo".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                showAlertWithMessage(message: "Un problème est arrivé lors du chargement de la vidéo".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
             }
         }
     }
 }
 
 extension DetailGalleryVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    // DataSource
-
     // Image
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return UIImage(named: "Empty_media_state")
@@ -222,7 +217,7 @@ extension DetailGalleryVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     }
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         var attributedStr = "Ce commercant n'a pas encore ajouté de "
-        if self.shdShowVideos {
+        if shdShowVideos {
             attributedStr.append("vidéo")
         } else {
             attributedStr.append("photo")
@@ -234,8 +229,7 @@ extension DetailGalleryVC: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
         return UIColor(red: 0.94, green: 0.95, blue: 0.96, alpha: 1.0)
     }
 
-    // TODO: envoyer mail au commercant pour qu'il ajoute du contenu
-    //
+// TODO: envoyer mail au commercant pour qu'il ajoute du contenu
 //    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
 //        return NSAttributedString(string: "Envoyer")
 //    }
@@ -274,8 +268,6 @@ extension DetailGalleryVC: TabBarDelegate {
     }
 
     @objc func tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
-        self.refreshViewWithSelectedInput(selectedInput: self.titles.firstIndex(of: tabItem.title!)!)
+        refreshViewWithSelectedInput(selectedInput: titles.firstIndex(of: tabItem.title!)!)
     }
-
-//    @objc func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {}
 }

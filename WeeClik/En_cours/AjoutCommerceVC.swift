@@ -26,11 +26,11 @@ import ZAlertView
 import AppImageViewer
 import DTTextField
 import Validator
-import Localize_Swift
 
 enum UploadingStatus {
     case success
     case error
+    case location
     case none
 }
 
@@ -42,7 +42,7 @@ class AjoutCommerceVC: UITableViewController {
     var videoArray                  = [TLPHAsset]()         // Tableau de videos
     var thumbnailArray : [UIImage]  = [UIImage]()           // Tableau de preview des vidéos
     var selectedVideoData           = Data()                // Data de vidéos
-    var savedCommerce : Commerce?                   // Objet Commerce si on a pas utilisé le bouton sauvegarde
+    var savedCommerce : Commerce?                           // Objet Commerce si on a pas utilisé le bouton sauvegarde
     var isSaving = false                                    // Sauvegarde du commerce en cours
 
     // UI Changes
@@ -66,12 +66,13 @@ class AjoutCommerceVC: UITableViewController {
     @IBOutlet weak var paymentButton: UIButton!
 
     var isValidForm = false
+    var isAdresseWriten = false
 
     // TextFields with input errors
     var nameTextField: DTTextField!
     var telTextField: DTTextField!
     var mailTextField: DTTextField!
-    var adresseTextField: DTTextField!; var isAdresseWriten = false
+    var adresseTextField: DTTextField!
 
     var textFields = [DTTextField]()
 
@@ -91,8 +92,8 @@ class AjoutCommerceVC: UITableViewController {
     var promotionsCommerce  = ""
 
     // IndexPath pour les photos & videos
-    var selectedRow      : Int  = 0
-    var videoSelectedRow : Int  = 0
+    var selectedRow: Int      = 0
+    var videoSelectedRow: Int = 0
 }
 
 extension AjoutCommerceVC {
@@ -103,9 +104,29 @@ extension AjoutCommerceVC {
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(0.7)
+        
+        if editingMode {
+            self.saveButton.title = "Modifier".localized()
+            self.cancelButton.title = "Retour".localized()
+            self.title = "MODIFIER COMMERCE".localized()
+        } else {
+            self.saveButton.title = "Enregistrer".localized()
+            self.cancelButton.title = "Retour".localized()
+            self.title = "NOUVEAU COMMERCE".localized()
+        }
 
-        let use = UserDefaults.standard
-        if let comm = use.object(forKey: "lastCommerce") as? Commerce {
+        tableView.tableHeaderView?.frame.size.height = 0
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        SVProgressHUD.show(withStatus: "Chargement du commerce".localized())
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let comm = UserDefaults.standard.object(forKey: "lastCommerce") as? Commerce {
             self.loadedFromBAAS = false
             print("Commerce dans les userDefaults")
             savedCommerce = comm
@@ -117,34 +138,17 @@ extension AjoutCommerceVC {
 
             savedCommerce = Commerce(objectId: objectIdCommerce)
         }
-
-        self.tableView.tableHeaderView?.frame.size.height = 160
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        SVProgressHUD.show(withStatus: "Chargement du commerce".localized())
+        
         self.loadCommerceInformations()
-
-        if editingMode {
-            self.saveButton.title = "Modifier".localized()
-            self.cancelButton.title = "Retour".localized()
-            self.title = "MODIFIER COMMERCE".localized()
-        } else {
-            self.saveButton.title = "Enregistrer".localized()
-            self.cancelButton.title = "Retour".localized()
-            self.title = "NOUVEAU COMMERCE".localized()
-        }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
 //        textFields = [nameTextField, telTextField, mailTextField, adresseTextField]
         textFields = [nameTextField]
         initFormInputs()
     }
 
     func refreshUIPaymentStatus() {
+        tableView.tableHeaderView?.frame.size.height = 160
+        
         if editingMode {
             // Modification commerce existant
             if let savedCommerce = savedCommerce {
@@ -269,12 +273,9 @@ extension AjoutCommerceVC {
             SVProgressHUD.showSuccess(withStatus: nil)
         case .error:
             SVProgressHUD.showError(withStatus: "Erreur de chargement du commerce".localized())
-        case .none:
+            if let error = error {ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: feedBack)}
+        case .none, .location:
             SVProgressHUD.dismiss(withDelay: 0.7)
-        }
-
-        if let error = error {
-            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: feedBack)
         }
 
         DispatchQueue.main.async {
@@ -283,18 +284,20 @@ extension AjoutCommerceVC {
     }
 
     @IBAction func cancelAction(_ sender: Any) {
-        if editingMode {self.navigationController?.popViewController(animated: true)} else {self.navigationController?.dismiss(animated: true)}
+        if editingMode { self.navigationController?.popViewController(animated: true) }
+        else { self.navigationController?.dismiss(animated: true) }
     }
 
     @IBAction func saveInformations(_ sender: Any) {
         if !isSaving { // isSaving = false
-            self.saveButton.isEnabled = false
-
-            if isValidForm {
+            saveButton.isEnabled = false
+            
+            if isValidForm || (!nomCommerce.isEmptyStr && !adresseCommerce.isEmptyStr) {
                 SVProgressHUD.show(withStatus: "Sauvegarde en cours".localized())
-                self.finalSave()
+                finalSave()
             } else {
-                self.showBasicToastMessage(withMessage:"Le nom de votre commerce et son adresse sont obligatoires".localized(), state: .error)
+                showBasicToastMessage(withMessage:"Le nom de votre commerce et son adresse sont obligatoires".localized(), state: .error)
+                saveButton.isEnabled = true
             }
         }
     }
@@ -305,6 +308,7 @@ extension AjoutCommerceVC {
         // [1] Sauvegarde du commerce
         let fetchComm = Commerce(withName: nomCommerce, tel: telCommerce, mail: mailCommerce, adresse: adresseCommerce, siteWeb: siteWebCommerce, categorie: categorieCommerce, description: descriptionCommerce, promotions: promotionsCommerce, owner:PFUser.current()!) // Comerce Object
         fetchComm.objectId = objectIdCommerce
+        fetchComm.brouillon = false
         
         fetchComm.getPFObject(objectId: objectIdCommerce, fromBaas: loadedFromBAAS) { (commerceObject, error) in
             guard let commerceToSave = commerceObject else {
@@ -317,7 +321,15 @@ extension AjoutCommerceVC {
                     self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                 } else {
                     // Update général des informations du commerce
-                    ParseService.shared.updateGeoLocation(forCommerce: fetchComm)
+                    ParseService.shared.updateGeoLocation(forCommerce: fetchComm) { (success, error) in
+                        if let error = error {
+//                            self.saveOfCommerceEnded(status: .location, error: error, feedBack: true)
+                            self.saveOfCommerceEnded(status: .none, error: error, feedBack: false)
+//                            if (self.photosHaveChanged || self.videosHaveChanged) {
+//                                self.loadCommerceInformations()
+//                            }
+                        }
+                    }
                     ParseService.shared.updateExistingParseCommerce(fromCommerce: fetchComm) { (success, error) in
                         if success {
                             // [2] Sauvegarde des photos
@@ -338,81 +350,65 @@ extension AjoutCommerceVC {
     }
 
     func saveVideosWithCommerce(commerceId : String) {
-
-        SVProgressHUD.show(withStatus: "Sauvegarde de la vidéo en cours".localized())
-
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerceId)
 
         // Une video a été ajouté par l'utilisateur
-        if self.videoArray.count != 0 {
-            // Parcours de toutes les vidéos ajoutés
-            for i in 0..<self.videoArray.count {
+        if !videoArray.isEmpty {
+            ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave) { (success, error) in
+                if let error = error {
+                    self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
+                } else {
+                    for (index, videoAsset) in self.videoArray.enumerated() {
+                        // Si on réussit a prendre les data de la vidéo, on sauvegarde
+                        if let asset = videoAsset.phAsset {
 
-                let video = self.videoArray[i]
+                            let options = PHVideoRequestOptions()
+                            options.version = .current
+                            options.deliveryMode = .fastFormat
+                            options.isNetworkAccessAllowed = true
 
-                // Si on réussit a prendre les data de la vidéo
-                // Dans ce cas on sauvegarde
-                if let asset = video.phAsset {
-
-                    let options = PHVideoRequestOptions()
-                    options.version = .original
-                    options.deliveryMode = .automatic
-                    options.isNetworkAccessAllowed = true
-
-                    video.exportVideoFile(options: options, progressBlock: { (progress) in
-                        print("Progress \(progress)")
-                    }) { (url, mimeType) in
-
-                        print("Video export \(url) & \(mimeType)")
-
-                        print("try")
-                        var videoData: Data?
-                        do {
-                            videoData = try Data(contentsOf: url)
-                        } catch {
-                            print("exception catch at block - while uploading video")
-                            videoData = nil
-                            return
-                        }
-
-                        print("Done getting video data\n Now tries to save pffile object")
-
-                        let pffile          = PFFileObject(data: videoData!, contentType: mimeType)
-                        let obj             = PFObject(className: "Commerce_Videos")
-                        let thumbnail       = PFFileObject(data: self.thumbnailArray[i].jpegData(compressionQuality: 0.5)!, contentType: "image/jpeg")
-
-                        obj["thumbnail"]    = thumbnail
-                        obj["leCommerce"]   = commerceToSave
-                        obj["time"]         = asset.duration.stringFormatted()
-                        obj["nameVideo"]    = self.nomCommerce + " - Vidéo de présentation"
-                        obj["video"]        = pffile
-
-                        obj.acl = ParseHelper.getUserACL(forUser: PFUser.current())
-
-                        pffile.saveInBackground({ (success, error) in
-                            if let error = error {
-                                print("Erreur while uploading \(error.localizedDescription)")
-                            } else {
-                                // Pas d'erreur
-                                if success {
-                                    // OK
-                                    print("Upload réussi")
-                                    obj.saveInBackground()
-                                } else {
-                                    print("Upload failed")
+                            videoAsset.exportVideoFile(options: options, progressBlock: { (progress) in }) { (url, mimeType) in
+                                print("Video export \(url) & \(mimeType)")
+                                guard let videoData = try? Data(contentsOf: url) else {
+                                    self.saveOfCommerceEnded(status: .error, error: nil, feedBack: true)
+                                    return
                                 }
+                                
+                                print("Done getting video data\nNow tries to save pffile object")
+
+                                let pffile            = PFFileObject(data: videoData, contentType: mimeType)
+                                let video             = PFObject(className: "Commerce_Videos")
+                                let thumbnail         = PFFileObject(data: self.thumbnailArray[index].wxCompress().jpegData(compressionQuality: 1)!, contentType: "image/jpeg")
+
+                                video["thumbnail"]    = thumbnail
+                                video["leCommerce"]   = commerceToSave
+                                video["time"]         = asset.duration.stringFormatted()
+                                video["nameVideo"]    = self.nomCommerce + " - Vidéo de présentation"
+                                video["video"]        = pffile
+
+                                video.acl             = ParseHelper.getUserACL(forUser: PFUser.current())
+
+                                pffile.saveInBackground({ (success, error) in
+                                    if let error = error {
+                                        print("Erreur while uploading \(error.localizedDescription)")
+                                    } else if success {
+                                        video.saveInBackground()
+                                    }
+                                }, progressBlock: { (progress32) in
+                                    print("Video upload progress = \(progress32)")
+                                })
                             }
-
-                            // [4] Mise a jour du commerce avec les photos & videos uploadés
-                            self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
-                        }, progressBlock: { (progress32) in
-                            print("Progress : \(progress32)%")
-                        })
-
+                        }
                     }
                 }
+                // [4] Mise a jour du commerce avec les photos & videos uploadés
+                self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
             }
         } else {
+            // Si cette variable est true = l'utilisateur a demandé à supprimer une video
+            if videosHaveChanged {
+                ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave)
+            }
             // Aucune video ajouté on passe direct au refresh du commerce
             // [4] Mise a jour du commerce avec les photos & videos uploadés
             self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
@@ -420,27 +416,22 @@ extension AjoutCommerceVC {
     }
 
     func savePhotosWithCommerce(commerceId : String) {
-        SVProgressHUD.show(withStatus: "Sauvegarde des photos en cours".localized())
-
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerceId)
         var photos = [PFObject]()
 
-        for image in self.photoArray {
-            if image != #imageLiteral(resourceName: "Plus_icon") {
-                let obj = PFObject(className: "Commerce_Photos")
-                let compressedImage = image.wxCompress()
-                let file: PFFileObject!
-                do {
-                    file = try PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 0.6)!, contentType: "image/jpeg")
-                } catch {
-                    print("Error while setting content type jpeg")
-                    file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 0.6)!)
-                }
-
-                obj["photo"] = file
-                obj["commerce"] = commerceToSave
-                photos.append(obj)
+        for image in self.photoArray where image != #imageLiteral(resourceName: "Plus_icon") {
+            let obj = PFObject(className: "Commerce_Photos")
+            let compressedImage = image.wxCompress()
+            let file: PFFileObject!
+            do {
+                file = try PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 1)!, contentType: "image/jpeg")
+            } catch {
+                print("Error while setting content type jpeg \n\tError : \(error)")
+                file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 1)!)
             }
+            obj["photo"] = file
+            obj["commerce"] = commerceToSave
+            photos.append(obj)
         }
 
         if loadedFromBAAS {
@@ -449,58 +440,101 @@ extension AjoutCommerceVC {
                     print("Save Photo func - Delete error")
                     self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)
                 } else {
-                    if photos.count != 0 {
-                        PFObject.saveAll(inBackground: photos, block: { (_, error) in
-                            if let error = error {
-                                print("Save Photo func - Delete error")
-                                self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)
-                            } else {
-                                self.photos = photos
-                                // [3]. Upload de la video
-                                if self.videosHaveChanged {
-                                    self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
-                                } else {
-                                    self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
-                                }
-                            }
-                        })
+                    if !photos.isEmpty {
+                        self.savePhotos(photos: photos)
+                    }
+                }
+            }
+        }
+    }
+    
+    func savePhotos(photos: [PFObject]) {
+//        PFObject.saveAll(inBackground: photos, block: { (_, error) in
+//            if let error = error {
+//                print("Save Photo func - Delete error")
+//                self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)
+//            } else {
+//                self.photos = photos
+//                // [3]. Upload de la video
+//                if self.videosHaveChanged {
+//                    self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
+//                } else {
+//                    self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
+//                }
+//            }
+//        })
+        
+        // try recursive function
+        for (index, photo) in photos.enumerated() {
+            if index == photos.count - 1 {
+                photo.saveInBackground { (_, error) in
+                    if let error = error {
+                        print("Save Photo func - Delete error")
+                        self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)
+                    } else {
+                        self.photos = photos
+                        self.refreshCommerceMedia(commerceId: self.objectIdCommerce, inBackground: true)
+                    }
+                }
+                // [3]. Upload de la video
+                if self.videosHaveChanged {
+                    self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
+                } else {
+                    self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
+                }
+            } else {
+                photo.saveInBackground { (_, error) in
+                    if let error = error {
+                        print("Save Photo func - Delete error")
+                        self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)
                     }
                 }
             }
         }
     }
 
-    func refreshCommerceMedia(commerceId:String) {
-
-        SVProgressHUD.show(withStatus: "Mise à jour du commerce".localized())
-
-        if photos.count != 0 {
+    func refreshCommerceMedia(commerceId: String, inBackground: Bool = false) {
+        if !photos.isEmpty {
             let query = PFQuery(className: "Commerce")
             query.whereKey("objectId", equalTo: commerceId)
             query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            
             query.getFirstObjectInBackground { (object, error) in
-                if let commerceToSave = object {
+                
+                if let commerceToSave = object, let thumbnail = self.photos.first {
                     commerceToSave["photoSlider"] = self.photos
-                    commerceToSave["thumbnailPrincipal"] = self.photos[0]
+                    commerceToSave["thumbnailPrincipal"] = thumbnail
                     //                commerceToSave["videos"] = []
                     //                commerceToSave["video"] = video
                     commerceToSave.saveInBackground { (success, error) in
                         if let error =  error {
                             print("Commerce refresh with media")
-                            self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
+                            if !inBackground {
+                                self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
+                            }
                         } else {
                             if success {
-                                self.saveOfCommerceEnded(status: .success)
+                                if !inBackground {
+                                    self.saveOfCommerceEnded(status: .success)
+                                }
                             } else {
-                                self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
+                                if !inBackground {
+                                    self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
+                                }
                             }
                         }
 
                     }
                 } else if let error = error {
                     print("RefreshCommerceMedia func")
-                    self.saveOfCommerceEnded(status: .error, error: error)
+                    if !inBackground {
+                        self.saveOfCommerceEnded(status: .error, error: error)
+                    }
                 }
+            }
+        } else {
+            if !inBackground {
+                self.saveOfCommerceEnded(status: .success)
             }
         }
     }
@@ -508,14 +542,29 @@ extension AjoutCommerceVC {
     func saveOfCommerceEnded(status: UploadingStatus = .none, error: Error? = nil, feedBack: Bool = false) {
         switch status {
         case .success:
-            SVProgressHUD.showSuccess(withStatus: "Commerce sauvegardé avec succès".localized())
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+            SVProgressHUD.dismiss()
+            var message = "Commerce sauvegardé avec succès"
+            
+            if videosHaveChanged || photosHaveChanged {
+                message = "Vos images et vidéos ont été enregistré. Ces mises à jour seront éffectives d\'ici 1 min"
+            }
+            
+            let dialog =  ZAlertView(title: "", message: message.localized(), closeButtonText: "OK".localized(), closeButtonHandler: { (alert) in
+                alert.dismissAlertView()
                 self.navigationController?.popViewController(animated: true)
             })
+            ZAlertView.positiveColor = .systemBlue
+            dialog.show()
+            
+            videosHaveChanged = false
+            photosHaveChanged = false
+            
         case .error:
             SVProgressHUD.showError(withStatus: "Erreur dans la sauvegarde du commerce".localized())
         case .none:
             SVProgressHUD.dismiss(withDelay: 1.5)
+        case .location:
+            SVProgressHUD.showError(withStatus: "L'adresse saisie est incorrecte".localized())
         }
 
         if let error = error {ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: feedBack)}
@@ -533,13 +582,13 @@ extension AjoutCommerceVC {
             let dialog =  ZAlertView(title: "", message: horsLigneMessage, closeButtonText: "OK", closeButtonHandler: { (alert) in
                 alert.dismissAlertView()
             })
-            ZAlertView.positiveColor = UIColor.color("#017aff")
+            ZAlertView.positiveColor = .systemBlue
             dialog.show()
         } else if savedCommerce!.statut == .paid {
             let dialog =  ZAlertView(title: "", message: "Votre commerce est en ligne et visible de tous, prêt à être partagé".localized(), closeButtonText: "OK".localized(), closeButtonHandler: { (alert) in
                 alert.dismissAlertView()
             })
-            ZAlertView.positiveColor = UIColor.color("#017aff")
+            ZAlertView.positiveColor = .systemBlue
             dialog.show()
         }
     }
@@ -577,11 +626,11 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
                 }
             })
         }
-
     }
     func showSelection(forPhoto : Bool) {
         let viewController = TLPhotosPickerViewController()
         viewController.delegate = self
+        
         var configure = TLPhotosPickerConfigure()
         configure.cancelTitle = "Annuler".localized()
         configure.doneTitle = "Terminer".localized()
@@ -600,48 +649,40 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
             configure.allowedVideo = true
             configure.allowedVideoRecording = false
             configure.mediaType = .video
-            configure.maxVideoDuration = TimeInterval(20) // 20 secondes
+            configure.maxVideoDuration = TimeInterval(60) // 60 secondes
             configure.maxSelectedAssets = 1
         }
 
         configure.autoPlay = false
         viewController.configure = configure
-        self.present(viewController, animated: true)
+        present(viewController, animated: true)
     }
 
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
-        if withTLPHAssets.count != 0 {
-            let asset = withTLPHAssets[0]
-            if asset.type == .photo || asset.type == .livePhoto {
-                self.photosHaveChanged = true
-                if let image = asset.fullResolutionImage {
-                    self.refreshCollectionWithDataForPhoto(data: image.jpegData(compressionQuality: 1) ?? #imageLiteral(resourceName: "Plus_icon").jpegData(compressionQuality: 0.5)!)
-                } else {
-                    SVProgressHUD.showProgress( 0, status: "Chargement".localized())
-                    self.getImage(phasset: asset.phAsset)
-                }
-
-                for photo in self.photoArray {
-                    print(photo)
-                }
-                print("\n\n")
+        guard !withTLPHAssets.isEmpty, let asset = withTLPHAssets.first else {
+            print("Aucun objet retourné")
+            return
+        }
+        
+        if asset.type == .photo || asset.type == .livePhoto {
+            self.photosHaveChanged = true
+            if let image = asset.fullResolutionImage {
+                self.refreshCollectionWithDataForPhoto(data: image.wxCompress().jpegData(compressionQuality: 1) ?? #imageLiteral(resourceName: "Plus_icon").wxCompress().jpegData(compressionQuality: 1)!)
             } else {
-                // Videos
-                self.videosHaveChanged = true
-                if let thumb = asset.fullResolutionImage {
-                    self.refreshCollectionWithDataForVideo(thumbnail: thumb)
-                } else {
-                    SVProgressHUD.showProgress( 0, status: "Chargement".localized())
-                    self.getVideoThumbnail(phasset: asset.phAsset)
-                }
-                // Store assets so we can load data later to upload on servers
-                self.videoArray = withTLPHAssets
-                self.videoIsLocal = true
+                self.getImage(phasset: asset.phAsset)
             }
         } else {
-            print("Aucun objet retourné")
+            // Videos
+            self.videosHaveChanged = true
+            if let thumb = asset.fullResolutionImage {
+                self.refreshCollectionWithDataForVideo(thumbnail: thumb.wxCompress())
+            } else {
+                self.getVideoThumbnail(phasset: asset.phAsset)
+            }
+            // Store assets so we can load data later to upload on servers
+            self.videoArray = withTLPHAssets
+            self.videoIsLocal = true
         }
-
     }
 
     func refreshCollectionWithDataForPhoto(data : Data) {
@@ -664,21 +705,29 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
 
     func getImage(phasset: PHAsset?) {
         guard let asset = phasset else { return }
-        let options = PHImageRequestOptions()
-        options.isSynchronous = false
-        options.isNetworkAccessAllowed = true
-        options.deliveryMode = .opportunistic
-        options.version = .current
-        options.resizeMode = .exact
-        options.progressHandler = { (progress, error, stop, info) in
-            SVProgressHUD.showProgress(Float(progress), status: "Chargement de la photo".localized())
-        }
-        PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, _, _, info) in
-            if let data = imageData,let _ = info {
-
+        asset.imageRepresentation { (image, data, error) in
+            guard error != nil else { return }
+            if let image = image, let imageData = image.jpegData(compressionQuality: 1) {
+                self.refreshCollectionWithDataForPhoto(data: imageData)
+            } else if let data = data {
                 self.refreshCollectionWithDataForPhoto(data: data)
-            }
+            }   
         }
+//        let options = PHImageRequestOptions()
+//        options.isSynchronous = false
+//        options.isNetworkAccessAllowed = true
+//        options.deliveryMode = .opportunistic
+//        options.version = .current
+//        options.resizeMode = .exact
+//        options.progressHandler = { (progress, error, stop, info) in
+//            SVProgressHUD.showProgress(Float(progress), status: "Chargement de la photo".localized())
+//        }
+//
+//        PHCachingImageManager().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { (image, _) in
+//            if let image = image, let data = image.wxCompress().jpegData(compressionQuality: 1) {
+//                self.refreshCollectionWithDataForPhoto(data: data)
+//            }
+//        }
     }
 
     func getVideoThumbnail(phasset: PHAsset?) {
@@ -688,7 +737,7 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
         videoRequestOptions.version = .original
         videoRequestOptions.isNetworkAccessAllowed = true
         videoRequestOptions.progressHandler = { (progress, error, stop, info) in
-            SVProgressHUD.showProgress(Float(progress), status: "Chargement de la vidéo".localized())
+            print("Video thumbnail progress = \(progress)")
         }
 
         PHImageManager().requestAVAsset(forVideo: asset, options: videoRequestOptions, resultHandler: { (avaAsset, _, _) in
@@ -707,7 +756,7 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
                 do {
                     let timestamp = CMTime(seconds: 2, preferredTimescale: 60)
                     let imageRef  = try generator.copyCGImage(at: timestamp, actualTime: nil)
-                    let thumbnail = UIImage(cgImage: imageRef)
+                    let thumbnail = UIImage(cgImage: imageRef).wxCompress()
                     self.refreshCollectionWithDataForVideo(thumbnail: thumbnail)
                 } catch let error as NSError {
                     self.handleLoadingExceptions(forPhoto: true, withError: error)
@@ -720,7 +769,7 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
 // UITableVC Delegates & Datasource methods
 extension AjoutCommerceVC {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 4 {return 4}
+        if section == 4 {return 4} // Section 4 = informations du commerce
         return 1
     }
 
@@ -748,7 +797,7 @@ extension AjoutCommerceVC {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Nom du commerce (Requis)".localized()
+            return "Nom du commerce (requis)".localized()
         case 1:
             return "Photos du commerce".localized()
         case 2:
@@ -756,7 +805,7 @@ extension AjoutCommerceVC {
         case 3:
             return "Catégorie du commerce".localized()
         case 4:
-            return "Informations du commerce (adresse requise)".localized()
+            return "Informations du commerce (requis)".localized()
         case 5:
             return "Description de votre commerce".localized()
         case 6:
@@ -774,42 +823,49 @@ extension AjoutCommerceVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             self.videoSelectedRow = indexPath.row
-            if self.thumbnailArray.count == 0 {
+            if self.thumbnailArray.isEmpty {
                 self.showSelection(forPhoto: false)
             } else {
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
                 let seeAction = UIAlertAction(title: "Voir la vidéo".localized(), style: .default) { (_) in
                     if self.videoIsLocal {
                         if let asset = self.videoArray[self.videoSelectedRow].phAsset {
                             self.getURL(ofPhotoWith: asset, completionHandler: { (url) in
                                 if let url = url {
-                                    ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
+                                    self.showVideoPlayerWithVideoURL(withUrl: url)
                                 } else {
-                                    HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                                    self.showAlertWithMessage(message: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
                                 }
                             })
                         } else {
-                            HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                            self.showAlertWithMessage(message: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
                         }
                     } else {
                         let video = self.loadedVideos[self.videoSelectedRow]["video"] as! PFFileObject
                         if let url = URL(string: video.url!) {
-                            ParseHelper.showVideoPlayerWithVideoURL(withUrl: url, inViewController: self)
+                            self.showVideoPlayerWithVideoURL(withUrl: url)
                         } else {
-                            HelperAndKeys.showAlertWithMessage(theMessage: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), viewController: self)
+                            self.showAlertWithMessage(message: "Il y a eu une erreur lors du chargement de la video".localized(), title: "Erreur de chargement".localized(), completionAction: nil)
                         }
                     }
 
                 }
                 let modifyAction = UIAlertAction(title: "Changer de vidéo".localized(), style: .default) { (_) in self.showSelection(forPhoto: false)}
+                let deleteAction = UIAlertAction(title: "Supprimer la vidéo".localized(), style: .destructive) { (_) in
+                    self.thumbnailArray[indexPath.row] = UIImage()
+                    self.videoArray = [] // FIXME: retravailler pour supprimer la vidéo à un index precis et pas rendre le tableau vide
+                    self.selectedVideoData = Data()
+                    self.videosHaveChanged = true
+                    tableView.reloadData()
+                }
                 let cancelAction = UIAlertAction(title: "Annuler".localized(), style: .cancel) { (_) in alert.dismiss(animated: true)}
 
                 alert.addAction(seeAction)
                 alert.addAction(modifyAction)
+                alert.addAction(deleteAction)
                 alert.addAction(cancelAction)
 
-                self.present(alert, animated: true)
+                present(alert, animated: true)
             }
         }
     }
@@ -829,16 +885,16 @@ extension AjoutCommerceVC {
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "videoCell", for: indexPath) as! VideoCell
-            if self.thumbnailArray.count == 0 {
+            if thumbnailArray.isEmpty {
                 cell.videoPreview.image = UIImage()
             } else {
-                cell.videoPreview.image = self.thumbnailArray[self.videoSelectedRow]
+                cell.videoPreview.image = thumbnailArray[indexPath.row]
             }
             return cell
         } else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categorieCell", for: indexPath) as! SelectionCategorieTVCell
             cell.setPickerViewDataSourceDelegate(dataSourceDelegate: self)
-            if self.categorieCommerce != "" {
+            if !categorieCommerce.isEmptyStr {
                 let listCat = HelperAndKeys.getListOfCategories()
                 let index_Int = listCat.firstIndex(of: self.categorieCommerce)
                 if index_Int != nil {
@@ -854,21 +910,18 @@ extension AjoutCommerceVC {
                 place = "Numéro de téléphone".localized()
                 cell.contentTF.keyboardType = .phonePad
                 cell.contentTF.text = self.telCommerce
-                break
             case 1:
                 place = "Mail de contact".localized()
                 cell.contentTF.keyboardType = .emailAddress
                 cell.contentTF.text = self.mailCommerce
-                break
             case 2:
                 place = "Adresse du commerce (Requis)".localized()
+                cell.contentTF.keyboardType = .default
                 cell.contentTF.text = self.adresseCommerce
-                break
             case 3:
                 place = "Site internet".localized()
                 cell.contentTF.keyboardType = .URL
                 cell.contentTF.text = self.siteWebCommerce
-                break
             default:
                 break
             }
@@ -934,6 +987,7 @@ extension AjoutCommerceVC: UICollectionViewDelegate, UICollectionViewDataSource 
             let modifyAction = UIAlertAction(title: "Changer de photo".localized(), style: .default) { (_) in self.showSelection(forPhoto: true)}
             let deleteAction = UIAlertAction(title: "Supprimer la photo".localized(), style: .destructive) { (_) in
                 self.photoArray[indexPath.row] = #imageLiteral(resourceName: "Plus_icon")
+                self.photosHaveChanged = true
                 collectionView.reloadData()
             }
             let cancelAction = UIAlertAction(title: "Annuler".localized(), style: .cancel) { (_) in alert.dismiss(animated: true)}
@@ -943,7 +997,7 @@ extension AjoutCommerceVC: UICollectionViewDelegate, UICollectionViewDataSource 
             alert.addAction(deleteAction)
             alert.addAction(cancelAction)
 
-            self.present(alert, animated: true)
+            present(alert, animated: true)
         }
     }
 }
@@ -965,7 +1019,6 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
         switch textView.tag {
         case 100:
             descriptionCommerce = textView.text
-            break
         case 200:
             promotionsCommerce  = textView.text
         default:
@@ -985,19 +1038,14 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
         switch textField.tag {
         case 100:
             nomCommerce     = textField.text ?? ""
-            break
         case 200:
             telCommerce     = textField.text ?? ""
-            break
         case 300:
             mailCommerce    = textField.text ?? ""
-            break
         case 400:
             adresseCommerce = textField.text ?? ""
-            break
         case 500:
             siteWebCommerce = textField.text ?? ""
-            break
         default:
             break
         }

@@ -13,6 +13,7 @@ import Photos
 import SVProgressHUD
 import TLPhotoPicker
 import Parse
+import WXImageCompress
 
 class ChangeInfosVC: UIViewController {
     var isPro = false
@@ -79,7 +80,7 @@ class ChangeInfosVC: UIViewController {
         imageProfilContainerView.clipsToBounds = true
         imageProfilContainerView.layer.cornerRadius = self.imageProfilContainerView.frame.size.width / 2
         imageProfilContainerView.layer.masksToBounds = true
-        imageProfilContainerView.layer.borderWidth = userProfilePicURL != "" ? 3 : 3
+        imageProfilContainerView.layer.borderWidth = 3
     }
 
     @objc func saveProfilInformations() {
@@ -88,7 +89,7 @@ class ChangeInfosVC: UIViewController {
         //        TODO: Pouvoir véritablement changer l'adresse email de l'utilisateur
         //        currentUser?.email = mailTF.text
 
-        if !fromCloud { selectedData = profilPictureImageView.image!.jpegData(compressionQuality: 0.7)! }
+        if !fromCloud { selectedData = profilPictureImageView.image!.wxCompress().jpegData(compressionQuality: 1)! }
 
         let profilPic = PFFileObject(name: "image_de_profil-"+(currentUser?.objectId)!, data: selectedData)
         user["profilPicFile"] = profilPic
@@ -148,7 +149,7 @@ extension ChangeInfosVC: TLPhotosPickerViewControllerDelegate {
                 getImage(phasset: asset.phAsset)
             } else {
                 fromCloud = false
-                profilPictureImageView.image = asset.fullResolutionImage
+                profilPictureImageView.image = asset.fullResolutionImage?.wxCompress()
             }
         }
     }
@@ -164,10 +165,11 @@ extension ChangeInfosVC: TLPhotosPickerViewControllerDelegate {
         options.progressHandler = { (progress, error, stop, info) in
             SVProgressHUD.showProgress(Float(progress), status: "Chargement".localized())
         }
-        _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, _, _, info) in
-            if let data = imageData, let _ = info {
+        
+        PHCachingImageManager().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { (image, infos) in
+            if let image = image, let data = image.jpegData(compressionQuality: 1) {
                 self.selectedData = data
-                self.profilPictureImageView.image = UIImage(data: data)
+                self.profilPictureImageView.image = image.wxCompress()
             }
         }
     }

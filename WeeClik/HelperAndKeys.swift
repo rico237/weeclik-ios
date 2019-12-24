@@ -10,71 +10,10 @@ import Foundation
 import UIKit
 import Parse
 import MapKit
-import MessageUI
 import CRNotifications
 import SwiftDate
 
 class HelperAndKeys {
-
-    static func showAlertWithMessage(theMessage: String, title: String, viewController: UIViewController) {
-        let alertViewController = UIAlertController.init(title: title, message: theMessage, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK".localized(), style: .cancel) { (_) -> Void in
-            alertViewController.dismiss(animated: true, completion: nil)
-        }
-        alertViewController.addAction(defaultAction)
-        viewController.present(alertViewController, animated: true, completion: nil)
-    }
-
-    static func showSettingsAlert(withTitle title: String, withMessage message: String, presentFrom viewController: UIViewController) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: "Réglages".localized(), style: .default) { (_) -> Void in
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
-            if UIApplication.shared.canOpenURL(settingsUrl) {UIApplication.shared.open(settingsUrl, completionHandler: nil)}
-        }
-        let cancelAction = UIAlertAction(title: "Annuler".localized(), style: .default, handler: nil)
-        alertController.addAction(cancelAction)
-        alertController.addAction(settingsAction)
-        viewController.present(alertController, animated: true, completion: nil)
-    }
-
-    static func getNavigationBarColor() -> UIColor {
-        return UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
-    }
-
-    static func getBackgroundColor() -> UIColor {
-        return UIColor(red: 0.93, green: 0.93, blue: 0.93, alpha: 1.00)
-    }
-
-    static func getServerURL() -> String {
-//        return "http://172.20.10.4:1337/parse" // Localhost partage de connexion iphone 7+
-//        return "http://192.168.1.30:1337/parse" // Localhost wifi maison
-        return "https://weeclik-server.herokuapp.com/parse"
-//        return "https://weeclik-server-dev.herokuapp.com/parse"
-    }
-
-    static func getServerAppId() -> String {
-        return "JVQZMCuNYvnecPWvWFDTZa8A"
-    }
-
-    static func getLocationPreferenceKey() -> String {
-        return "locationPreference"
-    }
-
-    static func getPrefFilterLocationKey() -> String {
-        return "filterPreference"
-    }
-
-    static func getPaymentKey() -> String {
-        return "payment_enabled"
-    }
-
-    static func getScheduleKey() -> String {
-        return "shedule_key"
-    }
-
-    static func getPartageGroupKey() -> String {
-        return "partage_group_key"
-    }
 
     static func setUserDefaultsValue(value: Any, forKey key: String) {
         let standardUserDefaults = UserDefaults.standard
@@ -85,35 +24,33 @@ class HelperAndKeys {
     static func getUserDefaultsValue(forKey key: String, withExpectedType expectedType: String) -> Any? {
         let standardUserDefaults = UserDefaults.standard
         let type = expectedType.lowercased()
-
         if type == "bool" {
             return standardUserDefaults.bool(forKey: key)
         } else if type == "string" {
             return standardUserDefaults.string(forKey: key)
         }
-
         return nil
     }
 
     static func getPrefFiltreLocation() -> Bool {
         let standardUserDefaults = UserDefaults.standard
-        return standardUserDefaults.bool(forKey: "filterPreference")
+        return standardUserDefaults.bool(forKey: Constants.UserDefaultsKeys.prefFilterLocationKey)
     }
 
     static func setPrefFiltreLocation(filtreLocation: Bool) {
         let standardUserDefaults = UserDefaults.standard
-        standardUserDefaults.set(filtreLocation, forKey: "filterPreference")
+        standardUserDefaults.set(filtreLocation, forKey: Constants.UserDefaultsKeys.prefFilterLocationKey)
         standardUserDefaults.synchronize()
     }
 
     static func getLocationGranted() -> Bool {
         let standardUserDefaults = UserDefaults.standard
-        return standardUserDefaults.bool(forKey: "locationPreference")
+        return standardUserDefaults.bool(forKey: Constants.UserDefaultsKeys.locationPreferenceKey)
     }
 
     static func setLocationGranted(locationGranted: Bool) {
         let standardUserDefaults = UserDefaults.standard
-        standardUserDefaults.set(locationGranted, forKey: "locationPreference")
+        standardUserDefaults.set(locationGranted, forKey: Constants.UserDefaultsKeys.locationPreferenceKey)
         standardUserDefaults.synchronize()
     }
 
@@ -181,50 +118,6 @@ class HelperAndKeys {
         }
     }
 
-    static func visitWebsite(site: String, controller: UIViewController) {
-
-        let alertViewController = UIAlertController.init(title: "Sortir de l'application ?".localized(), message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?".localized(), preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction.init(title: "OK".localized(), style: UIAlertAction.Style.default) { (_) -> Void in
-            if let url = URL(string: site), UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-            }
-        }
-        let cancelAction = UIAlertAction.init(title: "Annuler".localized(), style: UIAlertAction.Style.destructive) {(_) -> Void in}
-        alertViewController.addAction(cancelAction)
-        alertViewController.addAction(defaultAction)
-        controller.present(alertViewController, animated: true, completion: nil)
-    }
-
-    static func sendFeedBackOrMessageViaMail(messageToSend: String, isFeedBackMsg: Bool, commerceMail: String, controller: UIViewController) {
-        let messageAdded: String
-        let versionNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-
-        if !isFeedBackMsg {
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Téléchargez-la ici : http://www.google.fr/".localized()
-        } else {
-            messageAdded = "<br><br>Envoyé depuis l'application iOS Weeclik.<br><br>Numéro de version de l'app : \(versionNumber)".localized()
-        }
-//                let allowedCharacters = NSCharacterSet.urlFragmentAllowed
-        let finalMessage = messageToSend.appending(messageAdded)
-
-        if MFMailComposeViewController.canSendMail() {
-            let composeVC = MFMailComposeViewController()
-
-            // Configure the fields of the interface.
-            composeVC.setSubject("Demande de contact via Weeclik".localized())
-            composeVC.setToRecipients([commerceMail])
-            composeVC.setMessageBody(finalMessage, isHTML: true)
-
-            composeVC.navigationBar.barTintColor = UIColor.white
-
-            // Present the view controller modally.
-            controller.present(composeVC, animated: true, completion: nil)
-        } else {
-            showAlertWithMessage(theMessage: "Il semblerait que vous n'ayez pas configuré votre boîte mail depuis votre téléphone.".localized(), title: "Erreur".localized(), viewController: controller)
-        }
-
-    }
-
     static func openMapForPlace(placeName: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
 
         let regionDistance: CLLocationDistance = 10000
@@ -262,8 +155,7 @@ class HelperAndKeys {
         guard let date = getSharingTimer(forCommerceId: objectId) else {
             return true
         }
-        let isAfterIntervalle = Date().isAfterDate(date + 1.days, granularity: .second)
-        print("isAfterIntervalle : \(isAfterIntervalle)")
+        let isAfterIntervalle = Date().isAfterDate(date + 7.days, granularity: .second)
         if isAfterIntervalle {
             removeCommerce(forCommerceId: objectId)
             return true
@@ -320,40 +212,57 @@ class HelperAndKeys {
     // TODO: Construire une veritable requette de stats (perfection)
     static func saveStatsInDb(commerce: PFObject, user: PFUser? = nil) {
         // Il y a un compte utilisateur, on met donc a jour ses stats
-        if let utilisateur = user {
+        if let user = user {
             let query = PFQuery(className: "StatsPartage")
             query.whereKey("commercePartage", equalTo: commerce)
-            query.whereKey("utilisateurPartageur", equalTo: utilisateur)
+            query.whereKey("utilisateurPartageur", equalTo: user)
             query.includeKey("commercePartage")
             query.getFirstObjectInBackground { (object, error) in
                 if let error = error {
                     print(error.desc)
-                    if error.localizedDescription == "No results matched the query." {
+                    if error.code == 101 {
                         // Aucun objet trouvé on en crée un
                         let parseObj = PFObject(className: "StatsPartage")
                         parseObj["commercePartage"] = commerce
-                        parseObj["utilisateurPartageur"] = utilisateur
+                        parseObj["utilisateurPartageur"] = user
                         parseObj["nbrPartage"] = 1
                         parseObj["mes_partages_dates"] = [Date()]
-                        parseObj.saveInBackground()
+                        parseObj.saveInBackground { (_ success: Bool, error) in
+                            if let _ = error {
+                                
+                            } else {
+                                // On met a jour les stats du commerce sans utilisateur
+                                let commerceQuery = PFQuery(className: "Commerce")
+                                commerceQuery.getObjectInBackground(withId: commerce.objectId!) { (comm, error) in
+                                    if let error = error {
+                                        ParseErrorCodeHandler.handleUnknownError(error: error)
+                                    } else if let comm = comm {
+                                        comm.incrementKey("nombrePartages")
+                                        comm.saveInBackground()
+                                    }
+                                }
+                            }
+                        }
                     } else {
                         print("Error in save stat partage func - HelperAndKeys - saveStatsInDb")
                         ParseErrorCodeHandler.handleUnknownError(error: error)
                     }
 
-                } else if let object = object {
-                    let sharingObject = object
+                } else if let sharingObject = object {
                     sharingObject.incrementKey("nbrPartage")
                     sharingObject.add(Date(), forKey: "mes_partages_dates")
-                    let theCommerce = sharingObject["commercePartage"] as! PFObject
-                    theCommerce.incrementKey("nombrePartages")
-                    PFObject.saveAll(inBackground: [sharingObject, theCommerce])
+                    if let theCommerce = sharingObject["commercePartage"] as? PFObject {
+                        theCommerce.incrementKey("nombrePartages")
+                        PFObject.saveAll(inBackground: [sharingObject, theCommerce])
+                    } else {
+                        sharingObject.saveInBackground()
+                    }
                 }
             }
         } else {
             // On met a jour les stats du commerce sans utilisateur
             let commerceQuery = PFQuery(className: "Commerce")
-            commerceQuery.getObjectInBackground(withId: commerce.objectId!.description) { (comm, error) in
+            commerceQuery.getObjectInBackground(withId: commerce.objectId!) { (comm, error) in
                 if let error = error {
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                 } else if let comm = comm {
