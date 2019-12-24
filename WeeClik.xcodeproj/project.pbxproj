@@ -559,7 +559,6 @@
 				1FCED3941FABA9A200392060 /* MotDePasseVC.swift */,
 			);
 			name = "Profil utilisateur";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */ = {
@@ -577,6 +576,7 @@
 		1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */ = {
 			isa = PBXGroup;
 			children = (
+				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
 				1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */,
 				1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */,
 			);
@@ -667,15 +667,14 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
-		1F61FA2A233416970001392C /* TEST_PLUSIEURS_CONTACTS */ = {
+		1F61FA2A233416970001392C /* Liste de partage */ = {
 			isa = PBXGroup;
 			children = (
-				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
 				1F61FA2B233418620001392C /* ListeDesFavorisVC.swift */,
 				1F61FA2D23344C100001392C /* GroupePartageTVCell.swift */,
 				1F7E23DB2334F02800D6B1A4 /* GroupePartage.swift */,
 			);
-			path = TEST_PLUSIEURS_CONTACTS;
+			path = "Liste de partage";
 			sourceTree = "<group>";
 		};
 		1F6AF47D2358E9BE00F057C7 /* Form Validators */ = {
@@ -753,9 +752,15 @@
 				1F28C6C723467CA7009831C7 /* Manager */,
 				1F0B8352224E9F4300F09FF5 /* Login & Signup */,
 				1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */,
+				1F61FA2A233416970001392C /* Liste de partage */,
 				1F0B8354224EA04A00F09FF5 /* (Accueil) Liste des commercants & detail */,
 				1FC228FB22356A850024ED5B /* Creation groupes */,
 				1FE910E221D2E89D00CEA0F3 /* Search */,
+				1FC42C48223ECD7100AB0C39 /* Paiement */,
+				1F6AF47D2358E9BE00F057C7 /* Form Validators */,
+				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
+				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
+				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
 				1F9357372360C95A0006A234 /* Storyboards */,
 				1FDB7006235BF5D300EB3742 /* En_cours */,
 				1F2762912116EE0100779342 /* Routing */,
@@ -813,23 +818,16 @@
 			isa = PBXGroup;
 			children = (
 				1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */,
-				1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */,
 			);
 			name = Paiement;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		1FDB7006235BF5D300EB3742 /* En_cours */ = {
 			isa = PBXGroup;
 			children = (
-				1F61FA2A233416970001392C /* TEST_PLUSIEURS_CONTACTS */,
 				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
-				1FC42C48223ECD7100AB0C39 /* Paiement */,
-				1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */,
-				1F6AF47D2358E9BE00F057C7 /* Form Validators */,
-				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
-				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
-				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
+				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
+				1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */,
 			);
 			path = En_cours;
 			sourceTree = "<group>";
