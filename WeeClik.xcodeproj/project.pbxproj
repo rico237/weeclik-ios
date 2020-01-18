@@ -140,6 +140,12 @@
 		1F28C6C923467D4F009831C7 /* CommerceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F28C6C823467D4F009831C7 /* CommerceService.swift */; };
 		1F28C6CC2346D49B009831C7 /* ParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F28C6CB2346D49B009831C7 /* ParseService.swift */; };
 		1F2933D8226E538500AE9C25 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2933D7226E538500AE9C25 /* UserSettings.swift */; };
+		1F29990623BA703A00D638FC /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990523BA703A00D638FC /* AnalyticsManager.swift */; };
+		1F29990723BA703A00D638FC /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990523BA703A00D638FC /* AnalyticsManager.swift */; };
+		1F29990923BBB8D700D638FC /* LatestKnowLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */; };
+		1F29990A23BBB8D700D638FC /* LatestKnowLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */; };
+		1F29990C23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
+		1F29990D23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
 		1F2C05112132F564002B86AB /* PaymentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */; };
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
@@ -327,6 +333,9 @@
 		1F28C6C823467D4F009831C7 /* CommerceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommerceService.swift; sourceTree = "<group>"; };
 		1F28C6CB2346D49B009831C7 /* ParseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseService.swift; sourceTree = "<group>"; };
 		1F2933D7226E538500AE9C25 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		1F29990523BA703A00D638FC /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestKnowLocationManager.swift; sourceTree = "<group>"; };
+		1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Dictionary.swift"; sourceTree = "<group>"; };
 		1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
@@ -628,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD6F56C20729A5100EC9DF3 /* Extensions.swift */,
+				1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */,
 				1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */,
 				1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */,
 				1F0E862D238AB64C003124FD /* Extension+UIViewController.swift */,
@@ -650,6 +660,8 @@
 				1F28C6CB2346D49B009831C7 /* ParseService.swift */,
 				1F28C6C823467D4F009831C7 /* CommerceService.swift */,
 				1F7F7C8523494F210087A444 /* UserDefaultsManager.swift */,
+				1F29990523BA703A00D638FC /* AnalyticsManager.swift */,
+				1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1197,6 +1209,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WeeClik-DEV/Pods-WeeClik-DEV-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
@@ -1242,6 +1255,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
@@ -1370,7 +1384,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\n  SCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\n  if [ ! \"${SCRIPT_SRC}\" ]; then\n    echo \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\n    exit 1\n  fi\n  APP_TOKEN=\"29c0228d7e3479445169f972499e2a56\"\n  source \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
+			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\n  SCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\n  if [ ! \"${SCRIPT_SRC}\" ]; then\n    echo \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\n    exit 1\n  fi\n  APP_TOKEN=\"315f28620a2a59c3d9d170b2462f926e\"\n  source \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
 		};
 		1FB0CE37236A321A00041195 /* Instabug dsym upload */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1388,7 +1402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#--- SCRIPT BEGIN ---\n# SKIP_SIMULATOR_BUILDS=1\n  SCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1)\n  if [ ! \"${SCRIPT_SRC}\" ]; then\n    echo \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\n    exit 1\n  fi\n  APP_TOKEN=\"b65f5e6e7492b9761a3fe8f4ee77af09\"\n  source \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
+			shellScript = "#--- SCRIPT BEGIN --- \n# SKIP_SIMULATOR_BUILDS=1 \n    SCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Instabug_dsym_upload.sh' | head -1) \n    if [ ! \"${SCRIPT_SRC}\" ]; then \n        echo \"Instabug: err: script not found. Make sure that you're including Instabug.bundle in your project directory\"\n        exit 1\n    fi\n    APP_TOKEN=\"b65f5e6e7492b9761a3fe8f4ee77af09\"\n    source \"${SCRIPT_SRC}\"\n#--- SCRIPT END ---\n";
 		};
 		1FD0BAF12260CF2C007E3CEE /* Crashlytics - Fabric - Firebase */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1457,6 +1471,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WeeclikUnitTests/Pods-WeeclikUnitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
@@ -1502,6 +1517,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
@@ -1557,6 +1573,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WeeClik/Pods-WeeClik-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
@@ -1602,6 +1619,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
@@ -1697,6 +1715,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WeeClikUITests/Pods-WeeClikUITests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Analytics/Analytics.framework",
 				"${BUILT_PRODUCTS_DIR}/AppImageViewer/AppImageViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
@@ -1742,6 +1761,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Analytics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppImageViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
@@ -1825,8 +1845,10 @@
 				1F03ABA62360C18B0027D6EF /* ShadowView.swift in Sources */,
 				1F03ABA72360C18B0027D6EF /* WeeClikProducts.swift in Sources */,
 				1F03ABA82360C18B0027D6EF /* ParseHelper.swift in Sources */,
+				1F29990A23BBB8D700D638FC /* LatestKnowLocationManager.swift in Sources */,
 				1F03ABA92360C18B0027D6EF /* GridFlowLayout.swift in Sources */,
 				1F03ABAA2360C18B0027D6EF /* PaymentCell.swift in Sources */,
+				1F29990D23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */,
 				1F03ABAB2360C18B0027D6EF /* AjoutPhotoTVC.swift in Sources */,
 				1F03ABAC2360C18B0027D6EF /* MonCompteVC.swift in Sources */,
 				1F03ABAD2360C18B0027D6EF /* MonCompteCommerceCell.swift in Sources */,
@@ -1862,6 +1884,7 @@
 				1F03ABC72360C18B0027D6EF /* ShareToGroupsActivity.swift in Sources */,
 				1F03ABC82360C18B0027D6EF /* IsPhoneNumberValidationRule.swift in Sources */,
 				1F03ABC92360C18B0027D6EF /* SignUpViewController.swift in Sources */,
+				1F29990723BA703A00D638FC /* AnalyticsManager.swift in Sources */,
 				1FB0CE3D236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */,
 				1F03ABCA2360C18B0027D6EF /* SearchViewController.swift in Sources */,
 				1F03ABCB2360C18B0027D6EF /* SharingToGroupsVC.swift in Sources */,
@@ -1913,8 +1936,10 @@
 				1F4D4312202AC4E10089FB15 /* ShadowView.swift in Sources */,
 				1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */,
 				1F3DEAF222C039F8008F92A5 /* ParseHelper.swift in Sources */,
+				1F29990923BBB8D700D638FC /* LatestKnowLocationManager.swift in Sources */,
 				1F5E931B204724E4009AACA1 /* GridFlowLayout.swift in Sources */,
 				1F04777A214407C400B20CA5 /* PaymentCell.swift in Sources */,
+				1F29990C23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */,
 				1F5DE54C1FAFCEEB000C4E57 /* AjoutPhotoTVC.swift in Sources */,
 				1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */,
 				1FC5C59B22B8434B00178929 /* MonCompteCommerceCell.swift in Sources */,
@@ -1950,6 +1975,7 @@
 				1F6912D522357DAC00E1755C /* ShareToGroupsActivity.swift in Sources */,
 				1F6AF48B2358EEA000F057C7 /* IsPhoneNumberValidationRule.swift in Sources */,
 				1F9EE55D21D1573B0086EF72 /* SignUpViewController.swift in Sources */,
+				1F29990623BA703A00D638FC /* AnalyticsManager.swift in Sources */,
 				1FB0CE3C236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */,
 				1F9EE55F21D297D50086EF72 /* SearchViewController.swift in Sources */,
 				1FF5C6262236ED2E00D936B4 /* SharingToGroupsVC.swift in Sources */,
@@ -2015,7 +2041,7 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.5;
+				MARKETING_VERSION = 3.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik-DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
@@ -2040,7 +2066,7 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.5;
+				MARKETING_VERSION = 3.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik-DEV";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
@@ -2179,13 +2205,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.5;
+				MARKETING_VERSION = 3.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -2202,12 +2228,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.5;
+				MARKETING_VERSION = 3.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

@@ -13,6 +13,7 @@ import Compass
 import Firebase
 import SwiftyStoreKit
 import Instabug
+import Analytics
 
 #if DEVELOPMENT
 // Import dev dependencies
@@ -34,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         // Server conf (bdd + storage + auth)
         parseConfiguration()
+        
+//        AnalyticsManager.shared.instanciate()
+//        AnalyticsManager.shared.trackEvent(event: "Launch app")
+        
         // Navigation bar & UI conf
         globalUiConfiguration()
         
@@ -52,11 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEVELOPMENT
         Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
         #else
-//        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.screenshot])
+        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.screenshot])
         #endif
         
 //        print("\n\nREMOVE BEFORE BUILDING FOR PROD\n\n")
 //        resetUserDefaults()
+        
         return true
     }
 
@@ -107,6 +113,7 @@ extension AppDelegate {
             $0.server = Constants.Server.serverURL()
         }
         Parse.initialize(with: configuration)
+        print("Parse server URL: \(Constants.Server.serverURL())")
     }
 
     func purchaseObserver() {
@@ -232,7 +239,7 @@ extension AppDelegate {
         // Only allow portrait (standard behaviour)
         return .portrait
     }
-
+    /// Return the controller currently being presented
     private func topViewControllerWithRootViewController(rootViewController: UIViewController!) -> UIViewController? {
         guard rootViewController != nil else {return  nil}
         if (rootViewController.isKind(of: UITabBarController.self)) {
@@ -246,8 +253,9 @@ extension AppDelegate {
     }
 }
 
-// MARK: Dev purpose
+// MARK: UserDefaults Management
 extension AppDelegate {
+    /// Clear UserDefaults folder (used only for dev purpose)
     func resetUserDefaults() {
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()

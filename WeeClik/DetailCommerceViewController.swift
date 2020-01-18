@@ -73,7 +73,7 @@ class DetailCommerceViewController: UIViewController {
 
         let query = PFQuery(className: "Commerce")
         query.whereKey("objectId", equalTo: objId!)
-        query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+        query.includeKeys(["thumbnailPrincipal"])
         query.getFirstObjectInBackground { (commerce, error) in
             guard let commerce = commerce else {
                 if let error  = error { ParseErrorCodeHandler.handleUnknownError(error: error) }
@@ -364,7 +364,7 @@ extension DetailCommerceViewController {
         // Refresh UI
         updateAllViews()
         tableView.reloadData()
-        print("website : \(commerceObject.siteWeb)")
+//        print("website : \(commerceObject.siteWeb)")
         
 //        if commerceObject.mail == "" || !commerceObject.mail.isValidEmail() {
 //            mailButton.isEnabled = false

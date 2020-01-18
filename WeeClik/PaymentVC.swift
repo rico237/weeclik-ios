@@ -204,15 +204,14 @@ class PaymentVC: UIViewController {
             newCommerce["typeCommerce"] = "Alimentaire"
             newCommerce["adresse"] = ""
             newCommerce["promotions"] = "Pas de promotions"
-            newCommerce["photoSlider"] = []
             newCommerce["siteWeb"] = ""
             newCommerce["mail"] = ""
             newCommerce["tel"] = ""
             newCommerce["description"] = "Pas de description"
-            newCommerce["videos"] = []
             newCommerce["tags"] = []
             newCommerce["position"] = PFGeoPoint(latitude: 0, longitude: 0)
             newCommerce["owner"] = currentUser
+            newCommerce["createdFromProject"] = "iOS"
             newCommerce.acl = ParseHelper.getUserACL(forUser: currentUser)
             
             if scheduleVal {

@@ -10,6 +10,9 @@ def projectPods
     #                              #
     ################################
     ################################
+
+    # Analytics (SEGMENT)
+    pod 'Analytics', '~> 3.7'
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
