@@ -170,6 +170,7 @@
 		1F61FA2E23344C100001392C /* GroupePartageTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F61FA2D23344C100001392C /* GroupePartageTVCell.swift */; };
 		1F677F9323494222003819E4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F677F9223494222003819E4 /* Person.swift */; };
 		1F6912D522357DAC00E1755C /* ShareToGroupsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6912D422357DAC00E1755C /* ShareToGroupsActivity.swift */; };
+		1F6A462723D3D0FA00B3B0B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56C20729A5100EC9DF3 /* Extensions.swift */; };
 		1F6AF47B2358E9A100F057C7 /* NomCommerceFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF47A2358E9A100F057C7 /* NomCommerceFormValidationError.swift */; };
 		1F6AF47F2358EB1000F057C7 /* TelFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF47E2358EB1000F057C7 /* TelFormValidationError.swift */; };
 		1F6AF4822358EB3400F057C7 /* WebsiteFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF4812358EB3400F057C7 /* WebsiteFormValidationError.swift */; };
@@ -236,7 +237,6 @@
 		1FB0CE40236C6DF100041195 /* Extension+PHAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */; };
 		1FB2D89722BCCFD800C0FDC6 /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */; };
 		1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */; };
-		1FB81C622364864A00A41A98 /* WeeclikUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB81C612364864A00A41A98 /* WeeclikUnitTests.swift */; };
 		1FB9B2B2226E785E009C3E65 /* WeeClikUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9B2B1226E785E009C3E65 /* WeeClikUITests.swift */; };
 		1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBB63A4211F16BD00BCB480 /* StoreKit.framework */; };
 		1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */; };
@@ -420,7 +420,6 @@
 		1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAreaViewController.swift; sourceTree = "<group>"; };
 		1FB81C5F2364864A00A41A98 /* WeeclikUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeclikUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FB81C612364864A00A41A98 /* WeeclikUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeclikUnitTests.swift; sourceTree = "<group>"; };
 		1FB81C632364864A00A41A98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FB9B2A9226E76B7009C3E65 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1FB9B2AF226E785E009C3E65 /* WeeClikUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeeClikUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -799,7 +798,6 @@
 		1FB81C602364864A00A41A98 /* WeeclikUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				1FB81C612364864A00A41A98 /* WeeclikUnitTests.swift */,
 				1F936F862364D6CC00AD69F3 /* DetailCommerceActions.swift */,
 				1FB81C632364864A00A41A98 /* Info.plist */,
 			);
@@ -1998,8 +1996,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FB81C622364864A00A41A98 /* WeeclikUnitTests.swift in Sources */,
 				1F936F872364D6CC00AD69F3 /* DetailCommerceActions.swift in Sources */,
+				1F6A462723D3D0FA00B3B0B1 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
