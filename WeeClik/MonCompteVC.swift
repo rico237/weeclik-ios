@@ -344,7 +344,7 @@ extension MonCompteVC {
             guard let currentUser = currentUser else { return }
             let queryCommerce = PFQuery(className: "Commerce")
             queryCommerce.whereKey("owner", equalTo: currentUser as Any)
-            queryCommerce.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            queryCommerce.includeKeys(["thumbnailPrincipal"])
             queryCommerce.findObjectsInBackground(block: { (objects, error) in
                 guard let objects = objects else {
                     if let error = error { ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) }
@@ -362,7 +362,7 @@ extension MonCompteVC {
                 // FIXME: Ameliorer cette query
                 let partagesQuery = PFQuery(className: "Commerce")
                 partagesQuery.whereKey("objectId", containedIn: partages)
-                partagesQuery.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+                partagesQuery.includeKeys(["thumbnailPrincipal"])
                 partagesQuery.findObjectsInBackground { (objects, error) in
                     guard let objects = objects else {
                         if let error = error { ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) }

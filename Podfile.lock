@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
+  - Analytics (3.7.0)
   - AppImageViewer (1.0.10):
     - SDWebImage (~> 4.0)
   - Bolts (1.9.0):
@@ -178,6 +179,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.6)
+  - Analytics (~> 3.7)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
   - Bolts (~> 1.9)
   - BulletinBoard (~> 3.0.0)
@@ -223,6 +225,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Analytics
     - Bolts
     - BulletinBoard
     - Crashlytics
@@ -317,6 +320,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  Analytics: 77fd5fb102a4a5eedafa2c2b0245ceb7b7c15e45
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
@@ -373,6 +377,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: ee16057984f200493d07f6e1d9b9855a362b13a4
+PODFILE CHECKSUM: 4a4bfc7ec5810c26bd417e415e9165164f7db98b
 
 COCOAPODS: 1.8.4

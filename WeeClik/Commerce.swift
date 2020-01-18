@@ -90,7 +90,7 @@ public class Commerce: NSObject, NSCoding {
     convenience init? (objectId: String) {
         let query = PFQuery(className: "Commerce")
         query.whereKey("objectId", equalTo: objectId)
-        query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+        query.includeKeys(["thumbnailPrincipal"])
         let parseCommerce = query.getFirstObjectInBackground()
         parseCommerce.waitUntilFinished()
         if let commerce = parseCommerce.result {
@@ -103,8 +103,9 @@ public class Commerce: NSObject, NSCoding {
     override public var description: String {
         return """
                 Commerce { \
-                    \t Nom : \(self.nom) \
-                    \tType : \(self.type)\n\t Partages : \(self.partages) \
+                    \tNom : \(self.nom) \
+                    \tType : \(self.type)\
+                    \t Partages : \(self.partages) \
                     \tId : \(String(describing: self.objectId)) \
                 }
                """

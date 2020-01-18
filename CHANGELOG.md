@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [3.3.5] - 2019-11-24
 ### Add
 - Add precheck for app store in beta & screenshot lanes.
+- Documentation folder (automatic execution) with [jazzy](https://github.com/realm/jazzy) lib visible here [LINK](https://rico237.github.io/weeclik-ios/).
 
 ### Changed
 - Sharing icon was not called for SMS & Whatsapp sharing.

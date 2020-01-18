@@ -165,10 +165,9 @@ class ParseService: NSObject {
         if !photos.isEmpty {
             let query = PFQuery(className: "Commerce")
             query.whereKey("objectId", equalTo: commerce.objectId!)
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            query.includeKeys(["thumbnailPrincipal"])
             query.getFirstObjectInBackground { (commerceToUpdate, error) in
                 if let commerceToUpdate = commerceToUpdate {
-                    commerceToUpdate["photoSlider"] = photos
                     commerceToUpdate["thumbnailPrincipal"] = photos[0]
                     commerceToUpdate.saveInBackground { (success, error) in
                         if let error =  error {
@@ -301,7 +300,7 @@ extension ParseService {
             query.whereKey("typeCommerce", equalTo: typeCategorie)
             query.whereKey("statutCommerce", equalTo: 1)
             query.whereKey("brouillon", equalTo: false)
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            query.includeKeys(["thumbnailPrincipal"])
 
             if prefFiltreLocation && ( SPPermission.isAllowed(.locationWhenInUse) || SPPermission.isAllowed(.locationAlwaysAndWhenInUse) ) {
                 locationManager.startUpdatingLocation()

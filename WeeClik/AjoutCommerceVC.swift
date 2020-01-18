@@ -36,13 +36,13 @@ enum UploadingStatus {
 
 class AjoutCommerceVC: UITableViewController {
 
-    var photoArray : [UIImage]!     = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]          // Tableau de photos
+    var photoArray: [UIImage]!      = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]          // Tableau de photos
     var loadedPhotos                = [PFObject]()          // Toutes les images conservés en BDD par le commerce
     var loadedVideos                = [PFObject]()          // Toutes les vidéos conservés en BDD par le commerce
     var videoArray                  = [TLPHAsset]()         // Tableau de videos
-    var thumbnailArray : [UIImage]  = [UIImage]()           // Tableau de preview des vidéos
+    var thumbnailArray: [UIImage]   = [UIImage]()           // Tableau de preview des vidéos
     var selectedVideoData           = Data()                // Data de vidéos
-    var savedCommerce : Commerce?                           // Objet Commerce si on a pas utilisé le bouton sauvegarde
+    var savedCommerce: Commerce?                           // Objet Commerce si on a pas utilisé le bouton sauvegarde
     var isSaving = false                                    // Sauvegarde du commerce en cours
 
     // UI Changes
@@ -153,7 +153,6 @@ extension AjoutCommerceVC {
             // Modification commerce existant
             if let savedCommerce = savedCommerce {
                 // Est en mode brouillon
-                // TODO: Disparait dans une navigation pop FIX URGENT
                 if (savedCommerce.pfObject["brouillon"] as! Bool) {
                     self.tableView.tableHeaderView?.frame.size.height = 0
                 } else {
@@ -214,11 +213,11 @@ extension AjoutCommerceVC {
 
                         if let photosBDD = objects {
                             self.photoArray = [#imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon"), #imageLiteral(resourceName: "Plus_icon")]
-                            for (index, obj) in photosBDD.enumerated() {
-                                self.loadedPhotos.append(obj) // Tous les images (afin de les supprimer avant l'update)
+                            for (index, object) in photosBDD.enumerated() {
+                                self.loadedPhotos.append(object) // Tous les images (afin de les supprimer avant l'update)
                                 // 3 première images
                                 if index < 3 {
-                                    let fileImage       = obj["photo"] as! PFFileObject
+                                    let fileImage       = object["photo"] as! PFFileObject
                                     if let imageData    = try? fileImage.getData() {
                                         self.photoArray.remove(at: index)
                                         self.photoArray.insert(UIImage(data: imageData) ?? UIImage(named: "Plus_icon")!, at: index)
@@ -242,11 +241,11 @@ extension AjoutCommerceVC {
                     } else {
                         // Success getting videos
                         if let videoBDD = objects {
-                            for (index, obj) in videoBDD.enumerated() {
-                                self.loadedVideos.append(obj)
+                            for (index, object) in videoBDD.enumerated() {
+                                self.loadedVideos.append(object)
                                 // 3 première images
                                 if index < 1 {
-                                    let fileImage       = obj["thumbnail"] as! PFFileObject
+                                    let fileImage       = object["thumbnail"] as! PFFileObject
                                     if let imageData    = try? fileImage.getData() {
                                         self.thumbnailArray.removeAll()
                                         self.thumbnailArray.append(UIImage(data: imageData) ?? UIImage())
@@ -420,7 +419,7 @@ extension AjoutCommerceVC {
         var photos = [PFObject]()
 
         for image in self.photoArray where image != #imageLiteral(resourceName: "Plus_icon") {
-            let obj = PFObject(className: "Commerce_Photos")
+            let commercePhoto = PFObject(className: "Commerce_Photos")
             let compressedImage = image.wxCompress()
             let file: PFFileObject!
             do {
@@ -429,9 +428,9 @@ extension AjoutCommerceVC {
                 print("Error while setting content type jpeg \n\tError : \(error)")
                 file = PFFileObject(name: "photo.jpg", data: compressedImage.jpegData(compressionQuality: 1)!)
             }
-            obj["photo"] = file
-            obj["commerce"] = commerceToSave
-            photos.append(obj)
+            commercePhoto["photo"] = file
+            commercePhoto["commerce"] = commerceToSave
+            photos.append(commercePhoto)
         }
 
         if loadedFromBAAS {
@@ -449,21 +448,6 @@ extension AjoutCommerceVC {
     }
     
     func savePhotos(photos: [PFObject]) {
-//        PFObject.saveAll(inBackground: photos, block: { (_, error) in
-//            if let error = error {
-//                print("Save Photo func - Delete error")
-//                self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)
-//            } else {
-//                self.photos = photos
-//                // [3]. Upload de la video
-//                if self.videosHaveChanged {
-//                    self.saveVideosWithCommerce(commerceId: self.objectIdCommerce)
-//                } else {
-//                    self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
-//                }
-//            }
-//        })
-        
         // try recursive function
         for (index, photo) in photos.enumerated() {
             if index == photos.count - 1 {
@@ -497,15 +481,12 @@ extension AjoutCommerceVC {
         if !photos.isEmpty {
             let query = PFQuery(className: "Commerce")
             query.whereKey("objectId", equalTo: commerceId)
-            query.includeKeys(["thumbnailPrincipal", "photosSlider", "videos"])
+            query.includeKeys(["thumbnailPrincipal"])
             
             query.getFirstObjectInBackground { (object, error) in
                 
                 if let commerceToSave = object, let thumbnail = self.photos.first {
-                    commerceToSave["photoSlider"] = self.photos
                     commerceToSave["thumbnailPrincipal"] = thumbnail
-                    //                commerceToSave["videos"] = []
-                    //                commerceToSave["video"] = video
                     commerceToSave.saveInBackground { (success, error) in
                         if let error =  error {
                             print("Commerce refresh with media")
@@ -594,8 +575,9 @@ extension AjoutCommerceVC {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "renewOfCommerce" {
-            let paymentVC = segue.destination as! PaymentVC
+        if segue.identifier == "renewOfCommerce",
+            let paymentVC = segue.destination as? PaymentVC {
+            
             paymentVC.renewingCommerceId = objectIdCommerce
             paymentVC.commerceAlreadyExists = true
         }
@@ -627,7 +609,7 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
             })
         }
     }
-    func showSelection(forPhoto : Bool) {
+    func showSelection(forPhoto: Bool) {
         let viewController = TLPhotosPickerViewController()
         viewController.delegate = self
         
@@ -693,9 +675,9 @@ extension AjoutCommerceVC: TLPhotosPickerViewControllerDelegate {
         }
     }
 
-    func refreshCollectionWithDataForVideo(thumbnail : UIImage) {
+    func refreshCollectionWithDataForVideo(thumbnail: UIImage) {
         DispatchQueue.main.async {
-            if self.thumbnailArray.count != 0 {
+            if !self.thumbnailArray.isEmpty {
                 self.thumbnailArray.remove(at: self.videoSelectedRow)
             }
             self.thumbnailArray.insert(thumbnail, at: self.videoSelectedRow)
@@ -896,9 +878,8 @@ extension AjoutCommerceVC {
             cell.setPickerViewDataSourceDelegate(dataSourceDelegate: self)
             if !categorieCommerce.isEmptyStr {
                 let listCat = HelperAndKeys.getListOfCategories()
-                let index_Int = listCat.firstIndex(of: self.categorieCommerce)
-                if index_Int != nil {
-                    cell.categoriePickerView.selectRow(index_Int!, inComponent: 0, animated: false)
+                if let indexInt = listCat.firstIndex(of: self.categorieCommerce) {
+                    cell.categoriePickerView.selectRow(indexInt, inComponent: 0, animated: false)
                 }
             }
             return cell
@@ -947,7 +928,7 @@ extension AjoutCommerceVC {
 
 // Other functions
 extension AjoutCommerceVC {
-    func handleLoadingExceptions(forPhoto : Bool, withError : NSError) {
+    func handleLoadingExceptions(forPhoto: Bool, withError: NSError) {
         if forPhoto {
             print("Image generation failed with error \(withError.localizedDescription)")
         } else {
@@ -962,12 +943,16 @@ extension AjoutCommerceVC: UICollectionViewDelegate, UICollectionViewDataSource 
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        let imagev = cell.viewWithTag(21) as! UIImageView
-        imagev.image = self.photoArray[indexPath.row]
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoCell, let imageView = cell.viewWithTag(21) as? UIImageView
+            else {
+            // TODO: Return a non-formated cell
+            return UICollectionViewCell()
+        }
+        
+        imageView.image = self.photoArray[indexPath.row]
 
-        let background = cell.viewWithTag(999)!
-        background.setCardView(view: background)
+        let backgroundView = cell.viewWithTag(999)!
+        backgroundView.setCardView(view: backgroundView)
         return cell
     }
 

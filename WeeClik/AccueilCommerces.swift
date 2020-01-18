@@ -92,9 +92,9 @@ class AccueilCommerces: UIViewController {
         self.locationManager.distanceFilter  = kCLDistanceFilterNone
 
         self.refreshControl.attributedTitle = NSAttributedString(string: "")
-        self.refreshControl.addTarget(self, action: #selector(refreshCollectionData(_:)), for: .valueChanged)
+//        self.refreshControl.addTarget(self, action: #selector(refreshCollectionData(_:)), for: .valueChanged)
         
-        self.collectionView.refreshControl = refreshControl
+//        self.collectionView.refreshControl = refreshControl
         self.collectionView.backgroundColor  = Colors.backgroundColor
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
@@ -192,7 +192,7 @@ extension AccueilCommerces {
             self.commerces = commerces
         } else if let error = error {
             ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) {
-                self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+                self.chooseCategorie(itemChoose: self.titleChoose, withHud: false)
             }
         }
         DispatchQueue.global(qos: .default).async(execute: {

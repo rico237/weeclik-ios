@@ -9,7 +9,9 @@
 import Foundation
 import Compass
 
+/// Route to show detail of commerce
 struct CommerceRoute: Routable {
+    /// Display detail of commerce
     func navigate(to location: Location, from currentController: CurrentController) throws {
         print("Routing location log : \(location)")
         guard let commerceId = location.arguments["commerceId"] else {
