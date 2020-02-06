@@ -150,9 +150,8 @@ class DetailCommerceViewController: UIViewController {
                 let autorized: [String] = [
                     UIActivity.ActivityType.mail.rawValue, UIActivity.ActivityType.message.rawValue,
                     UIActivity.ActivityType.postToTwitter.rawValue, UIActivity.ActivityType.postToFacebook.rawValue,
-                    "net.whatsapp.WhatsApp.ShareExtension", "com.google.Gmail.ShareExtension", "com.ringosoftware.weeclik.activity"
+                    "net.whatsapp.WhatsApp.ShareExtension", "com.google.Gmail.ShareExtension", "com.ringosoftware.weeclik.activity", "com.ringosoftware.weeclik-DEV.activity"
                 ]
-                print(activityType!.rawValue)
 
                 if refused.contains(activityType!.rawValue) {
                     self.showAlertWithMessageWithMail(
@@ -162,6 +161,7 @@ class DetailCommerceViewController: UIViewController {
                     )
                     return
                 } else if autorized.contains(activityType!.rawValue) {
+                    Logger.logEvent(for: "DetailCommerceViewController", message: "Activity type: \(activityType!.rawValue)", level: .debug)
                     if let sharingListNavigationController = UIStoryboard(name: "Partage", bundle: nil).instantiateViewController(withIdentifier: "ListeDesFavorisVCNav") as? UINavigationController,
                         let listeFavorisVC = sharingListNavigationController.children.first as? ListeDesFavorisVC {
                         listeFavorisVC.commerce = self.commerceObject

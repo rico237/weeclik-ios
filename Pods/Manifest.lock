@@ -119,7 +119,6 @@ PODS:
   - GoogleUtilities/UserDefaults (6.4.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.3.0)
-  - Instabug (9.0.3)
   - KJNavigationViewAnimation (0.1.0)
   - KRLCollectionViewGridLayout (1.0.0)
   - LGButton (1.1.6)
@@ -168,6 +167,7 @@ PODS:
   - SVProgressHUD (2.2.6)
   - SwiftDate (6.0.3)
   - SwiftMultiSelect (0.2.4)
+  - SwiftyBeaver (1.8.4)
   - SwiftyStoreKit (0.15.0)
   - TLPhotoPicker (1.8.9)
   - TPKeyboardAvoiding (1.3.3)
@@ -193,7 +193,6 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - Firebase/Core
   - Firebase/Performance
-  - Instabug
   - KJNavigationViewAnimation (from `https://github.com/weeclik/KJNavigationViewAnimation.git`)
   - KRLCollectionViewGridLayout (~> 1.0)
   - LGButton (~> 1.0)
@@ -213,6 +212,7 @@ DEPENDENCIES:
   - SVProgressHUD (from `https://github.com/weeclik/SVProgressHUD.git`)
   - SwiftDate (~> 6.0.3)
   - SwiftMultiSelect (from `https://github.com/weeclik/SwiftMultiSelect.git`)
+  - SwiftyBeaver
   - SwiftyStoreKit (~> 0.15.0)
   - TLPhotoPicker (~> 1.8.8)
   - TPKeyboardAvoiding (from `https://github.com/michaeltyson/TPKeyboardAvoiding.git`)
@@ -251,7 +251,6 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
-    - Instabug
     - KRLCollectionViewGridLayout
     - LGButton
     - LMGeocoderSwift
@@ -268,6 +267,7 @@ SPEC REPOS:
     - SPLarkController
     - SPPermission
     - SwiftDate
+    - SwiftyBeaver
     - SwiftyStoreKit
     - TLPhotoPicker
     - Validator
@@ -348,7 +348,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
   GoogleUtilities: 29bd0d8f850efbd28cff6d99e8b7da1f8d236bcf
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
-  Instabug: beebf72b4f20a8ff38184bc74a1ca0c7fb702ad1
   KJNavigationViewAnimation: dba3a3b499bf708151b12c314fc3414759f7353e
   KRLCollectionViewGridLayout: 147113b086d446d50b5b8aa907a1c2bc19e89836
   LGButton: 9f0a7f9d3030e3f504108342f6b66d64a429371b
@@ -368,6 +367,7 @@ SPEC CHECKSUMS:
   SVProgressHUD: 6ed134667e9ebb2f33679e8273cd48fd3fa349e5
   SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftMultiSelect: 31292d809c967d8924113c7bf02301e1c84ec43f
+  SwiftyBeaver: f9a9aba96a6a6166e21682377804d728b0d20b95
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   TLPhotoPicker: 9bf255c116129bc5d709b4cc8b42b3542e89e841
   TPKeyboardAvoiding: 6dd3fe3268b8f2627beb7ff3d82a3cacbdf66a36
@@ -377,6 +377,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 4a4bfc7ec5810c26bd417e415e9165164f7db98b
+PODFILE CHECKSUM: 9764a578ee962af7ac0006a1e20183a6ebe07f9d
 
 COCOAPODS: 1.8.4

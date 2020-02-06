@@ -43,7 +43,11 @@ class ShareToGroupsActivity: UIActivity {
     }
 
     override var activityType: UIActivity.ActivityType? {
-        return UIActivity.ActivityType(rawValue: "com.ringosoftware.weeclik.activity")
+        var identifier = "com.ringosoftware.weeclik.activity"
+        #if DEVELOPMENT
+        identifier = "com.ringosoftware.weeclik-DEV.activity"
+        #endif
+        return UIActivity.ActivityType(rawValue: identifier)
     }
 
     override class var activityCategory: UIActivity.Category {

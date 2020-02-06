@@ -103,8 +103,8 @@ def projectPods
     pod 'PhoneNumberKit', '~> 3.0'
     # Validator of data entries helper
     pod 'Validator', '~> 3.2.1'
-    # Bug reporting
-    pod 'Instabug'
+    # Live logs
+    pod 'SwiftyBeaver'
     
     ################################
     ################################
@@ -210,18 +210,4 @@ end
 target 'WeeClik-DEV' do
     use_frameworks!
     projectPods
-end
-
-target 'WeeclikUnitTests' do
-  inherit! :complete
-  
-  use_frameworks!
-  projectPods
-end
-
-target 'WeeClikUITests' do
-  inherit! :complete
-  
-  use_frameworks!
-  projectPods
 end

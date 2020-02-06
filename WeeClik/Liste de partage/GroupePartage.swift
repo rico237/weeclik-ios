@@ -23,8 +23,8 @@ class GroupePartage: NSObject, NSCoding {
         if let image = imageGr {imageGroupe = image}
         nombreMembre = items.count
 
-        var membresPhones:  [String] = []
-        var membresName:    [String] = []
+        var membresPhones: [String] = []
+        var membresName: [String] = []
 //        var emailAdresses:  [String] = []
 
         for item: SwiftMultiSelectItem in items {

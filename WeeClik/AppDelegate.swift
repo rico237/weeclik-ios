@@ -12,7 +12,6 @@ import FBSDKCoreKit
 import Compass
 import Firebase
 import SwiftyStoreKit
-import Instabug
 import Analytics
 
 #if DEVELOPMENT
@@ -25,13 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var postLoginRouter = Router()
+    private var className = "AppDelegate"
 
     // MARK: Lifecycle functions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         #if DEVELOPMENT
-        print("\n\nDEV Environment\n\n")
+        Logger.logEvent(for: className, message: "DEV Environment", level: .debug)
         #else
-        print("\n\nPROD Environment\n\n")
+        Logger.logEvent(for: className, message: "PROD Environment", level: .debug)
         #endif
         // Server conf (bdd + storage + auth)
         parseConfiguration()
@@ -52,13 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
         // External URL Routing to commerce detail
         setupRouting()
-        
-        // Bug reporting
-        #if DEVELOPMENT
-        Instabug.start(withToken: "b65f5e6e7492b9761a3fe8f4ee77af09", invocationEvents: [.shake, .screenshot])
-        #else
-        Instabug.start(withToken: "29c0228d7e3479445169f972499e2a56", invocationEvents: [.screenshot])
-        #endif
         
 //        print("\n\nREMOVE BEFORE BUILDING FOR PROD\n\n")
 //        resetUserDefaults()
@@ -113,7 +106,7 @@ extension AppDelegate {
             $0.server = Constants.Server.serverURL()
         }
         Parse.initialize(with: configuration)
-        print("Parse server URL: \(Constants.Server.serverURL())")
+        Logger.logEvent(for: className, message: "Parse server URL: \(Constants.Server.serverURL())", level: .debug)
     }
 
     func purchaseObserver() {
