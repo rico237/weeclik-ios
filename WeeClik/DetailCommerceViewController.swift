@@ -161,7 +161,7 @@ class DetailCommerceViewController: UIViewController {
                     )
                     return
                 } else if autorized.contains(activityType!.rawValue) {
-                    Logger.logEvent(for: "DetailCommerceViewController", message: "Activity type: \(activityType!.rawValue)", level: .debug)
+                    Log.all.debug("Activity type: \(activityType!.rawValue)")
                     if let sharingListNavigationController = UIStoryboard(name: "Partage", bundle: nil).instantiateViewController(withIdentifier: "ListeDesFavorisVCNav") as? UINavigationController,
                         let listeFavorisVC = sharingListNavigationController.children.first as? ListeDesFavorisVC {
                         listeFavorisVC.commerce = self.commerceObject

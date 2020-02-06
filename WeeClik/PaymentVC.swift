@@ -20,7 +20,7 @@ class PaymentVC: UIViewController {
     var scheduleVal = false
     var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
     #if DEVELOPMENT
-    let purchasedProductID = "abo.sans.renouvellement"      // Apple ID of one month subscription for dev purpose (waiting time shorter)
+    let purchasedProductID = "abo.sans.renouvellement.dev"   // Apple ID subscription for dev purpose
     #else
     let purchasedProductID = "abo.sans.renouvellement.un.an" // Apple ID of one year subscription (not automatically renewed)
     #endif
@@ -115,8 +115,6 @@ class PaymentVC: UIViewController {
         paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.paymentKey, withExpectedType: "bool") as? Bool ?? false
         scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.scheduleKey, withExpectedType: "bool") as? Bool ?? false
 
-        print("PaymentDeactivated \(paymentDeactivated)")
-
         if !paymentDeactivated {
             // Permet de verifier si l'user a payer avant la création d'un commerce
             buyProduct()
@@ -133,10 +131,10 @@ class PaymentVC: UIViewController {
         let query = PFQuery(className: "Commerce")
         query.getObjectInBackground(withId: renewingCommerceId) { (commerce, error) in
             if let error = error {
-                print("Erreur retrieving commerce info - func renewCommerceEndDate")
+                Log.all.error("Erreur retrieving commerce info - func renewCommerceEndDate")
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else if let commerce = commerce {
-                let lastEndDate = commerce["endSubscription"] as! Date
+                let lastEndDate = commerce["endSubscription"] as? Date ?? Date()
 
                 if lastEndDate.isBeforeDate(Date(), granularity: .minute) {
                     // isBefore today
@@ -154,7 +152,7 @@ class PaymentVC: UIViewController {
                         self.saveStatForPurchase(forUser: self.currentUser!, andCommerce: commerce)
                         self.getBackToHome(self)
                     } else if let error = error {
-                        print("Erreur dans le renouvellement de l'abonnement du commerce")
+                        Log.all.error("Erreur dans le renouvellement de l'abonnement du commerce")
                         ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
                         SVProgressHUD.showError(withStatus: "Erreur dans le renouvellement de l'abonnement du commerce".localized())
                     }
@@ -235,13 +233,17 @@ class PaymentVC: UIViewController {
                             self.getBackToHome(self)
                         }
                     } else {
-                        self.showAlertWithMessage(message: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), completionAction: nil)
+                        self.showAlertWithMessage(message: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(),
+                                                  title: "Erreur création de commerce".localized(),
+                                                  completionAction: nil)
                         SVProgressHUD.dismiss()
                     }
                 }
             }
         } else {
-            self.showAlertWithMessage(message: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), completionAction: nil)
+            self.showAlertWithMessage(message: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(),
+                                      title: "Problème de connexion".localized(),
+                                      completionAction: nil)
             SVProgressHUD.dismiss()
         }
     }
@@ -287,8 +289,8 @@ class PaymentVC: UIViewController {
             SVProgressHUD.dismiss(withDelay: 1.5)
 
             if let product = result.retrievedProducts.first {
-                let priceString = product.localizedPrice!
-                print("Product: \(product.localizedDescription), price: \(priceString)")
+                let priceString = product.localizedPrice ?? "Unknown"
+                Log.all.verbose("Try to purchase product: \(product.localizedDescription), price: \(priceString)")
                 SwiftyStoreKit.purchaseProduct(product, quantity: 1, atomically: true) { result in
 
                     switch result {
@@ -303,29 +305,61 @@ class PaymentVC: UIViewController {
                         if product.needsFinishTransaction {
                             SwiftyStoreKit.finishTransaction(product.transaction)
                         }
-                        print("Purchase Success: \(product)")
+                        Log.all.info("Purchase Success: \(product)")
                     case .error(let error):
                         switch error.code {
-                        case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())
-                        case .clientInvalid: SVProgressHUD.showError(withStatus: "Not allowed to make the payment".localized())
-                        case .paymentCancelled: break
-                        case .paymentInvalid: SVProgressHUD.showError(withStatus: "The purchase identifier was invalid".localized())
-                        case .paymentNotAllowed: SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment".localized())
-                        case .storeProductNotAvailable: SVProgressHUD.showError(withStatus: "The product is not available in the current storefront".localized())
-                        case .cloudServicePermissionDenied: SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed".localized())
-                        case .cloudServiceNetworkConnectionFailed: SVProgressHUD.showError(withStatus: "Could not connect to the network".localized())
-                        case .cloudServiceRevoked: SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service".localized())
-                        default: SVProgressHUD.showError(withStatus: (error as NSError).localizedDescription)
+                        case .unknown:
+                            SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())
+                        case .clientInvalid:
+                            SVProgressHUD.showError(withStatus: "Not allowed to make the payment".localized())
+                        case .paymentCancelled:
+                            break
+                        case .paymentInvalid:
+                            SVProgressHUD.showError(withStatus: "The purchase identifier was invalid".localized())
+                        case .paymentNotAllowed:
+                            SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment".localized())
+                        case .storeProductNotAvailable:
+                            SVProgressHUD.showError(withStatus: "The product is not available in the current storefront".localized())
+                        case .cloudServicePermissionDenied:
+                            SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed".localized())
+                        case .cloudServiceNetworkConnectionFailed:
+                            SVProgressHUD.showError(withStatus: "Could not connect to the network".localized())
+                        case .cloudServiceRevoked:
+                            SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service".localized())
+                        default:
+                            SVProgressHUD.showError(withStatus: (error as NSError).localizedDescription)
                         }
-                        ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false) // TODO: change it is not a parse error
+                        
+                        let errorMessage = """
+                            
+                            Error while purchasing item \(product.localizedDescription), price: \(priceString)
+                        
+                            Error description :
+                                Code: \(error.code)
+                                Description: \(error.localizedDescription)
+                                Desc: \(error.desc)
+                        
+                        """
+                        // Log only if is not canceled
+                        if error.code == .paymentCancelled {
+                            Log.all.verbose("User canceled or enum's default")
+                        } else {
+                            Log.all.error(errorMessage)
+                            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false) // TODO: change it is not a parse error
+                        }
                     }
                 }
             } else if let invalidProductId = result.invalidProductIDs.first {
-                print("Invalid product identifier: \(invalidProductId)")
-                ParseErrorCodeHandler.handleUnknownError(error: NSError(domain: "PaymentVC", code: 404, userInfo: ["invalid_product_identifier": "Product identifier is invalid : \(invalidProductId)"]))
+                Log.all.error("Invalid product identifier: \(invalidProductId)")
+                ParseErrorCodeHandler.handleUnknownError(error:
+                    NSError(domain: "PaymentVC",
+                            code: 404,
+                            userInfo: ["invalid_product_identifier": "Product identifier is invalid : \(invalidProductId)"])
+                )
             } else {
-                print("Error: \(String(describing: result.error))")
-                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false)
+                Log.all.error("Error: \(String(describing: result.error))")
+                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil),
+                                                         withFeedBack: false)
             }
         }
 

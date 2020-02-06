@@ -57,7 +57,10 @@ class ChangeInfosVC: UIViewController {
             }
             if self.userProfilePicURL != "" {
                 let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-                self.profilPictureImageView.sd_setImage(with: URL(string: self.userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
+                self.profilPictureImageView.sd_setImage(with: URL(string: self.userProfilePicURL),
+                                                        placeholderImage: placeholderImage,
+                                                        options: .progressiveDownload,
+                                                        completed: nil)
             } else {
                 self.profilPictureImageView.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
             }
@@ -76,7 +79,9 @@ class ChangeInfosVC: UIViewController {
 
     func updateViewFrame() {
         guard profilPictureImageView != nil else { return }
-        imageProfilContainerView.layer.borderColor = isPro ? UIColor(red: 0.86, green: 0.33, blue: 0.34, alpha: 1.00).cgColor : UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00).cgColor
+        let redColor = UIColor(red: 0.86, green: 0.33, blue: 0.34, alpha: 1.00).cgColor
+        let blueColor = UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00).cgColor
+        imageProfilContainerView.layer.borderColor = isPro ? redColor : blueColor
         imageProfilContainerView.clipsToBounds = true
         imageProfilContainerView.layer.cornerRadius = self.imageProfilContainerView.frame.size.width / 2
         imageProfilContainerView.layer.masksToBounds = true
@@ -135,7 +140,7 @@ extension ChangeInfosVC: TLPhotosPickerViewControllerDelegate {
         configure.maxSelectedAssets = 1
         configure.autoPlay = false
         viewController.configure = configure
-        self.present(viewController, animated: true)
+        present(viewController, animated: true)
     }
 
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
@@ -162,7 +167,7 @@ extension ChangeInfosVC: TLPhotosPickerViewControllerDelegate {
         options.deliveryMode = .opportunistic
         options.version = .current
         options.resizeMode = .exact
-        options.progressHandler = { (progress, error, stop, info) in
+        options.progressHandler = { (progress, error, stop, _) in
             SVProgressHUD.showProgress(Float(progress), status: "Chargement".localized())
         }
         

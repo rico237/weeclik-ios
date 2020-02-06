@@ -29,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Lifecycle functions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         #if DEVELOPMENT
-        Logger.logEvent(for: className, message: "DEV Environment", level: .debug)
+        Log.all.debug("DEV Environment \(Constants.App.debugBuildVersion)")
         #else
-        Logger.logEvent(for: className, message: "PROD Environment", level: .debug)
+        Log.all.debug("PROD Environment \(Constants.AppInfo.debugBuildVersion)")
         #endif
         // Server conf (bdd + storage + auth)
         parseConfiguration()
@@ -106,7 +106,7 @@ extension AppDelegate {
             $0.server = Constants.Server.serverURL()
         }
         Parse.initialize(with: configuration)
-        Logger.logEvent(for: className, message: "Parse server URL: \(Constants.Server.serverURL())", level: .debug)
+        Log.all.debug("Parse server URL: \(Constants.Server.serverURL())")
     }
 
     func purchaseObserver() {
@@ -169,10 +169,6 @@ extension AppDelegate {
 
 // MARK: Customization functions
 extension AppDelegate {
-    class func getAppDelegate() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-
     func globalUiConfiguration() {
         UINavigationBar.appearance().barTintColor = UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
         UINavigationBar.appearance().isTranslucent = false

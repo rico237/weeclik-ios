@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import SVProgressHUD
+import Loaf
 
 class SaisieDeDonneesVC: UIViewController {
     var isPro: Bool!
@@ -50,22 +51,28 @@ class SaisieDeDonneesVC: UIViewController {
     @IBAction func saveInfos(_ sender: Any) {
         if let user = currentUser {
             if let name = nomPrenomTF.text { user["name"] = name }
-            user["mes_partages"] = []
             user["isPro"] = self.isPro
             user["inscriptionDone"] = true
-            user["mes_partages_dates"] = []
 
-            //TODO: utiliser la valeure success pour afficher un message d'erreur
             user.saveInBackground { (success, error) in
                 if success {
                     SVProgressHUD.dismiss(withDelay: 1, completion: {
-                        print("succesful signup : \(user.description)")
+                        self.showBasicToastMessage(withMessage: "Profil sauvegardé avec succès", state: .success)
+                        Log.all.info("succesful signup : \(user.description)")
                         self.dismiss(animated: true, completion: nil)
                     })
                 } else {
                     SVProgressHUD.dismiss(withDelay: 1, completion: {
                         if let error = error {
-                            print("Error de sauvegarde utilisateur : \n\t-> Code : \(error.code)\n\t-> Description : \(error.desc)")
+                            self.showBasicToastMessage(withMessage: "Erreur de sauvegarde de votre profil. Réessayer ultérieurement",
+                                                       state: .error)
+                            Log.all.warning("""
+                                
+                                Error de sauvegarde utilisateur :
+                                    Code : \(error.code)
+                                    Description : \(error.desc)
+                                
+                            """)
                             self.dismiss(animated: true, completion: nil)
                         }
                     })

@@ -15,6 +15,19 @@ import Foundation
  * - author: Herrick Wolber
  */
 struct Constants {
+    
+    // MARK: App info related
+    struct App {
+        private static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        private static let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+        
+        static let debugBuildVersion = """
+        version: \(Constants.App.version ?? "Unknown")\
+        (\(Constants.App.build ?? "Unknown"))
+        """
+        
+        static let readableBuildVersion = "v\(Constants.App.version ?? "0")(\(Constants.App.build ?? "0"))"
+    }
 
     // MARK: Server related
     struct Server {
@@ -102,7 +115,7 @@ extension Constants {
     struct MessageString {
         static func partageMessage(commerceObject: Commerce) -> String {
             return """
-                Salut, j'ai aimé « \(commerceObject.nom) », avec Weeclik bénéficiez de remises.
+                Salut, j'ai aimé « \(commerceObject.nom) », avec www.weeclik.com bénéficiez de remises.
                 Voir le détail du commerce ici :
                     https://www.weeclik.com/commerce/\(commerceObject.objectId!)
                 """.localized()

@@ -19,29 +19,31 @@ struct ParseErrorCodeHandler {
     // ERREUR (CREATION / LOGIN) / COMMERCE (PFObject) / PURCHASE / etc.
     // URGENT: Envoyer mail à chaque erreur
 
-    static func handleUnknownError(error: Error, withFeedBack feedBack: Bool = false, completion: (() -> ())? = nil) {
+    static func handleUnknownError(error: Error, withFeedBack feedBack: Bool = false, completion: (() -> Void)? = nil) {
 
         if feedBack {
             HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.desc.localized(), delay: 3)
         }
 
         let message = """
-            Erreur Inconnu : \
-            \tCode : \(error.code) \
-            \tDomain : \(error.domain) \
-            \tLocalizedDescription : \(error.localizedDescription) \
-            \tLocalizedDescription 2 : \(error.desc.localized()) \
-            \tShowed to user ? : \(feedBack)
+        
+            Erreur Inconnu :
+                Code: \(error.code)
+                Domain: \(error.domain)
+                LocalizedDescription: \(error.localizedDescription)
+                LocalizedDescription 2: \(error.desc.localized())
+                Showed to user ? \(feedBack)
+        
         """
-        Logger.logEvent(for: ParseErrorCodeHandler.className, message: message, level: .error)
-        Logger.logEvent(for: ParseErrorCodeHandler.className, message: "Envoi de mail en cas d'erreur inactif", level: .warning)
+        Log.all.error(message)
+        Log.all.warning("Envoi de mail en cas d'erreur inactif")
         
         if (error.code == PFErrorCode.errorInvalidSessionToken.rawValue || error.code == PFErrorCode.errorFacebookInvalidSession.rawValue) {
             PFUser.logOut()
-            Logger.logEvent(for: ParseErrorCodeHandler.className, message: "User logged out", level: .info)
+            Log.all.warning("User logged out")
             completion?()
         } else {
-            Logger.logEvent(for: ParseErrorCodeHandler.className, message: "Sent event to crashlytics", level: .debug)
+            Log.all.verbose("Sent event to crashlytics")
             Crashlytics.sharedInstance().recordError(error)
         }
 //        MailHelper.sendErrorMail()
@@ -50,15 +52,15 @@ struct ParseErrorCodeHandler {
     static func handleParseError(error: Error) -> String {
         switch error.code {
         case PFErrorCode.errorConnectionFailed.rawValue :
-            Logger.logEvent(for: ParseErrorCodeHandler.className, message: error.localizedDescription + " code : \(error.code)", level: .error)
             return "Il y a eu un problème de connexion veuillez réessayer plus tard.".localized()
         case PFErrorCode.errorInvalidSessionToken.rawValue :
             PFUser.logOut()
-            Logger.logEvent(for: ParseErrorCodeHandler.className, message: error.localizedDescription + " code : \(error.code)", level: .error)
+            Log.all.warning("User logged out")
             return "Il y a eu un problème de connexion veuillez réessayer.".localized()
         default:
-            Logger.logEvent(for: ParseErrorCodeHandler.className, message: error.localizedDescription + " code : \(error.code)", level: .error)
             return error.localizedDescription + " code : \(error.code)"
         }
+        
+        Log.all.warning(error.localizedDescription + " code : \(error.code)")
     }
 }

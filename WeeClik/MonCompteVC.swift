@@ -18,6 +18,7 @@ class MonCompteVC: UIViewController {
     var commerces: [PFObject]! = []    // La liste des commerces dans le BAAS
     var partagesDates = [Date]()       // Date des partages
     var currentUser = PFUser.current()  // Utilisateur connecté
+    let logOutButton = UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))
     
     var timer: Timer!
 
@@ -146,16 +147,16 @@ class MonCompteVC: UIViewController {
             for commercePFObject in commerces {
                 if Commerce(parseObject: commercePFObject).statut != .paid {
                     navigationItem.rightBarButtonItems = [
-                        UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut)),
+                        logOutButton,
                         self.editButtonItem
                     ]
                     break
                 } else {
-                    navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+                    navigationItem.rightBarButtonItems = [logOutButton]
                 }
             }
         } else {
-            navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+            navigationItem.rightBarButtonItems = [logOutButton]
         }
     }
 
@@ -174,11 +175,9 @@ class MonCompteVC: UIViewController {
     }
     
     func startTimer() {
-        if timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(queryCommercesArrayBasedOnUser), userInfo: nil, repeats: false)
-            timer.tolerance = 0.2
-            RunLoop.current.add(timer, forMode: .common)
-        }
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(queryCommercesArrayBasedOnUser), userInfo: nil, repeats: false)
+        timer.tolerance = 0.2
+        RunLoop.current.add(timer, forMode: .common)
     }
     
     func stopTimer() {
@@ -338,7 +337,6 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 // Data related
 extension MonCompteVC {
     @objc func queryCommercesArrayBasedOnUser() {
-        print("Query commerces")
         if isPro {
             // Prend les commerces du compte pro
             guard let currentUser = currentUser else { return }
@@ -386,6 +384,7 @@ extension MonCompteVC {
                 HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: message, delay: 3)
             }
         }
+        
         startTimer()
     }
 }
@@ -418,7 +417,9 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
         if let error = error {
             print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            logInController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), completionAction: nil)
+            logInController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(),
+                                                 title: "Erreur lors de la connexion".localized(),
+                                                 completionAction: nil)
         }
     }
 
@@ -432,7 +433,9 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
         if let error = error {
             print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-            signUpController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(), title: "Erreur lors de la connexion".localized(), completionAction: nil)
+            signUpController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(),
+                                                  title: "Erreur lors de la connexion".localized(),
+                                                  completionAction: nil)
         }
     }
 
@@ -447,12 +450,16 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
                 return true
             } else {
                 // MDP différents
-                signUpController.showAlertWithMessage(message: "Le mot de passe et sa confirmation sont différents".localized(), title: "Erreur de mot de passe".localized(), completionAction: nil)
+                signUpController.showAlertWithMessage(message: "Le mot de passe et sa confirmation sont différents".localized(),
+                                                      title: "Erreur de mot de passe".localized(),
+                                                      completionAction: nil)
                 return false
             }
         } else {
             // Email invalide
-            signUpController.showAlertWithMessage(message: "L'adresse email saisie est incorrecte".localized(), title: "Email invalide".localized(), completionAction: nil)
+            signUpController.showAlertWithMessage(message: "L'adresse email saisie est incorrecte".localized(),
+                                                  title: "Email invalide".localized(),
+                                                  completionAction: nil)
             return false
         }
     }
@@ -464,7 +471,9 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
         graphRequest.start(completionHandler: { (_, result, error) in
             if let error = error {
                 print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
-                self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(), title: "Connexion Facebook échoué".localized(), completionAction: nil)
+                self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(),
+                                          title: "Connexion Facebook échoué".localized(),
+                                          completionAction: nil)
             } else {
                 // handle successful response
                 if let data = result as? [String: Any] {

@@ -49,8 +49,6 @@ extension UIViewController {
         } else {
             player = AVPlayer(url: ParseHelper.rewriteParseURLForVideos(forURL: url))
         }
-        
-        Logger.logEvent(for: "ParseHelper", message: "Video played from local : \(isLocal)", level: .info)
 
         let playerViewController = AVPlayerViewController()
         player.isMuted = false
