@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEVELOPMENT
         Log.all.debug("DEV Environment \(Constants.App.debugBuildVersion)")
         #else
-        Log.all.debug("PROD Environment \(Constants.AppInfo.debugBuildVersion)")
+        Log.all.debug("PROD Environment \(Constants.App.debugBuildVersion)")
         #endif
         // Server conf (bdd + storage + auth)
         parseConfiguration()

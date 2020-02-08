@@ -10,7 +10,10 @@ import Analytics
 
 class AnalyticsManager: NSObject {
     public static let shared = AnalyticsManager()
-    private override init() {}
+    private override init() {
+        super.init()
+        instanciate()
+    }
     
     func instanciate() {
         let configuration = SEGAnalyticsConfiguration(writeKey: "F7pNWprHAOUpg4JiI2vAjaqVJxSntHHg")
@@ -19,7 +22,7 @@ class AnalyticsManager: NSObject {
         // Enable this to record screen views automatically!
         configuration.recordScreenViews = true
         
-        SEGAnalytics(configuration: configuration)
+        _ = SEGAnalytics(configuration: configuration)
     }
     
     func trackEvent(event: String, properties: [String: Any]? = [:], options: [String: Any]? = nil) {
