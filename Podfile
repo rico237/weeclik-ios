@@ -12,7 +12,10 @@ def projectPods
     ################################
 
     # Analytics (SEGMENT)
-    pod 'Analytics', '~> 3.7'
+    pod 'Analytics', '~> 3.0'
+    pod 'Segment-Firebase'
+    pod 'Segment-Batch'
+    pod 'Segment-Flurry'
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
@@ -20,16 +23,14 @@ def projectPods
     pod 'Parse/FacebookUtils'
     pod 'Parse/UI'
     
-    # Firebase + Performance
-    pod 'Firebase/Core'
-    pod 'Firebase/Performance'
-    # Firebase Crashlytics
-    pod 'Fabric', '~> 1.10'
-    pod 'Crashlytics', '~> 3.13'
-    
     # Facebook integration
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
+    
+    # Firebase + Performance
+    pod 'Firebase/Core'
+    pod 'Firebase/Performance'
+    pod 'Firebase/Analytics'
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'

@@ -7,7 +7,6 @@
 //
 
 import Parse
-import Crashlytics
 import Loaf
 import Localize_Swift
 
@@ -42,9 +41,6 @@ struct ParseErrorCodeHandler {
             PFUser.logOut()
             Log.all.warning("User logged out")
             completion?()
-        } else {
-            Log.all.verbose("Sent event to crashlytics")
-            Crashlytics.sharedInstance().recordError(error)
         }
 //        MailHelper.sendErrorMail()
     }

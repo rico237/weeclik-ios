@@ -16,7 +16,6 @@ import Analytics
 
 #if DEVELOPMENT
 // Import dev dependencies
-
 #endif
 
 @UIApplicationMain
@@ -36,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Server conf (bdd + storage + auth)
         parseConfiguration()
         
-//        AnalyticsManager.shared.instanciate()
-//        AnalyticsManager.shared.trackEvent(event: "Launch app")
+        // Init of Segment
+        _ = AnalyticsManager.shared
         
         // Navigation bar & UI conf
         globalUiConfiguration()
@@ -47,13 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
+        
         // Facebook conf
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
+        
         // External URL Routing to commerce detail
         setupRouting()
         
-//        print("\n\nREMOVE BEFORE BUILDING FOR PROD\n\n")
+        // Clear all user defaults
 //        resetUserDefaults()
         
         return true
@@ -84,6 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // Use for iOS Settings App
         SettingsBundleHelper.setVersionAndBuildNumber()
         AppEvents.activateApp()
     }
@@ -246,6 +248,7 @@ extension AppDelegate {
 extension AppDelegate {
     /// Clear UserDefaults folder (used only for dev purpose)
     func resetUserDefaults() {
+        Log.all.error("\n\nREMOVE BEFORE BUILDING FOR PROD\n\n")
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
     }

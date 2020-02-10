@@ -18,8 +18,8 @@ struct Constants {
     
     // MARK: App info related
     struct App {
-        private static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        private static let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+        static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        static let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
         
         static let debugBuildVersion = """
         version: \(Constants.App.version ?? "Unknown")\

@@ -103,6 +103,17 @@ extension Error {
     var code: Int { return (self as NSError).code }
     var domain: String { return (self as NSError).domain }
     var desc: String { return (self as NSError).description }
+    var debug: String {
+        return """
+        
+            Error description :
+                Code: \(self.code)
+                Description: \(self.localizedDescription)
+                Desc: \(self.desc)
+                Domain: \(self.domain)
+        
+        """
+    }
 }
 
 extension TimeInterval {
