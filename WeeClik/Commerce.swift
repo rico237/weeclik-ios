@@ -38,6 +38,25 @@ public class Commerce: NSObject, NSCoding {
     var objectId: String! = "-1"
     var createdAt: Date?
     var updatedAt: Date?
+    
+    override public var description: String {
+        return """
+        Commerce:
+            Id: \(objectId ?? "Unknown")
+            Nom: \(nom)\t Type: \(type)
+            Partages: \(partages)\t Mail: \(mail)
+            Adresse: \(adresse)\t Tel: \(tel)
+            Web: \(siteWeb)\t Promotions: \(promotions)
+            Description: \(descriptionO)\t Brouillon: \(brouillon ? "Yes" : "No")
+            Location:
+                Lat: (\(location?.latitude ?? 0))\t Lon: (\(location?.longitude ?? 0))
+            Owner:
+                Email: \(owner?.email ?? "Unknown")
+                Username: \(owner?.username ?? "Unknown")
+                isPro: \(owner?["isPro"] ?? "Unknown")
+                inscriptionDone: \(owner?["inscriptionDone"] ?? "Unknown")
+        """
+    }
 
     required override public init() {super.init()}
 
@@ -98,17 +117,6 @@ public class Commerce: NSObject, NSCoding {
         } else {
             return nil
         }
-    }
-
-    override public var description: String {
-        return """
-                Commerce { \
-                    \tNom : \(self.nom) \
-                    \tType : \(self.type)\
-                    \t Partages : \(self.partages) \
-                    \tId : \(String(describing: self.objectId)) \
-                }
-               """
     }
 
     func getPFObject(objectId: String, fromBaas: Bool, completion:((_ parseObject: PFObject?, _ error: Error?) -> Void)? = nil) {
@@ -203,7 +211,7 @@ public enum StatutType: Int {
     error = 3,
     unknown = 4
 
-    func label() -> String {
+    var description: String {
         switch self {
         case .paid :
             return "En ligne".localized()
@@ -216,10 +224,6 @@ public enum StatutType: Int {
         case .unknown :
             return "Statut inconnu".localized()
         }
-    }
-
-    var description: String {
-        return label()
     }
 }
 

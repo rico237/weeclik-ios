@@ -26,7 +26,7 @@ struct ParseErrorCodeHandler {
 
         let message = """
         
-            Erreur Inconnu :
+            Erreur Inconnu:
                 Code: \(error.code)
                 Domain: \(error.domain)
                 LocalizedDescription: \(error.localizedDescription)
@@ -54,9 +54,8 @@ struct ParseErrorCodeHandler {
             Log.all.warning("User logged out")
             return "Il y a eu un problème de connexion veuillez réessayer.".localized()
         default:
+            Log.all.warning(error.debug)
             return error.localizedDescription + " code : \(error.code)"
         }
-        
-        Log.all.warning(error.localizedDescription + " code : \(error.code)")
     }
 }

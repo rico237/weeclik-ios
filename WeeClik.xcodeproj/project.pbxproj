@@ -11,10 +11,8 @@
 		1F03AB8C2360C18B0027D6EF /* PhotosVideosCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7331D92052BA4300582A7B /* PhotosVideosCollectionCell.swift */; };
 		1F03AB8D2360C18B0027D6EF /* BulletinDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE37451F9118AF00E1D1A7 /* BulletinDataSource.swift */; };
 		1F03AB8E2360C18B0027D6EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F7C8523494F210087A444 /* UserDefaultsManager.swift */; };
-		1F03AB8F2360C18B0027D6EF /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */; };
 		1F03AB902360C18B0027D6EF /* ImageScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D430F202AC4D40089FB15 /* ImageScroller.swift */; };
 		1F03AB912360C18B0027D6EF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */; };
-		1F03AB922360C18B0027D6EF /* PaymentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */; };
 		1F03AB932360C18B0027D6EF /* SaisieDeDonneesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */; };
 		1F03AB942360C18B0027D6EF /* DetailCommerceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */; };
 		1F03AB952360C18B0027D6EF /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89A11A2239B470007952CC /* ContactTVCell.swift */; };
@@ -56,14 +54,11 @@
 		1F03ABB92360C18B0027D6EF /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
 		1F03ABBA2360C18B0027D6EF /* WebsiteFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF4812358EB3400F057C7 /* WebsiteFormValidationError.swift */; };
 		1F03ABBB2360C18B0027D6EF /* AjoutCommerceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */; };
-		1F03ABBC2360C18B0027D6EF /* ChoixTarifsTBVCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04777E21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift */; };
 		1F03ABBD2360C18B0027D6EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */; };
 		1F03ABBE2360C18B0027D6EF /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
-		1F03ABBF2360C18B0027D6EF /* InAppPurchaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */; };
 		1F03ABC02360C18B0027D6EF /* HelperAndKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */; };
 		1F03ABC12360C18B0027D6EF /* MailFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF4842358EB7F00F057C7 /* MailFormValidationError.swift */; };
 		1F03ABC22360C18B0027D6EF /* CommerceCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE67A8821C7A5A400EDBE05 /* CommerceCVC.swift */; };
-		1F03ABC32360C18B0027D6EF /* ChoixAbonnmentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */; };
 		1F03ABC42360C18B0027D6EF /* ProcessInscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */; };
 		1F03ABC52360C18B0027D6EF /* Routers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F27628E2116E7EA00779342 /* Routers.swift */; };
 		1F03ABC62360C18B0027D6EF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56C20729A5100EC9DF3 /* Extensions.swift */; };
@@ -76,7 +71,6 @@
 		1F03ABCD2360C18B0027D6EF /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F03ABCE2360C18B0027D6EF /* TelFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF47E2358EB1000F057C7 /* TelFormValidationError.swift */; };
 		1F03ABCF2360C18B0027D6EF /* NouveauCommerceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5AD2F51FAF898C0048FFE2 /* NouveauCommerceCell.swift */; };
-		1F03ABD02360C18B0027D6EF /* ChoixTarifsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */; };
 		1F03ABD12360C18B0027D6EF /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2933D7226E538500AE9C25 /* UserSettings.swift */; };
 		1F03ABD22360C18B0027D6EF /* ListeDesFavorisVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F61FA2B233418620001392C /* ListeDesFavorisVC.swift */; };
 		1F03ABD32360C18B0027D6EF /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5DE54D1FB10AE0000C4E57 /* PhotoCell.swift */; };
@@ -99,7 +93,6 @@
 		1F03ABE82360C18B0027D6EF /* BebasNeue Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF4611F254F3D00146525 /* BebasNeue Thin.ttf */; };
 		1F03ABE92360C18B0027D6EF /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFD71F269CB2004D5F4C /* OpenSans-BoldItalic.ttf */; };
 		1F03ABEA2360C18B0027D6EF /* BebasNeue Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF4601F254F3D00146525 /* BebasNeue Regular.ttf */; };
-		1F03ABEB2360C18B0027D6EF /* Experiences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9EE55421D142420086EF72 /* Experiences.storyboard */; };
 		1F03ABEC2360C18B0027D6EF /* Partage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FF7A04D22C929D90038C8E3 /* Partage.storyboard */; };
 		1F03ABED2360C18B0027D6EF /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F047779214407C400B20CA5 /* PaymentCell.xib */; };
 		1F03ABEE2360C18B0027D6EF /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
@@ -118,19 +111,15 @@
 		1F03ABFC2360C18B0027D6EF /* Test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */; };
 		1F03ABFD2360C18B0027D6EF /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDC1F269CB2004D5F4C /* OpenSans-LightItalic.ttf */; };
 		1F03ABFE2360C18B0027D6EF /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDE1F269CB2004D5F4C /* OpenSans-Semibold.ttf */; };
-		1F0477772141BA7300B20CA5 /* ChoixTarifsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */; };
 		1F04777A214407C400B20CA5 /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F047778214407C400B20CA5 /* PaymentCell.swift */; };
 		1F04777B214407C400B20CA5 /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F047779214407C400B20CA5 /* PaymentCell.xib */; };
 		1F04777D214407DE00B20CA5 /* XibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04777C214407DE00B20CA5 /* XibView.swift */; };
-		1F04777F21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04777E21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift */; };
 		1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F071A3420DEFEB5007AE1ED /* Commerce.swift */; };
 		1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */; };
 		1F08570C1F2D960400932929 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570B1F2D960400932929 /* Pacifico.ttf */; };
 		1F08570E1F2D977600932929 /* UserLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1F08570D1F2D977600932929 /* UserLocation.gpx */; };
 		1F0B9DF921D54083008120F4 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F0B9DF821D54083008120F4 /* Login.storyboard */; };
 		1F0BBCA61FAE4C3700D91026 /* AjoutCommerceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */; };
-		1F0E0B7A212468420048D95B /* InAppPurchaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */; };
-		1F0E0B7E212482590048D95B /* ChoixAbonnmentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */; };
 		1F0E862E238AB64C003124FD /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E862D238AB64C003124FD /* Extension+UIViewController.swift */; };
 		1F0E862F238AB64C003124FD /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E862D238AB64C003124FD /* Extension+UIViewController.swift */; };
 		1F0E8632238AC289003124FD /* Extension+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E8631238AC289003124FD /* Extension+UIApplication.swift */; };
@@ -146,7 +135,6 @@
 		1F29990A23BBB8D700D638FC /* LatestKnowLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */; };
 		1F29990C23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
 		1F29990D23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
-		1F2C05112132F564002B86AB /* PaymentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */; };
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
 		1F3BE2BA235B321B00E185D2 /* ParseLoginSignupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */; };
@@ -204,7 +192,6 @@
 		1F9357442360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
 		1F9357462360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
 		1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
-		1F9EE55521D142420086EF72 /* Experiences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9EE55421D142420086EF72 /* Experiences.storyboard */; };
 		1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
 		1F9EE55B21D14C1F0086EF72 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */; };
 		1F9EE55D21D1573B0086EF72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */; };
@@ -243,7 +230,6 @@
 		1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3921FABA78700392060 /* ChangeInfosVC.swift */; };
 		1FCED3951FABA9A200392060 /* MotDePasseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCED3941FABA9A200392060 /* MotDePasseVC.swift */; };
 		1FD6F56D20729A5100EC9DF3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56C20729A5100EC9DF3 /* Extensions.swift */; };
-		1FDDB8972118B40A00B7EC33 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */; };
 		1FE67A8A21C7A5A400EDBE05 /* CommerceCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE67A8821C7A5A400EDBE05 /* CommerceCVC.swift */; };
 		1FE67A8B21C7A5A400EDBE05 /* CommerceCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FE67A8921C7A5A400EDBE05 /* CommerceCVC.xib */; };
 		1FE76BC921B9D0E000209F3C /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE76BC721B9D0E000209F3C /* CategoriesCollectionViewCell.swift */; };
@@ -289,19 +275,15 @@
 		15E0A630251CFD98E45D156D /* Pods_WeeClik.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeeClik.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03AC072360C18B0027D6EF /* Weeclik-DEV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weeclik-DEV.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F03AC082360C18D0027D6EF /* Info-DEV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-DEV.plist"; path = "/Users/rico/lab/github_repos/weeclik-ios/Info-DEV.plist"; sourceTree = "<absolute>"; };
-		1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixTarifsVC.swift; sourceTree = "<group>"; };
 		1F047778214407C400B20CA5 /* PaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
 		1F047779214407C400B20CA5 /* PaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentCell.xib; sourceTree = "<group>"; };
 		1F04777C214407DE00B20CA5 /* XibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibView.swift; sourceTree = "<group>"; };
-		1F04777E21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixTarifsTBVCTableViewController.swift; sourceTree = "<group>"; };
 		1F071A3420DEFEB5007AE1ED /* Commerce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commerce.swift; sourceTree = "<group>"; };
 		1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommerceViewController.swift; sourceTree = "<group>"; };
 		1F08570B1F2D960400932929 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
 		1F08570D1F2D977600932929 /* UserLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = UserLocation.gpx; sourceTree = "<group>"; };
 		1F0B9DF821D54083008120F4 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		1F0BBCA51FAE4C3700D91026 /* AjoutCommerceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutCommerceVC.swift; sourceTree = "<group>"; };
-		1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseHandler.swift; sourceTree = "<group>"; };
-		1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixAbonnmentsVC.swift; sourceTree = "<group>"; };
 		1F0E862D238AB64C003124FD /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
 		1F0E8631238AC289003124FD /* Extension+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIApplication.swift"; sourceTree = "<group>"; };
 		1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaisieDeDonneesVC.swift; sourceTree = "<group>"; };
@@ -313,7 +295,6 @@
 		1F29990523BA703A00D638FC /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestKnowLocationManager.swift; sourceTree = "<group>"; };
 		1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Dictionary.swift"; sourceTree = "<group>"; };
-		1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCollectionViewCell.swift; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
 		1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseLoginSignupHelper.swift; sourceTree = "<group>"; };
@@ -364,7 +345,6 @@
 		1F93573D2360CA460006A234 /* LaunchScreen-DEV.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen-DEV.storyboard"; sourceTree = "<group>"; };
 		1F9357432360DDE80006A234 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
-		1F9EE55421D142420086EF72 /* Experiences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Experiences.storyboard; sourceTree = "<group>"; };
 		1F9EE55621D146B00086EF72 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -405,7 +385,6 @@
 		1FCED3921FABA78700392060 /* ChangeInfosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfosVC.swift; sourceTree = "<group>"; };
 		1FCED3941FABA9A200392060 /* MotDePasseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotDePasseVC.swift; sourceTree = "<group>"; };
 		1FD6F56C20729A5100EC9DF3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
 		1FE67A8821C7A5A400EDBE05 /* CommerceCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommerceCVC.swift; sourceTree = "<group>"; };
 		1FE67A8921C7A5A400EDBE05 /* CommerceCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommerceCVC.xib; sourceTree = "<group>"; };
 		1FE76BC721B9D0E000209F3C /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -496,7 +475,6 @@
 				1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */,
 				1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */,
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
-				1F0E0B79212468420048D95B /* InAppPurchaseHandler.swift */,
 				1FC5C59C22B8568000178929 /* FontHelper.swift */,
 				1F0E8630238AC265003124FD /* Extensions */,
 				1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */,
@@ -516,18 +494,6 @@
 				1FCED3941FABA9A200392060 /* MotDePasseVC.swift */,
 			);
 			name = "Profil utilisateur";
-			sourceTree = "<group>";
-		};
-		1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */ = {
-			isa = PBXGroup;
-			children = (
-				1F04777E21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift */,
-				1F0477762141BA7300B20CA5 /* ChoixTarifsVC.swift */,
-				1F2C05102132F564002B86AB /* PaymentCollectionViewCell.swift */,
-				1F0E0B7D212482590048D95B /* ChoixAbonnmentsVC.swift */,
-				1FDDB8962118B40A00B7EC33 /* PaymentTableViewCell.swift */,
-			);
-			path = "Evolution paiement (plusieurs offres)";
 			sourceTree = "<group>";
 		};
 		1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */ = {
@@ -667,7 +633,6 @@
 				1F9357382360CA1B0006A234 /* LaunchScreen.storyboard */,
 				1FF5C6272236EE1800D936B4 /* CreationGroupes.storyboard */,
 				1F0B9DF821D54083008120F4 /* Login.storyboard */,
-				1F9EE55421D142420086EF72 /* Experiences.storyboard */,
 				1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */,
 				1FF7A04D22C929D90038C8E3 /* Partage.storyboard */,
 			);
@@ -721,7 +686,6 @@
 				1F9357372360C95A0006A234 /* Storyboards */,
 				1FDB7006235BF5D300EB3742 /* En_cours */,
 				1F2762912116EE0100779342 /* Routing */,
-				1F0B8350224E9BA700F09FF5 /* Evolution paiement (plusieurs offres) */,
 				1FEE37421F91187C00E1D1A7 /* BulletinItems */,
 				1F5681E91F2B4FA300B1BAC8 /* Libraries */,
 				1F0857061F2D672B00932929 /* Models */,
@@ -959,7 +923,6 @@
 				1F03ABE82360C18B0027D6EF /* BebasNeue Thin.ttf in Resources */,
 				1F03ABE92360C18B0027D6EF /* OpenSans-BoldItalic.ttf in Resources */,
 				1F03ABEA2360C18B0027D6EF /* BebasNeue Regular.ttf in Resources */,
-				1F03ABEB2360C18B0027D6EF /* Experiences.storyboard in Resources */,
 				1FB0CE3A236B9CC400041195 /* Settings.bundle in Resources */,
 				1F03ABEC2360C18B0027D6EF /* Partage.storyboard in Resources */,
 				1F03ABED2360C18B0027D6EF /* PaymentCell.xib in Resources */,
@@ -1001,7 +964,6 @@
 				1FEBF4661F254F3D00146525 /* BebasNeue Thin.ttf in Resources */,
 				1FA9BFE11F269CB2004D5F4C /* OpenSans-BoldItalic.ttf in Resources */,
 				1FEBF4651F254F3D00146525 /* BebasNeue Regular.ttf in Resources */,
-				1F9EE55521D142420086EF72 /* Experiences.storyboard in Resources */,
 				1FF7A04E22C929D90038C8E3 /* Partage.storyboard in Resources */,
 				1F04777B214407C400B20CA5 /* PaymentCell.xib in Resources */,
 				1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1346,10 +1308,8 @@
 				1F03AB8C2360C18B0027D6EF /* PhotosVideosCollectionCell.swift in Sources */,
 				1F03AB8D2360C18B0027D6EF /* BulletinDataSource.swift in Sources */,
 				1F03AB8E2360C18B0027D6EF /* UserDefaultsManager.swift in Sources */,
-				1F03AB8F2360C18B0027D6EF /* PaymentTableViewCell.swift in Sources */,
 				1F03AB902360C18B0027D6EF /* ImageScroller.swift in Sources */,
 				1F03AB912360C18B0027D6EF /* NetworkManager.swift in Sources */,
-				1F03AB922360C18B0027D6EF /* PaymentCollectionViewCell.swift in Sources */,
 				1F03AB932360C18B0027D6EF /* SaisieDeDonneesVC.swift in Sources */,
 				1F03AB942360C18B0027D6EF /* DetailCommerceViewController.swift in Sources */,
 				1F03AB952360C18B0027D6EF /* ContactTVCell.swift in Sources */,
@@ -1395,17 +1355,14 @@
 				1F03ABBA2360C18B0027D6EF /* WebsiteFormValidationError.swift in Sources */,
 				1F03ABBB2360C18B0027D6EF /* AjoutCommerceVC.swift in Sources */,
 				1F0E862F238AB64C003124FD /* Extension+UIViewController.swift in Sources */,
-				1F03ABBC2360C18B0027D6EF /* ChoixTarifsTBVCTableViewController.swift in Sources */,
 				1F03ABBD2360C18B0027D6EF /* AppDelegate.swift in Sources */,
 				1F9357362360C2B20006A234 /* Constants.swift in Sources */,
 				1F0E8633238AC289003124FD /* Extension+UIApplication.swift in Sources */,
 				1F03ABBE2360C18B0027D6EF /* DescriptionAndPromotionsTVCell.swift in Sources */,
 				1F87FB712389885C00B7A093 /* Extension+Notification.swift in Sources */,
-				1F03ABBF2360C18B0027D6EF /* InAppPurchaseHandler.swift in Sources */,
 				1F03ABC02360C18B0027D6EF /* HelperAndKeys.swift in Sources */,
 				1F03ABC12360C18B0027D6EF /* MailFormValidationError.swift in Sources */,
 				1F03ABC22360C18B0027D6EF /* CommerceCVC.swift in Sources */,
-				1F03ABC32360C18B0027D6EF /* ChoixAbonnmentsVC.swift in Sources */,
 				1F03ABC42360C18B0027D6EF /* ProcessInscriptionVC.swift in Sources */,
 				1F03ABC52360C18B0027D6EF /* Routers.swift in Sources */,
 				1F03ABC62360C18B0027D6EF /* Extensions.swift in Sources */,
@@ -1421,7 +1378,6 @@
 				1F03ABCE2360C18B0027D6EF /* TelFormValidationError.swift in Sources */,
 				1F03ABCF2360C18B0027D6EF /* NouveauCommerceCell.swift in Sources */,
 				1F4B120E23611A5600119676 /* Colors.swift in Sources */,
-				1F03ABD02360C18B0027D6EF /* ChoixTarifsVC.swift in Sources */,
 				1F03ABD12360C18B0027D6EF /* UserSettings.swift in Sources */,
 				1F03ABD22360C18B0027D6EF /* ListeDesFavorisVC.swift in Sources */,
 				1F03ABD32360C18B0027D6EF /* PhotoCell.swift in Sources */,
@@ -1438,10 +1394,8 @@
 				1F7331DB2052BA4300582A7B /* PhotosVideosCollectionCell.swift in Sources */,
 				1FEE37491F911A5B00E1D1A7 /* BulletinDataSource.swift in Sources */,
 				1F7F7C8623494F210087A444 /* UserDefaultsManager.swift in Sources */,
-				1FDDB8972118B40A00B7EC33 /* PaymentTableViewCell.swift in Sources */,
 				1F4D4310202AC4D40089FB15 /* ImageScroller.swift in Sources */,
 				1F9EE55B21D14C1F0086EF72 /* NetworkManager.swift in Sources */,
-				1F2C05112132F564002B86AB /* PaymentCollectionViewCell.swift in Sources */,
 				1F1112A01F72BB9E001D0C61 /* SaisieDeDonneesVC.swift in Sources */,
 				1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */,
 				1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */,
@@ -1487,17 +1441,14 @@
 				1F6AF4822358EB3400F057C7 /* WebsiteFormValidationError.swift in Sources */,
 				1F0BBCA61FAE4C3700D91026 /* AjoutCommerceVC.swift in Sources */,
 				1F0E862E238AB64C003124FD /* Extension+UIViewController.swift in Sources */,
-				1F04777F21440E7000B20CA5 /* ChoixTarifsTBVCTableViewController.swift in Sources */,
 				1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */,
 				1F9357332360C2B20006A234 /* Constants.swift in Sources */,
 				1F0E8632238AC289003124FD /* Extension+UIApplication.swift in Sources */,
 				1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */,
 				1F87FB702389885C00B7A093 /* Extension+Notification.swift in Sources */,
-				1F0E0B7A212468420048D95B /* InAppPurchaseHandler.swift in Sources */,
 				1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */,
 				1F6AF4852358EB7F00F057C7 /* MailFormValidationError.swift in Sources */,
 				1FE67A8A21C7A5A400EDBE05 /* CommerceCVC.swift in Sources */,
-				1F0E0B7E212482590048D95B /* ChoixAbonnmentsVC.swift in Sources */,
 				1F6C1C581F6E08750075584E /* ProcessInscriptionVC.swift in Sources */,
 				1F27628F2116E7EA00779342 /* Routers.swift in Sources */,
 				1FD6F56D20729A5100EC9DF3 /* Extensions.swift in Sources */,
@@ -1513,7 +1464,6 @@
 				1F6AF47F2358EB1000F057C7 /* TelFormValidationError.swift in Sources */,
 				1F5AD2F61FAF898C0048FFE2 /* NouveauCommerceCell.swift in Sources */,
 				1F4B120D23611A5600119676 /* Colors.swift in Sources */,
-				1F0477772141BA7300B20CA5 /* ChoixTarifsVC.swift in Sources */,
 				1F2933D8226E538500AE9C25 /* UserSettings.swift in Sources */,
 				1F61FA2C233418620001392C /* ListeDesFavorisVC.swift in Sources */,
 				1F5DE54E1FB10AE0000C4E57 /* PhotoCell.swift in Sources */,
@@ -1533,7 +1483,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-DEV";
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = "Info-DEV.plist";
@@ -1559,7 +1509,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-DEV";
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1703,7 +1653,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = WeeClik/Info.plist;
@@ -1726,7 +1676,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

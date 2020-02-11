@@ -8,7 +8,6 @@
 
 // TODO: ouvrir le lien dans l'app et non le navigateur du tel (forcer l'user a rester dans l'application)
 // TODO: mettre la description a 500 caractère max
-// TODO: vv fonction de timer pour l'attente de partage qui appele a la fin cette fonction vv
 
 import UIKit
 import Contacts
@@ -135,7 +134,7 @@ class DetailCommerceViewController: UIViewController {
             activit.excludedActivityTypes = [
                 .markupAsPDF, .postToVimeo, .postToWeibo, .postToFlickr, .postToTencentWeibo,
                 .copyToPasteboard, .openInIBooks, .assignToContact, .addToReadingList,
-                .saveToCameraRoll, .print
+                .saveToCameraRoll, .print, .airDrop
             ]
             activit.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
                 // Return if cancelled
@@ -144,6 +143,10 @@ class DetailCommerceViewController: UIViewController {
                 // Extensions refusé comme partage valide
                 let refused: [String] = [
                     "com.apple.mobilenotes.SharingExtension",
+                    "com.apple.reminders.sharingextension",
+                    "dk.simonbs.Scriptable.ActionExtension",
+                    "com.getdropbox.Dropbox.ActionExtension",
+                    "com.apple.CloudDocsUI.AddToiCloudDrive",
                     UIActivity.ActivityType.copyToPasteboard.rawValue
                 ]
                 // Extensions autorisées comme partage valide
@@ -159,30 +162,48 @@ class DetailCommerceViewController: UIViewController {
                 if refused.contains(rawValue) {
                     Log.all.warning("Try to share commerce with application: \(rawValue)")
                     self.showAlertWithMessageWithMail(
-                        theMessage: "Nous considérons que cette application n'est pas autorisée à être utilisé pour partager un commerce. Vous pouvez cependant nous faire changer d'avis. 🤯".localized(),
+                        theMessage: """
+                        Nous considérons que cette application n'est pas autorisée à être utilisé pour partager un commerce. \
+                        Vous pouvez cependant nous faire changer d'avis. 🤯
+                        """.localized(),
                         title: "Application non autorisée",
-                        preComposedBody: "Salut Weeclik,\n\nvous avez refusé l'utilisation de l'application suivante : \n\nNom de l'application : < Ajoutez le nom de l'application >\nId : \(rawValue)\n\n\nPour les raisons suivantes je pense que vous devriez l'activer : \n\n< Ajoutez vos raisons ici >\n\n< Ajoutez une image une ou plusieurs captures d'écran si vous le souhaitez >".localized()
+                        preComposedBody: """
+                        Salut Weeclik,
+                        \nvous avez refusé l'utilisation de l'application suivante :
+                        \nNom de l'application : < Ajoutez le nom de l'application >
+                        Id : \(rawValue)
+                        \n\nPour les raisons suivantes je pense que vous devriez l'activer :
+                        \n< Ajoutez vos raisons ici >
+                        \n< Ajoutez une image une ou plusieurs captures d'écran si vous le souhaitez >
+                        """.localized()
                     )
                     return
                 } else if autorized.contains(rawValue) {
                     Log.all.debug("Activity type: \(rawValue)")
                     if rawValue == "com.ringosoftware.weeclik-DEV.activity" || rawValue == "com.ringosoftware.weeclik-DEV.activity" {
-                        if let sharingListNavigationController = UIStoryboard(name: "Partage", bundle: nil).instantiateViewController(withIdentifier: "ListeDesFavorisVCNav") as? UINavigationController,
-                            let listeFavorisVC = sharingListNavigationController.children.first as? ListeDesFavorisVC {
+                        let storyboard = UIStoryboard(name: "Partage", bundle: nil)
+                        if let sharingListNav = storyboard.instantiateViewController(withIdentifier: "ListeDesFavorisVCNav") as? UINavigationController,
+                            let listeFavorisVC = sharingListNav.children.first as? ListeDesFavorisVC {
                             listeFavorisVC.commerce = self.commerceObject
                             listeFavorisVC.strPartage = sharingMessage
-                            self.presentFullScreen(viewController: sharingListNavigationController, completion: nil)
+                            self.presentFullScreen(viewController: sharingListNav, completion: nil)
                         }
                         return
                     } else {
-                        
+                        HelperAndKeys.setSharingTime(forCommerceId: self.commerceObject.objectId)
+                        self.tableView.reloadData()
                     }
                 } else {
-                    Log.all.info("Une application inconnue a été utilisée pour la fonction de partage. \nL'identifiant de l'app : \(rawValue)")
+                    Log.all.warning("Une application inconnue utilisée pour le partage. \nL'identifiant de l'app : \(rawValue)")
                     // [1] On envoi un mail pour l'intégration de l'app à Weeclik
 //                    MailHelper.sendErrorMail(content: "Une application inconnue a été utilisée pour la fonction de partage. \nL'identifiant de l'app : \(rawValue)".localized())
                     // [2] On affiche un message d'erreur à l'utilisateur pour une future intégration
-                    self.showAlertWithMessage(message: "Nous ne prenons pas encore cette application pour le partage. Nous ferons au plus vite pour l'ajouter au réseau Weeclik".localized(), title: "Application non prise en charge".localized(), completionAction: nil)
+                    self.showAlertWithMessage(message: """
+                                                Nous ne prenons pas encore cette application pour le partage. \
+                                                Nous ferons au plus vite pour l'ajouter au réseau Weeclik
+                                                """.localized(),
+                                              title: "Application non prise en charge".localized(),
+                                              completionAction: nil)
                     return
                 }
             }
@@ -502,15 +523,22 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         if let error = error {
             // Erreur
-            self.showAlertWithMessage(message: error.localizedDescription, title: "Erreur", completionAction: nil)
+            showAlertWithMessage(message: error.localizedDescription, title: "Erreur", completionAction: nil)
         } else {
             switch result {
             case .cancelled:
                 print("Annulé")
             case .failed:
-                self.showAlertWithMessage(message: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.".localized(), title: "Erreur".localized(), completionAction: nil)
+                showAlertWithMessage(message: "Une erreur est survenue lors du partage de ce commerce. Merci de réessayer.".localized(),
+                                     title: "Erreur".localized(),
+                                     completionAction: nil)
             case .sent:
-                self.showAlertWithMessage(message: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.".localized(), title: "Merci pour votre confiance".localized(), completionAction: nil)
+                showAlertWithMessage(message: """
+                                     Votre partage a été pris en compte. \
+                                     Vous pouvez des à présent profiter de votre promotion.
+                                     """.localized(),
+                                     title: "Merci pour votre confiance".localized(),
+                                     completionAction: nil)
                 // On a bien partagé -> sauvegarde dans le UserDefaults
                 saveCommerceIdInUserDefaults()
             case .saved:

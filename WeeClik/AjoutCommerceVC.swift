@@ -166,13 +166,13 @@ extension AjoutCommerceVC {
         }
 
         seeMoreButton.isEnabled = true
-        statusDescription.text = "Statut : \n\(savedCommerce.statut.label())".localized()
+        statusDescription.text = "Statut : \n\(savedCommerce.statut.description)".localized()
 
         let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
         if let endSub = savedCommerce.pfObject["endSubscription"] as? Date {
             statusDescription.text = """
                 Statut :
-                \(savedCommerce.statut.label())
+                \(savedCommerce.statut.description)
                 Fin : \(endSub.convertTo(region: paris).toFormat("dd MMM yyyy 'à' HH:mm"))
                 """.localized()
         }

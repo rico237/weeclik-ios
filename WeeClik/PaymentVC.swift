@@ -1,10 +1,6 @@
 //  Created by Herrick Wolber on 17/03/2019.
 //  Copyright © 2019 Herrick Wolber. All rights reserved.
 
-//
-//  Can be seen in Payment storyboard (Payment.storyboard)
-//
-
 import UIKit
 import Parse
 import SwiftyStoreKit
@@ -87,8 +83,8 @@ class PaymentVC: UIViewController {
         style.alignment = .justified
 
         let attributedString = NSMutableAttributedString(string: legalTextView.text)
-        let urlCGU = URL(string: "https://weeclik-server.herokuapp.com/cgu")!
-        let urlPolitique = URL(string: "https://weeclik-server.herokuapp.com/politique-confidentialite")!
+        let urlCGU = URL(string: "\(Constants.Server.baseURL)/cgu")!
+        let urlPolitique = URL(string: "\(Constants.Server.baseURL)/politique-confidentialite")!
 
         let cguRange = attributedString.mutableString.range(of: "Conditions générales".localized(), options: .caseInsensitive)
         attributedString.setAttributes([.link: urlCGU], range: cguRange)
