@@ -44,9 +44,9 @@ class ShareToGroupsActivity: UIActivity {
 
     override var activityType: UIActivity.ActivityType? {
         var identifier = "com.ringosoftware.weeclik.activity"
-        #if DEVELOPMENT
-        identifier = "com.ringosoftware.weeclik-DEV.activity"
-        #endif
+        if ConfigurationManager.shared.target == "DEV" {
+            identifier = "com.ringosoftware.weeclik-DEV.activity"
+        }
         return UIActivity.ActivityType(rawValue: identifier)
     }
 

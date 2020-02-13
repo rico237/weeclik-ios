@@ -15,11 +15,14 @@ class PaymentVC: UIViewController {
     var paymentDeactivated = false                          // TEST VAR (permet de switcher la demande de paiement)
     var scheduleVal = false
     var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
-    #if DEVELOPMENT
-    let purchasedProductID = "abo.sans.renouvellement.dev"   // Apple ID subscription for dev purpose
-    #else
-    let purchasedProductID = "abo.sans.renouvellement.un.an" // Apple ID of one year subscription (not automatically renewed)
-    #endif
+    // Apple ID of one year subscription (not automatically renewed)
+    var purchasedProductID: String {
+        if ConfigurationManager.shared.target == "DEV" {
+            return "abo.sans.renouvellement.dev"
+        }
+        return "abo.sans.renouvellement.un.an"
+    }
+
     let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
 
     @IBOutlet weak var legalTextView: UITextView!           // CGU, CGV, etc

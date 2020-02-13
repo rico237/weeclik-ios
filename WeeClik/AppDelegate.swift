@@ -14,24 +14,16 @@ import Firebase
 import SwiftyStoreKit
 import Analytics
 
-#if DEVELOPMENT
-// Import dev dependencies
-#endif
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var postLoginRouter = Router()
-    private var className = "AppDelegate"
 
     // MARK: Lifecycle functions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        #if DEVELOPMENT
-        Log.all.debug("DEV Environment \(Constants.App.debugBuildVersion)")
-        #else
-        Log.all.debug("PROD Environment \(Constants.App.debugBuildVersion)")
-        #endif
+        Log.all.debug("Environment \(Constants.App.debugBuildVersion)")
+        
         // Server conf (bdd + storage + auth)
         parseConfiguration()
         
@@ -105,10 +97,10 @@ extension AppDelegate {
     func parseConfiguration() {
         let configuration = ParseClientConfiguration {
             $0.applicationId = Constants.Server.serverAppId
-            $0.server = Constants.Server.serverURL()
+            $0.server = Constants.Server.serverURL
         }
         Parse.initialize(with: configuration)
-        Log.all.debug("Parse server URL: \(Constants.Server.serverURL())")
+        Log.all.debug("Parse server URL: \(Constants.Server.serverURL)")
     }
 
     func purchaseObserver() {

@@ -48,11 +48,11 @@ class AnalyticsManager: NSObject {
         var trackedProperties: [String: Any] = [:]
         if let properties = properties { trackedProperties = properties }
         
-        #if DEVELOPMENT
-        trackedProperties["env"] = "DEVELOPMENT"
-        #else
-        trackedProperties["env"] = "PRODUCTION"
-        #endif
+        if ConfigurationManager.shared.target == "DEV" {
+            trackedProperties["env"] = "DEVELOPMENT"
+        } else {
+            trackedProperties["env"] = "PRODUCTION"
+        }
         
         if let knownPosition = LatestKnowLocationManager.shared.getLatestPosition() {
             Log.all.verbose("Segment analytics tracked with location")

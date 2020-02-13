@@ -1,3 +1,11 @@
 {
-    "serverURL": "https://weeclik-server.herokuapp.com"
+    "target": "PROD",
+    "api": {
+        "baseURL": "https://weeclik-server.herokuapp.com",
+        "appId": "JVQZMCuNYvnecPWvWFDTZa8A"
+    },
+    "endPoints": {
+        "server": "/parse",
+        "dashboard": "/dashboard"
+    }
 }
