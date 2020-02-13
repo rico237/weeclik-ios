@@ -31,9 +31,9 @@ struct ParseHelper {
         // Objectif : https://firebasestorage.googleapis.com/v0/b/weeclik-1517332083996.appspot.com/o/baas_files%2F326491c13ec62d56fd31ca41caf7401d_file.mp4?alt=media
         // swiftlint:enable line_length
         var originalString = url.absoluteString
-        if let parseURLRange = originalString.range(of: "\(Constants.Server.serverURL())/files/\(Constants.Server.serverAppId)/") {
+        if let parseURLRange = originalString.range(of: "\(Constants.Server.serverURL)/files/\(Constants.Server.serverAppId)/") {
             originalString.replaceSubrange(parseURLRange, with: "https://firebasestorage.googleapis.com/v0/b/weeclik-1517332083996.appspot.com/o/baas_files%2F")
-            originalString.append(contentsOf: "?alt=media")
+            originalString += "?alt=media"
             return URL(string: originalString) ?? url
         }
         return url

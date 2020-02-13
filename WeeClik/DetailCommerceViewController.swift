@@ -180,7 +180,7 @@ class DetailCommerceViewController: UIViewController {
                     return
                 } else if autorized.contains(rawValue) {
                     Log.all.debug("Activity type: \(rawValue)")
-                    if rawValue == "com.ringosoftware.weeclik-DEV.activity" || rawValue == "com.ringosoftware.weeclik-DEV.activity" {
+                    if rawValue == "com.ringosoftware.weeclik.activity" || rawValue == "com.ringosoftware.weeclik-DEV.activity" {
                         let storyboard = UIStoryboard(name: "Partage", bundle: nil)
                         if let sharingListNav = storyboard.instantiateViewController(withIdentifier: "ListeDesFavorisVCNav") as? UINavigationController,
                             let listeFavorisVC = sharingListNav.children.first as? ListeDesFavorisVC {
