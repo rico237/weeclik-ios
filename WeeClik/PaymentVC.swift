@@ -9,12 +9,18 @@ import SwiftDate
 import SVProgressHUD
 
 class PaymentVC: UIViewController {
-    var commerceAlreadyExists = false                       // Check if we came for renewable or creation
-    var currentUser = PFUser.current()                      // User making purchase
-    var hasPaidForNewCommerce = false                       // Permet de savoir si on peut créer un nouveau commerce vers la BDD
-    var paymentDeactivated = false                          // TEST VAR (permet de switcher la demande de paiement)
+    // Check if we came for renewable or creation
+    var commerceAlreadyExists = false
+    // User making purchase
+    var currentUser = PFUser.current()
+    // Permet de savoir si on peut créer un nouveau commerce vers la BDD
+    var hasPaidForNewCommerce = false
+    // TEST VAR (permet de switcher la demande de paiement)
+    var paymentDeactivated = false
+    
     var scheduleVal = false
-    var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
+    // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
+    var renewingCommerceId = ""
     // Apple ID of one year subscription (not automatically renewed)
     var purchasedProductID: String {
         if ConfigurationManager.shared.target == "DEV" {
@@ -23,9 +29,10 @@ class PaymentVC: UIViewController {
         return "abo.sans.renouvellement.un.an"
     }
 
-    let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
-
-    @IBOutlet weak var legalTextView: UITextView!           // CGU, CGV, etc
+    // Paneau d'aministration (option de paiement etc.)
+    let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil)
+    // CGU, CGV, etc
+    @IBOutlet weak var legalTextView: UITextView!
 
     @objc func showSettingsPanel() {
         let transitionDelegate = SPLarkTransitioningDelegate()
@@ -78,7 +85,8 @@ class PaymentVC: UIViewController {
         SVProgressHUD.setMinimumDismissTimeInterval(1.5)
 
         updateCGUText()
-        updateAdminUI() // Update UINavigationBar
+        // Update UINavigationBar
+        updateAdminUI()
     }
 
     func updateCGUText() {
