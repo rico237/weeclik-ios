@@ -61,6 +61,15 @@ struct Constants {
         /// Application Id, needed to connect to authenticate to server
         static let serverAppId = ConfigurationManager.shared.api.appId
     }
+    
+    struct WebApp {
+        static var url: String {
+            if ConfigurationManager.shared.isDev() {
+                return "https://weeclik-webapp-dev.herokuapp.com/commerce"
+            }
+            return "https://www.weeclik.com/commerce"
+        }
+    }
 
     // MARK: UserDefaults Keys
     struct UserDefaultsKeys {
@@ -79,7 +88,7 @@ extension Constants {
                 Salut, j'ai aimé « \(commerceObject.nom) », \
                 avec www.weeclik.com bénéficiez de remises.
                 Voir le détail du commerce ici :
-                    https://www.weeclik.com/commerce/\(commerceObject.objectId!)
+                    \(WebApp.url)/\(commerceObject.objectId!)
                 """.localized()
         }
     }
