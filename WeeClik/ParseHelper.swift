@@ -13,10 +13,10 @@ import AVKit
 struct ParseHelper {
     static func getUserACL(forUser user: PFUser?) -> PFACL {
         let acl = PFACL()
-        acl.setReadAccess(true, forRoleWithName: "Public")
         acl.setReadAccess(true, forRoleWithName: "admin")
-        acl.setWriteAccess(false, forRoleWithName: "Public")
         acl.setWriteAccess(true, forRoleWithName: "admin")
+        acl.hasPublicReadAccess = true
+        acl.hasPublicWriteAccess = false
         if let user = user {
             acl.setReadAccess(true, for: user)
             acl.setWriteAccess(true, for: user)
