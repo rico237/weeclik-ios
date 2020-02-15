@@ -49,11 +49,21 @@ extension UIViewController {
         } else {
             player = AVPlayer(url: ParseHelper.rewriteParseURLForVideos(forURL: url))
         }
+        
+        // Set the audio session to playback to ignore mute switch on device
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        } catch {
+            // Didn't work
+            Log.all.warning("playback ignore mute switch on device failed")
+        }
 
         let playerViewController = AVPlayerViewController()
         player.isMuted = false
         player.volume = 1
         playerViewController.player = player
-        present(playerViewController, animated: true) {player.play()}
+        present(playerViewController, animated: true) {
+            player.play()
+        }
     }
 }
