@@ -23,7 +23,7 @@ class PaymentVC: UIViewController {
     var renewingCommerceId = ""
     // Apple ID of one year subscription (not automatically renewed)
     var purchasedProductID: String {
-        if ConfigurationManager.shared.target == "DEV" {
+        if ConfigurationManager.shared.isDev() {
             return "abo.sans.renouvellement.dev"
         }
         return "abo.sans.renouvellement.un.an"

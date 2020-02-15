@@ -15,6 +15,10 @@ final class ConfigurationManager: Decodable {
     let api: APIConfiguration
     let endPoints: EndPointsConfiguration
     
+    func isDev() -> Bool {
+        return target == "DEV"
+    }
+    
     // MARK: Shared instance
     static let shared: ConfigurationManager = {
         guard let configurationPath = Bundle.main.path(forResource: "configuration", ofType: "json"),

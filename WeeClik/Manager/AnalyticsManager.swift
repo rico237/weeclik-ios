@@ -48,7 +48,7 @@ class AnalyticsManager: NSObject {
         var trackedProperties: [String: Any] = [:]
         if let properties = properties { trackedProperties = properties }
         
-        if ConfigurationManager.shared.target == "DEV" {
+        if ConfigurationManager.shared.isDev() {
             trackedProperties["env"] = "DEVELOPMENT"
         } else {
             trackedProperties["env"] = "PRODUCTION"
