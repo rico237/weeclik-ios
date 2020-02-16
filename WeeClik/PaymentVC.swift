@@ -269,12 +269,12 @@ class PaymentVC: UIViewController {
                     purchaseProduct.incrementKey("purchased")
                     purchaseProduct.saveInBackground { (_, error) in
                         if let error = error {
-                            print("Error function retrieve PFProduct - func saveStatForPurchase")
+                            Log.all.error("Error function retrieve PFProduct - func saveStatForPurchase")
                             ParseErrorCodeHandler.handleUnknownError(error: error)
                         }
                     }
                 } else if let error = error {
-                    print("Error function retrieve PFProduct - func saveStatForPurchase")
+                    Log.all.error("Error function retrieve PFProduct - func saveStatForPurchase")
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                 }
             })
@@ -282,7 +282,7 @@ class PaymentVC: UIViewController {
 
         stat.saveInBackground { (_, error) in
             if let error = error {
-                print("Error function save stat - func saveStatForPurchase")
+                Log.all.error("Error function save stat - func saveStatForPurchase")
                 ParseErrorCodeHandler.handleUnknownError(error: error)
                 SVProgressHUD.dismiss(withDelay: 1.5)
             }

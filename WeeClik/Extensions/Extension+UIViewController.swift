@@ -82,6 +82,37 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler))
         present(alert, animated: true, completion: nil)
     }
+    
+    func showPaymentDialog(for commerceId: String) {
+        let alert = UIAlertController(title: "Commerce hors ligne".localized(),
+                                      message: """
+                                        Votre commerce est hors ligne, afin de modifier ses informations vous devez d'abord \
+                                        vous acquitter des frais annuels appliqués pour rendre votre commerce public.
+                                        """.localized(),
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Payer".localized(), style: .default, handler: { (_ action) in
+            let profileStoryboard = UIStoryboard(name: "Profile", bundle: Bundle.main)
+            
+            let navigation: UINavigationController? = profileStoryboard.instantiateViewController(withIdentifier: "PaymentVC") as? UINavigationController
+            
+            guard let paymentVC = navigation?.viewControllers.first as? PaymentVC else {
+                Log.all.error("Wrong child for navigation controller (paymentVC)")
+                return
+            }
+            
+            paymentVC.renewingCommerceId = commerceId
+            paymentVC.commerceAlreadyExists = true
+            if self.navigationController != nil {
+                self.navigationController?.pushViewController(paymentVC, animated: true)
+            } else {
+                self.present(paymentVC, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Annuler".localized(), style: .cancel, handler: { (_ action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: Toasts

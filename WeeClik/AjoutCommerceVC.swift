@@ -178,10 +178,10 @@ extension AjoutCommerceVC {
         }
         
         switch savedCommerce.statut {
-        case .paid, .error, .unknown:
+        case .paid:
             paymentButton.isHidden = true
             paymentButton.isUserInteractionEnabled = false
-        case .canceled, .pending:
+        case .canceled, .pending, .error, .unknown:
             paymentButton.isHidden = false
             paymentButton.isUserInteractionEnabled = true
         }
@@ -285,6 +285,15 @@ extension AjoutCommerceVC {
     }
 
     @IBAction func saveInformations(_ sender: Any) {
+        // Sauvegarde si il est payé, sinon j'affiche la vue de paiement
+//        guard savedCommerce?.statut == .paid else {
+//            if let commerce = savedCommerce {
+//                self.showPaymentDialog(for: commerce.objectId)
+//            } else {
+//                self.showBasicToastMessage(withMessage: "Problème de chargement du commerce. \n Réessayer plus tard.", state: .error)
+//            }
+//            return
+//        }
         guard !isSaving else { return }
         
         saveButton.isEnabled = false
@@ -315,7 +324,7 @@ extension AjoutCommerceVC {
         
         fetchComm.getPFObject(objectId: objectIdCommerce, fromBaas: loadedFromBAAS) { (commerceObject, error) in
             guard let commerceToSave = commerceObject else {
-                if let error = error {self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)}
+                if let error = error {self.saveOfCommerceEnded(status: .error, error: error, feedBack: false)}
                 return
             }
             // Retrieved object
@@ -326,6 +335,7 @@ extension AjoutCommerceVC {
                     // Update général des informations du commerce
                     ParseService.shared.updateGeoLocation(forCommerce: fetchComm) { (_, error) in
                         if let error = error {
+                            Log.all.error("Location must be nil: \(error.debug)")
                             self.saveOfCommerceEnded(status: .none, error: error, feedBack: false)
                         }
                     }
@@ -379,6 +389,7 @@ extension AjoutCommerceVC {
 
                             let pffile = PFFileObject(data: videoData, contentType: mimeType)
                             let video = PFObject(className: "Commerce_Videos")
+                            video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
                             let thumbnail = PFFileObject(data: self.thumbnailArray[index].wxCompress().jpegData(compressionQuality: 1)!,
                                                          contentType: "image/jpeg")
 
@@ -425,6 +436,7 @@ extension AjoutCommerceVC {
 
         for image in self.photoArray where image != #imageLiteral(resourceName: "Plus_icon") {
             let commercePhoto = PFObject(className: "Commerce_Photos")
+            commercePhoto.acl = ParseHelper.getUserACL(forUser: PFUser.current())
             let compressedImage = image.wxCompress()
             let file: PFFileObject!
             do {

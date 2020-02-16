@@ -22,10 +22,10 @@ class FontHelper: NSObject {
 
         /*for family: String in UIFont.familyNames
          {
-         print("\(family)")
+         Log.console.verbose("\(family)")
          for names: String in UIFont.fontNames(forFamilyName: family)
          {
-         print("== \(names)")
+         Log.console.verbose("== \(names)")
          }
          }*/
 

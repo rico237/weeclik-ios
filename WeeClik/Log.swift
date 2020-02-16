@@ -11,6 +11,7 @@ import SwiftyBeaver
 struct Log {
     // log to platform and console
     static let all = Log.enableDestination(console: true, platform: true)
+    static let console = Log.enableDestination(console: true, platform: false)
 
     private static func enableDestination(console: Bool, platform: Bool) -> SwiftyBeaver.Type {
 

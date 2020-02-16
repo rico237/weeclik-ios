@@ -106,7 +106,7 @@ extension AppDelegate {
     func purchaseObserver() {
         // see notes below for the meaning of Atomic / Non-Atomic
         SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
-            print("Purchase complete transactions")
+            Log.all.info("Purchase complete transactions")
             for purchase in purchases {
                 switch purchase.transaction.transactionState {
                 case .purchased, .restored:
@@ -116,9 +116,9 @@ extension AppDelegate {
                     }
                 // Unlock content
                 case .failed, .purchasing, .deferred:
-                    print("Nothing with status : \(purchase.transaction.transactionState)")
+                    Log.all.error("Nothing with status : \(purchase.transaction.transactionState)")
                 @unknown default:
-                    fatalError("Unknow value passed for purchaseObserver - Payment function - AppDelegate")
+                    Log.all.error("Unknow value passed for purchaseObserver - Payment function - AppDelegate")
                 }
             }
         }
@@ -139,7 +139,7 @@ extension AppDelegate {
     func testUIConfiguration() {
         var arguments = ProcessInfo.processInfo.arguments
         arguments.removeFirst()
-        print("App launching with the following arguments: \(arguments)")
+        Log.console.verbose("App launching with the following arguments: \(arguments)")
 
         // Always clear the defaults first
         if arguments.contains("ResetDefaults") {
@@ -152,7 +152,9 @@ extension AppDelegate {
                 UIView.setAnimationsEnabled(false)
             case "UserHasRegistered":
                 PFUser.logInWithUsername(inBackground: "toto@toto.com", password: "toto") { (user, _) in
-                    if let user = user {print( "User \(user) is logged" )}
+                    if let user = user {
+                        Log.console.verbose( "User \(user) is logged" )
+                    }
                 }
             default:
                 break

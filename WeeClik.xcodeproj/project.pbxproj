@@ -47,7 +47,6 @@
 		1F03ABB22360C18B0027D6EF /* InformationGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BBD1F34F78B00DEDEA1 /* InformationGeneralCell.swift */; };
 		1F03ABB32360C18B0027D6EF /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */; };
 		1F03ABB42360C18B0027D6EF /* NomCommerceFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF47A2358E9A100F057C7 /* NomCommerceFormValidationError.swift */; };
-		1F03ABB52360C18B0027D6EF /* AfterPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */; };
 		1F03ABB62360C18B0027D6EF /* TestAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */; };
 		1F03ABB72360C18B0027D6EF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
 		1F03ABB82360C18B0027D6EF /* AccueilCommerces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */; };
@@ -183,7 +182,6 @@
 		1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89A11A2239B470007952CC /* ContactTVCell.swift */; };
 		1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */; };
 		1F8F0882223F128C008177C4 /* loader-success-failed.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F0881223F128C008177C4 /* loader-success-failed.json */; };
-		1F8F0884223F12C3008177C4 /* AfterPaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */; };
 		1F9357332360C2B20006A234 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9357322360C2B20006A234 /* Constants.swift */; };
 		1F9357362360C2B20006A234 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9357322360C2B20006A234 /* Constants.swift */; };
 		1F9357392360CA1C0006A234 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357382360CA1B0006A234 /* LaunchScreen.storyboard */; };
@@ -342,7 +340,6 @@
 		1F89A11A2239B470007952CC /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		1F8F0881223F128C008177C4 /* loader-success-failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-success-failed.json"; sourceTree = "<group>"; };
-		1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterPaymentVC.swift; sourceTree = "<group>"; };
 		1F9357322360C2B20006A234 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1F9357382360CA1B0006A234 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F93573D2360CA460006A234 /* LaunchScreen-DEV.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen-DEV.storyboard"; sourceTree = "<group>"; };
@@ -736,7 +733,6 @@
 			children = (
 				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
 				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
-				1F8F0883223F12C3008177C4 /* AfterPaymentVC.swift */,
 			);
 			path = En_cours;
 			sourceTree = "<group>";
@@ -1375,7 +1371,6 @@
 				24FAB71723F5723900749DB5 /* ConfigurationManager.swift in Sources */,
 				1F4CD07B23EB7A8B00478099 /* Log.swift in Sources */,
 				1F03ABB42360C18B0027D6EF /* NomCommerceFormValidationError.swift in Sources */,
-				1F03ABB52360C18B0027D6EF /* AfterPaymentVC.swift in Sources */,
 				1F03ABB62360C18B0027D6EF /* TestAreaViewController.swift in Sources */,
 				1F03ABB72360C18B0027D6EF /* LoginViewController.swift in Sources */,
 				1F03ABB82360C18B0027D6EF /* AccueilCommerces.swift in Sources */,
@@ -1462,7 +1457,6 @@
 				24FAB71623F5723900749DB5 /* ConfigurationManager.swift in Sources */,
 				1F4CD07A23EB7A8B00478099 /* Log.swift in Sources */,
 				1F6AF47B2358E9A100F057C7 /* NomCommerceFormValidationError.swift in Sources */,
-				1F8F0884223F12C3008177C4 /* AfterPaymentVC.swift in Sources */,
 				1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */,
 				1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */,
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
@@ -1513,7 +1507,7 @@
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = "Info-DEV.plist";
@@ -1541,7 +1535,7 @@
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

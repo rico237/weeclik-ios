@@ -39,10 +39,12 @@ extension ConfigurationManager {
     struct APIConfiguration: Decodable {
         let baseURL: String
         let appId: String
+        let webapp: String
     }
     
     struct EndPointsConfiguration: Decodable {
         let server: String
         let dashboard: String
+        let commerce: String
     }
 }

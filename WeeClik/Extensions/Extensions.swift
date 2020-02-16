@@ -161,7 +161,7 @@ extension UIDevice {
             sysctlbyname("hw.machine", &machine, &size, nil, 0)
             modelIdentifier = String(cString: machine)
         }
-        print("Model identiier : \(modelIdentifier)")
+        Log.console.verbose("Model identiier : \(modelIdentifier)")
         return modelIdentifier == "iPhone10,3" || modelIdentifier == "iPhone10,6" || modelIdentifier.starts(with: "iPhone11,") || modelIdentifier.starts(with: "iPhone12,")
     }
     
@@ -266,8 +266,8 @@ extension UIView {
             topInset = insets.top
             bottomInset = insets.bottom
 
-            print("Top: \(topInset)")
-            print("bottom: \(bottomInset)")
+            Log.console.verbose("Top: \(topInset)")
+            Log.console.verbose("bottom: \(bottomInset)")
         }
 
         translatesAutoresizingMaskIntoConstraints = false
