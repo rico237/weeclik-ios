@@ -64,10 +64,10 @@ struct Constants {
     
     struct WebApp {
         static var url: String {
-            if ConfigurationManager.shared.isDev() {
-                return "https://weeclik-webapp-dev.herokuapp.com/commerce"
-            }
-            return "https://www.weeclik.com/commerce"
+            return ConfigurationManager.shared.api.webapp + "/"
+        }
+        static var sharingUrl: String {
+            return ConfigurationManager.shared.api.webapp + ConfigurationManager.shared.endPoints.commerce
         }
     }
 
@@ -88,7 +88,7 @@ extension Constants {
                 Salut, j'ai aimé « \(commerceObject.nom) », \
                 avec www.weeclik.com bénéficiez de remises.
                 Voir le détail du commerce ici :
-                    \(WebApp.url)/\(commerceObject.objectId!)
+                    \(WebApp.sharingUrl)/\(commerceObject.objectId!)
                 """.localized()
         }
     }
