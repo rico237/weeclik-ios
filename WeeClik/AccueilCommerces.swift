@@ -48,7 +48,8 @@ class AccueilCommerces: UIViewController {
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var headerTypeCommerceImage: UIImageView!
-    @IBOutlet weak var viewKJNavigation: KJNavigationViewAnimation!
+//    @IBOutlet weak var viewKJNavigation: KJNavigationViewAnimation!
+    @IBOutlet weak var viewKJNavigation: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
@@ -100,8 +101,8 @@ class AccueilCommerces: UIViewController {
         self.collectionView.contentInsetAdjustmentBehavior = .always
 
         // Init of retracting header (header image)
-        viewKJNavigation.topbarMinimumSpace = .custom(height: 250)
-        viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
+//        viewKJNavigation.topbarMinimumSpace = .custom(height: 250)
+//        viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
 
         // Choisir le filtrage par defaut (Position ou partage)
         if defaults.contains(key: Constants.UserDefaultsKeys.prefFilterLocationKey) {
@@ -337,20 +338,20 @@ extension AccueilCommerces: CLLocationManagerDelegate {
 }
 
 // Header Window above objects
-extension AccueilCommerces: KJNavigaitonViewScrollviewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        viewKJNavigation.scrollviewMethod?.scrollViewDidScroll(scrollView)
-    }
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        viewKJNavigation.scrollviewMethod?.scrollViewWillBeginDragging(scrollView)
-    }
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        viewKJNavigation.scrollviewMethod?.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
-    }
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        viewKJNavigation.scrollviewMethod?.scrollViewDidEndDecelerating(scrollView)
-    }
-}
+//extension AccueilCommerces: KJNavigaitonViewScrollviewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        viewKJNavigation.scrollviewMethod?.scrollViewDidScroll(scrollView)
+//    }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        viewKJNavigation.scrollviewMethod?.scrollViewWillBeginDragging(scrollView)
+//    }
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        viewKJNavigation.scrollviewMethod?.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
+//    }
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        viewKJNavigation.scrollviewMethod?.scrollViewDidEndDecelerating(scrollView)
+//    }
+//}
 // Functions for requesting localisation permission
 extension AccueilCommerces: SPPermissionDialogDelegate {
     func didAllow(permission: SPPermissionType) {
