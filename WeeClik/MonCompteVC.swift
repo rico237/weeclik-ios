@@ -18,7 +18,6 @@ class MonCompteVC: UIViewController {
     var commerces: [PFObject]! = []    // La liste des commerces dans le BAAS
     var partagesDates = [Date]()       // Date des partages
     var currentUser = PFUser.current()  // Utilisateur connecté
-    let logOutButton = UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))
     
     var timer: Timer!
 
@@ -147,24 +146,26 @@ class MonCompteVC: UIViewController {
             for commercePFObject in commerces {
                 if Commerce(parseObject: commercePFObject).statut != .paid {
                     navigationItem.rightBarButtonItems = [
-                        logOutButton,
+                        UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut)),
                         self.editButtonItem
                     ]
                     break
                 } else {
-                    navigationItem.rightBarButtonItems = [logOutButton]
+                    navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
                 }
             }
         } else {
-            navigationItem.rightBarButtonItems = [logOutButton]
+            navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
         }
     }
 
-    @IBAction func getBackToHome(_ sender: Any) { dismiss(animated: true) }
+    @IBAction func getBackToHome(_ sender: Any) {
+        dismiss(animated: true)
+    }
 
     @IBAction func logOut() {
         PFUser.logOutInBackground()
-        getBackToHome(self)
+        dismiss(animated: true, completion: nil)
     }
 
     func updateUIBasedOnUser() {
