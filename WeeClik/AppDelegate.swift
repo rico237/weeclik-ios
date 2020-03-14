@@ -13,6 +13,7 @@ import Compass
 import Firebase
 import SwiftyStoreKit
 import Analytics
+import Bugsnag
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // External URL Routing to commerce detail
         setupRouting()
+        
+        // Bugsnag crash analytics
+        Bugsnag.start(withApiKey: "78b012fa8081d3e9451b6a2302302ee8")
         
         // Clear all user defaults
 //        resetUserDefaults()

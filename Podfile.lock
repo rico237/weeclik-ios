@@ -10,6 +10,7 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - Bugsnag (5.23.0)
   - BulletinBoard (3.0.0)
   - Compass (6.0.0)
   - CRNotifications (1.2.1)
@@ -203,6 +204,7 @@ DEPENDENCIES:
   - Analytics (~> 3.0)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
   - Bolts (~> 1.9)
+  - Bugsnag
   - BulletinBoard (~> 3.0.0)
   - Compass (from `https://github.com/weeclik/Compass.git`)
   - CRNotifications
@@ -251,6 +253,7 @@ SPEC REPOS:
     - Analytics
     - Batch
     - Bolts
+    - Bugsnag
     - BulletinBoard
     - CRNotifications
     - DTTextField
@@ -350,6 +353,7 @@ SPEC CHECKSUMS:
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
   Batch: d75249a43575fbd061c0baa80306fb20a6126a0a
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Bugsnag: 1f33ee5b55bc4b131a30e0fe6db714da9c6609f6
   BulletinBoard: 927f4f9fd22503ceecd71bfc830fd65d5996593a
   Compass: 1322433089112d8400ca0c337ff5c1707cac6d68
   CRNotifications: 2799786cb63e104c75699843d8928afd680182f3
@@ -406,6 +410,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: af66863d4058199119ac81a0a0a373b336dc5faf
+PODFILE CHECKSUM: b7eba467005f8d621736e555dc54b0173127c76a
 
 COCOAPODS: 1.8.4

@@ -23,6 +23,9 @@ def projectPods
     pod 'Parse/FacebookUtils'
     pod 'Parse/UI'
     
+    # Crash debugging tool
+    pod 'Bugsnag'
+    
     # Facebook integration
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
@@ -37,9 +40,6 @@ def projectPods
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 5.0.0-beta.6'
-    # Demande de permissions
-    pod 'SPPermission/Location'
-    pod 'SPPermission/Contacts'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # Notification pour le partage de nouveau activé
@@ -114,6 +114,14 @@ def projectPods
     #                              #
     ################################
     ################################
+    
+    # A UPDATE
+    
+    # Demande de permissions
+    pod 'SPPermission/Location'
+    pod 'SPPermission/Contacts'
+    
+    # OBSELETE
     
     # Routing management
     pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
