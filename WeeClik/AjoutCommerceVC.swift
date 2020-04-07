@@ -330,13 +330,14 @@ extension AjoutCommerceVC {
             // Retrieved object
             commerceToSave.saveInBackground { (success, error) in
                 if let error = error {
+                    
                     self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                 } else {
                     // Update général des informations du commerce
                     ParseService.shared.updateGeoLocation(forCommerce: fetchComm) { (_, error) in
                         if let error = error {
                             Log.all.error("Location must be nil: \(error.debug)")
-                            self.saveOfCommerceEnded(status: .none, error: error, feedBack: false)
+                            self.saveOfCommerceEnded(status: .none, error: error)
                         }
                     }
                     ParseService.shared.updateExistingParseCommerce(fromCommerce: fetchComm) { (success, error) in
@@ -350,6 +351,7 @@ extension AjoutCommerceVC {
                                 self.saveOfCommerceEnded(status: .success)
                             }
                         } else if let error = error {
+                            Log.all.error("Error updating commerce: \(error.debug)")
                             self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                         }
                     }
@@ -365,6 +367,7 @@ extension AjoutCommerceVC {
         if !videoArray.isEmpty {
             ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave) { (success, error) in
                 if let error = error {
+                    
                     self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                 } else {
                     for (index, videoAsset) in self.videoArray.enumerated() {
@@ -505,18 +508,16 @@ extension AjoutCommerceVC {
                     commerceToSave.saveInBackground { (success, error) in
                         if let error =  error {
                             print("Commerce refresh with media")
-                            if !inBackground {
+                            if inBackground == false {
+                                
                                 self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                             }
-                        } else {
+                        } else if inBackground == false {
                             if success {
-                                if !inBackground {
-                                    self.saveOfCommerceEnded(status: .success)
-                                }
+                                self.saveOfCommerceEnded(status: .success)
                             } else {
-                                if !inBackground {
-                                    self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
-                                }
+                                
+                                self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                             }
                         }
 
@@ -563,7 +564,10 @@ extension AjoutCommerceVC {
             SVProgressHUD.showError(withStatus: "L'adresse saisie est incorrecte".localized())
         }
 
-        if let error = error {ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: feedBack)}
+        if let error = error {
+            
+            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: feedBack)
+        }
 
         isSaving = false
         saveButton.isEnabled = true
