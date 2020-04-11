@@ -342,7 +342,7 @@ extension DetailCommerceViewController {
         headerImage.isHidden = false
         view.backgroundColor = UIColor.white
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
-        view.backgroundColor = Colors.backgroundColor
+        view.backgroundColor = .background
 
         // Share actions
         shareButton.addTarget(self, action: #selector(shareCommerce), for: .touchUpInside)
