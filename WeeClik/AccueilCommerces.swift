@@ -31,7 +31,6 @@ class AccueilCommerces: UIViewController {
 
     private let refreshControl = UIRefreshControl()
 
-    let network: NetworkManager = NetworkManager.sharedInstance
     var toutesCat: [String]!    = HelperAndKeys.getListOfCategories()
     var commerces: [Commerce]   = []
     var currentPage: Int!       = 0                      // The last page that was loaded
