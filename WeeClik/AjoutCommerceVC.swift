@@ -362,7 +362,7 @@ extension AjoutCommerceVC {
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerceId)
 
         // Une video a été ajouté par l'utilisateur
-        if !videoArray.isEmpty {
+        if videoArray.isEmpty == false {
             ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave) { (success, error) in
                 if let error = error {
                     self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
@@ -400,6 +400,8 @@ extension AjoutCommerceVC {
                             video["video"] = pffile
 
                             video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                            
+                            FileUploadManager.shared.preferedPosition = .top
 
                             pffile.saveInBackground({ (success, error) in
                                 if let error = error {
@@ -409,7 +411,10 @@ extension AjoutCommerceVC {
                                     video.saveInBackground()
                                 }
                             }, progressBlock: { (progress32) in
-                                if Int(progress32) % 10 == 0 {
+                                FileUploadManager.shared.show(in: self)
+                                FileUploadManager.shared.updateProgress(to: Float(progress32))
+                                
+                                if Int(progress32) % 25 == 0 {
                                     Log.all.debug("Video upload progress = \(progress32)")
                                 }
                             })

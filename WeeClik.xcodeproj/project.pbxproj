@@ -165,6 +165,8 @@
 		1F6AF4882358EB9D00F057C7 /* AddressFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF4872358EB9D00F057C7 /* AddressFormValidationError.swift */; };
 		1F6AF48B2358EEA000F057C7 /* IsPhoneNumberValidationRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF48A2358EEA000F057C7 /* IsPhoneNumberValidationRule.swift */; };
 		1F6C1C581F6E08750075584E /* ProcessInscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */; };
+		1F6DCDE32442333000ECE3BE /* UploadTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6DCDE22442333000ECE3BE /* UploadTestViewController.swift */; };
+		1F6DCDE42442333000ECE3BE /* UploadTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6DCDE22442333000ECE3BE /* UploadTestViewController.swift */; };
 		1F7331D42052702400582A7B /* DetailGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7331D32052702400582A7B /* DetailGalleryVC.swift */; };
 		1F7331DB2052BA4300582A7B /* PhotosVideosCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7331D92052BA4300582A7B /* PhotosVideosCollectionCell.swift */; };
 		1F7331DC2052BA4300582A7B /* PhotosVideosCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7331DA2052BA4300582A7B /* PhotosVideosCollectionCell.xib */; };
@@ -329,6 +331,7 @@
 		1F6AF4872358EB9D00F057C7 /* AddressFormValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressFormValidationError.swift; sourceTree = "<group>"; };
 		1F6AF48A2358EEA000F057C7 /* IsPhoneNumberValidationRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPhoneNumberValidationRule.swift; sourceTree = "<group>"; };
 		1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessInscriptionVC.swift; sourceTree = "<group>"; };
+		1F6DCDE22442333000ECE3BE /* UploadTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTestViewController.swift; sourceTree = "<group>"; };
 		1F7331D32052702400582A7B /* DetailGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGalleryVC.swift; sourceTree = "<group>"; };
 		1F7331D92052BA4300582A7B /* PhotosVideosCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVideosCollectionCell.swift; sourceTree = "<group>"; };
 		1F7331DA2052BA4300582A7B /* PhotosVideosCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosVideosCollectionCell.xib; sourceTree = "<group>"; };
@@ -749,6 +752,7 @@
 			children = (
 				1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */,
 				1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */,
+				1F6DCDE22442333000ECE3BE /* UploadTestViewController.swift */,
 			);
 			path = En_cours;
 			sourceTree = "<group>";
@@ -1405,6 +1409,7 @@
 				1F03AB9D2360C18B0027D6EF /* PaymentVC.swift in Sources */,
 				1F03AB9E2360C18B0027D6EF /* CommerceService.swift in Sources */,
 				1F03AB9F2360C18B0027D6EF /* Commerce.swift in Sources */,
+				1F6DCDE42442333000ECE3BE /* UploadTestViewController.swift in Sources */,
 				1F03ABA02360C18B0027D6EF /* MailHelper.swift in Sources */,
 				1F03ABA12360C18B0027D6EF /* XibView.swift in Sources */,
 				1F03ABA22360C18B0027D6EF /* ChangeInfosVC.swift in Sources */,
@@ -1492,6 +1497,7 @@
 				1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */,
 				1F28C6C923467D4F009831C7 /* CommerceService.swift in Sources */,
 				1F071A3520DEFEB5007AE1ED /* Commerce.swift in Sources */,
+				1F6DCDE32442333000ECE3BE /* UploadTestViewController.swift in Sources */,
 				1F3C5B1F22A2FBC700904317 /* MailHelper.swift in Sources */,
 				1F04777D214407DE00B20CA5 /* XibView.swift in Sources */,
 				1FCED3931FABA78700392060 /* ChangeInfosVC.swift in Sources */,

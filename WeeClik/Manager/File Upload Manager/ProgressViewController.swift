@@ -16,6 +16,7 @@ class ProgressViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        progressBar.tintColor = .main
         // Change height
         progressBar.transform = progressBar.transform.scaledBy(x: 1, y: 4)
         // Change corner radius
