@@ -78,7 +78,7 @@ class ParseService: NSObject {
             if let parseObject = parseObject {
                 self.geocoder.geocodeAddressString(commerce.adresse) { (placemarks, error) in
                     if let error = error {
-                        ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                        ParseErrorCodeHandler.handleLocationError(error: error)
                         completion?(false, error)
                     } else {
                         if let placemarks = placemarks, !placemarks.isEmpty {

@@ -12,7 +12,6 @@
 		1F03AB8D2360C18B0027D6EF /* BulletinDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE37451F9118AF00E1D1A7 /* BulletinDataSource.swift */; };
 		1F03AB8E2360C18B0027D6EF /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F7C8523494F210087A444 /* UserDefaultsManager.swift */; };
 		1F03AB902360C18B0027D6EF /* ImageScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D430F202AC4D40089FB15 /* ImageScroller.swift */; };
-		1F03AB912360C18B0027D6EF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */; };
 		1F03AB932360C18B0027D6EF /* SaisieDeDonneesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */; };
 		1F03AB942360C18B0027D6EF /* DetailCommerceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0857091F2D8D8200932929 /* DetailCommerceViewController.swift */; };
 		1F03AB952360C18B0027D6EF /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89A11A2239B470007952CC /* ContactTVCell.swift */; };
@@ -191,7 +190,6 @@
 		1F9357462360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
 		1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
 		1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
-		1F9EE55B21D14C1F0086EF72 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */; };
 		1F9EE55D21D1573B0086EF72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */; };
 		1F9EE55F21D297D50086EF72 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55E21D297D50086EF72 /* SearchViewController.swift */; };
 		1F9EE56221D2DB830086EF72 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE56021D2DB830086EF72 /* SearchCell.swift */; };
@@ -352,7 +350,6 @@
 		1F9357432360DDE80006A234 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		1F9EE55621D146B00086EF72 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1F9EE55E21D297D50086EF72 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		1F9EE56021D2DB830086EF72 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
@@ -485,7 +482,6 @@
 			isa = PBXGroup;
 			children = (
 				1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */,
-				1F9EE55A21D14C1F0086EF72 /* NetworkManager.swift */,
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
 				1FC5C59C22B8568000178929 /* FontHelper.swift */,
 				1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */,
@@ -1396,7 +1392,6 @@
 				1F03AB8D2360C18B0027D6EF /* BulletinDataSource.swift in Sources */,
 				1F03AB8E2360C18B0027D6EF /* UserDefaultsManager.swift in Sources */,
 				1F03AB902360C18B0027D6EF /* ImageScroller.swift in Sources */,
-				1F03AB912360C18B0027D6EF /* NetworkManager.swift in Sources */,
 				1F03AB932360C18B0027D6EF /* SaisieDeDonneesVC.swift in Sources */,
 				1F03AB942360C18B0027D6EF /* DetailCommerceViewController.swift in Sources */,
 				1F03AB952360C18B0027D6EF /* ContactTVCell.swift in Sources */,
@@ -1484,7 +1479,6 @@
 				1FEE37491F911A5B00E1D1A7 /* BulletinDataSource.swift in Sources */,
 				1F7F7C8623494F210087A444 /* UserDefaultsManager.swift in Sources */,
 				1F4D4310202AC4D40089FB15 /* ImageScroller.swift in Sources */,
-				1F9EE55B21D14C1F0086EF72 /* NetworkManager.swift in Sources */,
 				1F1112A01F72BB9E001D0C61 /* SaisieDeDonneesVC.swift in Sources */,
 				1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */,
 				1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */,

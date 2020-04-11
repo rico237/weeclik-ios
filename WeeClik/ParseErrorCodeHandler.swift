@@ -8,20 +8,31 @@
 
 import Parse
 import Loaf
-import Localize_Swift
 
 struct ParseErrorCodeHandler {
-    
-    private static let className = "ParseErrorCodeHandler"
-
-    // FIXME: AJOUTER la bonne manière pour chaque erreur
     // ERREUR (CREATION / LOGIN) / COMMERCE (PFObject) / PURCHASE / etc.
-    // URGENT: Envoyer mail à chaque erreur
+    // TODO: Envoyer mail à chaque erreur
 
+    static func handleLocationError(error: Error) {
+        guard let error = error as? CLError else {
+            return
+        }
+        // FIXME: Use proper CLError handle (https://developer.apple.com/documentation/corelocation/clerror?language=objc)
+        var message = error._nsError.description
+        switch error.domain {
+        case kCLErrorDomain:
+            message = "Adresse invalide."
+        default:
+            break
+        }
+        
+        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: message, delay: 3)
+    }
+    
     static func handleUnknownError(error: Error, withFeedBack feedBack: Bool = false, completion: (() -> Void)? = nil) {
 
         if feedBack {
-            HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.desc.localized(), delay: 3)
+            HelperAndKeys.showNotification(type: "E", title: "Erreur", message: error.localizedDescription, delay: 3)
         }
 
         let message = """
@@ -34,8 +45,10 @@ struct ParseErrorCodeHandler {
                 Showed to user ? \(feedBack)
         
         """
-        Log.all.error(message)
-        Log.all.warning("Envoi de mail en cas d'erreur inactif")
+        if error.code != 8 {
+            Log.all.error(message)
+            Log.all.warning("Envoi de mail en cas d'erreur inactif")
+        }
         
         if (error.code == PFErrorCode.errorInvalidSessionToken.rawValue || error.code == PFErrorCode.errorFacebookInvalidSession.rawValue) {
             PFUser.logOut()
@@ -45,6 +58,7 @@ struct ParseErrorCodeHandler {
 //        MailHelper.sendErrorMail()
     }
 
+    // FIXME: AJOUTER la bonne manière pour chaque erreur
     static func handleParseError(error: Error) -> String {
         switch error.code {
         case PFErrorCode.errorConnectionFailed.rawValue :

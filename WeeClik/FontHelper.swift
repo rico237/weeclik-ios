@@ -32,11 +32,12 @@ class FontHelper: NSObject {
         let userFont =  UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
         let pointSize = userFont.pointSize
         guard let customFont = UIFont(name: name, size: pointSize) else {
-            fatalError("""
-                Failed to load the "\(name)" font.
-                Make sure the font file is included in the project and the font name is spelled correctly.
-                """
-            )
+            let errorMessage = """
+            Failed to load the "\(name)" font.
+            Make sure the font file is included in the project and the font name is spelled correctly.
+            """
+            Log.all.error(errorMessage)
+            fatalError(errorMessage)
         }
         return UIFontMetrics.default.scaledFont(for: customFont)
     }

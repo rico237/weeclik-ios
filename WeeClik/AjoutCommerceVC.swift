@@ -330,13 +330,11 @@ extension AjoutCommerceVC {
             // Retrieved object
             commerceToSave.saveInBackground { (success, error) in
                 if let error = error {
-                    
                     self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                 } else {
                     // Update général des informations du commerce
                     ParseService.shared.updateGeoLocation(forCommerce: fetchComm) { (_, error) in
                         if let error = error {
-                            Log.all.error("Location must be nil: \(error.debug)")
                             self.saveOfCommerceEnded(status: .none, error: error)
                         }
                     }
@@ -367,7 +365,6 @@ extension AjoutCommerceVC {
         if !videoArray.isEmpty {
             ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave) { (success, error) in
                 if let error = error {
-                    
                     self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                 } else {
                     for (index, videoAsset) in self.videoArray.enumerated() {
@@ -565,7 +562,6 @@ extension AjoutCommerceVC {
         }
 
         if let error = error {
-            
             ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: feedBack)
         }
 
