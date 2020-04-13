@@ -8,12 +8,6 @@
 
 import UIKit
 
-/*
- progressTintColor – Used to change the UIColor of the progress part i.e. the filled part in the ProgressView.
- trackTintColor – Used to change the UIColor of the track i.e. the unfilled part of the ProgressView.
- ProgressBarStyle – There are two styles: default and bar. The bar style has a transparent track.
- */
-
 final class FileUploadManager: NSObject {
     static let shared = FileUploadManager()
     
@@ -25,22 +19,19 @@ final class FileUploadManager: NSObject {
     var currentProgress: Float = 0
     
     private var preferedPosition: Position = .top
-    private var animationDuration: TimeInterval = 0.5
-    private var progressViewController: ProgressViewController = ProgressViewController(nibName: "ProgressViewController", bundle: nil)
+    private var animationDuration: TimeInterval = 0.25
+    private var progressView: FileUploadProgressView = FileUploadProgressView(frame: .zero)
     private var parentViewController: UIViewController?
-    private var offset: CGFloat {
+    private var margin: CGFloat = 8
+    private var progressViewHeight: CGFloat = 92
+    private var bottomSafeMargin: CGFloat {
         guard let firstWindow = UIApplication.shared.windows.first else { return 0 }
-        
-        switch preferedPosition {
-        case .top:
-            if let parentViewController = parentViewController,
-                let navigationHeight = parentViewController.navigationController?.navigationBar.frame.height {
-                return firstWindow.safeAreaInsets.top + navigationHeight
+        if #available(iOS 11.0, *) {
+            if let bottomInset = progressView.superview?.safeAreaInsets.bottom {
+                return bottomInset + margin * 4
             }
-            return firstWindow.safeAreaInsets.top
-        case .bottom:
-            return firstWindow.safeAreaInsets.bottom
         }
+        return firstWindow.safeAreaInsets.bottom + margin * 4
     }
     private var isPresented = false
 
@@ -48,64 +39,88 @@ final class FileUploadManager: NSObject {
 
     func updateProgress(to number: Float) {
         let progress = number / 100
-        progressViewController.progressBar.progress = progress
         currentProgress = progress
         
-        progressViewController.progressIndicatorLabel.text = "\(Int(number))%".localized()
-        progressViewController.progressDescriptionLabel.text = "Envoi de votre vidéo en cours".localized()
+        progressView.progressBar.progress = progress
+        progressView.progressIndicatorLabel.text = "\(Int(number))%".localized()
+        progressView.progressDescriptionLabel.text = "Envoi de votre vidéo en cours".localized()
         
         if currentProgress >= 1.0 {
-            progressViewController.progressDescriptionLabel.text = "Envoi de votre vidéo terminé".localized()
-            hide()
+            progressView.progressDescriptionLabel.text = "Envoi de votre vidéo terminé".localized()
+            hideProgressView()
         }
     }
     
-    func show(in parentViewController: UIViewController, from position: Position = .top) {
+    func show(in parentViewController: UIViewController, from position: Position = .top, style: UIProgressView.Style = .default) {
         guard let parent = UIWindow.getVisibleViewControllerFrom(parentViewController), isPresented == false else { return }
+        self.parentViewController = parent
         preferedPosition = position
         isPresented = true
-        parent.modalPresentationStyle = .popover
-        parent.present(progressViewController, animated: true, completion: nil)
         
-        progressViewController.view.frame = CGRect(x: 0,
-                                                   y: parentViewController.view.frame.size.height,
-                                                   width: progressViewController.view.frame.size.width,
-                                                   height: 92)
-        let frame = progressViewController.view.frame
+        // Init base on position
+        initProgressView(with: style)
+        // Show with animation
+        showProgressView()
+    }
+}
+
+// Handle progress bar position
+extension FileUploadManager {
+    private func initProgressView(with style: UIProgressView.Style) {
+        guard let parent = parentViewController else { return }
+        
+        switch preferedPosition {
+        case .top:
+            progressView.frame = CGRect(x: 0,
+                                        y: -progressViewHeight,
+                                        width: parent.view.frame.size.width,
+                                        height: progressViewHeight)
+
+        case .bottom:
+            progressView.frame = CGRect(x: 0,
+                                        y: parent.view.frame.size.height,
+                                        width: parent.view.frame.size.width,
+                                        height: progressViewHeight)
+        }
+        parent.view.addSubview(progressView)
+        progressView.progressBar.progressViewStyle = style
+    }
+    
+    private func showProgressView() {
+        let frame = progressView.frame
         var newFrame = frame
         switch preferedPosition {
         case .top:
-            newFrame.origin.y += frame.size.height + offset
+            newFrame.origin.y = 0
         case .bottom:
-            newFrame.origin.y -= frame.size.height - offset
+            newFrame.origin.y -= (progressViewHeight * 2) - bottomSafeMargin
         }
         
         // Animation
         UIView.animate(withDuration: animationDuration, animations: {
-            self.progressViewController.view.frame = newFrame
+            self.progressView.frame = newFrame
         }, completion: nil)
     }
     
-    private func hide() {
-        guard isPresented else { return }
+    private func hideProgressView() {
+        guard let parent = parentViewController, isPresented else { return }
         
-        let frame = progressViewController.view.frame
+        let frame = progressView.frame
         var newFrame = frame
         switch preferedPosition {
         case .top:
-            newFrame.origin.y -= frame.size.height - self.offset
+            newFrame.origin.y = -progressViewHeight
         case .bottom:
-            newFrame.origin.y += frame.size.height + self.offset
+            newFrame.origin.y = parent.view.frame.size.height
         }
         
         // Wait 2 seconds and hide
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             // Animation
             UIView.animate(withDuration: self.animationDuration, animations: {
-                self.progressViewController.view.frame = newFrame
+                self.progressView.frame = newFrame
             }, completion: { (_ completed) in
                 self.updateProgress(to: 0)
-                self.progressViewController.dismiss(animated: true, completion: nil)
                 self.isPresented = false
             })
         }

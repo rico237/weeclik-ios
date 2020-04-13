@@ -400,8 +400,6 @@ extension AjoutCommerceVC {
                             video["video"] = pffile
 
                             video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
-                            
-                            FileUploadManager.shared.preferedPosition = .top
 
                             pffile.saveInBackground({ (success, error) in
                                 if let error = error {
@@ -411,7 +409,7 @@ extension AjoutCommerceVC {
                                     video.saveInBackground()
                                 }
                             }, progressBlock: { (progress32) in
-                                FileUploadManager.shared.show(in: self)
+                                FileUploadManager.shared.show(in: self, from: .top)
                                 FileUploadManager.shared.updateProgress(to: Float(progress32))
                                 
                                 if Int(progress32) % 25 == 0 {

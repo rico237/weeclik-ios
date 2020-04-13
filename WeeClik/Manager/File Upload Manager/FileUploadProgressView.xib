@@ -9,13 +9,11 @@
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FileUploadProgressView" customModule="WeeClik" customModuleProvider="target">
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="string" keyPath="nibName" value="FileUploadProgressView"/>
-            </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="progressBar" destination="MWH-pY-AkA" id="9Ol-sf-NFt"/>
-                <outlet property="progressDescriptionLabel" destination="xYt-SG-NbZ" id="4RJ-eI-C06"/>
-                <outlet property="progressIndicatorLabel" destination="q9S-Ss-YHx" id="Ui5-JD-TOQ"/>
+                <outlet property="progressBar" destination="MWH-pY-AkA" id="fhn-an-xs3"/>
+                <outlet property="progressDescriptionLabel" destination="xYt-SG-NbZ" id="erC-PA-teQ"/>
+                <outlet property="progressIndicatorLabel" destination="q9S-Ss-YHx" id="MXE-IS-9gP"/>
+                <outlet property="view" destination="iN0-l3-epB" id="T5a-4o-8Rf"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

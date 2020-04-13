@@ -222,10 +222,6 @@
 		1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */; };
 		1FB8403C2440FE600031412F /* FileUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8403B2440FE600031412F /* FileUploadManager.swift */; };
 		1FB8403D2440FE600031412F /* FileUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8403B2440FE600031412F /* FileUploadManager.swift */; };
-		1FB8404124410BE80031412F /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8403F24410BE80031412F /* ProgressViewController.swift */; };
-		1FB8404224410BE80031412F /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8403F24410BE80031412F /* ProgressViewController.swift */; };
-		1FB8404324410BE80031412F /* ProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8404024410BE80031412F /* ProgressViewController.xib */; };
-		1FB8404424410BE80031412F /* ProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8404024410BE80031412F /* ProgressViewController.xib */; };
 		1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBB63A4211F16BD00BCB480 /* StoreKit.framework */; };
 		1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */; };
 		1FC5C59B22B8434B00178929 /* MonCompteCommerceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */; };
@@ -242,6 +238,8 @@
 		1FE6ECF324449E4300DF654C /* FileUploadProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE6ECF124449E4300DF654C /* FileUploadProgressView.swift */; };
 		1FE6ECF524449EBB00DF654C /* FileUploadProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FE6ECF424449EBB00DF654C /* FileUploadProgressView.xib */; };
 		1FE6ECF624449EBB00DF654C /* FileUploadProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FE6ECF424449EBB00DF654C /* FileUploadProgressView.xib */; };
+		1FE6ECF82444B2DA00DF654C /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE6ECF72444B2DA00DF654C /* Extension+UIView.swift */; };
+		1FE6ECF92444B2DA00DF654C /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE6ECF72444B2DA00DF654C /* Extension+UIView.swift */; };
 		1FE76BC921B9D0E000209F3C /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE76BC721B9D0E000209F3C /* CategoriesCollectionViewCell.swift */; };
 		1FE76BCA21B9D0E000209F3C /* CategoriesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FE76BC821B9D0E000209F3C /* CategoriesCollectionViewCell.xib */; };
 		1FEBF4621F254F3D00146525 /* BebasNeue Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FEBF45D1F254F3D00146525 /* BebasNeue Bold.ttf */; };
@@ -389,8 +387,6 @@
 		1FB2D89622BCCFD800C0FDC6 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAreaViewController.swift; sourceTree = "<group>"; };
 		1FB8403B2440FE600031412F /* FileUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileUploadManager.swift; path = "WeeClik/Manager/File Upload Manager/FileUploadManager.swift"; sourceTree = SOURCE_ROOT; };
-		1FB8403F24410BE80031412F /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
-		1FB8404024410BE80031412F /* ProgressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressViewController.xib; sourceTree = "<group>"; };
 		1FB9B2A9226E76B7009C3E65 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1FBB63A4211F16BD00BCB480 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1FC42C49223ECE2800AB0C39 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
@@ -405,6 +401,7 @@
 		1FE6ECEE24449D1A00DF654C /* NibLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadingView.swift; sourceTree = "<group>"; };
 		1FE6ECF124449E4300DF654C /* FileUploadProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploadProgressView.swift; sourceTree = "<group>"; };
 		1FE6ECF424449EBB00DF654C /* FileUploadProgressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileUploadProgressView.xib; sourceTree = "<group>"; };
+		1FE6ECF72444B2DA00DF654C /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		1FE76BC721B9D0E000209F3C /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		1FE76BC821B9D0E000209F3C /* CategoriesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoriesCollectionViewCell.xib; sourceTree = "<group>"; };
 		1FEBF45D1F254F3D00146525 /* BebasNeue Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.ttf"; sourceTree = "<group>"; };
@@ -575,6 +572,7 @@
 				1F0E862D238AB64C003124FD /* Extension+UIViewController.swift */,
 				1F0E8631238AC289003124FD /* Extension+UIApplication.swift */,
 				1F4B120C23611A5600119676 /* Extension+UIColor.swift.swift */,
+				1FE6ECF72444B2DA00DF654C /* Extension+UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -733,8 +731,6 @@
 			isa = PBXGroup;
 			children = (
 				1FB8403B2440FE600031412F /* FileUploadManager.swift */,
-				1FB8403F24410BE80031412F /* ProgressViewController.swift */,
-				1FB8404024410BE80031412F /* ProgressViewController.xib */,
 				1FE6ECF124449E4300DF654C /* FileUploadProgressView.swift */,
 				1FE6ECF424449EBB00DF654C /* FileUploadProgressView.xib */,
 			);
@@ -993,7 +989,6 @@
 				1F03ABEE2360C18B0027D6EF /* OpenSans-SemiboldItalic.ttf in Resources */,
 				1F03ABEF2360C18B0027D6EF /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				1F03ABF02360C18B0027D6EF /* Profile.storyboard in Resources */,
-				1FB8404424410BE80031412F /* ProgressViewController.xib in Resources */,
 				1F9357462360DDE80006A234 /* Main.storyboard in Resources */,
 				1F03ABF12360C18B0027D6EF /* CreationGroupes.storyboard in Resources */,
 				24FAB71E23F573E500749DB5 /* configuration.json in Resources */,
@@ -1040,7 +1035,6 @@
 				1FA9BFE01F269CB2004D5F4C /* OpenSans-Bold.ttf in Resources */,
 				1F8F0882223F128C008177C4 /* loader-success-failed.json in Resources */,
 				1FE6ECF524449EBB00DF654C /* FileUploadProgressView.xib in Resources */,
-				1FB8404324410BE80031412F /* ProgressViewController.xib in Resources */,
 				1F9357442360DDE80006A234 /* Main.storyboard in Resources */,
 				1F830EB7227B3411003E8F1F /* AdminMonProfilSettingsVC.xib in Resources */,
 				1FA473351F1EE7E400D2A306 /* Assets.xcassets in Resources */,
@@ -1428,6 +1422,7 @@
 				1F03AB992360C18B0027D6EF /* PromotionsCell.swift in Sources */,
 				1F03AB9A2360C18B0027D6EF /* ParseService.swift in Sources */,
 				1F03AB9B2360C18B0027D6EF /* SearchCell.swift in Sources */,
+				1FE6ECF92444B2DA00DF654C /* Extension+UIView.swift in Sources */,
 				1F03AB9C2360C18B0027D6EF /* Person.swift in Sources */,
 				1F03AB9D2360C18B0027D6EF /* PaymentVC.swift in Sources */,
 				1F03AB9E2360C18B0027D6EF /* CommerceService.swift in Sources */,
@@ -1466,7 +1461,6 @@
 				1F03ABBA2360C18B0027D6EF /* WebsiteFormValidationError.swift in Sources */,
 				1F03ABBB2360C18B0027D6EF /* AjoutCommerceVC.swift in Sources */,
 				1F0E862F238AB64C003124FD /* Extension+UIViewController.swift in Sources */,
-				1FB8404224410BE80031412F /* ProgressViewController.swift in Sources */,
 				1F03ABBD2360C18B0027D6EF /* AppDelegate.swift in Sources */,
 				1F9357362360C2B20006A234 /* Constants.swift in Sources */,
 				1F0E8633238AC289003124FD /* Extension+UIApplication.swift in Sources */,
@@ -1518,6 +1512,7 @@
 				1FA53BC01F34F7AB00DEDEA1 /* PromotionsCell.swift in Sources */,
 				1F28C6CC2346D49B009831C7 /* ParseService.swift in Sources */,
 				1F9EE56221D2DB830086EF72 /* SearchCell.swift in Sources */,
+				1FE6ECF82444B2DA00DF654C /* Extension+UIView.swift in Sources */,
 				1F677F9323494222003819E4 /* Person.swift in Sources */,
 				1FC42C4A223ECE2800AB0C39 /* PaymentVC.swift in Sources */,
 				1F28C6C923467D4F009831C7 /* CommerceService.swift in Sources */,
@@ -1556,7 +1551,6 @@
 				1F6AF4822358EB3400F057C7 /* WebsiteFormValidationError.swift in Sources */,
 				1F0BBCA61FAE4C3700D91026 /* AjoutCommerceVC.swift in Sources */,
 				1F0E862E238AB64C003124FD /* Extension+UIViewController.swift in Sources */,
-				1FB8404124410BE80031412F /* ProgressViewController.swift in Sources */,
 				1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */,
 				1F9357332360C2B20006A234 /* Constants.swift in Sources */,
 				1F0E8632238AC289003124FD /* Extension+UIApplication.swift in Sources */,
