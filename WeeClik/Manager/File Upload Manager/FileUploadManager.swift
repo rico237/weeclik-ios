@@ -15,16 +15,17 @@ import UIKit
  */
 
 final class FileUploadManager: NSObject {
-    var preferedPosition: Position = .top
     static let shared = FileUploadManager()
-
+    
     enum Position {
         case top
         case bottom
     }
-
+    
+    var currentProgress: Float = 0
+    
+    private var preferedPosition: Position = .top
     private var animationDuration: TimeInterval = 0.5
-    private var currentProgress: Float = 0
     private var progressViewController: ProgressViewController = ProgressViewController(nibName: "ProgressViewController", bundle: nil)
     private var parentViewController: UIViewController?
     private var offset: CGFloat {
@@ -59,8 +60,9 @@ final class FileUploadManager: NSObject {
         }
     }
     
-    func show(in parentViewController: UIViewController) {
+    func show(in parentViewController: UIViewController, from position: Position = .top) {
         guard let parent = UIWindow.getVisibleViewControllerFrom(parentViewController), isPresented == false else { return }
+        preferedPosition = position
         isPresented = true
         parent.modalPresentationStyle = .popover
         parent.present(progressViewController, animated: true, completion: nil)
@@ -85,6 +87,7 @@ final class FileUploadManager: NSObject {
     }
     
     private func hide() {
+        guard isPresented else { return }
         
         let frame = progressViewController.view.frame
         var newFrame = frame
