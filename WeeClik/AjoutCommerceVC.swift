@@ -509,14 +509,12 @@ extension AjoutCommerceVC {
                         if let error =  error {
                             print("Commerce refresh with media")
                             if inBackground == false {
-                                
                                 self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                             }
                         } else if inBackground == false {
                             if success {
                                 self.saveOfCommerceEnded(status: .success)
                             } else {
-                                
                                 self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                             }
                         }
