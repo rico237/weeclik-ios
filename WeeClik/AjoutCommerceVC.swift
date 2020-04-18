@@ -43,6 +43,7 @@ class AjoutCommerceVC: UITableViewController {
     var selectedVideoData           = Data()                // Data de vidéos
     var savedCommerce: Commerce?                            // Objet Commerce si on a pas utilisé le bouton sauvegarde
     var isSaving = false                                    // Sauvegarde du commerce en cours
+    var shdDismissAfterSave = true                          // Quitte la vue après la sauvegarde d'un commerce
 
     // UI Changes
     var photosHaveChanged = false                           // Save photos only if they have changed
@@ -378,7 +379,7 @@ extension AjoutCommerceVC {
 
                         videoAsset.exportVideoFile(options: options, progressBlock: nil) { (url, mimeType) in
                             guard let videoData = try? Data(contentsOf: url) else {
-                                self.saveOfCommerceEnded(status: .error, error: nil, feedBack: true)
+                                self.saveOfCommerceEnded(status: .error, error: CustomError.encodingVideo, feedBack: true)
                                 return
                             }
                             
@@ -409,11 +410,16 @@ extension AjoutCommerceVC {
                                     video.saveInBackground()
                                 }
                             }, progressBlock: { (progress32) in
+                                self.shdDismissAfterSave = false
                                 FileUploadManager.shared.show(in: self, from: .top)
                                 FileUploadManager.shared.updateProgress(to: Float(progress32))
                                 
                                 if Int(progress32) % 25 == 0 {
                                     Log.all.debug("Video upload progress = \(progress32)")
+                                }
+                                
+                                if progress32 >= 100 {
+                                    self.shdDismissAfterSave = true
                                 }
                             })
                         }
@@ -546,7 +552,9 @@ extension AjoutCommerceVC {
             
             let dialog =  ZAlertView(title: "", message: message.localized(), closeButtonText: "OK".localized(), closeButtonHandler: { (alert) in
                 alert.dismissAlertView()
-                self.navigationController?.popViewController(animated: true)
+                if self.shdDismissAfterSave {
+                    self.navigationController?.popViewController(animated: true)
+                }
             })
             ZAlertView.positiveColor = .systemBlue
             dialog.show()
