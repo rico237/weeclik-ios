@@ -62,7 +62,6 @@
 		1F03ABC62360C18B0027D6EF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F56C20729A5100EC9DF3 /* Extensions.swift */; };
 		1F03ABC72360C18B0027D6EF /* ShareToGroupsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6912D422357DAC00E1755C /* ShareToGroupsActivity.swift */; };
 		1F03ABC82360C18B0027D6EF /* IsPhoneNumberValidationRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF48A2358EEA000F057C7 /* IsPhoneNumberValidationRule.swift */; };
-		1F03ABC92360C18B0027D6EF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */; };
 		1F03ABCA2360C18B0027D6EF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55E21D297D50086EF72 /* SearchViewController.swift */; };
 		1F03ABCB2360C18B0027D6EF /* SharingToGroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF5C6252236ED2E00D936B4 /* SharingToGroupsVC.swift */; };
 		1F03ABCC2360C18B0027D6EF /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5C59C22B8568000178929 /* FontHelper.swift */; };
@@ -194,7 +193,6 @@
 		1F9357462360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
 		1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
 		1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
-		1F9EE55D21D1573B0086EF72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */; };
 		1F9EE55F21D297D50086EF72 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55E21D297D50086EF72 /* SearchViewController.swift */; };
 		1F9EE56221D2DB830086EF72 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE56021D2DB830086EF72 /* SearchCell.swift */; };
 		1F9EE56321D2DB830086EF72 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9EE56121D2DB830086EF72 /* SearchCell.xib */; };
@@ -360,7 +358,6 @@
 		1F9357432360DDE80006A234 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
 		1F9EE55621D146B00086EF72 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1F9EE55E21D297D50086EF72 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		1F9EE56021D2DB830086EF72 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		1F9EE56121D2DB830086EF72 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
@@ -530,7 +527,6 @@
 			children = (
 				1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */,
 				1F9EE55621D146B00086EF72 /* LoginViewController.swift */,
-				1F9EE55C21D1573B0086EF72 /* SignUpViewController.swift */,
 				1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */,
 			);
 			name = "Login & Signup";
@@ -927,7 +923,7 @@
 				ORGANIZATIONNAME = "Herrick Wolber";
 				TargetAttributes = {
 					1F03AB892360C18B0027D6EF = {
-						DevelopmentTeam = 483576MP8J;
+						DevelopmentTeam = MXDP2U2G67;
 						ProvisioningStyle = Automatic;
 					};
 					1FA473291F1EE7E400D2A306 = {
@@ -1479,7 +1475,6 @@
 				1F03ABC62360C18B0027D6EF /* Extensions.swift in Sources */,
 				1F03ABC72360C18B0027D6EF /* ShareToGroupsActivity.swift in Sources */,
 				1F03ABC82360C18B0027D6EF /* IsPhoneNumberValidationRule.swift in Sources */,
-				1F03ABC92360C18B0027D6EF /* SignUpViewController.swift in Sources */,
 				1F29990723BA703A00D638FC /* AnalyticsManager.swift in Sources */,
 				1FB0CE3D236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */,
 				1F03ABCA2360C18B0027D6EF /* SearchViewController.swift in Sources */,
@@ -1570,7 +1565,6 @@
 				1FD6F56D20729A5100EC9DF3 /* Extensions.swift in Sources */,
 				1F6912D522357DAC00E1755C /* ShareToGroupsActivity.swift in Sources */,
 				1F6AF48B2358EEA000F057C7 /* IsPhoneNumberValidationRule.swift in Sources */,
-				1F9EE55D21D1573B0086EF72 /* SignUpViewController.swift in Sources */,
 				1F29990623BA703A00D638FC /* AnalyticsManager.swift in Sources */,
 				1FB0CE3C236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */,
 				1F9EE55F21D297D50086EF72 /* SearchViewController.swift in Sources */,
@@ -1603,13 +1597,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 483576MP8J;
+				DEVELOPMENT_TEAM = MXDP2U2G67;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.6;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.weeclik.weeclik-dev";
 				PRODUCT_NAME = "Weeclik-DEV";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
@@ -1631,13 +1625,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = 483576MP8J;
+				DEVELOPMENT_TEAM = MXDP2U2G67;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.6;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.weeclik.weeclik-dev";
 				PRODUCT_NAME = "Weeclik-DEV";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
@@ -1786,7 +1780,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.6;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.weeclik.weeclik-prod";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
@@ -1809,7 +1803,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.6;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.weeclik.weeclik-prod";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;

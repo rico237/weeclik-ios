@@ -417,7 +417,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
 
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
         if let error = error {
-            print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+            Log.all.error("Erreur de login : \n\(error.debug)")
             logInController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(),
                                                  title: "Erreur lors de la connexion".localized(),
                                                  completionAction: nil)
@@ -427,13 +427,14 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     // Inscription classique (par mail)
     func signUpViewController(_ signUpController: PFSignUpViewController, didSignUp user: PFUser) {
         user.email = user.username
+        user["additional"] = ""
         user.saveInBackground()
         signUpController.dismiss(animated: true, completion: nil)
     }
 
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
         if let error = error {
-            print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+            Log.all.error("Erreur de login : \n\(error.debug)")
             signUpController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(),
                                                   title: "Erreur lors de la connexion".localized(),
                                                   completionAction: nil)
@@ -442,7 +443,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
 
     // Fonction pour definir des mots de passe trop faibles
     func signUpViewController(_ signUpController: PFSignUpViewController, shouldBeginSignUp info: [String: String]) -> Bool {
-        print("Aucune conditions particulières pour le mot de passe")
+        Log.all.info("Aucune conditions particulières pour le mot de passe")
         // ["username": "jilji@gmail.com", "password": "es", "additional": "es"]
 
         if (info["username"]!).isValidEmail() {
@@ -471,7 +472,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
 
         graphRequest.start(completionHandler: { (_, result, error) in
             if let error = error {
-                print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+                Log.all.error("Erreur de login : \n\(error.debug)")
                 self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(),
                                           title: "Connexion Facebook échoué".localized(),
                                           completionAction: nil)
