@@ -355,7 +355,7 @@ extension DetailCommerceViewController {
         if commerceObject != nil {
 
             nomCommerceLabel.text = commerceObject.nom
-            categorieLabel.text   = commerceObject.type
+            categorieLabel.text   = commerceObject.type.rawValue
 
             nomCommerceLabel.font = FontHelper.getScaledFont(forFont: "Pacifico", textStyle: .title1)
             nomCommerceLabel.fontSize = 40

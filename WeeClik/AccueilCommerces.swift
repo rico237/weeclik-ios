@@ -31,7 +31,7 @@ class AccueilCommerces: UIViewController {
 
     private let refreshControl = UIRefreshControl()
 
-    var toutesCat: [String]!    = HelperAndKeys.getListOfCategories()
+    var toutesCat: [CommerceType] = CommerceType.allCases
     var commerces: [Commerce]   = []
     var currentPage: Int!       = 0                      // The last page that was loaded
     var lastLoadCount: Int!     = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
@@ -162,7 +162,7 @@ extension AccueilCommerces {
         // Update UI
         titleChoose = itemChoose
         labelHeaderCategorie.text = itemChoose
-        headerTypeCommerceImage.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: titleChoose)
+        headerTypeCommerceImage.image = Commerce.getImageForTypeCommerce(typeCommerce: titleChoose)
 
         // Update Data
         queryObjectsFromDB(typeCategorie: titleChoose, withHUD: showHud)
@@ -254,7 +254,7 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
             // Menu
             // Hack for text to be visible when selected
             collectionView.deselectItem(at: indexPath, animated: false)
-            self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row], withHud: true)
+            self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row].rawValue, withHud: true)
             collectionView.reloadData()
         } else {
             // Objects
@@ -269,8 +269,8 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
             collectionView.register(UINib(nibName: "CategoriesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CategoriesCollectionViewCell")
             // Cell creation
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as! CategoriesCollectionViewCell
-            cell.typeName.text = self.toutesCat[indexPath.row]
-            cell.backgroundCategorie.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: self.toutesCat[indexPath.row])
+            cell.typeName.text = self.toutesCat[indexPath.row].rawValue
+            cell.backgroundCategorie.image = Commerce.getImageForTypeCommerce(typeCommerce: self.toutesCat[indexPath.row].rawValue)
             return cell
         }
         // Commerce cells
@@ -306,7 +306,7 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
                 if let imageThumbnailFile = comm.thumbnail {
                     cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.thumbnailPicture.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
+                    cell.thumbnailPicture.image = Commerce.getImageForTypeCommerce(typeCommerce: comm.type.rawValue)
                 }
 
                 return cell

@@ -195,7 +195,7 @@ extension AjoutCommerceVC {
             mailCommerce        = comm.mail
             adresseCommerce     = comm.adresse
             siteWebCommerce     = comm.siteWeb
-            categorieCommerce   = comm.type
+            categorieCommerce   = comm.type.rawValue
             descriptionCommerce = comm.descriptionO
             promotionsCommerce  = comm.promotions
 
@@ -506,14 +506,12 @@ extension AjoutCommerceVC {
                         if let error =  error {
                             print("Commerce refresh with media")
                             if inBackground == false {
-                                
                                 self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                             }
                         } else if inBackground == false {
                             if success {
                                 self.saveOfCommerceEnded(status: .success)
                             } else {
-                                
                                 self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
                             }
                         }
@@ -917,8 +915,8 @@ extension AjoutCommerceVC {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categorieCell", for: indexPath) as! SelectionCategorieTVCell
             cell.setPickerViewDataSourceDelegate(dataSourceDelegate: self)
             if !categorieCommerce.isEmptyStr {
-                let listCat = HelperAndKeys.getListOfCategories()
-                if let indexInt = listCat.firstIndex(of: self.categorieCommerce) {
+                let listCat = CommerceType.allCases
+                if let indexInt = listCat.firstIndex(of: CommerceType.converted(from: self.categorieCommerce)) {
                     cell.categoriePickerView.selectRow(indexInt, inComponent: 0, animated: false)
                 }
             }
@@ -1035,10 +1033,10 @@ extension AjoutCommerceVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {return 1}
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return HelperAndKeys.getListOfCategories().count}
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return HelperAndKeys.getListOfCategories()[row]}
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {return CommerceType.allCases.count}
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {return CommerceType.allCases[row].rawValue}
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        categorieCommerce = HelperAndKeys.getListOfCategories()[row]
+        categorieCommerce = CommerceType.allCases[row].rawValue
     }
 }
 
