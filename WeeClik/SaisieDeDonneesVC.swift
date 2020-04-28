@@ -26,7 +26,6 @@ class SaisieDeDonneesVC: UIViewController {
         super.viewDidLoad()
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
-        SVProgressHUD.show(withStatus: "Sauvegarde des informations".localized())
 
         if let user = currentUser {
             if PFFacebookUtils.isLinked(with: user) {
@@ -47,36 +46,44 @@ class SaisieDeDonneesVC: UIViewController {
         mailTF.isEnabled = false
         mailTF.isUserInteractionEnabled = false
     }
+    
+    func hideViewController() {
+//        profil_commerce
+        if let navigation = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "profil_commerce") as? UINavigationController{
+            presentFullScreen(viewController: navigation, animated: true, completion: nil)
+        }
+    }
 
     @IBAction func saveInfos(_ sender: Any) {
-        if let user = currentUser {
-            if let name = nomPrenomTF.text { user["name"] = name }
-            user["isPro"] = self.isPro
-            user["inscriptionDone"] = true
+        guard let user = currentUser else {return}
+        
+        SVProgressHUD.show(withStatus: "Sauvegarde des informations".localized())
+        if let name = nomPrenomTF.text { user["name"] = name }
+        user["isPro"] = self.isPro
+        user["inscriptionDone"] = true
 
-            user.saveInBackground { (success, error) in
-                if success {
-                    SVProgressHUD.dismiss(withDelay: 1, completion: {
-                        self.showBasicToastMessage(withMessage: "Profil sauvegardé avec succès", state: .success)
-                        Log.all.info("succesful signup : \(user.description)")
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                } else {
-                    SVProgressHUD.dismiss(withDelay: 1, completion: {
-                        if let error = error {
-                            self.showBasicToastMessage(withMessage: "Erreur de sauvegarde de votre profil. Réessayer ultérieurement",
-                                                       state: .error)
-                            Log.all.warning("""
-                                
-                                Error de sauvegarde utilisateur :
-                                    Code : \(error.code)
-                                    Description : \(error.desc)
-                                
-                            """)
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    })
-                }
+        user.saveInBackground { (success, error) in
+            if success {
+                SVProgressHUD.dismiss(withDelay: 1, completion: {
+                    self.showBasicToastMessage(withMessage: "Profil sauvegardé avec succès", state: .success)
+                    Log.all.info("succesful signup : \(user.description)")
+                    self.hideViewController()
+                })
+            } else {
+                SVProgressHUD.dismiss(withDelay: 1, completion: {
+                    if let error = error {
+                        self.showBasicToastMessage(withMessage: "Erreur de sauvegarde de votre profil. Réessayer ultérieurement",
+                                                   state: .error)
+                        Log.all.warning("""
+                            
+                            Error de sauvegarde utilisateur :
+                                Code : \(error.code)
+                                Description : \(error.desc)
+                            
+                        """)
+                        self.hideViewController()
+                    }
+                })
             }
         }
     }
