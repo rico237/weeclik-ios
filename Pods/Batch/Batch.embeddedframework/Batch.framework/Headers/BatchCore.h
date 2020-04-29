@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, BatchOptOutNetworkErrorPolicy) {
 /**
  Batch's main entry point.
  
- @version v1.14.2
+ @version v1.15.0
  
  @availability iOS 8.0
  */

@@ -1,10 +1,10 @@
 # DTTextField
 
-[![Version](https://img.shields.io/badge/Pod-V0.2.7-green.svg)](https://github.com/iDhaval/DTTextField/releases/tag/0.2.4)
+[![Version](https://img.shields.io/badge/Pod-V0.3.0-green.svg)](https://github.com/iDhaval/DTTextField/releases/tag/0.2.4)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/iDhaval/DTTextField/blob/master/LICENSE)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/matteocrippa/awesome-swift)
-[![Platform](https://img.shields.io/badge/Language-Swift_3.0-orange.svg)](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
-![Xcode](https://img.shields.io/badge/Xcode-8.0-blue.svg)
+[![Platform](https://img.shields.io/badge/Language-Swift_4.0-orange.svg)](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
+![Xcode](https://img.shields.io/badge/Xcode-9.0-blue.svg)
 
 ![Demo](https://github.com/iDhaval/DTTextField/blob/master/DTTextField.gif?raw=true)
 
@@ -20,8 +20,8 @@ Clone the repo and run the example project from the Example directory.
 
 ## Requirements
 
-* Xcode 8.0+
-* Swift 3.0+
+* Xcode 11.0+
+* Swift 5.0+
 
 ## Installation
 
@@ -54,13 +54,15 @@ pod 'DTTextField'
 | hideErrorWhenEditing | Bool | hide error label when typing |
 | floatingDisplayStatus | enum | maintain display status always, never, defaults | 
 
+
 ### Important Properties
 
 | Property name | Type | Remark |
 | ------------- |------------- | ----- |
-| dtLayer | CALayer | If you want to formate DTTextField than use dtLayer property instead of layer |
+| dtLayer | CALayer | If you want to formate DTTextField than use dtLayer property instead of layer (e.g. background color) |
 | borderColor | UIColor | Change border color of DTTextField |
 | canShowBorder | Bool | Toggle border of DTTextField |
+| dtborderStyle | enum | none, rounded , sqare |
 
 ## Methods
 
