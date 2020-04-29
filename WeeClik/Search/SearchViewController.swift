@@ -98,7 +98,7 @@ extension SearchViewController {
         if let imageThumbnailFile = comm.thumbnail {
             cell.coverImage.sd_setImage(with: URL(string: imageThumbnailFile.url!))
         } else {
-            cell.coverImage.image = Commerce.getImageForTypeCommerce(typeCommerce: comm.type.rawValue)
+            cell.coverImage.image = comm.type.image
         }
         return cell
     }

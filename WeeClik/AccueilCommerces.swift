@@ -33,9 +33,6 @@ class AccueilCommerces: UIViewController {
 
     var toutesCat: [CommerceType] = CommerceType.allCases
     var commerces: [Commerce]   = []
-    var currentPage: Int!       = 0                      // The last page that was loaded
-    var lastLoadCount: Int!     = -1                     // The count of objects from the last load. Set to -1 when objects haven't loaded, or there was an error.
-    let itemsPerPages: Int!     = 25                     // Nombre de commerce chargé à la fois (eviter la surchage de réseau etc.)
     let locationManager         = CLLocationManager()
     var latestLocationForQuery: CLLocation!
     let defaults                = UserDefaults.standard
@@ -43,6 +40,7 @@ class AccueilCommerces: UIViewController {
     var locationGranted         = false                 // On a obtenu la position de l'utilisateur
     var isLoadingCommerces      = false               // si la fonction de chargement des commerces est en cours
     var titleChoose: String     = "Restauration".localized()        // First category to be loaded
+    var selectedIndex: Int = 0
 
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
@@ -162,7 +160,7 @@ extension AccueilCommerces {
         // Update UI
         titleChoose = itemChoose
         labelHeaderCategorie.text = itemChoose
-        headerTypeCommerceImage.image = Commerce.getImageForTypeCommerce(typeCommerce: titleChoose)
+        headerTypeCommerceImage.image = toutesCat[selectedIndex].image
 
         // Update Data
         queryObjectsFromDB(typeCategorie: titleChoose, withHUD: showHud)
@@ -254,7 +252,8 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
             // Menu
             // Hack for text to be visible when selected
             collectionView.deselectItem(at: indexPath, animated: false)
-            self.chooseCategorie(itemChoose: self.toutesCat[indexPath.row].rawValue, withHud: true)
+            selectedIndex = indexPath.row
+            self.chooseCategorie(itemChoose: toutesCat[indexPath.row].rawValue, withHud: true)
             collectionView.reloadData()
         } else {
             // Objects
@@ -270,7 +269,7 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
             // Cell creation
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoriesCollectionViewCell", for: indexPath) as! CategoriesCollectionViewCell
             cell.typeName.text = self.toutesCat[indexPath.row].rawValue
-            cell.backgroundCategorie.image = Commerce.getImageForTypeCommerce(typeCommerce: self.toutesCat[indexPath.row].rawValue)
+            cell.backgroundCategorie.image = toutesCat[indexPath.row].image
             return cell
         }
         // Commerce cells
@@ -306,7 +305,7 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
                 if let imageThumbnailFile = comm.thumbnail {
                     cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.thumbnailPicture.image = Commerce.getImageForTypeCommerce(typeCommerce: comm.type.rawValue)
+                    cell.thumbnailPicture.image = toutesCat[selectedIndex].image
                 }
 
                 return cell

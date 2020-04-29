@@ -23,56 +23,5 @@
             </Actions>
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3822168D-5250-4821-8479-F9C60CD125A4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeeClik/Services_Providers/ParseService.swift"
-            timestampString = "592782813.0132689"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "updateExistingParseCommerce(fromCommerce:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3822168D-5250-4821-8479-F9C60CD125A4 - 5652edb56c49e42e"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;__C.PFObject&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in WeeClik.ParseService.updateExistingParseCommerce(fromCommerce: WeeClik.Commerce, completion: Swift.Optional&lt;(Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()&gt;) -&gt; ()"
-                  moduleName = "WeeClik"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rico/lab/github_repos/weeclik-ios/WeeClik/Services_Providers/ParseService.swift"
-                  timestampString = "591938653.466556"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "46"
-                  endingLineNumber = "46"
-                  offsetFromSymbolStart = "2328">
-               </Location>
-               <Location
-                  uuid = "3822168D-5250-4821-8479-F9C60CD125A4 - 4d9ecc886db9319f"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Swift.Optional&lt;__C.PFObject&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in WeeClik.ParseService.updateExistingParseCommerce(fromCommerce: WeeClik.Commerce, completion: Swift.Optional&lt;(Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()&gt;) -&gt; ()"
-                  moduleName = "WeeClik"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rico/lab/github_repos/weeclik-ios/WeeClik/Services_Providers/ParseService.swift"
-                  timestampString = "591938653.4681"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "183">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

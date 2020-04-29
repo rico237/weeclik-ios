@@ -236,60 +236,15 @@ public enum StatutType: Int {
 
 extension Commerce {
     func calculDistanceEntreDeuxPoints(location: CLLocation?) -> String {
-        guard let location = location else {return "--"}
+        guard let location = location else {return "--".localized()}
         let distance = PFGeoPoint(location: location).distanceInKilometers(to: self.location)
 
         if distance < 1 {
-            distanceFromUser = "\(Int(distance * 1000)) m"
+            distanceFromUser = "\(Int(distance * 1000)) m".localized()
         } else {
-            distanceFromUser = "\(Int(distance)) Km"
+            distanceFromUser = "\(Int(distance)) Km".localized()
         }
         return distanceFromUser
-    }
-    
-    static func getImageForTypeCommerce(typeCommerce: String) -> UIImage {
-        switch typeCommerce {
-        case "Alimentaire".localized():
-            return UIImage(named: "Alimentaire")!
-        case "Artisanat".localized():
-            return UIImage(named: "Artisanat")!
-        case "Bien-être".localized():
-            return UIImage(named: "Bien-etre")!
-        case "Décoration".localized():
-            return UIImage(named: "Decoration")!
-        case "E-commerce".localized():
-            return UIImage(named: "E-commerce")!
-        case "Distribution".localized():
-            return UIImage(named: "Distribution")!
-        case "Hôtellerie".localized():
-            return UIImage(named: "Hotellerie")!
-        case "Immobilier".localized():
-            return UIImage(named: "Immobilier")!
-        case "Informatique".localized():
-            return UIImage(named: "Informatique")!
-        case "Métallurgie".localized():
-            return UIImage(named: "Metallurgie")!
-        case "Médical".localized():
-            return UIImage(named: "Medical")!
-        case "Nautisme".localized():
-            return UIImage(named: "Nautisme")!
-        case "Paramédical".localized():
-            return UIImage(named: "Paramedical")!
-        case "Restauration".localized():
-            return UIImage(named: "Restauration")!
-        case "Sécurité".localized():
-            return UIImage(named: "Securite")!
-        case "Textile".localized():
-            return UIImage(named: "Textile")!
-        case "Tourisme".localized():
-            return UIImage(named: "Tourisme")!
-        case "Transport".localized():
-            return UIImage(named: "Transport")!
-        case "Urbanisme".localized():
-            return UIImage(named: "Urbanisme")!
-        default:
-            return UIImage(named: "Comm")!
-        }
     }
 }
 

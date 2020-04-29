@@ -374,6 +374,8 @@ extension DetailCommerceViewController {
 
             if let thumbFile = commerceObject.thumbnail {
                 headerImage.sd_setImage(with: URL(string: thumbFile.url!))
+            } else {
+                headerImage.image = commerceObject.type.image
             }
         } else {
             navigationController?.dismiss(animated: true, completion: nil)
