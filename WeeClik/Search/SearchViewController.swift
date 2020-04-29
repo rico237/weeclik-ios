@@ -40,7 +40,7 @@ class SearchViewController: UITableViewController {
 
     func filterRowsForSearchedText(_ searchText: String) {
         filteredComm = commerces.filter({ (commerce: Commerce) -> Bool in
-            return commerce.nom.lowercased().contains(searchText.lowercased()) || commerce.descriptionO.lowercased().contains(searchText.lowercased()) || commerce.type.lowercased().contains(searchText.lowercased()) ||
+            return commerce.nom.lowercased().contains(searchText.lowercased()) || commerce.descriptionO.lowercased().contains(searchText.lowercased()) || commerce.type.rawValue.lowercased().contains(searchText.lowercased()) ||
                 commerce.promotions.lowercased().contains(searchText.lowercased())
         })
         tableView.reloadData()
@@ -98,7 +98,7 @@ extension SearchViewController {
         if let imageThumbnailFile = comm.thumbnail {
             cell.coverImage.sd_setImage(with: URL(string: imageThumbnailFile.url!))
         } else {
-            cell.coverImage.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: comm.type)
+            cell.coverImage.image = comm.type.image
         }
         return cell
     }

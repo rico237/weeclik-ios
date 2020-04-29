@@ -313,7 +313,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
                 if let imageThumbnailFile = commerce.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: commerce.type)
+                    cell.commercePlaceholder.image = commerce.type.image
                 }
 
                 if (commerce.brouillon) {
@@ -337,7 +337,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
                 if let imageThumbnailFile = commerce.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: commerce.type)
+                    cell.commercePlaceholder.image = commerce.type.image
                 }
                 let lastPartage = partagesDates[indexPath.row]
                 let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
