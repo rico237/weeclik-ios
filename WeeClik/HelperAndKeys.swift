@@ -125,11 +125,6 @@ class HelperAndKeys {
         UserDefaults.standard.synchronize()
     }
 
-//    static func getListOfCategories() -> [String] {
-//        // FIXME: Envoyer cette liste en conf.json
-//        return ["Alimentaire".localized(), "Artisanat".localized(), "Bien-être".localized(), "Décoration".localized(), "E-commerce".localized(), "Distribution".localized(), "Hôtellerie".localized(), "Immobilier".localized(), "Informatique".localized(), "Métallurgie".localized(), "Médical".localized(), "Nautisme".localized(), "Paramédical".localized(), "Restauration".localized(), "Sécurité".localized(), "Textile".localized(), "Tourisme".localized(), "Transport".localized(), "Urbanisme".localized(), "Autre".localized()]
-//    }
-
     /// Has safe area
     ///
     /// with notch: 44.0 on iPhone X, XS, XS Max, XR.

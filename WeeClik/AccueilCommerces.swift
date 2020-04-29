@@ -27,7 +27,8 @@ import SPPermission
 // Life Cycle & other functions
 class AccueilCommerces: UIViewController {
 
-    let columnLayout = GridFlowLayout(cellsPerRow: 2, minimumInteritemSpacing: 10, minimumLineSpacing: 10, sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+    let columnLayout = GridFlowLayout(cellsPerRow: 2, minimumInteritemSpacing: 10, minimumLineSpacing: 10,
+                                      sectionInset: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
 
     private let refreshControl = UIRefreshControl()
 
@@ -38,8 +39,8 @@ class AccueilCommerces: UIViewController {
     let defaults                = UserDefaults.standard
     var prefFiltreLocation      = false                 // Savoir si les commerces sont filtrés par location ou partages
     var locationGranted         = false                 // On a obtenu la position de l'utilisateur
-    var isLoadingCommerces      = false               // si la fonction de chargement des commerces est en cours
-    var titleChoose: String     = "Restauration".localized()        // First category to be loaded
+    var isLoadingCommerces      = false                 // si la fonction de chargement des commerces est en cours
+    // Selected category in menu
     var selectedIndex: Int = 0
 
     @IBOutlet weak var labelHeaderCategorie: UILabel!
@@ -72,7 +73,7 @@ class AccueilCommerces: UIViewController {
             if self.prefFiltreLocation {
                 self.checkLocationServicePermission()
             } else {
-                self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+                self.chooseCategorie(itemChoose: self.toutesCat[self.selectedIndex].rawValue, withHud: true)
             }
 
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
@@ -123,7 +124,7 @@ class AccueilCommerces: UIViewController {
             self.checkLocationServicePermission()
         } else {
             // Load first object based on number of sharing
-            self.chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+            self.chooseCategorie(itemChoose: toutesCat[selectedIndex].rawValue, withHud: true)
         }
     }
 
@@ -133,7 +134,7 @@ class AccueilCommerces: UIViewController {
         if self.prefFiltreLocation && self.locationGranted {
             self.locationManager.startUpdatingLocation()
         } else {
-            discretReload()
+            chooseCategorie(itemChoose: toutesCat[selectedIndex].rawValue, withHud: false)
         }
     }
 
@@ -144,13 +145,9 @@ class AccueilCommerces: UIViewController {
         HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
     }
 
-    func discretReload() {
-        chooseCategorie(itemChoose: titleChoose, withHud: false)
-    }
-
     @objc private func refreshCollectionData(_ sender: Any) {
         // From refresh
-        self.discretReload()
+        chooseCategorie(itemChoose: toutesCat[selectedIndex].rawValue, withHud: false)
     }
 }
 
@@ -158,12 +155,11 @@ class AccueilCommerces: UIViewController {
 extension AccueilCommerces {
     func chooseCategorie(itemChoose: String, withHud showHud: Bool) {
         // Update UI
-        titleChoose = itemChoose
         labelHeaderCategorie.text = itemChoose
         headerTypeCommerceImage.image = toutesCat[selectedIndex].image
 
         // Update Data
-        queryObjectsFromDB(typeCategorie: titleChoose, withHUD: showHud)
+        queryObjectsFromDB(typeCategorie: toutesCat[selectedIndex].rawValue, withHUD: showHud)
     }
 
     func queryObjectsFromDB(typeCategorie: String, withHUD showHud: Bool = true) {
@@ -190,7 +186,7 @@ extension AccueilCommerces {
             self.commerces = commerces
         } else if let error = error {
             ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) {
-                self.chooseCategorie(itemChoose: self.titleChoose, withHud: false)
+                self.chooseCategorie(itemChoose: self.toutesCat[self.selectedIndex].rawValue, withHud: false)
             }
         }
         DispatchQueue.global(qos: .default).async(execute: {
@@ -297,6 +293,8 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
                     cell.distanceLabel.text = "--"
                 }
 
+                cell.distanceLabel.text = cell.distanceLabel.text?.localized()
+                
                 // Ajout de couleur
                 cell.nomCommerce.textColor = textColor
                 cell.nombrePartageLabel.textColor = textColor
@@ -328,7 +326,7 @@ extension AccueilCommerces: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
         latestLocationForQuery = locations.last
 //        print("Did update position : \(locations.last?.description ?? "No Location Provided")")
-        ParseService.shared.locationPrefsCommerces(withType: titleChoose, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
+        ParseService.shared.locationPrefsCommerces(withType: toutesCat[selectedIndex].rawValue, latestKnownPosition: latestLocationForQuery) { (commerces, error) in
             self.locationGranted = true
             self.globalObjects(commerces: commerces, error: error, hudView: true)
         }
@@ -358,7 +356,7 @@ extension AccueilCommerces: SPPermissionDialogDelegate {
             prefFiltreLocation = true
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: true)
             HelperAndKeys.setLocationGranted(locationGranted: true)
-            chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+            chooseCategorie(itemChoose: toutesCat[selectedIndex].rawValue, withHud: true)
         }
     }
 
@@ -368,7 +366,7 @@ extension AccueilCommerces: SPPermissionDialogDelegate {
             prefFiltreLocation = false
             HelperAndKeys.setPrefFiltreLocation(filtreLocation: false)
             HelperAndKeys.setLocationGranted(locationGranted: false)
-            chooseCategorie(itemChoose: self.titleChoose, withHud: true)
+            chooseCategorie(itemChoose: toutesCat[selectedIndex].rawValue, withHud: true)
             dismiss(animated: true, completion: nil)
         }
     }
@@ -400,7 +398,7 @@ extension AccueilCommerces: SPPermissionDialogDelegate {
         }
 
         HelperAndKeys.setLocationGranted(locationGranted: locationGranted)
-        chooseCategorie(itemChoose: titleChoose, withHud: false)
+        chooseCategorie(itemChoose: toutesCat[selectedIndex].rawValue, withHud: false)
     }
 }
 // Custom UI for asking permission (alert controller)
