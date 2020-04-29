@@ -38,6 +38,16 @@
 - (void)batchMessageWasCancelledByAutoclose:(NSString* _Nullable)messageIdentifier NS_SWIFT_NAME(batchMessageWasCancelledByAutoclose(_:));
 
 /**
+ Called when Batch needs to present a message in automatic mode.
+
+ Implement this method if you need to specify the view controller that will present Batch content.
+ If you return nil, or don't implement this method, Batch will default to its normal presentation behaviour and use the topmost presented controller of your app's key window's root controller.
+ @return The view controller to present Batch content on. Batch will display its controller modally, therefore the view controller you return must be capable of presenting a modal view controller.
+ @note This method will not be called for some messages that need to be presented in their own window.
+ */
+- (UIViewController* _Nullable)presentingViewControllerForBatchUI;
+
+/**
  Called when the message view will be dismissed due to the user pressing a CTA or the global tap action.
  @param action        Action that will be performed. Fields can be nil if the action was only to dismiss the message on tap.
                       DO NOT run the action yourself: the SDK will automatically do it.
@@ -87,7 +97,7 @@
  Note that if automatic mode is enabled, manual integration methods will not work.
  In-App messaging is not affected by this. If you want to manually display the In-App message, call setDelegate: with a delegate that implement batchInAppMessageReady:
  
- @param setAutomaticMode Whether to enable automatic mode or not
+ @param isAutomaticModeOn Whether to enable automatic mode or not
  */
 + (void)setAutomaticMode:(BOOL)isAutomaticModeOn NS_SWIFT_NAME(setAutomaticMode(on:));
 

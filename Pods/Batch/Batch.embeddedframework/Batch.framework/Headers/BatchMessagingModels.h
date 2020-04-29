@@ -8,6 +8,39 @@
 
 FOUNDATION_EXPORT NSInteger const BatchMessageGlobalActionIndex;
 
+typedef enum NSUInteger {
+    /**
+     * The message is invalid and does not contain any displayable message,
+     * or that the format is unknown to this version of the SDK, and might be available in a newer one.
+     */
+    BatchMessagingContentTypeUnknown,
+    /**
+     * A simple system alert.
+     * Corresponding content class is BatchAlertMessageContent.
+     */
+    BatchMessagingContentTypeAlert,
+    /**
+     * A fullscreen format.
+     * Corresponding content class is BatchInterstitialMessageContent.
+     */
+    BatchMessagingContentTypeInterstitial,
+    /**
+     * A banner that can be attached on top or bottom of your screen.
+     * Corresponding content class is BatchBannerMessageContent.
+     */
+    BatchMessagingContentTypeBanner,
+    /**
+     * A popup that takes over the screen modally, like a system alert but with a custom style.
+     * Corresponding content class is BatchMessageModalContent.
+     */
+    BatchMessagingContentTypeModal,
+    /**
+     * A modal popup that simply shows an image in an alert (detached) or fullscreen (attached) style.
+     * Corresponding content class is BatchMessageImageContent.
+     */
+    BatchMessagingContentTypeImage
+} BatchMessagingContentType;
+
 /**
  Represents an In-App Message content
  This protocol itself isn't really useful: you will need to safely cast it to an instance, such as BatchInterstitialMessageContent or BatchAlertMessageContent
@@ -190,7 +223,9 @@ FOUNDATION_EXPORT NSInteger const BatchMessageGlobalActionIndex;
  In-App message's visual contents
  
  Since the content can greatly change between formats, you will need to cast it to one of the classes
- confirming to the BatchInAppMessageContent protocol, such as BatchAlertMessageContent or BatchInterstitialMessageContent.
+ conforming to the BatchInAppMessageContent protocol, such as BatchAlertMessageContent or BatchInterstitialMessageContent.
+
+ Use `-contentType` to help you in that task.
  
  More types might be added in the future, so don't make any assuptions on the kind of class returned by this property.
  
@@ -203,6 +238,11 @@ FOUNDATION_EXPORT NSInteger const BatchMessageGlobalActionIndex;
  Can be nil.
  */
 @property (nullable, readonly) NSString *campaignToken;
+
+/**
+ The type of the content, used to cast to the right content class.
+ */
+@property (readonly) BatchMessagingContentType contentType;
 
 @end
 

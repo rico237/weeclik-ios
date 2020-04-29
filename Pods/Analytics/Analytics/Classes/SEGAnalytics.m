@@ -111,6 +111,8 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
         [self _applicationDidFinishLaunchingWithOptions:note.userInfo];
     } else if ([note.name isEqualToString:UIApplicationWillEnterForegroundNotification]) {
         [self _applicationWillEnterForeground];
+    } else if ([note.name isEqualToString: UIApplicationDidEnterBackgroundNotification]) {
+      [self _applicationDidEnterBackground];
     }
 }
 
@@ -167,13 +169,17 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
     if (!self.configuration.trackApplicationLifecycleEvents) {
         return;
     }
-    NSString *currentVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
-    NSString *currentBuild = [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"];
     [self track:@"Application Opened" properties:@{
         @"from_background" : @YES,
-        @"version" : currentVersion ?: @"",
-        @"build" : currentBuild ?: @"",
     }];
+}
+
+- (void)_applicationDidEnterBackground
+{
+  if (!self.configuration.trackApplicationLifecycleEvents) {
+    return;
+  }
+  [self track: @"Application Backgrounded"];
 }
 
 
@@ -199,10 +205,24 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
 - (void)identify:(NSString *)userId traits:(NSDictionary *)traits options:(NSDictionary *)options
 {
     NSCAssert2(userId.length > 0 || traits.count > 0, @"either userId (%@) or traits (%@) must be provided.", userId, traits);
+    
+    // this is done here to match functionality on android where these are inserted BEFORE being spread out amongst destinations.
+    // it will be set globally later when it runs through SEGIntegrationManager.identify.
+    NSString *anonId = [options objectForKey:@"anonymousId"];
+    if (anonId == nil) {
+        anonId = [self getAnonymousId];
+    }
+    // configure traits to match what is seen on android.
+    NSMutableDictionary *newTraits = [traits mutableCopy];
+    newTraits[@"anonymousId"] = anonId;
+    if (userId != nil) {
+        newTraits[@"userId"] = userId;
+    }
+    
     [self run:SEGEventTypeIdentify payload:
                                        [[SEGIdentifyPayload alloc] initWithUserId:userId
-                                                                      anonymousId:[options objectForKey:@"anonymousId"]
-                                                                           traits:SEGCoerceDictionary(traits)
+                                                                      anonymousId:anonId
+                                                                           traits:SEGCoerceDictionary(newTraits)
                                                                           context:SEGCoerceDictionary([options objectForKey:@"context"])
                                                                      integrations:[options objectForKey:@"integrations"]]];
 }
@@ -418,7 +438,7 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
 {
     // this has to match the actual version, NOT what's in info.plist
     // because Apple only accepts X.X.X as versions in the review process.
-    return @"3.7.0";
+    return @"3.8.0";
 }
 
 #pragma mark - Helpers
@@ -427,6 +447,12 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
 {
     if (!self.enabled) {
         return;
+    }
+    
+    if (self.configuration.experimental.nanosecondTimestamps) {
+        payload.timestamp = iso8601NanoFormattedString([NSDate date]);
+    } else {
+        payload.timestamp = iso8601FormattedString([NSDate date]);
     }
     SEGContext *context = [[[SEGContext alloc] initWithAnalytics:self] modify:^(id<SEGMutableContext> _Nonnull ctx) {
         ctx.eventType = eventType;

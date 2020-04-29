@@ -12,16 +12,18 @@
 {
     if (self = [super init]) {
         self.settings = settings;
-
+        
+        FlurrySessionBuilder* builder = [FlurrySessionBuilder new];
+        
         NSNumber *sessionContinueSeconds = settings[@"sessionContinueSeconds"];
         if (sessionContinueSeconds) {
             int s = [sessionContinueSeconds intValue];
-            [Flurry setSessionContinueSeconds:[sessionContinueSeconds intValue]];
+            [builder withSessionContinueSeconds:s];
             SEGLog(@"Flurry setSessionContinueSeconds:%d", s);
         }
 
         NSString *apiKey = self.settings[@"apiKey"];
-        [Flurry startSession:apiKey];
+        [Flurry startSession:apiKey withSessionBuilder:builder];
         SEGLog(@"Flurry startSession:%@", apiKey);
     }
     return self;
@@ -45,39 +47,44 @@
     if (age) {
         [Flurry setAge:[age intValue]];
     }
-
-    NSDictionary *location = traits[@"location"];
-    if (location) {
-        float latitude = [location[@"latitude"] floatValue];
-        float longitude = [location[@"longitude"] floatValue];
-        float horizontalAccuracy = [location[@"horizontalAccuracy"] floatValue];
-        float verticalAccuracy = [location[@"verticalAccuracy"] floatValue];
-        [Flurry setLatitude:latitude longitude:longitude horizontalAccuracy:horizontalAccuracy verticalAccuracy:verticalAccuracy];
-    }
 }
 
 - (void)track:(SEGTrackPayload *)payload
 {
-    [Flurry logEvent:payload.event withParameters:payload.properties];
+    NSMutableDictionary *properties = [self truncateProperties:payload.properties];
+
+    [Flurry logEvent:payload.event withParameters:properties];
+    SEGLog(@"Flurry logEvent:%@ withParameters:%@", payload.event, properties);
 }
 
 - (void)screen:(SEGScreenPayload *)payload
 {
     if ([self screenTracksEvents]) {
         NSString *event = [[NSString alloc] initWithFormat:@"Viewed %@ Screen", payload.name];
-        [Flurry logEvent:event withParameters:payload.properties];
+        NSMutableDictionary *properties = [self truncateProperties:payload.properties];
+        [Flurry logEvent:event withParameters:properties];
+        SEGLog(@"Flurry logEvent:%@ withParameters:%@", event, properties);
     }
-
-    // Flurry just counts the number of page views
-    // http://stackoverflow.com/questions/5404513/tracking-page-views-with-the-help-of-flurry-sdk
-
-    [Flurry logPageView];
 }
 
 // Return true if all screen should be tracked as event.
 - (BOOL)screenTracksEvents
 {
     return [(NSNumber *)[self.settings objectForKey:@"screenTracksEvents"] boolValue];
+}
+
+// Returns NSDictionary truncated to 10 entries
+
+-(NSMutableDictionary *)truncateProperties:(NSDictionary *) properties
+{
+    NSMutableDictionary *truncatedProperties = [NSMutableDictionary dictionaryWithCapacity:10];
+    for (NSString *property in properties) {
+        truncatedProperties[property] = properties[property];
+        if ([truncatedProperties count] == 10) {
+            break;
+        }
+    }
+    return truncatedProperties;
 }
 
 @end
