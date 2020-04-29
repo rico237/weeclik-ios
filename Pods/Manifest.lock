@@ -342,7 +342,7 @@ CHECKOUT OPTIONS:
     :commit: d73526855a411e4ec7abdd1b68b6c44f56a9cb78
     :git: https://github.com/weeclik/KJNavigationViewAnimation.git
   SVProgressHUD:
-    :commit: 5ac7a2e294943f9ac0362e38451e6449cf3b5cbe
+    :commit: b571b6905998539d575f99a6e2bcb7833fe01aa1
     :git: https://github.com/weeclik/SVProgressHUD.git
   SwiftMultiSelect:
     :commit: 46aa7c1e87d18b4af3e8457867deb91e36bc00d0

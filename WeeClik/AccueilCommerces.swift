@@ -98,6 +98,9 @@ class AccueilCommerces: UIViewController {
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
 
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setDefaultStyle(.dark)
+        
         // Init of retracting header (header image)
 //        viewKJNavigation.topbarMinimumSpace = .custom(height: 250)
 //        viewKJNavigation.setupFor(CollectionView: collectionView, viewController: self)
@@ -167,8 +170,6 @@ extension AccueilCommerces {
         self.refreshControl.beginRefreshing()
         self.commerces = [Commerce]()
         if showHud {
-            SVProgressHUD.setDefaultMaskType(.clear)
-            SVProgressHUD.setDefaultStyle(.dark)
             SVProgressHUD.show(withStatus: "Chargement en cours".localized())
         }
         // Regarder du coté du discret reload et du query qui pourraient être appelé en meme temps
