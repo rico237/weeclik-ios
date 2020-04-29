@@ -355,7 +355,7 @@ extension DetailCommerceViewController {
         if commerceObject != nil {
 
             nomCommerceLabel.text = commerceObject.nom
-            categorieLabel.text   = commerceObject.type
+            categorieLabel.text   = commerceObject.type.rawValue
 
             nomCommerceLabel.font = FontHelper.getScaledFont(forFont: "Pacifico", textStyle: .title1)
             nomCommerceLabel.fontSize = 40
@@ -374,6 +374,8 @@ extension DetailCommerceViewController {
 
             if let thumbFile = commerceObject.thumbnail {
                 headerImage.sd_setImage(with: URL(string: thumbFile.url!))
+            } else {
+                headerImage.image = commerceObject.type.image
             }
         } else {
             navigationController?.dismiss(animated: true, completion: nil)

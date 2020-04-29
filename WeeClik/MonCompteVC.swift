@@ -15,8 +15,8 @@ import Localize_Swift
 class MonCompteVC: UIViewController {
     var isPro = false                   // Savoir si l'utilisateur est de type pro
     var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
-    var commerces: [PFObject]! = []    // La liste des commerces dans le BAAS
-    var partagesDates = [Date]()       // Date des partages
+    var commerces: [PFObject]! = []     // La liste des commerces dans le BAAS
+    var partagesDates = [Date]()        // Date des partages
     var currentUser = PFUser.current()  // Utilisateur connecté
     
     var timer: Timer!
@@ -57,26 +57,32 @@ class MonCompteVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateNavigationBarBasedOnUser()
+        
         guard let current = PFUser.current() else { return }
-
         currentUser = current
-        updateProfilPic(forUser: current)
+        refreshUserUI()
 
-        // Recup si l'utilisateur est un pro (commercant)
-        if let proUser = current["isPro"] as? Bool {
-            // isPro is set
-            isPro = proUser
-            isProUpdateUI()
-        } else {
-            // Nil found
-            // Redirect -> Choosing controller from pro statement
-            if let choosingNav = storyboard?.instantiateViewController(withIdentifier: "choose_type_compte") as? UINavigationController,
-                let choosingVC = choosingNav.topViewController as? ProcessInscriptionVC {
-                choosingVC.newUser = current
-                present(choosingNav, animated: true, completion: nil)
+        PFUser.current()?.fetchInBackground(block: { (user, error) in
+            guard let user = user else {return}
+            if let error = error {
+                Log.all.error("Error while fetching user : \(error.debug)")
+            } else {
+                // Recup si l'utilisateur est un pro (commercant)
+                if let proUser = user["isPro"] as? Bool {
+                    // isPro is set
+                    self.isPro = proUser
+                    self.refreshUserUI()
+                } else {
+                    // Nil found
+                    // Redirect -> Choosing controller from pro statement
+                    if let choosingNav = self.storyboard?.instantiateViewController(withIdentifier: "choose_type_compte") as? UINavigationController,
+                        let choosingVC = choosingNav.topViewController as? ProcessInscriptionVC {
+                        choosingVC.newUser = current
+                        self.present(choosingNav, animated: true, completion: nil)
+                    }
+                }
             }
-        }
+        })
 
         if let vueConnexion = vueConnexion {
             vueConnexion.removeFromSuperview()
@@ -86,11 +92,59 @@ class MonCompteVC: UIViewController {
         queryCommercesArrayBasedOnUser()
     }
 
+    @IBAction func getBackToHome(_ sender: Any) {
+        dismiss(animated: true)
+    }
+
+    @IBAction func logOut() {
+        PFUser.logOutInBackground()
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+// Timer
+extension MonCompteVC {
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(refresh), userInfo: nil, repeats: false)
+        timer.tolerance = 0.2
+        RunLoop.current.add(timer, forMode: .common)
+    }
+    
+    func stopTimer() {
+        if timer != nil {
+            timer.invalidate()
+            timer = nil
+        }
+    }
+    
+    @objc
+    func refresh() {
+        stopTimer()
+        queryCommercesArrayBasedOnUser()
+        refreshUserData()
+    }
+    
+    func refreshUserData() {
+        guard let user = currentUser else {return}
+        
+        user.fetchInBackground(block: { (_ user, error) in
+            if let error = error {
+                Log.all.error("Error while fetching user : \(error.debug)")
+            } else {
+                self.refreshUserUI()
+            }
+        })
+    }
+}
+
+// Refresh UI
+extension MonCompteVC {
     /// Regarde si une image de profil a été chargé
     /// sinon si une image est lié via facebook
     /// Sinon on affiche l'image de base weeclik
-    func updateProfilPic(forUser user: PFUser) {
-        guard imageProfil != nil else { return }
+    func updateProfilPic() {
+        guard imageProfil != nil, let user = currentUser else { return }
+        
         if let profilFile = user["profilPicFile"] as? PFFileObject,
             let url = profilFile.url, url != "" {
             userProfilePicURL = url
@@ -103,13 +157,18 @@ class MonCompteVC: UIViewController {
         imageProfil.clipsToBounds = true
         let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
         let updateUI = userProfilePicURL != ""
-        imageProfil.sd_setImage(with: URL(string: userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
+        if userProfilePicURL.isEmpty == false {
+            imageProfil.sd_setImage(with: URL(string: userProfilePicURL), placeholderImage: placeholderImage, options: .progressiveDownload, completed: nil)
+        } else {
+            imageProfil.image = placeholderImage
+        }
+        
         imageProfil.layer.cornerRadius = updateUI ? imageProfil.frame.size.width / 2 : 0
         imageProfil.layer.borderWidth = updateUI ? 3 : 0
         imageProfil.layer.masksToBounds = updateUI ? true : false
     }
-
-    func isProUpdateUI() {
+    
+    func updateUI() {
         if leftButtonConstraint != nil && rightButtonConstraint != nil {
             leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 0 : 0
             rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 0 : 0
@@ -120,24 +179,27 @@ class MonCompteVC: UIViewController {
             let bottomPadding = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
             bottomButtonConstraint.constant = isPro ? 0 : -buttonHeight - bottomPadding
         }
-        
-//        if isPro {
-//            nouveauCommerceButton.roundCorners(.allCorners, radius: 5)
-//        } else {
-//            nouveauCommerceButton.roundCorners(.allCorners, radius: 0)
-//        }
 
         if noCommercesLabel != nil {
             let noCommercesOwned  = "Vous ne possedez aucun commerce pour le moment".localized()
             let noSharedCommerces = "Vous n'avez pour le moment partagé aucun commerce".localized()
             noCommercesLabel.text = isPro ? noCommercesOwned : noSharedCommerces
         }
-        
+    }
+    
+    func refreshCommercesUI() {
+        updateUI()
+        commercesTableView.reloadData()
+    }
+    
+    func refreshUserUI() {
         updateNavigationBarBasedOnUser()
+        updateProfilPic()
+        changeProfilInfoTVC.reloadData()
     }
     
     func updateNavigationBarBasedOnUser() {
-        guard PFUser.current() != nil else {
+        guard currentUser != nil else {
             navigationItem.rightBarButtonItems = []
             return
         }
@@ -156,35 +218,6 @@ class MonCompteVC: UIViewController {
             }
         } else {
             navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
-        }
-    }
-
-    @IBAction func getBackToHome(_ sender: Any) {
-        dismiss(animated: true)
-    }
-
-    @IBAction func logOut() {
-        PFUser.logOutInBackground()
-        dismiss(animated: true, completion: nil)
-    }
-
-    func updateUIBasedOnUser() {
-        isProUpdateUI()
-        
-        changeProfilInfoTVC.reloadData()
-        commercesTableView.reloadData()
-    }
-    
-    func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(queryCommercesArrayBasedOnUser), userInfo: nil, repeats: false)
-        timer.tolerance = 0.2
-        RunLoop.current.add(timer, forMode: .common)
-    }
-    
-    func stopTimer() {
-        if timer != nil {
-            timer.invalidate()
-            timer = nil
         }
     }
 }
@@ -243,7 +276,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
             guard let comm = commerces else { return 0 }
 
             if comm.isEmpty {
-                isProUpdateUI()
+                updateUI()
             } else {
                 if let noCommerceView = noCommerceView {
                     noCommerceView.removeFromSuperview()
@@ -257,7 +290,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
         if tableView == changeProfilInfoTVC {
             let cell = tableView.dequeueReusableCell(withIdentifier: "emailChangeCell")
 
-            if let user = PFUser.current() {
+            if let user = currentUser {
                 cell?.textLabel?.text = (user["name"] != nil) ? user["name"] as? String : ""
                 cell?.detailTextLabel?.text = user.email
             } else {
@@ -280,7 +313,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
                 if let imageThumbnailFile = commerce.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: commerce.type)
+                    cell.commercePlaceholder.image = commerce.type.image
                 }
 
                 if (commerce.brouillon) {
@@ -304,7 +337,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
                 if let imageThumbnailFile = commerce.thumbnail {
                     cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
                 } else {
-                    cell.commercePlaceholder.image = HelperAndKeys.getImageForTypeCommerce(typeCommerce: commerce.type)
+                    cell.commercePlaceholder.image = commerce.type.image
                 }
                 let lastPartage = partagesDates[indexPath.row]
                 let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
@@ -337,7 +370,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
 // Data related
 extension MonCompteVC {
-    @objc func queryCommercesArrayBasedOnUser() {
+    func queryCommercesArrayBasedOnUser() {
         if isPro {
             // Prend les commerces du compte pro
             guard let currentUser = currentUser else { return }
@@ -350,7 +383,7 @@ extension MonCompteVC {
                     return
                 }
                 self.commerces = objects
-                self.updateUIBasedOnUser()
+                self.refreshCommercesUI()
             })
         } else {
             // Prend les commerces favoris de l'utilisateur
@@ -378,11 +411,8 @@ extension MonCompteVC {
                             self.partagesDates.append(partagesDats[index])
                         }
                     }
-                    self.updateUIBasedOnUser()
+                    self.refreshCommercesUI()
                 }
-            } else {
-                let message =  "Problème lors de la récupération de vos partages".localized()
-                HelperAndKeys.showNotification(type: "E", title: "Problème de connexion".localized(), message: message, delay: 3)
             }
         }
         

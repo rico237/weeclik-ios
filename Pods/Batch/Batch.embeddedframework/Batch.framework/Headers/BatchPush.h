@@ -168,6 +168,9 @@ typedef NS_ENUM(NSUInteger, BatchNotificationSource) {
  If your goal is to implement a custom deeplink format, you should see Batch.deeplinkDelegate which allows you to manually handle the deeplink string, but doesn't
  put the burden of parsing the notification payload on you.
  
+ Please note that setting this to false will DISABLE the deeplink delegate, leaving the handling of the link
+ entirely up to you.
+ 
  @warning If Batch is set to handle your deeplinks, it will *automatically* call the fetch completion handler (if applicable) with UIBackgroundFetchResultNewData.
  */
 + (void)enableAutomaticDeeplinkHandling:(BOOL)handleDeeplinks NS_AVAILABLE_IOS(8_0);

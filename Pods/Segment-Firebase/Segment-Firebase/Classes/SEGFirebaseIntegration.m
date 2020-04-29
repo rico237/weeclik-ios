@@ -64,6 +64,13 @@
 }
 
 
+- (void)screen:(SEGScreenPayload *)payload
+{
+    [self.firebaseClass setScreenName:payload.name screenClass:nil];
+    SEGLog(@"[FIRAnalytics setScreenName:%@]", payload.name);
+}
+
+
 #pragma mark - Utilities
 
 // Event names can be up to 32 characters long, may only contain alphanumeric
@@ -110,7 +117,7 @@
         if ([periodSeparatedEvent count] > 1) {
             return [trimmedEvent stringByReplacingOccurrencesOfString:@"." withString:@"_"];
         } else {
-            return [trimmedEvent stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            return [[trimmedEvent stringByReplacingOccurrencesOfString:@" " withString:@"_"] stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
         }
     } else {
         return event;
@@ -169,7 +176,7 @@ NSDictionary *formatEventProperties(NSDictionary *dictionary)
         if ([periodSeparatedKey count] > 1) {
             key = [trimmedKey stringByReplacingOccurrencesOfString:@"." withString:@"_"];
         } else {
-            key = [trimmedKey stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            key = [[trimmedKey stringByReplacingOccurrencesOfString:@" " withString:@"_"] stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
         }
         if ([data isKindOfClass:[NSNumber class]]) {
             data = [NSNumber numberWithDouble:[data doubleValue]];

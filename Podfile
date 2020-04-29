@@ -39,7 +39,7 @@ def projectPods
     pod 'SDWebImage', '~> 4.4.7'
     
     # HTTP requests (CRUD) (GET POST PUT DEL)
-    pod 'Alamofire', '~> 5.0.0-beta.6'
+    pod 'Alamofire', '~> 5.1'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # Notification pour le partage de nouveau activé

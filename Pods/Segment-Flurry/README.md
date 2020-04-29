@@ -1,6 +1,6 @@
 # Analytics
 
-[![CI Status](http://img.shields.io/travis/segment-integrations/analytics-ios-integration-flurry.svg?style=flat)](https://travis-ci.org/segment-integrations/analytics-ios-integration-flurry)
+[![CircleCI](https://circleci.com/gh/segment-integrations/analytics-ios-integration-flurry.svg?style=svg)](https://circleci.com/gh/segment-integrations/analytics-ios-integration-flurry)
 [![Version](https://img.shields.io/cocoapods/v/Segment-Flurry.svg?style=flat)](http://cocoapods.org/pods/Segment-Flurry)
 [![License](https://img.shields.io/cocoapods/l/Segment-Flurry.svg?style=flat)](http://cocoapods.org/pods/Segment-Flurry)
 
@@ -8,12 +8,37 @@ Flurry integration for analytics-ios.
 
 ## Installation
 
-Analytics is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your `Podfile`:
+To install the Segment-Flurry integration, simply add this line to your [CocoaPods](http://cocoapods.org) `Podfile`:
 
 ```ruby
 pod "Segment-Flurry"
 ```
+
+## Usage
+
+After adding the dependency, you must register the integration with our SDK.  To do this, import the Flurry integration in your `AppDelegate`:
+
+```
+#import <Segment-Flurry/SEGFlurryIntegrationFactory.h>
+```
+
+And add the following lines:
+
+```
+NSString *const SEGMENT_WRITE_KEY = @" ... ";
+SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:SEGMENT_WRITE_KEY];
+
+[config use:[SEGFlurryIntegrationFactory instance]];
+
+[SEGAnalytics setupWithConfiguration:config];
+
+```
+
+## Migrating from 1.1.0 to 2.0.0
+Version 2.0.0 upgrades the Flurry iOS SDK from 7.6 to 10.2.0. Support was removed for logPageView, setLatitude, and setSessionContinueSeconds (replaced by withSessionContinueSeconds). 
+
+Please see [Flurry release notes](https://developer.yahoo.com/flurry/docs/releasenotes/ios/#version-10-2-0-1-08-2020) for complete list of changes.
+
 
 ## License
 
