@@ -15,7 +15,7 @@
 
 import UIKit
 import Parse
-import SVProgressHUD // FIXME: Replace with this pod : IHProgressHUD + remove from pull to refresh
+import SVProgressHUD
 import KJNavigationViewAnimation
 import KRLCollectionViewGridLayout
 import SDWebImage
