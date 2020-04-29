@@ -17,6 +17,9 @@ final class FileUploadManager: NSObject {
     }
     
     var currentProgress: Float = 0
+    var didFinishUploading: Bool {
+        return currentProgress >= 1.0
+    }
     
     private var preferedPosition: Position = .top
     private var animationDuration: TimeInterval = 0.25
@@ -45,9 +48,13 @@ final class FileUploadManager: NSObject {
         progressView.progressIndicatorLabel.text = "\(Int(number))%".localized()
         progressView.progressDescriptionLabel.text = "Envoi de votre vidéo en cours".localized()
         
-        if currentProgress >= 1.0 {
+        if didFinishUploading {
             progressView.progressDescriptionLabel.text = "Envoi de votre vidéo terminé".localized()
-            hideProgressView()
+            // Wait 2 seconds and hide
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.hideProgressView()
+                self.updateProgress(to: 0)
+            }
         }
     }
     
@@ -114,15 +121,12 @@ extension FileUploadManager {
             newFrame.origin.y = parent.view.frame.size.height
         }
         
-        // Wait 2 seconds and hide
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            // Animation
-            UIView.animate(withDuration: self.animationDuration, animations: {
-                self.progressView.frame = newFrame
-            }, completion: { (_ completed) in
-                self.updateProgress(to: 0)
-                self.isPresented = false
-            })
-        }
+        // Animation
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.progressView.frame = newFrame
+        }, completion: { (_ completed) in
+            self.isPresented = false
+            self.progressView.removeFromSuperview()
+        })
     }
 }
