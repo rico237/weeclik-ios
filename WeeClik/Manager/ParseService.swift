@@ -44,7 +44,7 @@ class ParseService: NSObject {
             } else if let parseObject = parseObject {
                 // TODO: update thumbnail principal (not implemented)
                 parseObject["nomCommerce"]      = commerce.nom
-                parseObject["typeCommerce"]     = commerce.type
+                parseObject["typeCommerce"]     = commerce.type.rawValue
                 parseObject["tel"]              = commerce.tel
                 parseObject["mail"]             = commerce.mail
                 parseObject["siteWeb"]          = commerce.siteWeb
