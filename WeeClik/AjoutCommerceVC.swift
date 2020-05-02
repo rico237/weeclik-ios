@@ -128,6 +128,11 @@ extension AjoutCommerceVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        let currentUploadProgress = FileUploadManager.shared.currentProgress
+        if currentUploadProgress != 0.0 {
+            FileUploadManager.shared.show(in: self)
+        }
+        
         if let comm = UserDefaults.standard.object(forKey: "lastCommerce") as? Commerce {
             self.loadedFromBAAS = false
             print("Commerce dans les userDefaults")
