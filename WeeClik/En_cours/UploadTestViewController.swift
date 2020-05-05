@@ -18,8 +18,6 @@ class UploadTestViewController: UIViewController {
         if (isRunning) {
             progressBarTimer.invalidate()
         } else {
-            FileUploadManager.shared.show(in: self, from: .bottom)
-            
             progressBarTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressView), userInfo: nil, repeats: true)
         }
         isRunning = !isRunning

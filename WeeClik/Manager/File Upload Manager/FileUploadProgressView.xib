@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,19 +22,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7TX-tq-vhb">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                    <rect key="frame" x="16" y="0.0" width="382" height="92"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9S-Ss-YHx">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="30"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MWH-pY-AkA">
-                            <rect key="frame" x="0.0" y="40" width="414" height="3"/>
+                            <rect key="frame" x="0.0" y="40" width="382" height="3"/>
                         </progressView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Envoi de la vidéo en cours" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYt-SG-NbZ">
-                            <rect key="frame" x="0.0" y="53" width="414" height="39"/>
+                            <rect key="frame" x="0.0" y="53" width="382" height="39"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -44,9 +44,9 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="7TX-tq-vhb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GHs-O7-zrD"/>
+                <constraint firstItem="7TX-tq-vhb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="GHs-O7-zrD"/>
                 <constraint firstAttribute="bottom" secondItem="7TX-tq-vhb" secondAttribute="bottom" id="OOU-HQ-GBB"/>
-                <constraint firstAttribute="trailing" secondItem="7TX-tq-vhb" secondAttribute="trailing" id="Rao-BL-7vB"/>
+                <constraint firstAttribute="trailing" secondItem="7TX-tq-vhb" secondAttribute="trailing" constant="16" id="Rao-BL-7vB"/>
                 <constraint firstItem="7TX-tq-vhb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uEZ-ON-yE2"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

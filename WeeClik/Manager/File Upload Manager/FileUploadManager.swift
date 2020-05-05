@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ZAlertView
 
-final class FileUploadManager: NSObject {
+final class FileUploadManager: Scheduler {
     static let shared = FileUploadManager()
     
     enum Position {
@@ -21,32 +22,48 @@ final class FileUploadManager: NSObject {
         return currentProgress >= 1.0
     }
     
-    private var preferedPosition: Position = .top
+    private var preferedPosition: Position {
+        guard let parent = UIApplication.topViewController(), (parent as? AccueilCommerces) == nil else {
+            return .bottom
+        }
+        return .top
+    }
     private var animationDuration: TimeInterval = 0.25
     private var progressView: FileUploadProgressView = FileUploadProgressView(frame: .zero)
-    private var parentViewController: UIViewController?
-    private var margin: CGFloat = 8
+    private var parentViewController: UIViewController? {
+        return UIApplication.topViewController()
+    }
     private var progressViewHeight: CGFloat = 92
+    private var topSafeMargin: CGFloat {
+        guard let parent = UIApplication.topViewController(), (parent as? AccueilCommerces) != nil else { return 0 }
+        return 44
+    }
     private var bottomSafeMargin: CGFloat {
         guard let firstWindow = UIApplication.shared.windows.first else { return 0 }
-        if #available(iOS 11.0, *) {
-            if let bottomInset = progressView.superview?.safeAreaInsets.bottom {
-                return bottomInset + margin * 4
-            }
-        }
-        return firstWindow.safeAreaInsets.bottom + margin * 4
+        return firstWindow.safeAreaInsets.bottom
     }
-    private var isPresented = false
+    private var isPresented: Bool {
+        guard let parent = parentViewController else {return false}
+        
+        switch preferedPosition {
+        case .top:
+            return progressView.frame.origin.y >= 0
+        case .bottom:
+            return progressView.frame.origin.y > parent.view.frame.size.height
+        }
+    }
 
-    private override init() {}
+    private override init() {
+        super.init()
+        self.start()
+    }
 
     func updateProgress(to number: Float) {
+        guard let parent = parentViewController, (parent as? ZAlertView) == nil else { return }
+        initProgressView(with: .default)
+        
         let progress = number / 100
         currentProgress = progress
-        
-        progressView.progressBar.progress = progress
-        progressView.progressIndicatorLabel.text = "\(Int(number))%".localized()
-        progressView.progressDescriptionLabel.text = "Envoi de votre vidéo en cours".localized()
         
         if didFinishUploading {
             progressView.progressDescriptionLabel.text = "Envoi de votre vidéo terminé".localized()
@@ -55,19 +72,13 @@ final class FileUploadManager: NSObject {
                 self.hideProgressView()
                 self.updateProgress(to: 0)
             }
+        } else {
+            progressView.progressBar.progress = progress
+            progressView.progressIndicatorLabel.text = "\(Int(number))%".localized()
+            progressView.progressDescriptionLabel.text = "Envoi de votre vidéo en cours".localized()
+            
+            showProgressView()
         }
-    }
-    
-    func show(in parentViewController: UIViewController, from position: Position = .top, style: UIProgressView.Style = .default) {
-        guard let parent = UIWindow.getVisibleViewControllerFrom(parentViewController), isPresented == false else { return }
-        self.parentViewController = parent
-        preferedPosition = position
-        isPresented = true
-        
-        // Init base on position
-        initProgressView(with: style)
-        // Show with animation
-        showProgressView()
     }
 }
 
@@ -75,6 +86,11 @@ final class FileUploadManager: NSObject {
 extension FileUploadManager {
     private func initProgressView(with style: UIProgressView.Style) {
         guard let parent = parentViewController else { return }
+        
+        for view in parent.view.subviews where (view as? FileUploadProgressView) != nil {
+            // Progress bar already presented
+            return
+        }
         
         switch preferedPosition {
         case .top:
@@ -94,13 +110,14 @@ extension FileUploadManager {
     }
     
     private func showProgressView() {
+        guard let parent = parentViewController else { return }
         let frame = progressView.frame
         var newFrame = frame
         switch preferedPosition {
         case .top:
-            newFrame.origin.y = 0
+            newFrame.origin.y = topSafeMargin
         case .bottom:
-            newFrame.origin.y -= (progressViewHeight * 2) - bottomSafeMargin
+            newFrame.origin.y = parent.view.frame.size.height - progressViewHeight - bottomSafeMargin
         }
         
         // Animation
@@ -125,8 +142,21 @@ extension FileUploadManager {
         UIView.animate(withDuration: animationDuration, animations: {
             self.progressView.frame = newFrame
         }, completion: { (_ completed) in
-            self.isPresented = false
             self.progressView.removeFromSuperview()
         })
+    }
+}
+
+// Schedule appearing
+extension FileUploadManager: Schedulable {
+    var block: () -> Void { {
+            if self.didFinishUploading == false, self.currentProgress != 0.0, self.isPresented == false {
+                self.showProgressView()
+            }
+        }
+    }
+    
+    var timeInterval: TimeInterval {
+        didFinishUploading ? 60 : 1
     }
 }

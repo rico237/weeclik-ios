@@ -128,10 +128,10 @@ extension AjoutCommerceVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let currentUploadProgress = FileUploadManager.shared.currentProgress
-        if currentUploadProgress != 0.0 {
-            FileUploadManager.shared.show(in: self)
-        }
+//        let currentUploadProgress = FileUploadManager.shared.currentProgress
+//        if currentUploadProgress != 0.0 {
+//            FileUploadManager.shared.show()
+//        }
         
         if let comm = UserDefaults.standard.object(forKey: "lastCommerce") as? Commerce {
             self.loadedFromBAAS = false
@@ -416,7 +416,7 @@ extension AjoutCommerceVC {
                                 }
                             }, progressBlock: { (progress32) in
                                 self.shdDismissAfterSave = false
-                                FileUploadManager.shared.show(in: self, from: .top)
+//                                FileUploadManager.shared.show()
                                 FileUploadManager.shared.updateProgress(to: Float(progress32))
                                 
                                 if Int(progress32) % 25 == 0 {

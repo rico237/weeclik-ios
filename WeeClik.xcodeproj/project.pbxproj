@@ -132,6 +132,8 @@
 		1F29990A23BBB8D700D638FC /* LatestKnowLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */; };
 		1F29990C23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
 		1F29990D23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
+		1F39197A245F1A38009F24C4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F391979245F1A38009F24C4 /* Scheduler.swift */; };
+		1F39197B245F1A38009F24C4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F391979245F1A38009F24C4 /* Scheduler.swift */; };
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
 		1F3BE2BA235B321B00E185D2 /* ParseLoginSignupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */; };
@@ -306,6 +308,7 @@
 		1F29990523BA703A00D638FC /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestKnowLocationManager.swift; sourceTree = "<group>"; };
 		1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Dictionary.swift"; sourceTree = "<group>"; };
+		1F391979245F1A38009F24C4 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Scheduler.swift; path = "Manager/File Upload Manager/Scheduler.swift"; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
 		1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseLoginSignupHelper.swift; sourceTree = "<group>"; };
@@ -490,6 +493,7 @@
 		1F0857081F2D676900932929 /* Helper & Secrets */ = {
 			isa = PBXGroup;
 			children = (
+				1F391979245F1A38009F24C4 /* Scheduler.swift */,
 				1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */,
 				1F7DF88B1F21F26E005B780A /* HelperAndKeys.swift */,
 				1F8E468A244BAB8E009EA6E1 /* CustomError.swift */,
@@ -1469,6 +1473,7 @@
 				1F9357362360C2B20006A234 /* Constants.swift in Sources */,
 				1F0E8633238AC289003124FD /* Extension+UIApplication.swift in Sources */,
 				1F03ABBE2360C18B0027D6EF /* DescriptionAndPromotionsTVCell.swift in Sources */,
+				1F39197B245F1A38009F24C4 /* Scheduler.swift in Sources */,
 				1F87FB712389885C00B7A093 /* Extension+Notification.swift in Sources */,
 				1F03ABC02360C18B0027D6EF /* HelperAndKeys.swift in Sources */,
 				1F03ABC12360C18B0027D6EF /* MailFormValidationError.swift in Sources */,
@@ -1559,6 +1564,7 @@
 				1F9357332360C2B20006A234 /* Constants.swift in Sources */,
 				1F0E8632238AC289003124FD /* Extension+UIApplication.swift in Sources */,
 				1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */,
+				1F39197A245F1A38009F24C4 /* Scheduler.swift in Sources */,
 				1F87FB702389885C00B7A093 /* Extension+Notification.swift in Sources */,
 				1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */,
 				1F6AF4852358EB7F00F057C7 /* MailFormValidationError.swift in Sources */,

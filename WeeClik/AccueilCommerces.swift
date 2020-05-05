@@ -203,10 +203,10 @@ extension AccueilCommerces {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let currentUploadProgress = FileUploadManager.shared.currentProgress
-        if currentUploadProgress != 0.0 {
-            FileUploadManager.shared.show(in: self)
-        }
+//        let currentUploadProgress = FileUploadManager.shared.currentProgress
+//        if currentUploadProgress != 0.0 {
+//            FileUploadManager.shared.show()
+//        }
     }
 }
 // MARK: Routing & Navigation Bar functions
