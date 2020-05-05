@@ -13,7 +13,7 @@ import SwiftDate
 import Localize_Swift
 
 class MonCompteVC: UIViewController {
-    var isPro = false                   // Savoir si l'utilisateur est de type pro
+    var isPro = true                    // Savoir si l'utilisateur est de type pro
     var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
     var commerces: [PFObject]! = []     // La liste des commerces dans le BAAS
     var partagesDates = [Date]()        // Date des partages
@@ -447,7 +447,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
 
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
         if let error = error {
-            print("Erreur de login : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+            Log.all.error("Erreur de login : \n\(error.debug)")
             logInController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(),
                                                  title: "Erreur lors de la connexion".localized(),
                                                  completionAction: nil)
@@ -464,7 +464,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
 
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {
         if let error = error {
-            print("Erreur de signup : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+            Log.all.error("Erreur de login : \n\(error.debug)")
             signUpController.showAlertWithMessage(message: "Le mot de passe / email n'est pas valide".localized(),
                                                   title: "Erreur lors de la connexion".localized(),
                                                   completionAction: nil)
@@ -473,7 +473,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
 
     // Fonction pour definir des mots de passe trop faibles
     func signUpViewController(_ signUpController: PFSignUpViewController, shouldBeginSignUp info: [String: String]) -> Bool {
-        print("Aucune conditions particulières pour le mot de passe")
+        Log.all.info("Aucune conditions particulières pour le mot de passe")
         // ["username": "jilji@gmail.com", "password": "es", "additional": "es"]
 
         if (info["username"]!).isValidEmail() {
@@ -502,7 +502,7 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
 
         graphRequest.start(completionHandler: { (_, result, error) in
             if let error = error {
-                print("Some other error : \nCode (\(error.code))\n     -> \(error.localizedDescription)")
+                Log.all.error("Erreur de login : \n\(error.debug)")
                 self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(),
                                           title: "Connexion Facebook échoué".localized(),
                                           completionAction: nil)

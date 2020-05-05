@@ -94,7 +94,7 @@ class AccueilCommerces: UIViewController {
 //        self.refreshControl.addTarget(self, action: #selector(refreshCollectionData(_:)), for: .valueChanged)
         
 //        self.collectionView.refreshControl = refreshControl
-        self.collectionView.backgroundColor  = Colors.backgroundColor
+        self.collectionView.backgroundColor  = .background
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
 
@@ -199,6 +199,15 @@ extension AccueilCommerces {
         isLoadingCommerces = false
         refreshControl.endRefreshing()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        let currentUploadProgress = FileUploadManager.shared.currentProgress
+//        if currentUploadProgress != 0.0 {
+//            FileUploadManager.shared.show()
+//        }
+    }
 }
 // MARK: Routing & Navigation Bar functions
 extension AccueilCommerces {
@@ -276,7 +285,6 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
                 // Dans l'index
                 collectionView.register(UINib(nibName: "CommerceCVC", bundle: nil), forCellWithReuseIdentifier: "commerceCell")
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commerceCell", for: indexPath) as! CommerceCVC
-                let textColor = UIColor(red: 0.11, green: 0.69, blue: 0.96, alpha: 1.00)
 
                 let comm = self.commerces[indexPath.row]
                 // Ajout du contenu (valeures)
@@ -285,7 +293,7 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
 
                 let distanceFromUser = comm.calculDistanceEntreDeuxPoints(location: self.latestLocationForQuery)
                 comm.distanceFromUser = distanceFromUser
-                cell.imageDistance.tintColor = textColor
+                cell.imageDistance.tintColor = .main
 
                 if self.locationGranted {
                     // Autorisation de position
@@ -297,9 +305,9 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
                 cell.distanceLabel.text = cell.distanceLabel.text?.localized()
                 
                 // Ajout de couleur
-                cell.nomCommerce.textColor = textColor
-                cell.nombrePartageLabel.textColor = textColor
-                cell.distanceLabel.textColor = textColor
+                cell.nomCommerce.textColor = .main
+                cell.nombrePartageLabel.textColor = .main
+                cell.distanceLabel.textColor = .main
 
                 if let imageThumbnailFile = comm.thumbnail {
                     cell.thumbnailPicture.sd_setImage(with: URL(string: imageThumbnailFile.url!))

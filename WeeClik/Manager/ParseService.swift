@@ -72,7 +72,6 @@ class ParseService: NSObject {
     // Update geolocation of a commerce based on its addresse
     func updateGeoLocation(forCommerce commerce: Commerce, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
         // Update location from adresse
-
         let query = PFQuery(className: "Commerce")
         query.getObjectInBackground(withId: commerce.objectId) { (parseObject, error) in
             if let parseObject = parseObject {
