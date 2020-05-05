@@ -13,7 +13,7 @@ import SwiftDate
 import Localize_Swift
 
 class MonCompteVC: UIViewController {
-    var isPro = false                   // Savoir si l'utilisateur est de type pro
+    var isPro = true                    // Savoir si l'utilisateur est de type pro
     var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
     var commerces: [PFObject]! = []     // La liste des commerces dans le BAAS
     var partagesDates = [Date]()        // Date des partages
@@ -48,15 +48,6 @@ class MonCompteVC: UIViewController {
                 self.currentUser = user
             }
         })
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        let currentUploadProgress = FileUploadManager.shared.currentProgress
-//        if currentUploadProgress != 0.0 {
-//            FileUploadManager.shared.show()
-//        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {

@@ -70,7 +70,6 @@ final class FileUploadManager: Scheduler {
             // Wait 2 seconds and hide
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 self.hideProgressView()
-                self.updateProgress(to: 0)
             }
         } else {
             progressView.progressBar.progress = progress
@@ -107,6 +106,7 @@ extension FileUploadManager {
         }
         parent.view.addSubview(progressView)
         progressView.progressBar.progressViewStyle = style
+        currentProgress = 0.0
     }
     
     private func showProgressView() {
