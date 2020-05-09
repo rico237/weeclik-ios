@@ -169,6 +169,13 @@ extension MonCompteVC {
     }
     
     func updateUI() {
+        guard currentUser != nil else {
+            let buttonHeight  = nouveauCommerceButton.frame.size.height
+            let bottomPadding = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
+            bottomButtonConstraint.constant = -buttonHeight - bottomPadding
+            return
+        }
+        
         if leftButtonConstraint != nil && rightButtonConstraint != nil {
             leftButtonConstraint.constant  = HelperAndKeys.isPhoneX ? 0 : 0
             rightButtonConstraint.constant = HelperAndKeys.isPhoneX ? 0 : 0
