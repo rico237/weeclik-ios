@@ -519,6 +519,8 @@ extension DetailCommerceViewController: MFMailComposeViewControllerDelegate, MFM
 
             // Present the view controller modally.
             present(composeVC, animated: true, completion: nil)
+        } else if let viewController = UIApplication.topViewController() {
+            viewController.showBasicToastMessage(withMessage: "Votre appareil ne permet pas d'envoyer de mail".localized(), state: .error)
         }
     }
 

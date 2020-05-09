@@ -70,6 +70,10 @@ class HelperAndKeys {
     static func callNumer(phone: String) {
         if let url = URL(string: "telprompt://\(phone)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
+        } else if let viewController = UIApplication.topViewController() {
+            viewController.showAlertWithMessage(message: "Le téléphone du commerçant renseigné ne permet pas de passer d'appel".localized(),
+                                                title: "Téléphone invalide".localized(),
+                                                completionAction: nil)
         }
     }
 
