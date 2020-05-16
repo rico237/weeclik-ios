@@ -199,15 +199,6 @@ extension AccueilCommerces {
         isLoadingCommerces = false
         refreshControl.endRefreshing()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        let currentUploadProgress = FileUploadManager.shared.currentProgress
-//        if currentUploadProgress != 0.0 {
-//            FileUploadManager.shared.show()
-//        }
-    }
 }
 // MARK: Routing & Navigation Bar functions
 extension AccueilCommerces {
