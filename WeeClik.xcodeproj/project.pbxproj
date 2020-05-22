@@ -932,7 +932,7 @@
 					};
 					1FA473291F1EE7E400D2A306 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = MXDP2U2G67;
+						DevelopmentTeam = 483576MP8J;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1784,7 +1784,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MXDP2U2G67;
+				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1807,7 +1807,7 @@
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = MXDP2U2G67;
+				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
