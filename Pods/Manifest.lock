@@ -158,6 +158,7 @@ PODS:
     - Parse/Core
   - Parse/UI (1.18.0):
     - Parse/Core
+  - PDFReader (2.5.1)
   - PhoneNumberKit (3.2.0):
     - PhoneNumberKit/PhoneNumberKitCore (= 3.2.0)
     - PhoneNumberKit/UIKit (= 3.2.0)
@@ -233,6 +234,7 @@ DEPENDENCIES:
   - Parse
   - Parse/FacebookUtils
   - Parse/UI
+  - PDFReader
   - PhoneNumberKit (~> 3.0)
   - ReachabilitySwift
   - SDWebImage (~> 4.4.7)
@@ -295,6 +297,7 @@ SPEC REPOS:
     - Motion
     - nanopb
     - Parse
+    - PDFReader
     - PhoneNumberKit
     - PromisesObjC
     - Protobuf
@@ -399,6 +402,7 @@ SPEC CHECKSUMS:
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
+  PDFReader: 2c4a845d0560f33221cf911516e3b700967680f6
   PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
@@ -422,6 +426,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 1d23198ad0dc969c947d795b99902a0ae77a240c
+PODFILE CHECKSUM: 51325336485484c47de45d9f530ba79d35aedb70
 
 COCOAPODS: 1.9.1

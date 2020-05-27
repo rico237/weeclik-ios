@@ -138,6 +138,10 @@
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
 		1F3BE2BA235B321B00E185D2 /* ParseLoginSignupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */; };
 		1F3C5B1F22A2FBC700904317 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C5B1E22A2FBC700904317 /* MailHelper.swift */; };
+		1F3DE892247EFE3E00ECC495 /* cgv_cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DE890247EFE3C00ECC495 /* cgv_cgu.pdf */; };
+		1F3DE893247EFE3E00ECC495 /* cgv_cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DE890247EFE3C00ECC495 /* cgv_cgu.pdf */; };
+		1F3DE894247EFE3E00ECC495 /* rgpd.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DE891247EFE3E00ECC495 /* rgpd.pdf */; };
+		1F3DE895247EFE3E00ECC495 /* rgpd.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DE891247EFE3E00ECC495 /* rgpd.pdf */; };
 		1F3DEAF222C039F8008F92A5 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */; };
 		1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEA1F269E26004D5F4C /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1F403B0A1F9B9B2D00884E52 /* MonCompteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */; };
@@ -313,6 +317,8 @@
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
 		1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseLoginSignupHelper.swift; sourceTree = "<group>"; };
 		1F3C5B1E22A2FBC700904317 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
+		1F3DE890247EFE3C00ECC495 /* cgv_cgu.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cgv_cgu.pdf; sourceTree = "<group>"; };
+		1F3DE891247EFE3E00ECC495 /* rgpd.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = rgpd.pdf; sourceTree = "<group>"; };
 		1F3DEAF122C039F8008F92A5 /* ParseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonCompteVC.swift; sourceTree = "<group>"; };
 		1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseErrorCodeHandler.swift; sourceTree = "<group>"; };
@@ -545,6 +551,7 @@
 				1F8F0880223F120F008177C4 /* Lottie Assets */,
 				1F16BD22224CC66E0007F6F0 /* WeeClik.entitlements */,
 				1FA473391F1EE7E400D2A306 /* Info.plist */,
+				1F3DE88F247EFE1900ECC495 /* PDF */,
 				1F08570D1F2D977600932929 /* UserLocation.gpx */,
 				24FAB71B23F5736200749DB5 /* Weeclik */,
 				24FAB71C23F573BD00749DB5 /* Weeclik-DEV */,
@@ -602,6 +609,15 @@
 				24FAB71523F5723900749DB5 /* ConfigurationManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		1F3DE88F247EFE1900ECC495 /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+				1F3DE890247EFE3C00ECC495 /* cgv_cgu.pdf */,
+				1F3DE891247EFE3E00ECC495 /* rgpd.pdf */,
+			);
+			path = PDF;
 			sourceTree = "<group>";
 		};
 		1F5681E91F2B4FA300B1BAC8 /* Libraries */ = {
@@ -1002,9 +1018,11 @@
 				1F03ABF52360C18B0027D6EF /* Assets.xcassets in Resources */,
 				1F03ABF72360C18B0027D6EF /* GoogleService-Info.plist in Resources */,
 				1F03ABF82360C18B0027D6EF /* CategoriesCollectionViewCell.xib in Resources */,
+				1F3DE893247EFE3E00ECC495 /* cgv_cgu.pdf in Resources */,
 				1F03ABF92360C18B0027D6EF /* Login.storyboard in Resources */,
 				1F03ABFA2360C18B0027D6EF /* BebasNeue Light.ttf in Resources */,
 				1F03ABFB2360C18B0027D6EF /* SearchCell.xib in Resources */,
+				1F3DE895247EFE3E00ECC495 /* rgpd.pdf in Resources */,
 				1F03ABFC2360C18B0027D6EF /* Test.storyboard in Resources */,
 				1F03ABFD2360C18B0027D6EF /* OpenSans-LightItalic.ttf in Resources */,
 				1F03ABFE2360C18B0027D6EF /* OpenSans-Semibold.ttf in Resources */,
@@ -1019,10 +1037,12 @@
 				1F08570E1F2D977600932929 /* UserLocation.gpx in Resources */,
 				1F7331DC2052BA4300582A7B /* PhotosVideosCollectionCell.xib in Resources */,
 				1FE67A8B21C7A5A400EDBE05 /* CommerceCVC.xib in Resources */,
+				1F3DE892247EFE3E00ECC495 /* cgv_cgu.pdf in Resources */,
 				1FA9BFE21F269CB2004D5F4C /* OpenSans-ExtraBold.ttf in Resources */,
 				1FA9BFE51F269CB2004D5F4C /* OpenSans-Light.ttf in Resources */,
 				1F08570C1F2D960400932929 /* Pacifico.ttf in Resources */,
 				1FEBF4621F254F3D00146525 /* BebasNeue Bold.ttf in Resources */,
+				1F3DE894247EFE3E00ECC495 /* rgpd.pdf in Resources */,
 				1FA9BFE41F269CB2004D5F4C /* OpenSans-Italic.ttf in Resources */,
 				1F9357392360CA1C0006A234 /* LaunchScreen.storyboard in Resources */,
 				24FAB71923F5729000749DB5 /* configuration.json in Resources */,
@@ -1106,6 +1126,7 @@
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
+				"${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
@@ -1155,6 +1176,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDFReader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
@@ -1314,6 +1336,7 @@
 				"${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
+				"${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
@@ -1363,6 +1386,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Localize_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDFReader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",

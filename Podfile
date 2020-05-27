@@ -37,7 +37,8 @@ def projectPods
     
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'
-    
+    # PDF Reader
+    pod 'PDFReader'
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 5.1'
     # Carrousel de démo à la connexion
