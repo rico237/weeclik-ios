@@ -40,7 +40,9 @@ class MotDePasseVC: UIViewController {
             user.password = newPasswordTF.text
             user.saveInBackground()
             // Affiche un message de confirmation
-            let alert = UIAlertController(title: "Modification enregistré".localized(), message: "Votre nouveau mot de passe à bien été modifié".localized(), preferredStyle: .alert)
+            let alert = UIAlertController(title: "Modification enregistré".localized(),
+                                          message: "Votre nouveau mot de passe à bien été modifié".localized(),
+                                          preferredStyle: .alert)
             let action = UIAlertAction(title: "Ok".localized(), style: .default, handler: { (_) in
                 self.navigationController?.popToRootViewController(animated: true)
             })
@@ -65,7 +67,9 @@ class MotDePasseVC: UIViewController {
             return
         }
         PFUser.requestPasswordResetForEmail(inBackground: mail)
-        showAlertWithMessage(message: "Un lien pour réinitialiser votre mot de passe vous à été envoyé sur la boite mail associé à votre compte".localized(), title: "Demande envoyé".localized(), completionAction: nil)
+        showAlertWithMessage(message: "Un lien pour réinitialiser votre mot de passe vous à été envoyé sur la boite mail associé à votre compte".localized(),
+                             title: "Demande envoyé".localized(),
+                             completionAction: nil)
     }
 
 //    @objc func textFieldDidChange(_ textField: UITextField) {

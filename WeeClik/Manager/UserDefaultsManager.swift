@@ -9,23 +9,38 @@
 // swiftlint:disable force_cast
 import UIKit
 
-/// <#Description#>
-enum UserDefaultsKeys {
+/// Different keys of local data
+private enum UserDefaultsKeys {
     static let kGroupePartage = "listOfGroupePartage_key"
+    static let kUserPreferences = "UserPreferences_key"
 }
 
-/// <#Description#>
-class UserDefaultsManager: NSObject {
+/// Class managing local storage of data
+final class UserDefaultsManager: NSObject {
     public static let shared = UserDefaultsManager()
-    private let userStandard = UserDefaults.standard
+    private static let userStandard = UserDefaults.standard
     private override init() {}
+}
 
+// MARK: User preferences
+extension UserDefaultsManager {
+    struct UserPreferences {
+        // RGPD
+        static var rgpd: Bool {
+            get { userStandard.bool(forKey: UserDefaultsKeys.kUserPreferences) }
+            set { userStandard.set(newValue, forKey: UserDefaultsKeys.kUserPreferences) }
+        }
+    }
+}
+
+// MARK: Groupe partage
+extension UserDefaultsManager {
     /// <#Description#>
     /// - Parameter groupe: <#groupe description#>
     func addSharingGroup(groupe: GroupePartage) {
         var groups = self.getGroupesPartage()
         groups.append(groupe)
-        userStandard.set( NSKeyedArchiver.archivedData(withRootObject: groups), forKey: UserDefaultsKeys.kGroupePartage)
+        UserDefaultsManager.userStandard.set( NSKeyedArchiver.archivedData(withRootObject: groups), forKey: UserDefaultsKeys.kGroupePartage)
     }
 
     /// <#Description#>
@@ -33,11 +48,11 @@ class UserDefaultsManager: NSObject {
     func removeSharingGroup(atIndex index: Int) {
         var groups = self.getGroupesPartage()
         groups.remove(at: index)
-        userStandard.set( NSKeyedArchiver.archivedData(withRootObject: groups), forKey: UserDefaultsKeys.kGroupePartage)
+        UserDefaultsManager.userStandard.set( NSKeyedArchiver.archivedData(withRootObject: groups), forKey: UserDefaultsKeys.kGroupePartage)
     }
 
     func getGroupesPartage() -> [GroupePartage] {
-        guard let encodedData = userStandard.data(forKey: UserDefaultsKeys.kGroupePartage) else {
+        guard let encodedData = UserDefaultsManager.userStandard.data(forKey: UserDefaultsKeys.kGroupePartage) else {
             return []
         }
         return NSKeyedUnarchiver.unarchiveObject(with: encodedData) as! [GroupePartage]

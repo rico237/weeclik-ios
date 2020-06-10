@@ -15,6 +15,19 @@ import Foundation
  * - author: Herrick Wolber
  */
 struct Constants {
+    
+    // MARK: App info related
+    struct App {
+        static let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        static let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+        
+        static let debugBuildVersion = """
+        version: \(Constants.App.version ?? "Unknown")\
+        (\(Constants.App.build ?? "Unknown"))
+        """
+        
+        static let readableBuildVersion = "v\(Constants.App.version ?? "0")(\(Constants.App.build ?? "0"))"
+    }
 
     // MARK: Server related
     struct Server {
@@ -23,20 +36,39 @@ struct Constants {
          
          - Returns: The API Endpoint
          */
-        static func serverURL() -> String {
-            #if DEVELOPMENT
-            // Localhost partage de connexion iphone 7+
-            // return "http://172.20.10.4:1337/parse"
+        static let serverURL = "\(ConfigurationManager.shared.api.baseURL)\(ConfigurationManager.shared.endPoints.server)"
+        
+        /**
+         Get dashboard enpoint based on environment (Development / Production)
+         
+         - Returns: The dashboard Endpoint
+         */
+        static let dashboardURL = "\(ConfigurationManager.shared.api.baseURL)\(ConfigurationManager.shared.endPoints.dashboard)"
+        
+        /**
+        Get base URL (Development / Production)
+        
+        - Returns: Base URL
+        */
+        static var baseURL: String {
+            // Localhost partage de connexion iphone
+            // return "http://172.20.10.4:1337"
             // Localhost wifi maison
-            // return "http://192.168.1.30:1337/parse"
-            return "https://weeclik-server-dev.herokuapp.com/parse"
-            #else
-            return "https://weeclik-server.herokuapp.com/parse"
-            #endif
+            // return "http://192.168.1.30:1337"
+            return ConfigurationManager.shared.api.baseURL
         }
 
         /// Application Id, needed to connect to authenticate to server
-        static let serverAppId = "JVQZMCuNYvnecPWvWFDTZa8A"
+        static let serverAppId = ConfigurationManager.shared.api.appId
+    }
+    
+    struct WebApp {
+        static var url: String {
+            return ConfigurationManager.shared.api.webapp + "/"
+        }
+        static var sharingUrl: String {
+            return ConfigurationManager.shared.api.webapp + ConfigurationManager.shared.endPoints.commerce
+        }
     }
 
     // MARK: UserDefaults Keys
@@ -47,7 +79,28 @@ struct Constants {
         static let scheduleKey = "shedule_key"
         static let partageGroupKey = "partage_group_key"
     }
+}
 
+extension Constants {
+    struct MessageString {
+        static func partageMessage(commerceObject: Commerce) -> String {
+            return """
+                Salut, j'ai aimé « \(commerceObject.nom) », \
+                avec www.weeclik.com bénéficiez de remises.
+                Voir le détail du commerce ici :
+                    \(WebApp.sharingUrl)/\(commerceObject.objectId!)
+                """.localized()
+        }
+    }
+}
+
+extension Constants {
+    /// Enum representing Type of .plist we want to fetch (.firebase || .weeclik)
+    enum PlistType {
+        case firebase
+        case weeclik
+    }
+    
     // MARK: Plists files
     struct Plist: Codable {
         /**
@@ -64,20 +117,11 @@ struct Constants {
          - Returns: Object of type T stored for the corresponding key.
          */
         static func getDataForKey<T>(key: String, type: PlistType = .weeclik) -> T? {
-            var resource = ""
             switch type {
             case .weeclik:
-                #if DEVELOPMENT
-                resource = "Info"
-                #else
-                resource = "Info-DEV"
-                #endif
+                if let plist = Constants.Plist.getPlistDictionary(forName: "Info") { return plist[key] as? T }
             case .firebase:
-                resource = "GoogleService-Info"
-            }
-
-            if let plist = Constants.Plist.getPlistDictionary(forName: resource) {
-                return plist[key] as? T
+                if let plist = Constants.Plist.getPlistDictionary(forName: "GoogleService-Info") { return plist[key] as? T }
             }
             return nil
         }
@@ -95,27 +139,5 @@ struct Constants {
             }
             return nil
         }
-    }
-}
-
-extension Constants {
-    struct MessageString {
-        static func partageMessage(commerceObject: Commerce) -> String {
-            return """
-                Salut, j'ai aimé « \(commerceObject.nom) », avec Weeclik bénéficiez de remises.
-                Voir le détail du commerce ici :
-                    https://www.weeclik.com/commerce/\(commerceObject.objectId!)
-                """.localized()
-//            return "Salut, j’ai aimé \(commerceObject.nom), je te partage donc ce commerce situé à l’adresse : \n\(commerceObject.adresse) http://maps.google.com/maps?f=q&q=(\(commerceObject.location?.latitude ?? 0),\(commerceObject.location?.longitude ?? 0))".localized()
-//            "Voici les coordonées d'un super commerce que j'ai découvert : \n\n\(commerceObject.nom)\nTéléphone : \(commerceObject.tel)\nAdresse : \(commerceObject.adresse) \nURL : weeclik://\(commerceObject.objectId.description)"
-        }
-    }
-}
-
-extension Constants.Plist {
-    /// Enum representing Type of .plist we want to fetch (.firebase || .weeclik)
-    enum PlistType {
-        case firebase
-        case weeclik
     }
 }

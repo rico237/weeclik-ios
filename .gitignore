@@ -86,3 +86,5 @@ WeeClik.xcworkspace/xcuserdata/rico.xcuserdatad/*.xcuserstate
 *.env
 *.env.default
 *.env.development
+Weeclik.beaver/
+*.xcbkptlist

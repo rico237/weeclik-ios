@@ -65,7 +65,7 @@ extension String {
 
     // Valid phone
     func isValidPhone() -> Bool {
-        let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
+        let phoneRegex = "^[0-9+]{0,1}[0-9]{5,16}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: self)
     }
@@ -103,6 +103,17 @@ extension Error {
     var code: Int { return (self as NSError).code }
     var domain: String { return (self as NSError).domain }
     var desc: String { return (self as NSError).description }
+    var debug: String {
+        return """
+        
+            Error description :
+                Code: \(self.code)
+                Description: \(self.localizedDescription)
+                Desc: \(self.desc)
+                Domain: \(self.domain)
+        
+        """
+    }
 }
 
 extension TimeInterval {
@@ -150,7 +161,7 @@ extension UIDevice {
             sysctlbyname("hw.machine", &machine, &size, nil, 0)
             modelIdentifier = String(cString: machine)
         }
-        print("Model identiier : \(modelIdentifier)")
+        Log.console.verbose("Model identiier : \(modelIdentifier)")
         return modelIdentifier == "iPhone10,3" || modelIdentifier == "iPhone10,6" || modelIdentifier.starts(with: "iPhone11,") || modelIdentifier.starts(with: "iPhone12,")
     }
     
@@ -255,8 +266,8 @@ extension UIView {
             topInset = insets.top
             bottomInset = insets.bottom
 
-            print("Top: \(topInset)")
-            print("bottom: \(bottomInset)")
+            Log.console.verbose("Top: \(topInset)")
+            Log.console.verbose("bottom: \(bottomInset)")
         }
 
         translatesAutoresizingMaskIntoConstraints = false

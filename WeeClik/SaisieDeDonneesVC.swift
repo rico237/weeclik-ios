@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import SVProgressHUD
+import Loaf
 
 class SaisieDeDonneesVC: UIViewController {
     var isPro: Bool!
@@ -25,7 +26,6 @@ class SaisieDeDonneesVC: UIViewController {
         super.viewDidLoad()
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.setDefaultStyle(.dark)
-        SVProgressHUD.show(withStatus: "Sauvegarde des informations".localized())
 
         if let user = currentUser {
             if PFFacebookUtils.isLinked(with: user) {
@@ -46,30 +46,44 @@ class SaisieDeDonneesVC: UIViewController {
         mailTF.isEnabled = false
         mailTF.isUserInteractionEnabled = false
     }
+    
+    func hideViewController() {
+//        profil_commerce
+        if let navigation = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "profil_commerce") as? UINavigationController{
+            presentFullScreen(viewController: navigation, animated: true, completion: nil)
+        }
+    }
 
     @IBAction func saveInfos(_ sender: Any) {
-        if let user = currentUser {
-            if let name = nomPrenomTF.text { user["name"] = name }
-            user["mes_partages"] = []
-            user["isPro"] = self.isPro
-            user["inscriptionDone"] = true
-            user["mes_partages_dates"] = []
+        guard let user = currentUser else {return}
+        
+        SVProgressHUD.show(withStatus: "Sauvegarde des informations".localized())
+        if let name = nomPrenomTF.text { user["name"] = name }
+        user["isPro"] = self.isPro
+        user["inscriptionDone"] = true
 
-            //TODO: utiliser la valeure success pour afficher un message d'erreur
-            user.saveInBackground { (success, error) in
-                if success {
-                    SVProgressHUD.dismiss(withDelay: 1, completion: {
-                        print("succesful signup : \(user.description)")
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                } else {
-                    SVProgressHUD.dismiss(withDelay: 1, completion: {
-                        if let error = error {
-                            print("Error de sauvegarde utilisateur : \n\t-> Code : \(error.code)\n\t-> Description : \(error.desc)")
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    })
-                }
+        user.saveInBackground { (success, error) in
+            if success {
+                SVProgressHUD.dismiss(withDelay: 1, completion: {
+                    self.showBasicToastMessage(withMessage: "Profil sauvegardé avec succès", state: .success)
+                    Log.all.info("succesful signup : \(user.description)")
+                    self.hideViewController()
+                })
+            } else {
+                SVProgressHUD.dismiss(withDelay: 1, completion: {
+                    if let error = error {
+                        self.showBasicToastMessage(withMessage: "Erreur de sauvegarde de votre profil. Réessayer ultérieurement",
+                                                   state: .error)
+                        Log.all.warning("""
+                            
+                            Error de sauvegarde utilisateur :
+                                Code : \(error.code)
+                                Description : \(error.desc)
+                            
+                        """)
+                        self.hideViewController()
+                    }
+                })
             }
         }
     }
@@ -79,5 +93,17 @@ class SaisieDeDonneesVC: UIViewController {
            let destination = navigation.viewControllers[0] as? MonCompteVC {
             destination.isPro = self.isPro
         }
+    }
+}
+
+final class SignUpViewController: PFSignUpViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.signUpView?.logo = UIImageView(image: UIImage(named: "icon"))
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.signUpView?.logo?.frame = CGRect(x: (self.signUpView?.logo?.frame.origin.x)!, y: (self.signUpView?.logo?.frame.origin.y)! - 83, width: 167, height: 167)
     }
 }

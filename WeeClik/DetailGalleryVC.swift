@@ -69,7 +69,7 @@ class DetailGalleryVC: UIViewController {
 
         queryPhotos.findObjectsInBackground(block: { (objects, error) in
             if let error = error {
-                print("Erreur Chargement Photos DetailGalleryVC")
+                Log.all.error("Erreur Chargement Photos DetailGalleryVC")
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else {
                 // Success
@@ -95,7 +95,7 @@ class DetailGalleryVC: UIViewController {
 
         queryVideos.findObjectsInBackground { (objects, error) in
             if let error = error {
-                print("Erreur Chargement Videos DetailGalleryVC")
+                Log.all.error("Erreur Chargement Videos DetailGalleryVC")
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else {
                 self.videos = objects ?? []
@@ -188,9 +188,9 @@ extension DetailGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource,
             // Videos
             let parseObject = self.videos[indexPath.row]
             let videoFile = parseObject["video"] as! PFFileObject
+            
             // TODO : Optimize for NS/InputStream object reading = charge video section by section = better loading
             // let v = videoFile.getDataStreamInBackground()
-
             if let url = URL(string: videoFile.url!) {
                 showVideoPlayerWithVideoURL(withUrl: url)
             } else {

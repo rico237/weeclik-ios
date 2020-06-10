@@ -15,7 +15,7 @@ public class Commerce: NSObject, NSCoding {
     // Custom properties
     var nom: String             = ""
     var statut: StatutType      = .unknown
-    var type: String            = ""
+    var type: CommerceType      = .autre
     var partages: Int           = 0
     var mail: String            = ""
     var adresse: String         = ""
@@ -38,6 +38,25 @@ public class Commerce: NSObject, NSCoding {
     var objectId: String! = "-1"
     var createdAt: Date?
     var updatedAt: Date?
+    
+    override public var description: String {
+        return """
+        Commerce:
+            Id: \(objectId ?? "Unknown")
+            Nom: \(nom)\t Type: \(type.rawValue)
+            Partages: \(partages)\t Mail: \(mail)
+            Adresse: \(adresse)\t Tel: \(tel)
+            Web: \(siteWeb)\t Promotions: \(promotions)
+            Description: \(descriptionO)\t Brouillon: \(brouillon ? "Yes" : "No")
+            Location:
+                Lat: (\(location?.latitude ?? 0))\t Lon: (\(location?.longitude ?? 0))
+            Owner:
+                Email: \(owner?.email ?? "Unknown")
+                Username: \(owner?.username ?? "Unknown")
+                isPro: \(owner?["isPro"] ?? "Unknown")
+                inscriptionDone: \(owner?["inscriptionDone"] ?? "Unknown")
+        """
+    }
 
     required override public init() {super.init()}
 
@@ -51,7 +70,7 @@ public class Commerce: NSObject, NSCoding {
         self.mail         = mail
         self.adresse      = adresse
         self.siteWeb      = siteWeb
-        self.type         = categorie
+        self.type         = CommerceType.converted(from: categorie)
         self.descriptionO = description
         self.promotions   = promotions
         self.owner        = owner
@@ -62,8 +81,9 @@ public class Commerce: NSObject, NSCoding {
         self.pfObject = parseObject
 
         if let nom          = parseObject["nomCommerce"] as? String {self.nom = nom}
-        //        self.type = CategoryType(rawValue: parseObject["typeCommerce"] as! String)!
-        if let type         = parseObject["typeCommerce"] as? String {self.type = type}
+        if let type = parseObject["typeCommerce"] as? String {
+            self.type = CommerceType.converted(from: type)
+        }
         if let partages     = parseObject["nombrePartages"] as? Int {self.partages = partages}
         if let tel          = parseObject["tel"] as? String {self.tel = tel}
         if let mail         = parseObject["mail"] as? String {self.mail = mail}
@@ -72,8 +92,7 @@ public class Commerce: NSObject, NSCoding {
         if let descriptionO = parseObject["description"] as? String {self.descriptionO = descriptionO}
         if let brouillon    = parseObject["brouillon"] as? Bool {self.brouillon = brouillon}
         if let promotions   = parseObject["promotions"] as? String {self.promotions = promotions}
-
-        if let statutP      = parseObject["statutCommerce"] {self.statut = StatutType(rawValue: statutP as! Int)!}
+        if let statutP      = parseObject["statutCommerce"] as? Int {self.statut = StatutType.converted(from: statutP)}
         if let position     = parseObject["position"] as? PFGeoPoint {self.location = position}
         if let owner        = parseObject["owner"] as? PFUser {self.owner = owner}
 
@@ -100,17 +119,6 @@ public class Commerce: NSObject, NSCoding {
         }
     }
 
-    override public var description: String {
-        return """
-                Commerce { \
-                    \tNom : \(self.nom) \
-                    \tType : \(self.type)\
-                    \t Partages : \(self.partages) \
-                    \tId : \(String(describing: self.objectId)) \
-                }
-               """
-    }
-
     func getPFObject(objectId: String, fromBaas: Bool, completion:((_ parseObject: PFObject?, _ error: Error?) -> Void)? = nil) {
         let object = pfObject ?? PFObject(className: "Commerce")
 
@@ -130,7 +138,7 @@ public class Commerce: NSObject, NSCoding {
         } else {
             object["nomCommerce"]    = nom
             object["statutCommerce"] = statut.rawValue
-            object["typeCommerce"]   = type
+            object["typeCommerce"]   = type.rawValue
             object["nombrePartages"] = partages
             object["mail"]           = mail
             object["adresse"]        = adresse
@@ -154,10 +162,10 @@ public class Commerce: NSObject, NSCoding {
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(nom, forKey: "nameComm")
         aCoder.encode(statut, forKey: "statutComm")
-        aCoder.encode(type, forKey: "statutComm")
+        aCoder.encode(type.rawValue, forKey: "typeComm")
         aCoder.encode(partages, forKey: "partagesComm")
         aCoder.encode(mail, forKey: "mailComm")
-        aCoder.encode(adresse, forKey: "statutComm")
+        aCoder.encode(adresse, forKey: "adresseComm")
         aCoder.encode(tel, forKey: "telComm")
         aCoder.encode(siteWeb, forKey: "sitewebComm")
         aCoder.encode(promotions, forKey: "promotionsComm")
@@ -175,11 +183,11 @@ public class Commerce: NSObject, NSCoding {
 
     required public init?(coder aDecoder: NSCoder) {
         nom             = aDecoder.decodeObject(forKey: "nameComm") as! String
-        statut          = StatutType(rawValue: aDecoder.decodeObject(forKey: "statutComm") as! Int)!
-        type            = aDecoder.decodeObject(forKey: "statutComm") as! String
+        statut          = StatutType.converted(from: aDecoder.decodeObject(forKey: "statutComm") as! Int)
+        type            = CommerceType.converted(from: aDecoder.decodeObject(forKey: "typeComm") as! String)
         partages        = aDecoder.decodeInteger(forKey: "partagesComm")
         mail            = aDecoder.decodeObject(forKey: "mailComm") as! String
-        adresse         = aDecoder.decodeObject(forKey: "statutComm") as! String
+        adresse         = aDecoder.decodeObject(forKey: "adresseComm") as! String
         tel             = aDecoder.decodeObject(forKey: "telComm") as! String
         siteWeb         = aDecoder.decodeObject(forKey: "sitewebComm") as! String
         promotions      = aDecoder.decodeObject(forKey: "promotionsComm") as! String
@@ -203,7 +211,14 @@ public enum StatutType: Int {
     error = 3,
     unknown = 4
 
-    func label() -> String {
+    static func converted(from typeInt: Int) -> StatutType {
+        if let type = StatutType(rawValue: typeInt) {
+            return type
+        }
+        return .unknown
+    }
+    
+    var description: String {
         switch self {
         case .paid :
             return "En ligne".localized()
@@ -217,22 +232,56 @@ public enum StatutType: Int {
             return "Statut inconnu".localized()
         }
     }
-
-    var description: String {
-        return label()
-    }
 }
 
 extension Commerce {
     func calculDistanceEntreDeuxPoints(location: CLLocation?) -> String {
-        guard let location = location else {return "--"}
+        guard let location = location else {return "--".localized()}
         let distance = PFGeoPoint(location: location).distanceInKilometers(to: self.location)
 
         if distance < 1 {
-            distanceFromUser = "\(Int(distance * 1000)) m"
+            distanceFromUser = "\(Int(distance * 1000)) m".localized()
         } else {
-            distanceFromUser = "\(Int(distance)) Km"
+            distanceFromUser = "\(Int(distance)) Km".localized()
         }
         return distanceFromUser
+    }
+}
+
+public enum CommerceType: String, CaseIterable {
+    case alimentation = "Alimentation"
+    case automobile = "Automobile"
+    case banque = "Banque"
+    case barPub = "Bar/Pub"
+    case carreleur = "Carreleur"
+    case coiffeur = "Coiffeur"
+    case discothèque = "Discothèque"
+    case habillement = "Habillement"
+    case hotel = "Hôtel"
+    case immobilier = "Immobilier"
+    case maçon = "Maçon"
+    case peintre = "Peintre"
+    case plombier = "Plombier"
+    case restaurant = "Restaurant"
+    case autre = "Autre"
+    
+    static func converted(from typeString: String) -> CommerceType {
+        if let type = CommerceType(rawValue: typeString) {
+            return type
+        }
+        return .autre
+    }
+    
+    var localizedValue: String {
+        return self.rawValue.localized()
+    }
+    
+    var image: UIImage? {
+        switch self {
+        case .barPub:
+            return UIImage(named: "BarPub")
+        default:
+            return UIImage(named: self.rawValue)
+        }
     }
 }

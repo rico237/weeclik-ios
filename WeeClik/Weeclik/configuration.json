@@ -1,0 +1,13 @@
+{
+    "target": "PROD",
+    "api": {
+        "baseURL": "https://weeclik-server.herokuapp.com",
+        "appId": "JVQZMCuNYvnecPWvWFDTZa8A",
+        "webapp": "https://www.weeclik.com"
+    },
+    "endPoints": {
+        "server": "/parse",
+        "dashboard": "/dashboard",
+        "commerce": "/commerce"
+    }
+}

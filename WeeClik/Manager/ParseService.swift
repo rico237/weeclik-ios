@@ -18,7 +18,9 @@ import SPPermission
 
 class ParseService: NSObject {
     public static let shared = ParseService()
-    private lazy var geocoder = CLGeocoder()                        // TODO: remplacer par une lib de geocoding ?
+    
+    // TODO: remplacer par une lib de geocoding ?
+    private lazy var geocoder = CLGeocoder()
     private let locationManager = CLLocationManager()
     private var latestLocationForQuery: CLLocation!
     private var isLoadingCommerces = false
@@ -29,7 +31,7 @@ class ParseService: NSObject {
     }
 
     // create one commerce
-
+    
     // update one commerce
     func updateExistingParseCommerce(fromCommerce commerce: Commerce, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
 
@@ -42,7 +44,7 @@ class ParseService: NSObject {
             } else if let parseObject = parseObject {
                 // TODO: update thumbnail principal (not implemented)
                 parseObject["nomCommerce"]      = commerce.nom
-                parseObject["typeCommerce"]     = commerce.type
+                parseObject["typeCommerce"]     = commerce.type.rawValue
                 parseObject["tel"]              = commerce.tel
                 parseObject["mail"]             = commerce.mail
                 parseObject["siteWeb"]          = commerce.siteWeb
@@ -70,13 +72,12 @@ class ParseService: NSObject {
     // Update geolocation of a commerce based on its addresse
     func updateGeoLocation(forCommerce commerce: Commerce, completion: ((_ success: Bool, _ error: Error?) -> Void)? = nil) {
         // Update location from adresse
-
         let query = PFQuery(className: "Commerce")
         query.getObjectInBackground(withId: commerce.objectId) { (parseObject, error) in
             if let parseObject = parseObject {
                 self.geocoder.geocodeAddressString(commerce.adresse) { (placemarks, error) in
                     if let error = error {
-                        ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+                        ParseErrorCodeHandler.handleLocationError(error: error)
                         completion?(false, error)
                     } else {
                         if let placemarks = placemarks, !placemarks.isEmpty {
@@ -95,16 +96,6 @@ class ParseService: NSObject {
                 completion?(false, error)
             }
         }
-
-//                        print("location : \(location.debugDescription)")
-//                        if self.loadedFromBAAS {
-//                            let commerceToSave = commerce.pfObject
-//                            commerceToSave!["position"] = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//                            commerceToSave!.saveInBackground()
-//                        } else {
-//                            let comm = Commerce(withName: self.nomCommerce, tel: self.telCommerce, mail: self.mailCommerce, adresse: self.adresseCommerce, siteWeb: self.siteWebCommerce, categorie: self.categorieCommerce, description: self.descriptionCommerce, promotions: self.promotionsCommerce, owner:PFUser.current()!)
-//                            comm.location = PFGeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//                        }
     }
 
     // Save photos to commerce
@@ -120,6 +111,7 @@ class ParseService: NSObject {
         for image in photoArray {
             if image != #imageLiteral(resourceName: "Plus_icon") {
                 let photo = PFObject(className: "Commerce_Photos")
+                photo.acl = ParseHelper.getUserACL(forUser: PFUser.current())
                 let compressedImage = image.wxCompress()
                 let file: PFFileObject!
                 do {
@@ -157,7 +149,7 @@ class ParseService: NSObject {
     // Update thumbnail picture
     func updateCommerceThumbnailPicture(fromCommerce commerce: Commerce?, andImages photos: [PFObject], completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         guard let commerce = commerce else {
-            print("Commerce is nil")
+            Log.all.error("Commerce is nil")
             completion(false, nil)
             return
         }
@@ -227,6 +219,7 @@ class ParseService: NSObject {
 
                         let pffile          = PFFileObject(data: videoData!, contentType: mimeType)
                         let video           = PFObject(className: "Commerce_Videos")
+                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
                         let thumbnail       = PFFileObject(data: thumbnailArray[i].jpegData(compressionQuality: 0.5)!, contentType: "image/jpeg")
 
                         video["thumbnail"]    = thumbnail

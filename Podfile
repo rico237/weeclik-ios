@@ -12,7 +12,10 @@ def projectPods
     ################################
 
     # Analytics (SEGMENT)
-    pod 'Analytics', '~> 3.7'
+    pod 'Analytics', '~> 3.0'
+    pod 'Segment-Firebase'
+    pod 'Segment-Batch'
+    pod 'Segment-Flurry'
     
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts', '~> 1.9'
@@ -20,25 +23,24 @@ def projectPods
     pod 'Parse/FacebookUtils'
     pod 'Parse/UI'
     
-    # Firebase + Performance
-    pod 'Firebase/Core'
-    pod 'Firebase/Performance'
-    # Firebase Crashlytics
-    pod 'Fabric', '~> 1.10'
-    pod 'Crashlytics', '~> 3.13'
+    # Crash debugging tool
+    pod 'Bugsnag'
     
     # Facebook integration
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
     
+    # Firebase + Performance
+    pod 'Firebase/Core'
+    pod 'Firebase/Performance'
+    pod 'Firebase/Analytics'
+    
     # Chergement des images depuis internet
     pod 'SDWebImage', '~> 4.4.7'
-    
+    # PDF Reader
+    pod 'PDFReader'
     # HTTP requests (CRUD) (GET POST PUT DEL)
-    pod 'Alamofire', '~> 5.0.0-beta.6'
-    # Demande de permissions
-    pod 'SPPermission/Location'
-    pod 'SPPermission/Contacts'
+    pod 'Alamofire', '~> 5.1'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # Notification pour le partage de nouveau activé
@@ -103,8 +105,8 @@ def projectPods
     pod 'PhoneNumberKit', '~> 3.0'
     # Validator of data entries helper
     pod 'Validator', '~> 3.2.1'
-    # Bug reporting
-    pod 'Instabug'
+    # Live logs
+    pod 'SwiftyBeaver'
     
     ################################
     ################################
@@ -113,6 +115,14 @@ def projectPods
     #                              #
     ################################
     ################################
+    
+    # A UPDATE
+    
+    # Demande de permissions
+    pod 'SPPermission/Location'
+    pod 'SPPermission/Contacts'
+    
+    # OBSELETE
     
     # Routing management
     pod 'Compass', :git => 'https://github.com/weeclik/Compass.git'
@@ -210,18 +220,4 @@ end
 target 'WeeClik-DEV' do
     use_frameworks!
     projectPods
-end
-
-target 'WeeclikUnitTests' do
-  inherit! :complete
-  
-  use_frameworks!
-  projectPods
-end
-
-target 'WeeClikUITests' do
-  inherit! :complete
-  
-  use_frameworks!
-  projectPods
 end

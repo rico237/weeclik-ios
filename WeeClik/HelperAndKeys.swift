@@ -67,54 +67,13 @@ class HelperAndKeys {
         CRNotifications.showNotification(type: crType, title: title, message: message, dismissDelay: delay)
     }
 
-    static func getImageForTypeCommerce(typeCommerce: String) -> UIImage {
-        switch typeCommerce {
-        case "Alimentaire".localized():
-            return UIImage(named: "Alimentaire")!
-        case "Artisanat".localized():
-            return UIImage(named: "Artisanat")!
-        case "Bien-être".localized():
-            return UIImage(named: "Bien-etre")!
-        case "Décoration".localized():
-            return UIImage(named: "Decoration")!
-        case "E-commerce".localized():
-            return UIImage(named: "E-commerce")!
-        case "Distribution".localized():
-            return UIImage(named: "Distribution")!
-        case "Hôtellerie".localized():
-            return UIImage(named: "Hotellerie")!
-        case "Immobilier".localized():
-            return UIImage(named: "Immobilier")!
-        case "Informatique".localized():
-            return UIImage(named: "Informatique")!
-        case "Métallurgie".localized():
-            return UIImage(named: "Metallurgie")!
-        case "Médical".localized():
-            return UIImage(named: "Medical")!
-        case "Nautisme".localized():
-            return UIImage(named: "Nautisme")!
-        case "Paramédical".localized():
-            return UIImage(named: "Paramedical")!
-        case "Restauration".localized():
-            return UIImage(named: "Restauration")!
-        case "Sécurité".localized():
-            return UIImage(named: "Securite")!
-        case "Textile".localized():
-            return UIImage(named: "Textile")!
-        case "Tourisme".localized():
-            return UIImage(named: "Tourisme")!
-        case "Transport".localized():
-            return UIImage(named: "Transport")!
-        case "Urbanisme".localized():
-            return UIImage(named: "Urbanisme")!
-        default:
-            return UIImage(named: "Comm")!
-        }
-    }
-
     static func callNumer(phone: String) {
         if let url = URL(string: "telprompt://\(phone)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
+        } else if let viewController = UIApplication.topViewController() {
+            viewController.showAlertWithMessage(message: "Le téléphone du commerçant renseigné ne permet pas de passer d'appel".localized(),
+                                                title: "Téléphone invalide".localized(),
+                                                completionAction: nil)
         }
     }
 
@@ -168,10 +127,6 @@ class HelperAndKeys {
         let stringCat = forCommerceId+"_date"
         UserDefaults.standard.removeObject(forKey: stringCat)
         UserDefaults.standard.synchronize()
-    }
-
-    static func getListOfCategories() -> [String] {
-        return ["Alimentaire".localized(), "Artisanat".localized(), "Bien-être".localized(), "Décoration".localized(), "E-commerce".localized(), "Distribution".localized(), "Hôtellerie".localized(), "Immobilier".localized(), "Informatique".localized(), "Métallurgie".localized(), "Médical".localized(), "Nautisme".localized(), "Paramédical".localized(), "Restauration".localized(), "Sécurité".localized(), "Textile".localized(), "Tourisme".localized(), "Transport".localized(), "Urbanisme".localized(), "Autre".localized()]
     }
 
     /// Has safe area

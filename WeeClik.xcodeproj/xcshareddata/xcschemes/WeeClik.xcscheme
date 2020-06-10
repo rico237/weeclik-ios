@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1120"
+   LastUpgradeVersion = "1130"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -37,36 +37,6 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FB9B2AE226E785E009C3E65"
-               BuildableName = "WeeClikUITests.xctest"
-               BlueprintName = "WeeClikUITests"
-               ReferencedContainer = "container:WeeClik.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FA8EFF422D0E12400DCD52E"
-               BuildableName = "WeeClikUnitTests.xctest"
-               BlueprintName = "WeeClikUnitTests"
-               ReferencedContainer = "container:WeeClik.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FB81C5E2364864A00A41A98"
-               BuildableName = "WeeclikUnitTests.xctest"
-               BlueprintName = "WeeclikUnitTests"
-               ReferencedContainer = "container:WeeClik.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

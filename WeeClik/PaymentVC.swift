@@ -1,32 +1,39 @@
 //  Created by Herrick Wolber on 17/03/2019.
 //  Copyright © 2019 Herrick Wolber. All rights reserved.
 
-//
-//  Can be seen in Payment storyboard (Payment.storyboard)
-//
-
 import UIKit
 import Parse
 import SwiftyStoreKit
 import SPLarkController
 import SwiftDate
 import SVProgressHUD
+import PDFReader
 
 class PaymentVC: UIViewController {
-    var commerceAlreadyExists = false                       // Check if we came for renewable or creation
-    var currentUser = PFUser.current()                      // User making purchase
-    var hasPaidForNewCommerce = false                       // Permet de savoir si on peut créer un nouveau commerce vers la BDD
-    var paymentDeactivated = false                          // TEST VAR (permet de switcher la demande de paiement)
+    // Check if we came for renewable or creation
+    var commerceAlreadyExists = false
+    // User making purchase
+    var currentUser = PFUser.current()
+    // Permet de savoir si on peut créer un nouveau commerce vers la BDD
+    var hasPaidForNewCommerce = false
+    // TEST VAR (permet de switcher la demande de paiement)
+    var paymentDeactivated = false
+    
     var scheduleVal = false
-    var renewingCommerceId = ""                             // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
-    #if DEVELOPMENT
-    let purchasedProductID = "abo.sans.renouvellement"      // Apple ID of one month subscription for dev purpose (waiting time shorter)
-    #else
-    let purchasedProductID = "abo.sans.renouvellement.un.an" // Apple ID of one year subscription (not automatically renewed)
-    #endif
-    let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil) // Paneau d'aministration (option de paiement etc.)
+    // ObjectId of commerce if purchase was a success || commerce that wants to be renewed
+    var renewingCommerceId = ""
+    // Apple ID of one year subscription (not automatically renewed)
+    var purchasedProductID: String {
+        if ConfigurationManager.shared.isDev() {
+            return "abo.sans.renouvellement.dev"
+        }
+        return "abo.sans.renouvellement.un.an"
+    }
 
-    @IBOutlet weak var legalTextView: UITextView!           // CGU, CGV, etc
+    // Paneau d'aministration (option de paiement etc.)
+    let panelController = AdminMonProfilSettingsVC(nibName: "AdminMonProfilSettingsVC", bundle: nil)
+    // CGU, CGV, etc
+    @IBOutlet weak var legalTextView: UITextView!
 
     @objc func showSettingsPanel() {
         let transitionDelegate = SPLarkTransitioningDelegate()
@@ -73,13 +80,16 @@ class PaymentVC: UIViewController {
         super.viewDidLoad()
         title = "PAIEMENT".localized()
 
+        legalTextView.delegate = self
+
         SVProgressHUD.setHapticsEnabled(true)
         SVProgressHUD.setDefaultMaskType(.black)
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(1.5)
 
         updateCGUText()
-        updateAdminUI() // Update UINavigationBar
+        // Update UINavigationBar
+        updateAdminUI()
     }
 
     func updateCGUText() {
@@ -87,8 +97,8 @@ class PaymentVC: UIViewController {
         style.alignment = .justified
 
         let attributedString = NSMutableAttributedString(string: legalTextView.text)
-        let urlCGU = URL(string: "https://weeclik-server.herokuapp.com/cgu")!
-        let urlPolitique = URL(string: "https://weeclik-server.herokuapp.com/politique-confidentialite")!
+        let urlCGU = URL(string: "\(Constants.Server.baseURL)/cgu")!
+        let urlPolitique = URL(string: "\(Constants.Server.baseURL)/politique-confidentialite")!
 
         let cguRange = attributedString.mutableString.range(of: "Conditions générales".localized(), options: .caseInsensitive)
         attributedString.setAttributes([.link: urlCGU], range: cguRange)
@@ -115,8 +125,6 @@ class PaymentVC: UIViewController {
         paymentDeactivated = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.paymentKey, withExpectedType: "bool") as? Bool ?? false
         scheduleVal = HelperAndKeys.getUserDefaultsValue(forKey: Constants.UserDefaultsKeys.scheduleKey, withExpectedType: "bool") as? Bool ?? false
 
-        print("PaymentDeactivated \(paymentDeactivated)")
-
         if !paymentDeactivated {
             // Permet de verifier si l'user a payer avant la création d'un commerce
             buyProduct()
@@ -133,10 +141,10 @@ class PaymentVC: UIViewController {
         let query = PFQuery(className: "Commerce")
         query.getObjectInBackground(withId: renewingCommerceId) { (commerce, error) in
             if let error = error {
-                print("Erreur retrieving commerce info - func renewCommerceEndDate")
+                Log.all.error("Erreur retrieving commerce info - func renewCommerceEndDate")
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else if let commerce = commerce {
-                let lastEndDate = commerce["endSubscription"] as! Date
+                let lastEndDate = commerce["endSubscription"] as? Date ?? Date()
 
                 if lastEndDate.isBeforeDate(Date(), granularity: .minute) {
                     // isBefore today
@@ -154,7 +162,7 @@ class PaymentVC: UIViewController {
                         self.saveStatForPurchase(forUser: self.currentUser!, andCommerce: commerce)
                         self.getBackToHome(self)
                     } else if let error = error {
-                        print("Erreur dans le renouvellement de l'abonnement du commerce")
+                        Log.all.error("Erreur dans le renouvellement de l'abonnement du commerce")
                         ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
                         SVProgressHUD.showError(withStatus: "Erreur dans le renouvellement de l'abonnement du commerce".localized())
                     }
@@ -235,13 +243,17 @@ class PaymentVC: UIViewController {
                             self.getBackToHome(self)
                         }
                     } else {
-                        self.showAlertWithMessage(message: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(), title: "Erreur création de commerce".localized(), completionAction: nil)
+                        self.showAlertWithMessage(message: "Erreur lors de la création d'un commerce merci de prendre contact rapidement avec l'équipe WeeClik.".localized(),
+                                                  title: "Erreur création de commerce".localized(),
+                                                  completionAction: nil)
                         SVProgressHUD.dismiss()
                     }
                 }
             }
         } else {
-            self.showAlertWithMessage(message: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(), title: "Problème de connexion".localized(), completionAction: nil)
+            self.showAlertWithMessage(message: "Une erreur est survenue. Vous semblez ne pas être connecté. Veuillez vous re-connecter. Puis recommencer votre achat.".localized(),
+                                      title: "Problème de connexion".localized(),
+                                      completionAction: nil)
             SVProgressHUD.dismiss()
         }
     }
@@ -260,12 +272,12 @@ class PaymentVC: UIViewController {
                     purchaseProduct.incrementKey("purchased")
                     purchaseProduct.saveInBackground { (_, error) in
                         if let error = error {
-                            print("Error function retrieve PFProduct - func saveStatForPurchase")
+                            Log.all.error("Error function retrieve PFProduct - func saveStatForPurchase")
                             ParseErrorCodeHandler.handleUnknownError(error: error)
                         }
                     }
                 } else if let error = error {
-                    print("Error function retrieve PFProduct - func saveStatForPurchase")
+                    Log.all.error("Error function retrieve PFProduct - func saveStatForPurchase")
                     ParseErrorCodeHandler.handleUnknownError(error: error)
                 }
             })
@@ -273,7 +285,7 @@ class PaymentVC: UIViewController {
 
         stat.saveInBackground { (_, error) in
             if let error = error {
-                print("Error function save stat - func saveStatForPurchase")
+                Log.all.error("Error function save stat - func saveStatForPurchase")
                 ParseErrorCodeHandler.handleUnknownError(error: error)
                 SVProgressHUD.dismiss(withDelay: 1.5)
             }
@@ -287,8 +299,8 @@ class PaymentVC: UIViewController {
             SVProgressHUD.dismiss(withDelay: 1.5)
 
             if let product = result.retrievedProducts.first {
-                let priceString = product.localizedPrice!
-                print("Product: \(product.localizedDescription), price: \(priceString)")
+                let priceString = product.localizedPrice ?? "Unknown"
+                Log.all.verbose("Try to purchase product: \(product.localizedDescription), price: \(priceString)")
                 SwiftyStoreKit.purchaseProduct(product, quantity: 1, atomically: true) { result in
 
                     switch result {
@@ -303,31 +315,85 @@ class PaymentVC: UIViewController {
                         if product.needsFinishTransaction {
                             SwiftyStoreKit.finishTransaction(product.transaction)
                         }
-                        print("Purchase Success: \(product)")
+                        Log.all.info("Purchase Success: \(product)")
                     case .error(let error):
                         switch error.code {
-                        case .unknown: SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())
-                        case .clientInvalid: SVProgressHUD.showError(withStatus: "Not allowed to make the payment".localized())
-                        case .paymentCancelled: break
-                        case .paymentInvalid: SVProgressHUD.showError(withStatus: "The purchase identifier was invalid".localized())
-                        case .paymentNotAllowed: SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment".localized())
-                        case .storeProductNotAvailable: SVProgressHUD.showError(withStatus: "The product is not available in the current storefront".localized())
-                        case .cloudServicePermissionDenied: SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed".localized())
-                        case .cloudServiceNetworkConnectionFailed: SVProgressHUD.showError(withStatus: "Could not connect to the network".localized())
-                        case .cloudServiceRevoked: SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service".localized())
-                        default: SVProgressHUD.showError(withStatus: (error as NSError).localizedDescription)
+                        case .unknown:
+                            SVProgressHUD.showError(withStatus: "Unknown error. Please contact support".localized())
+                        case .clientInvalid:
+                            SVProgressHUD.showError(withStatus: "Not allowed to make the payment".localized())
+                        case .paymentCancelled:
+                            break
+                        case .paymentInvalid:
+                            SVProgressHUD.showError(withStatus: "The purchase identifier was invalid".localized())
+                        case .paymentNotAllowed:
+                            SVProgressHUD.showError(withStatus: "The device is not allowed to make the payment".localized())
+                        case .storeProductNotAvailable:
+                            SVProgressHUD.showError(withStatus: "The product is not available in the current storefront".localized())
+                        case .cloudServicePermissionDenied:
+                            SVProgressHUD.showError(withStatus: "Access to cloud service information is not allowed".localized())
+                        case .cloudServiceNetworkConnectionFailed:
+                            SVProgressHUD.showError(withStatus: "Could not connect to the network".localized())
+                        case .cloudServiceRevoked:
+                            SVProgressHUD.showError(withStatus: "User has revoked permission to use this cloud service".localized())
+                        default:
+                            SVProgressHUD.showError(withStatus: (error as NSError).localizedDescription)
                         }
-                        ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false) // TODO: change it is not a parse error
+                        
+                        let errorMessage = """
+                            
+                            Error while purchasing item \(product.localizedDescription), price: \(priceString)
+                        
+                            Error description :
+                                Code: \(error.code)
+                                Description: \(error.localizedDescription)
+                                Desc: \(error.desc)
+                        
+                        """
+                        // Log only if is not canceled
+                        if error.code == .paymentCancelled {
+                            Log.all.verbose("User canceled or enum's default")
+                        } else {
+                            Log.all.error(errorMessage)
+                            ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: false) // TODO: change it is not a parse error
+                        }
                     }
                 }
             } else if let invalidProductId = result.invalidProductIDs.first {
-                print("Invalid product identifier: \(invalidProductId)")
-                ParseErrorCodeHandler.handleUnknownError(error: NSError(domain: "PaymentVC", code: 404, userInfo: ["invalid_product_identifier": "Product identifier is invalid : \(invalidProductId)"]))
+                Log.all.error("Invalid product identifier: \(invalidProductId)")
+                ParseErrorCodeHandler.handleUnknownError(error:
+                    NSError(domain: "PaymentVC",
+                            code: 404,
+                            userInfo: ["invalid_product_identifier": "Product identifier is invalid : \(invalidProductId)"])
+                )
             } else {
-                print("Error: \(String(describing: result.error))")
-                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil), withFeedBack: false)
+                Log.all.error("Error: \(String(describing: result.error))")
+                ParseErrorCodeHandler.handleUnknownError(error: result.error ?? NSError.init(domain: "Purchase", code: 999, userInfo: nil),
+                                                         withFeedBack: false)
             }
         }
 
+    }
+}
+
+extension PaymentVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        var documentFileURL = Bundle.main.url(forResource: "cgv_cgu", withExtension: "pdf")
+        var title = ""
+        if URL.absoluteString == "\(Constants.Server.baseURL)/cgu" {
+            documentFileURL = Bundle.main.url(forResource: "cgv_cgu", withExtension: "pdf")
+            title = "Conditions de vente et d'utilisation"
+        } else if URL.absoluteString == "\(Constants.Server.baseURL)/politique-confidentialite" {
+            documentFileURL = Bundle.main.url(forResource: "rgpd", withExtension: "pdf")
+            title = "Confidentialité et données personnelles"
+        }
+        
+        if let documentFileURL = documentFileURL, let document = PDFDocument(url: documentFileURL) {
+            let readerController = PDFViewController.createNew(with: document, title: title, actionStyle: .activitySheet)
+            readerController.backgroundColor = .white
+            navigationController?.pushViewController(readerController, animated: true)
+        }
+        
+        return false
     }
 }

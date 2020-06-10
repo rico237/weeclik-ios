@@ -58,10 +58,13 @@ identifier_name:
     - top
     - row
     - app
+    - App
     - tel
     - nom
     - nib
     - tag
+    - all
+    - Log
 reporter: "xcode" # reporter type
 
 #// swiftlint:disable:next force_cast

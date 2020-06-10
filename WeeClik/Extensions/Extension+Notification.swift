@@ -10,4 +10,6 @@ import Foundation
 
 extension Notification.Name {
     static let didSendGroupeFavorisSMS = Notification.Name("didSendGroupeFavorisSMS")
+    static let viewDidAppear = Notification.Name("Weeclik.viewDidAppear")
+    static let viewDidDisappear = Notification.Name("Weeclik.viewDidDisappear")
 }
