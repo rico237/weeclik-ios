@@ -118,6 +118,7 @@ extension AjoutCommerceVC {
         }
 
         tableView.tableHeaderView?.frame.size.height = 0
+        tableView.contentInset.bottom = additionalSafeAreaInsets.bottom
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -809,8 +810,8 @@ extension AjoutCommerceVC {
             return 150
         case .photos:
             return (tableView.bounds.width - (3 - 1) * 7) / 3
-        default:
-            return 100
+        case .description, .promotions:
+            return UITableView.automaticDimension
         }
     }
 
@@ -1056,6 +1057,10 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
             descriptionCommerce = textView.text
         } else if textView.tag == 200 {
             promotionsCommerce  = textView.text
+        }
+        
+        UIView.performWithoutAnimation {
+            self.tableView.reloadWithoutScroll()
         }
     }
     @objc func textFieldDidChange(_ textField: UITextField) {

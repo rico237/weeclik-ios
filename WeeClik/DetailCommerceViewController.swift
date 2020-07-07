@@ -310,9 +310,9 @@ extension DetailCommerceViewController: UITableViewDelegate, UITableViewDataSour
             return 0
 //            return 74
         } else if indexPath.section == 1 {
-            return promotionsH + 52 // 50 = Marges haut et bas + le label "Promotions"
+            return UITableView.automaticDimension // 50 = Marges haut et bas + le label "Promotions"
         } else if indexPath.section == 2 {
-            return descriptionH + 42
+            return UITableView.automaticDimension
         } else {
             return 44
         }
@@ -343,6 +343,7 @@ extension DetailCommerceViewController {
         view.backgroundColor = UIColor.white
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
         view.backgroundColor = .background
+        tableView.estimatedRowHeight = 500
 
         // Share actions
         shareButton.addTarget(self, action: #selector(shareCommerce), for: .touchUpInside)

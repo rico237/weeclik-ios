@@ -186,6 +186,8 @@
 		1F87FB702389885C00B7A093 /* Extension+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */; };
 		1F87FB712389885C00B7A093 /* Extension+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */; };
 		1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89A11A2239B470007952CC /* ContactTVCell.swift */; };
+		1F89C00E24B5224B00F335D3 /* Extension+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89C00D24B5224B00F335D3 /* Extension+UITableView.swift */; };
+		1F89C00F24B5224B00F335D3 /* Extension+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89C00D24B5224B00F335D3 /* Extension+UITableView.swift */; };
 		1F8C4FFE1FB50C3100A28214 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */; };
 		1F8E468B244BAB8E009EA6E1 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E468A244BAB8E009EA6E1 /* CustomError.swift */; };
 		1F8E468C244BAB8E009EA6E1 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E468A244BAB8E009EA6E1 /* CustomError.swift */; };
@@ -358,6 +360,7 @@
 		1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminMonProfilSettingsVC.xib; sourceTree = "<group>"; };
 		1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Notification.swift"; sourceTree = "<group>"; };
 		1F89A11A2239B470007952CC /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
+		1F89C00D24B5224B00F335D3 /* Extension+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableView.swift"; sourceTree = "<group>"; };
 		1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		1F8E468A244BAB8E009EA6E1 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		1F8F0881223F128C008177C4 /* loader-success-failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-success-failed.json"; sourceTree = "<group>"; };
@@ -584,6 +587,7 @@
 				1F0E8631238AC289003124FD /* Extension+UIApplication.swift */,
 				1F4B120C23611A5600119676 /* Extension+UIColor.swift.swift */,
 				1FE6ECF72444B2DA00DF654C /* Extension+UIView.swift */,
+				1F89C00D24B5224B00F335D3 /* Extension+UITableView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1491,6 +1495,7 @@
 				1F03ABB82360C18B0027D6EF /* AccueilCommerces.swift in Sources */,
 				1F03ABB92360C18B0027D6EF /* FormTextField.swift in Sources */,
 				1F03ABBA2360C18B0027D6EF /* WebsiteFormValidationError.swift in Sources */,
+				1F89C00F24B5224B00F335D3 /* Extension+UITableView.swift in Sources */,
 				1F03ABBB2360C18B0027D6EF /* AjoutCommerceVC.swift in Sources */,
 				1F0E862F238AB64C003124FD /* Extension+UIViewController.swift in Sources */,
 				1F03ABBD2360C18B0027D6EF /* AppDelegate.swift in Sources */,
@@ -1582,6 +1587,7 @@
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */,
 				1F6AF4822358EB3400F057C7 /* WebsiteFormValidationError.swift in Sources */,
+				1F89C00E24B5224B00F335D3 /* Extension+UITableView.swift in Sources */,
 				1F0BBCA61FAE4C3700D91026 /* AjoutCommerceVC.swift in Sources */,
 				1F0E862E238AB64C003124FD /* Extension+UIViewController.swift in Sources */,
 				1FA4732E1F1EE7E400D2A306 /* AppDelegate.swift in Sources */,
