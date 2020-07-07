@@ -39,6 +39,10 @@ def projectPods
     pod 'SDWebImage', '~> 4.4.7'
     # PDF Reader
     pod 'PDFReader'
+    
+    # Await/Async like in JavaScript JS
+    pod 'AwaitKit', '~> 5.2.0'
+    
     # HTTP requests (CRUD) (GET POST PUT DEL)
     pod 'Alamofire', '~> 5.1'
     # Carrousel de démo à la connexion

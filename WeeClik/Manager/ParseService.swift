@@ -15,6 +15,7 @@ import CoreLocation
 import TLPhotoPicker
 import Photos
 import SPPermission
+import AwaitKit
 
 class ParseService: NSObject {
     public static let shared = ParseService()
@@ -176,88 +177,162 @@ class ParseService: NSObject {
     }
 
     func saveVideoForCommerce(commerce: Commerce?, videoArray: [TLPHAsset], thumbnailArray: [UIImage], completion:((_ success: Bool, _ error: Error?) -> Void)? = nil) {
+        // Comerce is not nil
         guard let commerce = commerce else {
             completion?(false, nil)
             return
         }
-
-        let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerce.objectId)
-
-        // Une video a été ajouté par l'utilisateur
-        if !videoArray.isEmpty {
-            // Parcours de toutes les vidéos ajoutés
-            for i in 0..<videoArray.count {
-
-                let video = videoArray[i]
-
-                // Si on réussit a prendre les data de la vidéo
-                // Dans ce cas on sauvegarde
-                if let asset = video.phAsset {
-
-                    let options = PHVideoRequestOptions()
-                    options.version = .original
-                    options.deliveryMode = .automatic
-                    options.isNetworkAccessAllowed = true
-
-                    video.exportVideoFile(options: options, progressBlock: { (progress) in
-                        print("Progress \(progress)")
-                    }) { (url, mimeType) in
-
-                        print("Video export \(url) & \(mimeType)")
-
-                        print("try")
-                        var videoData: Data?
-                        do {
-                            videoData = try Data(contentsOf: url)
-                        } catch {
-                            print("exception catch at block - while uploading video")
-                            videoData = nil
-                            return
-                        }
-
-                        print("Done getting video data\n Now tries to save pffile object")
-
-                        let pffile          = PFFileObject(data: videoData!, contentType: mimeType)
-                        let video           = PFObject(className: "Commerce_Videos")
-                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
-                        let thumbnail       = PFFileObject(data: thumbnailArray[i].jpegData(compressionQuality: 0.5)!, contentType: "image/jpeg")
-
-                        video["thumbnail"]    = thumbnail
-                        video["leCommerce"]   = commerceToSave
-                        video["time"]         = asset.duration.stringFormatted()
-                        video["nameVideo"]    = commerce.nom + " - Vidéo de présentation"
-                        video["video"]        = pffile
-
-                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
-
-                        pffile.saveInBackground({ (success, error) in
-                            if let error = error {
-                                print("Erreur while uploading \(error.localizedDescription)")
-                                completion?(false, error)
-                            } else {
-                                // Pas d'erreur
-                                if success {
-                                    // OK
-                                    print("Upload réussi")
-                                    video.saveInBackground(block: { (success, error) in
-                                        completion?(success, error)
-                                    })
-                                } else {
-                                    print("Upload failed")
-                                    completion?(false, nil)
-                                }
-                            }
-
-                            completion?(true, nil)
-                        }, progressBlock: { (progress32) in
-                            print("Progress : \(progress32)%")
-                        })
-                    }
-                }
-            }
-        } else {
+        // Video array is not empty
+        guard videoArray.isEmpty == false else {
             completion?(true, nil)
+            return
         }
+        // Une video a été ajouté par l'utilisateur
+        let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerce.objectId)
+        
+        for (index, videoAsset) in videoArray.enumerated() {
+            // Si on réussit a prendre les data de la vidéo, on sauvegarde
+            guard let asset = videoAsset.phAsset, asset.mediaType == .video else { continue }
+            
+            let options = PHVideoRequestOptions()
+            options.version = .current
+            options.deliveryMode = .fastFormat
+            options.isNetworkAccessAllowed = true
+            
+            compressVideoAsset(video: asset) { (compressedAsset, error) in
+                guard let compressedAsset = compressedAsset else {
+                    if let error = error {
+                        Log.all.error("Compression Issue Error: \(error.debug)")
+                    }
+                    return
+                }
+                
+                
+            }
+            
+
+            videoAsset.exportVideoFile(options: options, progressBlock: nil) { (url, mimeType) in
+                guard let videoData = try? Data(contentsOf: url) else {
+                    completion?(false, CustomError.encodingVideo)
+                    return
+                }
+
+                let pffile = PFFileObject(data: videoData, contentType: mimeType)
+                let video = PFObject(className: "Commerce_Videos")
+                video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                let thumbnail = PFFileObject(data: thumbnailArray[index].wxCompress().jpegData(compressionQuality: 1)!,
+                                                contentType: "image/jpeg")
+
+                video["thumbnail"] = thumbnail
+                video["leCommerce"] = commerceToSave
+                video["time"] = asset.duration.stringFormatted()
+                video["nameVideo"] = commerce.nom + " - Vidéo de présentation n°\(index + 1)"
+                video["video"] = pffile
+                video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+
+                pffile.saveInBackground({ (success, error) in
+                    if let error = error {
+                        Log.all.error("Uploading video error: \(error.debug)")
+                        if index == videoArray.count - 1 {
+                            completion?(false, error)
+                        }
+                    } else if success {
+                        Log.all.debug("Video saved with success")
+                        video.saveInBackground()
+                        if index == videoArray.count - 1 {
+                            completion?(true, nil)
+                        }
+                    } else {
+                        if index == videoArray.count - 1 {
+                            completion?(false, nil)
+                        }
+                    }
+                }, progressBlock: { (progress32) in
+//                    self.shdDismissAfterSave = false
+                    FileUploadManager.shared.updateProgress(to: Float(progress32))
+                    
+                    if Int(progress32) % 25 == 0 {
+                        Log.all.debug("Video upload progress = \(progress32)")
+                    }
+                    
+                    if progress32 >= 100 {
+//                        self.shdDismissAfterSave = true
+                        Log.all.debug("Upload done")
+                    }
+                })
+            }
+        }
+
+        // Parcours de toutes les vidéos ajoutés
+//        for i in 0..<videoArray.count {
+//
+//            let video = videoArray[i]
+//
+//            // Si on réussit a prendre les data de la vidéo
+//            // Dans ce cas on sauvegarde
+//            if let asset = video.phAsset {
+//
+//                let options = PHVideoRequestOptions()
+//                options.version = .original
+//                options.deliveryMode = .automatic
+//                options.isNetworkAccessAllowed = true
+//
+//                video.exportVideoFile(options: options, progressBlock: { (progress) in
+//                    print("Progress \(progress)")
+//                }) { (url, mimeType) in
+//
+//                    print("Video export \(url) & \(mimeType)")
+//
+//                    print("try")
+//                    var videoData: Data?
+//                    do {
+//                        videoData = try Data(contentsOf: url)
+//                    } catch {
+//                        print("exception catch at block - while uploading video")
+//                        videoData = nil
+//                        return
+//                    }
+//
+//                    print("Done getting video data\n Now tries to save pffile object")
+//
+//                    let pffile          = PFFileObject(data: videoData!, contentType: mimeType)
+//                    let video           = PFObject(className: "Commerce_Videos")
+//                    video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+//                    let thumbnail       = PFFileObject(data: thumbnailArray[i].jpegData(compressionQuality: 0.5)!, contentType: "image/jpeg")
+//
+//                    video["thumbnail"]    = thumbnail
+//                    video["leCommerce"]   = commerceToSave
+//                    video["time"]         = asset.duration.stringFormatted()
+//                    video["nameVideo"]    = commerce.nom + " - Vidéo de présentation"
+//                    video["video"]        = pffile
+//
+//                    video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+//
+//                    pffile.saveInBackground({ (success, error) in
+//                        if let error = error {
+//                            print("Erreur while uploading \(error.localizedDescription)")
+//                            completion?(false, error)
+//                        } else {
+//                            // Pas d'erreur
+//                            if success {
+//                                // OK
+//                                print("Upload réussi")
+//                                video.saveInBackground(block: { (success, error) in
+//                                    completion?(success, error)
+//                                })
+//                            } else {
+//                                print("Upload failed")
+//                                completion?(false, nil)
+//                            }
+//                        }
+//
+//                        completion?(true, nil)
+//                    }, progressBlock: { (progress32) in
+//                        print("Progress : \(progress32)%")
+//                    })
+//                }
+//            }
+//        }
     }
 
     // remove photo for commerce
@@ -345,6 +420,86 @@ extension ParseService {
                     completion?(false, nil)
                 }
             }
+        }
+    }
+}
+
+extension ParseService {
+    func compressVideoAsset(video phAsset: PHAsset, completion: ((_ asset: PHAsset?, _ error: Error?) -> Void)? = nil) {
+        //TODO: Write it
+        guard phAsset.mediaType == .video else {
+            completion?(nil, CustomError.compressingVideo)
+            return
+        }
+        
+        let options = PHVideoRequestOptions()
+        options.version = .current
+        options.deliveryMode = .fastFormat
+        options.isNetworkAccessAllowed = true
+        
+        PHImageManager.default().requestAVAsset(forVideo: phAsset, options: options, resultHandler: { (asset, audioMix, info) -> Void in
+            if let asset = asset as? AVURLAsset {
+                do {
+                    let videoData = try  Data.init(contentsOf: asset.url)
+                    print(asset.url)
+//                    originalURL = asset.url
+                    print("File size before compression: \(Double(videoData.count / 1048576)) mb")
+                let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".MP4")
+                    print(compressedURL)
+                    self.compressVideo(inputURL: asset.url , outputURL: compressedURL) { (exportSession) in
+                        guard let session = exportSession else {
+                            return
+                        }
+                        switch session.status {
+                        case .unknown:
+                            print("unknown")
+                            break
+                        case .waiting:
+                            print("waiting")
+                            break
+                        case .exporting:
+                            print("exporting")
+                            break
+                        case .completed:
+                            do {
+                            let compressedData = try  Data.init(contentsOf: compressedURL)
+//                                compressed = compressedURL
+                                print(compressedData)
+                                 print("File size AFTER compression: \(Double(compressedData.count / 1048576)) mb")
+                            }
+                            catch{
+                               print(error)
+                            }
+
+
+                        case .failed:
+                            print("failed")
+                            break
+                        case .cancelled:
+                            print("cancelled")
+                            break
+                        }
+                    }
+                } catch {
+                    print(error)
+                    //return
+                }
+            }
+        })
+    }
+    
+    
+    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+        let urlAsset = AVURLAsset(url: inputURL, options: nil)
+        guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
+            handler(nil)
+            return
+        }
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileType.mp4
+        exportSession.shouldOptimizeForNetworkUse = true
+        exportSession.exportAsynchronously { () -> Void in
+            handler(exportSession)
         }
     }
 }

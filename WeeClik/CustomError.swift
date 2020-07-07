@@ -10,11 +10,14 @@ import UIKit
 
 enum CustomError: Error {
     case encodingVideo
+    case compressingVideo
     
     var localizedDescription: String {
         switch self {
         case .encodingVideo:
             return NSLocalizedString("Error while fetching video data", comment: "Fetching video data error")
+        case.compressingVideo:
+            return NSLocalizedString("Error while compressing video data", comment: "Compression video data error")
         }
     }
 }

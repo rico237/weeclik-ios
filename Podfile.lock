@@ -3,6 +3,8 @@ PODS:
   - Analytics (3.8.0)
   - AppImageViewer (1.0.10):
     - SDWebImage (~> 4.0)
+  - AwaitKit (5.2.0):
+    - PromiseKit (~> 6)
   - Batch (1.15.0)
   - Bolts (1.9.1):
     - Bolts/AppLinks (= 1.9.1)
@@ -165,6 +167,15 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (3.2.0)
   - PhoneNumberKit/UIKit (3.2.0):
     - PhoneNumberKit/PhoneNumberKitCore
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
   - ReachabilitySwift (5.0.0)
@@ -212,6 +223,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.1)
   - Analytics (~> 3.0)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
+  - AwaitKit (~> 5.2.0)
   - Bolts (~> 1.9)
   - Bugsnag
   - BulletinBoard (~> 3.0.0)
@@ -261,6 +273,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Analytics
+    - AwaitKit
     - Batch
     - Bolts
     - Bugsnag
@@ -299,6 +312,7 @@ SPEC REPOS:
     - Parse
     - PDFReader
     - PhoneNumberKit
+    - PromiseKit
     - PromisesObjC
     - Protobuf
     - ReachabilitySwift
@@ -364,6 +378,7 @@ SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   Analytics: fcf79ebc393a7d77befb8d43ce296353ba9ede3d
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
+  AwaitKit: 512626cd12c82b1fbffddc8f414d0364cb456004
   Batch: b8f62beee5a81f58c23d84f92f363a9f1ce4d6a4
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   Bugsnag: caa15cf2a5d9278f04e1dda70c0cc6d42d3c9625
@@ -404,6 +419,7 @@ SPEC CHECKSUMS:
   Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
   PDFReader: 2c4a845d0560f33221cf911516e3b700967680f6
   PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
@@ -426,6 +442,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 51325336485484c47de45d9f530ba79d35aedb70
+PODFILE CHECKSUM: 27486f326b68c368c31fb863aba2257d817ac686
 
 COCOAPODS: 1.9.1

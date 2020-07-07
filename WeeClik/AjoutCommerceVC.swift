@@ -361,78 +361,77 @@ extension AjoutCommerceVC {
 
     func saveVideosWithCommerce(commerceId: String) {
         let commerceToSave = PFObject(withoutDataWithClassName: "Commerce", objectId: commerceId)
-
-        // Une video a été ajouté par l'utilisateur
-        if videoArray.isEmpty == false {
-            ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave) { (success, error) in
-                if let error = error {
-                    self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
-                } else {
-                    for (index, videoAsset) in self.videoArray.enumerated() {
-                        // Si on réussit a prendre les data de la vidéo, on sauvegarde
-                        guard let asset = videoAsset.phAsset else { break }
-                        
-                        let options = PHVideoRequestOptions()
-                        options.version = .current
-                        options.deliveryMode = .fastFormat
-                        options.isNetworkAccessAllowed = true
-
-                        videoAsset.exportVideoFile(options: options, progressBlock: nil) { (url, mimeType) in
-                            guard let videoData = try? Data(contentsOf: url) else {
-                                self.saveOfCommerceEnded(status: .error, error: CustomError.encodingVideo, feedBack: true)
-                                return
-                            }
-                            
-                            Log.all.info("""
-                            Done getting video data
-                            Now tries to save pffile object
-                            """)
-
-                            let pffile = PFFileObject(data: videoData, contentType: mimeType)
-                            let video = PFObject(className: "Commerce_Videos")
-                            video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
-                            let thumbnail = PFFileObject(data: self.thumbnailArray[index].wxCompress().jpegData(compressionQuality: 1)!,
-                                                         contentType: "image/jpeg")
-
-                            video["thumbnail"] = thumbnail
-                            video["leCommerce"] = commerceToSave
-                            video["time"] = asset.duration.stringFormatted()
-                            video["nameVideo"] = self.nomCommerce + " - Vidéo de présentation"
-                            video["video"] = pffile
-
-                            video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
-
-                            pffile.saveInBackground({ (success, error) in
-                                if let error = error {
-                                    Log.all.error("Uploading video error: \(error.debug)")
-                                } else if success {
-                                    Log.all.debug("Video saved with success")
-                                    video.saveInBackground()
-                                }
-                            }, progressBlock: { (progress32) in
-                                self.shdDismissAfterSave = false
-                                FileUploadManager.shared.updateProgress(to: Float(progress32))
-                                
-                                if Int(progress32) % 25 == 0 {
-                                    Log.all.debug("Video upload progress = \(progress32)")
-                                }
-                                
-                                if progress32 >= 100 {
-                                    self.shdDismissAfterSave = true
-                                }
-                            })
-                        }
-                    }
-                }
-                // [4] Mise a jour du commerce avec les photos & videos uploadés
-                self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
-            }
-        } else {
+        guard videoArray.isEmpty == false else {
             // Si cette variable est true = l'utilisateur a demandé à supprimer une video
             if videosHaveChanged {
                 ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave)
             }
             // Aucune video ajouté on passe direct au refresh du commerce
+            // [4] Mise a jour du commerce avec les photos & videos uploadés
+            self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
+            return
+        }
+        // Une video a été ajouté par l'utilisateur
+        ParseService.shared.deleteAllVideosForCommerce(commerce: commerceToSave) { (success, error) in
+            if let error = error {
+                self.saveOfCommerceEnded(status: .error, error: error, feedBack: true)
+            } else {
+                for (index, videoAsset) in self.videoArray.enumerated() {
+                    // Si on réussit a prendre les data de la vidéo, on sauvegarde
+                    guard let asset = videoAsset.phAsset else { break }
+                    
+                    let options = PHVideoRequestOptions()
+                    options.version = .current
+                    options.deliveryMode = .fastFormat
+                    options.isNetworkAccessAllowed = true
+
+                    videoAsset.exportVideoFile(options: options, progressBlock: nil) { (url, mimeType) in
+                        guard let videoData = try? Data(contentsOf: url) else {
+                            self.saveOfCommerceEnded(status: .error, error: CustomError.encodingVideo, feedBack: true)
+                            return
+                        }
+                        
+                        Log.all.info("""
+                        Done getting video data
+                        Now tries to save pffile object
+                        """)
+
+                        let pffile = PFFileObject(data: videoData, contentType: mimeType)
+                        let video = PFObject(className: "Commerce_Videos")
+                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                        let thumbnail = PFFileObject(data: self.thumbnailArray[index].wxCompress().jpegData(compressionQuality: 1)!,
+                                                        contentType: "image/jpeg")
+
+                        video["thumbnail"] = thumbnail
+                        video["leCommerce"] = commerceToSave
+                        video["time"] = asset.duration.stringFormatted()
+                        video["nameVideo"] = self.nomCommerce + " - Vidéo de présentation"
+                        video["video"] = pffile
+
+                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+
+                        pffile.saveInBackground({ (success, error) in
+                            if let error = error {
+                                Log.all.error("Uploading video error: \(error.debug)")
+                            } else if success {
+                                Log.all.debug("Video saved with success")
+                                video.saveInBackground()
+                            }
+                        }, progressBlock: { (progress32) in
+                            self.shdDismissAfterSave = false
+                            FileUploadManager.shared.updateProgress(to: Float(progress32))
+                            
+                            if Int(progress32) % 25 == 0 {
+                                Log.all.debug("Video upload progress = \(progress32)")
+                            }
+                            
+                            if progress32 >= 100 {
+                                self.shdDismissAfterSave = true
+                            }
+                        })
+                    }
+                }
+            }
             // [4] Mise a jour du commerce avec les photos & videos uploadés
             self.refreshCommerceMedia(commerceId: self.objectIdCommerce)
         }
