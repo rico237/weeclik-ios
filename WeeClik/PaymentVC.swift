@@ -7,6 +7,7 @@ import SwiftyStoreKit
 import SPLarkController
 import SwiftDate
 import SVProgressHUD
+import PDFReader
 
 class PaymentVC: UIViewController {
     // Check if we came for renewable or creation
@@ -78,6 +79,8 @@ class PaymentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "PAIEMENT".localized()
+
+        legalTextView.delegate = self
 
         SVProgressHUD.setHapticsEnabled(true)
         SVProgressHUD.setDefaultMaskType(.black)
@@ -370,5 +373,27 @@ class PaymentVC: UIViewController {
             }
         }
 
+    }
+}
+
+extension PaymentVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        var documentFileURL = Bundle.main.url(forResource: "cgv_cgu", withExtension: "pdf")
+        var title = ""
+        if URL.absoluteString == "\(Constants.Server.baseURL)/cgu" {
+            documentFileURL = Bundle.main.url(forResource: "cgv_cgu", withExtension: "pdf")
+            title = "Conditions de vente et d'utilisation"
+        } else if URL.absoluteString == "\(Constants.Server.baseURL)/politique-confidentialite" {
+            documentFileURL = Bundle.main.url(forResource: "rgpd", withExtension: "pdf")
+            title = "Confidentialité et données personnelles"
+        }
+        
+        if let documentFileURL = documentFileURL, let document = PDFDocument(url: documentFileURL) {
+            let readerController = PDFViewController.createNew(with: document, title: title, actionStyle: .activitySheet)
+            readerController.backgroundColor = .white
+            navigationController?.pushViewController(readerController, animated: true)
+        }
+        
+        return false
     }
 }
