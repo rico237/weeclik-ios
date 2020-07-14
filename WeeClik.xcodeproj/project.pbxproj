@@ -47,7 +47,6 @@
 		1F03ABB32360C18B0027D6EF /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */; };
 		1F03ABB42360C18B0027D6EF /* NomCommerceFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF47A2358E9A100F057C7 /* NomCommerceFormValidationError.swift */; };
 		1F03ABB62360C18B0027D6EF /* TestAreaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2D89822BCD23900C0FDC6 /* TestAreaViewController.swift */; };
-		1F03ABB72360C18B0027D6EF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
 		1F03ABB82360C18B0027D6EF /* AccueilCommerces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DF8891F21ED3E005B780A /* AccueilCommerces.swift */; };
 		1F03ABB92360C18B0027D6EF /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
 		1F03ABBA2360C18B0027D6EF /* WebsiteFormValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6AF4812358EB3400F057C7 /* WebsiteFormValidationError.swift */; };
@@ -200,7 +199,6 @@
 		1F9357442360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
 		1F9357462360DDE80006A234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9357432360DDE80006A234 /* Main.storyboard */; };
 		1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9AA80D1F99697900D56AC5 /* FormTextField.swift */; };
-		1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55621D146B00086EF72 /* LoginViewController.swift */; };
 		1F9EE55F21D297D50086EF72 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE55E21D297D50086EF72 /* SearchViewController.swift */; };
 		1F9EE56221D2DB830086EF72 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EE56021D2DB830086EF72 /* SearchCell.swift */; };
 		1F9EE56321D2DB830086EF72 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9EE56121D2DB830086EF72 /* SearchCell.xib */; };
@@ -369,7 +367,6 @@
 		1F93573D2360CA460006A234 /* LaunchScreen-DEV.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen-DEV.storyboard"; sourceTree = "<group>"; };
 		1F9357432360DDE80006A234 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1F9AA80D1F99697900D56AC5 /* FormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextField.swift; sourceTree = "<group>"; };
-		1F9EE55621D146B00086EF72 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F9EE55E21D297D50086EF72 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		1F9EE56021D2DB830086EF72 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		1F9EE56121D2DB830086EF72 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
@@ -539,7 +536,6 @@
 			isa = PBXGroup;
 			children = (
 				1F6C1C571F6E08750075584E /* ProcessInscriptionVC.swift */,
-				1F9EE55621D146B00086EF72 /* LoginViewController.swift */,
 				1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */,
 			);
 			name = "Login & Signup";
@@ -1491,7 +1487,6 @@
 				1F4CD07B23EB7A8B00478099 /* Log.swift in Sources */,
 				1F03ABB42360C18B0027D6EF /* NomCommerceFormValidationError.swift in Sources */,
 				1F03ABB62360C18B0027D6EF /* TestAreaViewController.swift in Sources */,
-				1F03ABB72360C18B0027D6EF /* LoginViewController.swift in Sources */,
 				1F03ABB82360C18B0027D6EF /* AccueilCommerces.swift in Sources */,
 				1F03ABB92360C18B0027D6EF /* FormTextField.swift in Sources */,
 				1F03ABBA2360C18B0027D6EF /* WebsiteFormValidationError.swift in Sources */,
@@ -1583,7 +1578,6 @@
 				1F4CD07A23EB7A8B00478099 /* Log.swift in Sources */,
 				1F6AF47B2358E9A100F057C7 /* NomCommerceFormValidationError.swift in Sources */,
 				1FB2D89922BCD23900C0FDC6 /* TestAreaViewController.swift in Sources */,
-				1F9EE55821D146B00086EF72 /* LoginViewController.swift in Sources */,
 				1F7DF88A1F21ED3E005B780A /* AccueilCommerces.swift in Sources */,
 				1F9AA80E1F99697900D56AC5 /* FormTextField.swift in Sources */,
 				1F6AF4822358EB3400F057C7 /* WebsiteFormValidationError.swift in Sources */,

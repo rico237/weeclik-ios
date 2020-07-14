@@ -28,16 +28,12 @@ class ProcessInscriptionVC: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let viewController = viewController else {
-            return
-        }
+        guard let viewController = viewController else { return }
         viewController.dismiss(animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let viewController = segue.destination as? SaisieDeDonneesVC else {
-            return
-        }
+        guard let viewController = segue.destination as? SaisieDeDonneesVC else { return }
         if let button = sender as? UIButton {
             if button.tag == 100 {
                 // Commercant

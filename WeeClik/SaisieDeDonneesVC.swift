@@ -49,13 +49,16 @@ class SaisieDeDonneesVC: UIViewController {
     
     func hideViewController() {
 //        profil_commerce
+        
         if let navigation = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "profil_commerce") as? UINavigationController{
+            
             presentFullScreen(viewController: navigation, animated: true, completion: nil)
         }
+        
     }
 
     @IBAction func saveInfos(_ sender: Any) {
-        guard let user = currentUser else {return}
+        guard let user = currentUser else { return }
         
         SVProgressHUD.show(withStatus: "Sauvegarde des informations".localized())
         if let name = nomPrenomTF.text { user["name"] = name }
@@ -63,14 +66,19 @@ class SaisieDeDonneesVC: UIViewController {
         user["inscriptionDone"] = true
 
         user.saveInBackground { (success, error) in
+            
             if success {
+                
                 SVProgressHUD.dismiss(withDelay: 1, completion: {
                     self.showBasicToastMessage(withMessage: "Profil sauvegardé avec succès", state: .success)
+                    
                     Log.all.info("succesful signup : \(user.description)")
                     self.hideViewController()
                 })
             } else {
+                
                 SVProgressHUD.dismiss(withDelay: 1, completion: {
+                    
                     if let error = error {
                         self.showBasicToastMessage(withMessage: "Erreur de sauvegarde de votre profil. Réessayer ultérieurement",
                                                    state: .error)
@@ -105,5 +113,17 @@ final class SignUpViewController: PFSignUpViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.signUpView?.logo?.frame = CGRect(x: (self.signUpView?.logo?.frame.origin.x)!, y: (self.signUpView?.logo?.frame.origin.y)! - 83, width: 167, height: 167)
+    }
+}
+
+final class LoginViewController: PFLogInViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.logInView?.logo = UIImageView(image: UIImage(named: "icon"))
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.logInView?.logo?.frame = CGRect(x: (self.logInView?.logo?.frame.origin.x)!, y: (self.logInView?.logo?.frame.origin.y)! - 83, width: 167, height: 167)
     }
 }
