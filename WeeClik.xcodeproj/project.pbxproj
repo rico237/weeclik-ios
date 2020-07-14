@@ -40,7 +40,6 @@
 		1F03ABAC2360C18B0027D6EF /* MonCompteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */; };
 		1F03ABAD2360C18B0027D6EF /* MonCompteCommerceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5C59A22B8434B00178929 /* MonCompteCommerceCell.swift */; };
 		1F03ABAE2360C18B0027D6EF /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BC11F34F7BC00DEDEA1 /* DescriptionCell.swift */; };
-		1F03ABAF2360C18B0027D6EF /* ParseLoginSignupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */; };
 		1F03ABB02360C18B0027D6EF /* AdminMonProfilSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */; };
 		1F03ABB12360C18B0027D6EF /* ParseErrorCodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AF13B2286D0A3005FD179 /* ParseErrorCodeHandler.swift */; };
 		1F03ABB22360C18B0027D6EF /* InformationGeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA53BBD1F34F78B00DEDEA1 /* InformationGeneralCell.swift */; };
@@ -135,7 +134,6 @@
 		1F39197B245F1A38009F24C4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F391979245F1A38009F24C4 /* Scheduler.swift */; };
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
 		1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */; };
-		1F3BE2BA235B321B00E185D2 /* ParseLoginSignupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */; };
 		1F3C5B1F22A2FBC700904317 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C5B1E22A2FBC700904317 /* MailHelper.swift */; };
 		1F3DE892247EFE3E00ECC495 /* cgv_cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DE890247EFE3C00ECC495 /* cgv_cgu.pdf */; };
 		1F3DE893247EFE3E00ECC495 /* cgv_cgu.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 1F3DE890247EFE3C00ECC495 /* cgv_cgu.pdf */; };
@@ -315,7 +313,6 @@
 		1F391979245F1A38009F24C4 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Scheduler.swift; path = "Manager/File Upload Manager/Scheduler.swift"; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
-		1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseLoginSignupHelper.swift; sourceTree = "<group>"; };
 		1F3C5B1E22A2FBC700904317 /* MailHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		1F3DE890247EFE3C00ECC495 /* cgv_cgu.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = cgv_cgu.pdf; sourceTree = "<group>"; };
 		1F3DE891247EFE3E00ECC495 /* rgpd.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = rgpd.pdf; sourceTree = "<group>"; };
@@ -514,7 +511,6 @@
 		1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */ = {
 			isa = PBXGroup;
 			children = (
-				1F3BE2B9235B321B00E185D2 /* ParseLoginSignupHelper.swift */,
 				1F403B091F9B9B2D00884E52 /* MonCompteVC.swift */,
 				1FCED3921FABA78700392060 /* ChangeInfosVC.swift */,
 				1FCED3941FABA9A200392060 /* MotDePasseVC.swift */,
@@ -712,7 +708,6 @@
 				1FCE0161209F20C20040F988 /* GoogleService-Info.plist */,
 				1FA4732D1F1EE7E400D2A306 /* AppDelegate.swift */,
 				1F28C6C723467CA7009831C7 /* Manager */,
-				1F0B8352224E9F4300F09FF5 /* Login & Signup */,
 				1F0B8351224E9F1100F09FF5 /* Ajouts de nouveaux commerces */,
 				1F61FA2A233416970001392C /* Liste de partage */,
 				1F0B8354224EA04A00F09FF5 /* (Accueil) Liste des commercants & detail */,
@@ -720,6 +715,7 @@
 				1FE910E221D2E89D00CEA0F3 /* Search */,
 				1FC42C48223ECD7100AB0C39 /* Paiement */,
 				1F6AF47D2358E9BE00F057C7 /* Form Validators */,
+				1F0B8352224E9F4300F09FF5 /* Login & Signup */,
 				1F0B834E224E9ACD00F09FF5 /* Profil utilisateur */,
 				1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */,
 				1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */,
@@ -1478,7 +1474,6 @@
 				1F03ABAD2360C18B0027D6EF /* MonCompteCommerceCell.swift in Sources */,
 				1FB8403D2440FE600031412F /* FileUploadManager.swift in Sources */,
 				1F03ABAE2360C18B0027D6EF /* DescriptionCell.swift in Sources */,
-				1F03ABAF2360C18B0027D6EF /* ParseLoginSignupHelper.swift in Sources */,
 				1F03ABB02360C18B0027D6EF /* AdminMonProfilSettingsVC.swift in Sources */,
 				1F03ABB12360C18B0027D6EF /* ParseErrorCodeHandler.swift in Sources */,
 				1F03ABB22360C18B0027D6EF /* InformationGeneralCell.swift in Sources */,
@@ -1569,7 +1564,6 @@
 				1FC5C59B22B8434B00178929 /* MonCompteCommerceCell.swift in Sources */,
 				1FB8403C2440FE600031412F /* FileUploadManager.swift in Sources */,
 				1FA53BC21F34F7BC00DEDEA1 /* DescriptionCell.swift in Sources */,
-				1F3BE2BA235B321B00E185D2 /* ParseLoginSignupHelper.swift in Sources */,
 				1F830EB6227B3411003E8F1F /* AdminMonProfilSettingsVC.swift in Sources */,
 				1F4AF13C2286D0A3005FD179 /* ParseErrorCodeHandler.swift in Sources */,
 				1FA53BBE1F34F78B00DEDEA1 /* InformationGeneralCell.swift in Sources */,

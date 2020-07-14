@@ -10,7 +10,6 @@ import UIKit
 import Parse
 
 class ProcessInscriptionVC: UIViewController {
-    var viewController: UIViewController?
     var newUser: PFUser!
     var choosePro = false // false = tous les users -> Client
     
@@ -19,17 +18,15 @@ class ProcessInscriptionVC: UIViewController {
         PFUser.current()?.fetchInBackground(block: { (object, error) in
             if let error = error {
                 Log.all.error("Error while fetching user data : \(error.debug)")
-            } else if let user = object, user["isPro"] as? Bool != nil,
-                let viewController = self.viewController {
-                viewController.dismiss(animated: true)
+            } else if let user = object {
+                let isPro = user["isPro"] as? Bool
+                let inscriptionDone = user["inscriptionDone"] as? Bool
+                
+                if isPro != nil && inscriptionDone ?? false {
+                    self.dismiss(animated: true)
+                }
             }
         })
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard let viewController = viewController else { return }
-        viewController.dismiss(animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
