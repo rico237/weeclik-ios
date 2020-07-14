@@ -212,7 +212,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.1)
   - Analytics (~> 3.0)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
-  - Bolts (~> 1.9)
+  - Bolts
   - Bugsnag
   - BulletinBoard (~> 3.0.0)
   - Compass (from `https://github.com/weeclik/Compass.git`)
@@ -426,6 +426,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 51325336485484c47de45d9f530ba79d35aedb70
+PODFILE CHECKSUM: 023b162f7b0681259518151de58364e6e1afd413
 
 COCOAPODS: 1.9.1

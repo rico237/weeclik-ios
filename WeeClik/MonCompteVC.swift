@@ -63,12 +63,13 @@ class MonCompteVC: UIViewController {
         refreshUserUI()
 
         PFUser.current()?.fetchInBackground(block: { (user, error) in
-            guard let user = user else {return}
+            guard let user = user else { return }
             if let error = error {
                 Log.all.error("Error while fetching user : \(error.debug)")
             } else {
                 // Recup si l'utilisateur est un pro (commercant)
-                if let proUser = user["isPro"] as? Bool {
+                if let proUser = user["isPro"] as? Bool,
+                    user["inscriptionDone"] as? Bool == true {
                     // isPro is set
                     self.isPro = proUser
                     self.refreshUserUI()
@@ -211,20 +212,18 @@ extension MonCompteVC {
             return
         }
         
-        if isPro {
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
+        
+        if isPro && commerces.isEmpty == false {
             for commercePFObject in commerces {
                 if Commerce(parseObject: commercePFObject).statut != .paid {
                     navigationItem.rightBarButtonItems = [
                         UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut)),
-                        self.editButtonItem
+                        editButtonItem
                     ]
                     break
-                } else {
-                    navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
                 }
             }
-        } else {
-            navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Logout_icon"), style: .plain, target: self, action: #selector(logOut))]
         }
     }
 }
@@ -235,7 +234,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
         super.setEditing(!editing, animated: animated)
         
         commercesTableView.setEditing(!commercesTableView.isEditing, animated: animated)
-        self.editButtonItem.title = commercesTableView.isEditing ? "Ok".localized() : "Modifier".localized()
+        editButtonItem.title = commercesTableView.isEditing ? "Ok".localized() : "Modifier".localized()
         
         if commercesTableView.isEditing {
             stopTimer()
@@ -449,7 +448,8 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
         if PFFacebookUtils.isLinked(with: user) {
             getFacebookInformations(user: user)
         }
-        logInController.dismiss(animated: true)
+        
+        dismiss(animated: true)
     }
 
     func log(_ logInController: PFLogInViewController, didFailToLogInWithError error: Error?) {
@@ -466,7 +466,8 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
         user.email = user.username
         user["additional"] = ""
         user.saveInBackground()
-        signUpController.dismiss(animated: true, completion: nil)
+        
+        dismiss(animated: true, completion: nil)
     }
 
     func signUpViewController(_ signUpController: PFSignUpViewController, didFailToSignUpWithError error: Error?) {

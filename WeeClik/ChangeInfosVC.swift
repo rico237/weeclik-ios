@@ -43,27 +43,29 @@ class ChangeInfosVC: UIViewController {
     }
 
     func updateProfilPic(forUser user: PFUser) {
-        guard profilPictureImageView != nil else {return}
+        guard profilPictureImageView != nil, didSelectNewPhoto == false else {
+            self.profilPictureImageView.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+            return
+        }
         // Regarde si une image de profil a été chargé
         // sinon si une image est lié via facebook
         // Sinon on affiche l'image de base weeclik
 
-        if !didSelectNewPhoto {
-            // Load photo from cloud
-            if let profilFile = user["profilPicFile"] as? PFFileObject, let url = profilFile.url, url != "" {
-                self.userProfilePicURL = url
-            } else if let profilPicURL = user["profilePictureURL"] as? String, profilPicURL != "" {
-                self.userProfilePicURL = profilPicURL
-            }
-            if self.userProfilePicURL != "" {
-                let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-                self.profilPictureImageView.sd_setImage(with: URL(string: self.userProfilePicURL),
-                                                        placeholderImage: placeholderImage,
-                                                        options: .progressiveDownload,
-                                                        completed: nil)
-            } else {
-                self.profilPictureImageView.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
-            }
+        // Load photo from cloud
+        if let profilFile = user["profilPicFile"] as? PFFileObject, let url = profilFile.url, url != "" {
+            userProfilePicURL = url
+        } else if let profilPicURL = user["profilePictureURL"] as? String, profilPicURL != "" {
+            userProfilePicURL = profilPicURL
+        }
+        
+        let placeholderImage = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+        profilPictureImageView.image = isPro ? #imageLiteral(resourceName: "Logo_commerce") : #imageLiteral(resourceName: "Logo_utilisateur")
+        
+        if userProfilePicURL != "" {
+            profilPictureImageView.sd_setImage(with: URL(string: userProfilePicURL),
+                                                    placeholderImage: placeholderImage,
+                                                    options: .progressiveDownload,
+                                                    completed: nil)
         }
     }
 
@@ -171,7 +173,7 @@ extension ChangeInfosVC: TLPhotosPickerViewControllerDelegate {
             SVProgressHUD.showProgress(Float(progress), status: "Chargement".localized())
         }
         
-        PHCachingImageManager().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { (image, infos) in
+        PHCachingImageManager().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: options) { (image, _ infos) in
             if let image = image, let data = image.jpegData(compressionQuality: 1) {
                 self.selectedData = data
                 self.profilPictureImageView.image = image.wxCompress()

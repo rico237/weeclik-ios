@@ -15,6 +15,7 @@ class SaisieDeDonneesVC: UIViewController {
     var isPro: Bool!
     var currentUser = PFUser.current()
     var facebookConnection = false
+    var processInscriptionVC: ProcessInscriptionVC!
 
     @IBOutlet weak var creationCompteLabel: UILabel!
     @IBOutlet weak var logoUser: UIImageView!
@@ -48,18 +49,23 @@ class SaisieDeDonneesVC: UIViewController {
     }
     
     func hideViewController() {
-//        profil_commerce
-        if let navigation = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "profil_commerce") as? UINavigationController{
-            presentFullScreen(viewController: navigation, animated: true, completion: nil)
+        if presentingViewController != nil {
+            dismiss(animated: false, completion: {
+                self.processInscriptionVC.dismiss(animated: true)
+            })
+        } else {
+            self.processInscriptionVC.dismiss(animated: true)
         }
     }
 
     @IBAction func saveInfos(_ sender: Any) {
-        guard let user = currentUser else {return}
+        guard let user = currentUser else { return }
+        
+        nomPrenomTF.resignFirstResponder()
         
         SVProgressHUD.show(withStatus: "Sauvegarde des informations".localized())
         if let name = nomPrenomTF.text { user["name"] = name }
-        user["isPro"] = self.isPro
+        user["isPro"] = isPro
         user["inscriptionDone"] = true
 
         user.saveInBackground { (success, error) in
@@ -91,7 +97,8 @@ class SaisieDeDonneesVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let navigation  = segue.destination as? UINavigationController,
            let destination = navigation.viewControllers[0] as? MonCompteVC {
-            destination.isPro = self.isPro
+            
+            destination.isPro = isPro
         }
     }
 }
@@ -99,11 +106,54 @@ class SaisieDeDonneesVC: UIViewController {
 final class SignUpViewController: PFSignUpViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.signUpView?.logo = UIImageView(image: UIImage(named: "icon"))
+        signUpView?.logo = UIImageView(image: UIImage(named: "icon"))
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.signUpView?.logo?.frame = CGRect(x: (self.signUpView?.logo?.frame.origin.x)!, y: (self.signUpView?.logo?.frame.origin.y)! - 83, width: 167, height: 167)
+        guard let logoFrame = signUpView?.logo?.frame else { return }
+        
+        signUpView?.logo?.frame = CGRect(x: logoFrame.origin.x, y: logoFrame.origin.y - 83, width: 167, height: 167)
+    }
+}
+
+final class LoginViewController: PFLogInViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.logInView?.logo = UIImageView(image: UIImage(named: "icon"))
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.logInView?.logo?.frame = CGRect(x: (self.logInView?.logo?.frame.origin.x)!, y: (self.logInView?.logo?.frame.origin.y)! - 83, width: 167, height: 167)
+    }
+}
+
+final class ParseLoginSignupHelper {
+    static func parseLoginViewController() -> PFLogInViewController {
+        let logInController = LoginViewController()
+        logInController.fields = [.usernameAndPassword,
+                                  .logInButton,
+                                  .signUpButton,
+                                  .passwordForgotten,
+                                  .dismissButton,
+                                  .facebook]
+        logInController.emailAsUsername = true
+        logInController.facebookPermissions = ["email", "public_profile"]
+        logInController.modalPresentationStyle = .fullScreen
+
+        // SignUp Part
+        logInController.signUpController = SignUpViewController()
+        logInController.signUpController?.fields = [.usernameAndPassword,
+                                                    .signUpButton,
+                                                    .additional,
+                                                    .dismissButton]
+        logInController.signUpController?.signUpView?.usernameField?.keyboardType = .emailAddress
+        logInController.signUpController?.signUpView?.additionalField?.isSecureTextEntry = true
+        logInController.signUpController?.signUpView?.additionalField?.keyboardType = .alphabet
+        logInController.signUpController?.signUpView?.usernameField?.placeholder = "Email".localized()
+        logInController.signUpController?.signUpView?.additionalField?.placeholder = "Confirmation du mot de passe".localized()
+        logInController.signUpController?.modalPresentationStyle = .fullScreen
+        return logInController
     }
 }
