@@ -15,6 +15,7 @@ class SaisieDeDonneesVC: UIViewController {
     var isPro: Bool!
     var currentUser = PFUser.current()
     var facebookConnection = false
+    var processInscriptionVC: ProcessInscriptionVC!
 
     @IBOutlet weak var creationCompteLabel: UILabel!
     @IBOutlet weak var logoUser: UIImageView!
@@ -48,12 +49,12 @@ class SaisieDeDonneesVC: UIViewController {
     }
     
     func hideViewController() {
-        if self.presentingViewController != nil {
-            self.dismiss(animated: false, completion: {
-               self.navigationController!.popToRootViewController(animated: true)
+        if presentingViewController != nil {
+            dismiss(animated: false, completion: {
+                self.processInscriptionVC.dismiss(animated: true)
             })
         } else {
-            self.navigationController!.popToRootViewController(animated: true)
+            self.processInscriptionVC.dismiss(animated: true)
         }
     }
 

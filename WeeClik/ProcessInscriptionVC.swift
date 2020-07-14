@@ -42,5 +42,6 @@ class ProcessInscriptionVC: UIViewController {
 
         viewController.currentUser = newUser
         viewController.isPro = choosePro
+        viewController.processInscriptionVC = self
     }
 }
