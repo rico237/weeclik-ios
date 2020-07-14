@@ -18,7 +18,7 @@ def projectPods
     pod 'Segment-Flurry'
     
     # Librairie Parse (Back-end, Login, Notifications)
-    pod 'Bolts', '~> 1.9'
+    pod 'Bolts'
     pod 'Parse'
     pod 'Parse/FacebookUtils'
     pod 'Parse/UI'

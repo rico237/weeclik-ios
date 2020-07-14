@@ -107,17 +107,12 @@ extension AjoutCommerceVC {
         SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setMinimumDismissTimeInterval(0.7)
         
-        if editingMode {
-            self.saveButton.title = "Modifier".localized()
-            self.cancelButton.title = "Retour".localized()
-            self.title = "MODIFIER COMMERCE".localized()
-        } else {
-            self.saveButton.title = "Enregistrer".localized()
-            self.cancelButton.title = "Retour".localized()
-            self.title = "NOUVEAU COMMERCE".localized()
-        }
+        self.saveButton.title = editingMode ? "Modifier".localized() : "Enregistrer".localized()
+        self.cancelButton.title = editingMode ? "Retour".localized() : "Retour".localized()
+        self.title = editingMode ? "MODIFIER COMMERCE".localized() : "NOUVEAU COMMERCE".localized()
 
         tableView.tableHeaderView?.frame.size.height = 0
+        tableView.contentInset.bottom = additionalSafeAreaInsets.bottom
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -160,11 +155,7 @@ extension AjoutCommerceVC {
         }
         
         // Est en mode brouillon
-        if (savedCommerce.pfObject["brouillon"] as? Bool ?? true) {
-            tableView.tableHeaderView?.frame.size.height = 0
-        } else {
-            tableView.tableHeaderView?.frame.size.height = 160
-        }
+        tableView.tableHeaderView?.frame.size.height = (savedCommerce.pfObject["brouillon"] as? Bool ?? true) ? 0 : 160
 
         seeMoreButton.isEnabled = true
         statusDescription.text = "Statut : \n\(savedCommerce.statut.description)".localized()
@@ -809,8 +800,8 @@ extension AjoutCommerceVC {
             return 150
         case .photos:
             return (tableView.bounds.width - (3 - 1) * 7) / 3
-        default:
-            return 100
+        case .description, .promotions:
+            return UITableView.automaticDimension
         }
     }
 
@@ -1056,6 +1047,10 @@ extension AjoutCommerceVC: UITextFieldDelegate, UITextViewDelegate {
             descriptionCommerce = textView.text
         } else if textView.tag == 200 {
             promotionsCommerce  = textView.text
+        }
+        
+        UIView.performWithoutAnimation {
+            self.tableView.reloadWithoutScroll()
         }
     }
     @objc func textFieldDidChange(_ textField: UITextField) {

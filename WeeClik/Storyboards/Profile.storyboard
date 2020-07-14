@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -387,14 +387,14 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="singleInformationCell" id="yky-e7-LSh" customClass="NouveauCommerceCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="188" width="414" height="19.5"/>
+                                <rect key="frame" x="0.0" y="188" width="414" height="19"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yky-e7-LSh" id="RFM-6W-1iV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="19.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="19"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Nom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XiW-sH-vld" customClass="DTTextField" customModule="DTTextField">
-                                            <rect key="frame" x="16" y="0.0" width="398" height="19.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="398" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -411,7 +411,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="photoCollectionView" rowHeight="120" id="3vE-ir-PLC" customClass="AjoutPhotoTVC" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="207.5" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="207" width="414" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3vE-ir-PLC" id="3iO-5E-ske">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
@@ -473,7 +473,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="videoCell" rowHeight="150" id="EGw-Ke-XFh" customClass="VideoCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="327.5" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="327" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EGw-Ke-XFh" id="NN3-NJ-QB6">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -512,7 +512,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="categorieCell" rowHeight="150" id="1O6-mq-90N" customClass="SelectionCategorieTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="477.5" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="477" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1O6-mq-90N" id="xCi-q8-JT4">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -538,14 +538,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="informationsCommerceCell" id="X51-0e-6mz" customClass="NouveauCommerceCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="627.5" width="414" height="17.5"/>
+                                <rect key="frame" x="0.0" y="627" width="414" height="19"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X51-0e-6mz" id="Ejz-M2-JuV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="17.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="19"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lpz-Jf-Swr">
-                                            <rect key="frame" x="16" y="0.0" width="398" height="17.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="398" height="19"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -562,14 +562,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="descriptionCell" id="j2x-ux-h1p" customClass="DescriptionAndPromotionsTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="645" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="646" width="414" height="33.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j2x-ux-h1p" id="Vt7-bv-IRd">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="33.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="IW0-Jy-qSk" customClass="ASJExpandableTextView">
-                                            <rect key="frame" x="8" y="0.0" width="398" height="43.5"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="IW0-Jy-qSk" customClass="ASJExpandableTextView">
+                                            <rect key="frame" x="8" y="0.0" width="398" height="33.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -590,14 +590,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="promotionsCell" id="WI1-OV-oU1" customClass="DescriptionAndPromotionsTVCell" customModule="WeeClik" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="688.5" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="679.5" width="414" height="33.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WI1-OV-oU1" id="UVS-G6-vZr">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="33.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="Lo0-1t-FRe" customClass="ASJExpandableTextView">
-                                            <rect key="frame" x="8" y="0.0" width="398" height="43.5"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="Lo0-1t-FRe" customClass="ASJExpandableTextView">
+                                            <rect key="frame" x="8" y="0.0" width="398" height="33.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1119,7 +1119,7 @@ Ex: -15% sur la formule midi ou l’installation du matériel</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1X-90-KLS">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4vE-Wq-627">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="762"/>
@@ -1250,6 +1250,10 @@ En vous abonnant, vous acceptez nos Conditions générales et Politique de Confi
             <point key="canvasLocation" x="7413" y="216"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="UVY-Ff-im1"/>
+        <segue reference="AJE-VH-nVt"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="BoutonVideo" width="40" height="40"/>
         <image name="Bouton_commerce" width="169" height="208"/>
@@ -1259,8 +1263,4 @@ En vous abonnant, vous acceptez nos Conditions générales et Politique de Confi
         <image name="PartagesIcon_White" width="20" height="20"/>
         <image name="Placeholder_carre" width="128" height="128"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="vHo-LJ-Qj1"/>
-        <segue reference="AJE-VH-nVt"/>
-    </inferredMetricsTieBreakers>
 </document>
