@@ -19,6 +19,7 @@ class ParseLoginSignupHelper {
                                   .facebook]
         logInController.emailAsUsername = true
         logInController.facebookPermissions = ["email", "public_profile"]
+        logInController.modalPresentationStyle = .fullScreen
 
         // SignUp Part
         logInController.signUpController = SignUpViewController()
@@ -31,6 +32,7 @@ class ParseLoginSignupHelper {
         logInController.signUpController?.signUpView?.additionalField?.keyboardType = .alphabet
         logInController.signUpController?.signUpView?.usernameField?.placeholder = "Email".localized()
         logInController.signUpController?.signUpView?.additionalField?.placeholder = "Confirmation du mot de passe".localized()
+        logInController.signUpController?.modalPresentationStyle = .fullScreen
         return logInController
     }
 }

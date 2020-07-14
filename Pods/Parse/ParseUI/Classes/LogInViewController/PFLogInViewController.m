@@ -452,7 +452,6 @@ NSString *const PFLogInCancelNotification = @"com.parse.ui.login.cancel";
     if (self.loading) {
         return;
     }
-    self.signUpController.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:self.signUpController animated:YES completion:nil];
 }
 
