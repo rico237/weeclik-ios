@@ -42,6 +42,7 @@ class AccueilCommerces: UIViewController {
     var isLoadingCommerces      = false                 // si la fonction de chargement des commerces est en cours
     // Selected category in menu
     var selectedIndex: Int = 0
+//    var selectedIndex: Int = 14
 
     @IBOutlet weak var labelHeaderCategorie: UILabel!
     @IBOutlet weak var headerContainer: UIView!
