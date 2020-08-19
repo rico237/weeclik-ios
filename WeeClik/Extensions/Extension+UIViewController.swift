@@ -44,7 +44,7 @@ extension UIViewController {
 
         let alertViewController = UIAlertController.init(title: "Sortir de l'application ?".localized(), message: "Vous allez être redirigé vers le site web du commerçant.\n Et ainsi quitter l'application Weeclik.\n Voulez vous continuer ?".localized(), preferredStyle: UIAlertController.Style.alert)
         let defaultAction = UIAlertAction.init(title: "OK".localized(), style: UIAlertAction.Style.default) { (_:UIAlertAction) -> Void in
-            if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
+            if let url = urlString.getURL(), UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             } else {
                 self.showBasicToastMessage(withMessage: "Impossibilité d'ouvrir le site web associé.".localized(), state: .error)

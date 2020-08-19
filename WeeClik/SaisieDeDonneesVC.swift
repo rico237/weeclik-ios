@@ -137,9 +137,10 @@ final class ParseLoginSignupHelper {
                                   .signUpButton,
                                   .passwordForgotten,
                                   .dismissButton,
-                                  .facebook]
+//                                  .facebook
+        ]
         logInController.emailAsUsername = true
-        logInController.facebookPermissions = ["email", "public_profile"]
+//        logInController.facebookPermissions = ["email", "public_profile"]
         logInController.modalPresentationStyle = .fullScreen
 
         // SignUp Part

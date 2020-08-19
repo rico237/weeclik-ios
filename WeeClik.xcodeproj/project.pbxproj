@@ -130,6 +130,8 @@
 		1F29990A23BBB8D700D638FC /* LatestKnowLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */; };
 		1F29990C23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
 		1F29990D23BBC3D400D638FC /* Extension+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */; };
+		1F32B29F24ED9BD3005FF4A6 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F32B29E24ED9BD3005FF4A6 /* Extension+String.swift */; };
+		1F32B2A024ED9BD3005FF4A6 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F32B29E24ED9BD3005FF4A6 /* Extension+String.swift */; };
 		1F39197A245F1A38009F24C4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F391979245F1A38009F24C4 /* Scheduler.swift */; };
 		1F39197B245F1A38009F24C4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F391979245F1A38009F24C4 /* Scheduler.swift */; };
 		1F392F791FB9E88C0021D76E /* SelectionCategorieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */; };
@@ -310,6 +312,7 @@
 		1F29990523BA703A00D638FC /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		1F29990823BBB8D700D638FC /* LatestKnowLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestKnowLocationManager.swift; sourceTree = "<group>"; };
 		1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Dictionary.swift"; sourceTree = "<group>"; };
+		1F32B29E24ED9BD3005FF4A6 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		1F391979245F1A38009F24C4 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Scheduler.swift; path = "Manager/File Upload Manager/Scheduler.swift"; sourceTree = "<group>"; };
 		1F392F781FB9E88C0021D76E /* SelectionCategorieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionCategorieTVCell.swift; sourceTree = "<group>"; };
 		1F392F7A1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionAndPromotionsTVCell.swift; sourceTree = "<group>"; };
@@ -572,6 +575,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD6F56C20729A5100EC9DF3 /* Extensions.swift */,
+				1F32B29E24ED9BD3005FF4A6 /* Extension+String.swift */,
 				1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */,
 				1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */,
 				1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */,
@@ -1444,6 +1448,7 @@
 				1F03AB942360C18B0027D6EF /* DetailCommerceViewController.swift in Sources */,
 				1F03AB952360C18B0027D6EF /* ContactTVCell.swift in Sources */,
 				1F03AB962360C18B0027D6EF /* CategoriesCollectionViewCell.swift in Sources */,
+				1F32B2A024ED9BD3005FF4A6 /* Extension+String.swift in Sources */,
 				1FE6ECF324449E4300DF654C /* FileUploadProgressView.swift in Sources */,
 				1F03AB972360C18B0027D6EF /* StyleKitWeeclik.swift in Sources */,
 				1F03AB982360C18B0027D6EF /* AddressFormValidationError.swift in Sources */,
@@ -1534,6 +1539,7 @@
 				1F08570A1F2D8D8300932929 /* DetailCommerceViewController.swift in Sources */,
 				1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */,
 				1FE76BC921B9D0E000209F3C /* CategoriesCollectionViewCell.swift in Sources */,
+				1F32B29F24ED9BD3005FF4A6 /* Extension+String.swift in Sources */,
 				1FE6ECF224449E4300DF654C /* FileUploadProgressView.swift in Sources */,
 				1F7F7C88234A5BF90087A444 /* StyleKitWeeclik.swift in Sources */,
 				1F6AF4882358EB9D00F057C7 /* AddressFormValidationError.swift in Sources */,
@@ -1630,7 +1636,7 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik-DEV";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1658,7 +1664,7 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik-DEV";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1807,7 +1813,7 @@
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1830,7 +1836,7 @@
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.3.7;
+				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
