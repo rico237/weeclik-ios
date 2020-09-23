@@ -13,6 +13,7 @@ import SwiftMultiSelect
 import Contacts
 import MessageUI
 import Parse
+import Bugsnag
 
 class ListeDesFavorisVC: UIViewController {
 
@@ -69,11 +70,24 @@ class ListeDesFavorisVC: UIViewController {
         }
     }
 
-    func saveCommerceIdInUserDefaults() {
+    func didShareCommerce() {
         // Met dans le UserDefaults + ajoute une notification au moment écoulé
         HelperAndKeys.setSharingTime(forCommerceId: self.commerce.objectId)
         // Met à jour les données dans la BDD distante
-        HelperAndKeys.saveStatsInDb(commerce: self.commerce.pfObject, user: PFUser.current())
+        if let userId = PFUser.current()?.objectId {
+            ParseHelper.shareCommerce(commereId: self.commerce.objectId, fromUserId: userId) { (error) in
+                if let error = error {
+                    // Did fail
+                    Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
+                    let exeption = NSException(name:NSExceptionName(rawValue: "APIError"),
+                                               reason:"Error debut: \(error.debug)", userInfo:nil)
+                    Bugsnag.notify(exeption)
+                } else {
+                    // Did succeded
+                    Log.all.info("Sharing did succeed")
+                }
+            }
+        }
     }
 
     func sendSMSForItems(groupe: GroupePartage) {
@@ -154,7 +168,7 @@ extension ListeDesFavorisVC: MFMessageComposeViewControllerDelegate {
             }
         case .sent:
             controller.dismiss(animated: true) {
-                self.saveCommerceIdInUserDefaults()
+                self.didShareCommerce()
                 self.showAlertWithMessage(message: "Votre partage a été pris en compte. Vous pouvez des à présent profiter de votre promotion.".localized(), title: "Merci pour votre confiance".localized()) {
                     self.dismiss(animated: true) {
                         NotificationCenter.default.post(name: .didSendGroupeFavorisSMS, object: nil)
