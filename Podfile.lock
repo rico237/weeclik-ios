@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (5.1.0)
   - Analytics (3.8.0)
   - AppImageViewer (1.0.10):
     - SDWebImage (~> 4.0)
@@ -16,16 +15,6 @@ PODS:
   - CRNotifications (1.2.1)
   - DTTextField (0.4.0)
   - DZNEmptyDataSet (1.8.1)
-  - FBSDKCoreKit (5.15.1):
-    - FBSDKCoreKit/Basics (= 5.15.1)
-    - FBSDKCoreKit/Core (= 5.15.1)
-  - FBSDKCoreKit/Basics (5.15.1)
-  - FBSDKCoreKit/Core (5.15.1):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (5.15.1):
-    - FBSDKLoginKit/Login (= 5.15.1)
-  - FBSDKLoginKit/Login (5.15.1):
-    - FBSDKCoreKit (~> 5.0)
   - Firebase/Analytics (6.23.0):
     - Firebase/Core
   - Firebase/Core (6.23.0):
@@ -148,15 +137,11 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Parse (1.18.0):
-    - Parse/Core (= 1.18.0)
-  - Parse/Core (1.18.0):
+  - Parse (1.19.0):
+    - Parse/Core (= 1.19.0)
+  - Parse/Core (1.19.0):
     - Bolts/Tasks (= 1.9.1)
-  - Parse/FacebookUtils (1.18.0):
-    - Bolts/Tasks (= 1.9.1)
-    - FBSDKLoginKit (~> 5.x)
-    - Parse/Core
-  - Parse/UI (1.18.0):
+  - Parse/UI (1.19.0):
     - Parse/Core
   - PDFReader (2.5.1)
   - PhoneNumberKit (3.2.0):
@@ -209,7 +194,6 @@ PODS:
   - ZKCarousel (0.2.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.1)
   - Analytics (~> 3.0)
   - AppImageViewer (from `https://github.com/weeclik/AppImageViewer.git`)
   - Bolts
@@ -219,8 +203,6 @@ DEPENDENCIES:
   - CRNotifications
   - DTTextField
   - DZNEmptyDataSet
-  - FBSDKCoreKit
-  - FBSDKLoginKit
   - Firebase/Analytics
   - Firebase/Core
   - Firebase/Performance
@@ -232,7 +214,6 @@ DEPENDENCIES:
   - Localize-Swift (~> 3.0)
   - Material (~> 2.16)
   - Parse
-  - Parse/FacebookUtils
   - Parse/UI
   - PDFReader
   - PhoneNumberKit (~> 3.0)
@@ -259,7 +240,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - Analytics
     - Batch
     - Bolts
@@ -268,8 +248,6 @@ SPEC REPOS:
     - CRNotifications
     - DTTextField
     - DZNEmptyDataSet
-    - FBSDKCoreKit
-    - FBSDKLoginKit
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -361,7 +339,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/hemangshah/Zingle.git
 
 SPEC CHECKSUMS:
-  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   Analytics: fcf79ebc393a7d77befb8d43ce296353ba9ede3d
   AppImageViewer: 79cfdebdb787afc0af3a5197482b011b15b847d0
   Batch: b8f62beee5a81f58c23d84f92f363a9f1ce4d6a4
@@ -372,8 +349,6 @@ SPEC CHECKSUMS:
   CRNotifications: 2799786cb63e104c75699843d8928afd680182f3
   DTTextField: 4b9bab01faec50a98d42d24ba39ed122461f866f
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
-  FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   Firebase: 585ae467b3edda6a5444e788fda6888f024d8d6f
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 558f7a03d19de451093032c806f39d5f9dff096e
@@ -401,7 +376,7 @@ SPEC CHECKSUMS:
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Parse: 79bdda34fdb7eb2a707a43a951c8aae236cb3e34
+  Parse: 0fb5c7cc7ee5900f2434e24607d0496155b8d04f
   PDFReader: 2c4a845d0560f33221cf911516e3b700967680f6
   PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -426,6 +401,6 @@ SPEC CHECKSUMS:
   Zingle: 9e56c95fd75956333aec44c68b667b3afc62b551
   ZKCarousel: 2cb2a9bbfebfa50ff7e240ae061890cdc3ee3cd8
 
-PODFILE CHECKSUM: 023b162f7b0681259518151de58364e6e1afd413
+PODFILE CHECKSUM: 01b12575ca5b8501112e97f3bc3811847983b668
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

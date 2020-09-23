@@ -15,6 +15,22 @@ class UploadTestViewController: UIViewController {
     var progress: Float = 0
     
     @IBAction func uploadAction(_ sender: Any) {
+        shareCommerceViaServerAPI()
+    }
+    
+    func shareCommerceViaServerAPI() {
+        ParseHelper.shareCommerce(commereId: "0HaXnEwBpz", fromUserId: "5j7pwQ9y1F") { (error) in
+            if let error = error {
+                // Did fail
+                Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
+            } else {
+                // Did succeded
+                Log.all.info("Sharing did succeed")
+            }
+        }
+    }
+    
+    func testUploadingFile() {
         if (isRunning) {
             progressBarTimer.invalidate()
         } else {

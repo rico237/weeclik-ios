@@ -20,15 +20,15 @@ def projectPods
     # Librairie Parse (Back-end, Login, Notifications)
     pod 'Bolts'
     pod 'Parse'
-    pod 'Parse/FacebookUtils'
+#    pod 'Parse/FacebookUtils'
     pod 'Parse/UI'
     
     # Crash debugging tool
     pod 'Bugsnag'
     
     # Facebook integration
-    pod 'FBSDKCoreKit'
-    pod 'FBSDKLoginKit'
+#    pod 'FBSDKCoreKit'
+#    pod 'FBSDKLoginKit'
     
     # Firebase + Performance
     pod 'Firebase/Core'
@@ -40,7 +40,7 @@ def projectPods
     # PDF Reader
     pod 'PDFReader'
     # HTTP requests (CRUD) (GET POST PUT DEL)
-    pod 'Alamofire', '~> 5.1'
+#    pod 'Alamofire', '~> 5'
     # Carrousel de démo à la connexion
     pod 'ZKCarousel', '~> 0.1'
     # Notification pour le partage de nouveau activé

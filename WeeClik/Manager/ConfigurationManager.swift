@@ -46,5 +46,6 @@ extension ConfigurationManager {
         let server: String
         let dashboard: String
         let commerce: String
+        let share: String
     }
 }

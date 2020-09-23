@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z6n-9k-SZX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z6n-9k-SZX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,14 +25,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wop-ur-jGW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wop-ur-jGW">
                                 <rect key="frame" x="146.5" y="109" width="121" height="30"/>
                                 <state key="normal" title="Test upload video"/>
                                 <connections>
                                     <action selector="button_1:" destination="tUu-rq-2b3" eventType="touchUpInside" id="1aG-R6-Rau"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UZ-bi-ZNY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UZ-bi-ZNY">
                                 <rect key="frame" x="131.5" y="155" width="151" height="30"/>
                                 <state key="normal" title="Test plusieurs contact"/>
                                 <connections>
@@ -39,6 +40,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="DOD-f8-Ttg"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1UZ-bi-ZNY" firstAttribute="top" secondItem="wop-ur-jGW" secondAttribute="bottom" constant="16" id="B8f-aJ-R4q"/>
@@ -46,7 +48,6 @@
                             <constraint firstItem="wop-ur-jGW" firstAttribute="top" secondItem="DOD-f8-Ttg" secondAttribute="top" constant="65" id="arS-VO-Xhs"/>
                             <constraint firstItem="wop-ur-jGW" firstAttribute="centerX" secondItem="IqF-mY-bNE" secondAttribute="centerX" id="icf-q0-Pjw"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="DOD-f8-Ttg"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jna-7M-i6t" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -125,7 +126,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OME-NP-F6W">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OME-NP-F6W">
                                 <rect key="frame" x="0.0" y="862" width="414" height="0.0"/>
                                 <color key="backgroundColor" red="0.0" green="0.66966283319999997" blue="0.94419819120000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -145,6 +146,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7fZ-Tt-sXk"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="D7M-6k-zgf" firstAttribute="top" secondItem="7fZ-Tt-sXk" secondAttribute="top" id="0x2-lz-9MR"/>
@@ -156,7 +158,6 @@
                             <constraint firstItem="OME-NP-F6W" firstAttribute="bottom" secondItem="7fZ-Tt-sXk" secondAttribute="bottom" id="kz4-6L-haJ"/>
                             <constraint firstItem="OME-NP-F6W" firstAttribute="trailing" secondItem="7fZ-Tt-sXk" secondAttribute="trailing" id="mTi-kS-gOJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7fZ-Tt-sXk"/>
                     </view>
                     <navigationItem key="navigationItem" id="OdH-TU-J8f">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FHa-eZ-UZj">
@@ -200,24 +201,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zb1-iq-ngz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zb1-iq-ngz">
                                 <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="0S8-pE-rRr"/>
                                     <constraint firstAttribute="height" constant="100" id="XM5-KR-E06"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="uploadAction:" destination="JCz-0y-2uv" eventType="touchUpInside" id="Al5-zs-dGD"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="DcO-Wq-uu5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zb1-iq-ngz" firstAttribute="centerY" secondItem="tKg-Db-zyE" secondAttribute="centerY" id="1p1-vb-xPL"/>
                             <constraint firstItem="zb1-iq-ngz" firstAttribute="centerX" secondItem="tKg-Db-zyE" secondAttribute="centerX" id="c9w-yr-Wui"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="DcO-Wq-uu5"/>
                     </view>
                     <navigationItem key="navigationItem" id="eZC-hV-XOL"/>
                 </viewController>
@@ -244,4 +247,9 @@
             <point key="canvasLocation" x="-4.3478260869565224" y="837.72321428571422"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
