@@ -8,7 +8,6 @@
 
 import UIKit
 import Parse
-//import FBSDKCoreKit
 import Compass
 import Firebase
 import SwiftyStoreKit
@@ -40,10 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
         
-        // Facebook conf
-//        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-//        PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
-        
         // External URL Routing to commerce detail
         setupRouting()
         
@@ -60,10 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try? Navigator.navigate(url: url)
         return true
     }
-
-//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-//        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-//    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

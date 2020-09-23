@@ -469,10 +469,6 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     }
 
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
-//        if PFFacebookUtils.isLinked(with: user) {
-//            getFacebookInformations(user: user)
-//        }
-        
         dismiss(animated: true)
     }
 
@@ -527,28 +523,4 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
             return false
         }
     }
-
-//    func getFacebookInformations(user: PFUser) {
-//        let params = ["fields": "email, name"]
-//        let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-//
-//        graphRequest.start(completionHandler: { (_, result, error) in
-//            if let error = error {
-//                Log.all.error("Erreur de login : \n\(error.debug)")
-//                self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(),
-//                                          title: "Connexion Facebook échoué".localized(),
-//                                          completionAction: nil)
-//            } else {
-//                // handle successful response
-//                if let data = result as? [String: Any] {
-//                    user["name"] = data["name"] as! String
-//                    user["email"] = data["email"] as! String
-//                    let facebookId = data["id"] as! String
-//                    user["facebookId"] = facebookId
-//                    user["profilePictureURL"] = "https://graph.facebook.com/" + facebookId + "/picture?type=large&return_ssl_resources=1"
-//                    user.saveInBackground()
-//                }
-//            }
-//        })
-//    }
 }
