@@ -29,13 +29,7 @@ class SaisieDeDonneesVC: UIViewController {
         SVProgressHUD.setDefaultStyle(.dark)
 
         if let user = currentUser {
-            if PFFacebookUtils.isLinked(with: user) {
-                // Connecté grâce à Facebook
-                nomPrenomTF.text = user["name"] as? String
-                mailTF.text = user["email"] as? String
-            } else {
-                mailTF.text = user.email
-            }
+            mailTF.text = user.email
         } else {
             currentUser = PFUser()
         }

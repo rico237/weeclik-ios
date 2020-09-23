@@ -13,9 +13,9 @@ import SwiftDate
 import Localize_Swift
 
 class MonCompteVC: UIViewController {
-    var isPro = true                    // Savoir si l'utilisateur est de type pro
+    var isPro = false                    // Savoir si l'utilisateur est de type pro
     var userProfilePicURL = ""          // Image de profil de l'utilisateur (uniquement facebook pour le moment)
-    var commerces: [PFObject]! = []     // La liste des commerces dans le BAAS
+    var commerces = [PFObject]()     // La liste des commerces dans le BAAS
     var partagesDates = [Date]()        // Date des partages
     var currentUser = PFUser.current()  // Utilisateur connecté
     
@@ -41,11 +41,16 @@ class MonCompteVC: UIViewController {
         navigationItem.leftBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(getBackToHome(_:)))]
 
         guard let user = currentUser else { return }
+        if let isPro = user["isPro"] as? Bool {
+            self.isPro = isPro
+            refreshUserUI()
+        }
         user.fetchInBackground(block: { (user, error) in
             if let error = error {
                 ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
             } else if let user = user as? PFUser {
                 self.currentUser = user
+                self.refreshUserUI()
             }
         })
     }
@@ -61,9 +66,14 @@ class MonCompteVC: UIViewController {
         guard let current = PFUser.current() else { return }
         currentUser = current
         refreshUserUI()
+        if let isPro = current["isPro"] as? Bool {
+            self.isPro = isPro
+            refreshUserUI()
+        }
 
         PFUser.current()?.fetchInBackground(block: { (user, error) in
-            guard let user = user else { return }
+            guard let user: PFUser = user as? PFUser else { return }
+            self.currentUser = user
             if let error = error {
                 Log.all.error("Error while fetching user : \(error.debug)")
             } else {
@@ -132,6 +142,10 @@ extension MonCompteVC {
             if let error = error {
                 Log.all.error("Error while fetching user : \(error.debug)")
             } else {
+                guard let user = user else { return }
+                if let isPro = user["isPro"] as? Bool {
+                    self.isPro = isPro
+                }
                 self.refreshUserUI()
             }
         })
@@ -279,14 +293,13 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == changeProfilInfoTVC { return 1 } else {
-            guard let comm = commerces else { return 0 }
-
-            if comm.isEmpty {
+            guard commerces.isEmpty == false else {
                 updateUI()
-            } else {
-                if let noCommerceView = noCommerceView {
-                    noCommerceView.removeFromSuperview()
-                }
+                return 0
+            }
+
+            if let noCommerceView = noCommerceView {
+                noCommerceView.removeFromSuperview()
             }
             return commerces.count
         }
@@ -309,19 +322,18 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
             let commerce = Commerce(parseObject: commerces[indexPath.row])
             let cell = tableView.dequeueReusableCell(withIdentifier: "commercesCell") as! MonCompteCommerceCell
             cell.partageIcon.tintColor = .systemRed
-            cell.descriptionLabel.isHidden = isPro ? false : true
+            cell.descriptionLabel.isHidden = false
+            cell.titre.text = "\(commerce.nom)"
+            cell.nbrPartage.text = "\(commerce.partages)"
 
+            if let imageThumbnailFile = commerce.thumbnail, let url = imageThumbnailFile.url {
+                cell.commercePlaceholder.sd_setImage(with: URL(string: url))
+            } else {
+                cell.commercePlaceholder.image = commerce.type.image
+            }
+            
             if isPro {
                 // Utilisateur pro
-                cell.titre.text = "\(commerce.nom)"
-                cell.nbrPartage.text = "\(commerce.partages)"
-
-                if let imageThumbnailFile = commerce.thumbnail {
-                    cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-                } else {
-                    cell.commercePlaceholder.image = commerce.type.image
-                }
-
                 if (commerce.brouillon) {
                     cell.descriptionLabel.text = "Brouillon - Sauvegarder pour publier".localized()
                     cell.descriptionLabel.textColor = .lightText
@@ -335,16 +347,7 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             } else {
-                // Utilisateur
-
-                cell.titre.text = "\(commerce.nom)"
-                cell.nbrPartage.text = "\(commerce.partages)"
-
-                if let imageThumbnailFile = commerce.thumbnail {
-                    cell.commercePlaceholder.sd_setImage(with: URL(string: imageThumbnailFile.url!))
-                } else {
-                    cell.commercePlaceholder.image = commerce.type.image
-                }
+                // Utiliseur normal
                 let lastPartage = partagesDates[indexPath.row]
                 let paris = Region(calendar: Calendars.gregorian, zone: Zones.europeParis, locale: Locales.french)
                 cell.descriptionLabel.text = "Dernier partage : \(lastPartage.convertTo(region: paris).toFormat("dd MMM yyyy"))".localized()
@@ -377,52 +380,73 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
 // Data related
 extension MonCompteVC {
     func queryCommercesArrayBasedOnUser() {
-        if isPro {
-            // Prend les commerces du compte pro
-            guard let currentUser = currentUser else { return }
-            let queryCommerce = PFQuery(className: "Commerce")
-            queryCommerce.whereKey("owner", equalTo: currentUser as Any)
-            queryCommerce.includeKeys(["thumbnailPrincipal"])
-            queryCommerce.findObjectsInBackground(block: { (objects, error) in
-                guard let objects = objects else {
-                    if let error = error { ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) }
-                    return
+        guard let currentUser = currentUser else { return }
+        
+        currentUser.fetchInBackground { (user, error) in
+            if let error = error {
+                ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true)
+            } else if let user = user as? PFUser {
+                self.currentUser = user
+                if let isPro = user["isPro"] as? Bool {
+                    self.isPro = isPro
+                    self.refreshUserUI()
+                } else {
+                    self.isPro = false
+                    self.refreshUserUI()
                 }
-                self.commerces = objects
-                self.refreshCommercesUI()
-            })
-        } else {
-            // Prend les commerces favoris de l'utilisateur
-            if let currentUser = currentUser,
-                let partages = currentUser["mes_partages"] as? [String],
-                let partagesDats = currentUser["mes_partages_dates"] as? [Date] {
-                //                if let partages = partages {
-                // FIXME: Ameliorer cette query
-                let partagesQuery = PFQuery(className: "Commerce")
-                partagesQuery.whereKey("objectId", containedIn: partages)
-                partagesQuery.includeKeys(["thumbnailPrincipal"])
-                partagesQuery.findObjectsInBackground { (objects, error) in
-                    guard let objects = objects else {
-                        if let error = error { ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) }
-                        return
-                    }
-                    // Parcour tous les ids
-                    self.partagesDates.removeAll()
-                    self.commerces.removeAll()
-                    for i in 0...partages.count - 1 {
-                        let obId = partages[i]
-                        // synchronisation du commerce et des dates de partage
-                        for (index, commerce) in objects.enumerated() where commerce.objectId == obId {
-                            self.commerces.append(commerce)
-                            self.partagesDates.append(partagesDats[index])
+                if self.isPro {
+                    // Prend les commerces du compte pro
+                    let queryCommerce = PFQuery(className: "Commerce")
+                    queryCommerce.whereKey("owner", equalTo: user as Any)
+                    queryCommerce.includeKeys(["thumbnailPrincipal"])
+                    queryCommerce.findObjectsInBackground(block: { (objects, error) in
+                        guard let objects = objects else {
+                            if let error = error { ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) }
+                            return
                         }
+                        self.commerces = objects
+                        self.refreshCommercesUI()
+                    })
+                } else {
+                    // Prend les commerces favoris de l'utilisateur
+                    guard let partages = user["mes_partages"] as? [String],
+                        let partagesDats = user["mes_partages_dates"] as? [Date],
+                        partages.isEmpty == false,
+                        partagesDats.isEmpty == false,
+                        partages.count == partagesDats.count else {
+                            self.partagesDates.removeAll()
+                            self.commerces.removeAll()
+                            self.refreshCommercesUI()
+                            self.startTimer()
+                            return
                     }
-                    self.refreshCommercesUI()
+                    
+                    let partagesQuery = PFQuery(className: "Commerce")
+                    partagesQuery.whereKey("objectId", containedIn: partages)
+                    partagesQuery.includeKeys(["thumbnailPrincipal"])
+                    partagesQuery.findObjectsInBackground { (objects, error) in
+                        guard let objects = objects else {
+                            if let error = error { ParseErrorCodeHandler.handleUnknownError(error: error, withFeedBack: true) }
+                            return
+                        }
+                        // Parcour tous les ids
+                        self.partagesDates.removeAll()
+                        self.commerces.removeAll()
+                        
+                        for (index, commerceId) in partages.enumerated() {
+                            if let queryCommerce = objects.first(where: { $0.objectId == commerceId }) {
+                                self.commerces.append(queryCommerce)
+                                self.partagesDates.append(partagesDats[index])
+                            }
+                        }
+
+                        self.refreshCommercesUI()
+                    }
                 }
+                
+                self.startTimer()
             }
         }
-        
-        startTimer()
     }
 }
 
@@ -445,10 +469,6 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
     }
 
     func log(_ logInController: PFLogInViewController, didLogIn user: PFUser) {
-        if PFFacebookUtils.isLinked(with: user) {
-            getFacebookInformations(user: user)
-        }
-        
         dismiss(animated: true)
     }
 
@@ -502,29 +522,5 @@ extension MonCompteVC: PFLogInViewControllerDelegate, PFSignUpViewControllerDele
                                                   completionAction: nil)
             return false
         }
-    }
-
-    func getFacebookInformations(user: PFUser) {
-        let params = ["fields": "email, name"]
-        let graphRequest = GraphRequest(graphPath: "me", parameters: params)
-
-        graphRequest.start(completionHandler: { (_, result, error) in
-            if let error = error {
-                Log.all.error("Erreur de login : \n\(error.debug)")
-                self.showAlertWithMessage(message: "Une erreur est survenue lors de votre connexion via Facebook, veuillez réesayer plus tard".localized(),
-                                          title: "Connexion Facebook échoué".localized(),
-                                          completionAction: nil)
-            } else {
-                // handle successful response
-                if let data = result as? [String: Any] {
-                    user["name"] = data["name"] as! String
-                    user["email"] = data["email"] as! String
-                    let facebookId = data["id"] as! String
-                    user["facebookId"] = facebookId
-                    user["profilePictureURL"] = "https://graph.facebook.com/" + facebookId + "/picture?type=large&return_ssl_resources=1"
-                    user.saveInBackground()
-                }
-            }
-        })
     }
 }

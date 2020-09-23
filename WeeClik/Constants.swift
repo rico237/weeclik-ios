@@ -45,6 +45,8 @@ struct Constants {
          */
         static let dashboardURL = "\(ConfigurationManager.shared.api.baseURL)\(ConfigurationManager.shared.endPoints.dashboard)"
         
+        static let sharingURL = "\(ConfigurationManager.shared.api.baseURL)\(ConfigurationManager.shared.endPoints.share)"
+        
         /**
         Get base URL (Development / Production)
         

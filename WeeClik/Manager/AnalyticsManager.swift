@@ -29,8 +29,7 @@ class AnalyticsManager: NSObject {
         // Enable this to record certain application events automatically!
         configuration.trackApplicationLifecycleEvents = true
         // Enable this to record screen views automatically!
-        // !!!: add to all viewcontrollers
-        // configuration.recordScreenViews = true // Not working for now
+        // configuration.recordScreenViews = true // Not working for now so should be added manually to all VCs
         
         // Add destinations
 //        configuration.use(SEGFirebaseIntegrationFactory.instance())

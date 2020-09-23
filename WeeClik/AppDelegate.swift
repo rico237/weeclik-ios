@@ -8,7 +8,6 @@
 
 import UIKit
 import Parse
-import FBSDKCoreKit
 import Compass
 import Firebase
 import SwiftyStoreKit
@@ -40,10 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
         
-        // Facebook conf
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        PFFacebookUtils.initializeFacebook(applicationLaunchOptions: launchOptions)
-        
         // External URL Routing to commerce detail
         setupRouting()
         
@@ -59,10 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         try? Navigator.navigate(url: url)
         return true
-    }
-
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -83,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         // Use for iOS Settings App
         SettingsBundleHelper.setVersionAndBuildNumber()
-        AppEvents.activateApp()
+//        AppEvents.activateApp()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

@@ -8,6 +8,7 @@
     "endPoints": {
         "server": "/parse",
         "dashboard": "/dashboard",
-        "commerce": "/commerce"
+        "commerce": "/commerce",
+        "share": "/share"
     }
 }

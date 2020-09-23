@@ -18,6 +18,7 @@ import MapKit
 import LGButton
 import SDWebImage
 import SwiftDate
+import Bugsnag
 
 class DetailCommerceViewController: UIViewController {
 
@@ -87,7 +88,20 @@ class DetailCommerceViewController: UIViewController {
         // Met dans le UserDefaults + ajoute une notification au moment écoulé
         HelperAndKeys.setSharingTime(forCommerceId: commerceID)
         // Met à jour les données dans la BDD distante
-        HelperAndKeys.saveStatsInDb(commerce: commerceObject.pfObject, user: PFUser.current())
+        if let userId = PFUser.current()?.objectId {
+            ParseHelper.shareCommerce(commereId: commerceID, fromUserId: userId) { (error) in
+                if let error = error {
+                    // Did fail
+                    Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
+                    let exeption = NSException(name:NSExceptionName(rawValue: "APIError"),
+                                               reason:"Error debut: \(error.debug)", userInfo:nil)
+                    Bugsnag.notify(exeption)
+                } else {
+                    // Did succeded
+                    Log.all.info("Sharing did succeed")
+                }
+            }
+        }
 
         updateCommerce()
     }
