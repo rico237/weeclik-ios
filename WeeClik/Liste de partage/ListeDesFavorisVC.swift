@@ -15,6 +15,10 @@ import MessageUI
 import Parse
 import Bugsnag
 
+extension Notification.Name {
+    static let didSendGroupeFavorisSMS = Notification.Name("didSendGroupeFavorisSMS")
+}
+
 class ListeDesFavorisVC: UIViewController {
 
     var listeGroupes    = [GroupePartage]()       // Tableau de tous les groupes crées & stocké en cache
@@ -71,34 +75,30 @@ class ListeDesFavorisVC: UIViewController {
     }
 
     func didShareCommerce() {
-        // Met dans le UserDefaults + ajoute une notification au moment écoulé
-        HelperAndKeys.setSharingTime(forCommerceId: self.commerce.objectId)
         // Met à jour les données dans la BDD distante
-        if let userId = PFUser.current()?.objectId {
-            ParseHelper.shareCommerce(commereId: self.commerce.objectId, fromUserId: userId) { (error) in
-                if let error = error {
-                    // Did fail
-                    Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
-                    let exeption = NSException(name: NSExceptionName(rawValue: "APIError"),
-                                               reason: "Error debut: \(error.debug)", userInfo:nil)
-                    Bugsnag.notify(exeption)
-                    
-                    switch error {
-                    case .commerceNotFound:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Le commerce associé n'est plus disponible".localized(), delay: 3)
-                    case .savingCommerceDidFail:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement du commerce", delay: 3)
-                    case .userNotFound:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement de votre compte", delay: 3)
-                    case .missingSharingInfos, .unknowError, .savingUserDidFail:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
-                    default:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
-                    }
-                } else {
-                    // Met dans le UserDefaults + ajoute une notification au moment écoulé
-                    HelperAndKeys.setSharingTime(forCommerceId: self.commerce.objectId)
+        ParseHelper.shareCommerce(commereId: self.commerce.objectId) { (error) in
+            if let error = error {
+                // Did fail
+                Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
+                let exeption = NSException(name: NSExceptionName(rawValue: "APIError"),
+                                           reason: "Error debut: \(error.debug)", userInfo: nil)
+                Bugsnag.notify(exeption)
+                
+                switch error {
+                case .commerceNotFound:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Le commerce associé n'est plus disponible".localized(), delay: 3)
+                case .savingCommerceDidFail:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement du commerce", delay: 3)
+                case .userNotFound:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement de votre compte", delay: 3)
+                case .missingSharingInfos, .unknowError, .savingUserDidFail:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
+                default:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
                 }
+            } else {
+                // Met dans le UserDefaults + ajoute une notification au moment écoulé
+                HelperAndKeys.setSharingTime(forCommerceId: self.commerce.objectId)
             }
         }
     }

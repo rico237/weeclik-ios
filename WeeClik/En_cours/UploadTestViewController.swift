@@ -22,12 +22,12 @@ class UploadTestViewController: UIViewController {
     func shareCommerceViaServerAPI() {
         let commerceID = "0HaXnEwBpz"
         let userID = "5j7pwQ9y1F"
-        ParseHelper.shareCommerce(commereId: commerceID, fromUserId: userID) { (error) in
+        ParseHelper.shareCommerce(commereId: commerceID, from: userID) { (error) in
             if let error = error {
                 // Did fail
                 Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
                 let exeption = NSException(name: NSExceptionName(rawValue: "APIError"),
-                                           reason: "Error debut: \(error.debug)", userInfo:nil)
+                                           reason: "Error debut: \(error.debug)", userInfo: nil)
                 Bugsnag.notify(exeption)
                 
                 switch error {

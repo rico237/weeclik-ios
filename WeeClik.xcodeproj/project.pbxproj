@@ -182,8 +182,6 @@
 		1F7F9B19213C43050025BC42 /* WeeClikProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */; };
 		1F830EB6227B3411003E8F1F /* AdminMonProfilSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */; };
 		1F830EB7227B3411003E8F1F /* AdminMonProfilSettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */; };
-		1F87FB702389885C00B7A093 /* Extension+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */; };
-		1F87FB712389885C00B7A093 /* Extension+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */; };
 		1F89A11B2239B470007952CC /* ContactTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89A11A2239B470007952CC /* ContactTVCell.swift */; };
 		1F89C00E24B5224B00F335D3 /* Extension+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89C00D24B5224B00F335D3 /* Extension+UITableView.swift */; };
 		1F89C00F24B5224B00F335D3 /* Extension+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F89C00D24B5224B00F335D3 /* Extension+UITableView.swift */; };
@@ -356,7 +354,6 @@
 		1F7F9B18213C43050025BC42 /* WeeClikProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeClikProducts.swift; sourceTree = "<group>"; };
 		1F830EB4227B3411003E8F1F /* AdminMonProfilSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMonProfilSettingsVC.swift; sourceTree = "<group>"; };
 		1F830EB5227B3411003E8F1F /* AdminMonProfilSettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminMonProfilSettingsVC.xib; sourceTree = "<group>"; };
-		1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Notification.swift"; sourceTree = "<group>"; };
 		1F89A11A2239B470007952CC /* ContactTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTVCell.swift; sourceTree = "<group>"; };
 		1F89C00D24B5224B00F335D3 /* Extension+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableView.swift"; sourceTree = "<group>"; };
 		1F8C4FFD1FB50C3100A28214 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
@@ -578,7 +575,6 @@
 				1F32B29E24ED9BD3005FF4A6 /* Extension+String.swift */,
 				1F29990B23BBC3D400D638FC /* Extension+Dictionary.swift */,
 				1FB0CE3E236C6DF100041195 /* Extension+PHAsset.swift */,
-				1F87FB6F2389885C00B7A093 /* Extension+Notification.swift */,
 				1F0E862D238AB64C003124FD /* Extension+UIViewController.swift */,
 				1F0E8631238AC289003124FD /* Extension+UIApplication.swift */,
 				1F4B120C23611A5600119676 /* Extension+UIColor.swift.swift */,
@@ -939,7 +935,7 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Original;
 				LastSwiftUpdateCheck = 1110;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Herrick Wolber";
 				TargetAttributes = {
 					1F03AB892360C18B0027D6EF = {
@@ -1482,7 +1478,6 @@
 				1F0E8633238AC289003124FD /* Extension+UIApplication.swift in Sources */,
 				1F03ABBE2360C18B0027D6EF /* DescriptionAndPromotionsTVCell.swift in Sources */,
 				1F39197B245F1A38009F24C4 /* Scheduler.swift in Sources */,
-				1F87FB712389885C00B7A093 /* Extension+Notification.swift in Sources */,
 				1F03ABC02360C18B0027D6EF /* HelperAndKeys.swift in Sources */,
 				1F03ABC12360C18B0027D6EF /* MailFormValidationError.swift in Sources */,
 				1FE6ECF024449D1A00DF654C /* NibLoadingView.swift in Sources */,
@@ -1573,7 +1568,6 @@
 				1F0E8632238AC289003124FD /* Extension+UIApplication.swift in Sources */,
 				1F392F7B1FBA00050021D76E /* DescriptionAndPromotionsTVCell.swift in Sources */,
 				1F39197A245F1A38009F24C4 /* Scheduler.swift in Sources */,
-				1F87FB702389885C00B7A093 /* Extension+Notification.swift in Sources */,
 				1F7DF88C1F21F26E005B780A /* HelperAndKeys.swift in Sources */,
 				1F6AF4852358EB7F00F057C7 /* MailFormValidationError.swift in Sources */,
 				1FE6ECEF24449D1A00DF654C /* NibLoadingView.swift in Sources */,
@@ -1618,7 +1612,7 @@
 				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Info-DEV.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
@@ -1646,7 +1640,7 @@
 				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Info-DEV.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
@@ -1686,6 +1680,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1711,7 +1706,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1751,6 +1746,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1770,7 +1766,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
@@ -1795,7 +1791,7 @@
 				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeeClik/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
@@ -1818,7 +1814,7 @@
 				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeeClik/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 3.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;

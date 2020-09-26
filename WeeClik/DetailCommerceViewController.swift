@@ -70,51 +70,84 @@ class DetailCommerceViewController: UIViewController {
     func updateCommerce() {
         var objId = commerceID
         if let routeId = routeCommerceId, !routeCommerceId.isEmptyStr { objId = routeId }
-
+        guard let commerceId = objId else { return }
+        
         let query = PFQuery(className: "Commerce")
-        query.whereKey("objectId", equalTo: objId!)
         query.includeKeys(["thumbnailPrincipal"])
-        query.getFirstObjectInBackground { (commerce, error) in
+        query.getObjectInBackground(withId: commerceId) { (commerce, error) in
             guard let commerce = commerce else {
                 if let error  = error { ParseErrorCodeHandler.handleUnknownError(error: error) }
                 return
             }
             self.commerceObject = Commerce(parseObject: commerce)
+            self.refreshCommerceUI()
             self.tableView.reloadData()
+        }
+    }
+    
+    func refreshCommerceUI() {
+        guard let commerceObject = commerceObject else {
+            navigationController?.dismiss(animated: true, completion: nil)
+            showAlertWithMessage(message: """
+                Une erreur est survenue durant le chargement du commerce. \
+                Veuillez réessayer ultérieurement
+                """.localized(), title: "Erreur de chargement".localized(), completionAction: nil)
+            return
+        }
+
+        nomCommerceLabel.text = commerceObject.nom
+        categorieLabel.text   = commerceObject.type.rawValue
+
+        nomCommerceLabel.font = FontHelper.getScaledFont(forFont: "Pacifico", textStyle: .title1)
+        nomCommerceLabel.fontSize = 40
+        nomCommerceLabel.adjustsFontForContentSizeCategory = true
+
+        hasGrantedLocation = HelperAndKeys.getLocationGranted()
+        prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
+
+        if hasGrantedLocation {
+            headerDistanceLabel.text = commerceObject.distanceFromUser  == "" ? "--" : commerceObject.distanceFromUser
+        } else {
+            headerDistanceLabel.text = "--"
+        }
+
+        headerPartagesLabel.text = String(commerceObject.partages)
+
+        if let thumbFile = commerceObject.thumbnail {
+            headerImage.sd_setImage(with: URL(string: thumbFile.url!))
+        } else {
+            headerImage.image = commerceObject.type.image
         }
     }
 
     func saveCommerceIdInUserDefaults() {
         // Met à jour les données dans la BDD distante
-        if let userId = PFUser.current()?.objectId {
-            ParseHelper.shareCommerce(commereId: commerceID, fromUserId: userId) { (error) in
-                if let error = error {
-                    // Did fail
-                    Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
-                    let exeption = NSException(name: NSExceptionName(rawValue: "APIError"),
-                                               reason: "Error debut: \(error.debug)", userInfo:nil)
-                    Bugsnag.notify(exeption)
-                    
-                    switch error {
-                    case .commerceNotFound:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Le commerce associé n'est plus disponible".localized(), delay: 3)
-                    case .savingCommerceDidFail:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement du commerce", delay: 3)
-                    case .userNotFound:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement de votre compte", delay: 3)
-                    case .missingSharingInfos, .unknowError, .savingUserDidFail:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
-                    default:
-                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
-                    }
-                } else {
-                    // Met dans le UserDefaults + ajoute une notification au moment écoulé
-                    HelperAndKeys.setSharingTime(forCommerceId: self.commerceID)
+        ParseHelper.shareCommerce(commereId: commerceID) { (error) in
+            if let error = error {
+                // Did fail
+                Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
+                let exeption = NSException(name: NSExceptionName(rawValue: "APIError"),
+                                           reason: "Error debut: \(error.debug)", userInfo: nil)
+                Bugsnag.notify(exeption)
+                
+                switch error {
+                case .commerceNotFound:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Le commerce associé n'est plus disponible".localized(), delay: 3)
+                case .savingCommerceDidFail:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement du commerce", delay: 3)
+                case .userNotFound:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement de votre compte", delay: 3)
+                case .missingSharingInfos, .unknowError, .savingUserDidFail:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
+                default:
+                    HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
                 }
+            } else {
+                // Met dans le UserDefaults + ajoute une notification au moment écoulé
+                HelperAndKeys.setSharingTime(forCommerceId: self.commerceID)
+                self.updateCommerce()
             }
         }
-
-        updateCommerce()
     }
 
     func loadSliderFromFetchedPhotos() {
@@ -176,6 +209,7 @@ class DetailCommerceViewController: UIViewController {
                 ]
                 // Extensions autorisées comme partage valide
                 let autorized: [String] = [
+//                    "com.apple.mobilenotes.SharingExtension", // For dev purpose
                     UIActivity.ActivityType.mail.rawValue, UIActivity.ActivityType.message.rawValue,
                     UIActivity.ActivityType.postToTwitter.rawValue, UIActivity.ActivityType.postToFacebook.rawValue,
                     "net.whatsapp.WhatsApp.ShareExtension", "com.google.Gmail.ShareExtension",
@@ -215,7 +249,7 @@ class DetailCommerceViewController: UIViewController {
                         }
                         return
                     } else {
-                        HelperAndKeys.setSharingTime(forCommerceId: self.commerceObject.objectId)
+                        self.saveCommerceIdInUserDefaults()
                         self.tableView.reloadData()
                     }
                 } else {
@@ -377,43 +411,10 @@ extension DetailCommerceViewController {
         initScrollersAndGalleries()
 
         updateCommerce()
-
-        if commerceObject != nil {
-
-            nomCommerceLabel.text = commerceObject.nom
-            categorieLabel.text   = commerceObject.type.rawValue
-
-            nomCommerceLabel.font = FontHelper.getScaledFont(forFont: "Pacifico", textStyle: .title1)
-            nomCommerceLabel.fontSize = 40
-            nomCommerceLabel.adjustsFontForContentSizeCategory = true
-
-            hasGrantedLocation = HelperAndKeys.getLocationGranted()
-            prefFiltreLocation = HelperAndKeys.getPrefFiltreLocation()
-
-            if hasGrantedLocation {
-                headerDistanceLabel.text = commerceObject.distanceFromUser  == "" ? "--" : commerceObject.distanceFromUser
-            } else {
-                headerDistanceLabel.text = "--"
-            }
-
-            headerPartagesLabel.text = String(commerceObject.partages)
-
-            if let thumbFile = commerceObject.thumbnail {
-                headerImage.sd_setImage(with: URL(string: thumbFile.url!))
-            } else {
-                headerImage.image = commerceObject.type.image
-            }
-        } else {
-            navigationController?.dismiss(animated: true, completion: nil)
-            self.showAlertWithMessage(message: """
-                Une erreur est survenue durant le chargement du commerce. \
-                Veuillez réessayer ultérieurement
-                """.localized(), title: "Erreur de chargement".localized(), completionAction: nil)
-        }
     }
     
     @objc func onDidSendGroupeFavorisSMS(_ notification: Notification) {
-        headerPartagesLabel.text = String(commerceObject.partages + 1)
+        updateCommerce()
     }
 
     override func viewDidDisappear(_ animated: Bool) {

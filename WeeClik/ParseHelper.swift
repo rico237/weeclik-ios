@@ -69,7 +69,8 @@ struct ParseHelper {
 //    }
     
     /// User did share commerce - post https://weeclik-server-dev.herokuapp.com/share
-    static func shareCommerce(commereId: String, fromUserId userId: String, completion: @escaping ((_ error: APIError?) -> Void)) {
+    static func shareCommerce(commereId: String, from userId: String? = nil, completion: @escaping ((_ error: APIError?) -> Void)) {
+        
         guard let URL = URL(string: Constants.Server.sharingURL) else { return }
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
@@ -78,10 +79,13 @@ struct ParseHelper {
         // Headers
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         // JSON Body
-        let bodyObject: [String: String] = [
-            "userId": userId,
-            "commerceId": commereId
-        ]
+        var bodyObject: [String: Any] = ["commerceId": commereId]
+        if let userObjectId = PFUser.current()?.objectId {
+            bodyObject["userId"] = userObjectId
+        } else if let userId = userId {
+            bodyObject["userId"] = userId
+        }
+        
         if let body = try? JSONSerialization.data(withJSONObject: bodyObject, options: []) {
             request.httpBody = body
         }

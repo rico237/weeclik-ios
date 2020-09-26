@@ -113,7 +113,7 @@ class MonCompteVC: UIViewController {
 // Timer
 extension MonCompteVC {
     func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(refresh), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(refresh), userInfo: nil, repeats: false)
         timer.tolerance = 0.2
         RunLoop.current.add(timer, forMode: .common)
     }
@@ -286,12 +286,19 @@ extension MonCompteVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == changeProfilInfoTVC { return 1 } else {
             guard commerces.isEmpty == false else {
+                self.refreshNoCommerceView()
                 updateUI()
                 return 0
             }
-
+            
             self.refreshNoCommerceView()
-            return commerces.count
+            
+            if self.isPro {
+                return commerces.count
+            } else {
+                // Normal user
+                return min(commerces.count, partagesDates.count)
+            }
         }
     }
     
@@ -401,6 +408,7 @@ extension MonCompteVC {
                     self.isPro = false
                     self.setDefaultProValue()
                 }
+                
                 if self.isPro {
                     // Prend les commerces du compte pro
                     let queryCommerce = PFQuery(className: "Commerce")
@@ -421,11 +429,12 @@ extension MonCompteVC {
                         partages.isEmpty == false,
                         partagesDats.isEmpty == false,
                         partages.count == partagesDats.count else {
-                            self.partagesDates.removeAll()
-                            self.commerces.removeAll()
-                            self.refreshCommercesUI()
-                            self.startTimer()
-                            return
+                        
+                        self.commerces = []
+                        self.partagesDates = []
+                        self.refreshCommercesUI()
+                        self.startTimer()
+                        return
                     }
                     
                     let partagesQuery = PFQuery(className: "Commerce")
@@ -437,8 +446,8 @@ extension MonCompteVC {
                             return
                         }
                         // Parcour tous les ids
-                        self.partagesDates.removeAll()
-                        self.commerces.removeAll()
+                        self.commerces = []
+                        self.partagesDates = []
                         
                         for (index, commerceId) in partages.enumerated() {
                             if let queryCommerce = objects.first(where: { $0.objectId == commerceId }) {
@@ -450,7 +459,6 @@ extension MonCompteVC {
                         self.refreshCommercesUI()
                     }
                 }
-                
                 self.startTimer()
             }
         }
