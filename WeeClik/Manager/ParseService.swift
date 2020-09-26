@@ -111,7 +111,9 @@ class ParseService: NSObject {
         for image in photoArray {
             if image != #imageLiteral(resourceName: "Plus_icon") {
                 let photo = PFObject(className: "Commerce_Photos")
-                photo.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                if let user = PFUser.current() {
+                    photo.acl = ParseHelper.getUserACL(forUser: user)
+                }
                 let compressedImage = image.wxCompress()
                 let file: PFFileObject!
                 do {
@@ -219,7 +221,9 @@ class ParseService: NSObject {
 
                         let pffile          = PFFileObject(data: videoData!, contentType: mimeType)
                         let video           = PFObject(className: "Commerce_Videos")
-                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                        if let user = PFUser.current() {
+                            video.acl = ParseHelper.getUserACL(forUser: user)
+                        }
                         let thumbnail       = PFFileObject(data: thumbnailArray[i].jpegData(compressionQuality: 0.5)!, contentType: "image/jpeg")
 
                         video["thumbnail"]    = thumbnail
@@ -228,7 +232,9 @@ class ParseService: NSObject {
                         video["nameVideo"]    = commerce.nom + " - Vidéo de présentation"
                         video["video"]        = pffile
 
-                        video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                        if let user = PFUser.current() {
+                            video.acl = ParseHelper.getUserACL(forUser: user)
+                        }
 
                         pffile.saveInBackground({ (success, error) in
                             if let error = error {

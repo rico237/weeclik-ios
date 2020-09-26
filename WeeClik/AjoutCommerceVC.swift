@@ -381,7 +381,9 @@ extension AjoutCommerceVC {
 
                             let pffile = PFFileObject(data: videoData, contentType: mimeType)
                             let video = PFObject(className: "Commerce_Videos")
-                            video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                            if let user = PFUser.current() {
+                                video.acl = ParseHelper.getUserACL(forUser: user)
+                            }
                             let thumbnail = PFFileObject(data: self.thumbnailArray[index].wxCompress().jpegData(compressionQuality: 1)!,
                                                          contentType: "image/jpeg")
 
@@ -391,7 +393,9 @@ extension AjoutCommerceVC {
                             video["nameVideo"] = self.nomCommerce + " - Vidéo de présentation"
                             video["video"] = pffile
 
-                            video.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+                            if let user = PFUser.current() {
+                                video.acl = ParseHelper.getUserACL(forUser: user)
+                            }
 
                             pffile.saveInBackground({ (success, error) in
                                 if let error = error {
@@ -435,7 +439,9 @@ extension AjoutCommerceVC {
 
         for image in self.photoArray where image != #imageLiteral(resourceName: "Plus_icon") {
             let commercePhoto = PFObject(className: "Commerce_Photos")
-            commercePhoto.acl = ParseHelper.getUserACL(forUser: PFUser.current())
+            if let user = PFUser.current() {
+                commercePhoto.acl = ParseHelper.getUserACL(forUser: user)
+            }
             let compressedImage = image.wxCompress()
             let file: PFFileObject!
             do {

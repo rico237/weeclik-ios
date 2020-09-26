@@ -237,7 +237,7 @@ extension AppDelegate {
 extension AppDelegate {
     /// Clear UserDefaults folder (used only for dev purpose)
     func resetUserDefaults() {
-        Log.all.error("\n\nREMOVE BEFORE BUILDING FOR PROD\n\n")
+        Log.all.error("REMOVE BEFORE BUILDING FOR PROD")
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
     }
