@@ -79,12 +79,25 @@ class ListeDesFavorisVC: UIViewController {
                 if let error = error {
                     // Did fail
                     Log.all.error("Sharing of commerce Failed: HTTP \(error.debug)")
-                    let exeption = NSException(name:NSExceptionName(rawValue: "APIError"),
-                                               reason:"Error debut: \(error.debug)", userInfo:nil)
+                    let exeption = NSException(name: NSExceptionName(rawValue: "APIError"),
+                                               reason: "Error debut: \(error.debug)", userInfo:nil)
                     Bugsnag.notify(exeption)
+                    
+                    switch error {
+                    case .commerceNotFound:
+                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Le commerce associé n'est plus disponible".localized(), delay: 3)
+                    case .savingCommerceDidFail:
+                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement du commerce", delay: 3)
+                    case .userNotFound:
+                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Erreur de chargement de votre compte", delay: 3)
+                    case .missingSharingInfos, .unknowError, .savingUserDidFail:
+                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
+                    default:
+                        HelperAndKeys.showNotification(type: "E", title: "Erreur", message: "Une erreur inconnue est survenue", delay: 3)
+                    }
                 } else {
-                    // Did succeded
-                    Log.all.info("Sharing did succeed")
+                    // Met dans le UserDefaults + ajoute une notification au moment écoulé
+                    HelperAndKeys.setSharingTime(forCommerceId: self.commerce.objectId)
                 }
             }
         }

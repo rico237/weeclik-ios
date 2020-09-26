@@ -12,16 +12,14 @@ import AVKit
 //import Alamofire
 
 struct ParseHelper {
-    static func getUserACL(forUser user: PFUser?) -> PFACL {
+    static func getUserACL(forUser user: PFUser) -> PFACL {
         let acl = PFACL()
         acl.setReadAccess(true, forRoleWithName: "admin")
         acl.setWriteAccess(true, forRoleWithName: "admin")
         acl.hasPublicReadAccess = true
         acl.hasPublicWriteAccess = false
-        if let user = user {
-            acl.setReadAccess(true, for: user)
-            acl.setWriteAccess(true, for: user)
-        }
+        acl.setReadAccess(true, for: user)
+        acl.setWriteAccess(true, for: user)
 
         return acl
     }
