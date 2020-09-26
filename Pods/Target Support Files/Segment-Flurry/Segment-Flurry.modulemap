@@ -1,0 +1,6 @@
+framework module Segment_Flurry {
+  umbrella header "Segment-Flurry-umbrella.h"
+
+  export *
+  module * { export * }
+}
