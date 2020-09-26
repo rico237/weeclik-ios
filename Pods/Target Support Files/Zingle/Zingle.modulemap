@@ -1,6 +1,0 @@
-framework module Zingle {
-  umbrella header "Zingle-umbrella.h"
-
-  export *
-  module * { export * }
-}

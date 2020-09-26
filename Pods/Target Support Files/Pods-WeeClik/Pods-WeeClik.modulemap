@@ -1,6 +1,0 @@
-framework module Pods_WeeClik {
-  umbrella header "Pods-WeeClik-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -101,8 +101,6 @@ def projectPods
     pod 'Loaf'
     # Show input errors
     pod 'DTTextField'
-    # Phone number text field
-    pod 'PhoneNumberKit', '~> 3.0'
     # Validator of data entries helper
     pod 'Validator', '~> 3.2.1'
     # Live logs
