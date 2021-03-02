@@ -1,0 +1,6 @@
+framework module Segment_Batch {
+  umbrella header "Segment-Batch-umbrella.h"
+
+  export *
+  module * { export * }
+}

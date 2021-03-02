@@ -72,6 +72,8 @@ class AccueilCommerces: UIViewController {
             item.manager?.dismissBulletin(animated: true)
 
             if self.prefFiltreLocation {
+                self.commerces.removeAll()
+                self.collectionView.reloadData()
                 self.checkLocationServicePermission()
             } else {
                 self.chooseCategorie(itemChoose: self.toutesCat[self.selectedIndex].rawValue, withHud: true)
@@ -319,6 +321,16 @@ extension AccueilCommerces: UICollectionViewDelegate, UICollectionViewDataSource
 extension AccueilCommerces: CLLocationManagerDelegate {
     /// CLLocationManagerDelegate DidFailWithError Methods
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // Prompt user with an error message
+        HelperAndKeys.showNotification(type: "E",
+                                       title: "Erreur",
+                                       message: "Erreur lors de l'obtention de votre position".localized(),
+                                       delay: 3)
+        // Load default behavior => Commerce by nnumber of shares
+        self.prefFiltreLocation = false
+        HelperAndKeys.setPrefFiltreLocation(filtreLocation: self.prefFiltreLocation)
+        self.chooseCategorie(itemChoose: self.toutesCat[self.selectedIndex].rawValue, withHud: true)
+        // Print error to console
         print("Error. The Location couldn't be found. \(error)")
     }
 
