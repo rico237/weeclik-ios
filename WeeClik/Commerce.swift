@@ -249,20 +249,14 @@ extension Commerce {
 }
 
 public enum CommerceType: String, CaseIterable {
-    case alimentation = "Alimentation"
     case automobile = "Automobile"
-    case banque = "Banque"
-    case barPub = "Bar/Pub"
-    case carreleur = "Carreleur"
-    case coiffeur = "Coiffeur"
-    case discothèque = "Discothèque"
-    case habillement = "Habillement"
-    case hotel = "Hôtel"
+    case batiment = "Bâtiment"
+    case hotellerie = "Hôtellerie"
     case immobilier = "Immobilier"
-    case maçon = "Maçon"
-    case peintre = "Peintre"
-    case plombier = "Plombier"
-    case restaurant = "Restaurant"
+    case magasin = "Magasin"
+    case restauration = "Restauration"
+    case soiree = "Soirée"
+    case sportLoisirs = "Sport & Loisirs"
     case autre = "Autre"
     
     static func converted(from typeString: String) -> CommerceType {
@@ -278,8 +272,8 @@ public enum CommerceType: String, CaseIterable {
     
     var image: UIImage? {
         switch self {
-        case .barPub:
-            return UIImage(named: "BarPub")
+        case .sportLoisirs:
+            return UIImage(named: "SportLoisirs")
         default:
             return UIImage(named: self.rawValue)
         }
