@@ -15,7 +15,7 @@ public class Commerce: NSObject, NSCoding {
     // Custom properties
     var nom: String             = ""
     var statut: StatutType      = .unknown
-    var type: CommerceType      = .autre
+    var type: CommerceType      = .autres
     var partages: Int           = 0
     var mail: String            = ""
     var adresse: String         = ""
@@ -250,20 +250,21 @@ extension Commerce {
 
 public enum CommerceType: String, CaseIterable {
     case automobile = "Automobile"
-    case batiment = "Bâtiment"
+    case batiment = "Batiment"
+    case beautebienetre = "Beauté / bien-être"
     case hotellerie = "Hôtellerie"
     case immobilier = "Immobilier"
     case magasin = "Magasin"
     case restauration = "Restauration"
-    case soiree = "Soirée"
-    case sportLoisirs = "Sport & Loisirs"
-    case autre = "Autre"
+    case sortiesoiree = "Sortie / Soirée"
+    case sportloisir = "Sport / Loisir"
+    case autres = "Autres"
     
     static func converted(from typeString: String) -> CommerceType {
         if let type = CommerceType(rawValue: typeString) {
             return type
         }
-        return .autre
+        return .autres
     }
     
     var localizedValue: String {
@@ -272,8 +273,12 @@ public enum CommerceType: String, CaseIterable {
     
     var image: UIImage? {
         switch self {
-        case .sportLoisirs:
-            return UIImage(named: "SportLoisirs")
+        case .sportloisir:
+            return UIImage(named: "Sportloisir")
+        case .sortiesoiree:
+            return UIImage(named: "Sortiesoiree")
+        case .beautebienetre:
+            return UIImage(named: "Beautebienetre")
         default:
             return UIImage(named: self.rawValue)
         }
