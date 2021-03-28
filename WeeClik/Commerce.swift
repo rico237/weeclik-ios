@@ -256,8 +256,8 @@ public enum CommerceType: String, CaseIterable {
     case immobilier = "Immobilier"
     case magasin = "Magasin"
     case restauration = "Restauration"
-    case sortiesoiree = "Sortie / Soirée"
-    case sportloisir = "Sport / Loisir"
+    case sortiesoiree = "Sortie / soirée"
+    case sportloisir = "Sport / loisir"
     case autres = "Autres"
     
     static func converted(from typeString: String) -> CommerceType {
