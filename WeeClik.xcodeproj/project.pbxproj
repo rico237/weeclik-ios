@@ -119,6 +119,7 @@
 		1F0E8632238AC289003124FD /* Extension+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E8631238AC289003124FD /* Extension+UIApplication.swift */; };
 		1F0E8633238AC289003124FD /* Extension+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E8631238AC289003124FD /* Extension+UIApplication.swift */; };
 		1F1112A01F72BB9E001D0C61 /* SaisieDeDonneesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F11129F1F72BB9E001D0C61 /* SaisieDeDonneesVC.swift */; };
+		1F2029C3265BB18B00DB7617 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F30A84B2573144F005A4188 /* CoreServices.framework */; };
 		1F27628F2116E7EA00779342 /* Routers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F27628E2116E7EA00779342 /* Routers.swift */; };
 		1F28C6C923467D4F009831C7 /* CommerceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F28C6C823467D4F009831C7 /* CommerceService.swift */; };
 		1F28C6CC2346D49B009831C7 /* ParseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F28C6CB2346D49B009831C7 /* ParseService.swift */; };
@@ -215,7 +216,6 @@
 		1FA9BFE71F269CB2004D5F4C /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDD1F269CB2004D5F4C /* OpenSans-Regular.ttf */; };
 		1FA9BFE81F269CB2004D5F4C /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDE1F269CB2004D5F4C /* OpenSans-Semibold.ttf */; };
 		1FA9BFE91F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9BFDF1F269CB2004D5F4C /* OpenSans-SemiboldItalic.ttf */; };
-		1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FA9BFEC1F269E51004D5F4C /* MobileCoreServices.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1FB0CE39236B9CC400041195 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FB0CE38236B9CC400041195 /* Settings.bundle */; };
 		1FB0CE3A236B9CC400041195 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FB0CE38236B9CC400041195 /* Settings.bundle */; };
 		1FB0CE3C236BA0BB00041195 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0CE3B236BA0BB00041195 /* SettingsBundleHelper.swift */; };
@@ -453,7 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F5581AC2187C9CF00044C0A /* CoreLocation.framework in Frameworks */,
-				1FA9BFED1F269E51004D5F4C /* MobileCoreServices.framework in Frameworks */,
+				1F2029C3265BB18B00DB7617 /* CoreServices.framework in Frameworks */,
 				1F3E8ECC1F2E427300565356 /* SystemConfiguration.framework in Frameworks */,
 				1FBB63A5211F16BD00BCB480 /* StoreKit.framework in Frameworks */,
 				AE443F12B324FAA02075DC68 /* Pods_WeeClik.framework in Frameworks */,
@@ -1616,7 +1616,7 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik-DEV";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1644,7 +1644,7 @@
 				INFOPLIST_FILE = "Info-DEV.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ringosoftware.weeclik-DEV";
 				PRODUCT_NAME = "Weeclik-DEV";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1788,14 +1788,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1812,13 +1812,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WeeClik/WeeClik.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 483576MP8J;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeeClik/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ringosoftware.weeclik;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
