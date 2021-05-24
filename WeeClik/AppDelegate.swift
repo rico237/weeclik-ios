@@ -13,6 +13,7 @@ import Firebase
 import SwiftyStoreKit
 import Analytics
 import Bugsnag
+import AppTrackingTransparency
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,23 +28,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Server conf (bdd + storage + auth)
         parseConfiguration()
         
-        // Init of Segment
-        _ = AnalyticsManager.shared
+        // Firebase conf
+        firebaseConfiguration()
+        
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                //you got permission to track
+                switch status {
+                case .authorized:
+                    self.startAnalyticsAndTracking()
+                default:
+                    break
+                }
+            })
+        } else {
+            //you got permission to track, iOS 14 is not yet installed
+            startAnalyticsAndTracking()
+        }
         
         // Navigation bar & UI conf
         globalUiConfiguration()
-        
-        // Firebase conf = Analytics + Performance
-        firebaseConfiguration()
         
         // StoreKit observer for In App Purchase (IAP)
         purchaseObserver()
         
         // External URL Routing to commerce detail
         setupRouting()
-        
-        // Bugsnag crash analytics
-        Bugsnag.start(withApiKey: "78b012fa8081d3e9451b6a2302302ee8")
         
         // Clear all user defaults
 //        resetUserDefaults()
@@ -56,37 +66,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         // Use for iOS Settings App
         SettingsBundleHelper.setVersionAndBuildNumber()
 //        AppEvents.activateApp()
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 }
 
 // MARK: Libs/Plugins init/config.
 extension AppDelegate {
+    func startAnalyticsAndTracking() {
+        // Init of Segment
+        // _ = AnalyticsManager.shared
+        Analytics.setAnalyticsCollectionEnabled(true)
+        // Bugsnag crash analytics
+        Bugsnag.start(withApiKey: "78b012fa8081d3e9451b6a2302302ee8")
+    }
+    
     func firebaseConfiguration() {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
+        Analytics.setAnalyticsCollectionEnabled(false)
     }
 
     func parseConfiguration() {

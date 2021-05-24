@@ -47,6 +47,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FIREBASE_ANALYTICS_COLLECTION_ENABLED</key>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>1773255456018247</string>
 	<key>FacebookAutoLogAppEventsEnabled</key>
@@ -85,6 +87,8 @@
 	<string>Nous en avons besoin de cet l'accès afin de créer un groupe.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Nous avons besoin de l'accès à vos photos/vidéos pour alimenter votre commerce</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Votre activité est enregistré anonymement afin d'améliorer notre application</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pacifico</string>
